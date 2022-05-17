@@ -1,15 +1,15 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry Layout
-// @version              0.1.0
+// @version              0.1.1
 // @description          Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
 // @namespace            me.asadahimeka.yanderemasonry
 // @license              MIT
-// @homepage             https://github.com/asadahimeka/userscripts/tree/master/yandere-masonry
-// @source               https://github.com/asadahimeka/userscripts/tree/master/yandere-masonry
-// @supportURL           https://github.com/asadahimeka/userscripts/issues
+// @homepage             https://asadahimeka.vercel.app
+// @source               https://github.com/asadahimeka/yandere-masonry
+// @supportURL           https://github.com/asadahimeka/yandere-masonry/issues
 // @match                https://danbooru.donmai.us/*
 // @match                https://konachan.com/*
 // @match                https://konachan.net/*
@@ -21,7 +21,7 @@
 // @match                https://xbooru.com/*
 // @match                https://rule34.paheal.net/*
 // @match                https://realbooru.com/*
-// @run-at               document-start
+// @run-at               document-body
 // @grant                GM_addStyle
 // @grant                GM_addElement
 // @grant                GM_notification
