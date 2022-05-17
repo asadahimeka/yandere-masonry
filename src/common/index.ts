@@ -17,15 +17,19 @@ export async function prepareApp(callback?: () => void) {
 
 async function initMacy() {
   if (location.href.includes('yande.re/post')) {
-    await loadScript('https://lib.baomitu.com/macy/2.5.1/macy.min.js')
-    new Macy({
-      container: '#post-list-posts',
-      trueOrder: false,
-      waitForImages: false,
-      columns: 6,
-      margin: 16,
-      breakAt: { 1800: 5, 1500: 4, 1200: 3, 900: 2, 700: 1 }
-    })
+    await Promise.all([
+      loadScript('https://lib.baomitu.com/macy/2.5.1/macy.min.js')
+    ])
+    setTimeout(() => {
+      new Macy({
+        container: '#post-list-posts',
+        trueOrder: false,
+        waitForImages: false,
+        columns: 6,
+        margin: 16,
+        breakAt: { 1800: 5, 1500: 4, 1200: 3, 900: 2, 700: 1 }
+      })
+    }, 100)
   }
 }
 
@@ -57,7 +61,7 @@ function bindDblclick() {
 }
 
 function addMasonryButton(fn: () => void) {
-  document.body.insertAdjacentHTML('beforeend', '<button id="enter-masonry" style="position:fixed;right:16px;top:10px">瀑布流模式</button>')
+  document.body.insertAdjacentHTML('beforeend', '<button id="enter-masonry" style="position:fixed;z-index:99;right:16px;top:10px">瀑布流模式</button>')
   const btn = document.querySelector('#enter-masonry') as HTMLButtonElement
   btn?.addEventListener('click', () => { fn() })
 }

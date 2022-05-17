@@ -1,12 +1,13 @@
 {
   "name": "yandere-masonry",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Yande.re/Konachan Waterfall Layout.",
   "author": "asadahimeka",
   "license": "MIT",
   "main": "dist/yandere-masonry.user.js",
   "scripts": {
     "dev": "vite",
+    "push": "node push.mjs",
     "build": "vite build",
     "postbuild": "node postbuild.mjs",
     "updb": "yarn add github:asadahimeka/booru --no-cache",
