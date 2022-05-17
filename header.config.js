@@ -5,12 +5,11 @@ const blackList = new Set(['e621.net', 'e926.net', 'hypnohub.net', 'derpibooru.o
 
 module.exports = defineTmHeader({
   "name": "Yande.re 瀑布流浏览",
-  "name:en": "Yande.re Masonry",
+  "name:en": "Yande.re Masonry Layout",
   "namespace": "me.asadahimeka.yanderemasonry",
-  "version": "0.0.2",
   "author": "asadahimeka",
-  "description": "Yande.re/Konachan 大图预览 & 双击翻页 & 瀑布流浏览模式",
-  "description:en": "Yande.re/Konachan Waterfall Layout. Fork form yande-re-chinese-patch.",
+  "description": "Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式",
+  "description:en": "Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.",
   "homepage": "https://github.com/asadahimeka/userscripts/tree/master/yandere-masonry",
   "source": "https://github.com/asadahimeka/userscripts/tree/master/yandere-masonry",
   "license": "MIT",

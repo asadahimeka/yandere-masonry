@@ -9,9 +9,9 @@
     "dev": "vite",
     "build": "vite build",
     "postbuild": "node postbuild.mjs",
+    "updb": "yarn add github:asadahimeka/booru --no-cache",
     "lint": "eslint src --ext .ts,.vue",
-    "preview": "vite preview",
-    "updb": "yarn add github:asadahimeka/booru --no-cache"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@mdi/font": "5.9.55",

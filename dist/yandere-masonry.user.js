@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @name:en              Yande.re Masonry
-// @version              0.0.2
-// @description          Yande.re/Konachan 大图预览 & 双击翻页 & 瀑布流浏览模式
-// @description:en       Yande.re/Konachan Waterfall Layout. Fork form yande-re-chinese-patch.
+// @name:en              Yande.re Masonry Layout
+// @version              0.1.0
+// @description          Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式
+// @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
 // @namespace            me.asadahimeka.yanderemasonry
 // @license              MIT
@@ -21,6 +21,7 @@
 // @match                https://xbooru.com/*
 // @match                https://rule34.paheal.net/*
 // @match                https://realbooru.com/*
+// @run-at               document-start
 // @grant                GM_addStyle
 // @grant                GM_addElement
 // @grant                GM_notification
@@ -33,12 +34,13 @@ var __publicField = (obj, key, value) => {
   return value;
 };
 (() => {
-  var ydStyle = 'a.thumb{background:#232322;border:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}div.content{width:79%!important}ul#post-list-posts li{zoom:1.69!important}img{max-height:100%}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08]"}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743]"}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272]"}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2]"}\n';
-  var knStyle = "div.content{width:80%!important}a.thumb:visited{background-color:#ffaaae}\n";
-  var loadingStyle = "#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0px}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;-moz-border-radius:50% 50% 50% 50%;-webkit-border-radius:50% 50% 50% 50%;border-radius:50%}#loading-object_one{-webkit-animation:object_one 1.5s infinite;animation:object_one 1.5s infinite}#loading-object_two{-webkit-animation:object_two 1.5s infinite;animation:object_two 1.5s infinite;-webkit-animation-delay:.25s;animation-delay:.25s}#loading-object_three{-webkit-animation:object_three 1.5s infinite;animation:object_three 1.5s infinite;-webkit-animation-delay:.5s;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0);-webkit-transform:scale(0)}}@keyframes object_two{75%{transform:scale(0);-webkit-transform:scale(0)}}@keyframes object_three{75%{transform:scale(0);-webkit-transform:scale(0)}}\n";
+  var ydStyle = 'a.thumb{border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08]"}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743]"}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272]"}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2]"}#post-list{display:flex}#post-list .sidebar{float:none;width:auto}#post-list .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-list ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview{width:auto;height:auto;margin-top:0;margin-bottom:8px;border-radius:5px;box-sizing:border-box}#post-list a.directlink{margin-top:5px}\n';
+  var knStyle = "#lsidebar{display:none}#post-list ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
+  var loadingStyle = "#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0px}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}\n";
   async function prepareApp(callback) {
     addSiteStyle();
     bindDblclick();
+    initMacy();
     const init = async () => {
       await initMasonry();
       callback == null ? void 0 : callback();
@@ -46,6 +48,19 @@ var __publicField = (obj, key, value) => {
     addMasonryButton(init);
     const params = new URLSearchParams(location.search);
     params.get("_wf") && init();
+  }
+  async function initMacy() {
+    if (location.href.includes("yande.re/post")) {
+      await loadScript("https://lib.baomitu.com/macy/2.5.1/macy.min.js");
+      new window.Macy({
+        container: "#post-list-posts",
+        trueOrder: false,
+        waitForImages: false,
+        columns: 6,
+        margin: 16,
+        breakAt: { 1800: 5, 1500: 4, 1200: 3, 900: 2, 700: 1 }
+      });
+    }
   }
   async function initMasonry() {
     replaceHead();
@@ -2833,7 +2848,27 @@ var __publicField = (obj, key, value) => {
         "click": function($event) {
           _vm.showImageToolbar = !_vm.showImageToolbar;
         }
-      }
+      },
+      scopedSlots: _vm._u([{
+        key: "placeholder",
+        fn: function() {
+          return [_c("v-row", {
+            staticClass: "fill-height ma-0",
+            attrs: {
+              "align": "center",
+              "justify": "center"
+            }
+          }, [_c("v-progress-circular", {
+            attrs: {
+              "size": 100,
+              "width": 6,
+              "indeterminate": "",
+              "color": "deep-purple"
+            }
+          })], 1)];
+        },
+        proxy: true
+      }], null, false, 4094259188)
     }, [_c("v-toolbar", {
       directives: [{
         name: "show",
@@ -2853,7 +2888,7 @@ var __publicField = (obj, key, value) => {
         "text-color": "#ffffff"
       },
       domProps: {
-        "textContent": _vm._s(_vm.imageSelected.id + " " + _vm.imageSelected.rating.toUpperCase())
+        "textContent": _vm._s(_vm.imageSelected.rating.toUpperCase() + " " + _vm.imageSelected.id)
       },
       on: {
         "click": function($event) {
@@ -3117,6 +3152,8 @@ var __publicField = (obj, key, value) => {
         let tags = params.get("tags");
         if (!tags || tags === "all")
           tags = "";
+        if (location.href.includes("konachan.net"))
+          tags += " rating:safe";
         const results = await searchBooru(location.host, page, tags);
         if (Array.isArray(results) && results.length > 0) {
           store.currentPage = page;
@@ -3225,7 +3262,7 @@ var __publicField = (obj, key, value) => {
             }, [_c("v-progress-circular", {
               attrs: {
                 "indeterminate": "",
-                "color": "#ee8888"
+                "color": "deep-purple"
               }
             })], 1)];
           },
