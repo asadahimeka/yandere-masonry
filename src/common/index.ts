@@ -18,7 +18,7 @@ export async function prepareApp(callback?: () => void) {
 async function initMacy() {
   if (location.href.includes('yande.re/post')) {
     await loadScript('https://lib.baomitu.com/macy/2.5.1/macy.min.js')
-    new window.Macy({
+    new Macy({
       container: '#post-list-posts',
       trueOrder: false,
       waitForImages: false,

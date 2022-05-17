@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry Layout
-// @version              0.1.1
+// @version              0.1.2
 // @description          Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -52,7 +52,7 @@ var __publicField = (obj, key, value) => {
   async function initMacy() {
     if (location.href.includes("yande.re/post")) {
       await loadScript("https://lib.baomitu.com/macy/2.5.1/macy.min.js");
-      new window.Macy({
+      new Macy({
         container: "#post-list-posts",
         trueOrder: false,
         waitForImages: false,

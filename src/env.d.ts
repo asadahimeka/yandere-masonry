@@ -21,9 +21,7 @@ declare module 'vue-masonry-css' {
   }
 }
 
-interface Window {
-  Macy: any
-}
+declare const Macy: any
 
 /**
  * Creates an HTML element specified by 'tag_name' and applies all given 'attributes' and returns the injected HTML element.
