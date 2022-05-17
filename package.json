@@ -1,0 +1,48 @@
+{
+  "name": "yandere-masonry",
+  "version": "0.1.0",
+  "description": "Yande.re/Konachan Waterfall Layout.",
+  "author": "asadahimeka",
+  "license": "MIT",
+  "main": "dist/yandere-masonry.user.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "postbuild": "node postbuild.mjs",
+    "lint": "eslint src --ext .ts,.vue",
+    "preview": "vite preview",
+    "updb": "yarn add github:asadahimeka/booru --no-cache"
+  },
+  "dependencies": {
+    "@mdi/font": "5.9.55",
+    "@vue/composition-api": "^1.6.0",
+    "booru": "github:asadahimeka/booru",
+    "macy": "^2.5.1",
+    "roboto-fontface": "*",
+    "vue": "^2.6.14",
+    "vue-masonry-css": "^1.0.3",
+    "vuetify": "^2.6.4",
+    "webfontloader": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.29",
+    "@types/tampermonkey": "^4.0.5",
+    "@types/webfontloader": "^1.6.34",
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "@vue/eslint-config-typescript": "^10.0.0",
+    "@vue/runtime-dom": "^3.2.33",
+    "eslint": "^8.14.0",
+    "eslint-plugin-unicorn": "^42.0.0",
+    "eslint-plugin-vue": "^8.7.1",
+    "sass": "1.32.12",
+    "typescript": "^4.6.3",
+    "unplugin-vue-components": "^0.19.3",
+    "unplugin-vue2-script-setup": "^0.10.2",
+    "vite": "^2.9.5",
+    "vite-plugin-tm-userscript": "^1.0.7",
+    "vite-plugin-vue2": "^2.0.0",
+    "vue-template-compiler": "^2.6.14",
+    "vue-tsc": "^0.34.10"
+  }
+}

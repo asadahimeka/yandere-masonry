@@ -1,0 +1,4 @@
+dist
+node_modules
+/**/header.config.js
+/**/*.d.ts

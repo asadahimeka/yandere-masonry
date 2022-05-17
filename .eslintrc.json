@@ -1,0 +1,69 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es6": true,
+    "greasemonkey": true
+  },
+  "globals": {
+    "defineProps": true
+  },
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser",
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["@typescript-eslint", "unicorn"],
+  "extends": [
+    "eslint:recommended",
+    "@vue/typescript/recommended",
+    "plugin:unicorn/recommended",
+    "plugin:vue/recommended"
+  ],
+  "rules": {
+    "vue/html-self-closing": ["warn", {"html": {"void": "never","normal": "never","component": "always"},"svg": "never","math": "never"}],
+    "vue/max-attributes-per-line": ["warn", {"singleline": 7,"multiline": 1}],
+    "vue/name-property-casing": ["error", "PascalCase"],
+    "vue/no-unused-vars": "warn",
+    "vue/no-v-html": "warn",
+    "vue/v-slot-style": "warn",
+    "vue/valid-v-slot": "warn",
+    "quotes": ["warn", "single"],
+    "semi": ["error", "never"],
+    "no-console": "off",
+    "no-unexpected-multiline": "error",
+    "no-unused-expressions": "off",
+    "space-before-function-paren": ["error", {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
+    "arrow-parens": ["error", "as-needed"],
+    "arrow-spacing": ["error", {"before": true, "after": true}],
+    "array-bracket-spacing": ["error", "never"],
+    "block-spacing": ["error", "always"],
+    "brace-style": ["error", "1tbs", {"allowSingleLine": true}],
+    "key-spacing": ["error", {"beforeColon": false, "afterColon": true}],
+    "keyword-spacing": ["error", {"before": true, "after": true}],
+    "space-infix-ops": "error",
+    "comma-spacing": ["error", {"before": false, "after": true}],
+    "operator-linebreak": ["error", "after", {"overrides": {"?": "before", ":": "before"}}],
+    "object-curly-spacing": ["error", "always", {"objectsInObjects": false}],
+    "rest-spread-spacing": "error",
+    "semi-spacing": ["error", {"before": false, "after": true}],
+    "space-before-blocks": ["error", "always"],
+    "space-in-parens": ["error", "never"],
+    "space-unary-ops": ["error", {"words": true, "nonwords": false}],
+    "no-return-await": "error",
+    "no-use-before-define": ["error", "nofunc"],
+    "no-useless-concat": "error",
+    "prefer-const": ["warn", {"ignoreReadBeforeAssign": false}],
+    "prefer-spread": "warn",
+    "prefer-rest-params": "warn",
+    "prefer-destructuring": ["warn", {"object": true, "array": false}],
+    "prefer-promise-reject-errors": ["warn", {"allowEmptyReject": true}],
+    "unicorn/prevent-abbreviations": "off",
+    "unicorn/prefer-dom-node-append": "off",
+    "unicorn/prefer-dom-node-remove": "off",
+    "unicorn/filename-case": ["warn", {"cases": {"kebabCase": true, "pascalCase": true}}]
+  }
+}
