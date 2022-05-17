@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises'
 import { execSync } from 'node:child_process'
 
 function exec(cmd)  {
+  console.log('Running:', cmd)
   const buf = execSync(cmd)
   console.log(buf.toString())
 }
