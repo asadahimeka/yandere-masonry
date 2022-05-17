@@ -1,19 +1,22 @@
 import { readFile } from 'node:fs/promises'
-import { execSync } from 'node:child_process'
+import { exec as _exec } from 'node:child_process'
+import { promisify } from 'node:util'
 
-function exec(cmd)  {
+async function exec(cmd)  {
   console.log('Running:', cmd)
-  const buf = execSync(cmd)
-  console.log(buf.toString())
+  const res = await promisify(_exec)(cmd)
+  if (res.stdout) console.log(res.stdout)
+  if (res.stderr) console.log(res.stderr)
 }
 
 async function push() {
   const pkgStr = await readFile('./package.json', 'utf8')
   const { version } = JSON.parse(pkgStr)
-  exec('git add .')
-  exec(`git commit -m "release ${version}"`)
-  exec('set https_proxy=http://127.0.0.1:1081')
-  exec('git push')
+  await exec('git add .')
+  await exec(`git commit -m "release ${version}"`)
+  await exec('set http_proxy=http://127.0.0.1:1081')
+  await exec('set https_proxy=http://127.0.0.1:1081')
+  await exec('git push')
 }
 
 push()
