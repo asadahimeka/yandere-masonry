@@ -10,7 +10,6 @@ function exec(cmd)  {
 async function push() {
   const pkgStr = await readFile('./package.json', 'utf8')
   const { version } = JSON.parse(pkgStr)
-  exec('yarn build')
   exec('git add .')
   exec(`git commit -m "release ${version}"`)
   exec('set https_proxy=http://127.0.0.1:1081')

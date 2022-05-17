@@ -9,6 +9,7 @@
     "dev": "vite",
     "push": "node push.mjs",
     "build": "vite build",
+    "prepush": "yarn build",
     "postbuild": "node postbuild.mjs",
     "updb": "yarn add github:asadahimeka/booru --no-cache",
     "lint": "eslint src --ext .ts,.vue",
