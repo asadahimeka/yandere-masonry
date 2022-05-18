@@ -61,9 +61,11 @@ function bindDblclick() {
 }
 
 function addMasonryButton(fn: () => void) {
-  document.body.insertAdjacentHTML('beforeend', '<button id="enter-masonry" style="position:fixed;z-index:99;right:16px;top:10px">瀑布流模式</button>')
-  const btn = document.querySelector('#enter-masonry') as HTMLButtonElement
-  btn?.addEventListener('click', () => { fn() })
+  addEventListener('load', () => {
+    document.body.insertAdjacentHTML('beforeend', '<button id="enter-masonry" style="position:fixed;z-index:99;right:16px;top:10px">瀑布流模式</button>')
+    const btn = document.querySelector('#enter-masonry') as HTMLButtonElement
+    btn?.addEventListener('click', () => { fn() })
+  })
 }
 
 const cspSites = ['gelbooru']
