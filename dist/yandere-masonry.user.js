@@ -184,7 +184,7 @@ var __publicField = (obj, key, value) => {
     return instance.proxy.$vuetify;
   }
   const store = Vue__default["default"].observable({
-    theme: (_a = localStorage.getItem("darken-mode")) != null ? _a : "light",
+    theme: (_a = localStorage.getItem("__darkmode")) != null ? _a : "light",
     requestState: false,
     requestStop: false,
     showImageSelected: false,

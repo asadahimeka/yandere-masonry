@@ -15,7 +15,7 @@ interface AppState {
 }
 
 const store = Vue.observable<AppState>({
-  theme: localStorage.getItem('darken-mode') ?? 'light',
+  theme: localStorage.getItem('__darkmode') ?? 'light',
   requestState: false,
   requestStop: false,
   showImageSelected: false,
