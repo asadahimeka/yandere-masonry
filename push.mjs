@@ -13,7 +13,7 @@ async function push() {
   const pkgStr = await readFile('./package.json', 'utf8')
   const { version } = JSON.parse(pkgStr)
   await exec('git add .')
-  await exec(`git commit -m "release ${version}"`)
+  await exec(`git commit -m "release v${version}"`)
   await exec('set http_proxy=http://127.0.0.1:1081')
   await exec('set https_proxy=http://127.0.0.1:1081')
   await exec('git push')

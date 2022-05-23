@@ -4,7 +4,7 @@
       <v-card v-for="(image, index) in store.imageList" :key="index" class="mb-2">
         <v-img
           transition="scroll-y-transition"
-          :src="image.previewUrl ?? image.fileUrl ??void 0"
+          :src="image.previewUrl ?? image.fileUrl ?? void 0"
           :aspect-ratio="image.aspectRatio"
           @click="showImgModal(index)"
           @click.middle="openDetail(image)"
@@ -52,7 +52,7 @@ import { isReachBottom, searchBooru, throttleScroll } from '@/common/utils'
 import { useVuetify } from '@/plugins/vuetify'
 import store from '@/common/store'
 import ImageDetail from './ImageDetail.vue'
-import type Post from 'booru/dist/structures/Post'
+import type Post from '@himeka/booru/dist/structures/Post'
 
 const columnCount = ref({
   300: 1,

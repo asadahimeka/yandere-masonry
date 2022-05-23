@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @name:en              Yande.re Masonry Layout
-// @version              0.1.4
+// @version              0.1.5
 // @description          Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
 // @namespace            me.asadahimeka.yanderemasonry
 // @license              MIT
-// @homepage             https://asadahimeka.vercel.app
+// @homepage             https://www.nanoka.top
 // @source               https://github.com/asadahimeka/yandere-masonry
+// @icon                 https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/f1f6267537a5aff959ee63ec2c9e4e52_4821140735490026106.jpg
 // @supportURL           https://github.com/asadahimeka/yandere-masonry/issues
 // @match                https://danbooru.donmai.us/*
 // @match                https://konachan.com/*
@@ -99,11 +99,11 @@ var __publicField = (obj, key, value) => {
       });
     });
   }
-  const cspSites = ["gelbooru"];
+  const specialSites = ["gelbooru"];
   function loadScript(src) {
     return new Promise((resolve) => {
       let script;
-      if (cspSites.some((e) => location.href.includes(e))) {
+      if (specialSites.some((e) => location.href.includes(e))) {
         script = GM_addElement("script", { src });
         script.addEventListener("load", () => {
           resolve();
@@ -2377,12 +2377,7 @@ var __publicField = (obj, key, value) => {
     }
     get sourceUrl() {
       const e = Array.isArray(this.source) ? this.source[0] : this.source;
-      if (!e)
-        return "";
-      if (/^https:\/\/i\.pximg\.net\/img-original\/img\/[\d/]{19}\/([\d]{1,})_p[\d]{1,}\.(jpg|png)$/.test(e)) {
-        return `https://pixiv.net/artworks/${RegExp.$1}`;
-      }
-      return e;
+      return e ? /^https:\/\/i\.pximg\.net\/img-original\/img\/[\d/]{19}\/([\d]{1,})_p[\d]{1,}\.(jpg|png)$/.test(e) ? `https://pixiv.net/artworks/${RegExp.$1}` : e : "";
     }
     get postView() {
       return this.booru.postView(this.id);
@@ -2741,6 +2736,22 @@ var __publicField = (obj, key, value) => {
       var _a2;
       return (_a2 = store.imageList[store.imageSelectedIndex]) != null ? _a2 : {};
     });
+    const isVideo = VueCompositionAPI2.computed(() => [".mp4", ".webm"].some((e) => {
+      var _a2;
+      return (_a2 = imageSelected.value.fileUrl) == null ? void 0 : _a2.endsWith(e);
+    }));
+    const imgSrc = VueCompositionAPI2.computed(() => {
+      var _a2, _b;
+      if (isVideo.value)
+        return void 0;
+      return (_b = (_a2 = imageSelected.value.sampleUrl) != null ? _a2 : imageSelected.value.fileUrl) != null ? _b : void 0;
+    });
+    const imgLasySrc = VueCompositionAPI2.computed(() => {
+      var _a2;
+      if (isVideo.value)
+        return void 0;
+      return (_a2 = imageSelected.value.previewUrl) != null ? _a2 : void 0;
+    });
     const imageSelectedWidth = VueCompositionAPI2.computed(() => {
       const width = Number.parseInt(Math.min(innerWidth.value * 0.9, imageSelected.value.sampleWidth || innerWidth.value).toString());
       const height = Math.min(innerHeight.value * 0.9, imageSelected.value.sampleHeight || innerHeight.value);
@@ -2816,6 +2827,9 @@ var __publicField = (obj, key, value) => {
       store,
       showImageToolbar,
       imageSelected,
+      isVideo,
+      imgSrc,
+      imgLasySrc,
       imageSelectedWidth,
       imageSelectedHeight,
       notYKSite,
@@ -2828,7 +2842,7 @@ var __publicField = (obj, key, value) => {
     };
   };
   var render$2 = function() {
-    var _ref, _vm$imageSelected$sam, _vm$imageSelected$pre;
+    var _vm$imageSelected$fil;
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
@@ -2847,8 +2861,8 @@ var __publicField = (obj, key, value) => {
       }
     }, [_vm.store.showImageSelected ? _c("v-img", {
       attrs: {
-        "src": (_ref = (_vm$imageSelected$sam = _vm.imageSelected.sampleUrl) !== null && _vm$imageSelected$sam !== void 0 ? _vm$imageSelected$sam : _vm.imageSelected.fileUrl) !== null && _ref !== void 0 ? _ref : void 0,
-        "lazy-src": (_vm$imageSelected$pre = _vm.imageSelected.previewUrl) !== null && _vm$imageSelected$pre !== void 0 ? _vm$imageSelected$pre : void 0
+        "src": _vm.imgSrc,
+        "lazy-src": _vm.imgLasySrc
       },
       on: {
         "click": function($event) {
@@ -2882,6 +2896,12 @@ var __publicField = (obj, key, value) => {
         value: _vm.showImageToolbar,
         expression: "showImageToolbar"
       }],
+      staticStyle: {
+        "position": "absolute",
+        "top": "0",
+        "width": "100%",
+        "z-index": "10"
+      },
       attrs: {
         "color": "transparent",
         "height": "auto",
@@ -2908,8 +2928,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref2) {
-          var on = _ref2.on, attrs = _ref2.attrs;
+        fn: function(_ref) {
+          var on = _ref.on, attrs = _ref.attrs;
           return [_c("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -2933,8 +2953,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref3) {
-          var on = _ref3.on, attrs = _ref3.attrs;
+        fn: function(_ref2) {
+          var on = _ref2.on, attrs = _ref2.attrs;
           return [_c("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -2958,8 +2978,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref4) {
-          var on = _ref4.on, attrs = _ref4.attrs;
+        fn: function(_ref3) {
+          var on = _ref3.on, attrs = _ref3.attrs;
           return [_c("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -2985,8 +3005,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref5) {
-          var on = _ref5.on, attrs = _ref5.attrs;
+        fn: function(_ref4) {
+          var on = _ref4.on, attrs = _ref4.attrs;
           return [_c("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -3060,8 +3080,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref6) {
-          var on = _ref6.on, attrs = _ref6.attrs;
+        fn: function(_ref5) {
+          var on = _ref5.on, attrs = _ref5.attrs;
           return [_c("v-btn", _vm._g(_vm._b({
             attrs: {
               "fab": "",
@@ -3112,7 +3132,15 @@ var __publicField = (obj, key, value) => {
           }
         }
       });
-    }), 1)], 1) : _vm._e()], 1);
+    }), 1), _vm.isVideo ? _c("video", {
+      staticStyle: {
+        "width": "100%"
+      },
+      attrs: {
+        "controls": "",
+        "src": (_vm$imageSelected$fil = _vm.imageSelected.fileUrl) !== null && _vm$imageSelected$fil !== void 0 ? _vm$imageSelected$fil : void 0
+      }
+    }) : _vm._e()], 1) : _vm._e()], 1);
   };
   var staticRenderFns$2 = [];
   const __cssModules$2 = {};

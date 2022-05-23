@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import type Post from 'booru/dist/structures/Post'
+import type Post from '@himeka/booru/dist/structures/Post'
 
 interface AppState {
   theme: string

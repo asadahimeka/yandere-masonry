@@ -68,11 +68,11 @@ function addMasonryButton(fn: () => void) {
   })
 }
 
-const cspSites = ['gelbooru']
+const specialSites = ['gelbooru']
 function loadScript(src: string) {
   return new Promise<void>(resolve => {
     let script: HTMLScriptElement
-    if (cspSites.some(e => location.href.includes(e))) {
+    if (specialSites.some(e => location.href.includes(e))) {
       script = GM_addElement('script', { src })
       script.addEventListener('load', () => { resolve() }, false)
     } else {

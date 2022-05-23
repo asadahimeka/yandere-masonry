@@ -7,8 +7,8 @@
   >
     <v-img
       v-if="store.showImageSelected"
-      :src="imageSelected.sampleUrl ?? imageSelected.fileUrl ?? void 0"
-      :lazy-src="imageSelected.previewUrl ?? void 0"
+      :src="imgSrc"
+      :lazy-src="imgLasySrc"
       @click="showImageToolbar = !showImageToolbar;"
     >
       <template #placeholder>
@@ -16,7 +16,13 @@
           <v-progress-circular :size="100" :width="6" indeterminate color="deep-purple" />
         </v-row>
       </template>
-      <v-toolbar v-show="showImageToolbar" color="transparent" height="auto" flat>
+      <v-toolbar
+        v-show="showImageToolbar"
+        style="position:absolute;top:0;width:100%;z-index:10;"
+        color="transparent"
+        height="auto"
+        flat
+      >
         <v-chip
           small
           color="#ee8888b3"
@@ -129,6 +135,7 @@
           v-text="tag"
         />
       </v-chip-group>
+      <video v-if="isVideo" controls style="width: 100%;" :src="imageSelected.fileUrl ?? void 0"></video>
     </v-img>
   </v-dialog>
 </template>
@@ -143,6 +150,17 @@ const innerWidth = ref(window.innerWidth)
 const innerHeight = ref(window.innerHeight)
 
 const imageSelected = computed(() => store.imageList[store.imageSelectedIndex] ?? {})
+const isVideo = computed(() => ['.mp4', '.webm'].some(e => imageSelected.value.fileUrl?.endsWith(e)))
+const imgSrc = computed(() => {
+  if (isVideo.value) return void 0
+  return imageSelected.value.sampleUrl ??
+    imageSelected.value.fileUrl ??
+    void 0
+})
+const imgLasySrc = computed(() => {
+  if (isVideo.value) return void 0
+  return imageSelected.value.previewUrl ?? void 0
+})
 
 const imageSelectedWidth = computed(() => {
   const width = Number.parseInt(

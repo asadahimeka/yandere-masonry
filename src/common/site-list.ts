@@ -1,4 +1,4 @@
-import { sites } from 'booru'
+import { sites } from '@himeka/booru'
 
 const blackList = new Set(['e621.net', 'e926.net', 'hypnohub.net', 'derpibooru.org'])
 

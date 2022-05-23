@@ -1,6 +1,6 @@
 {
   "name": "yandere-masonry",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Yande.re/Konachan Waterfall Layout.",
   "author": "asadahimeka",
   "license": "MIT",
@@ -11,14 +11,13 @@
     "build": "vite build",
     "prepush": "yarn build",
     "postbuild": "node postbuild.mjs",
-    "updb": "yarn add github:asadahimeka/booru --no-cache",
     "lint": "eslint src --ext .ts,.vue",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@himeka/booru": "^2.5.8",
     "@mdi/font": "5.9.55",
     "@vue/composition-api": "^1.6.0",
-    "booru": "github:asadahimeka/booru",
     "macy": "^2.5.1",
     "roboto-fontface": "*",
     "vue": "^2.6.14",

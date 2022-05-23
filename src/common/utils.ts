@@ -1,4 +1,4 @@
-import { search } from 'booru'
+import { search } from '@himeka/booru'
 
 export async function searchBooru(domain: string, page: number, tags = '') {
   return search(domain, tags, { page, limit: 40 })

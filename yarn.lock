@@ -404,6 +404,14 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@himeka/booru@^2.5.8":
+  version "2.5.8"
+  resolved "https://registry.npmmirror.com/@himeka/booru/-/booru-2.5.8.tgz#b6a518bbcbb0cb0e6d0bb7e1c8bfe89022747dd8"
+  integrity sha512-I7ExRvKC4ZI1cMVFD8jsCRDf0i/6VwK9BFJV6Zo7ztDn/9A/ltx4yarvm8xG/0/LjNip5otAG2m/PWnPfwomYg==
+  dependencies:
+    cross-fetch "^3.1.5"
+    fast-xml-parser "^3.19.0"
+
 "@humanwhocodes/config-array@^0.9.2":
   version "0.9.5"
   resolved "https://registry.npmmirror.com/@humanwhocodes/config-array/-/config-array-0.9.5.tgz#2cbaf9a89460da24b5ca6531b8bbfc23e1df50c7"
@@ -895,13 +903,6 @@ boolbase@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmmirror.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==
-
-"booru@github:asadahimeka/booru":
-  version "2.5.8"
-  resolved "https://codeload.github.com/asadahimeka/booru/tar.gz/199ad0531cfb42d1dd441d4c4eec4fe5517334b7"
-  dependencies:
-    cross-fetch "^3.1.5"
-    fast-xml-parser "^3.19.0"
 
 brace-expansion@^1.1.7:
   version "1.1.11"
