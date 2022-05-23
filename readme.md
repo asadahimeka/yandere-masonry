@@ -63,7 +63,10 @@ https://realbooru.com/
 
 ## Developing
 
-Run `yarn dev`
+1. `git clone https://github.com/asadahimeka/yandere-masonry.git`
+2. `cd yandere-masonry`
+3. `yarn install`
+4. `yarn dev`
 
 ### Vue 3 + TypeScript + Vite
 
