@@ -10,9 +10,8 @@ export async function prepareApp(callback?: () => void) {
     await initMasonry()
     callback?.()
   }
-  addMasonryButton(init)
   const params = new URLSearchParams(location.search)
-  params.get('_wf') && init()
+  params.get('_wf') ? init() : addMasonryButton(init)
 }
 
 async function initMacy() {
@@ -106,7 +105,7 @@ function replaceHead() {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://npm.elemecdn.com/@mdi/font@5.9.55/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://lib.baomitu.com/vuetify/2.5.0/vuetify.min.css">
-    <style>${loadingStyle}::-webkit-scrollbar {display: none;width: 0px !important;}</style>
+    <style>${loadingStyle}::-webkit-scrollbar{width:0px}</style>
   `
 }
 

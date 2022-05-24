@@ -11,7 +11,9 @@ interface AppState {
   showFab: boolean
   currentPage: number
   imageList: Post[]
-  toggleDrawer: () => void
+  selectedImageList: Post[],
+  toggleDrawer: () => void,
+  addToSelectedList: (item: Post) => void
 }
 
 const store = Vue.observable<AppState>({
@@ -24,8 +26,13 @@ const store = Vue.observable<AppState>({
   showFab: false,
   currentPage: 1,
   imageList: [],
+  selectedImageList: [],
   toggleDrawer() {
     store.showDrawer = !store.showDrawer
+  },
+  addToSelectedList(item)  {
+    if (store.selectedImageList.some(e => e.id === item.id)) return
+    store.selectedImageList.push(item)
   }
 })
 

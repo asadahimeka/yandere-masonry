@@ -1,7 +1,7 @@
 <template>
   <v-dialog
     v-model="store.showImageSelected"
-    :width="imageSelectedWidth"
+    :width="imageSelectedWidth > 300 ? imageSelectedWidth : 300"
     :height="imageSelectedHeight"
     :overlay-opacity="0.7"
   >
@@ -9,7 +9,8 @@
       v-if="store.showImageSelected"
       :src="imgSrc"
       :lazy-src="imgLasySrc"
-      @click="showImageToolbar = !showImageToolbar;"
+      style="min-width: 300px;"
+      @click="toggleToolbar"
     >
       <template #placeholder>
         <v-row class="fill-height ma-0" align="center" justify="center">
@@ -84,7 +85,16 @@
         </v-tooltip>
         <v-menu dense open-on-hover offset-y>
           <template #activator="{ on, attrs }">
-            <v-btn fab dark small color="#ee8888b3" class="mr-1" v-bind="attrs" v-on="on">
+            <v-btn
+              v-show="!downloadLoading"
+              fab
+              dark
+              small
+              color="#ee8888b3"
+              class="mr-1"
+              v-bind="attrs"
+              v-on="on"
+            >
               <v-icon>mdi-download</v-icon>
             </v-btn>
           </template>
@@ -109,6 +119,24 @@
             </v-list-item>
           </v-list>
         </v-menu>
+        <v-progress-circular v-show="downloadLoading" indeterminate class="ml-1 mr-2" color="#ee8888b3" />
+        <v-tooltip bottom>
+          <template #activator="{ on, attrs }">
+            <v-btn
+              fab
+              dark
+              small
+              color="#ee8888b3"
+              class="mr-1"
+              v-bind="attrs"
+              v-on="on"
+              @click.stop="addToList"
+            >
+              <v-icon>mdi-playlist-plus</v-icon>
+            </v-btn>
+          </template>
+          <span>加入下载列表</span>
+        </v-tooltip>
         <v-tooltip bottom>
           <template #activator="{ on, attrs }">
             <v-btn fab dark small color="#ee8888b3" v-bind="attrs" v-on="on" @click.stop="close">
@@ -125,8 +153,8 @@
         column
       >
         <v-chip
-          v-for="tag in imageSelected.tags"
-          :key="tag"
+          v-for="(tag, i) in imageSelected.tags"
+          :key="tag + i"
           small
           class="mr-1"
           color="#ee8888b3"
@@ -143,11 +171,12 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from '@vue/composition-api'
 import store from '@/common/store'
-import { downloadFile, isURL } from '@/common/utils'
+import { isURL, showMsg } from '@/common/utils'
 
 const showImageToolbar = ref(true)
 const innerWidth = ref(window.innerWidth)
 const innerHeight = ref(window.innerHeight)
+const downloadLoading = ref(false)
 
 const imageSelected = computed(() => store.imageList[store.imageSelectedIndex] ?? {})
 const isVideo = computed(() => ['.mp4', '.webm'].some(e => imageSelected.value.fileUrl?.endsWith(e)))
@@ -191,6 +220,10 @@ const notYKSite = computed(() => {
   return ['konachan', 'yande'].every(e => !booruDomain.value.includes(e))
 })
 
+const toggleToolbar = () => {
+  showImageToolbar.value = !showImageToolbar.value
+}
+
 const toTagsPage = (tag: string) => {
   if (notYKSite.value) return
   window.open(`https://${booruDomain.value}/post?tags=${tag}`, '_blank', 'noreferrer')
@@ -207,7 +240,23 @@ const toSourcePage = () => {
 }
 
 const download = (url: string | null, name: string) => {
-  downloadFile(url, name)
+  if (!url) return
+  downloadLoading.value = true
+  GM_download({
+    url,
+    name,
+    onload() {
+      downloadLoading.value = false
+    },
+    onerror(err) {
+      downloadLoading.value = false
+      showMsg({ msg: '下载出错: ' + err.error, type: 'error' })
+    }
+  })
+}
+
+const addToList = () => {
+  store.addToSelectedList(imageSelected.value)
 }
 
 const close = () => {
@@ -227,13 +276,9 @@ const addFavorite = async () => {
   if (!response.ok) return
   const result = await response.json()
   if (result.success) {
-    GM_notification({
-      title: 'Booru Masonry',
-      text: '收藏成功',
-      silent: true,
-      timeout: 2000,
-      image: 'https://i0.hdslb.com/bfs/album/39212b6f4c0ab75ca8f508237e756ed03f60e030.png'
-    })
+    showMsg({ msg: '收藏成功' })
+  } else {
+    showMsg({ msg: '收藏失败', type: 'error' })
   }
 }
 

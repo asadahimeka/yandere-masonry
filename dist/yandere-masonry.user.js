@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.1.5
+// @version              0.2.0
 // @description          Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -24,6 +24,7 @@
 // @run-at               document-body
 // @grant                GM_addStyle
 // @grant                GM_addElement
+// @grant                GM_download
 // @grant                GM_notification
 // ==/UserScript==
 
@@ -45,9 +46,8 @@ var __publicField = (obj, key, value) => {
       await initMasonry();
       callback == null ? void 0 : callback();
     };
-    addMasonryButton(init);
     const params = new URLSearchParams(location.search);
-    params.get("_wf") && init();
+    params.get("_wf") ? init() : addMasonryButton(init);
   }
   async function initMacy() {
     if (location.href.includes("yande.re/post")) {
@@ -139,7 +139,7 @@ var __publicField = (obj, key, value) => {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://npm.elemecdn.com/@mdi/font@5.9.55/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://lib.baomitu.com/vuetify/2.5.0/vuetify.min.css">
-    <style>${loadingStyle}::-webkit-scrollbar {display: none;width: 0px !important;}</style>
+    <style>${loadingStyle}::-webkit-scrollbar{width:0px}</style>
   `;
   }
   function replaceBody() {
@@ -193,129 +193,16 @@ var __publicField = (obj, key, value) => {
     showFab: false,
     currentPage: 1,
     imageList: [],
+    selectedImageList: [],
     toggleDrawer() {
       store.showDrawer = !store.showDrawer;
+    },
+    addToSelectedList(item) {
+      if (store.selectedImageList.some((e) => e.id === item.id))
+        return;
+      store.selectedImageList.push(item);
     }
   });
-  const __sfc_main$4 = {};
-  __sfc_main$4.setup = (__props, __ctx) => {
-    const title = VueCompositionAPI2.computed(() => {
-      const {
-        0: img,
-        length
-      } = store.imageList;
-      if (img)
-        return `${img.booru.domain.toUpperCase()} - ${length} Posts - Page ${store.currentPage}`;
-      return "\u{1F682}";
-    });
-    const vuetify = useVuetify();
-    const toggleDarkmode = () => {
-      vuetify.theme.dark = !vuetify.theme.dark;
-      localStorage.setItem("__darkmode", vuetify.theme.dark ? "dark" : "light");
-    };
-    return {
-      store,
-      title,
-      toggleDarkmode
-    };
-  };
-  var render$4 = function() {
-    var _vm = this;
-    var _h = _vm.$createElement;
-    var _c = _vm._self._c || _h;
-    return _c("v-app-bar", {
-      attrs: {
-        "app": "",
-        "dense": ""
-      }
-    }, [_c("v-app-bar-nav-icon", {
-      on: {
-        "click": _vm.store.toggleDrawer
-      }
-    }), _c("v-toolbar-title", {
-      domProps: {
-        "textContent": _vm._s(_vm.title)
-      }
-    }), _c("v-spacer"), _c("v-btn", {
-      attrs: {
-        "icon": ""
-      },
-      on: {
-        "click": _vm.toggleDarkmode
-      }
-    }, [_c("v-icon", [_vm._v("mdi-brightness-6")])], 1), _c("v-progress-linear", {
-      attrs: {
-        "active": _vm.store.requestState,
-        "height": 6,
-        "color": "deep-purple accent-4",
-        "indeterminate": "",
-        "absolute": "",
-        "bottom": ""
-      }
-    })], 1);
-  };
-  var staticRenderFns$4 = [];
-  function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
-    var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
-    if (render2) {
-      options.render = render2;
-      options.staticRenderFns = staticRenderFns2;
-      options._compiled = true;
-    }
-    if (functionalTemplate) {
-      options.functional = true;
-    }
-    if (scopeId) {
-      options._scopeId = "data-v-" + scopeId;
-    }
-    var hook;
-    if (moduleIdentifier) {
-      hook = function(context) {
-        context = context || this.$vnode && this.$vnode.ssrContext || this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext;
-        if (!context && typeof __VUE_SSR_CONTEXT__ !== "undefined") {
-          context = __VUE_SSR_CONTEXT__;
-        }
-        if (injectStyles) {
-          injectStyles.call(this, context);
-        }
-        if (context && context._registeredComponents) {
-          context._registeredComponents.add(moduleIdentifier);
-        }
-      };
-      options._ssrRegister = hook;
-    } else if (injectStyles) {
-      hook = shadowMode ? function() {
-        injectStyles.call(this, (options.functional ? this.parent : this).$root.$options.shadowRoot);
-      } : injectStyles;
-    }
-    if (hook) {
-      if (options.functional) {
-        options._injectStyles = hook;
-        var originalRender = options.render;
-        options.render = function renderWithStyleInjection(h, context) {
-          hook.call(context);
-          return originalRender(h, context);
-        };
-      } else {
-        var existing = options.beforeCreate;
-        options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
-      }
-    }
-    return {
-      exports: scriptExports,
-      options
-    };
-  }
-  const __cssModules$4 = {};
-  var __component__$4 = /* @__PURE__ */ normalizeComponent(__sfc_main$4, render$4, staticRenderFns$4, false, __vue2_injectStyles$4, null, null, null);
-  function __vue2_injectStyles$4(context) {
-    for (let o in __cssModules$4) {
-      this[o] = __cssModules$4[o];
-    }
-  }
-  var AppBar = /* @__PURE__ */ function() {
-    return __component__$4.exports;
-  }();
   var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
   var dist = {};
   var Constants = {};
@@ -2600,6 +2487,368 @@ var __publicField = (obj, key, value) => {
       return Constants_3.BooruError;
     } });
   })(dist);
+  async function searchBooru(domain, page, tags = "") {
+    return dist.search(domain, tags, { page, limit: 40 });
+  }
+  function isURL(s) {
+    return /^https?:\/\/.*/.test(s);
+  }
+  const msgTypeImages = {
+    success: "https://i0.hdslb.com/bfs/album/39212b6f4c0ab75ca8f508237e756ed03f60e030.png",
+    error: "http://i0.hdslb.com/bfs/album/d84b69fded166425a21ebc1c6c8251f36c26ea49.png"
+  };
+  function showMsg({ msg = "", title = "Booru Masonry", type = "success" }) {
+    GM_notification({
+      title,
+      text: msg,
+      silent: true,
+      timeout: 2e3,
+      image: msgTypeImages[type]
+    });
+  }
+  function isReachBottom() {
+    const { clientHeight, scrollTop, scrollHeight } = document.documentElement;
+    return clientHeight + scrollTop >= scrollHeight * 0.9;
+  }
+  function throttleScroll(downFn, upFn) {
+    const doc = document.documentElement;
+    let position = doc.scrollTop;
+    let ticking = false;
+    return function(arg) {
+      if (ticking)
+        return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        const scroll = doc.scrollTop;
+        scroll > position ? downFn(scroll, arg) : upFn(scroll, arg);
+        position = scroll;
+        ticking = false;
+      });
+    };
+  }
+  const __sfc_main$4 = {};
+  __sfc_main$4.setup = (__props, __ctx) => {
+    const title = VueCompositionAPI2.computed(() => {
+      const {
+        0: img,
+        length
+      } = store.imageList;
+      if (img)
+        return `${img.booru.domain.toUpperCase()} - ${length} Posts - Page ${store.currentPage}`;
+      return "\u{1F682}";
+    });
+    const isNoSelected = VueCompositionAPI2.computed(() => store.selectedImageList.length === 0);
+    const isOneOrMoreSelected = VueCompositionAPI2.computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length < store.imageList.length);
+    const isAllSelected = VueCompositionAPI2.computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length === store.imageList.length);
+    const loadingMap = VueCompositionAPI2.ref({});
+    const loadedMap = VueCompositionAPI2.ref({});
+    const loadingValue = VueCompositionAPI2.ref(0);
+    const getInitialLoadMap = (value) => {
+      const map = {};
+      for (const i of store.selectedImageList.keys()) {
+        map[i] = value;
+      }
+      return map;
+    };
+    const select = () => {
+      if (isNoSelected.value || isOneOrMoreSelected.value) {
+        setTimeout(() => {
+          store.selectedImageList = [...store.imageList];
+          loadingMap.value = getInitialLoadMap(false);
+          loadedMap.value = getInitialLoadMap(false);
+        });
+      }
+      if (isAllSelected.value) {
+        setTimeout(() => {
+          store.selectedImageList = [];
+          loadedMap.value = {};
+          loadingMap.value = {};
+        });
+      }
+    };
+    const removeFromList = (index) => {
+      store.selectedImageList.splice(index, 1);
+      VueCompositionAPI2.del(loadingMap.value, index);
+      VueCompositionAPI2.del(loadedMap.value, index);
+    };
+    const download = (url, name) => {
+      console.log("url:", url);
+      return new Promise((resolve, reject) => {
+        GM_download({
+          url,
+          name,
+          onload: () => resolve(),
+          onerror: (err) => reject(new Error(err.error)),
+          onprogress: (d) => {
+            loadingValue.value = d.loaded / d.total * 100;
+            console.log("loadingValue.value:", loadingValue.value);
+          }
+        });
+      });
+    };
+    const startDownload = async () => {
+      console.log("sabhxbakxnnksaxklasx");
+      try {
+        loadingMap.value = getInitialLoadMap(true);
+        loadedMap.value = getInitialLoadMap(false);
+        store.selectedImageList.forEach(async (item, index) => {
+          var _a2;
+          console.log("index:", index);
+          if (!item.fileUrl)
+            return;
+          await download(item.fileUrl, `${item.fileDownloadName}.${(_a2 = item.fileUrl) == null ? void 0 : _a2.split(".").pop()}`);
+          loadingMap.value[index] = false;
+          loadedMap.value[index] = true;
+        });
+      } catch (error) {
+        const msg = error;
+        showMsg({
+          msg,
+          type: "error"
+        });
+      }
+    };
+    const vuetify = useVuetify();
+    const toggleDarkmode = () => {
+      vuetify.theme.dark = !vuetify.theme.dark;
+      localStorage.setItem("__darkmode", vuetify.theme.dark ? "dark" : "light");
+    };
+    return {
+      store,
+      title,
+      isNoSelected,
+      isOneOrMoreSelected,
+      isAllSelected,
+      loadingMap,
+      loadedMap,
+      loadingValue,
+      select,
+      removeFromList,
+      startDownload,
+      toggleDarkmode
+    };
+  };
+  var render$4 = function() {
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c = _vm._self._c || _h;
+    return _c("v-app-bar", {
+      attrs: {
+        "app": "",
+        "dense": ""
+      }
+    }, [_c("v-app-bar-nav-icon", {
+      on: {
+        "click": _vm.store.toggleDrawer
+      }
+    }), _c("v-toolbar-title", {
+      domProps: {
+        "textContent": _vm._s(_vm.title)
+      }
+    }), _c("v-spacer"), _c("span", {
+      staticClass: "mr-1"
+    }, [_vm._v(_vm._s(_vm.store.selectedImageList.length) + " Selected")]), _c("v-btn", {
+      attrs: {
+        "icon": ""
+      },
+      on: {
+        "click": _vm.select
+      }
+    }, [_c("v-icon", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.isNoSelected,
+        expression: "isNoSelected"
+      }]
+    }, [_vm._v(" mdi-checkbox-blank-outline ")]), _c("v-icon", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.isOneOrMoreSelected,
+        expression: "isOneOrMoreSelected"
+      }]
+    }, [_vm._v(" mdi-checkbox-intermediate ")]), _c("v-icon", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.isAllSelected,
+        expression: "isAllSelected"
+      }]
+    }, [_vm._v(" mdi-checkbox-marked ")])], 1), _c("v-menu", {
+      attrs: {
+        "dense": "",
+        "offset-y": "",
+        "close-on-content-click": false
+      },
+      scopedSlots: _vm._u([{
+        key: "activator",
+        fn: function(_ref) {
+          var on = _ref.on, attrs = _ref.attrs;
+          return [_c("v-btn", _vm._g(_vm._b({
+            attrs: {
+              "icon": ""
+            }
+          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v("mdi-download")])], 1)];
+        }
+      }])
+    }, [_c("v-list", {
+      staticStyle: {
+        "min-width": "300px",
+        "max-height": "80vh",
+        "overflow": "auto"
+      },
+      attrs: {
+        "dense": "",
+        "flat": ""
+      }
+    }, [_c("v-subheader", {
+      staticClass: "ml-2"
+    }, [_c("span", {
+      staticClass: "mr-4"
+    }, [_vm._v("\u4E0B\u8F7D\u5217\u8868")]), _c("v-btn", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.store.selectedImageList.length > 0,
+        expression: "store.selectedImageList.length > 0"
+      }],
+      attrs: {
+        "small": ""
+      },
+      on: {
+        "click": _vm.startDownload
+      }
+    }, [_vm._v(" \u5F00\u59CB\u4E0B\u8F7D ")])], 1), _c("v-list-item-group", {
+      attrs: {
+        "color": "primary"
+      }
+    }, _vm._l(_vm.store.selectedImageList, function(item, index) {
+      return _c("v-list-item", {
+        key: item.id,
+        attrs: {
+          "dense": "",
+          "two-line": ""
+        }
+      }, [_c("v-list-item-avatar", [!_vm.loadingMap[index] && !_vm.loadedMap[index] ? _c("v-btn", {
+        attrs: {
+          "icon": ""
+        }
+      }, [_c("v-icon", [_vm._v("mdi-file-clock-outline")])], 1) : _vm._e(), _vm.loadedMap[index] ? _c("v-btn", {
+        attrs: {
+          "icon": "",
+          "color": "green"
+        }
+      }, [_c("v-icon", [_vm._v("mdi-check-underline-circle")])], 1) : _vm._e(), _vm.loadingMap[index] ? _c("v-progress-circular", {
+        attrs: {
+          "value": _vm.loadingValue,
+          "color": "purple"
+        }
+      }) : _vm._e()], 1), _c("v-list-item-content", {
+        attrs: {
+          "title": item.fileUrl
+        }
+      }, [_c("v-list-item-title", {
+        domProps: {
+          "textContent": _vm._s(item.fileDownloadName)
+        }
+      }), _c("v-list-item-subtitle", {
+        staticStyle: {
+          "max-width": "240px"
+        },
+        domProps: {
+          "textContent": _vm._s(item.fileUrl)
+        }
+      })], 1), _c("v-list-item-action", [_c("v-btn", {
+        attrs: {
+          "icon": ""
+        },
+        on: {
+          "click": function($event) {
+            return _vm.removeFromList(index);
+          }
+        }
+      }, [_c("v-icon", [_vm._v("mdi-delete")])], 1)], 1)], 1);
+    }), 1)], 1)], 1), _c("v-btn", {
+      attrs: {
+        "icon": ""
+      },
+      on: {
+        "click": _vm.toggleDarkmode
+      }
+    }, [_c("v-icon", [_vm._v("mdi-brightness-6")])], 1), _c("v-progress-linear", {
+      attrs: {
+        "active": _vm.store.requestState,
+        "height": 6,
+        "color": "deep-purple accent-4",
+        "indeterminate": "",
+        "absolute": "",
+        "bottom": ""
+      }
+    })], 1);
+  };
+  var staticRenderFns$4 = [];
+  function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
+    var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
+    if (render2) {
+      options.render = render2;
+      options.staticRenderFns = staticRenderFns2;
+      options._compiled = true;
+    }
+    if (functionalTemplate) {
+      options.functional = true;
+    }
+    if (scopeId) {
+      options._scopeId = "data-v-" + scopeId;
+    }
+    var hook;
+    if (moduleIdentifier) {
+      hook = function(context) {
+        context = context || this.$vnode && this.$vnode.ssrContext || this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext;
+        if (!context && typeof __VUE_SSR_CONTEXT__ !== "undefined") {
+          context = __VUE_SSR_CONTEXT__;
+        }
+        if (injectStyles) {
+          injectStyles.call(this, context);
+        }
+        if (context && context._registeredComponents) {
+          context._registeredComponents.add(moduleIdentifier);
+        }
+      };
+      options._ssrRegister = hook;
+    } else if (injectStyles) {
+      hook = shadowMode ? function() {
+        injectStyles.call(this, (options.functional ? this.parent : this).$root.$options.shadowRoot);
+      } : injectStyles;
+    }
+    if (hook) {
+      if (options.functional) {
+        options._injectStyles = hook;
+        var originalRender = options.render;
+        options.render = function renderWithStyleInjection(h, context) {
+          hook.call(context);
+          return originalRender(h, context);
+        };
+      } else {
+        var existing = options.beforeCreate;
+        options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+      }
+    }
+    return {
+      exports: scriptExports,
+      options
+    };
+  }
+  const __cssModules$4 = {};
+  var __component__$4 = /* @__PURE__ */ normalizeComponent(__sfc_main$4, render$4, staticRenderFns$4, false, __vue2_injectStyles$4, null, null, null);
+  function __vue2_injectStyles$4(context) {
+    for (let o in __cssModules$4) {
+      this[o] = __cssModules$4[o];
+    }
+  }
+  var AppBar = /* @__PURE__ */ function() {
+    return __component__$4.exports;
+  }();
   const blackList = /* @__PURE__ */ new Set(["e621.net", "e926.net", "hypnohub.net", "derpibooru.org"]);
   const siteDomains = Object.keys(dist.sites).filter((e) => !blackList.has(e));
   const __sfc_main$3 = {};
@@ -2688,50 +2937,12 @@ var __publicField = (obj, key, value) => {
   var NavDrawer = /* @__PURE__ */ function() {
     return __component__$3.exports;
   }();
-  async function searchBooru(domain, page, tags = "") {
-    return dist.search(domain, tags, { page, limit: 40 });
-  }
-  function isURL(s) {
-    return /^https?:\/\/.*/.test(s);
-  }
-  function downloadFile(url, name) {
-    if (!url)
-      return;
-    const a = document.createElement("a");
-    a.href = url;
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
-    a.style.display = "none";
-    a.setAttribute("download", name || "");
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  }
-  function isReachBottom() {
-    const { clientHeight, scrollTop, scrollHeight } = document.documentElement;
-    return clientHeight + scrollTop >= scrollHeight * 0.9;
-  }
-  function throttleScroll(downFn, upFn) {
-    const doc = document.documentElement;
-    let position = doc.scrollTop;
-    let ticking = false;
-    return function(arg) {
-      if (ticking)
-        return;
-      ticking = true;
-      window.requestAnimationFrame(() => {
-        const scroll = doc.scrollTop;
-        scroll > position ? downFn(scroll, arg) : upFn(scroll, arg);
-        position = scroll;
-        ticking = false;
-      });
-    };
-  }
   const __sfc_main$2 = {};
   __sfc_main$2.setup = (__props, __ctx) => {
     const showImageToolbar = VueCompositionAPI2.ref(true);
     const innerWidth = VueCompositionAPI2.ref(window.innerWidth);
     const innerHeight = VueCompositionAPI2.ref(window.innerHeight);
+    const downloadLoading = VueCompositionAPI2.ref(false);
     const imageSelected = VueCompositionAPI2.computed(() => {
       var _a2;
       return (_a2 = store.imageList[store.imageSelectedIndex]) != null ? _a2 : {};
@@ -2768,6 +2979,9 @@ var __publicField = (obj, key, value) => {
     const notYKSite = VueCompositionAPI2.computed(() => {
       return ["konachan", "yande"].every((e) => !booruDomain.value.includes(e));
     });
+    const toggleToolbar = () => {
+      showImageToolbar.value = !showImageToolbar.value;
+    };
     const toTagsPage = (tag) => {
       if (notYKSite.value)
         return;
@@ -2785,7 +2999,26 @@ var __publicField = (obj, key, value) => {
       window.open(sourceUrl, "_blank", "noreferrer");
     };
     const download = (url, name) => {
-      downloadFile(url, name);
+      if (!url)
+        return;
+      downloadLoading.value = true;
+      GM_download({
+        url,
+        name,
+        onload() {
+          downloadLoading.value = false;
+        },
+        onerror(err) {
+          downloadLoading.value = false;
+          showMsg({
+            msg: "\u4E0B\u8F7D\u51FA\u9519: " + err.error,
+            type: "error"
+          });
+        }
+      });
+    };
+    const addToList = () => {
+      store.addToSelectedList(imageSelected.value);
     };
     const close = () => {
       store.showImageSelected = false;
@@ -2808,12 +3041,13 @@ var __publicField = (obj, key, value) => {
         return;
       const result = await response.json();
       if (result.success) {
-        GM_notification({
-          title: "Booru Masonry",
-          text: "\u6536\u85CF\u6210\u529F",
-          silent: true,
-          timeout: 2e3,
-          image: "https://i0.hdslb.com/bfs/album/39212b6f4c0ab75ca8f508237e756ed03f60e030.png"
+        showMsg({
+          msg: "\u6536\u85CF\u6210\u529F"
+        });
+      } else {
+        showMsg({
+          msg: "\u6536\u85CF\u5931\u8D25",
+          type: "error"
         });
       }
     };
@@ -2826,6 +3060,7 @@ var __publicField = (obj, key, value) => {
     return {
       store,
       showImageToolbar,
+      downloadLoading,
       imageSelected,
       isVideo,
       imgSrc,
@@ -2833,10 +3068,12 @@ var __publicField = (obj, key, value) => {
       imageSelectedWidth,
       imageSelectedHeight,
       notYKSite,
+      toggleToolbar,
       toTagsPage,
       toDetailPage,
       toSourcePage,
       download,
+      addToList,
       close,
       addFavorite
     };
@@ -2848,7 +3085,7 @@ var __publicField = (obj, key, value) => {
     var _c = _vm._self._c || _h;
     return _c("v-dialog", {
       attrs: {
-        "width": _vm.imageSelectedWidth,
+        "width": _vm.imageSelectedWidth > 300 ? _vm.imageSelectedWidth : 300,
         "height": _vm.imageSelectedHeight,
         "overlay-opacity": 0.7
       },
@@ -2860,14 +3097,15 @@ var __publicField = (obj, key, value) => {
         expression: "store.showImageSelected"
       }
     }, [_vm.store.showImageSelected ? _c("v-img", {
+      staticStyle: {
+        "min-width": "300px"
+      },
       attrs: {
         "src": _vm.imgSrc,
         "lazy-src": _vm.imgLasySrc
       },
       on: {
-        "click": function($event) {
-          _vm.showImageToolbar = !_vm.showImageToolbar;
-        }
+        "click": _vm.toggleToolbar
       },
       scopedSlots: _vm._u([{
         key: "placeholder",
@@ -3008,6 +3246,12 @@ var __publicField = (obj, key, value) => {
         fn: function(_ref4) {
           var on = _ref4.on, attrs = _ref4.attrs;
           return [_c("v-btn", _vm._g(_vm._b({
+            directives: [{
+              name: "show",
+              rawName: "v-show",
+              value: !_vm.downloadLoading,
+              expression: "!downloadLoading"
+            }],
             staticClass: "mr-1",
             attrs: {
               "fab": "",
@@ -3017,7 +3261,7 @@ var __publicField = (obj, key, value) => {
             }
           }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v("mdi-download")])], 1)];
         }
-      }], null, false, 2765857958)
+      }], null, false, 3335844287)
     }, [_c("v-list", {
       attrs: {
         "dense": "",
@@ -3074,7 +3318,19 @@ var __publicField = (obj, key, value) => {
       domProps: {
         "textContent": _vm._s(_vm.imageSelected.fileDownloadText)
       }
-    })], 1)], 1)], 1)], 1), _c("v-tooltip", {
+    })], 1)], 1)], 1)], 1), _c("v-progress-circular", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.downloadLoading,
+        expression: "downloadLoading"
+      }],
+      staticClass: "ml-1 mr-2",
+      attrs: {
+        "indeterminate": "",
+        "color": "#ee8888b3"
+      }
+    }), _c("v-tooltip", {
       attrs: {
         "bottom": ""
       },
@@ -3082,6 +3338,31 @@ var __publicField = (obj, key, value) => {
         key: "activator",
         fn: function(_ref5) {
           var on = _ref5.on, attrs = _ref5.attrs;
+          return [_c("v-btn", _vm._g(_vm._b({
+            staticClass: "mr-1",
+            attrs: {
+              "fab": "",
+              "dark": "",
+              "small": "",
+              "color": "#ee8888b3"
+            },
+            on: {
+              "click": function($event) {
+                $event.stopPropagation();
+                return _vm.addToList.apply(null, arguments);
+              }
+            }
+          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v("mdi-playlist-plus")])], 1)];
+        }
+      }], null, false, 3337236247)
+    }, [_c("span", [_vm._v("\u52A0\u5165\u4E0B\u8F7D\u5217\u8868")])]), _c("v-tooltip", {
+      attrs: {
+        "bottom": ""
+      },
+      scopedSlots: _vm._u([{
+        key: "activator",
+        fn: function(_ref6) {
+          var on = _ref6.on, attrs = _ref6.attrs;
           return [_c("v-btn", _vm._g(_vm._b({
             attrs: {
               "fab": "",
@@ -3113,9 +3394,9 @@ var __publicField = (obj, key, value) => {
       attrs: {
         "column": ""
       }
-    }, _vm._l(_vm.imageSelected.tags, function(tag) {
+    }, _vm._l(_vm.imageSelected.tags, function(tag, i) {
       return _c("v-chip", {
-        key: tag,
+        key: tag + i,
         staticClass: "mr-1",
         attrs: {
           "small": "",
@@ -3176,6 +3457,10 @@ var __publicField = (obj, key, value) => {
     const openDetail = (img) => {
       window.open(img.postView, "_blank", "noreferrer");
     };
+    const addToSelectedList = (img, ev) => {
+      ev.preventDefault();
+      store.addToSelectedList(img);
+    };
     const params = new URLSearchParams(location.search);
     let page = Number(params.get("page")) || 1;
     const fetchData = async (refresh2) => {
@@ -3191,7 +3476,12 @@ var __publicField = (obj, key, value) => {
         const results = await searchBooru(location.host, page, tags);
         if (Array.isArray(results) && results.length > 0) {
           store.currentPage = page;
-          store.imageList = refresh2 ? results : [...store.imageList, ...results];
+          if (refresh2) {
+            store.imageList = results;
+            store.selectedImageList = [];
+          } else {
+            store.imageList = [...store.imageList, ...results];
+          }
           page++;
         } else {
           store.requestStop = true;
@@ -3242,6 +3532,7 @@ var __publicField = (obj, key, value) => {
       showLoadMore,
       showImgModal,
       openDetail,
+      addToSelectedList,
       fetchData,
       refresh
     };
@@ -3267,7 +3558,11 @@ var __publicField = (obj, key, value) => {
       var _ref, _image$previewUrl;
       return _c("v-card", {
         key: index,
-        staticClass: "mb-2"
+        staticClass: "mb-2",
+        staticStyle: {
+          "max-height": "60vh",
+          "overflow": "hidden"
+        }
       }, [_c("v-img", {
         attrs: {
           "transition": "scroll-y-transition",
@@ -3282,6 +3577,9 @@ var __publicField = (obj, key, value) => {
             if ("button" in $event && $event.button !== 1)
               return null;
             return _vm.openDetail(image);
+          },
+          "contextmenu": function($event) {
+            return _vm.addToSelectedList(image, $event);
           }
         },
         scopedSlots: _vm._u([{

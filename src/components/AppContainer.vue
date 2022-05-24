@@ -1,13 +1,14 @@
 <template>
   <v-container class="_vcont pa-2" fluid>
     <masonry :cols="columnCount" gutter="8px">
-      <v-card v-for="(image, index) in store.imageList" :key="index" class="mb-2">
+      <v-card v-for="(image, index) in store.imageList" :key="index" class="mb-2" style="max-height: 60vh;overflow: hidden;">
         <v-img
           transition="scroll-y-transition"
           :src="image.previewUrl ?? image.fileUrl ?? void 0"
           :aspect-ratio="image.aspectRatio"
           @click="showImgModal(index)"
           @click.middle="openDetail(image)"
+          @contextmenu="addToSelectedList(image, $event)"
         >
           <template #placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
@@ -79,6 +80,11 @@ const openDetail = (img: Post) => {
   window.open(img.postView, '_blank', 'noreferrer')
 }
 
+const addToSelectedList = (img: Post, ev: Event) => {
+  ev.preventDefault()
+  store.addToSelectedList(img)
+}
+
 const params = new URLSearchParams(location.search)
 let page = Number(params.get('page')) || 1
 const fetchData = async (refresh?: boolean) => {
@@ -91,7 +97,12 @@ const fetchData = async (refresh?: boolean) => {
     const results = await searchBooru(location.host, page, tags)
     if (Array.isArray(results) && results.length > 0) {
       store.currentPage = page
-      store.imageList = refresh ? results : [...store.imageList, ...results]
+      if (refresh) {
+        store.imageList = results
+        store.selectedImageList = []
+      } else {
+        store.imageList =  [...store.imageList, ...results]
+      }
       page++
     } else {
       store.requestStop = true

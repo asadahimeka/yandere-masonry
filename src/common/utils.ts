@@ -8,17 +8,37 @@ export function isURL(s: string) {
   return /^https?:\/\/.*/.test(s)
 }
 
-export function downloadFile(url: string | null, name?: string) {
+export function downloadFile(url: string | null, name = '') {
   if (!url) return
   const a = document.createElement('a')
   a.href = url
   a.target = '_blank'
   a.rel = 'noopener noreferrer'
   a.style.display = 'none'
-  a.setAttribute('download', name || '')
+  a.setAttribute('download', name)
   document.body.appendChild(a)
   a.click()
   document.body.removeChild(a)
+}
+
+type MsgType = 'success' | 'error'
+interface MessageOptions {
+  msg: string;
+  title?: string;
+  type?: MsgType
+}
+const msgTypeImages: Record<MsgType, string> = {
+  success: 'https://i0.hdslb.com/bfs/album/39212b6f4c0ab75ca8f508237e756ed03f60e030.png',
+  error: 'http://i0.hdslb.com/bfs/album/d84b69fded166425a21ebc1c6c8251f36c26ea49.png'
+}
+export function showMsg({ msg = '', title = 'Booru Masonry', type = 'success' }: MessageOptions) {
+  GM_notification({
+    title,
+    text: msg,
+    silent: true,
+    timeout: 2000,
+    image: msgTypeImages[type]
+  })
 }
 
 export function isReachBottom() {
