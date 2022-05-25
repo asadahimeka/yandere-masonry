@@ -9,7 +9,6 @@
     "dev": "vite",
     "push": "node push.mjs",
     "build": "vite build",
-    "prepush": "yarn build",
     "postbuild": "node postbuild.mjs",
     "lint": "eslint src --ext .ts,.vue",
     "preview": "vite preview"
