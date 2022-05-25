@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.4
+// @version              0.2.5
 // @description          Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -49,7 +49,7 @@ var __publicField = (obj, key, value) => {
   return value;
 };
 (() => {
-  var ydStyle = 'a.thumb{border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08]"}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743]"}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272]"}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2]"}#post-list{display:flex}#post-list .sidebar{float:none;width:auto}#post-list .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-list ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview{width:auto;height:auto;margin-top:0;margin-bottom:8px;border-radius:5px;box-sizing:border-box}#post-list a.directlink{margin-top:5px}\n';
+  var ydStyle = 'a.thumb{border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08]"}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743]"}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272]"}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2]"}#post-list{display:flex}#post-list .sidebar{float:none;width:auto;max-width:260px}#post-list .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-list ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview{width:auto;height:auto;margin-top:0;margin-bottom:8px;border-radius:5px;box-sizing:border-box}#post-list a.directlink{margin-top:5px}\n';
   var knStyle = "#lsidebar{display:none}#post-list ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
   var loadingStyle = "#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0px}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}\n";
   async function prepareApp(callback) {
@@ -457,8 +457,8 @@ var __publicField = (obj, key, value) => {
         return encodeURIComponent(t || r2);
       });
     }
-    function searchURI(r, t = [], e = 100, o) {
-      return `http${r.insecure ? "" : "s"}://${r.domain}${r.api.search}${r.tagQuery}=${expandTags(t).join(r.tagJoin)}&limit=${e}&${r.paginate}=${o}`;
+    function searchURI(r, t = [], e = 100, o = 1) {
+      return r.paginate === "pid" && (o -= 1), `http${r.insecure ? "" : "s"}://${r.domain}${r.api.search}${r.tagQuery}=${expandTags(t).join(r.tagJoin)}&limit=${e}&${r.paginate}=${o}`;
     }
     exports.BooruError = BooruError, exports.USER_AGENT = "booru (https://github.com/AtoraSuunva/booru)", exports.searchURI = searchURI, exports.defaultOptions = { headers: { Accept: "application/json, application/xml;q=0.9, */*;q=0.8" } };
   })(Constants);
@@ -2219,8 +2219,8 @@ var __publicField = (obj, key, value) => {
       return (_a = this.data.jpeg_height) != null ? _a : 0;
     }
     get fileExt() {
-      var _a;
-      return (_a = this.data.file_ext) != null ? _a : "";
+      var _a, _b, _c;
+      return (_c = (_b = this.data.file_ext) != null ? _b : (_a = this.fileUrl) == null ? void 0 : _a.split(".").pop()) != null ? _c : "";
     }
     get sampleSize() {
       var _a;
@@ -2238,10 +2238,7 @@ var __publicField = (obj, key, value) => {
       return formatFileSize(this.data.sample_file_size);
     }
     get sampleDownloadText() {
-      return `${this.sampleWidth}\xD7${this.sampleHeight} [${this.sampleSizeText}]`;
-    }
-    get sampleDownloadSecondText() {
-      return `${this.sampleWidth}\xD7${this.sampleHeight} [${this.sampleSizeText}]`;
+      return `${this.sampleWidth}\xD7${this.sampleHeight} [${this.sampleSizeText}] ${this.fileExt.toUpperCase()}`;
     }
     get sampleDownloadName() {
       return `${this.booru.domain}.${this.id}.${this.sampleWidth}x${this.sampleHeight}`.replace(/\./g, "_");
@@ -2250,10 +2247,7 @@ var __publicField = (obj, key, value) => {
       return formatFileSize(this.data.jpeg_file_size);
     }
     get jpegDownloadText() {
-      return `${this.jpegWidth}\xD7${this.jpegHeight} [${this.jpegSizeText}]`;
-    }
-    get jpegDownloadSecondText() {
-      return `${this.jpegWidth}\xD7${this.jpegHeight} [${this.jpegSizeText}]`;
+      return `${this.jpegWidth}\xD7${this.jpegHeight} [${this.jpegSizeText}] ${this.fileExt.toUpperCase()}`;
     }
     get jpegDownloadName() {
       return `${this.booru.domain}.${this.id}.${this.jpegWidth}x${this.jpegHeight}`.replace(/\./g, "_");
@@ -2264,11 +2258,8 @@ var __publicField = (obj, key, value) => {
     get fileDownloadText() {
       return `${this.width}\xD7${this.height} [${this.fileSizeText}] ${this.fileExt.toUpperCase()}`;
     }
-    get fileDownloadSecondText() {
-      return `${this.width}\xD7${this.height} [${this.fileSizeText}] ${this.fileExt.toUpperCase()}`;
-    }
     get fileDownloadName() {
-      return `${location.hostname}.${this.id}.${this.width}x${this.height}`.replace(/\./g, "_");
+      return `${this.booru.domain}.${this.id}.${this.width}x${this.height}`.replace(/\./g, "_");
     }
     get createdTime() {
       const e = this.createdAt;
@@ -2359,7 +2350,7 @@ var __publicField = (obj, key, value) => {
           throw new Error(`Invalid site passed: ${t}`);
         this.domain = s, this.site = t, this.credentials = e;
       }
-      async search(t, { limit: e = 1, random: s = false, page: r = 0, showUnavailable: i = false } = {}) {
+      async search(t, { limit: e = 1, random: s = false, page: r = 1, showUnavailable: i = false } = {}) {
         const a = s && !this.site.random ? 100 : 0;
         try {
           const o = await this.doSearchRequest(t, { limit: e, random: s, page: r, showUnavailable: i });
@@ -2373,7 +2364,7 @@ var __publicField = (obj, key, value) => {
           throw new Constants_12.BooruError(`Not a valid id for postView: ${t}`);
         return `http${this.site.insecure ? "" : "s"}://${this.domain}${this.site.api.postView}${t}`;
       }
-      async doSearchRequest(t, { uri: e = null, limit: s = 1, random: r = false, page: i = 0 } = {}) {
+      async doSearchRequest(t, { uri: e = null, limit: s = 1, random: r = false, page: i = 1 } = {}) {
         let a;
         Array.isArray(t) || (t = [t]), r && (this.site.random ? t.push("order:random") : a = 100), this.site.defaultTags && (t = t.concat(this.site.defaultTags.filter((e2) => !t.includes(e2))));
         const o = e || this.getSearchUrl({ tags: t, limit: a || s, page: i }), n = Constants_12.defaultOptions, l = this.site.type === "xml";
@@ -2470,7 +2461,7 @@ var __publicField = (obj, key, value) => {
         throw new Constants_12.BooruError("Site not supported");
       return booruFrom(new Site_1.default(Constants_12.sites[o]), e);
     }
-    function search(r, e = [], { limit: o = 1, random: t = false, page: s = 0, credentials: u } = {}) {
+    function search(r, e = [], { limit: o = 1, random: t = false, page: s = 1, credentials: u } = {}) {
       const n = (0, Utils_1.resolveSite)(r);
       if (typeof o == "string" && (o = parseInt(o, 10)), n === null)
         throw new Constants_12.BooruError("Site not supported");

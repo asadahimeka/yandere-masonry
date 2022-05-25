@@ -1,6 +1,6 @@
 {
   "name": "yandere-masonry",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Yande.re/Konachan Waterfall Layout.",
   "author": "asadahimeka",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@himeka/booru": "^2.5.8",
+    "@himeka/booru": "^2.6.1",
     "@mdi/font": "5.9.55",
     "@vue/composition-api": "^1.6.0",
     "macy": "^2.5.1",
