@@ -16,7 +16,6 @@ async function push() {
   await exec(`git commit -m "release v${version}"`)
   await exec('set http_proxy=http://127.0.0.1:1081')
   await exec('set https_proxy=http://127.0.0.1:1081')
-  await exec('timeout 1')
   await exec('git push')
 }
 
