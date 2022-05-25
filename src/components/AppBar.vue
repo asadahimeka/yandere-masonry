@@ -31,7 +31,7 @@
               <v-btn v-if="item.loaded" icon color="green">
                 <v-icon>mdi-check-underline-circle</v-icon>
               </v-btn>
-              <v-progress-circular v-if="item.loading" :value="loadingValue" color="pink" />
+              <v-progress-circular v-if="item.loading" :rotate="-90" :size="28" :value="loadingValue" color="pink" />
             </v-list-item-avatar>
             <v-list-item-content style="max-width: 240px;" :title="item.fileUrl">
               <v-list-item-title v-text="item.fileDownloadName" />

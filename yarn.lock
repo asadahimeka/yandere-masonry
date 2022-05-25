@@ -404,10 +404,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@himeka/booru@^2.6.1":
-  version "2.6.1"
-  resolved "https://registry.npmmirror.com/@himeka/booru/-/booru-2.6.1.tgz#fae54f1bfdce4b39b65810518d9b53d7789839bf"
-  integrity sha512-9GrGLXeMcN9+LxEnkmfYsQGC7IpGygX41ojBUCnMmigOz5inJb/HsxSDU5pCAKriOZ7FIcRduxoHjU1AKL6hQQ==
+"@himeka/booru@^2.6.2":
+  version "2.6.2"
+  resolved "https://registry.npmmirror.com/@himeka/booru/-/booru-2.6.2.tgz#ed2b037f0e904ae37bd3875d37482bb097c83fda"
+  integrity sha512-RtrIYVqskbsQbnniwK3MCrwA7L1S+G6nOsNfLKnrM0/eJj1GGrsxW4UKeHuEyYwwtrpUOszuTKkoBuEyTW3buw==
   dependencies:
     cross-fetch "^3.1.5"
     fast-xml-parser "^3.19.0"

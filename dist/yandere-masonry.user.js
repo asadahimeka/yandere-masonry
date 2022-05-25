@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.5
+// @version              0.2.6
 // @description          Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -2157,8 +2157,8 @@ var __publicField = (obj, key, value) => {
     if (!e || e.trim() === "" || t.is_deleted)
       return null;
     if (e.startsWith("/data") && (e = `https://danbooru.donmai.us${e}`), e.startsWith("/cached") && (e = `https://danbooru.donmai.us${e}`), e.startsWith("/_images") && (e = `https://dollbooru.org${e}`), e.startsWith("//derpicdn.net") && (e = `https:${t.image}`), !t.file_url && t.directory !== void 0) {
-      const s = (_a = t.directory) != null ? _a : `${t.hash.substr(0, 2)}/${t.hash.substr(2, 2)}`;
-      e = `//${i.domain}/images/${s}/${t.image}`;
+      const r = (_a = t.directory) != null ? _a : `${t.hash.substr(0, 2)}/${t.hash.substr(2, 2)}`;
+      e = `//${i.domain}/images/${r}/${t.image}`;
     }
     return e.startsWith("http") || (e = `https:${e}`), encodeURI(e);
   }
@@ -2168,6 +2168,10 @@ var __publicField = (obj, key, value) => {
   }
   function formatFileSize(e) {
     return e == null ? "N/A" : e > 1048576 ? (e / 1048576).toFixed(2) + "MB" : e > 1024 ? (e / 1024).toFixed(2) + "KB" : e.toFixed(2) + "B";
+  }
+  function getFileExt(e) {
+    var _a;
+    return (_a = e == null ? void 0 : e.split(".").pop()) != null ? _a : "";
   }
   Object.defineProperty(Post$1, "__esModule", { value: true });
   class Post {
@@ -2219,8 +2223,8 @@ var __publicField = (obj, key, value) => {
       return (_a = this.data.jpeg_height) != null ? _a : 0;
     }
     get fileExt() {
-      var _a, _b, _c;
-      return (_c = (_b = this.data.file_ext) != null ? _b : (_a = this.fileUrl) == null ? void 0 : _a.split(".").pop()) != null ? _c : "";
+      var _a;
+      return (_a = this.data.file_ext) != null ? _a : getFileExt(this.fileUrl);
     }
     get sampleSize() {
       var _a;
@@ -2238,7 +2242,7 @@ var __publicField = (obj, key, value) => {
       return formatFileSize(this.data.sample_file_size);
     }
     get sampleDownloadText() {
-      return `${this.sampleWidth}\xD7${this.sampleHeight} [${this.sampleSizeText}] ${this.fileExt.toUpperCase()}`;
+      return `${this.sampleWidth}\xD7${this.sampleHeight} [${this.sampleSizeText}] ${getFileExt(this.sampleUrl).toUpperCase()}`;
     }
     get sampleDownloadName() {
       return `${this.booru.domain}.${this.id}.${this.sampleWidth}x${this.sampleHeight}`.replace(/\./g, "_");
@@ -2247,7 +2251,7 @@ var __publicField = (obj, key, value) => {
       return formatFileSize(this.data.jpeg_file_size);
     }
     get jpegDownloadText() {
-      return `${this.jpegWidth}\xD7${this.jpegHeight} [${this.jpegSizeText}] ${this.fileExt.toUpperCase()}`;
+      return `${this.jpegWidth}\xD7${this.jpegHeight} [${this.jpegSizeText}] ${getFileExt(this.jpegUrl).toUpperCase()}`;
     }
     get jpegDownloadName() {
       return `${this.booru.domain}.${this.id}.${this.jpegWidth}x${this.jpegHeight}`.replace(/\./g, "_");
@@ -2759,6 +2763,8 @@ var __publicField = (obj, key, value) => {
         }
       }, [_c("v-icon", [_vm._v("mdi-check-underline-circle")])], 1) : _vm._e(), item.loading ? _c("v-progress-circular", {
         attrs: {
+          "rotate": -90,
+          "size": 28,
           "value": _vm.loadingValue,
           "color": "pink"
         }
