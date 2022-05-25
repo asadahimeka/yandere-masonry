@@ -64,6 +64,8 @@ https://realbooru.com/
 ![](https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/cbd70aad422a3b28818cd80684c37cb8_6836193104680068275.png)
 ![](https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/612f0b45cb34ac8168ecd94edbfd87f3_891482662276213615.png)
 ![](https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/232674c7673d1c05a2e8efb028304067_7491959587592803223.png)
+![](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/7eec96d7c629bc30ff4b1942838d9ea2_7197279808091047211.png)
+![](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/8dccc28bf99106aaab984feb383d4c1f_939382269553345713.png)
 
 ## Developing
 
