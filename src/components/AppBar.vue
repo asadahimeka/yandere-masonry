@@ -33,9 +33,9 @@
               </v-btn>
               <v-progress-circular v-if="item.loading" :value="loadingValue" color="pink" />
             </v-list-item-avatar>
-            <v-list-item-content :title="item.fileUrl">
+            <v-list-item-content style="max-width: 240px;" :title="item.fileUrl">
               <v-list-item-title v-text="item.fileDownloadName" />
-              <v-list-item-subtitle style="max-width: 240px;" v-text="item.fileUrl" />
+              <v-list-item-subtitle v-text="item.fileUrl" />
             </v-list-item-content>
             <v-list-item-action>
               <v-btn icon @click="removeFromList(item.id)">
