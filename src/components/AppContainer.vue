@@ -7,8 +7,7 @@
           :src="image.previewUrl ?? image.fileUrl ?? void 0"
           :aspect-ratio="image.aspectRatio"
           @click="showImgModal(index)"
-          @click.middle="openDetail(image)"
-          @contextmenu="addToSelectedList(image, $event)"
+          @contextmenu="onCtxMenu($event, image)"
         >
           <template #placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
@@ -29,6 +28,25 @@
         下面没有了...
       </v-btn>
     </div>
+    <v-menu
+      v-model="showMenu"
+      :position-x="x"
+      :position-y="y"
+      absolute
+      offset-y
+    >
+      <v-list>
+        <v-list-item v-if="isYKSite" @click="addFavorite">
+          <v-list-item-title>加入收藏</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click="openDetail">
+          <v-list-item-title>新标签页打开</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click="addToSelectedList">
+          <v-list-item-title>加入下载列表</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
     <v-fab-transition>
       <v-btn
         v-show="store.showFab"
@@ -48,8 +66,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from '@vue/composition-api'
-import { isReachBottom, searchBooru, throttleScroll } from '@/common/utils'
+import { computed, nextTick, onMounted, ref } from '@vue/composition-api'
+import { addPostToFavorites, isReachBottom, searchBooru, throttleScroll } from '@/common/utils'
 import { useVuetify } from '@/plugins/vuetify'
 import store from '@/common/store'
 import ImageDetail from './ImageDetail.vue'
@@ -70,19 +88,44 @@ const columnCount = ref({
 
 const showNoMore = computed(() => !store.requestState && store.requestStop)
 const showLoadMore = computed(() => !store.requestState && !store.requestStop)
+const ctxActPost = ref<Post>()
+const showMenu = ref(false)
+const x = ref(0)
+const y = ref(0)
+
+const isYKSite = computed(() => {
+  return ['konachan', 'yande'].some(e => store.imageList[0]?.booru.domain.includes(e))
+})
+
+const onCtxMenu = (ev: MouseEvent, img: Post) => {
+  ev.preventDefault()
+  showMenu.value = false
+  x.value = ev.clientX
+  y.value = ev.clientY
+  nextTick(() => {
+    ctxActPost.value = img
+    showMenu.value = true
+  })
+}
 
 const showImgModal = (index: number) => {
   store.imageSelectedIndex = index
   store.showImageSelected = true
 }
 
-const openDetail = (img: Post) => {
-  window.open(img.postView, '_blank', 'noreferrer')
+const openDetail = () => {
+  const img = ctxActPost.value
+  img && window.open(img.postView, '_blank', 'noreferrer')
 }
 
-const addToSelectedList = (img: Post, ev: Event) => {
-  ev.preventDefault()
-  store.addToSelectedList(img)
+const addToSelectedList = () => {
+  const img = ctxActPost.value
+  img && store.addToSelectedList(img)
+}
+
+const addFavorite = () => {
+  const img = ctxActPost.value
+  img && addPostToFavorites(img.booru.domain, img.id)
 }
 
 const params = new URLSearchParams(location.search)

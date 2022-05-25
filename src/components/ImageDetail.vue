@@ -86,7 +86,7 @@
         <v-menu dense open-on-hover offset-y>
           <template #activator="{ on, attrs }">
             <v-btn
-              v-show="!downloadLoading"
+              v-show="!downloading"
               fab
               dark
               small
@@ -119,7 +119,7 @@
             </v-list-item>
           </v-list>
         </v-menu>
-        <v-progress-circular v-show="downloadLoading" indeterminate class="ml-1 mr-2" color="#ee8888b3" />
+        <v-progress-circular v-show="downloading" indeterminate class="ml-1 mr-2" color="#ee8888b3" />
         <v-tooltip bottom>
           <template #activator="{ on, attrs }">
             <v-btn
@@ -171,12 +171,12 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from '@vue/composition-api'
 import store from '@/common/store'
-import { isURL, showMsg } from '@/common/utils'
+import { isURL, showMsg, addPostToFavorites, downloadFile } from '@/common/utils'
 
 const showImageToolbar = ref(true)
 const innerWidth = ref(window.innerWidth)
 const innerHeight = ref(window.innerHeight)
-const downloadLoading = ref(false)
+const downloading = ref(false)
 
 const imageSelected = computed(() => store.imageList[store.imageSelectedIndex] ?? {})
 const isVideo = computed(() => ['.mp4', '.webm'].some(e => imageSelected.value.fileUrl?.endsWith(e)))
@@ -239,20 +239,16 @@ const toSourcePage = () => {
   window.open(sourceUrl, '_blank', 'noreferrer')
 }
 
-const download = (url: string | null, name: string) => {
+const download = async (url: string | null, name: string) => {
   if (!url) return
-  downloadLoading.value = true
-  GM_download({
-    url,
-    name,
-    onload() {
-      downloadLoading.value = false
-    },
-    onerror(err) {
-      downloadLoading.value = false
-      showMsg({ msg: '下载出错: ' + err.error, type: 'error' })
-    }
-  })
+  try {
+    downloading.value = true
+    await downloadFile(url, name)
+  } catch (error) {
+    showMsg({ msg: '下载出错: ' + error, type: 'error' })
+  } finally {
+    downloading.value = false
+  }
 }
 
 const addToList = () => {
@@ -263,23 +259,9 @@ const close = () => {
   store.showImageSelected = false
 }
 
-const addFavorite = async () => {
+const addFavorite = () => {
   if (notYKSite.value) return
-  const form = new FormData()
-  form.append('id', imageSelected.value.id)
-  form.append('score', '3')
-  const response = await fetch(`https://${booruDomain.value}/post/vote.json`, {
-    method: 'POST',
-    headers: { 'x-csrf-token': sessionStorage.getItem('csrf-token') ?? '' },
-    body: form
-  })
-  if (!response.ok) return
-  const result = await response.json()
-  if (result.success) {
-    showMsg({ msg: '收藏成功' })
-  } else {
-    showMsg({ msg: '收藏失败', type: 'error' })
-  }
+  addPostToFavorites(booruDomain.value, imageSelected.value.id)
 }
 
 onMounted(() => {

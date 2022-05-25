@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import type Post from '@himeka/booru/dist/structures/Post'
 
+interface SeletedPost extends Post {
+  loading?: boolean
+  loaded?: boolean
+}
+
 interface AppState {
-  theme: string
   requestState: boolean
   requestStop: boolean
   showImageSelected: boolean
@@ -11,13 +15,12 @@ interface AppState {
   showFab: boolean
   currentPage: number
   imageList: Post[]
-  selectedImageList: Post[],
+  selectedImageList: SeletedPost[]
   toggleDrawer: () => void,
   addToSelectedList: (item: Post) => void
 }
 
 const store = Vue.observable<AppState>({
-  theme: localStorage.getItem('__darkmode') ?? 'light',
   requestState: false,
   requestStop: false,
   showImageSelected: false,
