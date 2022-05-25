@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.1
+// @version              0.2.2
 // @description          Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -60,8 +60,10 @@ var __publicField = (obj, key, value) => {
       await initMasonry();
       callback == null ? void 0 : callback();
     };
-    const params = new URLSearchParams(location.search);
-    params.get("_wf") ? init() : addMasonryButton(init);
+    addEventListener("load", () => {
+      const params = new URLSearchParams(location.search);
+      params.get("_wf") ? init() : addMasonryButton(init);
+    });
   }
   async function initMacy() {
     if (location.href.includes("yande.re/post")) {
@@ -105,12 +107,10 @@ var __publicField = (obj, key, value) => {
     }
   }
   function addMasonryButton(fn) {
-    addEventListener("load", () => {
-      document.body.insertAdjacentHTML("beforeend", '<button id="enter-masonry" style="position:fixed;z-index:99;right:16px;top:10px">\u7011\u5E03\u6D41\u6A21\u5F0F</button>');
-      const btn = document.querySelector("#enter-masonry");
-      btn == null ? void 0 : btn.addEventListener("click", () => {
-        fn();
-      });
+    document.body.insertAdjacentHTML("beforeend", '<button id="enter-masonry" style="position:fixed;z-index:99;right:16px;top:10px">\u7011\u5E03\u6D41\u6A21\u5F0F</button>');
+    const btn = document.querySelector("#enter-masonry");
+    btn == null ? void 0 : btn.addEventListener("click", () => {
+      fn();
     });
   }
   const specialSites = ["gelbooru"];

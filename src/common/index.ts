@@ -10,8 +10,10 @@ export async function prepareApp(callback?: () => void) {
     await initMasonry()
     callback?.()
   }
-  const params = new URLSearchParams(location.search)
-  params.get('_wf') ? init() : addMasonryButton(init)
+  addEventListener('load', () => {
+    const params = new URLSearchParams(location.search)
+    params.get('_wf') ? init() : addMasonryButton(init)
+  })
 }
 
 async function initMacy() {
@@ -60,11 +62,9 @@ function bindDblclick() {
 }
 
 function addMasonryButton(fn: () => void) {
-  addEventListener('load', () => {
-    document.body.insertAdjacentHTML('beforeend', '<button id="enter-masonry" style="position:fixed;z-index:99;right:16px;top:10px">瀑布流模式</button>')
-    const btn = document.querySelector('#enter-masonry') as HTMLButtonElement
-    btn?.addEventListener('click', () => { fn() })
-  })
+  document.body.insertAdjacentHTML('beforeend', '<button id="enter-masonry" style="position:fixed;z-index:99;right:16px;top:10px">瀑布流模式</button>')
+  const btn = document.querySelector('#enter-masonry') as HTMLButtonElement
+  btn?.addEventListener('click', () => { fn() })
 }
 
 const specialSites = ['gelbooru']
