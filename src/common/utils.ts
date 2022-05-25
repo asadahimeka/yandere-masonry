@@ -63,6 +63,10 @@ export async function addPostToFavorites(domain: string, id: string) {
     headers: { 'x-csrf-token': sessionStorage.getItem('csrf-token') ?? '' },
     body: form
   })
+  if (!response.ok) {
+    showMsg({ msg: '收藏失败: ' + response.status, type: 'error' })
+    return
+  }
   const result = await response.json()
   if (result.success) {
     showMsg({ msg: '收藏成功' })
