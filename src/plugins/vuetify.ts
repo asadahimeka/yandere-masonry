@@ -12,7 +12,19 @@ import { getCurrentInstance } from '@vue/composition-api'
 function installVuetify() {
   Vue.use(Vuetify)
   return new Vuetify({
-    theme: { dark: true }
+    theme: {
+      dark: true,
+      themes: {
+        light: {
+          primary: '#8E24AA',
+          accent: '#EC407A'
+        },
+        dark: {
+          primary: '#BA68C8',
+          accent: '#FF80AB'
+        }
+      }
+    }
   })
 }
 

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.6
+// @version              0.2.7
 // @description          Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -135,8 +135,8 @@ var __publicField = (obj, key, value) => {
   function loadDeps() {
     return Promise.all([
       loadScript("https://lib.baomitu.com/vue/2.6.14/vue.min.js"),
-      loadScript("https://npm.elemecdn.com/@vue/composition-api@1.6.0"),
-      loadScript("https://lib.baomitu.com/vuetify/2.6.4/vuetify.min.js"),
+      loadScript("https://npm.elemecdn.com/@vue/composition-api@1.6.2"),
+      loadScript("https://lib.baomitu.com/vuetify/2.6.6/vuetify.min.js"),
       loadScript("https://npm.elemecdn.com/vue-masonry-css@1.0.3/dist/vue-masonry.min.js")
     ]);
   }
@@ -151,8 +151,8 @@ var __publicField = (obj, key, value) => {
     <title>Booru Masonry</title>
     <link rel="stylesheet" href="https://npm.elemecdn.com/normalize.css/normalize.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
-    <link rel="stylesheet" href="https://npm.elemecdn.com/@mdi/font@5.9.55/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="https://lib.baomitu.com/vuetify/2.5.0/vuetify.min.css">
+    <link rel="stylesheet" href="https://npm.elemecdn.com/@mdi/font@6.7.96/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://lib.baomitu.com/vuetify/2.6.6/vuetify.min.css">
     <style>${loadingStyle}::-webkit-scrollbar{width:0px}</style>
   `;
   }
@@ -173,6 +173,7 @@ var __publicField = (obj, key, value) => {
   `;
   }
   prepareApp(() => {(function(Vue2, VueCompositionAPI2, VueMasonry2, Vuetify2) {
+  var _a;
   "use strict";
   ;
   function _interopDefaultLegacy(e) {
@@ -186,7 +187,19 @@ var __publicField = (obj, key, value) => {
   function installVuetify() {
     Vue__default["default"].use(Vuetify__default["default"]);
     return new Vuetify__default["default"]({
-      theme: { dark: true }
+      theme: {
+        dark: true,
+        themes: {
+          light: {
+            primary: "#8E24AA",
+            accent: "#EC407A"
+          },
+          dark: {
+            primary: "#BA68C8",
+            accent: "#FF80AB"
+          }
+        }
+      }
     });
   }
   function useVuetify() {
@@ -206,6 +219,7 @@ var __publicField = (obj, key, value) => {
     currentPage: 1,
     imageList: [],
     selectedImageList: [],
+    selectedColumn: (_a = localStorage.getItem("__masonry_col")) != null ? _a : "0",
     toggleDrawer() {
       store.showDrawer = !store.showDrawer;
     },
@@ -2119,12 +2133,12 @@ var __publicField = (obj, key, value) => {
       return null;
     }
     function jsonfy(t) {
-      var _a;
+      var _a2;
       if (typeof t == "object")
         return t;
       const r = (0, fast_xml_parser_1.parse)(t, { ignoreAttributes: false, attributeNamePrefix: "" });
       if (r.html || r["!doctype"]) {
-        const t2 = r.html || ((_a = r["!doctype"]) == null ? void 0 : _a.html), e = [];
+        const t2 = r.html || ((_a2 = r["!doctype"]) == null ? void 0 : _a2.html), e = [];
         throw t2.body.h1 && e.push(t2.body.h1), t2.body.p && e.push(t2.body.p["#text"]), new Constants_12.BooruError(`The Booru sent back an error: '${e.join(": ")}'`);
       }
       return r.posts.post ? r.posts.post : r.posts.tag ? Array.isArray(r.posts.tag) ? r.posts.tag : [r.posts.tag] : [];
@@ -2153,11 +2167,11 @@ var __publicField = (obj, key, value) => {
   })(Utils$1);
   var Post$1 = {};
   function parseImageUrl(e, t, i) {
-    var _a;
+    var _a2;
     if (!e || e.trim() === "" || t.is_deleted)
       return null;
     if (e.startsWith("/data") && (e = `https://danbooru.donmai.us${e}`), e.startsWith("/cached") && (e = `https://danbooru.donmai.us${e}`), e.startsWith("/_images") && (e = `https://dollbooru.org${e}`), e.startsWith("//derpicdn.net") && (e = `https:${t.image}`), !t.file_url && t.directory !== void 0) {
-      const r = (_a = t.directory) != null ? _a : `${t.hash.substr(0, 2)}/${t.hash.substr(2, 2)}`;
+      const r = (_a2 = t.directory) != null ? _a2 : `${t.hash.substr(0, 2)}/${t.hash.substr(2, 2)}`;
       e = `//${i.domain}/images/${r}/${t.image}`;
     }
     return e.startsWith("http") || (e = `https:${e}`), encodeURI(e);
@@ -2170,8 +2184,8 @@ var __publicField = (obj, key, value) => {
     return e == null ? "N/A" : e > 1048576 ? (e / 1048576).toFixed(2) + "MB" : e > 1024 ? (e / 1024).toFixed(2) + "KB" : e.toFixed(2) + "B";
   }
   function getFileExt(e) {
-    var _a;
-    return (_a = e == null ? void 0 : e.split(".").pop()) != null ? _a : "";
+    var _a2;
+    return (_a2 = e == null ? void 0 : e.split(".").pop()) != null ? _a2 : "";
   }
   Object.defineProperty(Post$1, "__esModule", { value: true });
   class Post {
@@ -2211,32 +2225,32 @@ var __publicField = (obj, key, value) => {
       return this.width / this.height;
     }
     get jpegUrl() {
-      var _a;
-      return (_a = this.data.jpeg_url) != null ? _a : "";
+      var _a2;
+      return (_a2 = this.data.jpeg_url) != null ? _a2 : "";
     }
     get jpegWidth() {
-      var _a;
-      return (_a = this.data.jpeg_width) != null ? _a : 0;
+      var _a2;
+      return (_a2 = this.data.jpeg_width) != null ? _a2 : 0;
     }
     get jpegHeight() {
-      var _a;
-      return (_a = this.data.jpeg_height) != null ? _a : 0;
+      var _a2;
+      return (_a2 = this.data.jpeg_height) != null ? _a2 : 0;
     }
     get fileExt() {
-      var _a;
-      return (_a = this.data.file_ext) != null ? _a : getFileExt(this.fileUrl);
+      var _a2;
+      return (_a2 = this.data.file_ext) != null ? _a2 : getFileExt(this.fileUrl);
     }
     get sampleSize() {
-      var _a;
-      return (_a = this.data.sample_file_size) != null ? _a : 0;
+      var _a2;
+      return (_a2 = this.data.sample_file_size) != null ? _a2 : 0;
     }
     get jpegSize() {
-      var _a;
-      return (_a = this.data.jpeg_file_size) != null ? _a : 0;
+      var _a2;
+      return (_a2 = this.data.jpeg_file_size) != null ? _a2 : 0;
     }
     get fileSize() {
-      var _a;
-      return (_a = this.data.file_size) != null ? _a : 0;
+      var _a2;
+      return (_a2 = this.data.file_size) != null ? _a2 : 0;
     }
     get sampleSizeText() {
       return formatFileSize(this.data.sample_file_size);
@@ -2445,8 +2459,8 @@ var __publicField = (obj, key, value) => {
       __publicField(this, "tagJoin");
       __publicField(this, "insecure");
       __publicField(this, "defaultTags");
-      var _a, _b, _c, _d, _e2, _f, _g, _h, _i;
-      this.domain = a.domain, this.type = (_a = a.type) != null ? _a : "json", this.aliases = (_b = a.aliases) != null ? _b : [], this.nsfw = a.nsfw, this.api = (_c = a.api) != null ? _c : {}, this.paginate = (_d = a.paginate) != null ? _d : "page", this.random = (_e2 = a.random) != null ? _e2 : false, this.tagQuery = (_f = a.tagQuery) != null ? _f : "tags", this.tagJoin = (_g = a.tagJoin) != null ? _g : "+", this.insecure = (_h = a.insecure) != null ? _h : false, this.defaultTags = (_i = a.defaultTags) != null ? _i : [];
+      var _a2, _b, _c, _d, _e2, _f, _g, _h, _i;
+      this.domain = a.domain, this.type = (_a2 = a.type) != null ? _a2 : "json", this.aliases = (_b = a.aliases) != null ? _b : [], this.nsfw = a.nsfw, this.api = (_c = a.api) != null ? _c : {}, this.paginate = (_d = a.paginate) != null ? _d : "page", this.random = (_e2 = a.random) != null ? _e2 : false, this.tagQuery = (_f = a.tagQuery) != null ? _f : "tags", this.tagJoin = (_g = a.tagJoin) != null ? _g : "+", this.insecure = (_h = a.insecure) != null ? _h : false, this.defaultTags = (_i = a.defaultTags) != null ? _i : [];
     }
   }
   Site$1.default = Site;
@@ -2524,7 +2538,7 @@ var __publicField = (obj, key, value) => {
     });
   }
   async function addPostToFavorites(domain, id) {
-    var _a;
+    var _a2;
     if (["konachan", "yande"].every((e) => !domain.includes(e)))
       return;
     const form = new FormData();
@@ -2532,7 +2546,7 @@ var __publicField = (obj, key, value) => {
     form.append("score", "3");
     const response = await fetch(`https://${domain}/post/vote.json`, {
       method: "POST",
-      headers: { "x-csrf-token": (_a = sessionStorage.getItem("csrf-token")) != null ? _a : "" },
+      headers: { "x-csrf-token": (_a2 = sessionStorage.getItem("csrf-token")) != null ? _a2 : "" },
       body: form
     });
     if (!response.ok) {
@@ -2548,7 +2562,7 @@ var __publicField = (obj, key, value) => {
   }
   function isReachBottom() {
     const { clientHeight, scrollTop, scrollHeight } = document.documentElement;
-    return clientHeight + scrollTop >= scrollHeight * 0.9;
+    return clientHeight + scrollTop >= scrollHeight * 0.8;
   }
   function throttleScroll(downFn, upFn) {
     const doc = document.documentElement;
@@ -2577,6 +2591,14 @@ var __publicField = (obj, key, value) => {
         return `${img.booru.domain.toUpperCase()} - ${length} Posts - Page ${store.currentPage}`;
       return "\u{1F682}";
     });
+    const cols = VueCompositionAPI2.ref([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20].reduce((acc, cur) => {
+      acc[cur] = cur === 0 ? "\u81EA\u52A8" : cur + " \u5217";
+      return acc;
+    }, {}));
+    const selColumn = (val) => {
+      store.selectedColumn = val;
+      localStorage.setItem("__masonry_col", val);
+    };
     const isNoSelected = VueCompositionAPI2.computed(() => store.selectedImageList.length === 0);
     const isOneOrMoreSelected = VueCompositionAPI2.computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length < store.imageList.length);
     const isAllSelected = VueCompositionAPI2.computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length === store.imageList.length);
@@ -2640,6 +2662,8 @@ var __publicField = (obj, key, value) => {
     return {
       store,
       title,
+      cols,
+      selColumn,
       isNoSelected,
       isOneOrMoreSelected,
       isAllSelected,
@@ -2664,12 +2688,64 @@ var __publicField = (obj, key, value) => {
         "click": _vm.store.toggleDrawer
       }
     }), _c("v-toolbar-title", {
+      staticClass: "hidden-sm-and-down",
       domProps: {
         "textContent": _vm._s(_vm.title)
       }
-    }), _c("v-spacer"), _c("span", {
-      staticClass: "mr-1"
-    }, [_vm._v(_vm._s(_vm.store.selectedImageList.length) + " Selected")]), _c("v-btn", {
+    }), _c("v-spacer"), _c("v-menu", {
+      attrs: {
+        "transition": "slide-y-transition",
+        "offset-y": ""
+      },
+      scopedSlots: _vm._u([{
+        key: "activator",
+        fn: function(_ref) {
+          var on = _ref.on, attrs = _ref.attrs;
+          return [_c("v-btn", _vm._g(_vm._b({
+            staticClass: "mr-6",
+            attrs: {
+              "small": ""
+            }
+          }, "v-btn", attrs, false), on), [_c("v-icon", {
+            attrs: {
+              "left": ""
+            }
+          }, [_vm._v("mdi-view-dashboard-variant")]), _c("span", {
+            staticStyle: {
+              "margin-bottom": "2px"
+            }
+          }, [_vm._v(_vm._s(_vm.store.selectedColumn === "0" ? "\u81EA\u52A8" : _vm.store.selectedColumn + "\u5217"))])], 1)];
+        }
+      }])
+    }, [_c("v-list", {
+      attrs: {
+        "dense": ""
+      }
+    }, _vm._l(_vm.cols, function(val, key) {
+      return _c("v-list-item", {
+        key,
+        attrs: {
+          "dense": "",
+          "link": ""
+        }
+      }, [_c("v-list-item-title", {
+        domProps: {
+          "textContent": _vm._s(val)
+        },
+        on: {
+          "click": function($event) {
+            return _vm.selColumn(key);
+          }
+        }
+      })], 1);
+    }), 1)], 1), _c("span", {
+      staticClass: "hidden-sm-and-down"
+    }, [_vm._v("\u5DF2\u9009\u62E9")]), _c("span", {
+      staticClass: "ml-1 mr-1",
+      domProps: {
+        "textContent": _vm._s(_vm.store.selectedImageList.length)
+      }
+    }), _c("v-btn", {
       attrs: {
         "icon": ""
       },
@@ -2705,8 +2781,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref) {
-          var on = _ref.on, attrs = _ref.attrs;
+        fn: function(_ref2) {
+          var on = _ref2.on, attrs = _ref2.attrs;
           return [_c("v-btn", _vm._g(_vm._b({
             attrs: {
               "icon": ""
@@ -2771,15 +2847,18 @@ var __publicField = (obj, key, value) => {
       }) : _vm._e()], 1), _c("v-list-item-content", {
         staticStyle: {
           "max-width": "240px"
-        },
-        attrs: {
-          "title": item.fileUrl
         }
       }, [_c("v-list-item-title", {
+        attrs: {
+          "title": item.fileDownloadName
+        },
         domProps: {
           "textContent": _vm._s(item.fileDownloadName)
         }
       }), _c("v-list-item-subtitle", {
+        attrs: {
+          "title": item.fileUrl
+        },
         domProps: {
           "textContent": _vm._s(item.fileUrl)
         }
@@ -2932,7 +3011,7 @@ var __publicField = (obj, key, value) => {
       },
       on: {
         "click": function($event) {
-          return _vm.openLink("https://github.com/asadahimeka/userscripts/tree/master/yandere-masonry");
+          return _vm.openLink("https://github.com/asadahimeka/yandere-masonry");
         }
       }
     }, [_c("v-list-item-icon", {
@@ -2968,24 +3047,24 @@ var __publicField = (obj, key, value) => {
     const innerHeight = VueCompositionAPI2.ref(window.innerHeight);
     const downloading = VueCompositionAPI2.ref(false);
     const imageSelected = VueCompositionAPI2.computed(() => {
-      var _a;
-      return (_a = store.imageList[store.imageSelectedIndex]) != null ? _a : {};
+      var _a2;
+      return (_a2 = store.imageList[store.imageSelectedIndex]) != null ? _a2 : {};
     });
     const isVideo = VueCompositionAPI2.computed(() => [".mp4", ".webm"].some((e) => {
-      var _a;
-      return (_a = imageSelected.value.fileUrl) == null ? void 0 : _a.endsWith(e);
+      var _a2;
+      return (_a2 = imageSelected.value.fileUrl) == null ? void 0 : _a2.endsWith(e);
     }));
     const imgSrc = VueCompositionAPI2.computed(() => {
-      var _a, _b;
+      var _a2, _b;
       if (isVideo.value)
         return void 0;
-      return (_b = (_a = imageSelected.value.sampleUrl) != null ? _a : imageSelected.value.fileUrl) != null ? _b : void 0;
+      return (_b = (_a2 = imageSelected.value.sampleUrl) != null ? _a2 : imageSelected.value.fileUrl) != null ? _b : void 0;
     });
     const imgLasySrc = VueCompositionAPI2.computed(() => {
-      var _a;
+      var _a2;
       if (isVideo.value)
         return void 0;
-      return (_a = imageSelected.value.previewUrl) != null ? _a : void 0;
+      return (_a2 = imageSelected.value.previewUrl) != null ? _a2 : void 0;
     });
     const imageSelectedWidth = VueCompositionAPI2.computed(() => {
       const width = Number.parseInt(Math.min(innerWidth.value * 0.9, imageSelected.value.sampleWidth || innerWidth.value).toString());
@@ -3264,7 +3343,7 @@ var __publicField = (obj, key, value) => {
         "dense": "",
         "flat": ""
       }
-    }, [_c("v-list-item", {
+    }, [_vm.imageSelected.sampleUrl ? _c("v-list-item", {
       attrs: {
         "two-line": "",
         "link": "",
@@ -3281,7 +3360,7 @@ var __publicField = (obj, key, value) => {
       domProps: {
         "textContent": _vm._s(_vm.imageSelected.sampleDownloadText)
       }
-    })], 1)], 1), _vm.imageSelected.jpegSize !== 0 ? _c("v-list-item", {
+    })], 1)], 1) : _vm._e(), _vm.imageSelected.jpegUrl ? _c("v-list-item", {
       attrs: {
         "two-line": "",
         "link": "",
@@ -3433,17 +3512,26 @@ var __publicField = (obj, key, value) => {
   }();
   const __sfc_main$1 = {};
   __sfc_main$1.setup = (__props, __ctx) => {
-    const columnCount = VueCompositionAPI2.ref({
-      300: 1,
-      600: 2,
-      900: 3,
-      1200: 4,
-      1600: 6,
-      1920: 7,
-      2400: 8,
-      2700: 9,
-      3e3: 10,
-      default: 6
+    const showImageList = VueCompositionAPI2.ref(true);
+    const columnCount = VueCompositionAPI2.computed(() => {
+      return store.selectedColumn === "0" ? {
+        300: 1,
+        600: 2,
+        900: 3,
+        1200: 4,
+        1600: 6,
+        1920: 7,
+        2400: 8,
+        2700: 9,
+        3e3: 10,
+        default: 6
+      } : +store.selectedColumn;
+    });
+    VueCompositionAPI2.watch(() => store.selectedColumn, () => {
+      showImageList.value = false;
+      VueCompositionAPI2.nextTick(() => {
+        showImageList.value = true;
+      });
     });
     const showNoMore = VueCompositionAPI2.computed(() => !store.requestState && store.requestStop);
     const showLoadMore = VueCompositionAPI2.computed(() => !store.requestState && !store.requestStop);
@@ -3453,8 +3541,8 @@ var __publicField = (obj, key, value) => {
     const y = VueCompositionAPI2.ref(0);
     const isYKSite = VueCompositionAPI2.computed(() => {
       return ["konachan", "yande"].some((e) => {
-        var _a;
-        return (_a = store.imageList[0]) == null ? void 0 : _a.booru.domain.includes(e);
+        var _a2;
+        return (_a2 = store.imageList[0]) == null ? void 0 : _a2.booru.domain.includes(e);
       });
     });
     const onCtxMenu = (ev, img) => {
@@ -3549,6 +3637,7 @@ var __publicField = (obj, key, value) => {
     });
     return {
       store,
+      showImageList,
       columnCount,
       showNoMore,
       showLoadMore,
@@ -3572,7 +3661,7 @@ var __publicField = (obj, key, value) => {
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
-    return _c("v-container", {
+    return _vm.showImageList ? _c("v-container", {
       staticClass: "_vcont pa-2",
       attrs: {
         "fluid": ""
@@ -3649,7 +3738,9 @@ var __publicField = (obj, key, value) => {
         "text": ""
       },
       on: {
-        "click": _vm.fetchData
+        "click": function($event) {
+          return _vm.fetchData();
+        }
       }
     }, [_vm._v(" \u52A0\u8F7D\u66F4\u591A ")]), _c("v-btn", {
       directives: [{
@@ -3706,7 +3797,7 @@ var __publicField = (obj, key, value) => {
       on: {
         "click": _vm.refresh
       }
-    }, [_c("v-icon", [_vm._v("mdi-refresh")])], 1)], 1), _c("image-detail")], 1);
+    }, [_c("v-icon", [_vm._v("mdi-refresh")])], 1)], 1), _c("image-detail")], 1) : _vm._e();
   };
   var staticRenderFns$1 = [];
   const __cssModules$1 = {};
@@ -3723,8 +3814,8 @@ var __publicField = (obj, key, value) => {
   __sfc_main.setup = (__props, __ctx) => {
     const vuetify = useVuetify();
     const changeTheme = () => {
-      var _a;
-      const mode = (_a = localStorage.getItem("__darkmode")) != null ? _a : "dark";
+      var _a2;
+      const mode = (_a2 = localStorage.getItem("__darkmode")) != null ? _a2 : "dark";
       vuetify.theme.dark = mode === "dark";
     };
     VueCompositionAPI2.onMounted(() => {

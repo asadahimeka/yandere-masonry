@@ -1,7 +1,12 @@
 <template>
-  <v-container class="_vcont pa-2" fluid>
+  <v-container v-if="showImageList" class="_vcont pa-2" fluid>
     <masonry :cols="columnCount" gutter="8px">
-      <v-card v-for="(image, index) in store.imageList" :key="index" class="mb-2" style="max-height: 60vh;overflow: hidden;">
+      <v-card
+        v-for="(image, index) in store.imageList"
+        :key="index"
+        class="mb-2"
+        style="max-height: 60vh;overflow: hidden;"
+      >
         <v-img
           transition="scroll-y-transition"
           :src="image.previewUrl ?? image.fileUrl ?? void 0"
@@ -21,20 +26,14 @@
       <v-btn v-show="store.requestState" color="#ee8888" text>
         加载中...
       </v-btn>
-      <v-btn v-show="showLoadMore" color="#ee8888" text @click="fetchData">
+      <v-btn v-show="showLoadMore" color="#ee8888" text @click="fetchData()">
         加载更多
       </v-btn>
       <v-btn v-show="showNoMore" color="#ee8888" text>
         下面没有了...
       </v-btn>
     </div>
-    <v-menu
-      v-model="showMenu"
-      :position-x="x"
-      :position-y="y"
-      absolute
-      offset-y
-    >
+    <v-menu v-model="showMenu" :position-x="x" :position-y="y" absolute offset-y>
       <v-list>
         <v-list-item v-if="isYKSite" @click="addFavorite">
           <v-list-item-title>加入收藏</v-list-item-title>
@@ -66,25 +65,38 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref } from '@vue/composition-api'
+import { computed, nextTick, onMounted, ref, watch } from '@vue/composition-api'
 import { addPostToFavorites, isReachBottom, searchBooru, throttleScroll } from '@/common/utils'
 import { useVuetify } from '@/plugins/vuetify'
 import store from '@/common/store'
 import ImageDetail from './ImageDetail.vue'
 import type Post from '@himeka/booru/dist/structures/Post'
 
-const columnCount = ref({
-  300: 1,
-  600: 2,
-  900: 3,
-  1200: 4,
-  1600: 6,
-  1920: 7,
-  2400: 8,
-  2700: 9,
-  3000: 10,
-  default: 6
+const showImageList = ref(true)
+const columnCount = computed(() => {
+  return store.selectedColumn === '0' ? {
+    300: 1,
+    600: 2,
+    900: 3,
+    1200: 4,
+    1600: 6,
+    1920: 7,
+    2400: 8,
+    2700: 9,
+    3000: 10,
+    default: 6
+  } : +store.selectedColumn
 })
+
+watch(
+  () => store.selectedColumn,
+  () => {
+    showImageList.value = false
+    nextTick(() => {
+      showImageList.value = true
+    })
+  }
+)
 
 const showNoMore = computed(() => !store.requestState && store.requestStop)
 const showLoadMore = computed(() => !store.requestState && !store.requestStop)
@@ -144,7 +156,7 @@ const fetchData = async (refresh?: boolean) => {
         store.imageList = results
         store.selectedImageList = []
       } else {
-        store.imageList =  [...store.imageList, ...results]
+        store.imageList = [...store.imageList, ...results]
       }
       page++
     } else {

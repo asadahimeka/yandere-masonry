@@ -1,9 +1,23 @@
 <template>
   <v-app-bar app dense>
     <v-app-bar-nav-icon @click="store.toggleDrawer" />
-    <v-toolbar-title v-text="title" />
+    <v-toolbar-title class="hidden-sm-and-down" v-text="title" />
     <v-spacer />
-    <span class="mr-1">{{ store.selectedImageList.length }} Selected</span>
+    <v-menu transition="slide-y-transition" offset-y>
+      <template #activator="{ on, attrs }">
+        <v-btn small class="mr-6" v-bind="attrs" v-on="on">
+          <v-icon left>mdi-view-dashboard-variant</v-icon>
+          <span style="margin-bottom:2px">{{ store.selectedColumn === '0' ? '自动' : store.selectedColumn + '列' }}</span>
+        </v-btn>
+      </template>
+      <v-list dense>
+        <v-list-item v-for="(val, key) in cols" :key="key" dense link>
+          <v-list-item-title @click="selColumn(key)" v-text="val" />
+        </v-list-item>
+      </v-list>
+    </v-menu>
+    <span class="hidden-sm-and-down">已选择</span>
+    <span class="ml-1 mr-1" v-text="store.selectedImageList.length"></span>
     <v-btn icon @click="selectAll">
       <v-icon v-show="isNoSelected">mdi-checkbox-blank-outline</v-icon>
       <v-icon v-show="isOneOrMoreSelected">mdi-checkbox-intermediate</v-icon>
@@ -33,9 +47,9 @@
               </v-btn>
               <v-progress-circular v-if="item.loading" :rotate="-90" :size="28" :value="loadingValue" color="pink" />
             </v-list-item-avatar>
-            <v-list-item-content style="max-width: 240px;" :title="item.fileUrl">
-              <v-list-item-title v-text="item.fileDownloadName" />
-              <v-list-item-subtitle v-text="item.fileUrl" />
+            <v-list-item-content style="max-width: 240px;">
+              <v-list-item-title :title="item.fileDownloadName" v-text="item.fileDownloadName" />
+              <v-list-item-subtitle :title="item.fileUrl" v-text="item.fileUrl" />
             </v-list-item-content>
             <v-list-item-action>
               <v-btn icon @click="removeFromList(item.id)">
@@ -71,6 +85,17 @@ const title = computed(() => {
   if (img) return `${img.booru.domain.toUpperCase()} - ${length} Posts - Page ${store.currentPage}`
   return '🚂'
 })
+
+// eslint-disable-next-line unicorn/no-array-reduce
+const cols = ref([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20].reduce<Record<string, string>>((acc, cur) => {
+  acc[cur] = cur === 0 ? '自动' : cur + ' 列'
+  return acc
+}, {}))
+
+const selColumn = (val: string) => {
+  store.selectedColumn = val
+  localStorage.setItem('__masonry_col', val)
+}
 
 const isNoSelected = computed(() => store.selectedImageList.length === 0)
 const isOneOrMoreSelected = computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length < store.imageList.length)

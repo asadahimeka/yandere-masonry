@@ -77,7 +77,7 @@ export async function addPostToFavorites(domain: string, id: string) {
 
 export function isReachBottom() {
   const { clientHeight, scrollTop, scrollHeight } = document.documentElement
-  return (clientHeight + scrollTop) >= scrollHeight * 0.9
+  return (clientHeight + scrollTop) >= scrollHeight * 0.8
 }
 
 type ScrollFn = (scroll: number, ev: Event) => void

@@ -99,13 +99,13 @@
             </v-btn>
           </template>
           <v-list dense flat>
-            <v-list-item two-line link dense>
+            <v-list-item v-if="imageSelected.sampleUrl" two-line link dense>
               <v-list-item-content @click.stop="download(imageSelected.sampleUrl, imageSelected.sampleDownloadName)">
                 <v-list-item-title>下载缩略图</v-list-item-title>
                 <v-list-item-subtitle v-text="imageSelected.sampleDownloadText" />
               </v-list-item-content>
             </v-list-item>
-            <v-list-item v-if="imageSelected.jpegSize !== 0" two-line link dense>
+            <v-list-item v-if="imageSelected.jpegUrl" two-line link dense>
               <v-list-item-content @click.stop="download(imageSelected.jpegUrl, imageSelected.jpegDownloadName)">
                 <v-list-item-title>下载高清图</v-list-item-title>
                 <v-list-item-subtitle v-text="imageSelected.jpegDownloadText" />

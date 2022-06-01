@@ -16,6 +16,7 @@ interface AppState {
   currentPage: number
   imageList: Post[]
   selectedImageList: SeletedPost[]
+  selectedColumn: string
   toggleDrawer: () => void,
   addToSelectedList: (item: Post) => void
 }
@@ -30,6 +31,7 @@ const store = Vue.observable<AppState>({
   currentPage: 1,
   imageList: [],
   selectedImageList: [],
+  selectedColumn: localStorage.getItem('__masonry_col') ?? '0',
   toggleDrawer() {
     store.showDrawer = !store.showDrawer
   },

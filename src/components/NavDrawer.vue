@@ -31,7 +31,7 @@
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link @click="openLink('https://github.com/asadahimeka/userscripts/tree/master/yandere-masonry')">
+      <v-list-item link @click="openLink('https://github.com/asadahimeka/yandere-masonry')">
         <v-list-item-icon class="mr-2">
           <v-icon>mdi-github</v-icon>
         </v-list-item-icon>
