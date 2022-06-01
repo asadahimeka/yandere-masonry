@@ -1,6 +1,7 @@
 {
   "name": "yandere-masonry",
   "version": "0.2.7",
+  "private": "true",
   "description": "Yande.re/Konachan Waterfall Layout.",
   "author": "asadahimeka",
   "license": "MIT",

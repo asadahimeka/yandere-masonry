@@ -18,7 +18,6 @@ const __dirname = process.cwd()
 const pkgRoot = resolve(__dirname, '.')
 const pkgPath = resolve(pkgRoot, 'package.json')
 const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'))
-const pkgName = pkg.name
 const currentVersion = pkg.version
 
 const preId =
@@ -87,7 +86,7 @@ async function main() {
   updateVersions(targetVersion)
 
   // build all packages with types
-  step('\nBuilding all packages...')
+  step('\nBuilding packages...')
   if (!skipBuild && !isDryRun) {
     await run('npm', ['run', 'build', '--release'])
   } else {
@@ -102,10 +101,6 @@ async function main() {
   } else {
     console.log('No changes to commit.')
   }
-
-  // publish packages
-  step('\nPublishing packages...')
-  await publishPackage(targetVersion, runIfNotDry)
 
   // push to GitHub
   step('\nPushing to GitHub...')
@@ -122,52 +117,6 @@ async function main() {
 function updateVersions(version) {
   pkg.version = version
   writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n')
-}
-
-async function publishPackage(version, runIfNotDry) {
-  if (pkg.private) {
-    return
-  }
-
-  let releaseTag = null
-  if (args.tag) {
-    releaseTag = args.tag
-  } else if (version.includes('alpha')) {
-    releaseTag = 'alpha'
-  } else if (version.includes('beta')) {
-    releaseTag = 'beta'
-  } else if (version.includes('rc')) {
-    releaseTag = 'rc'
-  }
-
-  // TODO use inferred release channel after official release
-  // const releaseTag = semver.prerelease(version)[0] || null
-
-  step(`Publishing ${pkgName}...`)
-  try {
-    await runIfNotDry(
-      'npm',
-      [
-        'publish',
-        ...(releaseTag ? ['--tag', releaseTag] : []),
-        '--access',
-        'public',
-        '--registry',
-        'https://registry.npmjs.org'
-      ],
-      {
-        cwd: pkgRoot,
-        stdio: 'pipe',
-      }
-    )
-    console.log(chalk.green(`Successfully published ${pkgName}@${version}`))
-  } catch (e) {
-    if (e.stderr.match(/previously published/)) {
-      console.log(chalk.red(`Skipping already published: ${pkgName}`))
-    } else {
-      throw e
-    }
-  }
 }
 
 main().catch((err) => {
