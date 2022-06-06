@@ -1,6 +1,7 @@
 <template>
   <v-dialog
     v-model="store.showImageSelected"
+    :content-class="scaleOn ? 'img_detail_scale_on' : ''"
     :width="imageSelectedWidth > 300 ? imageSelectedWidth : 300"
     :height="imageSelectedHeight"
     :overlay-opacity="0.7"
@@ -9,7 +10,7 @@
       v-if="store.showImageSelected"
       :src="imgSrc"
       :lazy-src="imgLasySrc"
-      style="min-width: 300px;"
+      :aspect-ratio="imageSelected.aspectRatio"
       @click="toggleToolbar"
     >
       <template #placeholder>
@@ -28,6 +29,7 @@
           small
           color="#ee8888b3"
           text-color="#ffffff"
+          class="hidden-sm-and-down"
           @click.stop="toDetailPage"
           v-text="imageSelected.rating.toUpperCase() + ' ' + imageSelected.id"
         />
@@ -82,6 +84,23 @@
             </v-btn>
           </template>
           <span>{{ '来源 ' + imageSelected.sourceUrl }}</span>
+        </v-tooltip>
+        <v-tooltip v-if="!isVideo" bottom>
+          <template #activator="{ on, attrs }">
+            <v-btn
+              fab
+              dark
+              small
+              color="#ee8888b3"
+              class="mr-1"
+              v-bind="attrs"
+              v-on="on"
+              @click.stop="scaleOn = !scaleOn"
+            >
+              <v-icon>{{ scaleOn ? 'mdi-magnify-minus-outline' : 'mdi-magnify-plus-outline' }}</v-icon>
+            </v-btn>
+          </template>
+          <span>{{ scaleOn ? '缩小' : '查看原图' }}</span>
         </v-tooltip>
         <v-menu dense open-on-hover offset-y>
           <template #activator="{ on, attrs }">
@@ -148,8 +167,8 @@
       </v-toolbar>
       <v-chip-group
         v-show="!notYKSite && showImageToolbar"
-        class="pa-3 hidden-sm-and-down"
-        style="position: absolute;bottom: 0;"
+        class="hidden-sm-and-down"
+        style="position: absolute;bottom: 24px;padding: 0 12px;"
         column
       >
         <v-chip
@@ -163,13 +182,16 @@
           v-text="tag"
         />
       </v-chip-group>
+      <div class="img_scale_scroll">
+        <img :src="scaleOn ? imageSelected.fileUrl ?? void 0 : void 0" alt="">
+      </div>
       <video v-if="isVideo" controls style="width: 100%;" :src="imageSelected.fileUrl ?? void 0"></video>
     </v-img>
   </v-dialog>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from '@vue/composition-api'
+import { computed, onMounted, ref, watch } from '@vue/composition-api'
 import store from '@/common/store'
 import { isURL, showMsg, addPostToFavorites, downloadFile } from '@/common/utils'
 
@@ -177,6 +199,7 @@ const showImageToolbar = ref(true)
 const innerWidth = ref(window.innerWidth)
 const innerHeight = ref(window.innerHeight)
 const downloading = ref(false)
+const scaleOn = ref(false)
 
 const imageSelected = computed(() => store.imageList[store.imageSelectedIndex] ?? {})
 const isVideo = computed(() => ['.mp4', '.webm'].some(e => imageSelected.value.fileUrl?.endsWith(e)))
@@ -263,6 +286,10 @@ const addFavorite = () => {
   if (notYKSite.value) return
   addPostToFavorites(booruDomain.value, imageSelected.value.id)
 }
+
+watch(() => store.showImageSelected, val => {
+  if (!val) scaleOn.value = false
+})
 
 onMounted(() => {
   window.addEventListener('resize', () => {

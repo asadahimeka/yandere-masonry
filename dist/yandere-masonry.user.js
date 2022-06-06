@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.7
+// @version              0.2.8
 // @description          Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -21,6 +21,7 @@
 // @match                https://xbooru.com/*
 // @match                https://rule34.paheal.net/*
 // @match                https://realbooru.com/*
+// @exclude              *://*/*.*
 // @run-at               document-body
 // @grant                GM_addStyle
 // @grant                GM_addElement
@@ -51,7 +52,7 @@ var __publicField = (obj, key, value) => {
 (() => {
   var ydStyle = 'a.thumb{border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08]"}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743]"}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272]"}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2]"}#post-list{display:flex}#post-list .sidebar{float:none;width:auto;max-width:260px}#post-list .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-list ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview{width:auto;height:auto;margin-top:0;margin-bottom:8px;border-radius:5px;box-sizing:border-box}#post-list a.directlink{margin-top:5px}\n';
   var knStyle = "#lsidebar{display:none}#post-list ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
-  var loadingStyle = "#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0px}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}\n";
+  var loadingStyle = "#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0px}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_scale_on{width:auto!important;max-width:100vw!important;max-height:100vh!important;margin:0;padding:12px;overflow:auto}.img_detail_scale_on .v-image{display:block;max-height:100vh;margin:0 auto}.img_detail_scale_on .v-responsive__sizer,.img_detail_scale_on .v-image__image{display:none}.img_detail_scale_on .v-responsive__content{position:relative;width:auto!important;max-width:100vw!important;max-height:100vh;margin:0!important}.img_scale_scroll{display:none}.img_detail_scale_on .img_scale_scroll{display:block;max-width:100vw;max-height:calc(100vh - 30px);overflow:auto}.img_scale_scroll::-webkit-scrollbar{width:10px;height:10px}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}\n";
   async function prepareApp(callback) {
     addSiteStyle();
     bindDblclick();
@@ -3046,6 +3047,7 @@ var __publicField = (obj, key, value) => {
     const innerWidth = VueCompositionAPI2.ref(window.innerWidth);
     const innerHeight = VueCompositionAPI2.ref(window.innerHeight);
     const downloading = VueCompositionAPI2.ref(false);
+    const scaleOn = VueCompositionAPI2.ref(false);
     const imageSelected = VueCompositionAPI2.computed(() => {
       var _a2;
       return (_a2 = store.imageList[store.imageSelectedIndex]) != null ? _a2 : {};
@@ -3127,6 +3129,10 @@ var __publicField = (obj, key, value) => {
         return;
       addPostToFavorites(booruDomain.value, imageSelected.value.id);
     };
+    VueCompositionAPI2.watch(() => store.showImageSelected, (val) => {
+      if (!val)
+        scaleOn.value = false;
+    });
     VueCompositionAPI2.onMounted(() => {
       window.addEventListener("resize", () => {
         innerWidth.value = window.innerWidth;
@@ -3137,6 +3143,7 @@ var __publicField = (obj, key, value) => {
       store,
       showImageToolbar,
       downloading,
+      scaleOn,
       imageSelected,
       isVideo,
       imgSrc,
@@ -3155,12 +3162,13 @@ var __publicField = (obj, key, value) => {
     };
   };
   var render$2 = function() {
-    var _vm$imageSelected$fil;
+    var _vm$imageSelected$fil, _vm$imageSelected$fil2;
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
     return _c("v-dialog", {
       attrs: {
+        "content-class": _vm.scaleOn ? "img_detail_scale_on" : "",
         "width": _vm.imageSelectedWidth > 300 ? _vm.imageSelectedWidth : 300,
         "height": _vm.imageSelectedHeight,
         "overlay-opacity": 0.7
@@ -3173,12 +3181,10 @@ var __publicField = (obj, key, value) => {
         expression: "store.showImageSelected"
       }
     }, [_vm.store.showImageSelected ? _c("v-img", {
-      staticStyle: {
-        "min-width": "300px"
-      },
       attrs: {
         "src": _vm.imgSrc,
-        "lazy-src": _vm.imgLasySrc
+        "lazy-src": _vm.imgLasySrc,
+        "aspect-ratio": _vm.imageSelected.aspectRatio
       },
       on: {
         "click": _vm.toggleToolbar
@@ -3222,6 +3228,7 @@ var __publicField = (obj, key, value) => {
         "flat": ""
       }
     }, [_c("v-chip", {
+      staticClass: "hidden-sm-and-down",
       attrs: {
         "small": "",
         "color": "#ee8888b3",
@@ -3311,7 +3318,32 @@ var __publicField = (obj, key, value) => {
           }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v("mdi-launch")])], 1)];
         }
       }], null, false, 3813795830)
-    }, [_c("span", [_vm._v(_vm._s("\u6765\u6E90 " + _vm.imageSelected.sourceUrl))])]) : _vm._e(), _c("v-menu", {
+    }, [_c("span", [_vm._v(_vm._s("\u6765\u6E90 " + _vm.imageSelected.sourceUrl))])]) : _vm._e(), !_vm.isVideo ? _c("v-tooltip", {
+      attrs: {
+        "bottom": ""
+      },
+      scopedSlots: _vm._u([{
+        key: "activator",
+        fn: function(_ref4) {
+          var on = _ref4.on, attrs = _ref4.attrs;
+          return [_c("v-btn", _vm._g(_vm._b({
+            staticClass: "mr-1",
+            attrs: {
+              "fab": "",
+              "dark": "",
+              "small": "",
+              "color": "#ee8888b3"
+            },
+            on: {
+              "click": function($event) {
+                $event.stopPropagation();
+                _vm.scaleOn = !_vm.scaleOn;
+              }
+            }
+          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_vm.scaleOn ? "mdi-magnify-minus-outline" : "mdi-magnify-plus-outline"))])], 1)];
+        }
+      }], null, false, 2680521198)
+    }, [_c("span", [_vm._v(_vm._s(_vm.scaleOn ? "\u7F29\u5C0F" : "\u67E5\u770B\u539F\u56FE"))])]) : _vm._e(), _c("v-menu", {
       attrs: {
         "dense": "",
         "open-on-hover": "",
@@ -3319,8 +3351,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref4) {
-          var on = _ref4.on, attrs = _ref4.attrs;
+        fn: function(_ref5) {
+          var on = _ref5.on, attrs = _ref5.attrs;
           return [_c("v-btn", _vm._g(_vm._b({
             directives: [{
               name: "show",
@@ -3412,8 +3444,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref5) {
-          var on = _ref5.on, attrs = _ref5.attrs;
+        fn: function(_ref6) {
+          var on = _ref6.on, attrs = _ref6.attrs;
           return [_c("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -3437,8 +3469,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref6) {
-          var on = _ref6.on, attrs = _ref6.attrs;
+        fn: function(_ref7) {
+          var on = _ref7.on, attrs = _ref7.attrs;
           return [_c("v-btn", _vm._g(_vm._b({
             attrs: {
               "fab": "",
@@ -3462,10 +3494,11 @@ var __publicField = (obj, key, value) => {
         value: !_vm.notYKSite && _vm.showImageToolbar,
         expression: "!notYKSite && showImageToolbar"
       }],
-      staticClass: "pa-3 hidden-sm-and-down",
+      staticClass: "hidden-sm-and-down",
       staticStyle: {
         "position": "absolute",
-        "bottom": "0"
+        "bottom": "24px",
+        "padding": "0 12px"
       },
       attrs: {
         "column": ""
@@ -3489,13 +3522,20 @@ var __publicField = (obj, key, value) => {
           }
         }
       });
-    }), 1), _vm.isVideo ? _c("video", {
+    }), 1), _c("div", {
+      staticClass: "img_scale_scroll"
+    }, [_c("img", {
+      attrs: {
+        "src": _vm.scaleOn ? (_vm$imageSelected$fil = _vm.imageSelected.fileUrl) !== null && _vm$imageSelected$fil !== void 0 ? _vm$imageSelected$fil : void 0 : void 0,
+        "alt": ""
+      }
+    })]), _vm.isVideo ? _c("video", {
       staticStyle: {
         "width": "100%"
       },
       attrs: {
         "controls": "",
-        "src": (_vm$imageSelected$fil = _vm.imageSelected.fileUrl) !== null && _vm$imageSelected$fil !== void 0 ? _vm$imageSelected$fil : void 0
+        "src": (_vm$imageSelected$fil2 = _vm.imageSelected.fileUrl) !== null && _vm$imageSelected$fil2 !== void 0 ? _vm$imageSelected$fil2 : void 0
       }
     }) : _vm._e()], 1) : _vm._e()], 1);
   };
