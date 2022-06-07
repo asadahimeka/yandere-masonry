@@ -3181,6 +3181,9 @@ var __publicField = (obj, key, value) => {
         expression: "store.showImageSelected"
       }
     }, [_vm.store.showImageSelected ? _c("v-img", {
+      staticStyle: {
+        "min-width": "300px"
+      },
       attrs: {
         "src": _vm.imgSrc,
         "lazy-src": _vm.imgLasySrc,
