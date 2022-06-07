@@ -11,6 +11,7 @@
       :src="imgSrc"
       :lazy-src="imgLasySrc"
       :aspect-ratio="imageSelected.aspectRatio"
+      style="min-width: 300px;"
       @click="toggleToolbar"
     >
       <template #placeholder>
