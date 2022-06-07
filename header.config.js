@@ -14,7 +14,7 @@ module.exports = defineTmHeader({
   "icon": "https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/f1f6267537a5aff959ee63ec2c9e4e52_4821140735490026106.jpg",
   "license": "MIT",
   "match": Object.keys(sites).filter(e => !blackList.has(e)).map(e => `https://${e}/*`),
-  "exclude": "*://*/*.*",
+  "exclude": "*://*/*.(jpg|png|gif|mp4|webm)",
   "supportURL": "https://github.com/asadahimeka/yandere-masonry/issues",
   "run-at": "document-body",
 })
