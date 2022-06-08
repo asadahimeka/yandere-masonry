@@ -1,4 +1,13 @@
-# Yande.re Masonry
+# Yande.re Masonry 
+
+![](https://img.shields.io/github/package-json/v/asadahimeka/yandere-masonry)
+![](https://img.shields.io/badge/license-MIT-green)
+![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/dev/vite)
+![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/dev/vite-plugin-tm-userscript)
+![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/@himeka/booru)
+![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vue)
+![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vuetify)
+
 
 Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览
 
