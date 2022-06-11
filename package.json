@@ -15,7 +15,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@himeka/booru": "^2.6.2",
+    "@himeka/booru": "^2.6.3",
     "@mdi/font": "6.7.96",
     "@vue/composition-api": "^1.6.2",
     "macy": "^2.5.1",
