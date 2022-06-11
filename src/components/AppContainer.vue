@@ -66,7 +66,8 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, watch } from '@vue/composition-api'
-import { addPostToFavorites, isReachBottom, searchBooru, throttleScroll } from '@/common/utils'
+import { isReachBottom, searchBooru, throttleScroll } from '@/common/utils'
+import { addPostToFavorites } from '@/common/moebooru'
 import { useVuetify } from '@/plugins/vuetify'
 import store from '@/common/store'
 import ImageDetail from './ImageDetail.vue'
@@ -137,7 +138,7 @@ const addToSelectedList = () => {
 
 const addFavorite = () => {
   const img = ctxActPost.value
-  img && addPostToFavorites(img.booru.domain, img.id)
+  img && addPostToFavorites(img.id)
 }
 
 const params = new URLSearchParams(location.search)

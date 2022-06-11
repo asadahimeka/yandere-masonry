@@ -3,6 +3,7 @@ import knStyle from '@/styles/konachan.css?inline'
 import loadingStyle from '@/styles/loading.css?inline'
 
 export async function prepareApp(callback?: () => void) {
+  if (doNotRun()) return
   addSiteStyle()
   bindDblclick()
   initMacy()
@@ -16,21 +17,30 @@ export async function prepareApp(callback?: () => void) {
   })
 }
 
+function doNotRun() {
+  const mimeTypes = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'webm', 'json', 'xml']
+  return mimeTypes.some(e => location.href.includes('.' + e))
+}
+
 async function initMacy() {
-  if (location.href.includes('yande.re/post')) {
-    await Promise.all([
-      loadScript('https://lib.baomitu.com/macy/2.5.1/macy.min.js')
-    ])
-    setTimeout(() => {
-      new Macy({
-        container: '#post-list-posts',
-        trueOrder: false,
-        waitForImages: false,
-        columns: 6,
-        margin: 16,
-        breakAt: { 1800: 5, 1500: 4, 1200: 3, 900: 2, 700: 1 }
-      })
-    }, 100)
+  try {
+    if (location.href.includes('yande.re/post')) {
+      await Promise.all([
+        loadScript('https://lib.baomitu.com/macy/2.5.1/macy.min.js')
+      ])
+      setTimeout(() => {
+        new Macy({
+          container: '#post-list-posts',
+          trueOrder: false,
+          waitForImages: false,
+          columns: 6,
+          margin: 16,
+          breakAt: { 1800: 5, 1500: 4, 1200: 3, 900: 2, 700: 1 }
+        })
+      }, 100)
+    }
+  } catch (error) {
+    console.log('init macy error:', error)
   }
 }
 

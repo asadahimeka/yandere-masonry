@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.9
+// @version              0.2.10
 // @description          Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -21,7 +21,6 @@
 // @match                https://xbooru.com/*
 // @match                https://rule34.paheal.net/*
 // @match                https://realbooru.com/*
-// @exclude              *://*/*.(jpg|png|gif|mp4|webm)
 // @run-at               document-body
 // @grant                GM_addStyle
 // @grant                GM_addElement
@@ -54,6 +53,8 @@ var __publicField = (obj, key, value) => {
   var knStyle = "#lsidebar{display:none}#post-list ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
   var loadingStyle = "#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0px}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_scale_on{width:auto!important;max-width:100vw!important;max-height:100vh!important;margin:0;padding:12px;overflow:auto}.img_detail_scale_on .v-image{display:block;max-height:100vh;margin:0 auto}.img_detail_scale_on .v-responsive__sizer,.img_detail_scale_on .v-image__image{display:none}.img_detail_scale_on .v-responsive__content{position:relative;width:auto!important;max-width:100vw!important;max-height:100vh;margin:0!important}.img_scale_scroll{display:none}.img_detail_scale_on .img_scale_scroll{display:block;max-width:100vw;max-height:calc(100vh - 30px);overflow:auto}.img_scale_scroll::-webkit-scrollbar{width:10px;height:10px}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}\n";
   async function prepareApp(callback) {
+    if (doNotRun())
+      return;
     addSiteStyle();
     bindDblclick();
     initMacy();
@@ -66,21 +67,29 @@ var __publicField = (obj, key, value) => {
       params.get("_wf") ? init() : addMasonryButton(init);
     });
   }
+  function doNotRun() {
+    const mimeTypes = ["jpg", "jpeg", "png", "gif", "mp4", "webm", "json", "xml"];
+    return mimeTypes.some((e) => location.href.includes("." + e));
+  }
   async function initMacy() {
-    if (location.href.includes("yande.re/post")) {
-      await Promise.all([
-        loadScript("https://lib.baomitu.com/macy/2.5.1/macy.min.js")
-      ]);
-      setTimeout(() => {
-        new Macy({
-          container: "#post-list-posts",
-          trueOrder: false,
-          waitForImages: false,
-          columns: 6,
-          margin: 16,
-          breakAt: { 1800: 5, 1500: 4, 1200: 3, 900: 2, 700: 1 }
-        });
-      }, 100);
+    try {
+      if (location.href.includes("yande.re/post")) {
+        await Promise.all([
+          loadScript("https://lib.baomitu.com/macy/2.5.1/macy.min.js")
+        ]);
+        setTimeout(() => {
+          new Macy({
+            container: "#post-list-posts",
+            trueOrder: false,
+            waitForImages: false,
+            columns: 6,
+            margin: 16,
+            breakAt: { 1800: 5, 1500: 4, 1200: 3, 900: 2, 700: 1 }
+          });
+        }, 100);
+      }
+    } catch (error) {
+      console.log("init macy error:", error);
     }
   }
   async function initMasonry() {
@@ -221,6 +230,7 @@ var __publicField = (obj, key, value) => {
     imageList: [],
     selectedImageList: [],
     selectedColumn: (_a = localStorage.getItem("__masonry_col")) != null ? _a : "0",
+    isYKSite: ["konachan", "yande.re"].some((e) => location.href.includes(e)),
     toggleDrawer() {
       store.showDrawer = !store.showDrawer;
     },
@@ -2538,29 +2548,6 @@ var __publicField = (obj, key, value) => {
       image: msgTypeImages[type]
     });
   }
-  async function addPostToFavorites(domain, id) {
-    var _a2;
-    if (["konachan", "yande"].every((e) => !domain.includes(e)))
-      return;
-    const form = new FormData();
-    form.append("id", id);
-    form.append("score", "3");
-    const response = await fetch(`https://${domain}/post/vote.json`, {
-      method: "POST",
-      headers: { "x-csrf-token": (_a2 = sessionStorage.getItem("csrf-token")) != null ? _a2 : "" },
-      body: form
-    });
-    if (!response.ok) {
-      showMsg({ msg: "\u6536\u85CF\u5931\u8D25: " + response.status, type: "error" });
-      return;
-    }
-    const result = await response.json();
-    if (result.success) {
-      showMsg({ msg: "\u6536\u85CF\u6210\u529F" });
-    } else {
-      showMsg({ msg: "\u6536\u85CF\u5931\u8D25: " + result.reason, type: "error" });
-    }
-  }
   function isReachBottom() {
     const { clientHeight, scrollTop, scrollHeight } = document.documentElement;
     return clientHeight + scrollTop >= scrollHeight * 0.8;
@@ -2955,15 +2942,93 @@ var __publicField = (obj, key, value) => {
   }();
   const blackList = /* @__PURE__ */ new Set(["e621.net", "e926.net", "hypnohub.net", "derpibooru.org"]);
   const siteDomains = Object.keys(dist.sites).filter((e) => !blackList.has(e));
+  function getYandereUserId() {
+    const match = document.cookie.match(/user_id=(\d+)/);
+    return match == null ? void 0 : match[1];
+  }
+  function getKonachanUsername() {
+    const match = document.cookie.match(/login=(\w+)/);
+    return match == null ? void 0 : match[1];
+  }
+  let _moebooruUserName;
+  async function getUsername() {
+    try {
+      if (location.href.includes("konachan"))
+        return getKonachanUsername();
+      if (_moebooruUserName)
+        return _moebooruUserName;
+      const username = localStorage.getItem("__username");
+      _moebooruUserName = username;
+      if (username)
+        return username;
+      const id = getYandereUserId();
+      if (!id)
+        return;
+      const response = await fetch(`/user.json?id=${id}`);
+      const result = await response.json();
+      const { name } = result[0];
+      localStorage.setItem("__username", name);
+      return name;
+    } catch (error) {
+      console.log("getUsername error:", error);
+      return;
+    }
+  }
+  async function isVoted(id) {
+    try {
+      if (!id)
+        return false;
+      const username = await getUsername();
+      if (!username)
+        return false;
+      const response = await fetch(`/favorite/list_users.json?id=${id}`);
+      const result = await response.json();
+      const users = result.favorited_users.split(",");
+      return users.includes(username);
+    } catch (error) {
+      console.log("isVoted error:", error);
+      return false;
+    }
+  }
+  async function addPostToFavorites(id) {
+    var _a2;
+    const form = new FormData();
+    form.append("id", id);
+    form.append("score", "3");
+    const response = await fetch("/post/vote.json", {
+      method: "POST",
+      headers: { "x-csrf-token": (_a2 = sessionStorage.getItem("csrf-token")) != null ? _a2 : "" },
+      body: form
+    });
+    if (!response.ok) {
+      showMsg({ msg: "\u6536\u85CF\u5931\u8D25: " + response.status, type: "error" });
+      return false;
+    }
+    const result = await response.json();
+    if (result.success) {
+      showMsg({ msg: "\u6536\u85CF\u6210\u529F" });
+      return true;
+    } else {
+      showMsg({ msg: "\u6536\u85CF\u5931\u8D25: " + result.reason, type: "error" });
+      return false;
+    }
+  }
   const __sfc_main$3 = {};
   __sfc_main$3.setup = (__props, __ctx) => {
     const siteLinks = VueCompositionAPI2.ref(siteDomains);
+    const userName = VueCompositionAPI2.ref("");
     const openLink = (link) => {
       window.open(link, "_blank", "noreferrer");
     };
+    VueCompositionAPI2.onMounted(async () => {
+      const name = await getUsername();
+      if (name)
+        userName.value = name;
+    });
     return {
       store,
       siteLinks,
+      userName,
       openLink
     };
   };
@@ -2985,7 +3050,28 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", {
       staticClass: "title"
-    }, [_vm._v(" Booru Masonry ")]), _c("v-list-item-subtitle", [_vm._v("Booru sites waterfall layout.")])], 1)], 1), _c("v-divider"), _c("v-list", {
+    }, [_vm._v(" Booru Masonry ")]), _c("v-list-item-subtitle", [_vm._v("Booru sites waterfall layout.")])], 1)], 1), _c("v-divider"), _vm.store.isYKSite && _vm.userName ? _c("v-list", {
+      attrs: {
+        "dense": "",
+        "nav": ""
+      }
+    }, [_c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", {
+      staticClass: "title"
+    }, [_vm._v(" My Account ")])], 1)], 1), _c("v-list-item", {
+      attrs: {
+        "link": "",
+        "href": "/user/home"
+      }
+    }, [_c("v-list-item-icon", {
+      staticClass: "mr-2"
+    }, [_c("v-icon", [_vm._v("mdi-account")])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Hello " + _vm._s(_vm.userName) + "!")])], 1)], 1), _c("v-list-item", {
+      attrs: {
+        "link": "",
+        "href": `/post?tags=vote%3A3%3A${_vm.userName}+order%3Avote&_wf=1`
+      }
+    }, [_c("v-list-item-icon", {
+      staticClass: "mr-2"
+    }, [_c("v-icon", [_vm._v("mdi-star")])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("My Favorites")])], 1)], 1)], 1) : _vm._e(), _c("v-list", {
       attrs: {
         "dense": "",
         "nav": ""
@@ -2996,9 +3082,11 @@ var __publicField = (obj, key, value) => {
       return _c("v-list-item", {
         key: link,
         attrs: {
-          "href": `https://${link}?_wf=1`
+          "href": `https://${link.includes("yande") ? link + "/post" : link}?_wf=1`
         }
-      }, [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(link.toUpperCase()))])], 1)], 1);
+      }, [_c("v-list-item-icon", {
+        staticClass: "mr-2"
+      }, [_c("v-icon", [_vm._v("mdi-arrow-right-circle-outline")])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(link.toUpperCase()))])], 1)], 1);
     })], 2), _c("v-list", {
       attrs: {
         "dense": "",
@@ -3074,12 +3162,6 @@ var __publicField = (obj, key, value) => {
       const width2 = Number.parseInt((height * imageSelected.value.aspectRatio).toString());
       return Math.min(width, width2);
     });
-    const imageSelectedHeight = VueCompositionAPI2.computed(() => {
-      const width = Math.min(innerWidth.value * 0.9, imageSelected.value.sampleWidth || innerWidth.value);
-      const height = Number.parseInt(Math.min(innerHeight.value * 0.9, imageSelected.value.sampleHeight || innerHeight.value).toString());
-      const height2 = Number.parseInt((width / imageSelected.value.aspectRatio).toString());
-      return Math.min(height, height2);
-    });
     const booruDomain = VueCompositionAPI2.computed(() => imageSelected.value.booru.domain);
     const notYKSite = VueCompositionAPI2.computed(() => {
       return ["konachan", "yande"].every((e) => !booruDomain.value.includes(e));
@@ -3124,14 +3206,22 @@ var __publicField = (obj, key, value) => {
     const close = () => {
       store.showImageSelected = false;
     };
-    const addFavorite = () => {
-      if (notYKSite.value)
+    const isPostVoted = VueCompositionAPI2.ref(false);
+    const addFavorite = async () => {
+      if (notYKSite.value || isPostVoted.value)
         return;
-      addPostToFavorites(booruDomain.value, imageSelected.value.id);
+      const isSuccess = await addPostToFavorites(imageSelected.value.id);
+      if (isSuccess)
+        isPostVoted.value = true;
     };
-    VueCompositionAPI2.watch(() => store.showImageSelected, (val) => {
-      if (!val)
+    VueCompositionAPI2.watch(() => store.showImageSelected, async (val) => {
+      if (!val) {
         scaleOn.value = false;
+        isPostVoted.value = false;
+      } else {
+        const flag = await isVoted(imageSelected.value.id);
+        isPostVoted.value = flag;
+      }
     });
     VueCompositionAPI2.onMounted(() => {
       window.addEventListener("resize", () => {
@@ -3149,7 +3239,6 @@ var __publicField = (obj, key, value) => {
       imgSrc,
       imgLasySrc,
       imageSelectedWidth,
-      imageSelectedHeight,
       notYKSite,
       toggleToolbar,
       toTagsPage,
@@ -3158,6 +3247,7 @@ var __publicField = (obj, key, value) => {
       download,
       addToList,
       close,
+      isPostVoted,
       addFavorite
     };
   };
@@ -3170,7 +3260,6 @@ var __publicField = (obj, key, value) => {
       attrs: {
         "content-class": _vm.scaleOn ? "img_detail_scale_on" : "",
         "width": _vm.imageSelectedWidth > 300 ? _vm.imageSelectedWidth : 300,
-        "height": _vm.imageSelectedHeight,
         "overlay-opacity": 0.7
       },
       model: {
@@ -3268,10 +3357,10 @@ var __publicField = (obj, key, value) => {
                 return _vm.addFavorite.apply(null, arguments);
               }
             }
-          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v("mdi-heart-plus-outline")])], 1)];
+          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_vm.isPostVoted ? "mdi-heart" : "mdi-heart-plus-outline"))])], 1)];
         }
-      }], null, false, 3681952891)
-    }, [_c("span", [_vm._v("\u6536\u85CF")])]) : _vm._e(), _c("v-tooltip", {
+      }], null, false, 3867551738)
+    }, [_c("span", [_vm._v(_vm._s(_vm.isPostVoted ? "\u5DF2\u6536\u85CF" : "\u6536\u85CF"))])]) : _vm._e(), _c("v-tooltip", {
       attrs: {
         "bottom": ""
       },
@@ -3612,7 +3701,7 @@ var __publicField = (obj, key, value) => {
     };
     const addFavorite = () => {
       const img = ctxActPost.value;
-      img && addPostToFavorites(img.booru.domain, img.id);
+      img && addPostToFavorites(img.id);
     };
     const params = new URLSearchParams(location.search);
     let page = Number(params.get("page")) || 1;

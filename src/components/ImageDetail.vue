@@ -3,7 +3,6 @@
     v-model="store.showImageSelected"
     :content-class="scaleOn ? 'img_detail_scale_on' : ''"
     :width="imageSelectedWidth > 300 ? imageSelectedWidth : 300"
-    :height="imageSelectedHeight"
     :overlay-opacity="0.7"
   >
     <v-img
@@ -47,10 +46,10 @@
               v-on="on"
               @click.stop="addFavorite"
             >
-              <v-icon>mdi-heart-plus-outline</v-icon>
+              <v-icon>{{ isPostVoted ? 'mdi-heart' : 'mdi-heart-plus-outline' }}</v-icon>
             </v-btn>
           </template>
-          <span>收藏</span>
+          <span>{{ isPostVoted ? '已收藏' : '收藏' }}</span>
         </v-tooltip>
         <v-tooltip bottom>
           <template #activator="{ on, attrs }">
@@ -194,7 +193,8 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from '@vue/composition-api'
 import store from '@/common/store'
-import { isURL, showMsg, addPostToFavorites, downloadFile } from '@/common/utils'
+import { isURL, showMsg, downloadFile } from '@/common/utils'
+import { addPostToFavorites, isVoted } from '@/common/moebooru'
 
 const showImageToolbar = ref(true)
 const innerWidth = ref(window.innerWidth)
@@ -225,18 +225,6 @@ const imageSelectedWidth = computed(() => {
   const height = Math.min(innerHeight.value * 0.9, imageSelected.value.sampleHeight || innerHeight.value)
   const width2 = Number.parseInt((height * imageSelected.value.aspectRatio).toString())
   return Math.min(width, width2)
-})
-
-const imageSelectedHeight = computed(() => {
-  const width = Math.min(innerWidth.value * 0.9, imageSelected.value.sampleWidth || innerWidth.value)
-  const height = Number.parseInt(
-    Math.min(
-      innerHeight.value * 0.9,
-      imageSelected.value.sampleHeight || innerHeight.value
-    ).toString()
-  )
-  const height2 = Number.parseInt((width / imageSelected.value.aspectRatio).toString())
-  return Math.min(height, height2)
 })
 
 const booruDomain = computed(() => imageSelected.value.booru.domain)
@@ -283,13 +271,22 @@ const close = () => {
   store.showImageSelected = false
 }
 
-const addFavorite = () => {
-  if (notYKSite.value) return
-  addPostToFavorites(booruDomain.value, imageSelected.value.id)
+const isPostVoted = ref(false)
+
+const addFavorite = async () => {
+  if (notYKSite.value || isPostVoted.value) return
+  const isSuccess = await addPostToFavorites(imageSelected.value.id)
+  if (isSuccess) isPostVoted.value = true
 }
 
-watch(() => store.showImageSelected, val => {
-  if (!val) scaleOn.value = false
+watch(() => store.showImageSelected, async val => {
+  if (!val) {
+    scaleOn.value = false
+    isPostVoted.value  = false
+  } else {
+    const flag = await isVoted(imageSelected.value.id)
+    isPostVoted.value = flag
+  }
 })
 
 onMounted(() => {

@@ -8,19 +8,6 @@ export function isURL(s: string) {
   return /^https?:\/\/.*/.test(s)
 }
 
-// export function downloadFile(url: string | null, name = '') {
-//   if (!url) return
-//   const a = document.createElement('a')
-//   a.href = url
-//   a.target = '_blank'
-//   a.rel = 'noopener noreferrer'
-//   a.style.display = 'none'
-//   a.setAttribute('download', name)
-//   document.body.appendChild(a)
-//   a.click()
-//   document.body.removeChild(a)
-// }
-
 export function downloadFile(url: string, name: string, options?: Partial<Tampermonkey.DownloadRequest>) {
   return new Promise<void>((resolve, reject) => {
     GM_download({
@@ -51,28 +38,6 @@ export function showMsg({ msg = '', title = 'Booru Masonry', type = 'success' }:
     timeout: 2000,
     image: msgTypeImages[type]
   })
-}
-
-export async function addPostToFavorites(domain: string, id: string) {
-  if (['konachan', 'yande'].every(e => !domain.includes(e))) return
-  const form = new FormData()
-  form.append('id', id)
-  form.append('score', '3')
-  const response = await fetch(`https://${domain}/post/vote.json`, {
-    method: 'POST',
-    headers: { 'x-csrf-token': sessionStorage.getItem('csrf-token') ?? '' },
-    body: form
-  })
-  if (!response.ok) {
-    showMsg({ msg: '收藏失败: ' + response.status, type: 'error' })
-    return
-  }
-  const result = await response.json()
-  if (result.success) {
-    showMsg({ msg: '收藏成功' })
-  } else {
-    showMsg({ msg: '收藏失败: ' + result.reason, type: 'error' })
-  }
 }
 
 export function isReachBottom() {

@@ -1,8 +1,6 @@
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import { createVuePlugin as Vue2 } from 'vite-plugin-vue2'
-// import { VuetifyResolver } from 'unplugin-vue-components/resolvers'
-// import Components from 'unplugin-vue-components/vite'
 import ScriptSetup from 'unplugin-vue2-script-setup/vite'
 import Userscript from 'vite-plugin-tm-userscript'
 
@@ -13,18 +11,6 @@ export default defineConfig({
     Vue2({ target: 'esnext' }),
     // https://github.com/antfu/unplugin-vue2-script-setup
     ScriptSetup(),
-    // https://github.com/antfu/unplugin-vue-components
-    // Components({
-    //   // generate `components.d.ts` global declarations
-    //   dts: true,
-    //   // auto import for directives
-    //   directives: true,
-    //   // resolvers for custom components
-    //   resolvers: [
-    //     // Vuetify
-    //     VuetifyResolver(),
-    //   ],
-    // }),
     // https://github.com/asadahimeka/vite-plugin-tm-userscript
     Userscript({
       externalGlobals: {

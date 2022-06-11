@@ -17,6 +17,7 @@ interface AppState {
   imageList: Post[]
   selectedImageList: SeletedPost[]
   selectedColumn: string
+  isYKSite: boolean
   toggleDrawer: () => void,
   addToSelectedList: (item: Post) => void
 }
@@ -32,6 +33,7 @@ const store = Vue.observable<AppState>({
   imageList: [],
   selectedImageList: [],
   selectedColumn: localStorage.getItem('__masonry_col') ?? '0',
+  isYKSite: ['konachan', 'yande.re'].some(e => location.href.includes(e)),
   toggleDrawer() {
     store.showDrawer = !store.showDrawer
   },
