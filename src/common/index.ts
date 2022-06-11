@@ -19,7 +19,7 @@ export async function prepareApp(callback?: () => void) {
 
 function doNotRun() {
   const mimeTypes = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'webm', 'json', 'xml']
-  return mimeTypes.some(e => location.href.includes('.' + e))
+  return mimeTypes.some(e => location.pathname.endsWith('.' + e))
 }
 
 async function initMacy() {
