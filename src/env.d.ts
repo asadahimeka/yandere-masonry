@@ -39,3 +39,7 @@ declare const Macy: any
  * Note: this feature is experimental and the API may change.
  */
 declare function GM_addElement(tagName: 'script', attributes: Record<string, any>): HTMLScriptElement;
+
+declare const User: {
+  last_username_in_form: string
+}

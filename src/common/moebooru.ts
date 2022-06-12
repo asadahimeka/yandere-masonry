@@ -1,40 +1,13 @@
 import { showMsg } from './utils'
 
-function getYandereUserId() {
-  const match = document.cookie.match(/user_id=(\d+)/)
-  return match?.[1]
-}
-
-export function getKonachanUsername() {
-  const match = document.cookie.match(/login=(\w+)/)
-  return match?.[1]
-}
-
-let _moebooruUserName: string | null
-export async function getUsername() {
-  try {
-    if (location.href.includes('konachan')) return getKonachanUsername()
-    if (_moebooruUserName) return _moebooruUserName
-    const username = localStorage.getItem('__username')
-    _moebooruUserName = username
-    if (username) return username
-    const id = getYandereUserId()
-    if (!id) return
-    const response = await fetch(`/user.json?id=${id}`)
-    const result = await response.json()
-    const { name } = result[0]
-    localStorage.setItem('__username', name)
-    return name
-  } catch (error) {
-    console.log('getUsername error:', error)
-    return
-  }
+export function getUsername() {
+  return User.last_username_in_form
 }
 
 export async function isVoted(id: string) {
   try {
     if (!id) return false
-    const username = await getUsername()
+    const username = getUsername()
     if (!username) return false
     const response = await fetch(`/favorite/list_users.json?id=${id}`)
     const result = await response.json()
