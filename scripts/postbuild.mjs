@@ -2,8 +2,8 @@ import fs from 'node:fs/promises'
 
 async function main() {
   const distFilePath = './dist/yandere-masonry.user.js'
-  const buf = await fs.readFile(distFilePath)
-  const script = buf.toString()
+  const script = await fs.readFile(distFilePath, 'utf8')
+  const version = script.match(/@version\s+(\d+\.\d+\.\d+)/)[1]
   const start = script.indexOf('var ydStyle')
   const end = script.indexOf('/*! prepare end */')
   const prepareStr = script.slice(start, end)
@@ -20,6 +20,7 @@ async function main() {
         '})(Vue, VueCompositionAPI, VueMasonry, Vuetify);',
         '  })(Vue, VueCompositionAPI, VueMasonry, Vuetify);});\n})();'
       )
+      .replace('%__VERSION__%', 'v' + version)
   )
 }
 

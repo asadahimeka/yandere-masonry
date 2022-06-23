@@ -3,7 +3,6 @@
     <v-app-bar-nav-icon @click="store.toggleDrawer" />
     <v-toolbar-title class="hidden-sm-and-down" v-text="title" />
     <v-spacer />
-    <img class="hidden-sm-and-down mr-4" src="https://img.shields.io/github/package-json/v/asadahimeka/yandere-masonry" alt="">
     <v-menu transition="slide-y-transition" offset-y>
       <template #activator="{ on, attrs }">
         <v-btn small class="mr-6" v-bind="attrs" v-on="on">
