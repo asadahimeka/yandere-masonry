@@ -35,6 +35,9 @@
           <v-btn v-show="store.selectedImageList.length > 0" small @click="startDownload">
             开始下载
           </v-btn>
+          <v-btn v-show="store.selectedImageList.length > 0" class="ml-2" small @click="exportFileUrls">
+            输出下载地址
+          </v-btn>
         </v-subheader>
         <v-list-item-group color="primary">
           <v-list-item v-for="item in store.selectedImageList" :key="item.id" dense two-line>
@@ -116,7 +119,10 @@ const selectAll = () => {
 }
 
 const removeFromList = (id: string) => {
-  store.selectedImageList = store.selectedImageList.filter(e => e.id !== id)
+  store.selectedImageList = store.selectedImageList.filter(e => {
+    if (e.loading) return true
+    return e.id !== id
+  })
 }
 
 const download = (url: string, name: string) => {
@@ -146,6 +152,11 @@ const startDownload = async () => {
     const msg = error as string
     showMsg({ msg, type: 'error' })
   }
+}
+
+const exportFileUrls = async () => {
+  const urlText = store.selectedImageList.map(e => e.fileUrl).join('\n')
+  await downloadFile('data:text/plain;charset=utf-8,' + encodeURIComponent(urlText), 'image-urls.txt')
 }
 
 const vuetify = useVuetify()

@@ -1,4 +1,4 @@
-# Yande.re Masonry 
+# Yande.re Masonry
 
 ![](https://img.shields.io/github/package-json/v/asadahimeka/yandere-masonry)
 ![](https://img.shields.io/badge/license-MIT-green)
@@ -14,7 +14,7 @@ Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览
 *有问题或建议请到 GitHub [反馈](https://github.com/asadahimeka/yandere-masonry/issues)*
 
 > 修改自 [yande-re-chinese-patch](https://github.com/coderzhaoziwei/yande-re-chinese-patch)
-> 
+>
 > Build with [vite](https://vitejs.dev) & [vite-plugin-tm-userscript](https://github.com/asadahimeka/vite-plugin-tm-userscript)
 
 ## Features
@@ -30,6 +30,10 @@ Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览
 ### 瀑布流模式
 
 点击右上角按钮进入瀑布流模式
+
+### 输出下载地址
+
+可使用 `输出下载地址` 功能保存图片地址 TXT 后使用迅雷、IDM、wget 等批量下载，见 https://github.com/FoXZilla/Pxer/issues/8
 
 ### 站点支持
 

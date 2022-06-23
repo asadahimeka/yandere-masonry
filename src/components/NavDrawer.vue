@@ -95,7 +95,7 @@ const openLink = (link: string) => {
 }
 
 onMounted(async () => {
-  const name = await getUsername()
+  const name = getUsername()
   if (name) userName.value = name
 })
 </script>
