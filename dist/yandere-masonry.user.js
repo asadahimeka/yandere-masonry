@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.14
+// @version              0.2.15
 // @description          Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -2548,14 +2548,45 @@ var __publicField = (obj, key, value) => {
   }();
   const blackList = /* @__PURE__ */ new Set(["e621.net", "e926.net", "hypnohub.net", "derpibooru.org"]);
   const siteDomains = Object.keys(dist.sites).filter((e) => !blackList.has(e));
-  function getUsername() {
-    return User.last_username_in_form;
+  function getYandereUserId() {
+    const match = document.cookie.match(/user_id=(\d+)/);
+    return match == null ? void 0 : match[1];
   }
-  async function isVoted(id) {
+  function getKonachanUsername() {
+    const match = document.cookie.match(/login=(\w+)/);
+    return match == null ? void 0 : match[1];
+  }
+  let _moebooruUserName;
+  async function getUsername() {
+    try {
+      if (_moebooruUserName)
+        return _moebooruUserName;
+      if (location.href.includes("konachan")) {
+        _moebooruUserName = getKonachanUsername();
+        return _moebooruUserName;
+      }
+      const username = localStorage.getItem("__username");
+      _moebooruUserName = username;
+      if (username)
+        return username;
+      const id = getYandereUserId();
+      if (!id)
+        return;
+      const response = await fetch(`/user.json?id=${id}`);
+      const result = await response.json();
+      const { name } = result[0];
+      localStorage.setItem("__username", name);
+      return name;
+    } catch (error) {
+      console.log("getUsername error:", error);
+      return;
+    }
+  }
+  async function checkPostIsVoted(id) {
     try {
       if (!id)
         return false;
-      const username = getUsername();
+      const username = await getUsername();
       if (!username)
         return false;
       const response = await fetch(`/favorite/list_users.json?id=${id}`);
@@ -2563,7 +2594,7 @@ var __publicField = (obj, key, value) => {
       const users = result.favorited_users.split(",");
       return users.includes(username);
     } catch (error) {
-      console.log("isVoted error:", error);
+      console.log("checkPostIsVoted error:", error);
       return false;
     }
   }
@@ -2598,7 +2629,7 @@ var __publicField = (obj, key, value) => {
       window.open(link, "_blank", "noreferrer");
     };
     VueCompositionAPI2.onMounted(async () => {
-      const name = getUsername();
+      const name = await getUsername();
       if (name)
         userName.value = name;
     });
@@ -2673,7 +2704,7 @@ var __publicField = (obj, key, value) => {
       staticClass: "title"
     }, [_vm._v(" About ")])], 1)], 1), _c("v-list-item", [_c("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c("v-icon", [_vm._v("mdi-information-outline")])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("v0.2.14")]), _c("v-list-item-subtitle", [_vm._v("Version")])], 1)], 1), _c("v-list-item", {
+    }, [_c("v-icon", [_vm._v("mdi-information-outline")])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("v0.2.15")])], 1)], 1), _c("v-list-item", {
       attrs: {
         "link": ""
       },
@@ -2798,7 +2829,7 @@ var __publicField = (obj, key, value) => {
         scaleOn.value = false;
         isPostVoted.value = false;
       } else {
-        const flag = await isVoted(imageSelected.value.id);
+        const flag = await checkPostIsVoted(imageSelected.value.id);
         isPostVoted.value = flag;
       }
     });

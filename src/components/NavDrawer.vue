@@ -65,7 +65,6 @@
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>%__VERSION__%</v-list-item-title>
-          <v-list-item-subtitle>Version</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-list-item link @click="openLink('https://github.com/asadahimeka/yandere-masonry')">
@@ -104,7 +103,7 @@ const openLink = (link: string) => {
 }
 
 onMounted(async () => {
-  const name = getUsername()
+  const name = await getUsername()
   if (name) userName.value = name
 })
 </script>

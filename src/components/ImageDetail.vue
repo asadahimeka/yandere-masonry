@@ -194,7 +194,7 @@
 import { computed, onMounted, ref, watch } from '@vue/composition-api'
 import store from '@/common/store'
 import { isURL, showMsg, downloadFile } from '@/common/utils'
-import { addPostToFavorites, isVoted } from '@/common/moebooru'
+import { addPostToFavorites, checkPostIsVoted } from '@/common/moebooru'
 
 const showImageToolbar = ref(true)
 const innerWidth = ref(window.innerWidth)
@@ -284,7 +284,7 @@ watch(() => store.showImageSelected, async val => {
     scaleOn.value = false
     isPostVoted.value  = false
   } else {
-    const flag = await isVoted(imageSelected.value.id)
+    const flag = await checkPostIsVoted(imageSelected.value.id)
     isPostVoted.value = flag
   }
 })
