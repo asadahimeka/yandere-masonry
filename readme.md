@@ -33,7 +33,7 @@ Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览
 
 ### 输出下载地址
 
-可使用 `输出下载地址` 功能保存图片地址 TXT 后使用迅雷、IDM、wget 等批量下载，见 https://github.com/FoXZilla/Pxer/issues/8
+瀑布流模式下可使用 `输出下载地址` 功能保存图片地址 TXT 后使用迅雷、IDM、wget 等批量下载，见 https://github.com/FoXZilla/Pxer/issues/8
 
 ### 站点支持
 
