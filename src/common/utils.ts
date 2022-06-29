@@ -1,13 +1,26 @@
 import { search, sites } from '@himeka/booru'
 
-const BOORU_PAGE_LIMIT = 42
+const defaultLimitMap: Record<string, number> = {
+  'yande.re': 40,
+  'konachan.com': 21,
+  'konachan.net': 21,
+  'danbooru.donmai.us': 20,
+  'gelbooru.com': 42,
+  'rule34.xxx': 42,
+  'safebooru.org': 40,
+  'tbib.org': 42,
+  'xbooru.com': 42,
+  'rule34.paheal.net': 70,
+  'realbooru.com': 42
+}
+const BOORU_PAGE_LIMIT = defaultLimitMap[location.host]
+const isPidSite = sites[location.host].paginate === 'pid'
+
 export async function searchBooru(page: number, tags: string | null) {
   if (!tags || tags === 'all') tags = ''
   if (location.href.includes('konachan.net')) tags += ' rating:safe'
   return search(location.host, tags, { page, limit: BOORU_PAGE_LIMIT })
 }
-
-const isPidSite = sites[location.host].paginate === 'pid'
 
 export function getFirstPageNo(params: URLSearchParams) {
   if (isPidSite) {
@@ -25,7 +38,7 @@ export function pushPageState(pageNo: number) {
   }
   const url = new URL(location.href)
   url.searchParams.set(pageParamName, pageNo.toString())
-  history.pushState('', '', url)
+  history.replaceState('', '', url)
 }
 
 export function isURL(s: string) {
