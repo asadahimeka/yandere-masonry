@@ -66,7 +66,7 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, watch } from '@vue/composition-api'
-import { isReachBottom, searchBooru, throttleScroll } from '@/common/utils'
+import { getFirstPageNo, isReachBottom, pushPageState, searchBooru, throttleScroll } from '@/common/utils'
 import { addPostToFavorites } from '@/common/moebooru'
 import { useVuetify } from '@/plugins/vuetify'
 import store from '@/common/store'
@@ -142,15 +142,13 @@ const addFavorite = () => {
 }
 
 const params = new URLSearchParams(location.search)
-let page = Number(params.get('page')) || 1
+let page = getFirstPageNo(params)
+const tags = params.get('tags')
 const fetchData = async (refresh?: boolean) => {
   if (refresh) page = 1
   store.requestState = true
   try {
-    let tags = params.get('tags')
-    if (!tags || tags === 'all') tags = ''
-    if (location.href.includes('konachan.net')) tags += ' rating:safe'
-    const results = await searchBooru(location.host, page, tags)
+    const results = await searchBooru(page, tags)
     if (Array.isArray(results) && results.length > 0) {
       store.currentPage = page
       if (refresh) {
@@ -159,6 +157,7 @@ const fetchData = async (refresh?: boolean) => {
       } else {
         store.imageList = [...store.imageList, ...results]
       }
+      pushPageState(page)
       page++
     } else {
       store.requestStop = true
