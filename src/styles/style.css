@@ -36,7 +36,7 @@ li.tag-type-circle a[href^="/post"]:not(.no-browser-link)::before {
 #post-popular .sidebar {
   float: none;
   width: auto;
-  max-width: 260px;
+  max-width: 240px;
 }
 
 #post-list .content,
