@@ -14,8 +14,8 @@ Yande.re/Konachan Thumbnail Zoom & Double Click to Next Page & Waterfall Browse
 
 *For questions or suggestions please go to GitHub [feedback](https://github.com/asadahimeka/yandere-masonry/issues)*
 
-> Modified from [yande-re-chinese-patch](https://github.com/coderzhaoziwei/yande-re-chinese-patch)
->
+Modified from [yande-re-chinese-patch](https://github.com/coderzhaoziwei/yande-re-chinese-patch)
+
 > Build with [vite](https://vitejs.dev) & [vite-plugin-tm-userscript](https://github.com/asadahimeka/vite-plugin-tm-userscript)
 
 ## Features
