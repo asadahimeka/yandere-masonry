@@ -13,8 +13,8 @@ Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览
 
 *有问题或建议请到 GitHub [反馈](https://github.com/asadahimeka/yandere-masonry/issues)*
 
-> 修改自 [yande-re-chinese-patch](https://github.com/coderzhaoziwei/yande-re-chinese-patch)
->
+修改自 [yande-re-chinese-patch](https://github.com/coderzhaoziwei/yande-re-chinese-patch)
+
 > Build with [vite](https://vitejs.dev) & [vite-plugin-tm-userscript](https://github.com/asadahimeka/vite-plugin-tm-userscript)
 
 ## Features
