@@ -1,15 +1,10 @@
 <template>
   <v-container v-if="showImageList" class="_vcont pa-2" fluid>
     <masonry :cols="columnCount" gutter="8px">
-      <v-card
-        v-for="(image, index) in store.imageList"
-        :key="index"
-        class="mb-2"
-        style="max-height: 60vh;overflow: hidden;"
-      >
+      <v-card v-for="(image, index) in store.imageList" :key="index" class="mb-2" :style="maxHeightStyle">
         <v-img
           transition="scroll-y-transition"
-          :src="image.previewUrl ?? image.fileUrl ?? void 0"
+          :src="getImgSrc(image)"
           :aspect-ratio="image.aspectRatio"
           @click="showImgModal(index)"
           @contextmenu="onCtxMenu($event, image)"
@@ -109,6 +104,19 @@ const y = ref(0)
 const isYKSite = computed(() => {
   return ['konachan', 'yande'].some(e => store.imageList[0]?.booru.domain.includes(e))
 })
+
+const maxHeightStyle = computed(() => {
+  const num = +store.selectedColumn
+  if (num == 0 || num > 3) return 'max-height: 60vh;overflow: hidden'
+  return ''
+})
+
+const getImgSrc = (img: Post) => {
+  if (columnCount.value < 6) {
+    return img.sampleUrl ?? img.fileUrl ?? void 0
+  }
+  return img.previewUrl ?? img.fileUrl ?? void 0
+}
 
 const onCtxMenu = (ev: MouseEvent, img: Post) => {
   ev.preventDefault()
