@@ -66,6 +66,9 @@
     <v-btn icon @click="toggleDarkmode">
       <v-icon>mdi-brightness-6</v-icon>
     </v-btn>
+    <v-btn icon @click="exitMasonry">
+      <v-icon>mdi-exit-to-app</v-icon>
+    </v-btn>
     <v-progress-linear
       :active="store.requestState"
       :height="6"
@@ -89,7 +92,6 @@ const title = computed(() => {
   return '🚂'
 })
 
-// eslint-disable-next-line unicorn/no-array-reduce
 const cols = ref([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20].reduce<Record<string, string>>((acc, cur) => {
   acc[cur] = cur === 0 ? '自动' : cur + ' 列'
   return acc
@@ -163,5 +165,10 @@ const vuetify = useVuetify()
 const toggleDarkmode = () => {
   vuetify.theme.dark = !vuetify.theme.dark
   localStorage.setItem('__darkmode', vuetify.theme.dark ? 'dark' : 'light')
+}
+
+const exitMasonry = () => {
+  const url = new URL(location.href)
+  url.searchParams.get('_wf') ? location.assign(location.origin) : location.reload()
 }
 </script>
