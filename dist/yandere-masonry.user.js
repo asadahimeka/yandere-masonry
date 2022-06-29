@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.16
+// @version              0.2.17
 // @description          Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -49,7 +49,7 @@ var __publicField = (obj, key, value) => {
   return value;
 };
 (() => {
-  var ydStyle = 'a.thumb{border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08]"}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743]"}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272]"}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2]"}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:260px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:auto;height:auto;margin-top:0;margin-bottom:8px;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}\n';
+  var ydStyle = 'a.thumb{border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08]"}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743]"}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272]"}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2]"}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:auto;height:auto;margin-top:0;margin-bottom:8px;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}\n';
   var knStyle = "#lsidebar{display:none}#post-list ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
   var loadingStyle = "#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0px}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_scale_on{width:auto!important;max-width:100vw!important;max-height:100vh!important;margin:0;padding:12px;overflow:auto}.img_detail_scale_on .v-image{display:block;max-height:100vh;margin:0 auto}.img_detail_scale_on .v-responsive__sizer,.img_detail_scale_on .v-image__image{display:none}.img_detail_scale_on .v-responsive__content{position:relative;width:auto!important;max-width:100vw!important;max-height:100vh;margin:0!important}.img_scale_scroll{display:none}.img_detail_scale_on .img_scale_scroll{display:block;max-width:100vw;max-height:calc(100vh - 30px);overflow:auto}.img_scale_scroll::-webkit-scrollbar{width:10px;height:10px}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}\n";
   async function prepareApp(callback) {
@@ -82,7 +82,7 @@ var __publicField = (obj, key, value) => {
             container: "#post-list-posts",
             trueOrder: false,
             waitForImages: false,
-            columns: 6,
+            columns: 5,
             margin: 16,
             breakAt: { 1800: 5, 1500: 4, 1200: 3, 900: 2, 700: 1 }
           });
@@ -117,6 +117,10 @@ var __publicField = (obj, key, value) => {
     }
   }
   function addMasonryButton(fn) {
+    if (location.href.includes("safebooru")) {
+      const oldBtn = document.querySelector("#enter-masonry");
+      oldBtn == null ? void 0 : oldBtn.remove();
+    }
     document.body.insertAdjacentHTML("beforeend", '<button id="enter-masonry" style="position:fixed;z-index:99;right:16px;top:10px">\u7011\u5E03\u6D41\u6A21\u5F0F</button>');
     const btn = document.querySelector("#enter-masonry");
     btn == null ? void 0 : btn.addEventListener("click", () => {
@@ -1804,7 +1808,7 @@ var __publicField = (obj, key, value) => {
       __publicField(this, "data");
       this.data = e, this.booru = t;
       const i = e.is_deleted || e.is_banned;
-      this.fileUrl = parseImageUrl(e.file_url || e.image || (i ? e.source : void 0) || e.file && e.file.url || e.representations && e.representations.full, e, t), this.available = !i && this.fileUrl !== null, this.height = parseInt(e.height || e.image_height || e.file && e.file.height, 10), this.width = parseInt(e.width || e.image_width || e.file && e.file.width, 10), this.sampleUrl = parseImageUrl(e.sample_url || e.large_file_url || e.representations && e.representations.large || e.sample && e.sample.url, e, t), this.sampleHeight = parseInt(e.sample_height || e.sample && e.sample.height, 10), this.sampleWidth = parseInt(e.sample_width || e.sample && e.sample.width, 10), this.previewUrl = parseImageUrl(e.preview_url || e.preview_file_url || e.representations && e.representations.small || e.preview && e.preview.url, e, t), this.previewHeight = parseInt(e.preview_height || e.preview && e.preview.height, 10), this.previewWidth = parseInt(e.preview_width || e.preview && e.preview.width, 10), this.id = e.id ? e.id.toString() : "No ID available", this.tags = getTags(e), e.score && e.score.total ? this.score = e.score.total : this.score = e.score ? parseInt(e.score, 10) : e.score, this.source = e.source || e.sources || e.source_url, this.rating = e.rating || /(safe|suggestive|questionable|explicit)/i.exec(e.tags) || "u", Array.isArray(this.rating) && (this.rating = this.rating[0]), this.rating === "suggestive" && (this.rating = "q"), this.rating = this.rating.charAt(0), this.createdAt = null, typeof e.created_at == "object" ? this.createdAt = new Date(1e3 * e.created_at.s + e.created_at.n / 1e9) : typeof e.created_at == "number" ? this.createdAt = new Date(1e3 * e.created_at) : typeof e.change == "number" ? this.createdAt = new Date(1e3 * e.change) : this.createdAt = new Date(e.created_at || e.date);
+      this.fileUrl = parseImageUrl(e.file_url || e.image || (i ? e.source : void 0) || e.file && e.file.url || e.representations && e.representations.full, e, t), this.available = !i && this.fileUrl !== null, this.height = parseInt(e.height || e.image_height || e.file && e.file.height, 10), this.width = parseInt(e.width || e.image_width || e.file && e.file.width, 10), this.sampleUrl = parseImageUrl(e.sample_url || e.large_file_url || e.representations && e.representations.large || e.sample && e.sample.url, e, t), this.sampleHeight = parseInt(e.sample_height || e.sample && e.sample.height, 10), this.sampleWidth = parseInt(e.sample_width || e.sample && e.sample.width, 10), this.previewUrl = parseImageUrl(e.preview_url || e.preview_file_url && e.preview_file_url.replace(/(.*)preview(.*)jpg/, "$1720x720$2webp") || e.representations && e.representations.small || e.preview && e.preview.url, e, t), this.previewHeight = parseInt(e.preview_height || e.preview && e.preview.height, 10), this.previewWidth = parseInt(e.preview_width || e.preview && e.preview.width, 10), this.id = e.id ? e.id.toString() : "No ID available", this.tags = getTags(e), e.score && e.score.total ? this.score = e.score.total : this.score = e.score ? parseInt(e.score, 10) : e.score, this.source = e.source || e.sources || e.source_url, this.rating = e.rating || /(safe|suggestive|questionable|explicit)/i.exec(e.tags) || "u", Array.isArray(this.rating) && (this.rating = this.rating[0]), this.rating === "suggestive" && (this.rating = "q"), this.rating = this.rating.charAt(0), this.createdAt = null, typeof e.created_at == "object" ? this.createdAt = new Date(1e3 * e.created_at.s + e.created_at.n / 1e9) : typeof e.created_at == "number" ? this.createdAt = new Date(1e3 * e.created_at) : typeof e.change == "number" ? this.createdAt = new Date(1e3 * e.change) : this.createdAt = new Date(e.created_at || e.date);
     }
     get isRatingS() {
       return this.rating === "s";
@@ -2102,8 +2106,44 @@ var __publicField = (obj, key, value) => {
       return Constants_3.BooruError;
     } });
   })(dist);
-  async function searchBooru(domain, page, tags = "") {
-    return dist.search(domain, tags, { page, limit: 40 });
+  const defaultLimitMap = {
+    "yande.re": 40,
+    "konachan.com": 21,
+    "konachan.net": 21,
+    "danbooru.donmai.us": 20,
+    "gelbooru.com": 42,
+    "rule34.xxx": 42,
+    "safebooru.org": 40,
+    "tbib.org": 42,
+    "xbooru.com": 42,
+    "rule34.paheal.net": 70,
+    "realbooru.com": 42
+  };
+  const BOORU_PAGE_LIMIT = defaultLimitMap[location.host];
+  const isPidSite = dist.sites[location.host].paginate === "pid";
+  async function searchBooru(page, tags) {
+    if (!tags || tags === "all")
+      tags = "";
+    if (location.href.includes("konachan.net"))
+      tags += " rating:safe";
+    return dist.search(location.host, tags, { page, limit: BOORU_PAGE_LIMIT });
+  }
+  function getFirstPageNo(params) {
+    if (isPidSite) {
+      const page = Number(params.get("pid")) || 0;
+      return Math.trunc(page / BOORU_PAGE_LIMIT) + 1;
+    }
+    return Number(params.get("page")) || 1;
+  }
+  function pushPageState(pageNo) {
+    let pageParamName = "page";
+    if (isPidSite) {
+      pageParamName = "pid";
+      pageNo = (pageNo - 1) * BOORU_PAGE_LIMIT;
+    }
+    const url = new URL(location.href);
+    url.searchParams.set(pageParamName, pageNo.toString());
+    history.replaceState("", "", url);
   }
   function isURL(s) {
     return /^https?:\/\/.*/.test(s);
@@ -2238,6 +2278,10 @@ var __publicField = (obj, key, value) => {
       vuetify.theme.dark = !vuetify.theme.dark;
       localStorage.setItem("__darkmode", vuetify.theme.dark ? "dark" : "light");
     };
+    const exitMasonry = () => {
+      const url = new URL(location.href);
+      url.searchParams.get("_wf") ? location.assign(location.origin) : location.reload();
+    };
     return {
       store,
       title,
@@ -2251,7 +2295,8 @@ var __publicField = (obj, key, value) => {
       removeFromList,
       startDownload,
       exportFileUrls,
-      toggleDarkmode
+      toggleDarkmode,
+      exitMasonry
     };
   };
   var render$4 = function() {
@@ -2473,7 +2518,14 @@ var __publicField = (obj, key, value) => {
       on: {
         "click": _vm.toggleDarkmode
       }
-    }, [_c("v-icon", [_vm._v("mdi-brightness-6")])], 1), _c("v-progress-linear", {
+    }, [_c("v-icon", [_vm._v("mdi-brightness-6")])], 1), _c("v-btn", {
+      attrs: {
+        "icon": ""
+      },
+      on: {
+        "click": _vm.exitMasonry
+      }
+    }, [_c("v-icon", [_vm._v("mdi-exit-to-app")])], 1), _c("v-progress-linear", {
       attrs: {
         "active": _vm.store.requestState,
         "height": 6,
@@ -2704,7 +2756,7 @@ var __publicField = (obj, key, value) => {
       staticClass: "title"
     }, [_vm._v(" About ")])], 1)], 1), _c("v-list-item", [_c("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c("v-icon", [_vm._v("mdi-information-outline")])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("v0.2.16")])], 1)], 1), _c("v-list-item", {
+    }, [_c("v-icon", [_vm._v("mdi-information-outline")])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("v0.2.17")])], 1)], 1), _c("v-list-item", {
       attrs: {
         "link": ""
       },
@@ -3287,6 +3339,19 @@ var __publicField = (obj, key, value) => {
         return (_a2 = store.imageList[0]) == null ? void 0 : _a2.booru.domain.includes(e);
       });
     });
+    const maxHeightStyle = VueCompositionAPI2.computed(() => {
+      const num = +store.selectedColumn;
+      if (num == 0 || num > 3)
+        return "max-height: 60vh;overflow: hidden";
+      return "";
+    });
+    const getImgSrc = (img) => {
+      var _a2, _b, _c, _d;
+      if (columnCount.value < 6) {
+        return (_b = (_a2 = img.sampleUrl) != null ? _a2 : img.fileUrl) != null ? _b : void 0;
+      }
+      return (_d = (_c = img.previewUrl) != null ? _c : img.fileUrl) != null ? _d : void 0;
+    };
     const onCtxMenu = (ev, img) => {
       ev.preventDefault();
       showMenu.value = false;
@@ -3314,18 +3379,14 @@ var __publicField = (obj, key, value) => {
       img && addPostToFavorites(img.id);
     };
     const params = new URLSearchParams(location.search);
-    let page = Number(params.get("page")) || 1;
+    let page = getFirstPageNo(params);
+    const tags = params.get("tags");
     const fetchData = async (refresh2) => {
       if (refresh2)
         page = 1;
       store.requestState = true;
       try {
-        let tags = params.get("tags");
-        if (!tags || tags === "all")
-          tags = "";
-        if (location.href.includes("konachan.net"))
-          tags += " rating:safe";
-        const results = await searchBooru(location.host, page, tags);
+        const results = await searchBooru(page, tags);
         if (Array.isArray(results) && results.length > 0) {
           store.currentPage = page;
           if (refresh2) {
@@ -3334,6 +3395,7 @@ var __publicField = (obj, key, value) => {
           } else {
             store.imageList = [...store.imageList, ...results];
           }
+          pushPageState(page);
           page++;
         } else {
           store.requestStop = true;
@@ -3387,6 +3449,8 @@ var __publicField = (obj, key, value) => {
       x,
       y,
       isYKSite,
+      maxHeightStyle,
+      getImgSrc,
       onCtxMenu,
       showImgModal,
       openDetail,
@@ -3414,18 +3478,14 @@ var __publicField = (obj, key, value) => {
         "gutter": "8px"
       }
     }, _vm._l(_vm.store.imageList, function(image, index) {
-      var _ref, _image$previewUrl;
       return _c("v-card", {
         key: index,
         staticClass: "mb-2",
-        staticStyle: {
-          "max-height": "60vh",
-          "overflow": "hidden"
-        }
+        style: _vm.maxHeightStyle
       }, [_c("v-img", {
         attrs: {
           "transition": "scroll-y-transition",
-          "src": (_ref = (_image$previewUrl = image.previewUrl) !== null && _image$previewUrl !== void 0 ? _image$previewUrl : image.fileUrl) !== null && _ref !== void 0 ? _ref : void 0,
+          "src": _vm.getImgSrc(image),
           "aspect-ratio": image.aspectRatio
         },
         on: {
