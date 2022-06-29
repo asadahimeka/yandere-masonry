@@ -506,10 +506,10 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@himeka/booru@^2.6.3":
-  version "2.6.3"
-  resolved "https://registry.npmmirror.com/@himeka/booru/-/booru-2.6.3.tgz#747d9e9e966eed11f812de5fa7c8b54c31fec398"
-  integrity sha512-fd7iXMOzzmU/tfdqVwrSclMRz3R8J2+iAGUsseQAO6M1SHFV/sTMtiid2O5kgKm9X4YmYZGku+psq9tpgCw5sA==
+"@himeka/booru@^2.6.4":
+  version "2.6.4"
+  resolved "https://registry.npmmirror.com/@himeka/booru/-/booru-2.6.4.tgz#f8d88850c997e1d61ba90333c37643af6bfd1e60"
+  integrity sha512-nHcT6uFtw5+CZsQst6Cl0m8gooisGdQJ44XyC6cAd5RX0At2T6U4kCU2vUzOPEBxkBFmHWd6tFzOzEJ12873xQ==
   dependencies:
     fast-xml-parser "^3.19.0"
     node-fetch "^2.6.7"
