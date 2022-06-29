@@ -33,7 +33,7 @@ async function initMacy() {
           container: '#post-list-posts',
           trueOrder: false,
           waitForImages: false,
-          columns: 6,
+          columns: 5,
           margin: 16,
           breakAt: { 1800: 5, 1500: 4, 1200: 3, 900: 2, 700: 1 }
         })
@@ -72,6 +72,10 @@ function bindDblclick() {
 }
 
 function addMasonryButton(fn: () => void) {
+  if (location.href.includes('safebooru')) {
+    const oldBtn = document.querySelector('#enter-masonry') as HTMLButtonElement
+    oldBtn?.remove()
+  }
   document.body.insertAdjacentHTML('beforeend', '<button id="enter-masonry" style="position:fixed;z-index:99;right:16px;top:10px">瀑布流模式</button>')
   const btn = document.querySelector('#enter-masonry') as HTMLButtonElement
   btn?.addEventListener('click', () => { fn() })
