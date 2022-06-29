@@ -65,6 +65,7 @@
     "unicorn/prevent-abbreviations": "off",
     "unicorn/prefer-dom-node-append": "off",
     "unicorn/prefer-dom-node-remove": "off",
-    "unicorn/filename-case": ["warn", {"cases": {"kebabCase": true, "pascalCase": true}}]
+    "unicorn/filename-case": ["warn", {"cases": {"kebabCase": true, "pascalCase": true}}],
+    "unicorn/no-array-reduce": "off"
   }
 }
