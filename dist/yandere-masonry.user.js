@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.17
+// @version              0.2.18
 // @description          Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -58,6 +58,7 @@ var __publicField = (obj, key, value) => {
     addSiteStyle();
     bindDblclick();
     initMacy();
+    setMoebooruLocale();
     const init = async () => {
       await initMasonry();
       callback == null ? void 0 : callback();
@@ -105,8 +106,21 @@ var __publicField = (obj, key, value) => {
       GM_addStyle(ydStyle + knStyle);
     }
   }
+  function isYKSite() {
+    return ["yande.re", "konachan"].some((e) => location.href.includes(e));
+  }
+  function setMoebooruLocale() {
+    if (!isYKSite())
+      return;
+    if (!Cookie)
+      return;
+    if (Cookie.get("locale"))
+      return;
+    Cookie.put("locale", "zh_CN");
+    location.reload();
+  }
   function bindDblclick() {
-    if (["yande.re", "konachan"].some((e) => location.href.includes(e))) {
+    if (isYKSite()) {
       document.addEventListener("dblclick", (e) => {
         const prev = document.querySelector("a.previous_page");
         const next = document.querySelector("a.next_page");
@@ -2756,7 +2770,7 @@ var __publicField = (obj, key, value) => {
       staticClass: "title"
     }, [_vm._v(" About ")])], 1)], 1), _c("v-list-item", [_c("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c("v-icon", [_vm._v("mdi-information-outline")])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("v0.2.17")])], 1)], 1), _c("v-list-item", {
+    }, [_c("v-icon", [_vm._v("mdi-information-outline")])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("v0.2.18")])], 1)], 1), _c("v-list-item", {
       attrs: {
         "link": ""
       },
@@ -3333,7 +3347,7 @@ var __publicField = (obj, key, value) => {
     const showMenu = VueCompositionAPI2.ref(false);
     const x = VueCompositionAPI2.ref(0);
     const y = VueCompositionAPI2.ref(0);
-    const isYKSite = VueCompositionAPI2.computed(() => {
+    const isYKSite2 = VueCompositionAPI2.computed(() => {
       return ["konachan", "yande"].some((e) => {
         var _a2;
         return (_a2 = store.imageList[0]) == null ? void 0 : _a2.booru.domain.includes(e);
@@ -3448,7 +3462,7 @@ var __publicField = (obj, key, value) => {
       showMenu,
       x,
       y,
-      isYKSite,
+      isYKSite: isYKSite2,
       maxHeightStyle,
       getImgSrc,
       onCtxMenu,
