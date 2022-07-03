@@ -66,10 +66,10 @@ function isYKSite() {
 
 function setMoebooruLocale() {
   if (!isYKSite()) return
-  if (!Cookie) return
-  if (Cookie.get('locale')) return
-  Cookie.put('locale', 'zh_CN')
-  location.reload()
+  if (document.cookie.includes('locale=')) return
+  const url = new URL(location.href)
+  url.searchParams.set('locale', 'zh_CN')
+  location.assign(url)
 }
 
 function bindDblclick() {
