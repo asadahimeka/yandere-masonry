@@ -23,6 +23,11 @@ declare module 'vue-masonry-css' {
 
 declare const Macy: any
 
+declare const Cookie: {
+  get: (name: string) => string,
+  put: (name: string, value: string, days?: number) => void
+}
+
 /**
  * Creates an HTML element specified by 'tag_name' and applies all given 'attributes' and returns the injected HTML element.
  * If a 'parent_node' is given, then it is attached to it or to document head or body otherwise.

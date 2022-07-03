@@ -7,6 +7,7 @@ export async function prepareApp(callback?: () => void) {
   addSiteStyle()
   bindDblclick()
   initMacy()
+  setMoebooruLocale()
   const init = async () => {
     await initMasonry()
     callback?.()
@@ -59,8 +60,20 @@ function addSiteStyle() {
   }
 }
 
+function isYKSite() {
+  return ['yande.re', 'konachan'].some(e => location.href.includes(e))
+}
+
+function setMoebooruLocale() {
+  if (!isYKSite()) return
+  if (!Cookie) return
+  if (Cookie.get('locale')) return
+  Cookie.put('locale', 'zh_CN')
+  location.reload()
+}
+
 function bindDblclick() {
-  if (['yande.re', 'konachan'].some(e => location.href.includes(e))) {
+  if (isYKSite()) {
     document.addEventListener('dblclick', e => {
       const prev = document.querySelector('a.previous_page') as HTMLAnchorElement
       const next = document.querySelector('a.next_page') as HTMLAnchorElement
