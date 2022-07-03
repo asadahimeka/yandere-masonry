@@ -17,6 +17,14 @@ Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览
 
 > Build with [vite](https://vitejs.dev) & [vite-plugin-tm-userscript](https://github.com/asadahimeka/vite-plugin-tm-userscript)
 
+## Tips
+
+Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设置 cookie 里的 `locale` 项来指定界面语言
+
+如： https://yande.re/post?locale=zh_CN
+
+本脚本在访问 Y 站或 K 站时已默认指定语言为 `zh_CN`
+
 ## Features
 
 ### 缩略图放大
