@@ -68,6 +68,7 @@ function setMoebooruLocale() {
   if (!isYKSite()) return
   if (document.cookie.includes('locale=')) return
   const url = new URL(location.href)
+  if (url.searchParams.get('_wf')) return
   url.searchParams.set('locale', 'zh_CN')
   location.assign(url)
 }
