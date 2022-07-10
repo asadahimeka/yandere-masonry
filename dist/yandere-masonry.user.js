@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.21
+// @version              0.2.22
 // @description          Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -24,6 +24,7 @@
 // @run-at               document-body
 // @grant                GM_addStyle
 // @grant                GM_addElement
+// @grant                GM_info
 // @grant                GM_download
 // @grant                GM_notification
 // ==/UserScript==
@@ -55,43 +56,47 @@ var __publicField = (obj, key, value) => {
   async function prepareApp(callback) {
     if (doNotRun())
       return;
-    addSiteStyle();
-    bindDblclick();
-    initMacy();
-    setMoebooruLocale();
-    const init = async () => {
-      await initMasonry();
-      callback == null ? void 0 : callback();
-    };
+    if (isMoebooru()) {
+      addSiteStyle();
+      bindDblclick();
+      setMoebooruLocale();
+      translateTags();
+      initMacy();
+    }
     addEventListener("load", () => {
-      const params = new URLSearchParams(location.search);
-      params.get("_wf") ? init() : addMasonryButton(init);
+      setMasonryMode(async () => {
+        await initMasonry();
+        callback == null ? void 0 : callback();
+      });
     });
   }
   function doNotRun() {
     const mimeTypes = ["jpg", "jpeg", "png", "gif", "mp4", "webm", "json", "xml"];
     return mimeTypes.some((e) => location.pathname.endsWith("." + e));
   }
+  function isMoebooru() {
+    return ["yande.re", "konachan"].some((e) => location.href.includes(e));
+  }
   async function initMacy() {
-    try {
-      if (location.href.includes("yande.re/post")) {
-        await Promise.all([
-          loadScript("https://lib.baomitu.com/macy/2.5.1/macy.min.js")
-        ]);
-        setTimeout(() => {
-          new Macy({
-            container: "#post-list-posts",
-            trueOrder: false,
-            waitForImages: false,
-            columns: 5,
-            margin: 16,
-            breakAt: { 1800: 5, 1500: 4, 1200: 3, 900: 2, 700: 1 }
-          });
-        }, 100);
-      }
-    } catch (error) {
-      console.log("init macy error:", error);
+    if (!location.href.includes("yande.re/post"))
+      return;
+    const listEl = document.querySelector("#post-list-posts");
+    if (!listEl)
+      return;
+    for (const item of listEl.children) {
+      item.setAttribute("style", "width:auto;margin:0 10px 10px 0;vertical-align:top");
     }
+    await loadScript("https://lib.baomitu.com/macy/2.5.1/macy.min.js");
+    setTimeout(() => {
+      new Macy({
+        container: listEl,
+        trueOrder: false,
+        waitForImages: false,
+        columns: 5,
+        margin: 16,
+        breakAt: { 1800: 5, 1500: 4, 1200: 3, 900: 2, 700: 1 }
+      });
+    }, 100);
   }
   async function initMasonry() {
     replaceHead();
@@ -106,12 +111,7 @@ var __publicField = (obj, key, value) => {
       GM_addStyle(ydStyle + knStyle);
     }
   }
-  function isYKSite() {
-    return ["yande.re", "konachan"].some((e) => location.href.includes(e));
-  }
   function setMoebooruLocale() {
-    if (!isYKSite())
-      return;
     if (document.title === "Access denied")
       return;
     if (document.cookie.includes("locale="))
@@ -125,17 +125,30 @@ var __publicField = (obj, key, value) => {
     location.assign(url);
   }
   function bindDblclick() {
-    if (isYKSite()) {
-      document.addEventListener("dblclick", (e) => {
-        const prev = document.querySelector("a.previous_page");
-        const next = document.querySelector("a.next_page");
-        const w = document.documentElement.offsetWidth || document.body.offsetWidth;
-        const clickX = e.clientX;
-        clickX > w / 2 ? next == null ? void 0 : next.click() : prev == null ? void 0 : prev.click();
-      });
+    document.addEventListener("dblclick", (e) => {
+      const prev = document.querySelector("a.previous_page");
+      const next = document.querySelector("a.next_page");
+      const w = document.documentElement.offsetWidth || document.body.offsetWidth;
+      const clickX = e.clientX;
+      clickX > w / 2 ? next == null ? void 0 : next.click() : prev == null ? void 0 : prev.click();
+    });
+  }
+  async function translateTags() {
+    var _a2, _b, _c;
+    const response = await fetch("https://fastly.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/dist/tags_cn.json");
+    window.__tagsCN = await response.json();
+    const tagElements = document.querySelectorAll('#tag-sidebar a[href^="/post?tags="]:not(.no-browser-link)');
+    for (const tagItem of tagElements) {
+      const tagEnStr = (_c = (_b = (_a2 = tagItem.getAttribute("href")) == null ? void 0 : _a2.match(/^\/post\?tags=(\S+)$/)) == null ? void 0 : _b[1]) != null ? _c : "";
+      const tagCnStr = window.__tagsCN[tagEnStr];
+      if (tagCnStr)
+        tagItem.innerHTML = `[${tagCnStr}]${tagEnStr.replace(/_/g, " ")}`;
     }
   }
-  function addMasonryButton(fn) {
+  function setMasonryMode(fn) {
+    const params = new URLSearchParams(location.search);
+    if (params.get("_wf"))
+      return fn();
     if (location.href.includes("safebooru")) {
       const oldBtn = document.querySelector("#enter-masonry");
       oldBtn == null ? void 0 : oldBtn.remove();
@@ -2696,6 +2709,7 @@ var __publicField = (obj, key, value) => {
   __sfc_main$3.setup = (__props, __ctx) => {
     const siteLinks = VueCompositionAPI2.ref(siteDomains);
     const userName = VueCompositionAPI2.ref("");
+    const version = VueCompositionAPI2.ref(GM_info.script.version);
     const openLink = (link) => {
       window.open(link, "_blank", "noreferrer");
     };
@@ -2708,6 +2722,7 @@ var __publicField = (obj, key, value) => {
       store,
       siteLinks,
       userName,
+      version,
       openLink
     };
   };
@@ -2775,7 +2790,7 @@ var __publicField = (obj, key, value) => {
       staticClass: "title"
     }, [_vm._v(" About ")])], 1)], 1), _c("v-list-item", [_c("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c("v-icon", [_vm._v("mdi-information-outline")])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("v0.2.21")])], 1)], 1), _c("v-list-item", {
+    }, [_c("v-icon", [_vm._v("mdi-information-outline")])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("v" + _vm._s(_vm.version))])], 1)], 1), _c("v-list-item", {
       attrs: {
         "link": ""
       },
@@ -2847,6 +2862,13 @@ var __publicField = (obj, key, value) => {
     const notYKSite = VueCompositionAPI2.computed(() => {
       return ["konachan", "yande"].every((e) => !booruDomain.value.includes(e));
     });
+    const translateTag = (tag) => {
+      var _a2;
+      if (notYKSite.value)
+        return tag;
+      const tagCN = (_a2 = window.__tagsCN) == null ? void 0 : _a2[tag];
+      return tagCN ? ` ${tag} [${tagCN}]` : tag;
+    };
     const toggleToolbar = () => {
       showImageToolbar.value = !showImageToolbar.value;
     };
@@ -2921,6 +2943,7 @@ var __publicField = (obj, key, value) => {
       imgLasySrc,
       imageSelectedWidth,
       notYKSite,
+      translateTag,
       toggleToolbar,
       toTagsPage,
       toDetailPage,
@@ -3001,6 +3024,12 @@ var __publicField = (obj, key, value) => {
         "flat": ""
       }
     }, [_c("v-chip", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.imageSelectedWidth > 400,
+        expression: "imageSelectedWidth > 400"
+      }],
       staticClass: "hidden-sm-and-down",
       attrs: {
         "small": "",
@@ -3286,7 +3315,7 @@ var __publicField = (obj, key, value) => {
           "text-color": "#ffffff"
         },
         domProps: {
-          "textContent": _vm._s(tag)
+          "textContent": _vm._s(_vm.translateTag(tag))
         },
         on: {
           "click": function($event) {
@@ -3352,7 +3381,7 @@ var __publicField = (obj, key, value) => {
     const showMenu = VueCompositionAPI2.ref(false);
     const x = VueCompositionAPI2.ref(0);
     const y = VueCompositionAPI2.ref(0);
-    const isYKSite2 = VueCompositionAPI2.computed(() => {
+    const isYKSite = VueCompositionAPI2.computed(() => {
       return ["konachan", "yande"].some((e) => {
         var _a2;
         return (_a2 = store.imageList[0]) == null ? void 0 : _a2.booru.domain.includes(e);
@@ -3467,7 +3496,7 @@ var __publicField = (obj, key, value) => {
       showMenu,
       x,
       y,
-      isYKSite: isYKSite2,
+      isYKSite,
       maxHeightStyle,
       getImgSrc,
       onCtxMenu,
