@@ -24,25 +24,23 @@ function doNotRun() {
 }
 
 async function initMacy() {
-  try {
-    if (location.href.includes('yande.re/post')) {
-      await Promise.all([
-        loadScript('https://lib.baomitu.com/macy/2.5.1/macy.min.js')
-      ])
-      setTimeout(() => {
-        new Macy({
-          container: '#post-list-posts',
-          trueOrder: false,
-          waitForImages: false,
-          columns: 5,
-          margin: 16,
-          breakAt: { 1800: 5, 1500: 4, 1200: 3, 900: 2, 700: 1 }
-        })
-      }, 100)
-    }
-  } catch (error) {
-    console.log('init macy error:', error)
+  if (!location.href.includes('yande.re/post')) return
+  const listEl = document.querySelector('#post-list-posts')
+  if (!listEl) return
+  for (const item of listEl.children) {
+    item.setAttribute('style', 'width:auto;margin:0 10px 10px 0;vertical-align:top')
   }
+  await loadScript('https://lib.baomitu.com/macy/2.5.1/macy.min.js')
+  setTimeout(() => {
+    new Macy({
+      container: listEl,
+      trueOrder: false,
+      waitForImages: false,
+      columns: 5,
+      margin: 16,
+      breakAt: { 1800: 5, 1500: 4, 1200: 3, 900: 2, 700: 1 }
+    })
+  }, 100)
 }
 
 async function initMasonry() {

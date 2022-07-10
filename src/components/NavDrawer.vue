@@ -64,7 +64,7 @@
           <v-icon>mdi-information-outline</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>{{ version }}</v-list-item-title>
+          <v-list-item-title>v{{ version }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item link @click="openLink('https://github.com/asadahimeka/yandere-masonry')">
