@@ -15,5 +15,5 @@ module.exports = defineTmHeader({
   "license": "MIT",
   "match": Object.keys(sites).filter(e => !blackList.has(e)).map(e => `https://${e}/*`),
   "supportURL": "https://github.com/asadahimeka/yandere-masonry/issues",
-  "run-at": "document-body",
+  "run-at": "document-end",
 })
