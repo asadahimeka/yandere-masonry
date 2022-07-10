@@ -26,6 +26,7 @@
         flat
       >
         <v-chip
+          v-show="imageSelectedWidth > 400"
           small
           color="#ee8888b3"
           text-color="#ffffff"
@@ -179,7 +180,7 @@
           color="#ee8888b3"
           text-color="#ffffff"
           @click.stop="toTagsPage(tag)"
-          v-text="tag"
+          v-text="translateTag(tag)"
         />
       </v-chip-group>
       <div class="img_scale_scroll">
@@ -232,6 +233,12 @@ const notYKSite = computed(() => {
   return ['konachan', 'yande'].every(e => !booruDomain.value.includes(e))
 })
 
+const translateTag = (tag: string) => {
+  if (notYKSite.value) return tag
+  const tagCN = window.__tagsCN?.[tag]
+  return tagCN ? ` ${tag} [${tagCN}]` : tag
+}
+
 const toggleToolbar = () => {
   showImageToolbar.value = !showImageToolbar.value
 }
@@ -282,7 +289,7 @@ const addFavorite = async () => {
 watch(() => store.showImageSelected, async val => {
   if (!val) {
     scaleOn.value = false
-    isPostVoted.value  = false
+    isPostVoted.value = false
   } else {
     const flag = await checkPostIsVoted(imageSelected.value.id)
     isPostVoted.value = flag

@@ -8,7 +8,6 @@
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vue)
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vuetify)
 
-
 Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览
 
 *有问题或建议请到 GitHub [反馈](https://github.com/asadahimeka/yandere-masonry/issues)*
@@ -35,13 +34,38 @@ Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设
 
 双击页面左侧任意区域进入上一页，双击页面右侧任意区域进入下一页，目前适配 yande.re 与 Konachan
 
+### 标签中文翻译
+
+添加 yande.re 与 Konachan 标签的中文翻译，翻译文件来自 [tags.json](https://github.com/coderzhaoziwei/yande-re-chinese-patch/blob/main/source/data/tags.json)
+
 ### 瀑布流模式
 
 点击右上角按钮进入瀑布流模式
 
-### 输出下载地址
+#### 输出下载地址
 
 瀑布流模式下可使用 `输出下载地址` 功能保存图片地址 TXT 后使用迅雷、IDM、wget 等批量下载，见 https://github.com/FoXZilla/Pxer/issues/8
+
+#### 顶部操作
+
+- 站点切换，打开侧栏操作，支持站点见下方所述
+- 打开个人页面或收藏夹（Y 站/K 站），侧栏里操作
+- 瀑布流显示列数切换，列数选择非自动且列数小于 6 时图片会以 sample_url (即点击详情的大小) 展示。
+- 批量选择
+- 查看下载列表
+- 深色模式切换
+
+#### 详情查看
+
+点击缩略图可查看详情，可进行以下操作
+
+- 收藏（Y 站/K 站）
+- 打开源站详情页面
+- 打开来源地址
+- 查看原图
+- 下载/加入下载列表
+- 打开源站标签页面
+- 点击图片控制按钮与标签显示
 
 ### 站点支持
 

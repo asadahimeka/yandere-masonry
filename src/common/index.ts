@@ -4,23 +4,28 @@ import loadingStyle from '@/styles/loading.css?inline'
 
 export async function prepareApp(callback?: () => void) {
   if (doNotRun()) return
-  addSiteStyle()
-  bindDblclick()
-  initMacy()
-  setMoebooruLocale()
-  const init = async () => {
-    await initMasonry()
-    callback?.()
+  if (isMoebooru()) {
+    addSiteStyle()
+    bindDblclick()
+    setMoebooruLocale()
+    translateTags()
+    initMacy()
   }
   addEventListener('load', () => {
-    const params = new URLSearchParams(location.search)
-    params.get('_wf') ? init() : addMasonryButton(init)
+    setMasonryMode(async () => {
+      await initMasonry()
+      callback?.()
+    })
   })
 }
 
 function doNotRun() {
   const mimeTypes = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'webm', 'json', 'xml']
   return mimeTypes.some(e => location.pathname.endsWith('.' + e))
+}
+
+function isMoebooru() {
+  return ['yande.re', 'konachan'].some(e => location.href.includes(e))
 }
 
 async function initMacy() {
@@ -58,12 +63,7 @@ function addSiteStyle() {
   }
 }
 
-function isYKSite() {
-  return ['yande.re', 'konachan'].some(e => location.href.includes(e))
-}
-
 function setMoebooruLocale() {
-  if (!isYKSite()) return
   if (document.title === 'Access denied') return
   if (document.cookie.includes('locale=')) return
   const url = new URL(location.href)
@@ -74,18 +74,29 @@ function setMoebooruLocale() {
 }
 
 function bindDblclick() {
-  if (isYKSite()) {
-    document.addEventListener('dblclick', e => {
-      const prev = document.querySelector('a.previous_page') as HTMLAnchorElement
-      const next = document.querySelector('a.next_page') as HTMLAnchorElement
-      const w = document.documentElement.offsetWidth || document.body.offsetWidth
-      const clickX = e.clientX
-      clickX > w / 2 ? next?.click() : prev?.click()
-    })
+  document.addEventListener('dblclick', e => {
+    const prev = document.querySelector('a.previous_page') as HTMLAnchorElement
+    const next = document.querySelector('a.next_page') as HTMLAnchorElement
+    const w = document.documentElement.offsetWidth || document.body.offsetWidth
+    const clickX = e.clientX
+    clickX > w / 2 ? next?.click() : prev?.click()
+  })
+}
+
+async function translateTags() {
+  const response = await fetch('https://fastly.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/dist/tags_cn.json')
+  window.__tagsCN = await response.json()
+  const tagElements = document.querySelectorAll('#tag-sidebar a[href^="/post?tags="]:not(.no-browser-link)')
+  for (const tagItem of tagElements) {
+    const tagEnStr = tagItem.getAttribute('href')?.match(/^\/post\?tags=(\S+)$/)?.[1] ?? ''
+    const tagCnStr = window.__tagsCN[tagEnStr]
+    if (tagCnStr) tagItem.innerHTML = `[${tagCnStr}]${tagEnStr.replace(/_/g, ' ')}`
   }
 }
 
-function addMasonryButton(fn: () => void) {
+function setMasonryMode(fn: () => void) {
+  const params = new URLSearchParams(location.search)
+  if (params.get('_wf')) return fn()
   if (location.href.includes('safebooru')) {
     const oldBtn = document.querySelector('#enter-masonry') as HTMLButtonElement
     oldBtn?.remove()
