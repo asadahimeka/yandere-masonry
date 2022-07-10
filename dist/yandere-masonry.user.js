@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.22
+// @version              0.2.23
 // @description          Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -135,7 +135,7 @@ var __publicField = (obj, key, value) => {
   }
   async function translateTags() {
     var _a2, _b, _c;
-    const response = await fetch("https://fastly.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/dist/tags_cn.json");
+    const response = await fetch("https://fastly.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/common/tags_cn.json");
     window.__tagsCN = await response.json();
     const tagElements = document.querySelectorAll('#tag-sidebar a[href^="/post?tags="]:not(.no-browser-link)');
     for (const tagItem of tagElements) {
