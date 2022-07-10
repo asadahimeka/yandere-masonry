@@ -64,7 +64,7 @@
           <v-icon>mdi-information-outline</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>%__VERSION__%</v-list-item-title>
+          <v-list-item-title>{{ version }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item link @click="openLink('https://github.com/asadahimeka/yandere-masonry')">
@@ -97,6 +97,7 @@ import store from '@/common/store'
 
 const siteLinks = ref(siteDomains)
 const userName = ref('')
+const version = ref(GM_info.script.version)
 
 const openLink = (link: string) => {
   window.open(link, '_blank', 'noreferrer')
