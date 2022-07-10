@@ -84,7 +84,7 @@ function bindDblclick() {
 }
 
 async function translateTags() {
-  const response = await fetch('https://fastly.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/dist/tags_cn.json')
+  const response = await fetch('https://fastly.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/common/tags_cn.json')
   window.__tagsCN = await response.json()
   const tagElements = document.querySelectorAll('#tag-sidebar a[href^="/post?tags="]:not(.no-browser-link)')
   for (const tagItem of tagElements) {
