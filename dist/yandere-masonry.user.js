@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.26
+// @version              0.2.27
 // @description          Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -2690,7 +2690,7 @@ var __publicField = (obj, key, value) => {
       return {
         voted: result.votes[id] == 3,
         tags: Object.entries(result.tags).map(([tag, type]) => {
-          var _a2, _b;
+          var _a2, _b, _c;
           const tagCN = (_a2 = window.__tagsCN) == null ? void 0 : _a2[tag];
           const typeText = (_b = tagInfoMap[type]) == null ? void 0 : _b[0];
           const tagText = [
@@ -2702,7 +2702,7 @@ var __publicField = (obj, key, value) => {
             tag,
             type,
             tagText,
-            color: tagInfoMap[type][1]
+            color: ((_c = tagInfoMap[type]) == null ? void 0 : _c[1]) || tagInfoMap.general[1]
           };
         })
       };
