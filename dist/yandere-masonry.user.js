@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.25
+// @version              0.2.26
 // @description          Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -51,7 +51,7 @@ var __publicField = (obj, key, value) => {
 };
 (() => {
   var ydStyle = 'a.thumb{border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08]"}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743]"}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272]"}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2]"}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:auto;height:auto;margin-top:0;margin-bottom:8px;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}\n';
-  var knStyle = "#lsidebar{display:none}#post-list ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
+  var knStyle = "#lsidebar{display:none}#post-popular ul#post-list-posts{display:flex;justify-content:center;flex-wrap:wrap}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
   var loadingStyle = "#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0px}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_scale_on{width:auto!important;max-width:100vw!important;max-height:100vh!important;margin:0;padding:12px;overflow:auto}.img_detail_scale_on .v-image{display:block;max-height:100vh;margin:0 auto}.img_detail_scale_on .v-responsive__sizer,.img_detail_scale_on .v-image__image{display:none}.img_detail_scale_on .v-responsive__content{position:relative;width:auto!important;max-width:100vw!important;max-height:100vh;margin:0!important}.img_scale_scroll{display:none}.img_detail_scale_on .img_scale_scroll{display:block;max-width:100vw;max-height:calc(100vh - 30px);overflow:auto}.img_scale_scroll::-webkit-scrollbar{width:10px;height:10px}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}\n";
   async function prepareApp(callback) {
     if (doNotRun())
@@ -1921,7 +1921,7 @@ var __publicField = (obj, key, value) => {
       return this.booru.postView(this.id);
     }
   }
-  Post$1.default = Post;
+  var _default = Post$1.default = Post;
   var SearchResults$1 = {};
   var __createBinding = commonjsGlobal && commonjsGlobal.__createBinding || (Object.create ? function(t, e, r, s) {
     s === void 0 && (s = r);
@@ -2159,6 +2159,13 @@ var __publicField = (obj, key, value) => {
     if (location.href.includes("konachan.net"))
       tags += " rating:safe";
     return dist.search(location.host, tags, { page, limit: BOORU_PAGE_LIMIT });
+  }
+  async function fetchPopularPosts() {
+    const url = new URL(location.href);
+    url.pathname += ".json";
+    const response = await fetch(url);
+    const result = await response.json();
+    return result.map((e) => new _default(e, dist.forSite(location.host)));
   }
   function getFirstPageNo(params) {
     if (isPidSite) {
@@ -2666,19 +2673,41 @@ var __publicField = (obj, key, value) => {
       return;
     }
   }
-  async function checkPostIsVoted(id) {
+  const tagInfoMap = {
+    circle: ["\u793E\u56E2", "#00bbbbcc"],
+    artist: ["\u753B\u5E08", "#FFB11Bf1"],
+    copyright: ["\u7248\u6743", "#C1328Ede"],
+    character: ["\u89D2\u8272", "#00aa00cc"],
+    general: ["", "#E87A90cc"],
+    faults: ["", "#AB3B3Ada"]
+  };
+  async function getPostDetail(id) {
     try {
       if (!id)
         return false;
-      const username = await getUsername();
-      if (!username)
-        return false;
-      const response = await fetch(`/favorite/list_users.json?id=${id}`);
+      const response = await fetch(`/post.json?api_version=2&tags=id:${id}&include_tags=1&include_votes=1`);
       const result = await response.json();
-      const users = result.favorited_users.split(",");
-      return users.includes(username);
+      return {
+        voted: result.votes[id] == 3,
+        tags: Object.entries(result.tags).map(([tag, type]) => {
+          var _a2, _b;
+          const tagCN = (_a2 = window.__tagsCN) == null ? void 0 : _a2[tag];
+          const typeText = (_b = tagInfoMap[type]) == null ? void 0 : _b[0];
+          const tagText = [
+            typeText && `[ ${typeText} ] `,
+            tag,
+            tagCN && ` [ ${tagCN} ]`
+          ].filter(Boolean).join("");
+          return {
+            tag,
+            type,
+            tagText,
+            color: tagInfoMap[type][1]
+          };
+        })
+      };
     } catch (error) {
-      console.log("checkPostIsVoted error:", error);
+      console.log("getPostDetail error:", error);
       return false;
     }
   }
@@ -2862,20 +2891,13 @@ var __publicField = (obj, key, value) => {
     const notYKSite = VueCompositionAPI2.computed(() => {
       return ["konachan", "yande"].every((e) => !booruDomain.value.includes(e));
     });
-    const translateTag = (tag) => {
-      var _a2;
-      if (notYKSite.value)
-        return tag;
-      const tagCN = (_a2 = window.__tagsCN) == null ? void 0 : _a2[tag];
-      return tagCN ? ` ${tag} [${tagCN}]` : tag;
-    };
     const toggleToolbar = () => {
       showImageToolbar.value = !showImageToolbar.value;
     };
     const toTagsPage = (tag) => {
       if (notYKSite.value)
         return;
-      window.open(`https://${booruDomain.value}/post?tags=${tag}`, "_blank", "noreferrer");
+      window.open(`/post?tags=${tag}`, "_blank", "noreferrer");
     };
     const toDetailPage = () => {
       window.open(imageSelected.value.postView, "_blank", "noreferrer");
@@ -2909,21 +2931,22 @@ var __publicField = (obj, key, value) => {
     const close = () => {
       store.showImageSelected = false;
     };
-    const isPostVoted = VueCompositionAPI2.ref(false);
+    const postDetail = VueCompositionAPI2.ref({});
     const addFavorite = async () => {
-      if (notYKSite.value || isPostVoted.value)
+      if (notYKSite.value || postDetail.value.voted)
         return;
       const isSuccess = await addPostToFavorites(imageSelected.value.id);
       if (isSuccess)
-        isPostVoted.value = true;
+        postDetail.value.voted = true;
     };
     VueCompositionAPI2.watch(() => store.showImageSelected, async (val) => {
       if (!val) {
         scaleOn.value = false;
-        isPostVoted.value = false;
+        postDetail.value = {};
       } else {
-        const flag = await checkPostIsVoted(imageSelected.value.id);
-        isPostVoted.value = flag;
+        const result = await getPostDetail(imageSelected.value.id);
+        if (result)
+          postDetail.value = result;
       }
     });
     VueCompositionAPI2.onMounted(() => {
@@ -2943,7 +2966,6 @@ var __publicField = (obj, key, value) => {
       imgLasySrc,
       imageSelectedWidth,
       notYKSite,
-      translateTag,
       toggleToolbar,
       toTagsPage,
       toDetailPage,
@@ -2951,7 +2973,7 @@ var __publicField = (obj, key, value) => {
       download,
       addToList,
       close,
-      isPostVoted,
+      postDetail,
       addFavorite
     };
   };
@@ -2963,7 +2985,7 @@ var __publicField = (obj, key, value) => {
     return _c("v-dialog", {
       attrs: {
         "content-class": _vm.scaleOn ? "img_detail_scale_on" : "",
-        "width": _vm.imageSelectedWidth > 300 ? _vm.imageSelectedWidth : 300,
+        "width": _vm.imageSelectedWidth > 360 ? _vm.imageSelectedWidth : 360,
         "overlay-opacity": 0.7
       },
       model: {
@@ -3067,10 +3089,10 @@ var __publicField = (obj, key, value) => {
                 return _vm.addFavorite.apply(null, arguments);
               }
             }
-          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_vm.isPostVoted ? "mdi-heart" : "mdi-heart-plus-outline"))])], 1)];
+          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_vm.postDetail.voted ? "mdi-heart" : "mdi-heart-plus-outline"))])], 1)];
         }
-      }], null, false, 3867551738)
-    }, [_c("span", [_vm._v(_vm._s(_vm.isPostVoted ? "\u5DF2\u6536\u85CF" : "\u6536\u85CF"))])]) : _vm._e(), _c("v-tooltip", {
+      }], null, false, 2563097983)
+    }, [_c("span", [_vm._v(_vm._s(_vm.postDetail.voted ? "\u5DF2\u6536\u85CF" : "\u6536\u85CF"))])]) : _vm._e(), _c("v-tooltip", {
       attrs: {
         "bottom": ""
       },
@@ -3305,22 +3327,22 @@ var __publicField = (obj, key, value) => {
       attrs: {
         "column": ""
       }
-    }, _vm._l(_vm.imageSelected.tags, function(tag, i) {
+    }, _vm._l(_vm.postDetail.tags || [], function(item, i) {
       return _c("v-chip", {
-        key: tag + i,
+        key: item.tag + i,
         staticClass: "mr-1",
         attrs: {
           "small": "",
-          "color": "#ee8888b3",
+          "color": item.color,
           "text-color": "#ffffff"
         },
         domProps: {
-          "textContent": _vm._s(_vm.translateTag(tag))
+          "textContent": _vm._s(item.tagText)
         },
         on: {
           "click": function($event) {
             $event.stopPropagation();
-            return _vm.toTagsPage(tag);
+            return _vm.toTagsPage(item.tag);
           }
         }
       });
@@ -3426,6 +3448,7 @@ var __publicField = (obj, key, value) => {
       const img = ctxActPost.value;
       img && addPostToFavorites(img.id);
     };
+    const isPopularPage = /(yande.re|konachan).*\/post\/popular_/.test(location.href);
     const params = new URLSearchParams(location.search);
     let page = getFirstPageNo(params);
     const tags = params.get("tags");
@@ -3434,7 +3457,13 @@ var __publicField = (obj, key, value) => {
         page = 1;
       store.requestState = true;
       try {
-        const results = await searchBooru(page, tags);
+        let results = [];
+        if (isPopularPage) {
+          results = await fetchPopularPosts();
+          store.requestStop = true;
+        } else {
+          results = await searchBooru(page, tags);
+        }
         if (Array.isArray(results) && results.length > 0) {
           store.currentPage = page;
           if (refresh2) {
@@ -3462,6 +3491,8 @@ var __publicField = (obj, key, value) => {
     };
     const initData = async (refresh2) => {
       await fetchData(refresh2);
+      if (store.requestStop)
+        return;
       const times = calcFetchTimes();
       for (let index = 0; index < times; index++) {
         await fetchData();
@@ -3470,6 +3501,7 @@ var __publicField = (obj, key, value) => {
     const vuetify = useVuetify();
     const refresh = () => {
       vuetify.goTo(0);
+      store.requestStop = false;
       initData(true);
     };
     VueCompositionAPI2.onMounted(async () => {
