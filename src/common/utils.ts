@@ -1,4 +1,5 @@
-import { search, sites } from '@himeka/booru'
+import { forSite, search, sites } from '@himeka/booru'
+import Post from '@himeka/booru/dist/structures/Post'
 
 const defaultLimitMap: Record<string, number> = {
   'yande.re': 40,
@@ -20,6 +21,15 @@ export async function searchBooru(page: number, tags: string | null) {
   if (!tags || tags === 'all') tags = ''
   if (location.href.includes('konachan.net')) tags += ' rating:safe'
   return search(location.host, tags, { page, limit: BOORU_PAGE_LIMIT })
+}
+
+export async function fetchPopularPosts(): Promise<Post[]> {
+  const url = new URL(location.href)
+  url.pathname += '.json'
+  const response = await fetch(url)
+  const result = await response.json()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return result.map((e: any) => new Post(e, forSite(location.host)))
 }
 
 export function getFirstPageNo(params: URLSearchParams) {

@@ -2,7 +2,14 @@
   display: none;
 }
 
-#post-list ul#post-list-posts li {
+#post-popular ul#post-list-posts {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#post-list ul#post-list-posts li,
+#post-popular ul#post-list-posts li {
   width: auto !important;
   margin: 0 10px 10px 0;
   vertical-align: top;

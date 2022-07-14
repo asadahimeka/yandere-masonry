@@ -236,7 +236,7 @@ const notYKSite = computed(() => {
 const translateTag = (tag: string) => {
   if (notYKSite.value) return tag
   const tagCN = window.__tagsCN?.[tag]
-  return tagCN ? ` ${tag} [${tagCN}]` : tag
+  return tagCN ? `${tag} [ ${tagCN} ]` : tag
 }
 
 const toggleToolbar = () => {

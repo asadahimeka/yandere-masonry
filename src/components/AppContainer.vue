@@ -61,7 +61,7 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, watch } from '@vue/composition-api'
-import { getFirstPageNo, isReachBottom, pushPageState, searchBooru, throttleScroll } from '@/common/utils'
+import { fetchPopularPosts, getFirstPageNo, isReachBottom, pushPageState, searchBooru, throttleScroll } from '@/common/utils'
 import { addPostToFavorites } from '@/common/moebooru'
 import { useVuetify } from '@/plugins/vuetify'
 import store from '@/common/store'
@@ -149,6 +149,7 @@ const addFavorite = () => {
   img && addPostToFavorites(img.id)
 }
 
+const isPopularPage = /(yande.re|konachan).*\/post\/popular_/.test(location.href)
 const params = new URLSearchParams(location.search)
 let page = getFirstPageNo(params)
 const tags = params.get('tags')
@@ -156,7 +157,13 @@ const fetchData = async (refresh?: boolean) => {
   if (refresh) page = 1
   store.requestState = true
   try {
-    const results = await searchBooru(page, tags)
+    let results: Post[] = []
+    if (isPopularPage) {
+      results = await fetchPopularPosts()
+      store.requestStop = true
+    } else {
+      results = await searchBooru(page, tags)
+    }
     if (Array.isArray(results) && results.length > 0) {
       store.currentPage = page
       if (refresh) {
@@ -186,6 +193,7 @@ const calcFetchTimes = () => {
 
 const initData = async (refresh?: boolean) => {
   await fetchData(refresh)
+  if (store.requestStop) return
   const times = calcFetchTimes()
   for (let index = 0; index < times; index++) {
     await fetchData()
@@ -195,6 +203,7 @@ const initData = async (refresh?: boolean) => {
 const vuetify = useVuetify()
 const refresh = () => {
   vuetify.goTo(0)
+  store.requestStop = false
   initData(true)
 }
 
