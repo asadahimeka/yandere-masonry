@@ -2,7 +2,7 @@
   <v-dialog
     v-model="store.showImageSelected"
     :content-class="scaleOn ? 'img_detail_scale_on' : ''"
-    :width="imageSelectedWidth > 300 ? imageSelectedWidth : 300"
+    :width="imageSelectedWidth > 360 ? imageSelectedWidth : 360"
     :overlay-opacity="0.7"
   >
     <v-img
@@ -47,10 +47,10 @@
               v-on="on"
               @click.stop="addFavorite"
             >
-              <v-icon>{{ isPostVoted ? 'mdi-heart' : 'mdi-heart-plus-outline' }}</v-icon>
+              <v-icon>{{ postDetail.voted ? 'mdi-heart' : 'mdi-heart-plus-outline' }}</v-icon>
             </v-btn>
           </template>
-          <span>{{ isPostVoted ? '已收藏' : '收藏' }}</span>
+          <span>{{ postDetail.voted ? '已收藏' : '收藏' }}</span>
         </v-tooltip>
         <v-tooltip bottom>
           <template #activator="{ on, attrs }">
@@ -173,14 +173,14 @@
         column
       >
         <v-chip
-          v-for="(tag, i) in imageSelected.tags"
-          :key="tag + i"
+          v-for="(item, i) in postDetail.tags || []"
+          :key="item.tag + i"
           small
           class="mr-1"
-          color="#ee8888b3"
+          :color="item.color"
           text-color="#ffffff"
-          @click.stop="toTagsPage(tag)"
-          v-text="translateTag(tag)"
+          @click.stop="toTagsPage(item.tag)"
+          v-text="item.tagText"
         />
       </v-chip-group>
       <div class="img_scale_scroll">
@@ -195,7 +195,7 @@
 import { computed, onMounted, ref, watch } from '@vue/composition-api'
 import store from '@/common/store'
 import { isURL, showMsg, downloadFile } from '@/common/utils'
-import { addPostToFavorites, checkPostIsVoted } from '@/common/moebooru'
+import { addPostToFavorites, getPostDetail, type PostDetail } from '@/common/moebooru'
 
 const showImageToolbar = ref(true)
 const innerWidth = ref(window.innerWidth)
@@ -233,19 +233,13 @@ const notYKSite = computed(() => {
   return ['konachan', 'yande'].every(e => !booruDomain.value.includes(e))
 })
 
-const translateTag = (tag: string) => {
-  if (notYKSite.value) return tag
-  const tagCN = window.__tagsCN?.[tag]
-  return tagCN ? `${tag} [ ${tagCN} ]` : tag
-}
-
 const toggleToolbar = () => {
   showImageToolbar.value = !showImageToolbar.value
 }
 
 const toTagsPage = (tag: string) => {
   if (notYKSite.value) return
-  window.open(`https://${booruDomain.value}/post?tags=${tag}`, '_blank', 'noreferrer')
+  window.open(`/post?tags=${tag}`, '_blank', 'noreferrer')
 }
 
 const toDetailPage = () => {
@@ -278,21 +272,21 @@ const close = () => {
   store.showImageSelected = false
 }
 
-const isPostVoted = ref(false)
+const postDetail = ref<PostDetail>({})
 
 const addFavorite = async () => {
-  if (notYKSite.value || isPostVoted.value) return
+  if (notYKSite.value || postDetail.value.voted) return
   const isSuccess = await addPostToFavorites(imageSelected.value.id)
-  if (isSuccess) isPostVoted.value = true
+  if (isSuccess) postDetail.value.voted = true
 }
 
 watch(() => store.showImageSelected, async val => {
   if (!val) {
     scaleOn.value = false
-    isPostVoted.value = false
+    postDetail.value = {}
   } else {
-    const flag = await checkPostIsVoted(imageSelected.value.id)
-    isPostVoted.value = flag
+    const result = await getPostDetail(imageSelected.value.id)
+    if (result) postDetail.value = result
   }
 })
 

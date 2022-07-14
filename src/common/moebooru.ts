@@ -49,6 +49,53 @@ export async function checkPostIsVoted(id: string) {
   }
 }
 
+export interface PostDetail {
+  voted?: boolean;
+  tags?: {
+    tag: string;
+    tagText: string;
+    color: string;
+    type: string;
+  }[];
+}
+
+const tagInfoMap: Record<string, string[]> = {
+  circle: ['社团', '#00bbbbcc'],
+  artist: ['画师', '#FFB11Bf1'],
+  copyright: ['版权', '#C1328Ede'],
+  character: ['角色', '#00aa00cc'],
+  general: ['', '#E87A90cc'],
+  faults: ['', '#AB3B3Ada']
+}
+export async function getPostDetail(id: string): Promise<PostDetail | false> {
+  try {
+    if (!id) return false
+    const response = await fetch(`/post.json?api_version=2&tags=id:${id}&include_tags=1&include_votes=1`)
+    const result = await response.json()
+    return {
+      voted: result.votes[id] == 3,
+      tags: Object.entries<string>(result.tags).map(([tag, type]) => {
+        const tagCN = window.__tagsCN?.[tag]
+        const typeText = tagInfoMap[type]?.[0]
+        const tagText = [
+          typeText && `[ ${typeText} ] `,
+          tag,
+          tagCN && ` [ ${tagCN} ]`
+        ].filter(Boolean).join('')
+        return {
+          tag,
+          type,
+          tagText,
+          color: tagInfoMap[type][1]
+        }
+      })
+    }
+  } catch (error) {
+    console.log('getPostDetail error:', error)
+    return false
+  }
+}
+
 export async function addPostToFavorites(id: string) {
   const form = new FormData()
   form.append('id', id)
