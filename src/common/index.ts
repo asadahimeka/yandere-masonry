@@ -125,9 +125,9 @@ function loadScript(src: string) {
 function loadDeps() {
   return Promise.all([
     loadScript('https://lib.baomitu.com/vue/2.6.14/vue.min.js'),
-    loadScript('https://npm.elemecdn.com/@vue/composition-api@1.6.2'),
+    loadScript('https://cdn.jsdelivr.net/npm/@vue/composition-api@1.6.2'),
     loadScript('https://lib.baomitu.com/vuetify/2.6.6/vuetify.min.js'),
-    loadScript('https://npm.elemecdn.com/vue-masonry-css@1.0.3/dist/vue-masonry.min.js')
+    loadScript('https://cdn.jsdelivr.net/npm/vue-masonry-css@1.0.3/dist/vue-masonry.min.js')
   ])
 }
 
@@ -140,9 +140,9 @@ function replaceHead() {
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <meta name="referrer" content="no-referrer">
     <title>Booru Masonry</title>
-    <link rel="stylesheet" href="https://npm.elemecdn.com/normalize.css/normalize.css">
+    <link rel="stylesheet" href="https://lib.baomitu.com/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
-    <link rel="stylesheet" href="https://npm.elemecdn.com/@mdi/font@6.7.96/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.7.96/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://lib.baomitu.com/vuetify/2.6.6/vuetify.min.css">
     <style>${loadingStyle}::-webkit-scrollbar{width:0px}</style>
   `
