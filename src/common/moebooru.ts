@@ -86,7 +86,7 @@ export async function getPostDetail(id: string): Promise<PostDetail | false> {
           tag,
           type,
           tagText,
-          color: tagInfoMap[type][1]
+          color: tagInfoMap[type]?.[1] || tagInfoMap.general[1]
         }
       })
     }
