@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.27
-// @description          Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式
+// @version              0.2.28
+// @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
 // @namespace            me.asadahimeka.yanderemasonry
@@ -65,6 +65,7 @@ var __publicField = (obj, key, value) => {
     }
     addEventListener("load", () => {
       setMasonryMode(async () => {
+        removeOldListeners();
         await initMasonry();
         callback == null ? void 0 : callback();
       });
@@ -144,6 +145,9 @@ var __publicField = (obj, key, value) => {
       if (tagCnStr)
         tagItem.innerHTML = `[${tagCnStr}]${tagEnStr.replace(/_/g, " ")}`;
     }
+  }
+  function removeOldListeners() {
+    document.documentElement.replaceWith(document.documentElement.cloneNode(true));
   }
   function setMasonryMode(fn) {
     const params = new URLSearchParams(location.search);
@@ -2167,6 +2171,7 @@ var __publicField = (obj, key, value) => {
     const result = await response.json();
     return result.map((e) => new _default(e, dist.forSite(location.host)));
   }
+  const eventBus = new Vue__default["default"]();
   function getFirstPageNo(params) {
     if (isPidSite) {
       const page = Number(params.get("pid")) || 0;
@@ -2238,7 +2243,7 @@ var __publicField = (obj, key, value) => {
         length
       } = store.imageList;
       if (img)
-        return `${img.booru.domain.toUpperCase()} - ${length} Posts - Page ${store.currentPage}`;
+        return `${img.booru.domain.toUpperCase()} - ${length} Posts - Page `;
       return "\u{1F682}";
     });
     const cols = VueCompositionAPI2.ref([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20].reduce((acc, cur) => {
@@ -2317,6 +2322,10 @@ var __publicField = (obj, key, value) => {
       vuetify.theme.dark = !vuetify.theme.dark;
       localStorage.setItem("__darkmode", vuetify.theme.dark ? "dark" : "light");
     };
+    const goToPage = (ev) => {
+      const inp = ev.target;
+      eventBus.$emit("loadPostByPage", inp == null ? void 0 : inp.value);
+    };
     const exitMasonry = () => {
       const url = new URL(location.href);
       url.searchParams.get("_wf") ? location.assign(location.origin) : location.reload();
@@ -2335,6 +2344,7 @@ var __publicField = (obj, key, value) => {
       startDownload,
       exportFileUrls,
       toggleDarkmode,
+      goToPage,
       exitMasonry
     };
   };
@@ -2355,6 +2365,29 @@ var __publicField = (obj, key, value) => {
       staticClass: "hidden-sm-and-down",
       domProps: {
         "textContent": _vm._s(_vm.title)
+      }
+    }), _c("input", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.title.length > 2,
+        expression: "title.length > 2"
+      }],
+      staticClass: "hidden-sm-and-down ml-1 text-center rounded",
+      style: {
+        width: "40px",
+        height: "30px",
+        border: "1px solid #bbb"
+      },
+      domProps: {
+        "value": _vm.store.currentPage
+      },
+      on: {
+        "keyup": function($event) {
+          if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter"))
+            return null;
+          return _vm.goToPage($event);
+        }
       }
     }), _c("v-spacer"), _c("v-menu", {
       attrs: {
@@ -2564,7 +2597,7 @@ var __publicField = (obj, key, value) => {
       on: {
         "click": _vm.exitMasonry
       }
-    }, [_c("v-icon", [_vm._v("mdi-exit-to-app")])], 1), _c("v-progress-linear", {
+    }, [_c("v-icon", [_vm._v("mdi-location-exit")])], 1), _c("v-progress-linear", {
       attrs: {
         "active": _vm.store.requestState,
         "height": 6,
@@ -2742,6 +2775,9 @@ var __publicField = (obj, key, value) => {
     const openLink = (link) => {
       window.open(link, "_blank", "noreferrer");
     };
+    const dealLink = (link) => {
+      return `https://${link.includes("yande") ? link + "/post" : link}?_wf=1`;
+    };
     VueCompositionAPI2.onMounted(async () => {
       const name = await getUsername();
       if (name)
@@ -2752,7 +2788,8 @@ var __publicField = (obj, key, value) => {
       siteLinks,
       userName,
       version,
-      openLink
+      openLink,
+      dealLink
     };
   };
   var render$3 = function() {
@@ -2805,7 +2842,7 @@ var __publicField = (obj, key, value) => {
       return _c("v-list-item", {
         key: link,
         attrs: {
-          "href": `https://${link.includes("yande") ? link + "/post" : link}?_wf=1`
+          "href": _vm.dealLink(link)
         }
       }, [_c("v-list-item-icon", {
         staticClass: "mr-2"
@@ -2887,9 +2924,8 @@ var __publicField = (obj, key, value) => {
       const width2 = Number.parseInt((height * imageSelected.value.aspectRatio).toString());
       return Math.min(width, width2);
     });
-    const booruDomain = VueCompositionAPI2.computed(() => imageSelected.value.booru.domain);
     const notYKSite = VueCompositionAPI2.computed(() => {
-      return ["konachan", "yande"].every((e) => !booruDomain.value.includes(e));
+      return ["konachan", "yande"].every((e) => !location.host.includes(e));
     });
     const toggleToolbar = () => {
       showImageToolbar.value = !showImageToolbar.value;
@@ -3452,9 +3488,7 @@ var __publicField = (obj, key, value) => {
     const params = new URLSearchParams(location.search);
     let page = getFirstPageNo(params);
     const tags = params.get("tags");
-    const fetchData = async (refresh2) => {
-      if (refresh2)
-        page = 1;
+    const fetchData = async () => {
       store.requestState = true;
       try {
         let results = [];
@@ -3466,12 +3500,7 @@ var __publicField = (obj, key, value) => {
         }
         if (Array.isArray(results) && results.length > 0) {
           store.currentPage = page;
-          if (refresh2) {
-            store.imageList = results;
-            store.selectedImageList = [];
-          } else {
-            store.imageList = [...store.imageList, ...results];
-          }
+          store.imageList = [...store.imageList, ...results];
           pushPageState(page);
           page++;
         } else {
@@ -3489,8 +3518,8 @@ var __publicField = (obj, key, value) => {
       const doch = document.documentElement.clientHeight;
       return cnth ? Math.floor(doch / cnth) : 1;
     };
-    const initData = async (refresh2) => {
-      await fetchData(refresh2);
+    const initData = async () => {
+      await fetchData();
       if (store.requestStop)
         return;
       const times = calcFetchTimes();
@@ -3498,14 +3527,20 @@ var __publicField = (obj, key, value) => {
         await fetchData();
       }
     };
-    const vuetify = useVuetify();
     const refresh = () => {
-      vuetify.goTo(0);
+      page = 1;
+      store.imageList = [];
+      store.selectedImageList = [];
       store.requestStop = false;
-      initData(true);
+      initData();
     };
     VueCompositionAPI2.onMounted(async () => {
       await initData();
+      eventBus.$on("loadPostByPage", (toPage) => {
+        page = Number(toPage) || 1;
+        store.imageList = [];
+        fetchData();
+      });
       window.addEventListener("scroll", throttleScroll((scroll) => {
         if (!store.showFab && scroll > 200)
           store.showFab = true;
