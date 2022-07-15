@@ -13,6 +13,7 @@ export async function prepareApp(callback?: () => void) {
   }
   addEventListener('load', () => {
     setMasonryMode(async () => {
+      removeOldListeners()
       await initMasonry()
       callback?.()
     })
@@ -92,6 +93,10 @@ async function translateTags() {
     const tagCnStr = window.__tagsCN[tagEnStr]
     if (tagCnStr) tagItem.innerHTML = `[${tagCnStr}]${tagEnStr.replace(/_/g, ' ')}`
   }
+}
+
+function removeOldListeners() {
+  document.documentElement.replaceWith(document.documentElement.cloneNode(true))
 }
 
 function setMasonryMode(fn: () => void) {

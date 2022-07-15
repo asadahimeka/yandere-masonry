@@ -228,9 +228,8 @@ const imageSelectedWidth = computed(() => {
   return Math.min(width, width2)
 })
 
-const booruDomain = computed(() => imageSelected.value.booru.domain)
 const notYKSite = computed(() => {
-  return ['konachan', 'yande'].every(e => !booruDomain.value.includes(e))
+  return ['konachan', 'yande'].every(e => !location.host.includes(e))
 })
 
 const toggleToolbar = () => {

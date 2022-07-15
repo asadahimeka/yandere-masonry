@@ -1,5 +1,6 @@
 import { forSite, search, sites } from '@himeka/booru'
 import Post from '@himeka/booru/dist/structures/Post'
+import Vue from 'vue'
 
 const defaultLimitMap: Record<string, number> = {
   'yande.re': 40,
@@ -31,6 +32,8 @@ export async function fetchPopularPosts(): Promise<Post[]> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return result.map((e: any) => new Post(e, forSite(location.host)))
 }
+
+export const eventBus = new Vue()
 
 export function getFirstPageNo(params: URLSearchParams) {
   if (isPidSite) {

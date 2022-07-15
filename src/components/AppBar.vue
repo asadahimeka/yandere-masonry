@@ -2,6 +2,13 @@
   <v-app-bar app dense>
     <v-app-bar-nav-icon @click="store.toggleDrawer" />
     <v-toolbar-title class="hidden-sm-and-down" v-text="title" />
+    <input
+      v-show="title.length > 2"
+      :value="store.currentPage"
+      class="hidden-sm-and-down ml-1 text-center rounded"
+      :style="{ width: '40px', height: '30px', border: '1px solid #bbb' }"
+      @keyup.enter="goToPage($event)"
+    >
     <v-spacer />
     <v-menu transition="slide-y-transition" offset-y>
       <template #activator="{ on, attrs }">
@@ -67,7 +74,7 @@
       <v-icon>mdi-brightness-6</v-icon>
     </v-btn>
     <v-btn icon @click="exitMasonry">
-      <v-icon>mdi-exit-to-app</v-icon>
+      <v-icon>mdi-location-exit</v-icon>
     </v-btn>
     <v-progress-linear
       :active="store.requestState"
@@ -84,11 +91,11 @@
 import { computed, ref, set } from '@vue/composition-api'
 import { useVuetify } from '@/plugins/vuetify'
 import store from '@/common/store'
-import { downloadFile, showMsg } from '@/common/utils'
+import { downloadFile, eventBus, showMsg } from '@/common/utils'
 
 const title = computed(() => {
   const { 0: img, length } = store.imageList
-  if (img) return `${img.booru.domain.toUpperCase()} - ${length} Posts - Page ${store.currentPage}`
+  if (img) return `${img.booru.domain.toUpperCase()} - ${length} Posts - Page `
   return '🚂'
 })
 
@@ -165,6 +172,11 @@ const vuetify = useVuetify()
 const toggleDarkmode = () => {
   vuetify.theme.dark = !vuetify.theme.dark
   localStorage.setItem('__darkmode', vuetify.theme.dark ? 'dark' : 'light')
+}
+
+const goToPage = (ev: KeyboardEvent) => {
+  const inp = ev.target as HTMLInputElement
+  eventBus.$emit('loadPostByPage', inp?.value)
 }
 
 const exitMasonry = () => {

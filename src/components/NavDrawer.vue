@@ -42,7 +42,7 @@
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item v-for="link in siteLinks" :key="link" :href="`https://${link.includes('yande')?link+'/post':link}?_wf=1`">
+      <v-list-item v-for="link in siteLinks" :key="link" :href="dealLink(link)">
         <v-list-item-icon class="mr-2">
           <v-icon>mdi-arrow-right-circle-outline</v-icon>
         </v-list-item-icon>
@@ -101,6 +101,10 @@ const version = ref(GM_info.script.version)
 
 const openLink = (link: string) => {
   window.open(link, '_blank', 'noreferrer')
+}
+
+const dealLink = (link: string) => {
+  return `https://${link.includes('yande') ? link + '/post' : link}?_wf=1`
 }
 
 onMounted(async () => {

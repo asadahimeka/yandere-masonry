@@ -61,9 +61,8 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, watch } from '@vue/composition-api'
-import { fetchPopularPosts, getFirstPageNo, isReachBottom, pushPageState, searchBooru, throttleScroll } from '@/common/utils'
+import { eventBus, fetchPopularPosts, getFirstPageNo, isReachBottom, pushPageState, searchBooru, throttleScroll } from '@/common/utils'
 import { addPostToFavorites } from '@/common/moebooru'
-import { useVuetify } from '@/plugins/vuetify'
 import store from '@/common/store'
 import ImageDetail from './ImageDetail.vue'
 import type Post from '@himeka/booru/dist/structures/Post'
@@ -153,8 +152,7 @@ const isPopularPage = /(yande.re|konachan).*\/post\/popular_/.test(location.href
 const params = new URLSearchParams(location.search)
 let page = getFirstPageNo(params)
 const tags = params.get('tags')
-const fetchData = async (refresh?: boolean) => {
-  if (refresh) page = 1
+const fetchData = async () => {
   store.requestState = true
   try {
     let results: Post[] = []
@@ -166,12 +164,7 @@ const fetchData = async (refresh?: boolean) => {
     }
     if (Array.isArray(results) && results.length > 0) {
       store.currentPage = page
-      if (refresh) {
-        store.imageList = results
-        store.selectedImageList = []
-      } else {
-        store.imageList = [...store.imageList, ...results]
-      }
+      store.imageList = [...store.imageList, ...results]
       pushPageState(page)
       page++
     } else {
@@ -191,8 +184,8 @@ const calcFetchTimes = () => {
   return cnth ? Math.floor(doch / cnth) : 1
 }
 
-const initData = async (refresh?: boolean) => {
-  await fetchData(refresh)
+const initData = async () => {
+  await fetchData()
   if (store.requestStop) return
   const times = calcFetchTimes()
   for (let index = 0; index < times; index++) {
@@ -200,15 +193,21 @@ const initData = async (refresh?: boolean) => {
   }
 }
 
-const vuetify = useVuetify()
 const refresh = () => {
-  vuetify.goTo(0)
+  page = 1
+  store.imageList = []
+  store.selectedImageList = []
   store.requestStop = false
-  initData(true)
+  initData()
 }
 
 onMounted(async () => {
   await initData()
+  eventBus.$on('loadPostByPage', (toPage: string) => {
+    page = Number(toPage) || 1
+    store.imageList = []
+    fetchData()
+  })
   window.addEventListener('scroll', throttleScroll(scroll => {
     if (!store.showFab && scroll > 200) store.showFab = true
     if (store.requestStop) return
