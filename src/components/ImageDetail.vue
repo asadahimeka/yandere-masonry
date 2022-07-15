@@ -283,7 +283,7 @@ watch(() => store.showImageSelected, async val => {
   if (!val) {
     scaleOn.value = false
     postDetail.value = {}
-  } else {
+  } else if (store.isYKSite) {
     const result = await getPostDetail(imageSelected.value.id)
     if (result) postDetail.value = result
   }
