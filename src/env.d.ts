@@ -41,5 +41,5 @@ declare const Macy: any
 declare function GM_addElement(tagName: 'script', attributes: Record<string, any>): HTMLScriptElement;
 
 interface Window {
-  __tagsCN: Record<string, string>
+  __tagsCN?: Record<string, string>
 }

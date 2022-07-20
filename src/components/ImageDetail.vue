@@ -193,9 +193,9 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from '@vue/composition-api'
-import store from '@/common/store'
-import { isURL, showMsg, downloadFile } from '@/common/utils'
-import { addPostToFavorites, getPostDetail, type PostDetail } from '@/common/moebooru'
+import { isURL, showMsg, downloadFile } from '@/utils'
+import { addPostToFavorites, getPostDetail, type PostDetail } from '@/api/moebooru'
+import store from '@/store'
 
 const showImageToolbar = ref(true)
 const innerWidth = ref(window.innerWidth)

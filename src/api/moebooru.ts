@@ -1,4 +1,6 @@
-import { showMsg } from './utils'
+import { forSite } from '@himeka/booru'
+import Post from '@himeka/booru/dist/structures/Post'
+import { showMsg } from '../utils'
 
 function getYandereUserId() {
   const match = document.cookie.match(/user_id=(\d+)/)
@@ -117,4 +119,13 @@ export async function addPostToFavorites(id: string) {
     showMsg({ msg: '收藏失败: ' + result.reason, type: 'error' })
     return false
   }
+}
+
+export async function fetchPopularPosts(): Promise<Post[]> {
+  const url = new URL(location.href)
+  url.pathname += '.json'
+  const response = await fetch(url)
+  const result = await response.json()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return result.map((e: any) => new Post(e, forSite(location.host)))
 }

@@ -85,12 +85,12 @@ function bindDblclick() {
 }
 
 async function translateTags() {
-  const response = await fetch('https://raw.githubusercontent.com/asadahimeka/yandere-masonry/main/src/common/tags_cn.json')
+  const response = await fetch('https://raw.githubusercontent.com/asadahimeka/yandere-masonry/main/src/data/tags_cn.json')
   window.__tagsCN = await response.json()
   const tagElements = document.querySelectorAll('#tag-sidebar a[href^="/post?tags="]:not(.no-browser-link)')
   for (const tagItem of tagElements) {
     const tagEnStr = tagItem.getAttribute('href')?.match(/^\/post\?tags=(\S+)$/)?.[1] ?? ''
-    const tagCnStr = window.__tagsCN[tagEnStr]
+    const tagCnStr = window.__tagsCN?.[tagEnStr]
     if (tagCnStr) tagItem.innerHTML = `[${tagCnStr}]${tagEnStr.replace(/_/g, ' ')}`
   }
 }

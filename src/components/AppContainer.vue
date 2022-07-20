@@ -61,9 +61,10 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, watch } from '@vue/composition-api'
-import { eventBus, fetchPopularPosts, getFirstPageNo, isReachBottom, pushPageState, searchBooru, throttleScroll } from '@/common/utils'
-import { addPostToFavorites } from '@/common/moebooru'
-import store from '@/common/store'
+import { eventBus, isReachBottom, throttleScroll } from '@/utils'
+import { getFirstPageNo, pushPageState, searchBooru } from '@/api/booru'
+import { addPostToFavorites, fetchPopularPosts } from '@/api/moebooru'
+import store from '@/store'
 import ImageDetail from './ImageDetail.vue'
 import type Post from '@himeka/booru/dist/structures/Post'
 

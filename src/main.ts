@@ -1,4 +1,4 @@
-import { prepareApp } from './common'
+import { prepareApp } from './prepare'
 
 import Vue from 'vue'
 import VueCompositionAPI from '@vue/composition-api'
