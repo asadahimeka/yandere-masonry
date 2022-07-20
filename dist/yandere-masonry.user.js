@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.30
+// @version              0.2.31
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -25,6 +25,7 @@
 // @grant                GM_addStyle
 // @grant                GM_addElement
 // @grant                GM_info
+// @grant                unsafeWindow
 // @grant                GM_download
 // @grant                GM_notification
 // ==/UserScript==
@@ -135,13 +136,13 @@ var __publicField = (obj, key, value) => {
     });
   }
   async function translateTags() {
-    var _a2, _b, _c;
-    const response = await fetch("https://raw.githubusercontent.com/asadahimeka/yandere-masonry/main/src/common/tags_cn.json");
+    var _a2, _b, _c, _d;
+    const response = await fetch("https://raw.githubusercontent.com/asadahimeka/yandere-masonry/main/src/data/tags_cn.json");
     window.__tagsCN = await response.json();
     const tagElements = document.querySelectorAll('#tag-sidebar a[href^="/post?tags="]:not(.no-browser-link)');
     for (const tagItem of tagElements) {
       const tagEnStr = (_c = (_b = (_a2 = tagItem.getAttribute("href")) == null ? void 0 : _a2.match(/^\/post\?tags=(\S+)$/)) == null ? void 0 : _b[1]) != null ? _c : "";
-      const tagCnStr = window.__tagsCN[tagEnStr];
+      const tagCnStr = (_d = window.__tagsCN) == null ? void 0 : _d[tagEnStr];
       if (tagCnStr)
         tagItem.innerHTML = `[${tagCnStr}]${tagEnStr.replace(/_/g, " ")}`;
     }
@@ -280,6 +281,489 @@ var __publicField = (obj, key, value) => {
       store.selectedImageList.push(item);
     }
   });
+  const eventBus = new Vue__default["default"]();
+  function isURL(s) {
+    return /^https?:\/\/.*/.test(s);
+  }
+  function downloadFile(url, name, options) {
+    return new Promise((resolve, reject) => {
+      GM_download(__spreadValues({
+        url,
+        name,
+        onload: () => resolve(),
+        onerror: (err) => reject(new Error(err.error))
+      }, options));
+    });
+  }
+  const msgTypeImages = {
+    success: "https://i0.hdslb.com/bfs/album/39212b6f4c0ab75ca8f508237e756ed03f60e030.png",
+    error: "http://i0.hdslb.com/bfs/album/d84b69fded166425a21ebc1c6c8251f36c26ea49.png"
+  };
+  function showMsg({ msg = "", title = "Booru Masonry", type = "success" }) {
+    GM_notification({
+      title,
+      text: msg,
+      silent: true,
+      timeout: 2e3,
+      image: msgTypeImages[type]
+    });
+  }
+  function isReachBottom() {
+    const { clientHeight, scrollTop, scrollHeight } = document.documentElement;
+    return clientHeight + scrollTop >= scrollHeight * 0.8;
+  }
+  function throttleScroll(downFn, upFn) {
+    const doc = document.documentElement;
+    let position = doc.scrollTop;
+    let ticking = false;
+    return function(arg) {
+      if (ticking)
+        return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        const scroll = doc.scrollTop;
+        scroll > position ? downFn(scroll, arg) : upFn(scroll, arg);
+        position = scroll;
+        ticking = false;
+      });
+    };
+  }
+  const __sfc_main$4 = {};
+  __sfc_main$4.setup = (__props, __ctx) => {
+    const title = VueCompositionAPI2.computed(() => {
+      const {
+        0: img,
+        length
+      } = store.imageList;
+      if (img)
+        return `${img.booru.domain.toUpperCase()} - ${length} Posts - Page `;
+      return "\u{1F682}";
+    });
+    const cols = VueCompositionAPI2.ref([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20].reduce((acc, cur) => {
+      acc[cur] = cur === 0 ? "\u81EA\u52A8" : cur + " \u5217";
+      return acc;
+    }, {}));
+    const selColumn = (val) => {
+      store.selectedColumn = val;
+      localStorage.setItem("__masonry_col", val);
+    };
+    const isNoSelected = VueCompositionAPI2.computed(() => store.selectedImageList.length === 0);
+    const isOneOrMoreSelected = VueCompositionAPI2.computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length < store.imageList.length);
+    const isAllSelected = VueCompositionAPI2.computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length === store.imageList.length);
+    const loadingValue = VueCompositionAPI2.ref(0);
+    const selectAll = () => {
+      if (isNoSelected.value || isOneOrMoreSelected.value) {
+        setTimeout(() => {
+          store.selectedImageList = [...store.imageList];
+        });
+      }
+      if (isAllSelected.value) {
+        setTimeout(() => {
+          store.selectedImageList = [];
+        });
+      }
+    };
+    const removeFromList = (id) => {
+      store.selectedImageList = store.selectedImageList.filter((e) => {
+        if (e.loading)
+          return true;
+        return e.id !== id;
+      });
+    };
+    const download = (url, name) => {
+      loadingValue.value = 0;
+      return downloadFile(url, name, {
+        saveAs: false,
+        onprogress: (d) => {
+          loadingValue.value = d.loaded / d.total * 100;
+        }
+      });
+    };
+    const startDownload = async () => {
+      try {
+        const len = store.selectedImageList.length;
+        for (let index = 0; index < len; index++) {
+          const item = store.selectedImageList[index];
+          const {
+            fileUrl,
+            fileDownloadName,
+            loaded
+          } = item;
+          if (!fileUrl)
+            continue;
+          if (loaded)
+            continue;
+          VueCompositionAPI2.set(item, "loading", true);
+          await download(fileUrl, `${fileDownloadName}.${fileUrl.split(".").pop()}`);
+          VueCompositionAPI2.set(item, "loading", false);
+          VueCompositionAPI2.set(item, "loaded", true);
+        }
+      } catch (error) {
+        const msg = error;
+        showMsg({
+          msg,
+          type: "error"
+        });
+      }
+    };
+    const exportFileUrls = async () => {
+      const urlText = store.selectedImageList.map((e) => e.fileUrl).join("\n");
+      await downloadFile("data:text/plain;charset=utf-8," + encodeURIComponent(urlText), "image-urls.txt");
+    };
+    const vuetify = useVuetify();
+    const toggleDarkmode = () => {
+      vuetify.theme.dark = !vuetify.theme.dark;
+      localStorage.setItem("__darkmode", vuetify.theme.dark ? "dark" : "light");
+    };
+    const goToPage = (ev) => {
+      const inp = ev.target;
+      eventBus.$emit("loadPostByPage", inp == null ? void 0 : inp.value);
+    };
+    const exitMasonry = () => {
+      const url = new URL(location.href);
+      url.searchParams.get("_wf") ? location.assign(location.origin) : location.reload();
+    };
+    return {
+      store,
+      title,
+      cols,
+      selColumn,
+      isNoSelected,
+      isOneOrMoreSelected,
+      isAllSelected,
+      loadingValue,
+      selectAll,
+      removeFromList,
+      startDownload,
+      exportFileUrls,
+      toggleDarkmode,
+      goToPage,
+      exitMasonry
+    };
+  };
+  var render$4 = function() {
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c = _vm._self._c || _h;
+    return _c("v-app-bar", {
+      attrs: {
+        "app": "",
+        "dense": ""
+      }
+    }, [_c("v-app-bar-nav-icon", {
+      on: {
+        "click": _vm.store.toggleDrawer
+      }
+    }), _c("v-toolbar-title", {
+      staticClass: "hidden-sm-and-down",
+      domProps: {
+        "textContent": _vm._s(_vm.title)
+      }
+    }), _c("input", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.title.length > 2,
+        expression: "title.length > 2"
+      }],
+      staticClass: "hidden-sm-and-down ml-1 text-center rounded",
+      style: {
+        width: "40px",
+        height: "30px",
+        border: "1px solid #bbb",
+        color: "inherit"
+      },
+      domProps: {
+        "value": _vm.store.currentPage
+      },
+      on: {
+        "keyup": function($event) {
+          if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter"))
+            return null;
+          return _vm.goToPage($event);
+        }
+      }
+    }), _c("v-spacer"), _c("v-menu", {
+      attrs: {
+        "transition": "slide-y-transition",
+        "offset-y": ""
+      },
+      scopedSlots: _vm._u([{
+        key: "activator",
+        fn: function(_ref) {
+          var on = _ref.on, attrs = _ref.attrs;
+          return [_c("v-btn", _vm._g(_vm._b({
+            staticClass: "mr-6",
+            attrs: {
+              "small": ""
+            }
+          }, "v-btn", attrs, false), on), [_c("v-icon", {
+            attrs: {
+              "left": ""
+            }
+          }, [_vm._v("mdi-view-dashboard-variant")]), _c("span", {
+            staticStyle: {
+              "margin-bottom": "2px"
+            }
+          }, [_vm._v(_vm._s(_vm.store.selectedColumn === "0" ? "\u81EA\u52A8" : _vm.store.selectedColumn + "\u5217"))])], 1)];
+        }
+      }])
+    }, [_c("v-list", {
+      attrs: {
+        "dense": ""
+      }
+    }, _vm._l(_vm.cols, function(val, key) {
+      return _c("v-list-item", {
+        key,
+        attrs: {
+          "dense": "",
+          "link": ""
+        }
+      }, [_c("v-list-item-title", {
+        domProps: {
+          "textContent": _vm._s(val)
+        },
+        on: {
+          "click": function($event) {
+            return _vm.selColumn(key);
+          }
+        }
+      })], 1);
+    }), 1)], 1), _c("span", {
+      staticClass: "hidden-sm-and-down"
+    }, [_vm._v("\u5DF2\u9009\u62E9")]), _c("span", {
+      staticClass: "ml-1 mr-1",
+      domProps: {
+        "textContent": _vm._s(_vm.store.selectedImageList.length)
+      }
+    }), _c("v-btn", {
+      attrs: {
+        "icon": ""
+      },
+      on: {
+        "click": _vm.selectAll
+      }
+    }, [_c("v-icon", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.isNoSelected,
+        expression: "isNoSelected"
+      }]
+    }, [_vm._v("mdi-checkbox-blank-outline")]), _c("v-icon", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.isOneOrMoreSelected,
+        expression: "isOneOrMoreSelected"
+      }]
+    }, [_vm._v("mdi-checkbox-intermediate")]), _c("v-icon", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.isAllSelected,
+        expression: "isAllSelected"
+      }]
+    }, [_vm._v("mdi-checkbox-marked")])], 1), _c("v-menu", {
+      attrs: {
+        "dense": "",
+        "offset-y": "",
+        "close-on-content-click": false
+      },
+      scopedSlots: _vm._u([{
+        key: "activator",
+        fn: function(_ref2) {
+          var on = _ref2.on, attrs = _ref2.attrs;
+          return [_c("v-btn", _vm._g(_vm._b({
+            attrs: {
+              "icon": ""
+            }
+          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v("mdi-download")])], 1)];
+        }
+      }])
+    }, [_c("v-list", {
+      staticStyle: {
+        "min-width": "300px",
+        "max-height": "80vh",
+        "overflow": "auto"
+      },
+      attrs: {
+        "dense": "",
+        "flat": ""
+      }
+    }, [_c("v-subheader", {
+      staticClass: "ml-2"
+    }, [_c("span", {
+      staticClass: "mr-4"
+    }, [_vm._v("\u4E0B\u8F7D\u5217\u8868")]), _c("v-btn", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.store.selectedImageList.length > 0,
+        expression: "store.selectedImageList.length > 0"
+      }],
+      attrs: {
+        "small": ""
+      },
+      on: {
+        "click": _vm.startDownload
+      }
+    }, [_vm._v(" \u5F00\u59CB\u4E0B\u8F7D ")]), _c("v-btn", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.store.selectedImageList.length > 0,
+        expression: "store.selectedImageList.length > 0"
+      }],
+      staticClass: "ml-2",
+      attrs: {
+        "small": ""
+      },
+      on: {
+        "click": _vm.exportFileUrls
+      }
+    }, [_vm._v(" \u8F93\u51FA\u4E0B\u8F7D\u5730\u5740 ")])], 1), _c("v-list-item-group", {
+      attrs: {
+        "color": "primary"
+      }
+    }, _vm._l(_vm.store.selectedImageList, function(item) {
+      return _c("v-list-item", {
+        key: item.id,
+        attrs: {
+          "dense": "",
+          "two-line": ""
+        }
+      }, [_c("v-list-item-avatar", [!item.loading && !item.loaded ? _c("v-btn", {
+        attrs: {
+          "icon": ""
+        }
+      }, [_c("v-icon", [_vm._v("mdi-file-clock-outline")])], 1) : _vm._e(), item.loaded ? _c("v-btn", {
+        attrs: {
+          "icon": "",
+          "color": "green"
+        }
+      }, [_c("v-icon", [_vm._v("mdi-check-underline-circle")])], 1) : _vm._e(), item.loading ? _c("v-progress-circular", {
+        attrs: {
+          "rotate": -90,
+          "size": 28,
+          "value": _vm.loadingValue,
+          "color": "pink"
+        }
+      }) : _vm._e()], 1), _c("v-list-item-content", {
+        staticStyle: {
+          "max-width": "240px"
+        }
+      }, [_c("v-list-item-title", {
+        attrs: {
+          "title": item.fileDownloadName
+        },
+        domProps: {
+          "textContent": _vm._s(item.fileDownloadName)
+        }
+      }), _c("v-list-item-subtitle", {
+        attrs: {
+          "title": item.fileUrl
+        },
+        domProps: {
+          "textContent": _vm._s(item.fileUrl)
+        }
+      })], 1), _c("v-list-item-action", [_c("v-btn", {
+        attrs: {
+          "icon": ""
+        },
+        on: {
+          "click": function($event) {
+            return _vm.removeFromList(item.id);
+          }
+        }
+      }, [_c("v-icon", [_vm._v("mdi-delete")])], 1)], 1)], 1);
+    }), 1)], 1)], 1), _c("v-btn", {
+      attrs: {
+        "icon": ""
+      },
+      on: {
+        "click": _vm.toggleDarkmode
+      }
+    }, [_c("v-icon", [_vm._v("mdi-brightness-6")])], 1), _c("v-btn", {
+      attrs: {
+        "icon": ""
+      },
+      on: {
+        "click": _vm.exitMasonry
+      }
+    }, [_c("v-icon", [_vm._v("mdi-location-exit")])], 1), _c("v-progress-linear", {
+      attrs: {
+        "active": _vm.store.requestState,
+        "height": 6,
+        "color": "deep-purple accent-4",
+        "indeterminate": "",
+        "absolute": "",
+        "bottom": ""
+      }
+    })], 1);
+  };
+  var staticRenderFns$4 = [];
+  function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
+    var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
+    if (render2) {
+      options.render = render2;
+      options.staticRenderFns = staticRenderFns2;
+      options._compiled = true;
+    }
+    if (functionalTemplate) {
+      options.functional = true;
+    }
+    if (scopeId) {
+      options._scopeId = "data-v-" + scopeId;
+    }
+    var hook;
+    if (moduleIdentifier) {
+      hook = function(context) {
+        context = context || this.$vnode && this.$vnode.ssrContext || this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext;
+        if (!context && typeof __VUE_SSR_CONTEXT__ !== "undefined") {
+          context = __VUE_SSR_CONTEXT__;
+        }
+        if (injectStyles) {
+          injectStyles.call(this, context);
+        }
+        if (context && context._registeredComponents) {
+          context._registeredComponents.add(moduleIdentifier);
+        }
+      };
+      options._ssrRegister = hook;
+    } else if (injectStyles) {
+      hook = shadowMode ? function() {
+        injectStyles.call(this, (options.functional ? this.parent : this).$root.$options.shadowRoot);
+      } : injectStyles;
+    }
+    if (hook) {
+      if (options.functional) {
+        options._injectStyles = hook;
+        var originalRender = options.render;
+        options.render = function renderWithStyleInjection(h, context) {
+          hook.call(context);
+          return originalRender(h, context);
+        };
+      } else {
+        var existing = options.beforeCreate;
+        options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+      }
+    }
+    return {
+      exports: scriptExports,
+      options
+    };
+  }
+  const __cssModules$4 = {};
+  var __component__$4 = /* @__PURE__ */ normalizeComponent(__sfc_main$4, render$4, staticRenderFns$4, false, __vue2_injectStyles$4, null, null, null);
+  function __vue2_injectStyles$4(context) {
+    for (let o in __cssModules$4) {
+      this[o] = __cssModules$4[o];
+    }
+  }
+  var AppBar = /* @__PURE__ */ function() {
+    return __component__$4.exports;
+  }();
   var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
   var dist = {};
   var Constants = {};
@@ -2142,6 +2626,8 @@ var __publicField = (obj, key, value) => {
       return Constants_3.BooruError;
     } });
   })(dist);
+  const blackList = /* @__PURE__ */ new Set(["e621.net", "e926.net", "hypnohub.net", "derpibooru.org"]);
+  const siteDomains = Object.keys(dist.sites).filter((e) => !blackList.has(e));
   const defaultLimitMap = {
     "yande.re": 40,
     "konachan.com": 21,
@@ -2157,21 +2643,24 @@ var __publicField = (obj, key, value) => {
   };
   const BOORU_PAGE_LIMIT = defaultLimitMap[location.host];
   const isPidSite = dist.sites[location.host].paginate === "pid";
+  function patchGelApiKey() {
+    const _fetch = unsafeWindow.fetch;
+    unsafeWindow.fetch = (input, init) => {
+      if (typeof input == "string" && input.includes(dist.sites["gelbooru.com"].api.search)) {
+        input += "&api_key=c306a5981d1e0c50518df27dbbebcf027ca4763db6d24fd1b60021d43c6c76d7&user_id=1045457";
+      }
+      return _fetch(input, init);
+    };
+  }
   async function searchBooru(page, tags) {
     if (!tags || tags === "all")
       tags = "";
     if (location.href.includes("konachan.net"))
       tags += " rating:safe";
+    if (location.href.includes("gelbooru.com"))
+      patchGelApiKey();
     return dist.search(location.host, tags, { page, limit: BOORU_PAGE_LIMIT });
   }
-  async function fetchPopularPosts() {
-    const url = new URL(location.href);
-    url.pathname += ".json";
-    const response = await fetch(url);
-    const result = await response.json();
-    return result.map((e) => new _default(e, dist.forSite(location.host)));
-  }
-  const eventBus = new Vue__default["default"]();
   function getFirstPageNo(params) {
     if (isPidSite) {
       const page = Number(params.get("pid")) || 0;
@@ -2189,489 +2678,6 @@ var __publicField = (obj, key, value) => {
     url.searchParams.set(pageParamName, pageNo.toString());
     history.replaceState("", "", url);
   }
-  function isURL(s) {
-    return /^https?:\/\/.*/.test(s);
-  }
-  function downloadFile(url, name, options) {
-    return new Promise((resolve, reject) => {
-      GM_download(__spreadValues({
-        url,
-        name,
-        onload: () => resolve(),
-        onerror: (err) => reject(new Error(err.error))
-      }, options));
-    });
-  }
-  const msgTypeImages = {
-    success: "https://i0.hdslb.com/bfs/album/39212b6f4c0ab75ca8f508237e756ed03f60e030.png",
-    error: "http://i0.hdslb.com/bfs/album/d84b69fded166425a21ebc1c6c8251f36c26ea49.png"
-  };
-  function showMsg({ msg = "", title = "Booru Masonry", type = "success" }) {
-    GM_notification({
-      title,
-      text: msg,
-      silent: true,
-      timeout: 2e3,
-      image: msgTypeImages[type]
-    });
-  }
-  function isReachBottom() {
-    const { clientHeight, scrollTop, scrollHeight } = document.documentElement;
-    return clientHeight + scrollTop >= scrollHeight * 0.8;
-  }
-  function throttleScroll(downFn, upFn) {
-    const doc = document.documentElement;
-    let position = doc.scrollTop;
-    let ticking = false;
-    return function(arg) {
-      if (ticking)
-        return;
-      ticking = true;
-      window.requestAnimationFrame(() => {
-        const scroll = doc.scrollTop;
-        scroll > position ? downFn(scroll, arg) : upFn(scroll, arg);
-        position = scroll;
-        ticking = false;
-      });
-    };
-  }
-  const __sfc_main$4 = {};
-  __sfc_main$4.setup = (__props, __ctx) => {
-    const title = VueCompositionAPI2.computed(() => {
-      const {
-        0: img,
-        length
-      } = store.imageList;
-      if (img)
-        return `${img.booru.domain.toUpperCase()} - ${length} Posts - Page `;
-      return "\u{1F682}";
-    });
-    const cols = VueCompositionAPI2.ref([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20].reduce((acc, cur) => {
-      acc[cur] = cur === 0 ? "\u81EA\u52A8" : cur + " \u5217";
-      return acc;
-    }, {}));
-    const selColumn = (val) => {
-      store.selectedColumn = val;
-      localStorage.setItem("__masonry_col", val);
-    };
-    const isNoSelected = VueCompositionAPI2.computed(() => store.selectedImageList.length === 0);
-    const isOneOrMoreSelected = VueCompositionAPI2.computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length < store.imageList.length);
-    const isAllSelected = VueCompositionAPI2.computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length === store.imageList.length);
-    const loadingValue = VueCompositionAPI2.ref(0);
-    const selectAll = () => {
-      if (isNoSelected.value || isOneOrMoreSelected.value) {
-        setTimeout(() => {
-          store.selectedImageList = [...store.imageList];
-        });
-      }
-      if (isAllSelected.value) {
-        setTimeout(() => {
-          store.selectedImageList = [];
-        });
-      }
-    };
-    const removeFromList = (id) => {
-      store.selectedImageList = store.selectedImageList.filter((e) => {
-        if (e.loading)
-          return true;
-        return e.id !== id;
-      });
-    };
-    const download = (url, name) => {
-      loadingValue.value = 0;
-      return downloadFile(url, name, {
-        saveAs: false,
-        onprogress: (d) => {
-          loadingValue.value = d.loaded / d.total * 100;
-        }
-      });
-    };
-    const startDownload = async () => {
-      try {
-        const len = store.selectedImageList.length;
-        for (let index = 0; index < len; index++) {
-          const item = store.selectedImageList[index];
-          const {
-            fileUrl,
-            fileDownloadName,
-            loaded
-          } = item;
-          if (!fileUrl)
-            continue;
-          if (loaded)
-            continue;
-          VueCompositionAPI2.set(item, "loading", true);
-          await download(fileUrl, `${fileDownloadName}.${fileUrl.split(".").pop()}`);
-          VueCompositionAPI2.set(item, "loading", false);
-          VueCompositionAPI2.set(item, "loaded", true);
-        }
-      } catch (error) {
-        const msg = error;
-        showMsg({
-          msg,
-          type: "error"
-        });
-      }
-    };
-    const exportFileUrls = async () => {
-      const urlText = store.selectedImageList.map((e) => e.fileUrl).join("\n");
-      await downloadFile("data:text/plain;charset=utf-8," + encodeURIComponent(urlText), "image-urls.txt");
-    };
-    const vuetify = useVuetify();
-    const toggleDarkmode = () => {
-      vuetify.theme.dark = !vuetify.theme.dark;
-      localStorage.setItem("__darkmode", vuetify.theme.dark ? "dark" : "light");
-    };
-    const goToPage = (ev) => {
-      const inp = ev.target;
-      eventBus.$emit("loadPostByPage", inp == null ? void 0 : inp.value);
-    };
-    const exitMasonry = () => {
-      const url = new URL(location.href);
-      url.searchParams.get("_wf") ? location.assign(location.origin) : location.reload();
-    };
-    return {
-      store,
-      title,
-      cols,
-      selColumn,
-      isNoSelected,
-      isOneOrMoreSelected,
-      isAllSelected,
-      loadingValue,
-      selectAll,
-      removeFromList,
-      startDownload,
-      exportFileUrls,
-      toggleDarkmode,
-      goToPage,
-      exitMasonry
-    };
-  };
-  var render$4 = function() {
-    var _vm = this;
-    var _h = _vm.$createElement;
-    var _c = _vm._self._c || _h;
-    return _c("v-app-bar", {
-      attrs: {
-        "app": "",
-        "dense": ""
-      }
-    }, [_c("v-app-bar-nav-icon", {
-      on: {
-        "click": _vm.store.toggleDrawer
-      }
-    }), _c("v-toolbar-title", {
-      staticClass: "hidden-sm-and-down",
-      domProps: {
-        "textContent": _vm._s(_vm.title)
-      }
-    }), _c("input", {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.title.length > 2,
-        expression: "title.length > 2"
-      }],
-      staticClass: "hidden-sm-and-down ml-1 text-center rounded",
-      style: {
-        width: "40px",
-        height: "30px",
-        border: "1px solid #bbb"
-      },
-      domProps: {
-        "value": _vm.store.currentPage
-      },
-      on: {
-        "keyup": function($event) {
-          if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter"))
-            return null;
-          return _vm.goToPage($event);
-        }
-      }
-    }), _c("v-spacer"), _c("v-menu", {
-      attrs: {
-        "transition": "slide-y-transition",
-        "offset-y": ""
-      },
-      scopedSlots: _vm._u([{
-        key: "activator",
-        fn: function(_ref) {
-          var on = _ref.on, attrs = _ref.attrs;
-          return [_c("v-btn", _vm._g(_vm._b({
-            staticClass: "mr-6",
-            attrs: {
-              "small": ""
-            }
-          }, "v-btn", attrs, false), on), [_c("v-icon", {
-            attrs: {
-              "left": ""
-            }
-          }, [_vm._v("mdi-view-dashboard-variant")]), _c("span", {
-            staticStyle: {
-              "margin-bottom": "2px"
-            }
-          }, [_vm._v(_vm._s(_vm.store.selectedColumn === "0" ? "\u81EA\u52A8" : _vm.store.selectedColumn + "\u5217"))])], 1)];
-        }
-      }])
-    }, [_c("v-list", {
-      attrs: {
-        "dense": ""
-      }
-    }, _vm._l(_vm.cols, function(val, key) {
-      return _c("v-list-item", {
-        key,
-        attrs: {
-          "dense": "",
-          "link": ""
-        }
-      }, [_c("v-list-item-title", {
-        domProps: {
-          "textContent": _vm._s(val)
-        },
-        on: {
-          "click": function($event) {
-            return _vm.selColumn(key);
-          }
-        }
-      })], 1);
-    }), 1)], 1), _c("span", {
-      staticClass: "hidden-sm-and-down"
-    }, [_vm._v("\u5DF2\u9009\u62E9")]), _c("span", {
-      staticClass: "ml-1 mr-1",
-      domProps: {
-        "textContent": _vm._s(_vm.store.selectedImageList.length)
-      }
-    }), _c("v-btn", {
-      attrs: {
-        "icon": ""
-      },
-      on: {
-        "click": _vm.selectAll
-      }
-    }, [_c("v-icon", {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.isNoSelected,
-        expression: "isNoSelected"
-      }]
-    }, [_vm._v("mdi-checkbox-blank-outline")]), _c("v-icon", {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.isOneOrMoreSelected,
-        expression: "isOneOrMoreSelected"
-      }]
-    }, [_vm._v("mdi-checkbox-intermediate")]), _c("v-icon", {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.isAllSelected,
-        expression: "isAllSelected"
-      }]
-    }, [_vm._v("mdi-checkbox-marked")])], 1), _c("v-menu", {
-      attrs: {
-        "dense": "",
-        "offset-y": "",
-        "close-on-content-click": false
-      },
-      scopedSlots: _vm._u([{
-        key: "activator",
-        fn: function(_ref2) {
-          var on = _ref2.on, attrs = _ref2.attrs;
-          return [_c("v-btn", _vm._g(_vm._b({
-            attrs: {
-              "icon": ""
-            }
-          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v("mdi-download")])], 1)];
-        }
-      }])
-    }, [_c("v-list", {
-      staticStyle: {
-        "min-width": "300px",
-        "max-height": "80vh",
-        "overflow": "auto"
-      },
-      attrs: {
-        "dense": "",
-        "flat": ""
-      }
-    }, [_c("v-subheader", {
-      staticClass: "ml-2"
-    }, [_c("span", {
-      staticClass: "mr-4"
-    }, [_vm._v("\u4E0B\u8F7D\u5217\u8868")]), _c("v-btn", {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.store.selectedImageList.length > 0,
-        expression: "store.selectedImageList.length > 0"
-      }],
-      attrs: {
-        "small": ""
-      },
-      on: {
-        "click": _vm.startDownload
-      }
-    }, [_vm._v(" \u5F00\u59CB\u4E0B\u8F7D ")]), _c("v-btn", {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.store.selectedImageList.length > 0,
-        expression: "store.selectedImageList.length > 0"
-      }],
-      staticClass: "ml-2",
-      attrs: {
-        "small": ""
-      },
-      on: {
-        "click": _vm.exportFileUrls
-      }
-    }, [_vm._v(" \u8F93\u51FA\u4E0B\u8F7D\u5730\u5740 ")])], 1), _c("v-list-item-group", {
-      attrs: {
-        "color": "primary"
-      }
-    }, _vm._l(_vm.store.selectedImageList, function(item) {
-      return _c("v-list-item", {
-        key: item.id,
-        attrs: {
-          "dense": "",
-          "two-line": ""
-        }
-      }, [_c("v-list-item-avatar", [!item.loading && !item.loaded ? _c("v-btn", {
-        attrs: {
-          "icon": ""
-        }
-      }, [_c("v-icon", [_vm._v("mdi-file-clock-outline")])], 1) : _vm._e(), item.loaded ? _c("v-btn", {
-        attrs: {
-          "icon": "",
-          "color": "green"
-        }
-      }, [_c("v-icon", [_vm._v("mdi-check-underline-circle")])], 1) : _vm._e(), item.loading ? _c("v-progress-circular", {
-        attrs: {
-          "rotate": -90,
-          "size": 28,
-          "value": _vm.loadingValue,
-          "color": "pink"
-        }
-      }) : _vm._e()], 1), _c("v-list-item-content", {
-        staticStyle: {
-          "max-width": "240px"
-        }
-      }, [_c("v-list-item-title", {
-        attrs: {
-          "title": item.fileDownloadName
-        },
-        domProps: {
-          "textContent": _vm._s(item.fileDownloadName)
-        }
-      }), _c("v-list-item-subtitle", {
-        attrs: {
-          "title": item.fileUrl
-        },
-        domProps: {
-          "textContent": _vm._s(item.fileUrl)
-        }
-      })], 1), _c("v-list-item-action", [_c("v-btn", {
-        attrs: {
-          "icon": ""
-        },
-        on: {
-          "click": function($event) {
-            return _vm.removeFromList(item.id);
-          }
-        }
-      }, [_c("v-icon", [_vm._v("mdi-delete")])], 1)], 1)], 1);
-    }), 1)], 1)], 1), _c("v-btn", {
-      attrs: {
-        "icon": ""
-      },
-      on: {
-        "click": _vm.toggleDarkmode
-      }
-    }, [_c("v-icon", [_vm._v("mdi-brightness-6")])], 1), _c("v-btn", {
-      attrs: {
-        "icon": ""
-      },
-      on: {
-        "click": _vm.exitMasonry
-      }
-    }, [_c("v-icon", [_vm._v("mdi-location-exit")])], 1), _c("v-progress-linear", {
-      attrs: {
-        "active": _vm.store.requestState,
-        "height": 6,
-        "color": "deep-purple accent-4",
-        "indeterminate": "",
-        "absolute": "",
-        "bottom": ""
-      }
-    })], 1);
-  };
-  var staticRenderFns$4 = [];
-  function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
-    var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
-    if (render2) {
-      options.render = render2;
-      options.staticRenderFns = staticRenderFns2;
-      options._compiled = true;
-    }
-    if (functionalTemplate) {
-      options.functional = true;
-    }
-    if (scopeId) {
-      options._scopeId = "data-v-" + scopeId;
-    }
-    var hook;
-    if (moduleIdentifier) {
-      hook = function(context) {
-        context = context || this.$vnode && this.$vnode.ssrContext || this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext;
-        if (!context && typeof __VUE_SSR_CONTEXT__ !== "undefined") {
-          context = __VUE_SSR_CONTEXT__;
-        }
-        if (injectStyles) {
-          injectStyles.call(this, context);
-        }
-        if (context && context._registeredComponents) {
-          context._registeredComponents.add(moduleIdentifier);
-        }
-      };
-      options._ssrRegister = hook;
-    } else if (injectStyles) {
-      hook = shadowMode ? function() {
-        injectStyles.call(this, (options.functional ? this.parent : this).$root.$options.shadowRoot);
-      } : injectStyles;
-    }
-    if (hook) {
-      if (options.functional) {
-        options._injectStyles = hook;
-        var originalRender = options.render;
-        options.render = function renderWithStyleInjection(h, context) {
-          hook.call(context);
-          return originalRender(h, context);
-        };
-      } else {
-        var existing = options.beforeCreate;
-        options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
-      }
-    }
-    return {
-      exports: scriptExports,
-      options
-    };
-  }
-  const __cssModules$4 = {};
-  var __component__$4 = /* @__PURE__ */ normalizeComponent(__sfc_main$4, render$4, staticRenderFns$4, false, __vue2_injectStyles$4, null, null, null);
-  function __vue2_injectStyles$4(context) {
-    for (let o in __cssModules$4) {
-      this[o] = __cssModules$4[o];
-    }
-  }
-  var AppBar = /* @__PURE__ */ function() {
-    return __component__$4.exports;
-  }();
-  const blackList = /* @__PURE__ */ new Set(["e621.net", "e926.net", "hypnohub.net", "derpibooru.org"]);
-  const siteDomains = Object.keys(dist.sites).filter((e) => !blackList.has(e));
   function getYandereUserId() {
     const match = document.cookie.match(/user_id=(\d+)/);
     return match == null ? void 0 : match[1];
@@ -2767,6 +2773,13 @@ var __publicField = (obj, key, value) => {
       return false;
     }
   }
+  async function fetchPopularPosts() {
+    const url = new URL(location.href);
+    url.pathname += ".json";
+    const response = await fetch(url);
+    const result = await response.json();
+    return result.map((e) => new _default(e, dist.forSite(location.host)));
+  }
   const __sfc_main$3 = {};
   __sfc_main$3.setup = (__props, __ctx) => {
     const siteLinks = VueCompositionAPI2.ref(siteDomains);
@@ -2779,9 +2792,11 @@ var __publicField = (obj, key, value) => {
       return `https://${link.includes("yande") ? link + "/post" : link}?_wf=1`;
     };
     VueCompositionAPI2.onMounted(async () => {
-      const name = await getUsername();
-      if (name)
-        userName.value = name;
+      if (store.isYKSite) {
+        const name = await getUsername();
+        if (name)
+          userName.value = name;
+      }
     });
     return {
       store,
@@ -2810,7 +2825,7 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", {
       staticClass: "title"
-    }, [_vm._v(" Booru Masonry ")]), _c("v-list-item-subtitle", [_vm._v("Booru sites waterfall layout.")])], 1)], 1), _c("v-divider"), _vm.store.isYKSite && _vm.userName ? _c("v-list", {
+    }, [_vm._v(" Booru Masonry ")]), _c("v-list-item-subtitle", [_vm._v("Booru sites waterfall layout.")])], 1)], 1), _c("v-divider"), _vm.userName ? _c("v-list", {
       attrs: {
         "dense": "",
         "nav": ""
