@@ -19,20 +19,9 @@ const defaultLimitMap: Record<string, number> = {
 const BOORU_PAGE_LIMIT = defaultLimitMap[location.host]
 const isPidSite = sites[location.host].paginate === 'pid'
 
-function patchGelApiKey() {
-  const _fetch = unsafeWindow.fetch
-  unsafeWindow.fetch = (input: URL | RequestInfo, init?: RequestInit) => {
-    if (typeof input == 'string' && input.includes(sites['gelbooru.com'].api.search)) {
-      input += '&api_key=c306a5981d1e0c50518df27dbbebcf027ca4763db6d24fd1b60021d43c6c76d7&user_id=1045457'
-    }
-    return _fetch(input, init)
-  }
-}
-
 export async function searchBooru(page: number, tags: string | null) {
   if (!tags || tags === 'all') tags = ''
   if (location.href.includes('konachan.net')) tags += ' rating:safe'
-  if (location.href.includes('gelbooru.com')) patchGelApiKey()
   return search(location.host, tags, { page, limit: BOORU_PAGE_LIMIT })
 }
 
