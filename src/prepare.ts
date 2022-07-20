@@ -98,6 +98,8 @@ async function translateTags() {
 
 function removeOldListeners() {
   document.documentElement.replaceWith(document.documentElement.cloneNode(true))
+  window.onerror = null
+  delete (window as any).User
 }
 
 function setMasonryMode(fn: () => void) {
