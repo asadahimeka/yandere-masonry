@@ -9,7 +9,7 @@
       </v-list-item-content>
     </v-list-item>
     <v-divider />
-    <v-list v-if="store.isYKSite && userName" dense nav>
+    <v-list v-if="userName" dense nav>
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">
@@ -91,9 +91,9 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from '@vue/composition-api'
-import { siteDomains } from '@/common/site-list'
-import { getUsername } from '@/common/moebooru'
-import store from '@/common/store'
+import { siteDomains } from '@/api/booru'
+import { getUsername } from '@/api/moebooru'
+import store from '@/store'
 
 const siteLinks = ref(siteDomains)
 const userName = ref('')
@@ -108,7 +108,9 @@ const dealLink = (link: string) => {
 }
 
 onMounted(async () => {
-  const name = await getUsername()
-  if (name) userName.value = name
+  if (store.isYKSite) {
+    const name = await getUsername()
+    if (name) userName.value = name
+  }
 })
 </script>
