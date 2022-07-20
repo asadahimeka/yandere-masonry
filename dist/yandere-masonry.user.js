@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.35
+// @version              0.2.36
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -148,8 +148,9 @@ var __publicField = (obj, key, value) => {
   }
   function removeOldListeners() {
     document.documentElement.replaceWith(document.documentElement.cloneNode(true));
-    window.onerror = null;
-    delete window.User;
+    onerror = null;
+    if (User)
+      User = null;
   }
   function setMasonryMode(fn) {
     const params = new URLSearchParams(location.search);
