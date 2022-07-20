@@ -19,7 +19,7 @@
       </v-list-item>
       <v-list-item link href="/user/home">
         <v-list-item-icon class="mr-2">
-          <v-icon>mdi-account</v-icon>
+          <v-icon>{{ mdiAccount }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>Hello {{ userName }}!</v-list-item-title>
@@ -27,7 +27,7 @@
       </v-list-item>
       <v-list-item link :href="`/post?tags=vote%3A3%3A${userName}+order%3Avote&_wf=1`">
         <v-list-item-icon class="mr-2">
-          <v-icon>mdi-star</v-icon>
+          <v-icon>{{ mdiStar }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>My Favorites</v-list-item-title>
@@ -44,7 +44,7 @@
       </v-list-item>
       <v-list-item v-for="link in siteLinks" :key="link" :href="dealLink(link)">
         <v-list-item-icon class="mr-2">
-          <v-icon>mdi-arrow-right-circle-outline</v-icon>
+          <v-icon>{{ mdiArrowRightCircleOutline }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>{{ link.toUpperCase() }}</v-list-item-title>
@@ -61,7 +61,7 @@
       </v-list-item>
       <v-list-item>
         <v-list-item-icon class="mr-2">
-          <v-icon>mdi-information-outline</v-icon>
+          <v-icon>{{ mdiInformationOutline }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>v{{ version }}</v-list-item-title>
@@ -69,7 +69,7 @@
       </v-list-item>
       <v-list-item link @click="openLink('https://github.com/asadahimeka/yandere-masonry')">
         <v-list-item-icon class="mr-2">
-          <v-icon>mdi-github</v-icon>
+          <v-icon>{{ mdiGithub }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>Github</v-list-item-title>
@@ -78,7 +78,7 @@
       </v-list-item>
       <v-list-item link @click="openLink('https://github.com/coderzhaoziwei/yande-re-chinese-patch')">
         <v-list-item-icon class="mr-2">
-          <v-icon>mdi-source-fork</v-icon>
+          <v-icon>{{ mdiSourceFork }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>Fork from</v-list-item-title>
@@ -90,6 +90,14 @@
 </template>
 
 <script setup lang="ts">
+import {
+  mdiAccount,
+  mdiArrowRightCircleOutline,
+  mdiGithub,
+  mdiInformationOutline,
+  mdiSourceFork,
+  mdiStar,
+} from '@mdi/js'
 import { onMounted, ref } from '@vue/composition-api'
 import { siteDomains } from '@/api/booru'
 import { getUsername } from '@/api/moebooru'

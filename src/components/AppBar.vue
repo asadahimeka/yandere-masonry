@@ -13,7 +13,7 @@
     <v-menu transition="slide-y-transition" offset-y>
       <template #activator="{ on, attrs }">
         <v-btn small class="mr-6" v-bind="attrs" v-on="on">
-          <v-icon left>mdi-view-dashboard-variant</v-icon>
+          <v-icon left>{{ mdiViewDashboardVariant }}</v-icon>
           <span style="margin-bottom:2px">{{ store.selectedColumn === '0' ? '自动' : `${store.selectedColumn}列` }}</span>
         </v-btn>
       </template>
@@ -26,14 +26,14 @@
     <span class="hidden-sm-and-down">已选择</span>
     <span class="ml-1 mr-1" v-text="store.selectedImageList.length"></span>
     <v-btn icon @click="selectAll">
-      <v-icon v-show="isNoSelected">mdi-checkbox-blank-outline</v-icon>
-      <v-icon v-show="isOneOrMoreSelected">mdi-checkbox-intermediate</v-icon>
-      <v-icon v-show="isAllSelected">mdi-checkbox-marked</v-icon>
+      <v-icon v-show="isNoSelected">{{ mdiCheckboxBlankOutline }}</v-icon>
+      <v-icon v-show="isOneOrMoreSelected">{{ mdiCheckboxIntermediate }}</v-icon>
+      <v-icon v-show="isAllSelected">{{ mdiCheckboxMarked }}</v-icon>
     </v-btn>
     <v-menu dense offset-y :close-on-content-click="false">
       <template #activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on">
-          <v-icon>mdi-download</v-icon>
+          <v-icon>{{ mdiDownload }}</v-icon>
         </v-btn>
       </template>
       <v-list dense flat style="min-width: 300px;max-height: 80vh;overflow: auto;">
@@ -50,10 +50,10 @@
           <v-list-item v-for="item in store.selectedImageList" :key="item.id" dense two-line>
             <v-list-item-avatar>
               <v-btn v-if="!item.loading && !item.loaded" icon>
-                <v-icon>mdi-file-clock-outline</v-icon>
+                <v-icon>{{ mdiFileClockOutline }}</v-icon>
               </v-btn>
               <v-btn v-if="item.loaded" icon color="green">
-                <v-icon>mdi-check-underline-circle</v-icon>
+                <v-icon>{{ mdiCheckUnderlineCircle }}</v-icon>
               </v-btn>
               <v-progress-circular v-if="item.loading" :rotate="-90" :size="28" :value="loadingValue" color="pink" />
             </v-list-item-avatar>
@@ -63,7 +63,7 @@
             </v-list-item-content>
             <v-list-item-action>
               <v-btn icon @click="removeFromList(item.id)">
-                <v-icon>mdi-delete</v-icon>
+                <v-icon>{{ mdiDelete }}</v-icon>
               </v-btn>
             </v-list-item-action>
           </v-list-item>
@@ -71,10 +71,10 @@
       </v-list>
     </v-menu>
     <v-btn icon @click="toggleDarkmode">
-      <v-icon>mdi-brightness-6</v-icon>
+      <v-icon>{{ mdiBrightness6 }}</v-icon>
     </v-btn>
     <v-btn icon @click="exitMasonry">
-      <v-icon>mdi-location-exit</v-icon>
+      <v-icon>{{ mdiLocationExit }}</v-icon>
     </v-btn>
     <v-progress-linear
       :active="store.requestState"
@@ -88,6 +88,18 @@
 </template>
 
 <script setup lang="ts">
+import {
+  mdiBrightness6,
+  mdiCheckUnderlineCircle,
+  mdiCheckboxBlankOutline,
+  mdiCheckboxIntermediate,
+  mdiCheckboxMarked,
+  mdiDelete,
+  mdiDownload,
+  mdiFileClockOutline,
+  mdiLocationExit,
+  mdiViewDashboardVariant,
+} from '@mdi/js'
 import { computed, ref, set } from '@vue/composition-api'
 import { useVuetify } from '@/plugins/vuetify'
 import store from '@/store'

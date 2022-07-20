@@ -12,6 +12,9 @@ import { getCurrentInstance } from '@vue/composition-api'
 function installVuetify() {
   Vue.use(Vuetify)
   return new Vuetify({
+    icons: {
+      iconfont: 'mdiSvg',
+    },
     theme: {
       dark: true,
       themes: {

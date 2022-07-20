@@ -47,7 +47,7 @@
               v-on="on"
               @click.stop="addFavorite"
             >
-              <v-icon>{{ postDetail.voted ? 'mdi-heart' : 'mdi-heart-plus-outline' }}</v-icon>
+              <v-icon>{{ postDetail.voted ? mdiHeart : mdiHeartPlusOutline }}</v-icon>
             </v-btn>
           </template>
           <span>{{ postDetail.voted ? '已收藏' : '收藏' }}</span>
@@ -64,7 +64,7 @@
               v-on="on"
               @click.stop="toDetailPage"
             >
-              <v-icon>mdi-link-variant</v-icon>
+              <v-icon>{{ mdiLinkVariant }}</v-icon>
             </v-btn>
           </template>
           <span>详情</span>
@@ -81,7 +81,7 @@
               v-on="on"
               @click.stop="toSourcePage"
             >
-              <v-icon>mdi-launch</v-icon>
+              <v-icon>{{ mdiLaunch }}</v-icon>
             </v-btn>
           </template>
           <span>{{ `来源 ${imageSelected.sourceUrl}` }}</span>
@@ -98,7 +98,7 @@
               v-on="on"
               @click.stop="scaleOn = !scaleOn"
             >
-              <v-icon>{{ scaleOn ? 'mdi-magnify-minus-outline' : 'mdi-magnify-plus-outline' }}</v-icon>
+              <v-icon>{{ scaleOn ? mdiMagnifyMinusOutline : mdiMagnifyPlusOutline }}</v-icon>
             </v-btn>
           </template>
           <span>{{ scaleOn ? '缩小' : '查看原图' }}</span>
@@ -115,7 +115,7 @@
               v-bind="attrs"
               v-on="on"
             >
-              <v-icon>mdi-download</v-icon>
+              <v-icon>{{ mdiDownload }}</v-icon>
             </v-btn>
           </template>
           <v-list dense flat>
@@ -152,7 +152,7 @@
               v-on="on"
               @click.stop="addToList"
             >
-              <v-icon>mdi-playlist-plus</v-icon>
+              <v-icon>{{ mdiPlaylistPlus }}</v-icon>
             </v-btn>
           </template>
           <span>加入下载列表</span>
@@ -160,7 +160,7 @@
         <v-tooltip bottom>
           <template #activator="{ on, attrs }">
             <v-btn fab dark small color="#ee8888b3" v-bind="attrs" v-on="on" @click.stop="close">
-              <v-icon>mdi-close</v-icon>
+              <v-icon>{{ mdiClose }}</v-icon>
             </v-btn>
           </template>
           <span>关闭</span>
@@ -192,6 +192,17 @@
 </template>
 
 <script setup lang="ts">
+import {
+  mdiClose,
+  mdiDownload,
+  mdiHeart,
+  mdiHeartPlusOutline,
+  mdiLaunch,
+  mdiLinkVariant,
+  mdiMagnifyMinusOutline,
+  mdiMagnifyPlusOutline,
+  mdiPlaylistPlus,
+} from '@mdi/js'
 import { computed, onMounted, ref, watch } from '@vue/composition-api'
 import { downloadFile, isURL, showMsg } from '@/utils'
 import { type PostDetail, addPostToFavorites, getPostDetail } from '@/api/moebooru'

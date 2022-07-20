@@ -52,7 +52,7 @@
         color="pink"
         @click="refresh"
       >
-        <v-icon>mdi-refresh</v-icon>
+        <v-icon>{{ mdiRefresh }}</v-icon>
       </v-btn>
     </v-fab-transition>
     <image-detail />
@@ -60,6 +60,7 @@
 </template>
 
 <script setup lang="ts">
+import { mdiRefresh } from '@mdi/js'
 import { computed, nextTick, onMounted, ref, watch } from '@vue/composition-api'
 import type Post from '@himeka/booru/dist/structures/Post'
 import ImageDetail from './ImageDetail.vue'
