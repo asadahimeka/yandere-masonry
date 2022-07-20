@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.36
+// @version              0.2.37
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -23,6 +23,7 @@
 // @match                https://realbooru.com/*
 // @run-at               document-end
 // @grant                GM_addStyle
+// @grant                unsafeWindow
 // @grant                GM_addElement
 // @grant                GM_info
 // @grant                GM_download
@@ -147,10 +148,21 @@ var __publicField = (obj, key, value) => {
     }
   }
   function removeOldListeners() {
-    document.documentElement.replaceWith(document.documentElement.cloneNode(true));
-    onerror = null;
-    if (User)
-      User = null;
+    try {
+      document.documentElement.replaceWith(document.documentElement.cloneNode(true));
+      document.body.replaceWith(document.body.cloneNode(true));
+      unsafeWindow.onerror = null;
+      if (isMoebooru()) {
+        const d = document;
+        const w = unsafeWindow;
+        d.stopObserving();
+        w.$("login-popup-username").stopObserving();
+        w.User = null;
+        w.ReportError = null;
+      }
+    } catch (error) {
+      console.log("error: ", error);
+    }
   }
   function setMasonryMode(fn) {
     const params = new URLSearchParams(location.search);

@@ -97,9 +97,21 @@ async function translateTags() {
 }
 
 function removeOldListeners() {
-  document.documentElement.replaceWith(document.documentElement.cloneNode(true))
-  onerror = null
-  if (User) User = null
+  try {
+    document.documentElement.replaceWith(document.documentElement.cloneNode(true))
+    document.body.replaceWith(document.body.cloneNode(true))
+    unsafeWindow.onerror = null
+    if (isMoebooru()) {
+      const d = document as any
+      const w = unsafeWindow as any
+      d.stopObserving()
+      w.$('login-popup-username').stopObserving()
+      w.User = null
+      w.ReportError = null
+    }
+  } catch (error) {
+    console.log('error: ', error)
+  }
 }
 
 function setMasonryMode(fn: () => void) {
