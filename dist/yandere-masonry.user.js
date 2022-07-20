@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.32
+// @version              0.2.33
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -237,6 +237,9 @@ var __publicField = (obj, key, value) => {
   function installVuetify() {
     Vue__default["default"].use(Vuetify__default["default"]);
     return new Vuetify__default["default"]({
+      icons: {
+        iconfont: "mdiSvg"
+      },
       theme: {
         dark: true,
         themes: {
@@ -259,6 +262,31 @@ var __publicField = (obj, key, value) => {
     }
     return instance.proxy.$vuetify;
   }
+  var mdiAccount = "M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z";
+  var mdiArrowRightCircleOutline = "M6,13V11H14L10.5,7.5L11.92,6.08L17.84,12L11.92,17.92L10.5,16.5L14,13H6M22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12M20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12Z";
+  var mdiBrightness6 = "M12,18V6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z";
+  var mdiCheckUnderlineCircle = "M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M17,18H7V16H17V18M10.3,14L7,10.7L8.4,9.3L10.3,11.2L15.6,5.9L17,7.3L10.3,14Z";
+  var mdiCheckboxBlankOutline = "M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,5V19H5V5H19Z";
+  var mdiCheckboxIntermediate = "M19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V5H19V19M17,17H7V7H17V17Z";
+  var mdiCheckboxMarked = "M10,17L5,12L6.41,10.58L10,14.17L17.59,6.58L19,8M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z";
+  var mdiClose = "M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z";
+  var mdiDelete = "M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z";
+  var mdiDownload = "M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z";
+  var mdiFileClockOutline = "M4 2A2 2 0 0 0 2 4V20A2 2 0 0 0 4 22H12.41A7 7 0 0 0 16 23A7 7 0 0 0 23 16A7 7 0 0 0 18 9.3V8L12 2H4M4 4H11V9H16A7 7 0 0 0 9 16A7 7 0 0 0 10.26 20H4V4M16 11A5 5 0 0 1 21 16A5 5 0 0 1 16 21A5 5 0 0 1 11 16A5 5 0 0 1 16 11M15 12V17L18.61 19.16L19.36 17.94L16.5 16.25V12H15Z";
+  var mdiGithub = "M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z";
+  var mdiHeart = "M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z";
+  var mdiHeartPlusOutline = "M12.67 20.74L12 21.35L10.55 20.03C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5C22 9.93 21.5 11.26 20.62 12.61C20 12.31 19.31 12.11 18.59 12.04C19.5 10.8 20 9.65 20 8.5C20 6.5 18.5 5 16.5 5C14.96 5 13.46 6 12.93 7.36H11.07C10.54 6 9.04 5 7.5 5C5.5 5 4 6.5 4 8.5C4 11.39 7.14 14.24 11.89 18.55L12 18.65L12.04 18.61C12.12 19.37 12.34 20.09 12.67 20.74M17 14V17H14V19H17V22H19V19H22V17H19V14H17Z";
+  var mdiInformationOutline = "M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z";
+  var mdiLaunch = "M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z";
+  var mdiLinkVariant = "M10.59,13.41C11,13.8 11,14.44 10.59,14.83C10.2,15.22 9.56,15.22 9.17,14.83C7.22,12.88 7.22,9.71 9.17,7.76V7.76L12.71,4.22C14.66,2.27 17.83,2.27 19.78,4.22C21.73,6.17 21.73,9.34 19.78,11.29L18.29,12.78C18.3,11.96 18.17,11.14 17.89,10.36L18.36,9.88C19.54,8.71 19.54,6.81 18.36,5.64C17.19,4.46 15.29,4.46 14.12,5.64L10.59,9.17C9.41,10.34 9.41,12.24 10.59,13.41M13.41,9.17C13.8,8.78 14.44,8.78 14.83,9.17C16.78,11.12 16.78,14.29 14.83,16.24V16.24L11.29,19.78C9.34,21.73 6.17,21.73 4.22,19.78C2.27,17.83 2.27,14.66 4.22,12.71L5.71,11.22C5.7,12.04 5.83,12.86 6.11,13.65L5.64,14.12C4.46,15.29 4.46,17.19 5.64,18.36C6.81,19.54 8.71,19.54 9.88,18.36L13.41,14.83C14.59,13.66 14.59,11.76 13.41,10.59C13,10.2 13,9.56 13.41,9.17Z";
+  var mdiLocationExit = "M22 12L18 8V11H10V13H18V16M20 18A10 10 0 1 1 20 6H17.27A8 8 0 1 0 17.27 18Z";
+  var mdiMagnifyMinusOutline = "M15.5,14H14.71L14.43,13.73C15.41,12.59 16,11.11 16,9.5A6.5,6.5 0 0,0 9.5,3A6.5,6.5 0 0,0 3,9.5A6.5,6.5 0 0,0 9.5,16C11.11,16 12.59,15.41 13.73,14.43L14,14.71V15.5L19,20.5L20.5,19L15.5,14M9.5,14C7,14 5,12 5,9.5C5,7 7,5 9.5,5C12,5 14,7 14,9.5C14,12 12,14 9.5,14M7,9H12V10H7V9Z";
+  var mdiMagnifyPlusOutline = "M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14M12,10H10V12H9V10H7V9H9V7H10V9H12V10Z";
+  var mdiPlaylistPlus = "M3 16H10V14H3M18 14V10H16V14H12V16H16V20H18V16H22V14M14 6H3V8H14M14 10H3V12H14V10Z";
+  var mdiRefresh = "M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z";
+  var mdiSourceFork = "M6,2A3,3 0 0,1 9,5C9,6.28 8.19,7.38 7.06,7.81C7.15,8.27 7.39,8.83 8,9.63C9,10.92 11,12.83 12,14.17C13,12.83 15,10.92 16,9.63C16.61,8.83 16.85,8.27 16.94,7.81C15.81,7.38 15,6.28 15,5A3,3 0 0,1 18,2A3,3 0 0,1 21,5C21,6.32 20.14,7.45 18.95,7.85C18.87,8.37 18.64,9 18,9.83C17,11.17 15,13.08 14,14.38C13.39,15.17 13.15,15.73 13.06,16.19C14.19,16.62 15,17.72 15,19A3,3 0 0,1 12,22A3,3 0 0,1 9,19C9,17.72 9.81,16.62 10.94,16.19C10.85,15.73 10.61,15.17 10,14.38C9,13.08 7,11.17 6,9.83C5.36,9 5.13,8.37 5.05,7.85C3.86,7.45 3,6.32 3,5A3,3 0 0,1 6,2M6,4A1,1 0 0,0 5,5A1,1 0 0,0 6,6A1,1 0 0,0 7,5A1,1 0 0,0 6,4M18,4A1,1 0 0,0 17,5A1,1 0 0,0 18,6A1,1 0 0,0 19,5A1,1 0 0,0 18,4M12,18A1,1 0 0,0 11,19A1,1 0 0,0 12,20A1,1 0 0,0 13,19A1,1 0 0,0 12,18Z";
+  var mdiStar = "M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z";
+  var mdiViewDashboardVariant = "M2,5V19H8V5H2M9,5V10H15V5H9M16,5V14H22V5H16M9,11V19H15V11H9M16,15V19H22V15H16Z";
   const store = Vue__default["default"].observable({
     requestState: false,
     requestStop: false,
@@ -423,6 +451,16 @@ var __publicField = (obj, key, value) => {
       url.searchParams.get("_wf") ? location.assign(location.origin) : location.reload();
     };
     return {
+      mdiBrightness6,
+      mdiCheckUnderlineCircle,
+      mdiCheckboxBlankOutline,
+      mdiCheckboxIntermediate,
+      mdiCheckboxMarked,
+      mdiDelete,
+      mdiDownload,
+      mdiFileClockOutline,
+      mdiLocationExit,
+      mdiViewDashboardVariant,
       store,
       title,
       cols,
@@ -500,7 +538,7 @@ var __publicField = (obj, key, value) => {
             attrs: {
               "left": ""
             }
-          }, [_vm._v("mdi-view-dashboard-variant")]), _c("span", {
+          }, [_vm._v(_vm._s(_vm.mdiViewDashboardVariant))]), _c("span", {
             staticStyle: {
               "margin-bottom": "2px"
             }
@@ -549,21 +587,21 @@ var __publicField = (obj, key, value) => {
         value: _vm.isNoSelected,
         expression: "isNoSelected"
       }]
-    }, [_vm._v("mdi-checkbox-blank-outline")]), _c("v-icon", {
+    }, [_vm._v(_vm._s(_vm.mdiCheckboxBlankOutline))]), _c("v-icon", {
       directives: [{
         name: "show",
         rawName: "v-show",
         value: _vm.isOneOrMoreSelected,
         expression: "isOneOrMoreSelected"
       }]
-    }, [_vm._v("mdi-checkbox-intermediate")]), _c("v-icon", {
+    }, [_vm._v(_vm._s(_vm.mdiCheckboxIntermediate))]), _c("v-icon", {
       directives: [{
         name: "show",
         rawName: "v-show",
         value: _vm.isAllSelected,
         expression: "isAllSelected"
       }]
-    }, [_vm._v("mdi-checkbox-marked")])], 1), _c("v-menu", {
+    }, [_vm._v(_vm._s(_vm.mdiCheckboxMarked))])], 1), _c("v-menu", {
       attrs: {
         "dense": "",
         "offset-y": "",
@@ -577,7 +615,7 @@ var __publicField = (obj, key, value) => {
             attrs: {
               "icon": ""
             }
-          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v("mdi-download")])], 1)];
+          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_vm.mdiDownload))])], 1)];
         }
       }])
     }, [_c("v-list", {
@@ -636,12 +674,12 @@ var __publicField = (obj, key, value) => {
         attrs: {
           "icon": ""
         }
-      }, [_c("v-icon", [_vm._v("mdi-file-clock-outline")])], 1) : _vm._e(), item.loaded ? _c("v-btn", {
+      }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiFileClockOutline))])], 1) : _vm._e(), item.loaded ? _c("v-btn", {
         attrs: {
           "icon": "",
           "color": "green"
         }
-      }, [_c("v-icon", [_vm._v("mdi-check-underline-circle")])], 1) : _vm._e(), item.loading ? _c("v-progress-circular", {
+      }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiCheckUnderlineCircle))])], 1) : _vm._e(), item.loading ? _c("v-progress-circular", {
         attrs: {
           "rotate": -90,
           "size": 28,
@@ -675,7 +713,7 @@ var __publicField = (obj, key, value) => {
             return _vm.removeFromList(item.id);
           }
         }
-      }, [_c("v-icon", [_vm._v("mdi-delete")])], 1)], 1)], 1);
+      }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiDelete))])], 1)], 1)], 1);
     }), 1)], 1)], 1), _c("v-btn", {
       attrs: {
         "icon": ""
@@ -683,14 +721,14 @@ var __publicField = (obj, key, value) => {
       on: {
         "click": _vm.toggleDarkmode
       }
-    }, [_c("v-icon", [_vm._v("mdi-brightness-6")])], 1), _c("v-btn", {
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiBrightness6))])], 1), _c("v-btn", {
       attrs: {
         "icon": ""
       },
       on: {
         "click": _vm.exitMasonry
       }
-    }, [_c("v-icon", [_vm._v("mdi-location-exit")])], 1), _c("v-progress-linear", {
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiLocationExit))])], 1), _c("v-progress-linear", {
       attrs: {
         "active": _vm.store.requestState,
         "height": 6,
@@ -2787,6 +2825,12 @@ var __publicField = (obj, key, value) => {
       }
     });
     return {
+      mdiAccount,
+      mdiArrowRightCircleOutline,
+      mdiGithub,
+      mdiInformationOutline,
+      mdiSourceFork,
+      mdiStar,
       store,
       siteLinks,
       userName,
@@ -2827,14 +2871,14 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c("v-icon", [_vm._v("mdi-account")])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Hello " + _vm._s(_vm.userName) + "!")])], 1)], 1), _c("v-list-item", {
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiAccount))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Hello " + _vm._s(_vm.userName) + "!")])], 1)], 1), _c("v-list-item", {
       attrs: {
         "link": "",
         "href": `/post?tags=vote%3A3%3A${_vm.userName}+order%3Avote&_wf=1`
       }
     }, [_c("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c("v-icon", [_vm._v("mdi-star")])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("My Favorites")])], 1)], 1)], 1) : _vm._e(), _c("v-list", {
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiStar))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("My Favorites")])], 1)], 1)], 1) : _vm._e(), _c("v-list", {
       attrs: {
         "dense": "",
         "nav": ""
@@ -2849,7 +2893,7 @@ var __publicField = (obj, key, value) => {
         }
       }, [_c("v-list-item-icon", {
         staticClass: "mr-2"
-      }, [_c("v-icon", [_vm._v("mdi-arrow-right-circle-outline")])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(link.toUpperCase()))])], 1)], 1);
+      }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiArrowRightCircleOutline))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(link.toUpperCase()))])], 1)], 1);
     })], 2), _c("v-list", {
       attrs: {
         "dense": "",
@@ -2859,7 +2903,7 @@ var __publicField = (obj, key, value) => {
       staticClass: "title"
     }, [_vm._v(" About ")])], 1)], 1), _c("v-list-item", [_c("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c("v-icon", [_vm._v("mdi-information-outline")])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("v" + _vm._s(_vm.version))])], 1)], 1), _c("v-list-item", {
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiInformationOutline))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("v" + _vm._s(_vm.version))])], 1)], 1), _c("v-list-item", {
       attrs: {
         "link": ""
       },
@@ -2870,7 +2914,7 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c("v-icon", [_vm._v("mdi-github")])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Github")]), _c("v-list-item-subtitle", [_vm._v("yandere-masonry")])], 1)], 1), _c("v-list-item", {
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiGithub))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Github")]), _c("v-list-item-subtitle", [_vm._v("yandere-masonry")])], 1)], 1), _c("v-list-item", {
       attrs: {
         "link": ""
       },
@@ -2881,7 +2925,7 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c("v-icon", [_vm._v("mdi-source-fork")])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Fork from")]), _c("v-list-item-subtitle", [_vm._v("yande-re-chinese-patch")])], 1)], 1)], 1)], 1);
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiSourceFork))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Fork from")]), _c("v-list-item-subtitle", [_vm._v("yande-re-chinese-patch")])], 1)], 1)], 1)], 1);
   };
   var staticRenderFns$3 = [];
   const __cssModules$3 = {};
@@ -2995,6 +3039,15 @@ var __publicField = (obj, key, value) => {
       });
     });
     return {
+      mdiClose,
+      mdiDownload,
+      mdiHeart,
+      mdiHeartPlusOutline,
+      mdiLaunch,
+      mdiLinkVariant,
+      mdiMagnifyMinusOutline,
+      mdiMagnifyPlusOutline,
+      mdiPlaylistPlus,
       store,
       showImageToolbar,
       downloading,
@@ -3128,9 +3181,9 @@ var __publicField = (obj, key, value) => {
                 return _vm.addFavorite.apply(null, arguments);
               }
             }
-          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_vm.postDetail.voted ? "mdi-heart" : "mdi-heart-plus-outline"))])], 1)];
+          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_vm.postDetail.voted ? _vm.mdiHeart : _vm.mdiHeartPlusOutline))])], 1)];
         }
-      }], null, false, 2563097983)
+      }], null, false, 2009326719)
     }, [_c("span", [_vm._v(_vm._s(_vm.postDetail.voted ? "\u5DF2\u6536\u85CF" : "\u6536\u85CF"))])]) : _vm._e(), _c("v-tooltip", {
       attrs: {
         "bottom": ""
@@ -3153,9 +3206,9 @@ var __publicField = (obj, key, value) => {
                 return _vm.toDetailPage.apply(null, arguments);
               }
             }
-          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v("mdi-link-variant")])], 1)];
+          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_vm.mdiLinkVariant))])], 1)];
         }
-      }], null, false, 1677429821)
+      }], null, false, 3687422672)
     }, [_c("span", [_vm._v("\u8BE6\u60C5")])]), _vm.imageSelected.sourceUrl ? _c("v-tooltip", {
       attrs: {
         "bottom": ""
@@ -3178,9 +3231,9 @@ var __publicField = (obj, key, value) => {
                 return _vm.toSourcePage.apply(null, arguments);
               }
             }
-          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v("mdi-launch")])], 1)];
+          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_vm.mdiLaunch))])], 1)];
         }
-      }], null, false, 3813795830)
+      }], null, false, 1660139414)
     }, [_c("span", [_vm._v(_vm._s(`\u6765\u6E90 ${_vm.imageSelected.sourceUrl}`))])]) : _vm._e(), !_vm.isVideo ? _c("v-tooltip", {
       attrs: {
         "bottom": ""
@@ -3203,9 +3256,9 @@ var __publicField = (obj, key, value) => {
                 _vm.scaleOn = !_vm.scaleOn;
               }
             }
-          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_vm.scaleOn ? "mdi-magnify-minus-outline" : "mdi-magnify-plus-outline"))])], 1)];
+          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_vm.scaleOn ? _vm.mdiMagnifyMinusOutline : _vm.mdiMagnifyPlusOutline))])], 1)];
         }
-      }], null, false, 2680521198)
+      }], null, false, 3598500622)
     }, [_c("span", [_vm._v(_vm._s(_vm.scaleOn ? "\u7F29\u5C0F" : "\u67E5\u770B\u539F\u56FE"))])]) : _vm._e(), _c("v-menu", {
       attrs: {
         "dense": "",
@@ -3230,9 +3283,9 @@ var __publicField = (obj, key, value) => {
               "small": "",
               "color": "#ee8888b3"
             }
-          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v("mdi-download")])], 1)];
+          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_vm.mdiDownload))])], 1)];
         }
-      }], null, false, 2659152063)
+      }], null, false, 1497311935)
     }, [_c("v-list", {
       attrs: {
         "dense": "",
@@ -3323,9 +3376,9 @@ var __publicField = (obj, key, value) => {
                 return _vm.addToList.apply(null, arguments);
               }
             }
-          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v("mdi-playlist-plus")])], 1)];
+          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_vm.mdiPlaylistPlus))])], 1)];
         }
-      }], null, false, 3337236247)
+      }], null, false, 3549934458)
     }, [_c("span", [_vm._v("\u52A0\u5165\u4E0B\u8F7D\u5217\u8868")])]), _c("v-tooltip", {
       attrs: {
         "bottom": ""
@@ -3347,9 +3400,9 @@ var __publicField = (obj, key, value) => {
                 return _vm.close.apply(null, arguments);
               }
             }
-          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v("mdi-close")])], 1)];
+          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_vm.mdiClose))])], 1)];
         }
-      }], null, false, 3254812189)
+      }], null, false, 3797348669)
     }, [_c("span", [_vm._v("\u5173\u95ED")])])], 1), _c("v-chip-group", {
       directives: [{
         name: "show",
@@ -3558,6 +3611,7 @@ var __publicField = (obj, key, value) => {
       }));
     });
     return {
+      mdiRefresh,
       store,
       showImageList,
       columnCount,
@@ -3717,7 +3771,7 @@ var __publicField = (obj, key, value) => {
       on: {
         "click": _vm.refresh
       }
-    }, [_c("v-icon", [_vm._v("mdi-refresh")])], 1)], 1), _c("image-detail")], 1) : _vm._e();
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiRefresh))])], 1)], 1), _c("image-detail")], 1) : _vm._e();
   };
   var staticRenderFns$1 = [];
   const __cssModules$1 = {};
