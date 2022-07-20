@@ -6,7 +6,7 @@
       v-show="title.length > 2"
       :value="store.currentPage"
       class="hidden-sm-and-down ml-1 text-center rounded"
-      :style="{ width: '40px', height: '30px', border: '1px solid #bbb' }"
+      :style="{ width: '40px', height: '30px', border: '1px solid #bbb', color: 'inherit' }"
       @keyup.enter="goToPage($event)"
     >
     <v-spacer />
@@ -90,8 +90,8 @@
 <script setup lang="ts">
 import { computed, ref, set } from '@vue/composition-api'
 import { useVuetify } from '@/plugins/vuetify'
-import store from '@/common/store'
-import { downloadFile, eventBus, showMsg } from '@/common/utils'
+import store from '@/store'
+import { downloadFile, eventBus, showMsg } from '@/utils'
 
 const title = computed(() => {
   const { 0: img, length } = store.imageList
