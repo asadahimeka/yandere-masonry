@@ -13,20 +13,20 @@ export function downloadFile(url: string, name: string, options?: Partial<Tamper
       name,
       onload: () => resolve(),
       onerror: err => reject(new Error(err.error)),
-      ...options
+      ...options,
     })
   })
 }
 
 type MsgType = 'success' | 'error'
 interface MessageOptions {
-  msg: string;
-  title?: string;
+  msg: string
+  title?: string
   type?: MsgType
 }
 const msgTypeImages: Record<MsgType, string> = {
   success: 'https://i0.hdslb.com/bfs/album/39212b6f4c0ab75ca8f508237e756ed03f60e030.png',
-  error: 'http://i0.hdslb.com/bfs/album/d84b69fded166425a21ebc1c6c8251f36c26ea49.png'
+  error: 'http://i0.hdslb.com/bfs/album/d84b69fded166425a21ebc1c6c8251f36c26ea49.png',
 }
 export function showMsg({ msg = '', title = 'Booru Masonry', type = 'success' }: MessageOptions) {
   GM_notification({
@@ -34,7 +34,7 @@ export function showMsg({ msg = '', title = 'Booru Masonry', type = 'success' }:
     text: msg,
     silent: true,
     timeout: 2000,
-    image: msgTypeImages[type]
+    image: msgTypeImages[type],
   })
 }
 

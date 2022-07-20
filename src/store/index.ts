@@ -18,7 +18,7 @@ interface AppState {
   selectedImageList: SeletedPost[]
   selectedColumn: string
   isYKSite: boolean
-  toggleDrawer: () => void,
+  toggleDrawer: () => void
   addToSelectedList: (item: Post) => void
 }
 
@@ -37,10 +37,10 @@ const store = Vue.observable<AppState>({
   toggleDrawer() {
     store.showDrawer = !store.showDrawer
   },
-  addToSelectedList(item)  {
+  addToSelectedList(item) {
     if (store.selectedImageList.some(e => e.id === item.id)) return
     store.selectedImageList.push(item)
-  }
+  },
 })
 
 export default store

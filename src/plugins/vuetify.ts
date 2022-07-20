@@ -17,14 +17,14 @@ function installVuetify() {
       themes: {
         light: {
           primary: '#8E24AA',
-          accent: '#EC407A'
+          accent: '#EC407A',
         },
         dark: {
           primary: '#BA68C8',
-          accent: '#FF80AB'
-        }
-      }
-    }
+          accent: '#FF80AB',
+        },
+      },
+    },
   })
 }
 

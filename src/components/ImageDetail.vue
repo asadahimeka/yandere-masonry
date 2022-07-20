@@ -32,7 +32,7 @@
           text-color="#ffffff"
           class="hidden-sm-and-down"
           @click.stop="toDetailPage"
-          v-text="imageSelected.rating.toUpperCase() + ' ' + imageSelected.id"
+          v-text="`${imageSelected.rating.toUpperCase()} ${imageSelected.id}`"
         />
         <v-spacer />
         <v-tooltip v-if="!notYKSite" bottom>
@@ -84,7 +84,7 @@
               <v-icon>mdi-launch</v-icon>
             </v-btn>
           </template>
-          <span>{{ '来源 ' + imageSelected.sourceUrl }}</span>
+          <span>{{ `来源 ${imageSelected.sourceUrl}` }}</span>
         </v-tooltip>
         <v-tooltip v-if="!isVideo" bottom>
           <template #activator="{ on, attrs }">
@@ -193,8 +193,8 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from '@vue/composition-api'
-import { isURL, showMsg, downloadFile } from '@/utils'
-import { addPostToFavorites, getPostDetail, type PostDetail } from '@/api/moebooru'
+import { downloadFile, isURL, showMsg } from '@/utils'
+import { type PostDetail, addPostToFavorites, getPostDetail } from '@/api/moebooru'
 import store from '@/store'
 
 const showImageToolbar = ref(true)
@@ -207,9 +207,9 @@ const imageSelected = computed(() => store.imageList[store.imageSelectedIndex] ?
 const isVideo = computed(() => ['.mp4', '.webm'].some(e => imageSelected.value.fileUrl?.endsWith(e)))
 const imgSrc = computed(() => {
   if (isVideo.value) return void 0
-  return imageSelected.value.sampleUrl ??
-    imageSelected.value.fileUrl ??
-    void 0
+  return imageSelected.value.sampleUrl
+    ?? imageSelected.value.fileUrl
+    ?? void 0
 })
 const imgLasySrc = computed(() => {
   if (isVideo.value) return void 0
@@ -220,8 +220,8 @@ const imageSelectedWidth = computed(() => {
   const width = Number.parseInt(
     Math.min(
       innerWidth.value * 0.9,
-      imageSelected.value.sampleWidth || innerWidth.value
-    ).toString()
+      imageSelected.value.sampleWidth || innerWidth.value,
+    ).toString(),
   )
   const height = Math.min(innerHeight.value * 0.9, imageSelected.value.sampleHeight || innerHeight.value)
   const width2 = Number.parseInt((height * imageSelected.value.aspectRatio).toString())
@@ -257,7 +257,7 @@ const download = async (url: string | null, name: string) => {
     downloading.value = true
     await downloadFile(url, name)
   } catch (error) {
-    showMsg({ msg: '下载出错: ' + error, type: 'error' })
+    showMsg({ msg: `下载出错: ${error}`, type: 'error' })
   } finally {
     downloading.value = false
   }

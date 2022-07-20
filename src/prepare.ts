@@ -22,7 +22,7 @@ export async function prepareApp(callback?: () => void) {
 
 function doNotRun() {
   const mimeTypes = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'webm', 'json', 'xml']
-  return mimeTypes.some(e => location.pathname.endsWith('.' + e))
+  return mimeTypes.some(e => location.pathname.endsWith(`.${e}`))
 }
 
 function isMoebooru() {
@@ -38,13 +38,14 @@ async function initMacy() {
   }
   await loadScript('https://lib.baomitu.com/macy/2.5.1/macy.min.js')
   setTimeout(() => {
+    // eslint-disable-next-line no-new
     new Macy({
       container: listEl,
       trueOrder: false,
       waitForImages: false,
       columns: 5,
       margin: 16,
-      breakAt: { 1800: 5, 1500: 4, 1200: 3, 900: 2, 700: 1 }
+      breakAt: { 1800: 5, 1500: 4, 1200: 3, 900: 2, 700: 1 },
     })
   }, 100)
 }
@@ -132,7 +133,7 @@ function loadDeps() {
     loadScript('https://lib.baomitu.com/vue/2.6.14/vue.min.js'),
     loadScript('https://cdn.jsdelivr.net/npm/@vue/composition-api@1.6.2'),
     loadScript('https://lib.baomitu.com/vuetify/2.6.6/vuetify.min.js'),
-    loadScript('https://code.bdstatic.com/npm/vue-masonry-css@1.0.3/dist/vue-masonry.min.js')
+    loadScript('https://code.bdstatic.com/npm/vue-masonry-css@1.0.3/dist/vue-masonry.min.js'),
   ])
 }
 

@@ -24,15 +24,15 @@ export async function getUsername() {
     _moebooruUserName = username
     if (username) return username
     const id = getYandereUserId()
-    if (!id) return
+    if (!id) return ''
     const response = await fetch(`/user.json?id=${id}`)
     const result = await response.json()
-    const { name } = result[0]
+    const { name } = result[0] as Record<string, string>
     localStorage.setItem('__username', name)
     return name
   } catch (error) {
     console.log('getUsername error:', error)
-    return
+    return ''
   }
 }
 
@@ -52,13 +52,13 @@ export async function checkPostIsVoted(id: string) {
 }
 
 export interface PostDetail {
-  voted?: boolean;
+  voted?: boolean
   tags?: {
-    tag: string;
-    tagText: string;
-    color: string;
-    type: string;
-  }[];
+    tag: string
+    tagText: string
+    color: string
+    type: string
+  }[]
 }
 
 const tagInfoMap: Record<string, string[]> = {
@@ -67,7 +67,7 @@ const tagInfoMap: Record<string, string[]> = {
   copyright: ['版权', '#C1328Ede'],
   character: ['角色', '#00aa00cc'],
   general: ['', '#E87A90cc'],
-  faults: ['', '#AB3B3Ada']
+  faults: ['', '#AB3B3Ada'],
 }
 export async function getPostDetail(id: string): Promise<PostDetail | false> {
   try {
@@ -82,15 +82,15 @@ export async function getPostDetail(id: string): Promise<PostDetail | false> {
         const tagText = [
           typeText && `[ ${typeText} ] `,
           tag,
-          tagCN && ` [ ${tagCN} ]`
+          tagCN && ` [ ${tagCN} ]`,
         ].filter(Boolean).join('')
         return {
           tag,
           type,
           tagText,
-          color: tagInfoMap[type]?.[1] || tagInfoMap.general[1]
+          color: tagInfoMap[type]?.[1] || tagInfoMap.general[1],
         }
-      })
+      }),
     }
   } catch (error) {
     console.log('getPostDetail error:', error)
@@ -105,10 +105,10 @@ export async function addPostToFavorites(id: string) {
   const response = await fetch('/post/vote.json', {
     method: 'POST',
     headers: { 'x-csrf-token': sessionStorage.getItem('csrf-token') ?? '' },
-    body: form
+    body: form,
   })
   if (!response.ok) {
-    showMsg({ msg: '收藏失败: ' + response.status, type: 'error' })
+    showMsg({ msg: `收藏失败: ${response.status}`, type: 'error' })
     return false
   }
   const result = await response.json()
@@ -116,7 +116,7 @@ export async function addPostToFavorites(id: string) {
     showMsg({ msg: '收藏成功' })
     return true
   } else {
-    showMsg({ msg: '收藏失败: ' + result.reason, type: 'error' })
+    showMsg({ msg: `收藏失败: ${result.reason}`, type: 'error' })
     return false
   }
 }
@@ -126,6 +126,5 @@ export async function fetchPopularPosts(): Promise<Post[]> {
   url.pathname += '.json'
   const response = await fetch(url)
   const result = await response.json()
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return result.map((e: any) => new Post(e, forSite(location.host)))
 }

@@ -90,7 +90,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from '@vue/composition-api'
+import { onMounted, ref } from '@vue/composition-api'
 import { siteDomains } from '@/api/booru'
 import { getUsername } from '@/api/moebooru'
 import store from '@/store'
@@ -104,7 +104,7 @@ const openLink = (link: string) => {
 }
 
 const dealLink = (link: string) => {
-  return `https://${link.includes('yande') ? link + '/post' : link}?_wf=1`
+  return `https://${link.includes('yande') ? `${link}/post` : link}?_wf=1`
 }
 
 onMounted(async () => {

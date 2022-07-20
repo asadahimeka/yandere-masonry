@@ -61,27 +61,29 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, watch } from '@vue/composition-api'
+import type Post from '@himeka/booru/dist/structures/Post'
+import ImageDetail from './ImageDetail.vue'
 import { eventBus, isReachBottom, throttleScroll } from '@/utils'
 import { getFirstPageNo, pushPageState, searchBooru } from '@/api/booru'
 import { addPostToFavorites, fetchPopularPosts } from '@/api/moebooru'
 import store from '@/store'
-import ImageDetail from './ImageDetail.vue'
-import type Post from '@himeka/booru/dist/structures/Post'
 
 const showImageList = ref(true)
 const columnCount = computed(() => {
-  return store.selectedColumn === '0' ? {
-    300: 1,
-    600: 2,
-    900: 3,
-    1200: 4,
-    1600: 6,
-    1920: 7,
-    2400: 8,
-    2700: 9,
-    3000: 10,
-    default: 6
-  } : +store.selectedColumn
+  return store.selectedColumn === '0'
+    ? {
+        300: 1,
+        600: 2,
+        900: 3,
+        1200: 4,
+        1600: 6,
+        1920: 7,
+        2400: 8,
+        2700: 9,
+        3000: 10,
+        default: 6,
+      }
+    : +store.selectedColumn
 })
 
 watch(
@@ -91,7 +93,7 @@ watch(
     nextTick(() => {
       showImageList.value = true
     })
-  }
+  },
 )
 
 const showNoMore = computed(() => !store.requestState && store.requestStop)
@@ -172,7 +174,7 @@ const fetchData = async () => {
       store.requestStop = true
     }
   } catch (error) {
-    console.log('fetch error: ' + error)
+    console.log(`fetch error: ${error}`)
   } finally {
     store.requestState = false
   }

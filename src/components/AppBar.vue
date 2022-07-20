@@ -14,7 +14,7 @@
       <template #activator="{ on, attrs }">
         <v-btn small class="mr-6" v-bind="attrs" v-on="on">
           <v-icon left>mdi-view-dashboard-variant</v-icon>
-          <span style="margin-bottom:2px">{{ store.selectedColumn === '0' ? '自动' : store.selectedColumn + '列' }}</span>
+          <span style="margin-bottom:2px">{{ store.selectedColumn === '0' ? '自动' : `${store.selectedColumn}列` }}</span>
         </v-btn>
       </template>
       <v-list dense>
@@ -100,7 +100,7 @@ const title = computed(() => {
 })
 
 const cols = ref([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20].reduce<Record<string, string>>((acc, cur) => {
-  acc[cur] = cur === 0 ? '自动' : cur + ' 列'
+  acc[cur] = cur === 0 ? '自动' : `${cur} 列`
   return acc
 }, {}))
 
@@ -140,7 +140,7 @@ const download = (url: string, name: string) => {
     saveAs: false,
     onprogress: d => {
       loadingValue.value = (d.loaded / d.total) * 100
-    }
+    },
   })
 }
 
@@ -165,7 +165,7 @@ const startDownload = async () => {
 
 const exportFileUrls = async () => {
   const urlText = store.selectedImageList.map(e => e.fileUrl).join('\n')
-  await downloadFile('data:text/plain;charset=utf-8,' + encodeURIComponent(urlText), 'image-urls.txt')
+  await downloadFile(`data:text/plain;charset=utf-8,${encodeURIComponent(urlText)}`, 'image-urls.txt')
 }
 
 const vuetify = useVuetify()

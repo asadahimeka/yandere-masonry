@@ -14,7 +14,7 @@ const defaultLimitMap: Record<string, number> = {
   'tbib.org': 42,
   'xbooru.com': 42,
   'rule34.paheal.net': 70,
-  'realbooru.com': 42
+  'realbooru.com': 42,
 }
 const BOORU_PAGE_LIMIT = defaultLimitMap[location.host]
 const isPidSite = sites[location.host].paginate === 'pid'

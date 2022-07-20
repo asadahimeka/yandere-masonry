@@ -73,7 +73,7 @@ var __publicField = (obj, key, value) => {
   }
   function doNotRun() {
     const mimeTypes = ["jpg", "jpeg", "png", "gif", "mp4", "webm", "json", "xml"];
-    return mimeTypes.some((e) => location.pathname.endsWith("." + e));
+    return mimeTypes.some((e) => location.pathname.endsWith(`.${e}`));
   }
   function isMoebooru() {
     return ["yande.re", "konachan"].some((e) => location.href.includes(e));
@@ -339,7 +339,7 @@ var __publicField = (obj, key, value) => {
       return "\u{1F682}";
     });
     const cols = VueCompositionAPI2.ref([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20].reduce((acc, cur) => {
-      acc[cur] = cur === 0 ? "\u81EA\u52A8" : cur + " \u5217";
+      acc[cur] = cur === 0 ? "\u81EA\u52A8" : `${cur} \u5217`;
       return acc;
     }, {}));
     const selColumn = (val) => {
@@ -407,7 +407,7 @@ var __publicField = (obj, key, value) => {
     };
     const exportFileUrls = async () => {
       const urlText = store.selectedImageList.map((e) => e.fileUrl).join("\n");
-      await downloadFile("data:text/plain;charset=utf-8," + encodeURIComponent(urlText), "image-urls.txt");
+      await downloadFile(`data:text/plain;charset=utf-8,${encodeURIComponent(urlText)}`, "image-urls.txt");
     };
     const vuetify = useVuetify();
     const toggleDarkmode = () => {
@@ -504,7 +504,7 @@ var __publicField = (obj, key, value) => {
             staticStyle: {
               "margin-bottom": "2px"
             }
-          }, [_vm._v(_vm._s(_vm.store.selectedColumn === "0" ? "\u81EA\u52A8" : _vm.store.selectedColumn + "\u5217"))])], 1)];
+          }, [_vm._v(_vm._s(_vm.store.selectedColumn === "0" ? "\u81EA\u52A8" : `${_vm.store.selectedColumn}\u5217`))])], 1)];
         }
       }])
     }, [_c("v-list", {
@@ -2689,7 +2689,7 @@ var __publicField = (obj, key, value) => {
         return username;
       const id = getYandereUserId();
       if (!id)
-        return;
+        return "";
       const response = await fetch(`/user.json?id=${id}`);
       const result = await response.json();
       const { name } = result[0];
@@ -2697,7 +2697,7 @@ var __publicField = (obj, key, value) => {
       return name;
     } catch (error) {
       console.log("getUsername error:", error);
-      return;
+      return "";
     }
   }
   const tagInfoMap = {
@@ -2749,7 +2749,7 @@ var __publicField = (obj, key, value) => {
       body: form
     });
     if (!response.ok) {
-      showMsg({ msg: "\u6536\u85CF\u5931\u8D25: " + response.status, type: "error" });
+      showMsg({ msg: `\u6536\u85CF\u5931\u8D25: ${response.status}`, type: "error" });
       return false;
     }
     const result = await response.json();
@@ -2757,7 +2757,7 @@ var __publicField = (obj, key, value) => {
       showMsg({ msg: "\u6536\u85CF\u6210\u529F" });
       return true;
     } else {
-      showMsg({ msg: "\u6536\u85CF\u5931\u8D25: " + result.reason, type: "error" });
+      showMsg({ msg: `\u6536\u85CF\u5931\u8D25: ${result.reason}`, type: "error" });
       return false;
     }
   }
@@ -2777,7 +2777,7 @@ var __publicField = (obj, key, value) => {
       window.open(link, "_blank", "noreferrer");
     };
     const dealLink = (link) => {
-      return `https://${link.includes("yande") ? link + "/post" : link}?_wf=1`;
+      return `https://${link.includes("yande") ? `${link}/post` : link}?_wf=1`;
     };
     VueCompositionAPI2.onMounted(async () => {
       if (store.isYKSite) {
@@ -2957,7 +2957,7 @@ var __publicField = (obj, key, value) => {
         await downloadFile(url, name);
       } catch (error) {
         showMsg({
-          msg: "\u4E0B\u8F7D\u51FA\u9519: " + error,
+          msg: `\u4E0B\u8F7D\u51FA\u9519: ${error}`,
           type: "error"
         });
       } finally {
@@ -3098,7 +3098,7 @@ var __publicField = (obj, key, value) => {
         "text-color": "#ffffff"
       },
       domProps: {
-        "textContent": _vm._s(_vm.imageSelected.rating.toUpperCase() + " " + _vm.imageSelected.id)
+        "textContent": _vm._s(`${_vm.imageSelected.rating.toUpperCase()} ${_vm.imageSelected.id}`)
       },
       on: {
         "click": function($event) {
@@ -3181,7 +3181,7 @@ var __publicField = (obj, key, value) => {
           }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v("mdi-launch")])], 1)];
         }
       }], null, false, 3813795830)
-    }, [_c("span", [_vm._v(_vm._s("\u6765\u6E90 " + _vm.imageSelected.sourceUrl))])]) : _vm._e(), !_vm.isVideo ? _c("v-tooltip", {
+    }, [_c("span", [_vm._v(_vm._s(`\u6765\u6E90 ${_vm.imageSelected.sourceUrl}`))])]) : _vm._e(), !_vm.isVideo ? _c("v-tooltip", {
       attrs: {
         "bottom": ""
       },
@@ -3510,7 +3510,7 @@ var __publicField = (obj, key, value) => {
           store.requestStop = true;
         }
       } catch (error) {
-        console.log("fetch error: " + error);
+        console.log(`fetch error: ${error}`);
       } finally {
         store.requestState = false;
       }
