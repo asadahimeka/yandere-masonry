@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.33
+// @version              0.2.34
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
@@ -201,7 +201,6 @@ var __publicField = (obj, key, value) => {
     <title>Booru Masonry</title>
     <link rel="stylesheet" href="https://lib.baomitu.com/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
-    <link rel="stylesheet" href="https://code.bdstatic.com/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://lib.baomitu.com/vuetify/2.6.6/vuetify.min.css">
     <style>${loadingStyle}::-webkit-scrollbar{width:0px}</style>
   `;
