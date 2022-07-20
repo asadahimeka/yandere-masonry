@@ -37,7 +37,7 @@
     "@typescript-eslint/eslint-plugin" "^5.26.0"
     "@typescript-eslint/parser" "^5.26.0"
 
-"@antfu/eslint-config-vue@^0.25.2":
+"@antfu/eslint-config-vue@0.25.2":
   version "0.25.2"
   resolved "https://registry.npmmirror.com/@antfu/eslint-config-vue/-/eslint-config-vue-0.25.2.tgz#13e276b029fb66912b585ee5716f54cf7a9cb8da"
   integrity sha512-ObZOzvQvLe/qETq5miVmFWRgjNwWAE/P1I2YhKyDFK7KHquM7bKysfnmkoPpm2HkOpseMILoc+5UKo/w3L7GHg==
@@ -562,7 +562,7 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@himeka/booru@^2.6.4":
+"@himeka/booru@2.6.4":
   version "2.6.4"
   resolved "https://registry.npmmirror.com/@himeka/booru/-/booru-2.6.4.tgz#f8d88850c997e1d61ba90333c37643af6bfd1e60"
   integrity sha512-nHcT6uFtw5+CZsQst6Cl0m8gooisGdQJ44XyC6cAd5RX0At2T6U4kCU2vUzOPEBxkBFmHWd6tFzOzEJ12873xQ==
@@ -624,10 +624,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@mdi/font@6.7.96":
-  version "6.7.96"
-  resolved "https://registry.npmmirror.com/@mdi/font/-/font-6.7.96.tgz#1686425ba291b90ea02a87292a565c6d0c854afe"
-  integrity sha512-M68vlRhtmA/SpDjo2dV3SUZus20jrU9Zp2ggslfzh0cbFpygPukcVpBIA3pErwsukhYt4RfbgXpFi74SjixOrQ==
+"@mdi/js@^7.0.96":
+  version "7.0.96"
+  resolved "https://registry.npmmirror.com/@mdi/js/-/js-7.0.96.tgz#8e7a54d5cb38831e3150632cc19e380f54d9edd6"
+  integrity sha512-lNqhkV3cpPfYb/Avh+vXLFukUTbHbyHoFo4Jdc7Oc9UvURGVhamFIpgOVvEf2bNA78zvjXTZeVWExUTR+DLBfQ==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -675,10 +675,10 @@
   dependencies:
     "@types/unist" "*"
 
-"@types/node@17.0.42":
-  version "17.0.42"
-  resolved "https://registry.npmmirror.com/@types/node/-/node-17.0.42.tgz#d7e8f22700efc94d125103075c074396b5f41f9b"
-  integrity sha512-Q5BPGyGKcvQgAMbsr7qEGN/kIPN6zZecYYABeTDBizOsau+2NMdSVTar9UQw21A2+JyA2KRNDYaYrPB0Rpk2oQ==
+"@types/node@18.0.6":
+  version "18.0.6"
+  resolved "https://registry.npmmirror.com/@types/node/-/node-18.0.6.tgz#0ba49ac517ad69abe7a1508bc9b3a5483df9d5d7"
+  integrity sha512-/xUq6H2aQm261exT6iZTMifUySEt4GR5KX8eYyY+C4MSNPqSh9oNIP7tz2GLKTlFaiBbgZNxffoR3CVRG+cljw==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -694,11 +694,6 @@
   version "2.0.6"
   resolved "https://registry.npmmirror.com/@types/unist/-/unist-2.0.6.tgz#250a7b16c3b91f672a24552ec64678eeb1d3a08d"
   integrity sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==
-
-"@types/webfontloader@1.6.34":
-  version "1.6.34"
-  resolved "https://registry.npmmirror.com/@types/webfontloader/-/webfontloader-1.6.34.tgz#3ad1530c3cf2827d3ed80679b4f8c688e6c6957c"
-  integrity sha512-yNIPDl3P1yK/ag9C8CdleEhWrtU1myGr3cxb0yEBN/tkCYoGP5PbQa53mQCXcOLFAvBFzJJQfuEahOZ0ARakqw==
 
 "@typescript-eslint/eslint-plugin@^5.26.0":
   version "5.30.7"
@@ -3037,11 +3032,6 @@ rimraf@^3.0.2:
   dependencies:
     glob "^7.1.3"
 
-roboto-fontface@*:
-  version "0.10.0"
-  resolved "https://registry.npmmirror.com/roboto-fontface/-/roboto-fontface-0.10.0.tgz#7eee40cfa18b1f7e4e605eaf1a2740afb6fd71b0"
-  integrity sha512-OlwfYEgA2RdboZohpldlvJ1xngOins5d7ejqnIBWr9KaMxsnBqotpptRXTyfNRLnFpqzX6sTDt+X+a+6udnU8g==
-
 rollup@^2.59.0, rollup@^2.70.2:
   version "2.70.2"
   resolved "https://registry.npmmirror.com/rollup/-/rollup-2.70.2.tgz#808d206a8851628a065097b7ba2053bd83ba0c0d"
@@ -3516,11 +3506,6 @@ vuetify@2.6.7:
   version "2.6.7"
   resolved "https://registry.npmmirror.com/vuetify/-/vuetify-2.6.7.tgz#9c6fb7d20e1c4b07417084cbe5996c2dadf099df"
   integrity sha512-1XxCv6mt1UsKaW7rqow0hF/jOw1ijT/fHH9euWLHgSVIcPAx8D2AY5ihTCBbMmV53Hj/YD0DUvzyk6cM/OGHvw==
-
-webfontloader@1.6.28:
-  version "1.6.28"
-  resolved "https://registry.npmmirror.com/webfontloader/-/webfontloader-1.6.28.tgz#db786129253cb6e8eae54c2fb05f870af6675bae"
-  integrity sha512-Egb0oFEga6f+nSgasH3E0M405Pzn6y3/9tOVanv/DLfa1YBIgcv90L18YyWnvXkRbIM17v5Kv6IT2N6g1x5tvQ==
 
 webidl-conversions@^3.0.0:
   version "3.0.1"
