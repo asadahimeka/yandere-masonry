@@ -7,13 +7,13 @@
       </v-list-item-content>
     </v-list-item>
     <v-divider />
-    <v-list v-if="userName" dense nav>
+    <v-list v-if="store.isYKSite" dense nav>
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">Shortcuts</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link href="/user/home">
+      <v-list-item v-if="userName" link href="/user/home">
         <v-list-item-icon class="mr-2">
           <v-icon>{{ mdiAccount }}</v-icon>
         </v-list-item-icon>
@@ -21,7 +21,7 @@
           <v-list-item-title>Hello {{ userName }}!</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link :href="`/post?tags=vote%3A3%3A${userName}+order%3Avote&_wf=1`">
+      <v-list-item v-if="userName" link :href="`/post?tags=vote%3A3%3A${userName}+order%3Avote&_wf=1`">
         <v-list-item-icon class="mr-2">
           <v-icon>{{ mdiStar }}</v-icon>
         </v-list-item-icon>
