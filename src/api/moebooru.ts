@@ -128,3 +128,7 @@ export async function fetchPopularPosts(): Promise<Post[]> {
   const result = await response.json()
   return result.map((e: any) => new Post(e, forSite(location.host)))
 }
+
+export function isPopularPage() {
+  return /(yande.re|konachan).*\/post\/popular_/.test(location.href)
+}
