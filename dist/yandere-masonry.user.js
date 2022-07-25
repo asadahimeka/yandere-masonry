@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.37
+// @version              0.2.38
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
-// @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Fork form yande-re-chinese-patch.
+// @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Forked form yande-re-chinese-patch.
 // @author               asadahimeka
 // @namespace            me.asadahimeka.yanderemasonry
 // @license              MIT
@@ -287,6 +287,7 @@ var __publicField = (obj, key, value) => {
   var mdiDelete = "M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z";
   var mdiDownload = "M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z";
   var mdiFileClockOutline = "M4 2A2 2 0 0 0 2 4V20A2 2 0 0 0 4 22H12.41A7 7 0 0 0 16 23A7 7 0 0 0 23 16A7 7 0 0 0 18 9.3V8L12 2H4M4 4H11V9H16A7 7 0 0 0 9 16A7 7 0 0 0 10.26 20H4V4M16 11A5 5 0 0 1 21 16A5 5 0 0 1 16 21A5 5 0 0 1 11 16A5 5 0 0 1 16 11M15 12V17L18.61 19.16L19.36 17.94L16.5 16.25V12H15Z";
+  var mdiFire = "M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z";
   var mdiGithub = "M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z";
   var mdiHeart = "M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z";
   var mdiHeartPlusOutline = "M12.67 20.74L12 21.35L10.55 20.03C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5C22 9.93 21.5 11.26 20.62 12.61C20 12.31 19.31 12.11 18.59 12.04C19.5 10.8 20 9.65 20 8.5C20 6.5 18.5 5 16.5 5C14.96 5 13.46 6 12.93 7.36H11.07C10.54 6 9.04 5 7.5 5C5.5 5 4 6.5 4 8.5C4 11.39 7.14 14.24 11.89 18.55L12 18.65L12.04 18.61C12.12 19.37 12.34 20.09 12.67 20.74M17 14V17H14V19H17V22H19V19H22V17H19V14H17Z";
@@ -298,6 +299,7 @@ var __publicField = (obj, key, value) => {
   var mdiMagnifyPlusOutline = "M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14M12,10H10V12H9V10H7V9H9V7H10V9H12V10Z";
   var mdiPlaylistPlus = "M3 16H10V14H3M18 14V10H16V14H12V16H16V20H18V16H22V14M14 6H3V8H14M14 10H3V12H14V10Z";
   var mdiRefresh = "M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z";
+  var mdiShuffle = "M14.83,13.41L13.42,14.82L16.55,17.95L14.5,20H20V14.5L17.96,16.54L14.83,13.41M14.5,4L16.54,6.04L4,18.59L5.41,20L17.96,7.46L20,9.5V4M10.59,9.17L5.41,4L4,5.41L9.17,10.58L10.59,9.17Z";
   var mdiSourceFork = "M6,2A3,3 0 0,1 9,5C9,6.28 8.19,7.38 7.06,7.81C7.15,8.27 7.39,8.83 8,9.63C9,10.92 11,12.83 12,14.17C13,12.83 15,10.92 16,9.63C16.61,8.83 16.85,8.27 16.94,7.81C15.81,7.38 15,6.28 15,5A3,3 0 0,1 18,2A3,3 0 0,1 21,5C21,6.32 20.14,7.45 18.95,7.85C18.87,8.37 18.64,9 18,9.83C17,11.17 15,13.08 14,14.38C13.39,15.17 13.15,15.73 13.06,16.19C14.19,16.62 15,17.72 15,19A3,3 0 0,1 12,22A3,3 0 0,1 9,19C9,17.72 9.81,16.62 10.94,16.19C10.85,15.73 10.61,15.17 10,14.38C9,13.08 7,11.17 6,9.83C5.36,9 5.13,8.37 5.05,7.85C3.86,7.45 3,6.32 3,5A3,3 0 0,1 6,2M6,4A1,1 0 0,0 5,5A1,1 0 0,0 6,6A1,1 0 0,0 7,5A1,1 0 0,0 6,4M18,4A1,1 0 0,0 17,5A1,1 0 0,0 18,6A1,1 0 0,0 19,5A1,1 0 0,0 18,4M12,18A1,1 0 0,0 11,19A1,1 0 0,0 12,20A1,1 0 0,0 13,19A1,1 0 0,0 12,18Z";
   var mdiStar = "M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z";
   var mdiViewDashboardVariant = "M2,5V19H8V5H2M9,5V10H15V5H9M16,5V14H22V5H16M9,11V19H15V11H9M16,15V19H22V15H16Z";
@@ -2841,8 +2843,10 @@ var __publicField = (obj, key, value) => {
     return {
       mdiAccount,
       mdiArrowRightCircleOutline,
+      mdiFire,
       mdiGithub,
       mdiInformationOutline,
+      mdiShuffle,
       mdiSourceFork,
       mdiStar,
       store,
@@ -2871,35 +2875,70 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", {
       staticClass: "title"
-    }, [_vm._v(" Booru Masonry ")]), _c("v-list-item-subtitle", [_vm._v("Booru sites waterfall layout.")])], 1)], 1), _c("v-divider"), _vm.userName ? _c("v-list", {
+    }, [_vm._v("Booru Masonry")]), _c("v-list-item-subtitle", [_vm._v("Booru sites waterfall layout.")])], 1)], 1), _c("v-divider"), _vm.store.isYKSite ? _c("v-list", {
       attrs: {
         "dense": "",
         "nav": ""
       }
     }, [_c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", {
       staticClass: "title"
-    }, [_vm._v(" My Account ")])], 1)], 1), _c("v-list-item", {
+    }, [_vm._v("Shortcuts")])], 1)], 1), _vm.userName ? _c("v-list-item", {
       attrs: {
         "link": "",
         "href": "/user/home"
       }
     }, [_c("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiAccount))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Hello " + _vm._s(_vm.userName) + "!")])], 1)], 1), _c("v-list-item", {
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiAccount))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Hello " + _vm._s(_vm.userName) + "!")])], 1)], 1) : _vm._e(), _vm.userName ? _c("v-list-item", {
       attrs: {
         "link": "",
         "href": `/post?tags=vote%3A3%3A${_vm.userName}+order%3Avote&_wf=1`
       }
     }, [_c("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiStar))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("My Favorites")])], 1)], 1)], 1) : _vm._e(), _c("v-list", {
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiStar))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("My Favorites")])], 1)], 1) : _vm._e(), _c("v-list-item", {
+      attrs: {
+        "link": "",
+        "href": "/post/popular_recent?period=1d"
+      }
+    }, [_c("v-list-item-icon", {
+      staticClass: "mr-2"
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiFire))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Popular(Last 24 hours)")])], 1)], 1), _c("v-list-item", {
+      attrs: {
+        "link": "",
+        "href": "/post/popular_recent?period=1w"
+      }
+    }, [_c("v-list-item-icon", {
+      staticClass: "mr-2"
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiFire))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Popular(Last week)")])], 1)], 1), _c("v-list-item", {
+      attrs: {
+        "link": "",
+        "href": "/post/popular_recent?period=1m"
+      }
+    }, [_c("v-list-item-icon", {
+      staticClass: "mr-2"
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiFire))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Popular(Last month)")])], 1)], 1), _c("v-list-item", {
+      attrs: {
+        "link": "",
+        "href": "/post/popular_recent?period=1y"
+      }
+    }, [_c("v-list-item-icon", {
+      staticClass: "mr-2"
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiFire))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Popular(Last year)")])], 1)], 1), _c("v-list-item", {
+      attrs: {
+        "link": "",
+        "href": "/post?tags=order%3Arandom&page=1"
+      }
+    }, [_c("v-list-item-icon", {
+      staticClass: "mr-2"
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiShuffle))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Random")])], 1)], 1)], 1) : _vm._e(), _c("v-list", {
       attrs: {
         "dense": "",
         "nav": ""
       }
     }, [_c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", {
       staticClass: "title"
-    }, [_vm._v(" Site List ")])], 1)], 1), _vm._l(_vm.siteLinks, function(link) {
+    }, [_vm._v("Site List")])], 1)], 1), _vm._l(_vm.siteLinks, function(link) {
       return _c("v-list-item", {
         key: link,
         attrs: {
@@ -2915,7 +2954,7 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", {
       staticClass: "title"
-    }, [_vm._v(" About ")])], 1)], 1), _c("v-list-item", [_c("v-list-item-icon", {
+    }, [_vm._v("About")])], 1)], 1), _c("v-list-item", [_c("v-list-item-icon", {
       staticClass: "mr-2"
     }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiInformationOutline))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("v" + _vm._s(_vm.version))])], 1)], 1), _c("v-list-item", {
       attrs: {
@@ -2939,7 +2978,7 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiSourceFork))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Fork from")]), _c("v-list-item-subtitle", [_vm._v("yande-re-chinese-patch")])], 1)], 1)], 1)], 1);
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiSourceFork))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Forked from")]), _c("v-list-item-subtitle", [_vm._v("yande-re-chinese-patch")])], 1)], 1)], 1)], 1);
   };
   var staticRenderFns$3 = [];
   const __cssModules$3 = {};

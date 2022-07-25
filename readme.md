@@ -80,7 +80,7 @@ Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设
 > 主要支持站点为 Yande.re 和 Konachan，其他站点为基本支持，未经过详细测试。
 >
 > 本脚本主要是为了方便图片浏览，其他功能如下载为简单支持，不保证完全可用。
-> 
+>
 > 另，存在源站页面图片列表与 API 返回列表不一致的情况，请悉知。
 
 缩略图放大与双击翻页支持的站点如下：
@@ -118,7 +118,7 @@ https://realbooru.com/
 ## Screenshots
 
 ![](https://upload-bbs.mihoyo.com/upload/2022/07/25/190122060/0da7caef30124bbb6c631fa09db51f03_2173645511072044199.png)
-![](https://upload-bbs.mihoyo.com/upload/2022/07/25/260511332/618d4ddd3684de719729f9a1f4d7ee73_8311796271489441122.png)
+![](https://upload-bbs.mihoyo.com/upload/2022/07/25/190122060/fc560f1d599436d80878294a100935ae_5077454265409330307.png)
 ![](https://upload-bbs.mihoyo.com/upload/2022/07/25/190122060/7186f1ef56aebed0fecde2da4a4e7c93_5145856655234620328.png)
 ![](https://upload-bbs.mihoyo.com/upload/2022/07/25/190122060/e777ca1172323281c348c4b514f082c7_1364252052419915264.png)
 ![](https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/232674c7673d1c05a2e8efb028304067_7491959587592803223.png)
