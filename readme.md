@@ -16,6 +16,14 @@ Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏�
 
 Build with [vite](https://vitejs.dev) & [vite-plugin-tm-userscript](https://github.com/asadahimeka/vite-plugin-tm-userscript)
 
+## Install
+
+Greasy Fork: [点击安装](https://greasyfork.org/zh-CN/scripts/444885)
+
+Sleazy Fork: [点击安装](https://sleazyfork.org/scripts/444885)
+
+GitHub 仓库文件: [点击安装](https://github.com/asadahimeka/yandere-masonry/raw/main/dist/yandere-masonry.user.js)
+
 ## Tips
 
 Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设置 cookie 里的 `locale` 项来指定界面语言
@@ -42,7 +50,7 @@ Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设
 
 添加 Y 站与 K 站标签的中文翻译，翻译文件来自 [yande-re-chinese-patch](https://github.com/coderzhaoziwei/yande-re-chinese-patch/blob/main/source/data/tags.json)
 
-欢迎 [PR](https://github.com/asadahimeka/yandere-masonry/edit/main/src/data/tags_cn.json) 补充或校正翻译
+欢迎 [PR](https://github.com/asadahimeka/yandere-masonry/blob/main/src/data/tags_cn.json) 补充或校正翻译
 
 ### 瀑布流模式
 
@@ -117,10 +125,10 @@ https://realbooru.com/
 
 ## Screenshots
 
-![](https://upload-bbs.mihoyo.com/upload/2022/07/25/190122060/0da7caef30124bbb6c631fa09db51f03_2173645511072044199.png)
-![](https://upload-bbs.mihoyo.com/upload/2022/07/25/190122060/fc560f1d599436d80878294a100935ae_5077454265409330307.png)
-![](https://upload-bbs.mihoyo.com/upload/2022/07/25/190122060/7186f1ef56aebed0fecde2da4a4e7c93_5145856655234620328.png)
-![](https://upload-bbs.mihoyo.com/upload/2022/07/25/190122060/e777ca1172323281c348c4b514f082c7_1364252052419915264.png)
+![](https://upload-bbs.mihoyo.com/upload/2022/07/26/260511332/eb26e8bb6ec459b681f80f52c5e3026b_8896038464113321050.png)
+![](https://upload-bbs.mihoyo.com/upload/2022/07/26/260511332/08d32e6793f58921cab59d5a124b8bff_1695724723673167248.png)
+![](https://upload-bbs.mihoyo.com/upload/2022/07/26/260511332/7181e6197dd9b4cf6fe763291bd42c12_3932702791268709962.png)
+![](https://upload-bbs.mihoyo.com/upload/2022/07/26/260511332/c8e705ec84835e4624814cf420e37a31_3262693198820397564.png)
 ![](https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/232674c7673d1c05a2e8efb028304067_7491959587592803223.png)
 ![](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/7eec96d7c629bc30ff4b1942838d9ea2_7197279808091047211.png)
 ![](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/8dccc28bf99106aaab984feb383d4c1f_939382269553345713.png)
