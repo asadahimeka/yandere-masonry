@@ -103,7 +103,8 @@ import {
 import { computed, ref, set } from '@vue/composition-api'
 import { useVuetify } from '@/plugins/vuetify'
 import store from '@/store'
-import { downloadFile, eventBus, showMsg } from '@/utils'
+import { downloadFile, showMsg } from '@/utils'
+import { loadPostsByPage } from '@/store/actions/post'
 
 const title = computed(() => {
   const { 0: img, length } = store.imageList
@@ -187,8 +188,8 @@ const toggleDarkmode = () => {
 }
 
 const goToPage = (ev: KeyboardEvent) => {
-  const inp = ev.target as HTMLInputElement
-  eventBus.$emit('loadPostByPage', inp?.value)
+  const input = ev.target as HTMLInputElement
+  loadPostsByPage(input?.value)
 }
 
 const exitMasonry = () => {

@@ -21,7 +21,7 @@
       <v-btn v-show="store.requestState" color="#ee8888" text>
         加载中...
       </v-btn>
-      <v-btn v-show="showLoadMore" color="#ee8888" text @click="fetchData()">
+      <v-btn v-show="showLoadMore" color="#ee8888" text @click="searchPosts()">
         加载更多
       </v-btn>
       <v-btn v-show="showNoMore" color="#ee8888" text>
@@ -50,12 +50,12 @@
         bottom
         right
         color="pink"
-        @click="refresh"
+        @click="refreshPosts()"
       >
         <v-icon>{{ mdiRefresh }}</v-icon>
       </v-btn>
     </v-fab-transition>
-    <image-detail />
+    <ImageDetail />
   </v-container>
 </template>
 
@@ -64,9 +64,9 @@ import { mdiRefresh } from '@mdi/js'
 import { computed, nextTick, onMounted, ref, watch } from '@vue/composition-api'
 import type Post from '@himeka/booru/dist/structures/Post'
 import ImageDetail from './ImageDetail.vue'
-import { eventBus, isReachBottom, throttleScroll } from '@/utils'
-import { getFirstPageNo, pushPageState, searchBooru } from '@/api/booru'
-import { addPostToFavorites, fetchPopularPosts } from '@/api/moebooru'
+import { isReachBottom, throttleScroll } from '@/utils'
+import { addPostToFavorites } from '@/api/moebooru'
+import { initPosts, refreshPosts, searchPosts } from '@/store/actions/post'
 import store from '@/store'
 
 const showImageList = ref(true)
@@ -152,71 +152,13 @@ const addFavorite = () => {
   img && addPostToFavorites(img.id)
 }
 
-const isPopularPage = /(yande.re|konachan).*\/post\/popular_/.test(location.href)
-const params = new URLSearchParams(location.search)
-let page = getFirstPageNo(params)
-const tags = params.get('tags')
-const fetchData = async () => {
-  store.requestState = true
-  try {
-    let results: Post[] = []
-    if (isPopularPage) {
-      results = await fetchPopularPosts()
-      store.requestStop = true
-    } else {
-      results = await searchBooru(page, tags)
-    }
-    if (Array.isArray(results) && results.length > 0) {
-      store.currentPage = page
-      store.imageList = [...store.imageList, ...results]
-      pushPageState(page)
-      page++
-    } else {
-      store.requestStop = true
-    }
-  } catch (error) {
-    console.log(`fetch error: ${error}`)
-  } finally {
-    store.requestState = false
-  }
-}
-
-const calcFetchTimes = () => {
-  const vcont = document.querySelector('._vcont')
-  const cnth = vcont?.clientHeight
-  const doch = document.documentElement.clientHeight
-  return cnth ? Math.floor(doch / cnth) : 1
-}
-
-const initData = async () => {
-  await fetchData()
-  if (store.requestStop) return
-  const times = calcFetchTimes()
-  for (let index = 0; index < times; index++) {
-    await fetchData()
-  }
-}
-
-const refresh = () => {
-  page = 1
-  store.imageList = []
-  store.selectedImageList = []
-  store.requestStop = false
-  initData()
-}
-
 onMounted(async () => {
-  await initData()
-  eventBus.$on('loadPostByPage', (toPage: string) => {
-    page = Number(toPage) || 1
-    store.imageList = []
-    fetchData()
-  })
+  await initPosts()
   window.addEventListener('scroll', throttleScroll(scroll => {
     if (!store.showFab && scroll > 200) store.showFab = true
     if (store.requestStop) return
     if (store.requestState) return
-    isReachBottom() && fetchData()
+    isReachBottom() && searchPosts()
   }, () => {
     if (store.showFab) store.showFab = false
   }))

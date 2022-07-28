@@ -1,7 +1,7 @@
 {
   "name": "yandere-masonry",
   "version": "0.2.38",
-  "private": "true",
+  "private": true,
   "description": "Yande.re/Konachan Waterfall Layout.",
   "author": "asadahimeka",
   "license": "MIT",
@@ -10,6 +10,7 @@
     "dev": "vite",
     "release": "node scripts/release.mjs",
     "build": "vite build",
+    "prebuild": "vue-tsc --noEmit --skipLibCheck",
     "postbuild": "node scripts/postbuild.mjs",
     "lint": "eslint src --ext .ts,.vue",
     "preview": "vite preview"

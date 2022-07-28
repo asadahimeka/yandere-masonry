@@ -121,14 +121,14 @@ export async function addPostToFavorites(id: string) {
   }
 }
 
+export function isPopularPage() {
+  return /(yande.re|konachan).*\/post\/popular_/.test(location.href)
+}
+
 export async function fetchPopularPosts(): Promise<Post[]> {
   const url = new URL(location.href)
   url.pathname += '.json'
   const response = await fetch(url)
-  const result = await response.json()
-  return result.map((e: any) => new Post(e, forSite(location.host)))
-}
-
-export function isPopularPage() {
-  return /(yande.re|konachan).*\/post\/popular_/.test(location.href)
+  const result: [] = await response.json()
+  return result.map(e => new Post(e, forSite(location.host)))
 }
