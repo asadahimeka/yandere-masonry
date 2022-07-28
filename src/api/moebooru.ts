@@ -69,6 +69,7 @@ const tagInfoMap: Record<string, string[]> = {
   general: ['', '#E87A90cc'],
   faults: ['', '#AB3B3Ada'],
 }
+// const tagSortOrder = ['circle', 'artist', 'copyright', 'character', 'general']
 export async function getPostDetail(id: string): Promise<PostDetail | false> {
   try {
     if (!id) return false
@@ -90,7 +91,9 @@ export async function getPostDetail(id: string): Promise<PostDetail | false> {
           tagText,
           color: tagInfoMap[type]?.[1] || tagInfoMap.general[1],
         }
-      }),
+      })/* .sort((a, b) => {
+        return tagSortOrder.indexOf(a.type) - tagSortOrder.indexOf(b.type)
+      }) */,
     }
   } catch (error) {
     console.log('getPostDetail error:', error)
@@ -125,10 +128,30 @@ export function isPopularPage() {
   return /(yande.re|konachan).*\/post\/popular_/.test(location.href)
 }
 
-export async function fetchPopularPosts(): Promise<Post[]> {
+export async function fetchPostsByPath(): Promise<Post[]> {
   const url = new URL(location.href)
   url.pathname += '.json'
   const response = await fetch(url)
   const result: [] = await response.json()
   return result.map(e => new Post(e, forSite(location.host)))
+}
+
+function splitTags(tagsData: string, searchTerm?: string) {
+  let results = tagsData?.split(/\s+/)
+  if (searchTerm) results = results.filter(e => e.includes(searchTerm))
+  if (!Array.isArray(results)) return []
+  return results.map(e => e.split('`')[1]).filter(Boolean)
+}
+
+function getTagsString(key: string): string {
+  return (window as any).TagCompletion?.[key] || localStorage.getItem(key) || ''
+}
+
+export function searchTagsByName(searchTerm?: string) {
+  if (!searchTerm) return []
+  return splitTags(getTagsString('tag_data'), searchTerm)
+}
+
+export function getRecentTags() {
+  return splitTags(getTagsString('recent_tags'))
 }

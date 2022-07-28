@@ -1,6 +1,6 @@
 import store from '@/store'
 import { BOORU_PAGE_LIMIT, isPidSite, searchBooru } from '@/api/booru'
-import { fetchPopularPosts, isPopularPage } from '@/api/moebooru'
+import { fetchPostsByPath, isPopularPage } from '@/api/moebooru'
 
 function getFirstPageNo(params: URLSearchParams) {
   if (isPidSite) {
@@ -23,13 +23,13 @@ function pushPageState(pageNo: number) {
 
 const params = new URLSearchParams(location.search)
 let page = getFirstPageNo(params)
-const tags = params.get('tags')
+let tags = params.get('tags')
 
 const fetchActions = [
   {
     test: isPopularPage,
     action: async () => {
-      const results = await fetchPopularPosts()
+      const results = await fetchPostsByPath()
       store.requestStop = true
       return results
     },
@@ -85,6 +85,13 @@ export const refreshPosts = () => {
 
 export const loadPostsByPage = (toPage: string) => {
   page = Number(toPage) || 1
+  store.imageList = []
+  searchPosts()
+}
+
+export const loadPostsByTags = (searchTerm: string) => {
+  page = 1
+  tags = searchTerm
   store.imageList = []
   searchPosts()
 }

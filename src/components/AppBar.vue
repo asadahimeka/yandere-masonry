@@ -9,6 +9,40 @@
       :style="{ width: '40px', height: '30px', border: '1px solid #bbb', color: 'inherit' }"
       @keyup.enter="goToPage($event)"
     >
+    <template v-if="store.isYKSite">
+      <v-btn class="ml-2" icon @click="searchState.showInput = !searchState.showInput">
+        <v-icon>{{ mdiMagnify }}</v-icon>
+      </v-btn>
+      <v-menu
+        v-model="searchState.showMenu"
+        :max-width="200"
+        max-height="80vh"
+        transition="slide-y-transition"
+        nudge-bottom="5px"
+        offset-y
+      >
+        <template #activator="{ on }">
+          <v-slide-x-transition>
+            <div v-show="searchState.showInput" class="mr-4" style="width: 200px">
+              <v-text-field
+                v-model="searchState.searchTerm"
+                hide-details
+                v-on="on"
+                @input="onSearchTermInput"
+                @click="searchState.showMenu = true"
+                @blur="searchState.showMenu = false"
+                @keydown.enter="searchTags()"
+              />
+            </div>
+          </v-slide-x-transition>
+        </template>
+        <v-list v-show="searchState.searchItems.length" dense>
+          <v-list-item v-for="item in searchState.searchItems" :key="item" dense link>
+            <v-list-item-title @click="selectTag(item)" v-text="item" />
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </template>
     <v-spacer />
     <v-menu transition="slide-y-transition" offset-y>
       <template #activator="{ on, attrs }">
@@ -98,13 +132,15 @@ import {
   mdiDownload,
   mdiFileClockOutline,
   mdiLocationExit,
+  mdiMagnify,
   mdiViewDashboardVariant,
 } from '@mdi/js'
-import { computed, ref, set } from '@vue/composition-api'
+import { computed, reactive, ref, set } from '@vue/composition-api'
 import { useVuetify } from '@/plugins/vuetify'
 import store from '@/store'
-import { downloadFile, showMsg } from '@/utils'
-import { loadPostsByPage } from '@/store/actions/post'
+import { debounce, downloadFile, showMsg } from '@/utils'
+import { loadPostsByPage, loadPostsByTags } from '@/store/actions/post'
+import { getRecentTags, searchTagsByName } from '@/api/moebooru'
 
 const title = computed(() => {
   const { 0: img, length } = store.imageList
@@ -145,6 +181,40 @@ const removeFromList = (id: string) => {
     if (e.loading) return true
     return e.id !== id
   })
+}
+
+const searchState = reactive({
+  showInput: false,
+  showMenu: false,
+  searchTerm: '',
+  searchItems: getRecentTags().slice(0, 7),
+})
+
+const onSearchTermInput = debounce(() => {
+  const val = searchState.searchTerm
+  console.log('val: ', val)
+  if (!val) {
+    searchState.searchItems = []
+    return
+  }
+  const results = searchTagsByName(val.split(/\s+/).slice(-1)?.[0])
+  console.log('searchTagsByName(val): ', results)
+  searchState.searchItems = results.slice(0, 1000)
+}, 500)
+
+const selectTag = (tag: string) => {
+  searchState.searchTerm += ` ${tag}`
+  searchState.searchItems = []
+}
+
+const searchTags = () => {
+  searchState.showMenu = false
+  const url = new URL(location.href)
+  url.searchParams.delete('page')
+  url.searchParams.delete('pid')
+  url.searchParams.set('tags', searchState.searchTerm)
+  history.pushState('', '', url)
+  loadPostsByTags(searchState.searchTerm)
 }
 
 const download = (url: string, name: string) => {

@@ -78,10 +78,9 @@ li.tag-type-circle a[href^="/post"]:not(.no-browser-link)::before {
 
 #post-list img.preview,
 #post-popular img.preview {
-  width: auto;
+  width: 100%;
   height: auto;
   margin-top: 0;
-  margin-bottom: 8px;
   border-radius: 5px;
   box-sizing: border-box;
 }

@@ -59,3 +59,14 @@ export function throttleScroll(downFn: ScrollFn, upFn: ScrollFn) {
     })
   }
 }
+
+export function debounce<T extends unknown[]>(func: (...args: T) => void, delay: number): (...args: T) => void {
+  let timer: any = null
+  return (...args: T) => {
+    if (timer) clearTimeout(timer)
+    timer = setTimeout(() => {
+      // eslint-disable-next-line no-useless-call
+      func.call(null, ...args)
+    }, delay)
+  }
+}

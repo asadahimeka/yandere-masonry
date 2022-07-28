@@ -43,9 +43,9 @@ async function initMacy() {
       container: listEl,
       trueOrder: false,
       waitForImages: false,
-      columns: 5,
+      columns: 6,
       margin: 16,
-      breakAt: { 1800: 5, 1500: 4, 1200: 3, 900: 2, 700: 1 },
+      breakAt: { 1800: 6, 1500: 5, 1200: 4, 900: 3, 600: 1 },
     })
   }, 100)
 }
@@ -106,7 +106,11 @@ function removeOldListeners() {
       const w = unsafeWindow as any
       d.stopObserving()
       w.$('login-popup-username').stopObserving()
-      w.User = null
+      w.User = {
+        form_username_focus: () => {},
+        form_username_changed: () => {},
+        form_username_blur: () => {},
+      }
       w.ReportError = null
     }
   } catch (error) {
@@ -145,7 +149,7 @@ function loadScript(src: string) {
 function loadDeps() {
   return Promise.all([
     loadScript('https://lib.baomitu.com/vue/2.6.14/vue.min.js'),
-    loadScript('https://cdn.jsdelivr.net/npm/@vue/composition-api@1.6.2'),
+    loadScript('https://unpkg.com/@vue/composition-api@1.6.2/dist/vue-composition-api.prod.js'),
     loadScript('https://lib.baomitu.com/vuetify/2.6.6/vuetify.min.js'),
     loadScript('https://code.bdstatic.com/npm/vue-masonry-css@1.0.3/dist/vue-masonry.min.js'),
   ])
