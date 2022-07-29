@@ -9,40 +9,38 @@
       :style="{ width: '40px', height: '30px', border: '1px solid #bbb', color: 'inherit' }"
       @keyup.enter="goToPage($event)"
     >
-    <template v-if="store.isYKSite">
-      <v-btn class="ml-2" icon @click="searchState.showInput = !searchState.showInput">
-        <v-icon>{{ mdiMagnify }}</v-icon>
-      </v-btn>
-      <v-menu
-        v-model="searchState.showMenu"
-        :max-width="200"
-        max-height="80vh"
-        transition="slide-y-transition"
-        nudge-bottom="5px"
-        offset-y
-      >
-        <template #activator="{ on }">
-          <v-slide-x-transition>
-            <div v-show="searchState.showInput" class="mr-4" style="width: 200px">
-              <v-text-field
-                v-model="searchState.searchTerm"
-                hide-details
-                v-on="on"
-                @input="onSearchTermInput"
-                @click="searchState.showMenu = true"
-                @blur="searchState.showMenu = false"
-                @keydown.enter="searchTags()"
-              />
-            </div>
-          </v-slide-x-transition>
-        </template>
-        <v-list v-show="searchState.searchItems.length" dense>
-          <v-list-item v-for="item in searchState.searchItems" :key="item" dense link>
-            <v-list-item-title @click="selectTag(item)" v-text="item" />
-          </v-list-item>
-        </v-list>
-      </v-menu>
-    </template>
+    <v-btn class="ml-2" icon @click="searchState.showInput = !searchState.showInput">
+      <v-icon>{{ mdiMagnify }}</v-icon>
+    </v-btn>
+    <v-menu
+      v-model="searchState.showMenu"
+      :max-width="200"
+      max-height="80vh"
+      transition="slide-y-transition"
+      nudge-bottom="5px"
+      offset-y
+    >
+      <template #activator="{ on }">
+        <v-slide-x-transition>
+          <div v-show="searchState.showInput" class="mr-4" style="width: 200px">
+            <v-text-field
+              v-model="searchState.searchTerm"
+              hide-details
+              v-on="on"
+              @input="onSearchTermInput"
+              @click="searchState.showMenu = true"
+              @blur="searchState.showMenu = false"
+              @keydown="onSearchTermKeydown"
+            />
+          </div>
+        </v-slide-x-transition>
+      </template>
+      <v-list v-show="store.isYKSite && searchState.searchItems.length" class="ac_tags_list" dense>
+        <v-list-item v-for="item in searchState.searchItems" :key="item" dense @click="selectTag(item)">
+          <v-list-item-title v-text="item" />
+        </v-list-item>
+      </v-list>
+    </v-menu>
     <v-spacer />
     <v-menu transition="slide-y-transition" offset-y>
       <template #activator="{ on, attrs }">
@@ -52,8 +50,8 @@
         </v-btn>
       </template>
       <v-list dense>
-        <v-list-item v-for="(val, key) in cols" :key="key" dense link>
-          <v-list-item-title @click="selColumn(key)" v-text="val" />
+        <v-list-item v-for="(val, key) in cols" :key="key" dense @click="selColumn(key)">
+          <v-list-item-title v-text="val" />
         </v-list-item>
       </v-list>
     </v-menu>
@@ -187,34 +185,40 @@ const searchState = reactive({
   showInput: false,
   showMenu: false,
   searchTerm: '',
-  searchItems: getRecentTags().slice(0, 7),
+  searchItems: store.isYKSite ? getRecentTags() : [],
 })
 
 const onSearchTermInput = debounce(() => {
+  if (!store.isYKSite) return
   const val = searchState.searchTerm
-  console.log('val: ', val)
-  if (!val) {
+  const lastTag = val?.split(/\s+/).slice(-1)[0]
+  if (!lastTag) {
+    searchState.showMenu = false
     searchState.searchItems = []
     return
   }
-  const results = searchTagsByName(val.split(/\s+/).slice(-1)?.[0])
-  console.log('searchTagsByName(val): ', results)
-  searchState.searchItems = results.slice(0, 1000)
+  searchState.showMenu = true
+  searchState.searchItems = searchTagsByName(lastTag)
 }, 500)
 
 const selectTag = (tag: string) => {
-  searchState.searchTerm += ` ${tag}`
+  const termArr = searchState.searchTerm.split(/\s+/)
+  searchState.searchTerm = termArr.slice(0, -1).concat(tag).join(' ')
+  searchState.showMenu = false
   searchState.searchItems = []
 }
 
-const searchTags = () => {
-  searchState.showMenu = false
-  const url = new URL(location.href)
-  url.searchParams.delete('page')
-  url.searchParams.delete('pid')
-  url.searchParams.set('tags', searchState.searchTerm)
-  history.pushState('', '', url)
-  loadPostsByTags(searchState.searchTerm)
+const onSearchTermKeydown = (ev: KeyboardEvent) => {
+  if (ev.key != 'Enter') return
+  if (store.isYKSite && searchState.showMenu) {
+    const item = document.querySelector<HTMLElement>('.ac_tags_list .v-list-item--highlighted')
+    item && selectTag(item.innerText)
+  } else {
+    const url = new URL(location.href)
+    url.searchParams.set('tags', searchState.searchTerm)
+    history.pushState('', '', url)
+    loadPostsByTags(searchState.searchTerm)
+  }
 }
 
 const download = (url: string, name: string) => {

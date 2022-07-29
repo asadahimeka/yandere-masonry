@@ -136,11 +136,11 @@ export async function fetchPostsByPath(): Promise<Post[]> {
   return result.map(e => new Post(e, forSite(location.host)))
 }
 
-function splitTags(tagsData: string, searchTerm?: string) {
+function splitTags(tagsData: string, limit: number, searchTerm?: string) {
   let results = tagsData?.split(/\s+/)
   if (searchTerm) results = results.filter(e => e.includes(searchTerm))
   if (!Array.isArray(results)) return []
-  return results.map(e => e.split('`')[1]).filter(Boolean)
+  return results.slice(0, limit).map(e => e.split('`')[1]).filter(Boolean)
 }
 
 function getTagsString(key: string): string {
@@ -149,9 +149,9 @@ function getTagsString(key: string): string {
 
 export function searchTagsByName(searchTerm?: string) {
   if (!searchTerm) return []
-  return splitTags(getTagsString('tag_data'), searchTerm)
+  return splitTags(getTagsString('tag_data'), 40, searchTerm)
 }
 
 export function getRecentTags() {
-  return splitTags(getTagsString('recent_tags'))
+  return splitTags(getTagsString('recent_tags'), 8)
 }
