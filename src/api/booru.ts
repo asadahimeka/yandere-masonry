@@ -19,7 +19,7 @@ const defaultLimitMap: Record<string, number> = {
 
 export const BOORU_PAGE_LIMIT = defaultLimitMap[location.host]
 
-export const isPidSite = sites[location.host].paginate === 'pid'
+export const isPidSite = sites[location.host]?.paginate === 'pid'
 
 export async function searchBooru(page: number, tags: string | null) {
   if (!tags || tags === 'all') tags = ''

@@ -1,6 +1,6 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 
-export const eventBus = new Vue()
+// export const eventBus = new Vue()
 
 export function isURL(s: string) {
   return /^https?:\/\/.*/.test(s)
@@ -69,4 +69,25 @@ export function debounce<T extends unknown[]>(func: (...args: T) => void, delay:
       func.call(null, ...args)
     }, delay)
   }
+}
+
+export function formatDate(date: Date) {
+  const year = date.getFullYear().toString()
+  const month = (date.getMonth() + 1).toString()
+  const day = date.getDate().toString()
+  return [year, month, day].map(n => n[1] ? n : `0${n}`).join('-')
+}
+
+export function getDay(num: number) {
+  const str = '-'
+  const today = new Date()
+  const nowTime = today.getTime()
+  const ms = 24 * 3600 * 1000 * num
+  today.setTime(parseInt(`${nowTime + ms}`, 10))
+  const oYear = today.getFullYear()
+  let oMoth = (today.getMonth() + 1).toString()
+  if (oMoth.length <= 1) oMoth = `0${oMoth}`
+  let oDay = today.getDate().toString()
+  if (oDay.length <= 1) oDay = `0${oDay}`
+  return oYear + str + oMoth + str + oDay
 }

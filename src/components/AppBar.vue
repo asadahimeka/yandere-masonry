@@ -1,46 +1,106 @@
 <template>
   <v-app-bar app dense>
     <v-app-bar-nav-icon @click="store.toggleDrawer" />
-    <v-toolbar-title class="hidden-sm-and-down" v-text="title" />
-    <input
-      v-show="title.length > 2"
-      :value="store.currentPage"
-      class="hidden-sm-and-down ml-1 text-center rounded"
-      :style="{ width: '40px', height: '30px', border: '1px solid #bbb', color: 'inherit' }"
-      @keyup.enter="goToPage($event)"
-    >
-    <v-btn class="ml-2" icon @click="searchState.showInput = !searchState.showInput">
-      <v-icon>{{ mdiMagnify }}</v-icon>
-    </v-btn>
-    <v-menu
-      v-model="searchState.showMenu"
-      :max-width="200"
-      max-height="80vh"
-      transition="slide-y-transition"
-      nudge-bottom="5px"
-      offset-y
-    >
-      <template #activator="{ on }">
-        <v-slide-x-transition>
-          <div v-show="searchState.showInput" class="mr-4" style="width: 200px">
+    <div v-if="store.isYKSite && showPopAction" style="display:flex" class="align-center hidden-sm-and-down">
+      <v-toolbar-title class="mr-4" v-text="popTitle" />
+      <v-switch v-model="isPopSearchByDate" hide-details :label="isPopSearchByDate ? '按日期' : '最近人气'" />
+      <v-menu transition="slide-y-transition" offset-y>
+        <template #activator="{ on, attrs }">
+          <v-btn small class="ml-4" v-bind="attrs" v-on="on">
+            <v-icon left>{{ mdiCalendarSearch }}</v-icon>
+            <span style="margin-bottom:2px">{{ periodComputedMap[recentPeriod][0] }}</span>
+          </v-btn>
+        </template>
+        <v-list dense>
+          <v-list-item v-for="(val, key) in periodComputedMap" :key="key" dense @click="selPeriod(key)">
+            <v-list-item-title>
+              <v-icon left>{{ val[1] }}</v-icon>
+              <span>{{ val[0].slice(-1) }}</span>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      <v-menu
+        v-model="showPopDatePicker"
+        :close-on-content-click="false"
+        transition="scale-transition"
+        offset-y
+        min-width="auto"
+      >
+        <template #activator="{ on, attrs }">
+          <div v-show="isPopSearchByDate" class="ml-2" style="width: 125px;">
             <v-text-field
-              v-model="searchState.searchTerm"
+              v-model="popSearchDate"
+              :prepend-icon="mdiCalendar"
+              readonly
               hide-details
+              v-bind="attrs"
               v-on="on"
-              @input="onSearchTermInput"
-              @click="searchState.showMenu = true"
-              @blur="searchState.showMenu = false"
-              @keydown="onSearchTermKeydown"
             />
           </div>
-        </v-slide-x-transition>
+        </template>
+        <v-date-picker
+          v-model="popSearchDate"
+          no-title
+          locale="zh-cn"
+          :weekday-format="() => ''"
+          @input="showPopDatePicker = false"
+        />
+      </v-menu>
+    </div>
+    <div v-else style="display:flex" class="align-center hidden-sm-and-down">
+      <v-toolbar-title v-text="title" />
+      <input
+        v-show="title.length > 2"
+        :value="store.currentPage"
+        class="ml-1 mr-2 text-center rounded"
+        :style="{ width: '40px', height: '30px', border: '1px solid #bbb', color: 'inherit' }"
+        @keyup.enter="goToPage($event)"
+      >
+      <template v-if="store.isYKSite">
+        <v-btn v-if="userName" title="收藏夹" icon @click="fetchTaggedPosts(`vote:3:${userName} order:vote`)">
+          <v-icon>{{ mdiStar }}</v-icon>
+        </v-btn>
+        <v-btn title="人气" icon @click="goToPopularPage()">
+          <v-icon>{{ mdiFire }}</v-icon>
+        </v-btn>
+        <v-btn title="随机" icon @click="fetchTaggedPosts('order:random')">
+          <v-icon>{{ mdiShuffle }}</v-icon>
+        </v-btn>
       </template>
-      <v-list v-show="store.isYKSite && searchState.searchItems.length" class="ac_tags_list" dense>
-        <v-list-item v-for="item in searchState.searchItems" :key="item" dense @click="selectTag(item)">
-          <v-list-item-title v-text="item" />
-        </v-list-item>
-      </v-list>
-    </v-menu>
+      <v-btn title="搜索标签" icon @click="searchState.showInput = !searchState.showInput">
+        <v-icon>{{ mdiMagnify }}</v-icon>
+      </v-btn>
+      <v-menu
+        v-model="searchState.showMenu"
+        :max-width="200"
+        max-height="80vh"
+        transition="slide-y-transition"
+        nudge-bottom="5px"
+        offset-y
+      >
+        <template #activator="{ on }">
+          <v-slide-x-transition>
+            <div v-show="searchState.showInput" class="mr-4" style="width: 200px">
+              <v-text-field
+                v-model="searchState.searchTerm"
+                hide-details
+                v-on="on"
+                @input="onSearchTermInput"
+                @click="searchState.showMenu = true"
+                @blur="searchState.showMenu = false"
+                @keydown="onSearchTermKeydown"
+              />
+            </div>
+          </v-slide-x-transition>
+        </template>
+        <v-list v-show="store.isYKSite && searchState.searchItems.length" class="ac_tags_list" dense>
+          <v-list-item v-for="item in searchState.searchItems" :key="item" dense @click="selectTag(item)">
+            <v-list-item-title v-text="item" />
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </div>
     <v-spacer />
     <v-menu transition="slide-y-transition" offset-y>
       <template #activator="{ on, attrs }">
@@ -64,7 +124,7 @@
     </v-btn>
     <v-menu dense offset-y :close-on-content-click="false">
       <template #activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on">
+        <v-btn title="下载列表" icon v-bind="attrs" v-on="on">
           <v-icon>{{ mdiDownload }}</v-icon>
         </v-btn>
       </template>
@@ -102,10 +162,10 @@
         </v-list-item-group>
       </v-list>
     </v-menu>
-    <v-btn icon @click="toggleDarkmode">
+    <v-btn title="切换深色模式" icon @click="toggleDarkmode">
       <v-icon>{{ mdiBrightness6 }}</v-icon>
     </v-btn>
-    <v-btn icon @click="exitMasonry">
+    <v-btn title="退出瀑布流模式" icon @click="exitMasonry">
       <v-icon>{{ mdiLocationExit }}</v-icon>
     </v-btn>
     <v-progress-linear
@@ -122,6 +182,12 @@
 <script setup lang="ts">
 import {
   mdiBrightness6,
+  mdiCalendar,
+  mdiCalendarMonth,
+  mdiCalendarSearch,
+  mdiCalendarText,
+  mdiCalendarToday,
+  mdiCalendarWeek,
   mdiCheckUnderlineCircle,
   mdiCheckboxBlankOutline,
   mdiCheckboxIntermediate,
@@ -129,16 +195,19 @@ import {
   mdiDelete,
   mdiDownload,
   mdiFileClockOutline,
+  mdiFire,
   mdiLocationExit,
   mdiMagnify,
+  mdiShuffle,
+  mdiStar,
   mdiViewDashboardVariant,
 } from '@mdi/js'
-import { computed, reactive, ref, set } from '@vue/composition-api'
+import { computed, onMounted, reactive, ref, set, watch } from '@vue/composition-api'
 import { useVuetify } from '@/plugins/vuetify'
 import store from '@/store'
-import { debounce, downloadFile, showMsg } from '@/utils'
-import { loadPostsByPage, loadPostsByTags } from '@/store/actions/post'
-import { getRecentTags, searchTagsByName } from '@/api/moebooru'
+import { debounce, downloadFile, formatDate, getDay, showMsg } from '@/utils'
+import { loadPostsByPage, loadPostsByTags, refreshPosts } from '@/store/actions/post'
+import { getRecentTags, getUsername, isPopularPage, searchTagsByName } from '@/api/moebooru'
 
 const title = computed(() => {
   const { 0: img, length } = store.imageList
@@ -208,17 +277,103 @@ const selectTag = (tag: string) => {
   searchState.searchItems = []
 }
 
+const userName = ref('')
+onMounted(async () => {
+  if (store.isYKSite) {
+    const name = await getUsername()
+    if (name) userName.value = name
+  }
+})
+
+const fetchTaggedPosts = (tags: string) => {
+  const url = new URL(location.href)
+  url.searchParams.set('tags', tags)
+  history.pushState('', '', url)
+  loadPostsByTags(tags)
+}
+
 const onSearchTermKeydown = (ev: KeyboardEvent) => {
   if (ev.key != 'Enter') return
   if (store.isYKSite && searchState.showMenu) {
     const item = document.querySelector<HTMLElement>('.ac_tags_list .v-list-item--highlighted')
     item && selectTag(item.innerText)
   } else {
-    const url = new URL(location.href)
-    url.searchParams.set('tags', searchState.searchTerm)
-    history.pushState('', '', url)
-    loadPostsByTags(searchState.searchTerm)
+    fetchTaggedPosts(searchState.searchTerm)
+    searchState.searchTerm = ''
   }
+}
+
+const showPopAction = ref(isPopularPage())
+
+const getRecentPeriod = () => {
+  const params = new URLSearchParams(location.search)
+  return params.get('period') || '1d'
+}
+const isPopularRecent = () => location.pathname.includes('popular_recent')
+const getPopTitle = () => {
+  if (isPopularRecent()) {
+    return `Popular Recent ${getRecentPeriod()}`
+  }
+  return location.pathname.split('/').pop()?.replace(/_/g, ' ').toUpperCase()
+}
+
+const popTitle = ref(getPopTitle())
+const isPopSearchByDate = ref(!isPopularRecent())
+const recentPeriod = ref(getRecentPeriod())
+const periodMap: Record<string, string[]> = {
+  '1d': ['按日', mdiCalendarToday, 'day'],
+  '1w': ['按周', mdiCalendarWeek, 'week'],
+  '1m': ['按月', mdiCalendarMonth, 'month'],
+  '1y': ['按年', mdiCalendarText, 'year'],
+}
+const periodByDateMap = (() => {
+  const map = { ...periodMap }
+  delete map['1y']
+  return map
+})()
+const periodComputedMap = computed(() => {
+  return isPopSearchByDate.value ? periodByDateMap : periodMap
+})
+
+const showPopDatePicker = ref(false)
+const popSearchDate = ref((() => {
+  const params = new URLSearchParams(location.search)
+  const y = params.get('year')
+  const m = params.get('month')
+  const d = params.get('day')
+  if (y && m && d) return formatDate(new Date(`${y}-${m}-${d}`))
+  return getDay(-1)
+})())
+
+const fetchPopularPosts = (type: string) => {
+  let url = `/post/popular_recent?period=${type}`
+  if (isPopSearchByDate.value) {
+    const [year, month, day] = popSearchDate.value.split('-')
+    url = `/post/popular_by_${periodMap[type][2]}?day=${day}&month=${month}&year=${year}`
+  }
+  history.pushState('', '', url)
+  popTitle.value = getPopTitle()
+  refreshPosts()
+}
+
+const selPeriod = (key: string) => {
+  recentPeriod.value = key
+  fetchPopularPosts(key)
+}
+
+watch(popSearchDate, val => {
+  if (!val) return
+  fetchPopularPosts(recentPeriod.value)
+})
+
+watch(isPopSearchByDate, val => {
+  recentPeriod.value = '1d'
+  if (val) popSearchDate.value = getDay(-1)
+  fetchPopularPosts('1d')
+})
+
+const goToPopularPage = () => {
+  location.href = '/post/popular_recent?period=1d&_wf=1'
 }
 
 const download = (url: string, name: string) => {

@@ -133,3 +133,28 @@
 .img_scale_scroll::-webkit-scrollbar-thumb:hover {
   background: black;
 }
+
+.v-date-picker-table > table > thead > tr > th {
+  padding: 0;
+}
+.v-date-picker-table > table > thead > tr > th:nth-child(1):before {
+  content: '日';
+}
+.v-date-picker-table > table > thead > tr > th:nth-child(2):before {
+  content: '一';
+}
+.v-date-picker-table > table > thead > tr > th:nth-child(3):before {
+  content: '二';
+}
+.v-date-picker-table > table > thead > tr > th:nth-child(4):before {
+  content: '三';
+}
+.v-date-picker-table > table > thead > tr > th:nth-child(5):before {
+  content: '四';
+}
+.v-date-picker-table > table > thead > tr > th:nth-child(6):before {
+  content: '五';
+}
+.v-date-picker-table > table > thead > tr > th:nth-child(7):before {
+  content: '六';
+}

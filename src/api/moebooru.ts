@@ -153,5 +153,5 @@ export function searchTagsByName(searchTerm?: string) {
 }
 
 export function getRecentTags() {
-  return splitTags(getTagsString('recent_tags'), 8)
+  return splitTags(getTagsString('recent_tags'), 10)
 }
