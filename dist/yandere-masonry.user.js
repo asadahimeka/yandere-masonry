@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.39
+// @version              0.2.40
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
-// @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Forked form yande-re-chinese-patch.
+// @description:en       Yande.re/Konachan Masonry(Waterfall) Layout.
 // @author               asadahimeka
 // @namespace            me.asadahimeka.yanderemasonry
 // @license              MIT
@@ -53,7 +53,7 @@ var __publicField = (obj, key, value) => {
 (() => {
   var ydStyle = 'a.thumb{border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08]"}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743]"}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272]"}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2]"}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:100%;height:auto;margin-top:0;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}\n';
   var knStyle = "#lsidebar{display:none}#post-popular ul#post-list-posts{display:flex;justify-content:center;flex-wrap:wrap}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
-  var loadingStyle = "#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0px}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_scale_on{width:auto!important;max-width:100vw!important;max-height:100vh!important;margin:0;padding:12px;overflow:auto}.img_detail_scale_on .v-image{display:block;max-height:100vh;margin:0 auto}.img_detail_scale_on .v-responsive__sizer,.img_detail_scale_on .v-image__image{display:none}.img_detail_scale_on .v-responsive__content{position:relative;width:auto!important;max-width:100vw!important;max-height:100vh;margin:0!important}.img_scale_scroll{display:none}.img_detail_scale_on .img_scale_scroll{display:block;max-width:100vw;max-height:calc(100vh - 30px);overflow:auto}.img_scale_scroll::-webkit-scrollbar{width:10px;height:10px}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}\n";
+  var loadingStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0px}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_scale_on{width:auto!important;max-width:100vw!important;max-height:100vh!important;margin:0;padding:12px;overflow:auto}.img_detail_scale_on .v-image{display:block;max-height:100vh;margin:0 auto}.img_detail_scale_on .v-responsive__sizer,.img_detail_scale_on .v-image__image{display:none}.img_detail_scale_on .v-responsive__content{position:relative;width:auto!important;max-width:100vw!important;max-height:100vh;margin:0!important}.img_scale_scroll{display:none}.img_detail_scale_on .img_scale_scroll{display:block;max-width:100vw;max-height:calc(100vh - 30px);overflow:auto}.img_scale_scroll::-webkit-scrollbar{width:10px;height:10px}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}\n';
   async function prepareApp(callback) {
     if (doNotRun())
       return;
@@ -136,12 +136,12 @@ var __publicField = (obj, key, value) => {
     });
   }
   async function translateTags() {
-    var _a2, _b, _c, _d;
+    var _a2, _b2, _c, _d;
     const response = await fetch("https://raw.githubusercontent.com/asadahimeka/yandere-masonry/main/src/data/tags_cn.json");
     window.__tagsCN = await response.json();
     const tagElements = document.querySelectorAll('#tag-sidebar a[href^="/post?tags="]:not(.no-browser-link)');
     for (const tagItem of tagElements) {
-      const tagEnStr = (_c = (_b = (_a2 = tagItem.getAttribute("href")) == null ? void 0 : _a2.match(/^\/post\?tags=(\S+)$/)) == null ? void 0 : _b[1]) != null ? _c : "";
+      const tagEnStr = (_c = (_b2 = (_a2 = tagItem.getAttribute("href")) == null ? void 0 : _a2.match(/^\/post\?tags=(\S+)$/)) == null ? void 0 : _b2[1]) != null ? _c : "";
       const tagCnStr = (_d = window.__tagsCN) == null ? void 0 : _d[tagEnStr];
       if (tagCnStr)
         tagItem.innerHTML = `[${tagCnStr}]${tagEnStr.replace(/_/g, " ")}`;
@@ -220,7 +220,7 @@ var __publicField = (obj, key, value) => {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <meta name="referrer" content="no-referrer">
-    <title>Booru Masonry</title>
+    <title>${location.host.toUpperCase()} Masonry</title>
     <link rel="stylesheet" href="https://lib.baomitu.com/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://lib.baomitu.com/vuetify/2.6.6/vuetify.min.css">
@@ -244,7 +244,7 @@ var __publicField = (obj, key, value) => {
   `;
   }
   prepareApp(() => {(function(Vue2, VueCompositionAPI2, VueMasonry2, Vuetify2) {
-  var _a;
+  var _a, _b;
   "use strict";
   ;
   function _interopDefaultLegacy(e) {
@@ -286,6 +286,12 @@ var __publicField = (obj, key, value) => {
   var mdiAccount = "M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z";
   var mdiArrowRightCircleOutline = "M6,13V11H14L10.5,7.5L11.92,6.08L17.84,12L11.92,17.92L10.5,16.5L14,13H6M22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12M20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12Z";
   var mdiBrightness6 = "M12,18V6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z";
+  var mdiCalendar = "M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z";
+  var mdiCalendarMonth = "M9,10V12H7V10H9M13,10V12H11V10H13M17,10V12H15V10H17M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5A2,2 0 0,1 5,3H6V1H8V3H16V1H18V3H19M19,19V8H5V19H19M9,14V16H7V14H9M13,14V16H11V14H13M17,14V16H15V14H17Z";
+  var mdiCalendarSearch = "M15.5,12C18,12 20,14 20,16.5C20,17.38 19.75,18.21 19.31,18.9L22.39,22L21,23.39L17.88,20.32C17.19,20.75 16.37,21 15.5,21C13,21 11,19 11,16.5C11,14 13,12 15.5,12M15.5,14A2.5,2.5 0 0,0 13,16.5A2.5,2.5 0 0,0 15.5,19A2.5,2.5 0 0,0 18,16.5A2.5,2.5 0 0,0 15.5,14M19,8H5V19H9.5C9.81,19.75 10.26,20.42 10.81,21H5C3.89,21 3,20.1 3,19V5C3,3.89 3.89,3 5,3H6V1H8V3H16V1H18V3H19A2,2 0 0,1 21,5V13.03C20.5,12.22 19.8,11.54 19,11V8Z";
+  var mdiCalendarText = "M14,14H7V16H14M19,19H5V8H19M19,3H18V1H16V3H8V1H6V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M17,10H7V12H17V10Z";
+  var mdiCalendarToday = "M7,10H12V15H7M19,19H5V8H19M19,3H18V1H16V3H8V1H6V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3Z";
+  var mdiCalendarWeek = "M6 1H8V3H16V1H18V3H19C20.11 3 21 3.9 21 5V19C21 20.11 20.11 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.89 3.89 3 5 3H6V1M5 8V19H19V8H5M7 10H17V12H7V10Z";
   var mdiCheckUnderlineCircle = "M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M17,18H7V16H17V18M10.3,14L7,10.7L8.4,9.3L10.3,11.2L15.6,5.9L17,7.3L10.3,14Z";
   var mdiCheckboxBlankOutline = "M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,5V19H5V5H19Z";
   var mdiCheckboxIntermediate = "M19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V5H19V19M17,17H7V7H17V17Z";
@@ -332,7 +338,6 @@ var __publicField = (obj, key, value) => {
       store.selectedImageList.push(item);
     }
   });
-  new Vue__default["default"]();
   function isURL(s) {
     return /^https?:\/\/.*/.test(s);
   }
@@ -388,6 +393,27 @@ var __publicField = (obj, key, value) => {
         func.call(null, ...args);
       }, delay);
     };
+  }
+  function formatDate(date) {
+    const year = date.getFullYear().toString();
+    const month = (date.getMonth() + 1).toString();
+    const day = date.getDate().toString();
+    return [year, month, day].map((n) => n[1] ? n : `0${n}`).join("-");
+  }
+  function getDay(num) {
+    const str = "-";
+    const today = new Date();
+    const nowTime = today.getTime();
+    const ms = 24 * 3600 * 1e3 * num;
+    today.setTime(parseInt(`${nowTime + ms}`, 10));
+    const oYear = today.getFullYear();
+    let oMoth = (today.getMonth() + 1).toString();
+    if (oMoth.length <= 1)
+      oMoth = `0${oMoth}`;
+    let oDay = today.getDate().toString();
+    if (oDay.length <= 1)
+      oDay = `0${oDay}`;
+    return oYear + str + oMoth + str + oDay;
   }
   var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
   var dist = {};
@@ -2202,8 +2228,8 @@ var __publicField = (obj, key, value) => {
       __publicField(this, "tagJoin");
       __publicField(this, "insecure");
       __publicField(this, "defaultTags");
-      var _a2, _b, _c, _d, _e2, _f, _g, _h, _i;
-      this.domain = a.domain, this.type = (_a2 = a.type) != null ? _a2 : "json", this.aliases = (_b = a.aliases) != null ? _b : [], this.nsfw = a.nsfw, this.api = (_c = a.api) != null ? _c : {}, this.paginate = (_d = a.paginate) != null ? _d : "page", this.random = (_e2 = a.random) != null ? _e2 : false, this.tagQuery = (_f = a.tagQuery) != null ? _f : "tags", this.tagJoin = (_g = a.tagJoin) != null ? _g : "+", this.insecure = (_h = a.insecure) != null ? _h : false, this.defaultTags = (_i = a.defaultTags) != null ? _i : [];
+      var _a2, _b2, _c, _d, _e2, _f, _g, _h, _i;
+      this.domain = a.domain, this.type = (_a2 = a.type) != null ? _a2 : "json", this.aliases = (_b2 = a.aliases) != null ? _b2 : [], this.nsfw = a.nsfw, this.api = (_c = a.api) != null ? _c : {}, this.paginate = (_d = a.paginate) != null ? _d : "page", this.random = (_e2 = a.random) != null ? _e2 : false, this.tagQuery = (_f = a.tagQuery) != null ? _f : "tags", this.tagJoin = (_g = a.tagJoin) != null ? _g : "+", this.insecure = (_h = a.insecure) != null ? _h : false, this.defaultTags = (_i = a.defaultTags) != null ? _i : [];
     }
   }
   Site$1.default = Site;
@@ -2267,7 +2293,7 @@ var __publicField = (obj, key, value) => {
     "realbooru.com": 42
   };
   const BOORU_PAGE_LIMIT = defaultLimitMap[location.host];
-  const isPidSite = dist.sites[location.host].paginate === "pid";
+  const isPidSite = ((_b = dist.sites[location.host]) == null ? void 0 : _b.paginate) === "pid";
   async function searchBooru(page2, tags2) {
     if (!tags2 || tags2 === "all")
       tags2 = "";
@@ -2326,9 +2352,9 @@ var __publicField = (obj, key, value) => {
       return {
         voted: result.votes[id] == 3,
         tags: Object.entries(result.tags).map(([tag, type]) => {
-          var _a2, _b, _c;
+          var _a2, _b2, _c;
           const tagCN = (_a2 = window.__tagsCN) == null ? void 0 : _a2[tag];
-          const typeText = (_b = tagInfoMap[type]) == null ? void 0 : _b[0];
+          const typeText = (_b2 = tagInfoMap[type]) == null ? void 0 : _b2[0];
           const tagText = [
             typeText && `[ ${typeText} ] `,
             tag,
@@ -2380,13 +2406,13 @@ var __publicField = (obj, key, value) => {
     const result = await response.json();
     return result.map((e) => new _default(e, dist.forSite(location.host)));
   }
-  function splitTags(tagsData, searchTerm) {
+  function splitTags(tagsData, limit, searchTerm) {
     let results = tagsData == null ? void 0 : tagsData.split(/\s+/);
     if (searchTerm)
       results = results.filter((e) => e.includes(searchTerm));
     if (!Array.isArray(results))
       return [];
-    return results.map((e) => e.split("`")[1]).filter(Boolean);
+    return results.slice(0, limit).map((e) => e.split("`")[1]).filter(Boolean);
   }
   function getTagsString(key) {
     var _a2;
@@ -2395,10 +2421,10 @@ var __publicField = (obj, key, value) => {
   function searchTagsByName(searchTerm) {
     if (!searchTerm)
       return [];
-    return splitTags(getTagsString("tag_data"), searchTerm);
+    return splitTags(getTagsString("tag_data"), 40, searchTerm);
   }
   function getRecentTags() {
-    return splitTags(getTagsString("recent_tags"));
+    return splitTags(getTagsString("recent_tags"), 10);
   }
   function getFirstPageNo(params2) {
     if (isPidSite) {
@@ -2532,32 +2558,119 @@ var __publicField = (obj, key, value) => {
       showInput: false,
       showMenu: false,
       searchTerm: "",
-      searchItems: getRecentTags().slice(0, 7)
+      searchItems: store.isYKSite ? getRecentTags() : []
     });
     const onSearchTermInput = debounce(() => {
-      var _a2;
+      if (!store.isYKSite)
+        return;
       const val = searchState.searchTerm;
-      console.log("val: ", val);
-      if (!val) {
+      const lastTag = val == null ? void 0 : val.split(/\s+/).slice(-1)[0];
+      if (!lastTag) {
+        searchState.showMenu = false;
         searchState.searchItems = [];
         return;
       }
-      const results = searchTagsByName((_a2 = val.split(/\s+/).slice(-1)) == null ? void 0 : _a2[0]);
-      console.log("searchTagsByName(val): ", results);
-      searchState.searchItems = results.slice(0, 1e3);
+      searchState.showMenu = true;
+      searchState.searchItems = searchTagsByName(lastTag);
     }, 500);
     const selectTag = (tag) => {
-      searchState.searchTerm += ` ${tag}`;
+      const termArr = searchState.searchTerm.split(/\s+/);
+      searchState.searchTerm = termArr.slice(0, -1).concat(tag).join(" ");
+      searchState.showMenu = false;
       searchState.searchItems = [];
     };
-    const searchTags = () => {
-      searchState.showMenu = false;
+    const userName = VueCompositionAPI2.ref("");
+    VueCompositionAPI2.onMounted(async () => {
+      if (store.isYKSite) {
+        const name = await getUsername();
+        if (name)
+          userName.value = name;
+      }
+    });
+    const fetchTaggedPosts = (tags2) => {
       const url = new URL(location.href);
-      url.searchParams.delete("page");
-      url.searchParams.delete("pid");
-      url.searchParams.set("tags", searchState.searchTerm);
+      url.searchParams.set("tags", tags2);
       history.pushState("", "", url);
-      loadPostsByTags(searchState.searchTerm);
+      loadPostsByTags(tags2);
+    };
+    const onSearchTermKeydown = (ev) => {
+      if (ev.key != "Enter")
+        return;
+      if (store.isYKSite && searchState.showMenu) {
+        const item = document.querySelector(".ac_tags_list .v-list-item--highlighted");
+        item && selectTag(item.innerText);
+      } else {
+        fetchTaggedPosts(searchState.searchTerm);
+        searchState.searchTerm = "";
+      }
+    };
+    const showPopAction = VueCompositionAPI2.ref(isPopularPage());
+    const getRecentPeriod = () => {
+      const params2 = new URLSearchParams(location.search);
+      return params2.get("period") || "1d";
+    };
+    const isPopularRecent = () => location.pathname.includes("popular_recent");
+    const getPopTitle = () => {
+      var _a2;
+      if (isPopularRecent()) {
+        return `Popular Recent ${getRecentPeriod()}`;
+      }
+      return (_a2 = location.pathname.split("/").pop()) == null ? void 0 : _a2.replace(/_/g, " ").toUpperCase();
+    };
+    const popTitle = VueCompositionAPI2.ref(getPopTitle());
+    const isPopSearchByDate = VueCompositionAPI2.ref(!isPopularRecent());
+    const recentPeriod = VueCompositionAPI2.ref(getRecentPeriod());
+    const periodMap = {
+      "1d": ["\u6309\u65E5", mdiCalendarToday, "day"],
+      "1w": ["\u6309\u5468", mdiCalendarWeek, "week"],
+      "1m": ["\u6309\u6708", mdiCalendarMonth, "month"],
+      "1y": ["\u6309\u5E74", mdiCalendarText, "year"]
+    };
+    const periodByDateMap = (() => {
+      const map = __spreadValues({}, periodMap);
+      delete map["1y"];
+      return map;
+    })();
+    const periodComputedMap = VueCompositionAPI2.computed(() => {
+      return isPopSearchByDate.value ? periodByDateMap : periodMap;
+    });
+    const showPopDatePicker = VueCompositionAPI2.ref(false);
+    const popSearchDate = VueCompositionAPI2.ref((() => {
+      const params2 = new URLSearchParams(location.search);
+      const y = params2.get("year");
+      const m = params2.get("month");
+      const d = params2.get("day");
+      if (y && m && d)
+        return formatDate(new Date(`${y}-${m}-${d}`));
+      return getDay(-1);
+    })());
+    const fetchPopularPosts = (type) => {
+      let url = `/post/popular_recent?period=${type}`;
+      if (isPopSearchByDate.value) {
+        const [year, month, day] = popSearchDate.value.split("-");
+        url = `/post/popular_by_${periodMap[type][2]}?day=${day}&month=${month}&year=${year}`;
+      }
+      history.pushState("", "", url);
+      popTitle.value = getPopTitle();
+      refreshPosts();
+    };
+    const selPeriod = (key) => {
+      recentPeriod.value = key;
+      fetchPopularPosts(key);
+    };
+    VueCompositionAPI2.watch(popSearchDate, (val) => {
+      if (!val)
+        return;
+      fetchPopularPosts(recentPeriod.value);
+    });
+    VueCompositionAPI2.watch(isPopSearchByDate, (val) => {
+      recentPeriod.value = "1d";
+      if (val)
+        popSearchDate.value = getDay(-1);
+      fetchPopularPosts("1d");
+    });
+    const goToPopularPage = () => {
+      location.href = "/post/popular_recent?period=1d&_wf=1";
     };
     const download = (url, name) => {
       loadingValue.value = 0;
@@ -2614,6 +2727,8 @@ var __publicField = (obj, key, value) => {
     };
     return {
       mdiBrightness6,
+      mdiCalendar,
+      mdiCalendarSearch,
       mdiCheckUnderlineCircle,
       mdiCheckboxBlankOutline,
       mdiCheckboxIntermediate,
@@ -2621,8 +2736,11 @@ var __publicField = (obj, key, value) => {
       mdiDelete,
       mdiDownload,
       mdiFileClockOutline,
+      mdiFire,
       mdiLocationExit,
       mdiMagnify,
+      mdiShuffle,
+      mdiStar,
       mdiViewDashboardVariant,
       store,
       title,
@@ -2637,7 +2755,18 @@ var __publicField = (obj, key, value) => {
       searchState,
       onSearchTermInput,
       selectTag,
-      searchTags,
+      userName,
+      fetchTaggedPosts,
+      onSearchTermKeydown,
+      showPopAction,
+      popTitle,
+      isPopSearchByDate,
+      recentPeriod,
+      periodComputedMap,
+      showPopDatePicker,
+      popSearchDate,
+      selPeriod,
+      goToPopularPage,
       startDownload,
       exportFileUrls,
       toggleDarkmode,
@@ -2658,8 +2787,144 @@ var __publicField = (obj, key, value) => {
       on: {
         "click": _vm.store.toggleDrawer
       }
-    }), _c("v-toolbar-title", {
-      staticClass: "hidden-sm-and-down",
+    }), _vm.store.isYKSite && _vm.showPopAction ? _c("div", {
+      staticClass: "align-center hidden-sm-and-down",
+      staticStyle: {
+        "display": "flex"
+      }
+    }, [_c("v-toolbar-title", {
+      staticClass: "mr-4",
+      domProps: {
+        "textContent": _vm._s(_vm.popTitle)
+      }
+    }), _c("v-switch", {
+      attrs: {
+        "hide-details": "",
+        "label": _vm.isPopSearchByDate ? "\u6309\u65E5\u671F" : "\u6700\u8FD1\u4EBA\u6C14"
+      },
+      model: {
+        value: _vm.isPopSearchByDate,
+        callback: function($$v) {
+          _vm.isPopSearchByDate = $$v;
+        },
+        expression: "isPopSearchByDate"
+      }
+    }), _c("v-menu", {
+      attrs: {
+        "transition": "slide-y-transition",
+        "offset-y": ""
+      },
+      scopedSlots: _vm._u([{
+        key: "activator",
+        fn: function(_ref) {
+          var on = _ref.on, attrs = _ref.attrs;
+          return [_c("v-btn", _vm._g(_vm._b({
+            staticClass: "ml-4",
+            attrs: {
+              "small": ""
+            }
+          }, "v-btn", attrs, false), on), [_c("v-icon", {
+            attrs: {
+              "left": ""
+            }
+          }, [_vm._v(_vm._s(_vm.mdiCalendarSearch))]), _c("span", {
+            staticStyle: {
+              "margin-bottom": "2px"
+            }
+          }, [_vm._v(_vm._s(_vm.periodComputedMap[_vm.recentPeriod][0]))])], 1)];
+        }
+      }], null, false, 638520899)
+    }, [_c("v-list", {
+      attrs: {
+        "dense": ""
+      }
+    }, _vm._l(_vm.periodComputedMap, function(val, key) {
+      return _c("v-list-item", {
+        key,
+        attrs: {
+          "dense": ""
+        },
+        on: {
+          "click": function($event) {
+            return _vm.selPeriod(key);
+          }
+        }
+      }, [_c("v-list-item-title", [_c("v-icon", {
+        attrs: {
+          "left": ""
+        }
+      }, [_vm._v(_vm._s(val[1]))]), _c("span", [_vm._v(_vm._s(val[0].slice(-1)))])], 1)], 1);
+    }), 1)], 1), _c("v-menu", {
+      attrs: {
+        "close-on-content-click": false,
+        "transition": "scale-transition",
+        "offset-y": "",
+        "min-width": "auto"
+      },
+      scopedSlots: _vm._u([{
+        key: "activator",
+        fn: function(_ref2) {
+          var on = _ref2.on, attrs = _ref2.attrs;
+          return [_c("div", {
+            directives: [{
+              name: "show",
+              rawName: "v-show",
+              value: _vm.isPopSearchByDate,
+              expression: "isPopSearchByDate"
+            }],
+            staticClass: "ml-2",
+            staticStyle: {
+              "width": "125px"
+            }
+          }, [_c("v-text-field", _vm._g(_vm._b({
+            attrs: {
+              "prepend-icon": _vm.mdiCalendar,
+              "readonly": "",
+              "hide-details": ""
+            },
+            model: {
+              value: _vm.popSearchDate,
+              callback: function($$v) {
+                _vm.popSearchDate = $$v;
+              },
+              expression: "popSearchDate"
+            }
+          }, "v-text-field", attrs, false), on))], 1)];
+        }
+      }], null, false, 534169610),
+      model: {
+        value: _vm.showPopDatePicker,
+        callback: function($$v) {
+          _vm.showPopDatePicker = $$v;
+        },
+        expression: "showPopDatePicker"
+      }
+    }, [_c("v-date-picker", {
+      attrs: {
+        "no-title": "",
+        "locale": "zh-cn",
+        "weekday-format": function() {
+          return "";
+        }
+      },
+      on: {
+        "input": function($event) {
+          _vm.showPopDatePicker = false;
+        }
+      },
+      model: {
+        value: _vm.popSearchDate,
+        callback: function($$v) {
+          _vm.popSearchDate = $$v;
+        },
+        expression: "popSearchDate"
+      }
+    })], 1)], 1) : _c("div", {
+      staticClass: "align-center hidden-sm-and-down",
+      staticStyle: {
+        "display": "flex"
+      }
+    }, [_c("v-toolbar-title", {
       domProps: {
         "textContent": _vm._s(_vm.title)
       }
@@ -2670,7 +2935,7 @@ var __publicField = (obj, key, value) => {
         value: _vm.title.length > 2,
         expression: "title.length > 2"
       }],
-      staticClass: "hidden-sm-and-down ml-1 text-center rounded",
+      staticClass: "ml-1 mr-2 text-center rounded",
       style: {
         width: "40px",
         height: "30px",
@@ -2687,9 +2952,39 @@ var __publicField = (obj, key, value) => {
           return _vm.goToPage($event);
         }
       }
-    }), _vm.store.isYKSite ? [_c("v-btn", {
-      staticClass: "ml-2",
+    }), _vm.store.isYKSite ? [_vm.userName ? _c("v-btn", {
       attrs: {
+        "title": "\u6536\u85CF\u5939",
+        "icon": ""
+      },
+      on: {
+        "click": function($event) {
+          return _vm.fetchTaggedPosts(`vote:3:${_vm.userName} order:vote`);
+        }
+      }
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiStar))])], 1) : _vm._e(), _c("v-btn", {
+      attrs: {
+        "title": "\u4EBA\u6C14",
+        "icon": ""
+      },
+      on: {
+        "click": function($event) {
+          return _vm.goToPopularPage();
+        }
+      }
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiFire))])], 1), _c("v-btn", {
+      attrs: {
+        "title": "\u968F\u673A",
+        "icon": ""
+      },
+      on: {
+        "click": function($event) {
+          return _vm.fetchTaggedPosts("order:random");
+        }
+      }
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiShuffle))])], 1)] : _vm._e(), _c("v-btn", {
+      attrs: {
+        "title": "\u641C\u7D22\u6807\u7B7E",
         "icon": ""
       },
       on: {
@@ -2707,8 +3002,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref) {
-          var on = _ref.on;
+        fn: function(_ref3) {
+          var on = _ref3.on;
           return [_c("v-slide-x-transition", [_c("div", {
             directives: [{
               name: "show",
@@ -2732,11 +3027,7 @@ var __publicField = (obj, key, value) => {
               "blur": function($event) {
                 _vm.searchState.showMenu = false;
               },
-              "keydown": function($event) {
-                if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter"))
-                  return null;
-                return _vm.searchTags();
-              }
+              "keydown": _vm.onSearchTermKeydown
             },
             model: {
               value: _vm.searchState.searchTerm,
@@ -2747,7 +3038,7 @@ var __publicField = (obj, key, value) => {
             }
           }, on))], 1)])];
         }
-      }], null, false, 1070896668),
+      }]),
       model: {
         value: _vm.searchState.showMenu,
         callback: function($$v) {
@@ -2759,9 +3050,10 @@ var __publicField = (obj, key, value) => {
       directives: [{
         name: "show",
         rawName: "v-show",
-        value: _vm.searchState.searchItems.length,
-        expression: "searchState.searchItems.length"
+        value: _vm.store.isYKSite && _vm.searchState.searchItems.length,
+        expression: "store.isYKSite && searchState.searchItems.length"
       }],
+      staticClass: "ac_tags_list",
       attrs: {
         "dense": ""
       }
@@ -2769,28 +3061,27 @@ var __publicField = (obj, key, value) => {
       return _c("v-list-item", {
         key: item,
         attrs: {
-          "dense": "",
-          "link": ""
-        }
-      }, [_c("v-list-item-title", {
-        domProps: {
-          "textContent": _vm._s(item)
+          "dense": ""
         },
         on: {
           "click": function($event) {
             return _vm.selectTag(item);
           }
         }
+      }, [_c("v-list-item-title", {
+        domProps: {
+          "textContent": _vm._s(item)
+        }
       })], 1);
-    }), 1)], 1)] : _vm._e(), _c("v-spacer"), _c("v-menu", {
+    }), 1)], 1)], 2), _c("v-spacer"), _c("v-menu", {
       attrs: {
         "transition": "slide-y-transition",
         "offset-y": ""
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref2) {
-          var on = _ref2.on, attrs = _ref2.attrs;
+        fn: function(_ref4) {
+          var on = _ref4.on, attrs = _ref4.attrs;
           return [_c("v-btn", _vm._g(_vm._b({
             staticClass: "mr-6",
             attrs: {
@@ -2815,17 +3106,16 @@ var __publicField = (obj, key, value) => {
       return _c("v-list-item", {
         key,
         attrs: {
-          "dense": "",
-          "link": ""
-        }
-      }, [_c("v-list-item-title", {
-        domProps: {
-          "textContent": _vm._s(val)
+          "dense": ""
         },
         on: {
           "click": function($event) {
             return _vm.selColumn(key);
           }
+        }
+      }, [_c("v-list-item-title", {
+        domProps: {
+          "textContent": _vm._s(val)
         }
       })], 1);
     }), 1)], 1), _c("span", {
@@ -2871,10 +3161,11 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref3) {
-          var on = _ref3.on, attrs = _ref3.attrs;
+        fn: function(_ref5) {
+          var on = _ref5.on, attrs = _ref5.attrs;
           return [_c("v-btn", _vm._g(_vm._b({
             attrs: {
+              "title": "\u4E0B\u8F7D\u5217\u8868",
               "icon": ""
             }
           }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_vm.mdiDownload))])], 1)];
@@ -2978,6 +3269,7 @@ var __publicField = (obj, key, value) => {
       }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiDelete))])], 1)], 1)], 1);
     }), 1)], 1)], 1), _c("v-btn", {
       attrs: {
+        "title": "\u5207\u6362\u6DF1\u8272\u6A21\u5F0F",
         "icon": ""
       },
       on: {
@@ -2985,6 +3277,7 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiBrightness6))])], 1), _c("v-btn", {
       attrs: {
+        "title": "\u9000\u51FA\u7011\u5E03\u6D41\u6A21\u5F0F",
         "icon": ""
       },
       on: {
@@ -2999,7 +3292,7 @@ var __publicField = (obj, key, value) => {
         "absolute": "",
         "bottom": ""
       }
-    })], 2);
+    })], 1);
   };
   var staticRenderFns$4 = [];
   function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
@@ -3248,10 +3541,10 @@ var __publicField = (obj, key, value) => {
       return (_a2 = imageSelected.value.fileUrl) == null ? void 0 : _a2.endsWith(e);
     }));
     const imgSrc = VueCompositionAPI2.computed(() => {
-      var _a2, _b;
+      var _a2, _b2;
       if (isVideo.value)
         return void 0;
-      return (_b = (_a2 = imageSelected.value.sampleUrl) != null ? _a2 : imageSelected.value.fileUrl) != null ? _b : void 0;
+      return (_b2 = (_a2 = imageSelected.value.sampleUrl) != null ? _a2 : imageSelected.value.fileUrl) != null ? _b2 : void 0;
     });
     const imgLasySrc = VueCompositionAPI2.computed(() => {
       var _a2;
@@ -3802,9 +4095,9 @@ var __publicField = (obj, key, value) => {
       return "";
     });
     const getImgSrc = (img) => {
-      var _a2, _b, _c, _d;
+      var _a2, _b2, _c, _d;
       if (columnCount.value < 6) {
-        return (_b = (_a2 = img.sampleUrl) != null ? _a2 : img.fileUrl) != null ? _b : void 0;
+        return (_b2 = (_a2 = img.sampleUrl) != null ? _a2 : img.fileUrl) != null ? _b2 : void 0;
       }
       return (_d = (_c = img.previewUrl) != null ? _c : img.fileUrl) != null ? _d : void 0;
     };
