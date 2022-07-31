@@ -12,7 +12,7 @@ Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏�
 
 *有问题或建议请到 GitHub [反馈](https://github.com/asadahimeka/yandere-masonry/issues)*
 
-更新日志见 [changelog.md](https://github.com/asadahimeka/yandere-masonry/blob/main/changelog.md)
+更新日志见 [CHANGELOG.md](https://github.com/asadahimeka/yandere-masonry/blob/main/CHANGELOG.md)
 
 Build with [vite](https://vitejs.dev) & [vite-plugin-tm-userscript](https://github.com/asadahimeka/vite-plugin-tm-userscript)
 
