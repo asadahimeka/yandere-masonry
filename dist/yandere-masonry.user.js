@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.2.40
+// @version              0.17.1
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout.
 // @author               asadahimeka
@@ -2515,13 +2515,7 @@ var __publicField = (obj, key, value) => {
   const __sfc_main$4 = {};
   __sfc_main$4.setup = (__props, __ctx) => {
     const title = VueCompositionAPI2.computed(() => {
-      const {
-        0: img,
-        length
-      } = store.imageList;
-      if (img)
-        return `${img.booru.domain.toUpperCase()} - ${length} Posts - Page `;
-      return "\u{1F682}";
+      return `${location.host.toUpperCase()} - ${store.imageList.length} Posts - Page `;
     });
     const cols = VueCompositionAPI2.ref([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20].reduce((acc, cur) => {
       acc[cur] = cur === 0 ? "\u81EA\u52A8" : `${cur} \u5217`;
@@ -2557,7 +2551,7 @@ var __publicField = (obj, key, value) => {
     const searchState = VueCompositionAPI2.reactive({
       showInput: false,
       showMenu: false,
-      searchTerm: "",
+      searchTerm: new URLSearchParams(location.search).get("tags") || "",
       searchItems: store.isYKSite ? getRecentTags() : []
     });
     const onSearchTermInput = debounce(() => {
@@ -2591,17 +2585,24 @@ var __publicField = (obj, key, value) => {
       const url = new URL(location.href);
       url.searchParams.set("tags", tags2);
       history.pushState("", "", url);
+      searchState.searchTerm = tags2;
       loadPostsByTags(tags2);
+    };
+    const showTagsInput = () => {
+      if (searchState.showInput) {
+        fetchTaggedPosts(searchState.searchTerm);
+      } else {
+        searchState.showInput = true;
+      }
     };
     const onSearchTermKeydown = (ev) => {
       if (ev.key != "Enter")
         return;
-      if (store.isYKSite && searchState.showMenu) {
+      if (store.isYKSite && searchState.searchItems.length) {
         const item = document.querySelector(".ac_tags_list .v-list-item--highlighted");
         item && selectTag(item.innerText);
       } else {
         fetchTaggedPosts(searchState.searchTerm);
-        searchState.searchTerm = "";
       }
     };
     const showPopAction = VueCompositionAPI2.ref(isPopularPage());
@@ -2757,6 +2758,7 @@ var __publicField = (obj, key, value) => {
       selectTag,
       userName,
       fetchTaggedPosts,
+      showTagsInput,
       onSearchTermKeydown,
       showPopAction,
       popTitle,
@@ -2982,17 +2984,7 @@ var __publicField = (obj, key, value) => {
           return _vm.fetchTaggedPosts("order:random");
         }
       }
-    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiShuffle))])], 1)] : _vm._e(), _c("v-btn", {
-      attrs: {
-        "title": "\u641C\u7D22\u6807\u7B7E",
-        "icon": ""
-      },
-      on: {
-        "click": function($event) {
-          _vm.searchState.showInput = !_vm.searchState.showInput;
-        }
-      }
-    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiMagnify))])], 1), _c("v-menu", {
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiShuffle))])], 1)] : _vm._e(), _c("v-menu", {
       attrs: {
         "max-width": 200,
         "max-height": "80vh",
@@ -3011,7 +3003,7 @@ var __publicField = (obj, key, value) => {
               value: _vm.searchState.showInput,
               expression: "searchState.showInput"
             }],
-            staticClass: "mr-4",
+            staticClass: "ml-4",
             staticStyle: {
               "width": "200px"
             }
@@ -3073,7 +3065,17 @@ var __publicField = (obj, key, value) => {
           "textContent": _vm._s(item)
         }
       })], 1);
-    }), 1)], 1)], 2), _c("v-spacer"), _c("v-menu", {
+    }), 1)], 1), _c("v-btn", {
+      attrs: {
+        "title": "\u641C\u7D22\u6807\u7B7E",
+        "icon": ""
+      },
+      on: {
+        "click": function($event) {
+          return _vm.showTagsInput();
+        }
+      }
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiMagnify))])], 1)], 2), _c("v-spacer"), _c("v-menu", {
       attrs: {
         "transition": "slide-y-transition",
         "offset-y": ""

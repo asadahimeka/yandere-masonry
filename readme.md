@@ -12,6 +12,8 @@ Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏�
 
 *有问题或建议请到 GitHub [反馈](https://github.com/asadahimeka/yandere-masonry/issues)*
 
+更新日志见 [changelog.md](https://github.com/asadahimeka/yandere-masonry/blob/main/changelog.md)
+
 Build with [vite](https://vitejs.dev) & [vite-plugin-tm-userscript](https://github.com/asadahimeka/vite-plugin-tm-userscript)
 
 ## Install
@@ -61,22 +63,24 @@ Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设
 #### 顶部操作
 
 - 站点切换，打开侧栏操作，支持站点见下方所述
-- 打开个人页面或收藏夹（Y 站/K 站），侧栏里操作
+- 加载收藏夹、人气、随机作品（Y 站/K 站）
+- 按标签搜索作品
 - 瀑布流显示列数切换，列数选择非自动且列数小于 6 时图片会以 sample_url (即点击详情的大小) 展示。
 - 批量选择
 - 查看下载列表
 - 深色模式切换
+- 退出瀑布流模式
 
 #### 详情查看
 
 点击缩略图可查看详情，可进行以下操作
 
 - 收藏（Y 站/K 站）
-- 打开源站详情页面
+- 打开详情页面
 - 打开来源地址
 - 查看原图
 - 下载/加入下载列表
-- 打开源站标签页面
+- 打开标签页面
 - 点击图片控制按钮与标签显示
 
 ### 站点支持
@@ -87,7 +91,7 @@ Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设
 >
 > 本脚本主要是为了方便图片浏览，其他功能如下载为简单支持，不保证完全可用。
 >
-> 另，存在源站页面图片列表与 API 返回列表不一致的情况，请悉知。
+> 另，存在站点页面图片列表与 API 返回列表不一致的情况，请悉知。
 
 缩略图放大与双击翻页支持的站点如下：
 
