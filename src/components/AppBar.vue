@@ -68,9 +68,6 @@
           <v-icon>{{ mdiShuffle }}</v-icon>
         </v-btn>
       </template>
-      <v-btn title="搜索标签" icon @click="searchState.showInput = !searchState.showInput">
-        <v-icon>{{ mdiMagnify }}</v-icon>
-      </v-btn>
       <v-menu
         v-model="searchState.showMenu"
         :max-width="200"
@@ -81,7 +78,7 @@
       >
         <template #activator="{ on }">
           <v-slide-x-transition>
-            <div v-show="searchState.showInput" class="mr-4" style="width: 200px">
+            <div v-show="searchState.showInput" class="ml-4" style="width: 200px">
               <v-text-field
                 v-model="searchState.searchTerm"
                 hide-details
@@ -100,6 +97,9 @@
           </v-list-item>
         </v-list>
       </v-menu>
+      <v-btn title="搜索标签" icon @click="showTagsInput()">
+        <v-icon>{{ mdiMagnify }}</v-icon>
+      </v-btn>
     </div>
     <v-spacer />
     <v-menu transition="slide-y-transition" offset-y>
@@ -210,9 +210,7 @@ import { loadPostsByPage, loadPostsByTags, refreshPosts } from '@/store/actions/
 import { getRecentTags, getUsername, isPopularPage, searchTagsByName } from '@/api/moebooru'
 
 const title = computed(() => {
-  const { 0: img, length } = store.imageList
-  if (img) return `${img.booru.domain.toUpperCase()} - ${length} Posts - Page `
-  return '🚂'
+  return `${location.host.toUpperCase()} - ${store.imageList.length} Posts - Page `
 })
 
 const cols = ref([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20].reduce<Record<string, string>>((acc, cur) => {
@@ -253,7 +251,7 @@ const removeFromList = (id: string) => {
 const searchState = reactive({
   showInput: false,
   showMenu: false,
-  searchTerm: '',
+  searchTerm: new URLSearchParams(location.search).get('tags') || '',
   searchItems: store.isYKSite ? getRecentTags() : [],
 })
 
@@ -289,17 +287,25 @@ const fetchTaggedPosts = (tags: string) => {
   const url = new URL(location.href)
   url.searchParams.set('tags', tags)
   history.pushState('', '', url)
+  searchState.searchTerm = tags
   loadPostsByTags(tags)
+}
+
+const showTagsInput = () => {
+  if (searchState.showInput) {
+    fetchTaggedPosts(searchState.searchTerm)
+  } else {
+    searchState.showInput = true
+  }
 }
 
 const onSearchTermKeydown = (ev: KeyboardEvent) => {
   if (ev.key != 'Enter') return
-  if (store.isYKSite && searchState.showMenu) {
+  if (store.isYKSite && searchState.searchItems.length) {
     const item = document.querySelector<HTMLElement>('.ac_tags_list .v-list-item--highlighted')
     item && selectTag(item.innerText)
   } else {
     fetchTaggedPosts(searchState.searchTerm)
-    searchState.searchTerm = ''
   }
 }
 
