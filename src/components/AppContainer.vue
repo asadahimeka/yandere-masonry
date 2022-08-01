@@ -56,18 +56,43 @@
       </v-btn>
     </v-fab-transition>
     <ImageDetail />
+    <v-snackbar
+      v-model="showSnackbar"
+      top
+      :color="snackbarTypeMap[snackbarType]?.[0]"
+      :timeout="2000"
+      :min-width="160"
+    >
+      <v-icon v-show="snackbarType">{{ snackbarTypeMap[snackbarType]?.[1] }}</v-icon>
+      <span class="ml-2">{{ snackbarText }}</span>
+    </v-snackbar>
   </v-container>
 </template>
 
 <script setup lang="ts">
-import { mdiRefresh } from '@mdi/js'
+import { mdiCheckCircle, mdiCloseCircle, mdiRefresh } from '@mdi/js'
 import { computed, nextTick, onMounted, ref, watch } from '@vue/composition-api'
 import type Post from '@himeka/booru/dist/structures/Post'
 import ImageDetail from './ImageDetail.vue'
-import { isReachBottom, throttleScroll } from '@/utils'
+import { eventBus, isReachBottom, throttleScroll } from '@/utils'
 import { addPostToFavorites } from '@/api/moebooru'
 import { initPosts, refreshPosts, searchPosts } from '@/store/actions/post'
 import store from '@/store'
+
+const showSnackbar = ref(false)
+const snackbarText = ref('')
+const snackbarType = ref('')
+const snackbarTypeMap = ref<Record<string, string[]>>({
+  success: ['success', mdiCheckCircle],
+  error: ['red accent-2', mdiCloseCircle],
+})
+
+eventBus.$on('showSnackbar', (text: string, type?: string) => {
+  snackbarText.value = text
+  snackbarType.value = ''
+  if (type) snackbarType.value = type
+  showSnackbar.value = true
+})
 
 const showImageList = ref(true)
 const columnCount = computed(() => {

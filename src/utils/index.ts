@@ -1,6 +1,6 @@
-// import Vue from 'vue'
+import Vue from 'vue'
 
-// export const eventBus = new Vue()
+export const eventBus = new Vue()
 
 export function isURL(s: string) {
   return /^https?:\/\/.*/.test(s)
@@ -21,21 +21,10 @@ export function downloadFile(url: string, name: string, options?: Partial<Tamper
 type MsgType = 'success' | 'error'
 interface MessageOptions {
   msg: string
-  title?: string
   type?: MsgType
 }
-const msgTypeImages: Record<MsgType, string> = {
-  success: 'https://i0.hdslb.com/bfs/album/39212b6f4c0ab75ca8f508237e756ed03f60e030.png',
-  error: 'http://i0.hdslb.com/bfs/album/d84b69fded166425a21ebc1c6c8251f36c26ea49.png',
-}
-export function showMsg({ msg = '', title = 'Booru Masonry', type = 'success' }: MessageOptions) {
-  GM_notification({
-    title,
-    text: msg,
-    silent: true,
-    timeout: 2000,
-    image: msgTypeImages[type],
-  })
+export function showMsg({ msg = '', type = 'success' }: MessageOptions) {
+  eventBus.$emit('showSnackbar', msg, type)
 }
 
 export function isReachBottom() {
