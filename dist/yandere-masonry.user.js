@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.17.1
+// @version              0.17.2
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout.
 // @author               asadahimeka
@@ -27,7 +27,6 @@
 // @grant                GM_addElement
 // @grant                GM_info
 // @grant                GM_download
-// @grant                GM_notification
 // ==/UserScript==
 
 var __defProp = Object.defineProperty;
@@ -136,13 +135,22 @@ var __publicField = (obj, key, value) => {
     });
   }
   async function translateTags() {
-    var _a2, _b2, _c, _d;
+    var _a2, _b2, _c, _d, _e2;
     const response = await fetch("https://raw.githubusercontent.com/asadahimeka/yandere-masonry/main/src/data/tags_cn.json");
     window.__tagsCN = await response.json();
+    if (location.pathname.includes("tag")) {
+      const tagNames = document.querySelectorAll("td[class^=tag-type] a:last-child");
+      for (const tagName of tagNames) {
+        const tagCnName = (_a2 = window.__tagsCN) == null ? void 0 : _a2[tagName.innerHTML];
+        if (tagCnName)
+          tagName.innerHTML += ` [${tagCnName}]`;
+      }
+      return;
+    }
     const tagElements = document.querySelectorAll('#tag-sidebar a[href^="/post?tags="]:not(.no-browser-link)');
     for (const tagItem of tagElements) {
-      const tagEnStr = (_c = (_b2 = (_a2 = tagItem.getAttribute("href")) == null ? void 0 : _a2.match(/^\/post\?tags=(\S+)$/)) == null ? void 0 : _b2[1]) != null ? _c : "";
-      const tagCnStr = (_d = window.__tagsCN) == null ? void 0 : _d[tagEnStr];
+      const tagEnStr = (_d = (_c = (_b2 = tagItem.getAttribute("href")) == null ? void 0 : _b2.match(/^\/post\?tags=(\S+)$/)) == null ? void 0 : _c[1]) != null ? _d : "";
+      const tagCnStr = (_e2 = window.__tagsCN) == null ? void 0 : _e2[tagEnStr];
       if (tagCnStr)
         tagItem.innerHTML = `[${tagCnStr}]${tagEnStr.replace(/_/g, " ")}`;
     }
@@ -292,11 +300,13 @@ var __publicField = (obj, key, value) => {
   var mdiCalendarText = "M14,14H7V16H14M19,19H5V8H19M19,3H18V1H16V3H8V1H6V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M17,10H7V12H17V10Z";
   var mdiCalendarToday = "M7,10H12V15H7M19,19H5V8H19M19,3H18V1H16V3H8V1H6V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3Z";
   var mdiCalendarWeek = "M6 1H8V3H16V1H18V3H19C20.11 3 21 3.9 21 5V19C21 20.11 20.11 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.89 3.89 3 5 3H6V1M5 8V19H19V8H5M7 10H17V12H7V10Z";
+  var mdiCheckCircle = "M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z";
   var mdiCheckUnderlineCircle = "M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M17,18H7V16H17V18M10.3,14L7,10.7L8.4,9.3L10.3,11.2L15.6,5.9L17,7.3L10.3,14Z";
   var mdiCheckboxBlankOutline = "M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,5V19H5V5H19Z";
   var mdiCheckboxIntermediate = "M19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V5H19V19M17,17H7V7H17V17Z";
   var mdiCheckboxMarked = "M10,17L5,12L6.41,10.58L10,14.17L17.59,6.58L19,8M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z";
   var mdiClose = "M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z";
+  var mdiCloseCircle = "M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M15.59,7L12,10.59L8.41,7L7,8.41L10.59,12L7,15.59L8.41,17L12,13.41L15.59,17L17,15.59L13.41,12L17,8.41L15.59,7Z";
   var mdiDelete = "M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z";
   var mdiDownload = "M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z";
   var mdiFileClockOutline = "M4 2A2 2 0 0 0 2 4V20A2 2 0 0 0 4 22H12.41A7 7 0 0 0 16 23A7 7 0 0 0 23 16A7 7 0 0 0 18 9.3V8L12 2H4M4 4H11V9H16A7 7 0 0 0 9 16A7 7 0 0 0 10.26 20H4V4M16 11A5 5 0 0 1 21 16A5 5 0 0 1 16 21A5 5 0 0 1 11 16A5 5 0 0 1 16 11M15 12V17L18.61 19.16L19.36 17.94L16.5 16.25V12H15Z";
@@ -338,6 +348,7 @@ var __publicField = (obj, key, value) => {
       store.selectedImageList.push(item);
     }
   });
+  const eventBus = new Vue__default["default"]();
   function isURL(s) {
     return /^https?:\/\/.*/.test(s);
   }
@@ -351,18 +362,8 @@ var __publicField = (obj, key, value) => {
       }, options));
     });
   }
-  const msgTypeImages = {
-    success: "https://i0.hdslb.com/bfs/album/39212b6f4c0ab75ca8f508237e756ed03f60e030.png",
-    error: "http://i0.hdslb.com/bfs/album/d84b69fded166425a21ebc1c6c8251f36c26ea49.png"
-  };
-  function showMsg({ msg = "", title = "Booru Masonry", type = "success" }) {
-    GM_notification({
-      title,
-      text: msg,
-      silent: true,
-      timeout: 2e3,
-      image: msgTypeImages[type]
-    });
+  function showMsg({ msg = "", type = "success" }) {
+    eventBus.$emit("showSnackbar", msg, type);
   }
   function isReachBottom() {
     const { clientHeight, scrollTop, scrollHeight } = document.documentElement;
@@ -3490,9 +3491,18 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", {
       staticClass: "title"
-    }, [_vm._v("About")])], 1)], 1), _c("v-list-item", [_c("v-list-item-icon", {
+    }, [_vm._v("About")])], 1)], 1), _c("v-list-item", {
+      attrs: {
+        "link": ""
+      },
+      on: {
+        "click": function($event) {
+          return _vm.openLink("https://github.com/asadahimeka/yandere-masonry/blob/main/CHANGELOG.md");
+        }
+      }
+    }, [_c("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiInformationOutline))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("v" + _vm._s(_vm.version))])], 1)], 1), _c("v-list-item", {
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiInformationOutline))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("v" + _vm._s(_vm.version))]), _c("v-list-item-subtitle", [_vm._v("CHANGELOG")])], 1)], 1), _c("v-list-item", {
       attrs: {
         "link": ""
       },
@@ -4057,6 +4067,20 @@ var __publicField = (obj, key, value) => {
   }();
   const __sfc_main$1 = {};
   __sfc_main$1.setup = (__props, __ctx) => {
+    const showSnackbar = VueCompositionAPI2.ref(false);
+    const snackbarText = VueCompositionAPI2.ref("");
+    const snackbarType = VueCompositionAPI2.ref("");
+    const snackbarTypeMap = VueCompositionAPI2.ref({
+      success: ["success", mdiCheckCircle],
+      error: ["red accent-2", mdiCloseCircle]
+    });
+    eventBus.$on("showSnackbar", (text, type) => {
+      snackbarText.value = text;
+      snackbarType.value = "";
+      if (type)
+        snackbarType.value = type;
+      showSnackbar.value = true;
+    });
     const showImageList = VueCompositionAPI2.ref(true);
     const columnCount = VueCompositionAPI2.computed(() => {
       return store.selectedColumn === "0" ? {
@@ -4149,6 +4173,10 @@ var __publicField = (obj, key, value) => {
       refreshPosts,
       searchPosts,
       store,
+      showSnackbar,
+      snackbarText,
+      snackbarType,
+      snackbarTypeMap,
       showImageList,
       columnCount,
       showNoMore,
@@ -4170,6 +4198,7 @@ var __publicField = (obj, key, value) => {
     ImageDetail
   }, __sfc_main$1.components);
   var render$1 = function() {
+    var _vm$snackbarTypeMap$_, _vm$snackbarTypeMap$_2;
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
@@ -4307,7 +4336,30 @@ var __publicField = (obj, key, value) => {
           return _vm.refreshPosts();
         }
       }
-    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiRefresh))])], 1)], 1), _c("ImageDetail")], 1) : _vm._e();
+    }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiRefresh))])], 1)], 1), _c("ImageDetail"), _c("v-snackbar", {
+      attrs: {
+        "top": "",
+        "color": (_vm$snackbarTypeMap$_ = _vm.snackbarTypeMap[_vm.snackbarType]) === null || _vm$snackbarTypeMap$_ === void 0 ? void 0 : _vm$snackbarTypeMap$_[0],
+        "timeout": 2e3,
+        "min-width": 160
+      },
+      model: {
+        value: _vm.showSnackbar,
+        callback: function($$v) {
+          _vm.showSnackbar = $$v;
+        },
+        expression: "showSnackbar"
+      }
+    }, [_c("v-icon", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.snackbarType,
+        expression: "snackbarType"
+      }]
+    }, [_vm._v(_vm._s((_vm$snackbarTypeMap$_2 = _vm.snackbarTypeMap[_vm.snackbarType]) === null || _vm$snackbarTypeMap$_2 === void 0 ? void 0 : _vm$snackbarTypeMap$_2[1]))]), _c("span", {
+      staticClass: "ml-2"
+    }, [_vm._v(_vm._s(_vm.snackbarText))])], 1)], 1) : _vm._e();
   };
   var staticRenderFns$1 = [];
   const __cssModules$1 = {};
