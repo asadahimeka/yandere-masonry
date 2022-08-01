@@ -91,12 +91,13 @@
           <v-list-item-title class="title">About</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item>
+      <v-list-item link @click="openLink('https://github.com/asadahimeka/yandere-masonry/blob/main/CHANGELOG.md')">
         <v-list-item-icon class="mr-2">
           <v-icon>{{ mdiInformationOutline }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>v{{ version }}</v-list-item-title>
+          <v-list-item-subtitle>CHANGELOG</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-list-item link @click="openLink('https://github.com/asadahimeka/yandere-masonry')">
