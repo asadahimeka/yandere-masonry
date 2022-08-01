@@ -1,3 +1,9 @@
+## v0.17.2
+
+- fix: moebooru /tag 页面的标签添加翻译
+- fix: 侧栏添加更新日志链接
+- fix: 替换 `GM_notification` 为 `snackbar`
+
 ## v0.17.1
 
 - fix: 修复搜索标签触发行为
