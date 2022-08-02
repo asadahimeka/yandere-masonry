@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.17.2
+// @version              0.17.3
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout.
 // @author               asadahimeka
@@ -305,6 +305,8 @@ var __publicField = (obj, key, value) => {
   var mdiCheckboxBlankOutline = "M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,5V19H5V5H19Z";
   var mdiCheckboxIntermediate = "M19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V5H19V19M17,17H7V7H17V17Z";
   var mdiCheckboxMarked = "M10,17L5,12L6.41,10.58L10,14.17L17.59,6.58L19,8M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z";
+  var mdiChevronLeft = "M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z";
+  var mdiChevronRight = "M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z";
   var mdiClose = "M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z";
   var mdiCloseCircle = "M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M15.59,7L12,10.59L8.41,7L7,8.41L10.59,12L7,15.59L8.41,17L12,13.41L15.59,17L17,15.59L13.41,12L17,8.41L15.59,7Z";
   var mdiDelete = "M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z";
@@ -348,6 +350,119 @@ var __publicField = (obj, key, value) => {
       store.selectedImageList.push(item);
     }
   });
+  function toInteger(dirtyNumber) {
+    if (dirtyNumber === null || dirtyNumber === true || dirtyNumber === false) {
+      return NaN;
+    }
+    var number = Number(dirtyNumber);
+    if (isNaN(number)) {
+      return number;
+    }
+    return number < 0 ? Math.ceil(number) : Math.floor(number);
+  }
+  function requiredArgs(required, args) {
+    if (args.length < required) {
+      throw new TypeError(required + " argument" + (required > 1 ? "s" : "") + " required, but only " + args.length + " present");
+    }
+  }
+  function toDate(argument) {
+    requiredArgs(1, arguments);
+    var argStr = Object.prototype.toString.call(argument);
+    if (argument instanceof Date || typeof argument === "object" && argStr === "[object Date]") {
+      return new Date(argument.getTime());
+    } else if (typeof argument === "number" || argStr === "[object Number]") {
+      return new Date(argument);
+    } else {
+      if ((typeof argument === "string" || argStr === "[object String]") && typeof console !== "undefined") {
+        console.warn("Starting with v2.0.0-beta.1 date-fns doesn't accept strings as date arguments. Please use `parseISO` to parse strings. See: https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#string-arguments");
+        console.warn(new Error().stack);
+      }
+      return new Date(NaN);
+    }
+  }
+  function addDays(dirtyDate, dirtyAmount) {
+    requiredArgs(2, arguments);
+    var date = toDate(dirtyDate);
+    var amount = toInteger(dirtyAmount);
+    if (isNaN(amount)) {
+      return new Date(NaN);
+    }
+    if (!amount) {
+      return date;
+    }
+    date.setDate(date.getDate() + amount);
+    return date;
+  }
+  function addMonths(dirtyDate, dirtyAmount) {
+    requiredArgs(2, arguments);
+    var date = toDate(dirtyDate);
+    var amount = toInteger(dirtyAmount);
+    if (isNaN(amount)) {
+      return new Date(NaN);
+    }
+    if (!amount) {
+      return date;
+    }
+    var dayOfMonth = date.getDate();
+    var endOfDesiredMonth = new Date(date.getTime());
+    endOfDesiredMonth.setMonth(date.getMonth() + amount + 1, 0);
+    var daysInMonth = endOfDesiredMonth.getDate();
+    if (dayOfMonth >= daysInMonth) {
+      return endOfDesiredMonth;
+    } else {
+      date.setFullYear(endOfDesiredMonth.getFullYear(), endOfDesiredMonth.getMonth(), dayOfMonth);
+      return date;
+    }
+  }
+  function add(dirtyDate, duration) {
+    requiredArgs(2, arguments);
+    if (!duration || typeof duration !== "object")
+      return new Date(NaN);
+    var years = duration.years ? toInteger(duration.years) : 0;
+    var months = duration.months ? toInteger(duration.months) : 0;
+    var weeks = duration.weeks ? toInteger(duration.weeks) : 0;
+    var days = duration.days ? toInteger(duration.days) : 0;
+    var hours = duration.hours ? toInteger(duration.hours) : 0;
+    var minutes = duration.minutes ? toInteger(duration.minutes) : 0;
+    var seconds = duration.seconds ? toInteger(duration.seconds) : 0;
+    var date = toDate(dirtyDate);
+    var dateWithMonths = months || years ? addMonths(date, months + years * 12) : date;
+    var dateWithDays = days || weeks ? addDays(dateWithMonths, days + weeks * 7) : dateWithMonths;
+    var minutesToAdd = minutes + hours * 60;
+    var secondsToAdd = seconds + minutesToAdd * 60;
+    var msToAdd = secondsToAdd * 1e3;
+    var finalDate = new Date(dateWithDays.getTime() + msToAdd);
+    return finalDate;
+  }
+  function subDays(dirtyDate, dirtyAmount) {
+    requiredArgs(2, arguments);
+    var amount = toInteger(dirtyAmount);
+    return addDays(dirtyDate, -amount);
+  }
+  function subMonths(dirtyDate, dirtyAmount) {
+    requiredArgs(2, arguments);
+    var amount = toInteger(dirtyAmount);
+    return addMonths(dirtyDate, -amount);
+  }
+  function sub(date, duration) {
+    requiredArgs(2, arguments);
+    if (!duration || typeof duration !== "object")
+      return new Date(NaN);
+    var years = duration.years ? toInteger(duration.years) : 0;
+    var months = duration.months ? toInteger(duration.months) : 0;
+    var weeks = duration.weeks ? toInteger(duration.weeks) : 0;
+    var days = duration.days ? toInteger(duration.days) : 0;
+    var hours = duration.hours ? toInteger(duration.hours) : 0;
+    var minutes = duration.minutes ? toInteger(duration.minutes) : 0;
+    var seconds = duration.seconds ? toInteger(duration.seconds) : 0;
+    var dateWithoutMonths = subMonths(date, months + years * 12);
+    var dateWithoutDays = subDays(dateWithoutMonths, days + weeks * 7);
+    var minutestoSub = minutes + hours * 60;
+    var secondstoSub = seconds + minutestoSub * 60;
+    var mstoSub = secondstoSub * 1e3;
+    var finalDate = new Date(dateWithoutDays.getTime() - mstoSub);
+    return finalDate;
+  }
   const eventBus = new Vue__default["default"]();
   function isURL(s) {
     return /^https?:\/\/.*/.test(s);
@@ -401,20 +516,13 @@ var __publicField = (obj, key, value) => {
     const day = date.getDate().toString();
     return [year, month, day].map((n) => n[1] ? n : `0${n}`).join("-");
   }
-  function getDay(num) {
-    const str = "-";
-    const today = new Date();
-    const nowTime = today.getTime();
-    const ms = 24 * 3600 * 1e3 * num;
-    today.setTime(parseInt(`${nowTime + ms}`, 10));
-    const oYear = today.getFullYear();
-    let oMoth = (today.getMonth() + 1).toString();
-    if (oMoth.length <= 1)
-      oMoth = `0${oMoth}`;
-    let oDay = today.getDate().toString();
-    if (oDay.length <= 1)
-      oDay = `0${oDay}`;
-    return oYear + str + oMoth + str + oDay;
+  function addDate(num, duration, date) {
+    const res = add(date || new Date(), { [duration]: num });
+    return formatDate(res);
+  }
+  function subDate(num, duration, date) {
+    const res = sub(date || new Date(), { [duration]: num });
+    return formatDate(res);
   }
   var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
   var dist = {};
@@ -2607,9 +2715,26 @@ var __publicField = (obj, key, value) => {
       }
     };
     const showPopAction = VueCompositionAPI2.ref(isPopularPage());
+    const periodMap = {
+      "1d": ["\u6309\u65E5", mdiCalendarToday, "day"],
+      "1w": ["\u6309\u5468", mdiCalendarWeek, "week"],
+      "1m": ["\u6309\u6708", mdiCalendarMonth, "month"],
+      "1y": ["\u6309\u5E74", mdiCalendarText, "year"]
+    };
+    const periodByDateMap = (() => {
+      const map = __spreadValues({}, periodMap);
+      delete map["1y"];
+      return map;
+    })();
     const getRecentPeriod = () => {
+      var _a2;
       const params2 = new URLSearchParams(location.search);
-      return params2.get("period") || "1d";
+      let period = params2.get("period");
+      if (location.pathname.includes("popular_by")) {
+        period = (_a2 = location.pathname.match(/\/post\/popular_by_(.*)/)) == null ? void 0 : _a2[1];
+        period = Object.keys(periodByDateMap).find((e) => periodByDateMap[e][2] == period);
+      }
+      return period || "1d";
     };
     const isPopularRecent = () => location.pathname.includes("popular_recent");
     const getPopTitle = () => {
@@ -2622,17 +2747,6 @@ var __publicField = (obj, key, value) => {
     const popTitle = VueCompositionAPI2.ref(getPopTitle());
     const isPopSearchByDate = VueCompositionAPI2.ref(!isPopularRecent());
     const recentPeriod = VueCompositionAPI2.ref(getRecentPeriod());
-    const periodMap = {
-      "1d": ["\u6309\u65E5", mdiCalendarToday, "day"],
-      "1w": ["\u6309\u5468", mdiCalendarWeek, "week"],
-      "1m": ["\u6309\u6708", mdiCalendarMonth, "month"],
-      "1y": ["\u6309\u5E74", mdiCalendarText, "year"]
-    };
-    const periodByDateMap = (() => {
-      const map = __spreadValues({}, periodMap);
-      delete map["1y"];
-      return map;
-    })();
     const periodComputedMap = VueCompositionAPI2.computed(() => {
       return isPopSearchByDate.value ? periodByDateMap : periodMap;
     });
@@ -2644,7 +2758,7 @@ var __publicField = (obj, key, value) => {
       const d = params2.get("day");
       if (y && m && d)
         return formatDate(new Date(`${y}-${m}-${d}`));
-      return getDay(-1);
+      return subDate(1, "days");
     })());
     const fetchPopularPosts = (type) => {
       let url = `/post/popular_recent?period=${type}`;
@@ -2668,9 +2782,17 @@ var __publicField = (obj, key, value) => {
     VueCompositionAPI2.watch(isPopSearchByDate, (val) => {
       recentPeriod.value = "1d";
       if (val)
-        popSearchDate.value = getDay(-1);
+        popSearchDate.value = subDate(1, "days");
       fetchPopularPosts("1d");
     });
+    const loadPrevPeriod = () => {
+      const duration = periodMap[recentPeriod.value][2];
+      popSearchDate.value = subDate(1, `${duration}s`, new Date(popSearchDate.value));
+    };
+    const loadNextPeriod = () => {
+      const duration = periodMap[recentPeriod.value][2];
+      popSearchDate.value = addDate(1, `${duration}s`, new Date(popSearchDate.value));
+    };
     const goToPopularPage = () => {
       location.href = "/post/popular_recent?period=1d&_wf=1";
     };
@@ -2735,6 +2857,8 @@ var __publicField = (obj, key, value) => {
       mdiCheckboxBlankOutline,
       mdiCheckboxIntermediate,
       mdiCheckboxMarked,
+      mdiChevronLeft,
+      mdiChevronRight,
       mdiDelete,
       mdiDownload,
       mdiFileClockOutline,
@@ -2769,6 +2893,8 @@ var __publicField = (obj, key, value) => {
       showPopDatePicker,
       popSearchDate,
       selPeriod,
+      loadPrevPeriod,
+      loadNextPeriod,
       goToPopularPage,
       startDownload,
       exportFileUrls,
@@ -2875,11 +3001,21 @@ var __publicField = (obj, key, value) => {
               value: _vm.isPopSearchByDate,
               expression: "isPopSearchByDate"
             }],
-            staticClass: "ml-2",
+            staticClass: "ml-1 align-center",
             staticStyle: {
-              "width": "125px"
+              "display": "flex",
+              "width": "211px"
             }
-          }, [_c("v-text-field", _vm._g(_vm._b({
+          }, [_c("v-btn", {
+            attrs: {
+              "icon": ""
+            },
+            on: {
+              "click": function($event) {
+                return _vm.loadPrevPeriod();
+              }
+            }
+          }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiChevronLeft))])], 1), _c("v-text-field", _vm._g(_vm._b({
             attrs: {
               "prepend-icon": _vm.mdiCalendar,
               "readonly": "",
@@ -2892,9 +3028,18 @@ var __publicField = (obj, key, value) => {
               },
               expression: "popSearchDate"
             }
-          }, "v-text-field", attrs, false), on))], 1)];
+          }, "v-text-field", attrs, false), on)), _c("v-btn", {
+            attrs: {
+              "icon": ""
+            },
+            on: {
+              "click": function($event) {
+                return _vm.loadNextPeriod();
+              }
+            }
+          }, [_c("v-icon", [_vm._v(_vm._s(_vm.mdiChevronRight))])], 1)], 1)];
         }
-      }], null, false, 534169610),
+      }], null, false, 4183596848),
       model: {
         value: _vm.showPopDatePicker,
         callback: function($$v) {
@@ -4076,9 +4221,7 @@ var __publicField = (obj, key, value) => {
     });
     eventBus.$on("showSnackbar", (text, type) => {
       snackbarText.value = text;
-      snackbarType.value = "";
-      if (type)
-        snackbarType.value = type;
+      snackbarType.value = type || "";
       showSnackbar.value = true;
     });
     const showImageList = VueCompositionAPI2.ref(true);
