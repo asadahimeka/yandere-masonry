@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { add, sub } from 'date-fns'
 
 export const eventBus = new Vue()
 
@@ -67,16 +68,12 @@ export function formatDate(date: Date) {
   return [year, month, day].map(n => n[1] ? n : `0${n}`).join('-')
 }
 
-export function getDay(num: number) {
-  const str = '-'
-  const today = new Date()
-  const nowTime = today.getTime()
-  const ms = 24 * 3600 * 1000 * num
-  today.setTime(parseInt(`${nowTime + ms}`, 10))
-  const oYear = today.getFullYear()
-  let oMoth = (today.getMonth() + 1).toString()
-  if (oMoth.length <= 1) oMoth = `0${oMoth}`
-  let oDay = today.getDate().toString()
-  if (oDay.length <= 1) oDay = `0${oDay}`
-  return oYear + str + oMoth + str + oDay
+export function addDate(num: number, duration: string, date?: Date) {
+  const res = add(date || new Date(), { [duration]: num })
+  return formatDate(res)
+}
+
+export function subDate(num: number, duration: string, date?: Date) {
+  const res = sub(date || new Date(), { [duration]: num })
+  return formatDate(res)
 }

@@ -89,8 +89,7 @@ const snackbarTypeMap = ref<Record<string, string[]>>({
 
 eventBus.$on('showSnackbar', (text: string, type?: string) => {
   snackbarText.value = text
-  snackbarType.value = ''
-  if (type) snackbarType.value = type
+  snackbarType.value = type || ''
   showSnackbar.value = true
 })
 

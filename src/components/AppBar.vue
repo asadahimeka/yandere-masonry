@@ -28,7 +28,10 @@
         min-width="auto"
       >
         <template #activator="{ on, attrs }">
-          <div v-show="isPopSearchByDate" class="ml-2" style="width: 125px;">
+          <div v-show="isPopSearchByDate" class="ml-1 align-center" style="display: flex;width: 211px;">
+            <v-btn icon @click="loadPrevPeriod()">
+              <v-icon>{{ mdiChevronLeft }}</v-icon>
+            </v-btn>
             <v-text-field
               v-model="popSearchDate"
               :prepend-icon="mdiCalendar"
@@ -37,6 +40,9 @@
               v-bind="attrs"
               v-on="on"
             />
+            <v-btn icon @click="loadNextPeriod()">
+              <v-icon>{{ mdiChevronRight }}</v-icon>
+            </v-btn>
           </div>
         </template>
         <v-date-picker
@@ -192,6 +198,8 @@ import {
   mdiCheckboxBlankOutline,
   mdiCheckboxIntermediate,
   mdiCheckboxMarked,
+  mdiChevronLeft,
+  mdiChevronRight,
   mdiDelete,
   mdiDownload,
   mdiFileClockOutline,
@@ -205,7 +213,7 @@ import {
 import { computed, onMounted, reactive, ref, set, watch } from '@vue/composition-api'
 import { useVuetify } from '@/plugins/vuetify'
 import store from '@/store'
-import { debounce, downloadFile, formatDate, getDay, showMsg } from '@/utils'
+import { addDate, debounce, downloadFile, formatDate, showMsg, subDate } from '@/utils'
 import { loadPostsByPage, loadPostsByTags, refreshPosts } from '@/store/actions/post'
 import { getRecentTags, getUsername, isPopularPage, searchTagsByName } from '@/api/moebooru'
 
@@ -311,9 +319,26 @@ const onSearchTermKeydown = (ev: KeyboardEvent) => {
 
 const showPopAction = ref(isPopularPage())
 
+const periodMap: Record<string, string[]> = {
+  '1d': ['按日', mdiCalendarToday, 'day'],
+  '1w': ['按周', mdiCalendarWeek, 'week'],
+  '1m': ['按月', mdiCalendarMonth, 'month'],
+  '1y': ['按年', mdiCalendarText, 'year'],
+}
+const periodByDateMap = (() => {
+  const map = { ...periodMap }
+  delete map['1y']
+  return map
+})()
+
 const getRecentPeriod = () => {
   const params = new URLSearchParams(location.search)
-  return params.get('period') || '1d'
+  let period: string | null | undefined = params.get('period')
+  if (location.pathname.includes('popular_by')) {
+    period = location.pathname.match(/\/post\/popular_by_(.*)/)?.[1]
+    period = Object.keys(periodByDateMap).find(e => periodByDateMap[e][2] == period)
+  }
+  return period || '1d'
 }
 const isPopularRecent = () => location.pathname.includes('popular_recent')
 const getPopTitle = () => {
@@ -326,17 +351,6 @@ const getPopTitle = () => {
 const popTitle = ref(getPopTitle())
 const isPopSearchByDate = ref(!isPopularRecent())
 const recentPeriod = ref(getRecentPeriod())
-const periodMap: Record<string, string[]> = {
-  '1d': ['按日', mdiCalendarToday, 'day'],
-  '1w': ['按周', mdiCalendarWeek, 'week'],
-  '1m': ['按月', mdiCalendarMonth, 'month'],
-  '1y': ['按年', mdiCalendarText, 'year'],
-}
-const periodByDateMap = (() => {
-  const map = { ...periodMap }
-  delete map['1y']
-  return map
-})()
 const periodComputedMap = computed(() => {
   return isPopSearchByDate.value ? periodByDateMap : periodMap
 })
@@ -348,7 +362,7 @@ const popSearchDate = ref((() => {
   const m = params.get('month')
   const d = params.get('day')
   if (y && m && d) return formatDate(new Date(`${y}-${m}-${d}`))
-  return getDay(-1)
+  return subDate(1, 'days')
 })())
 
 const fetchPopularPosts = (type: string) => {
@@ -374,9 +388,18 @@ watch(popSearchDate, val => {
 
 watch(isPopSearchByDate, val => {
   recentPeriod.value = '1d'
-  if (val) popSearchDate.value = getDay(-1)
+  if (val) popSearchDate.value = subDate(1, 'days')
   fetchPopularPosts('1d')
 })
+
+const loadPrevPeriod = () => {
+  const duration = periodMap[recentPeriod.value][2]
+  popSearchDate.value = subDate(1, `${duration}s`, new Date(popSearchDate.value))
+}
+const loadNextPeriod = () => {
+  const duration = periodMap[recentPeriod.value][2]
+  popSearchDate.value = addDate(1, `${duration}s`, new Date(popSearchDate.value))
+}
 
 const goToPopularPage = () => {
   location.href = '/post/popular_recent?period=1d&_wf=1'
