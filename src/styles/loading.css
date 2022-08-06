@@ -158,3 +158,17 @@
 .v-date-picker-table > table > thead > tr > th:nth-child(7):before {
   content: '六';
 }
+
+.poa_left_center {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.poa_right_center {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}

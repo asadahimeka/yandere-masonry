@@ -32,7 +32,7 @@
           text-color="#ffffff"
           class="hidden-sm-and-down"
           @click.stop="toDetailPage"
-          v-text="`${imageSelected.rating.toUpperCase()} ${imageSelected.id}`"
+          v-text="`${imageSelected.rating?.toUpperCase()} ${imageSelected.id}`"
         />
         <v-spacer />
         <v-tooltip v-if="!notYKSite" bottom>
@@ -187,12 +187,20 @@
         <img :src="scaleOn ? imageSelected.fileUrl ?? void 0 : void 0" alt="">
       </div>
       <video v-if="isVideo" controls style="width: 100%;" :src="imageSelected.fileUrl ?? void 0"></video>
+      <v-btn v-show="showImageToolbar" fab dark small color="#ee888863" class="poa_left_center" @click.stop="showPrevPost">
+        <v-icon>{{ mdiChevronLeft }}</v-icon>
+      </v-btn>
+      <v-btn v-show="showImageToolbar" fab dark small color="#ee888863" class="poa_right_center" @click.stop="showNextPost">
+        <v-icon>{{ mdiChevronRight }}</v-icon>
+      </v-btn>
     </v-img>
   </v-dialog>
 </template>
 
 <script setup lang="ts">
 import {
+  mdiChevronLeft,
+  mdiChevronRight,
   mdiClose,
   mdiDownload,
   mdiHeart,
@@ -290,13 +298,30 @@ const addFavorite = async () => {
   if (isSuccess) postDetail.value.voted = true
 }
 
+const setPostDetail = async () => {
+  if (!store.isYKSite) return
+  const result = await getPostDetail(imageSelected.value.id)
+  if (result) postDetail.value = result
+}
+
+const showPrevPost = async () => {
+  if (store.imageSelectedIndex == 0) return
+  store.imageSelectedIndex--
+  await setPostDetail()
+}
+
+const showNextPost = async () => {
+  if (store.imageSelectedIndex > store.imageList.length - 1) return
+  store.imageSelectedIndex++
+  await setPostDetail()
+}
+
 watch(() => store.showImageSelected, async val => {
   if (!val) {
     scaleOn.value = false
     postDetail.value = {}
-  } else if (store.isYKSite) {
-    const result = await getPostDetail(imageSelected.value.id)
-    if (result) postDetail.value = result
+  } else {
+    await setPostDetail()
   }
 })
 
