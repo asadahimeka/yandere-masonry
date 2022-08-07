@@ -166,15 +166,16 @@
           <span>关闭</span>
         </v-tooltip>
       </v-toolbar>
+      <!-- v-show="!notYKSite && showImageToolbar" -->
       <v-chip-group
-        v-show="!notYKSite && showImageToolbar"
+        v-show="showImageToolbar"
         class="hidden-sm-and-down"
         style="position: absolute;bottom: 24px;padding: 0 12px;"
         column
       >
         <v-chip
           v-for="(item, i) in postDetail.tags || []"
-          :key="item.tag + i"
+          :key="i"
           small
           class="mr-1"
           :color="item.color"
@@ -299,9 +300,20 @@ const addFavorite = async () => {
 }
 
 const setPostDetail = async () => {
-  if (!store.isYKSite) return
-  const result = await getPostDetail(imageSelected.value.id)
-  if (result) postDetail.value = result
+  if (store.isYKSite) {
+    const result = await getPostDetail(imageSelected.value.id)
+    if (result) postDetail.value = result
+  } else {
+    postDetail.value = {
+      voted: false,
+      tags: imageSelected.value.tags.map(e => ({
+        tag: e,
+        tagText: e,
+        color: '#E87A90cc',
+        type: 'general',
+      })),
+    }
+  }
 }
 
 const showPrevPost = async () => {

@@ -73,6 +73,45 @@
     <v-list dense nav>
       <v-list-item>
         <v-list-item-content>
+          <v-list-item-title class="title">Blacklist</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item v-for="(item, index) in store.blacklist" :key="item">
+        <v-list-item-icon class="mr-2" @click="removeTagFromBlacklist(index)">
+          <v-icon>{{ mdiTagRemove }}</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>
+            <v-chip
+              label
+              small
+              outlined
+              close
+              @click:close="removeTagFromBlacklist(index)"
+            >
+              {{ item }}
+            </v-chip>
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item>
+        <v-list-item-icon class="mr-2" @click="addTagToBlacklist()">
+          <v-icon>{{ mdiTagPlus }}</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-text-field
+            v-model="inputTag"
+            class="ma-0 pa-0"
+            dense
+            hide-details
+            @keyup.enter="addTagToBlacklist()"
+          />
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+    <v-list dense nav>
+      <v-list-item>
+        <v-list-item-content>
           <v-list-item-title class="title">Site List</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -132,6 +171,8 @@ import {
   mdiShuffle,
   mdiSourceFork,
   mdiStar,
+  mdiTagPlus,
+  mdiTagRemove,
 } from '@mdi/js'
 import { onMounted, ref } from '@vue/composition-api'
 import { siteDomains } from '@/api/booru'
@@ -148,6 +189,21 @@ const openLink = (link: string) => {
 
 const dealLink = (link: string) => {
   return `https://${link.includes('yande') ? `${link}/post` : link}?_wf=1`
+}
+
+const inputTag = ref('')
+
+const addTagToBlacklist = () => {
+  if (!inputTag.value) return
+  if (store.blacklist.includes(inputTag.value)) return
+  store.blacklist.push(inputTag.value)
+  localStorage.setItem('__blacklist', store.blacklist.join(','))
+  inputTag.value = ''
+}
+
+const removeTagFromBlacklist = (index: number) => {
+  store.blacklist.splice(index, 1)
+  localStorage.setItem('__blacklist', store.blacklist.join(','))
 }
 
 onMounted(async () => {

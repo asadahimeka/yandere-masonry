@@ -14,6 +14,7 @@ interface AppState {
   showDrawer: boolean
   showFab: boolean
   currentPage: number
+  blacklist: string[]
   imageList: Post[]
   selectedImageList: SeletedPost[]
   selectedColumn: string
@@ -31,6 +32,7 @@ const store = Vue.observable<AppState>({
   showFab: false,
   currentPage: 1,
   imageList: [],
+  blacklist: localStorage.getItem('__blacklist')?.split(',') || [],
   selectedImageList: [],
   selectedColumn: localStorage.getItem('__masonry_col') ?? '0',
   isYKSite: ['konachan', 'yande.re'].some(e => location.href.includes(e)),

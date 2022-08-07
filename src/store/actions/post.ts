@@ -36,7 +36,11 @@ const fetchActions = [
   },
   {
     test: () => true,
-    action: () => searchBooru(page, tags),
+    action: async () => {
+      let results = await searchBooru(page, tags)
+      if (store.blacklist.length) results = results.blacklist(store.blacklist)
+      return results
+    },
   },
 ]
 
