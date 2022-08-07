@@ -61,7 +61,7 @@
         :value="store.currentPage"
         class="ml-1 mr-2 text-center rounded"
         :style="{ width: '40px', height: '30px', border: '1px solid #bbb', color: 'inherit' }"
-        @keyup.enter="goToPage($event)"
+        @keyup="goToPage($event)"
       >
       <template v-if="store.isYKSite">
         <v-btn v-if="userName" title="收藏夹" icon @click="fetchTaggedPosts(`vote:3:${userName} order:vote`)">
@@ -445,9 +445,18 @@ const toggleDarkmode = () => {
   localStorage.setItem('__darkmode', vuetify.theme.dark ? 'dark' : 'light')
 }
 
+const keyActions: Record<string, Function> = {
+  Enter: (cur: number) => loadPostsByPage(cur.toString()),
+  ArrowUp: (cur: number) => cur > 1 && keyActions.Enter(--cur),
+  ArrowDown: (cur: number) => keyActions.Enter(++cur),
+  ArrowLeft: (cur: number) => keyActions.ArrowUp(cur),
+  ArrowRight: (cur: number) => keyActions.ArrowDown(cur),
+}
 const goToPage = (ev: KeyboardEvent) => {
+  const action = keyActions[ev.key]
+  if (!action) return
   const input = ev.target as HTMLInputElement
-  loadPostsByPage(input?.value)
+  action(input?.value || 0)
 }
 
 const exitMasonry = () => {
