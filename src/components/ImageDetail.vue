@@ -166,38 +166,43 @@
           <span>关闭</span>
         </v-tooltip>
       </v-toolbar>
-      <template v-if="isVideo">
-        <d-player style="width: 100%;" :options="{ video: { url: imageSelected.fileUrl } }" />
-        <!-- <video v-if="isVideo" controls style="width: 100%;" :src="imageSelected.fileUrl ?? void 0"></video> -->
-      </template>
-      <template v-else>
-        <v-chip-group
-          v-show="!notYKSite && showImageToolbar"
-          class="hidden-sm-and-down"
-          style="position: absolute;bottom: 24px;padding: 0 12px;"
-          column
-        >
+      <d-player v-if="isVideo" style="width: 100%;" :options="{ theme: '#ee8888', video: { url: imageSelected.fileUrl } }" />
+      <!-- <video v-if="isVideo" controls style="width: 100%;" :src="imageSelected.fileUrl ?? void 0"></video> -->
+      <div v-show="!isVideo" class="img_scale_scroll">
+        <img :src="scaleOn ? imageSelected.fileUrl ?? void 0 : void 0" alt="">
+      </div>
+      <div v-show="!isVideo && showImageToolbar" class="hidden-sm-and-down">
+        <div style="position: absolute;bottom: 12px;padding: 0 12px;">
           <v-chip
-            v-for="(item, i) in postDetail.tags || []"
-            :key="i"
             small
             class="mr-1"
-            :color="item.color"
+            color="#ee8888b3"
             text-color="#ffffff"
-            @click.stop="toTagsPage(item.tag)"
-            v-text="item.tagText"
-          />
-        </v-chip-group>
-        <div class="img_scale_scroll">
-          <img :src="scaleOn ? imageSelected.fileUrl ?? void 0 : void 0" alt="">
+            @click.stop="showTagChipGroup = !showTagChipGroup"
+          >
+            <v-icon left>{{ mdiTagMultiple }}</v-icon>
+            <span>{{ showTagChipGroup ? '隐藏' : '显示' }}</span>
+          </v-chip>
+          <v-chip-group v-show="showTagChipGroup" column>
+            <v-chip
+              v-for="(item, i) in postDetail.tags || []"
+              :key="i"
+              small
+              class="mr-1"
+              :color="item.color"
+              text-color="#ffffff"
+              @click.stop="toTagsPage(item.tag)"
+              v-text="item.tagText"
+            />
+          </v-chip-group>
         </div>
-        <v-btn v-show="showImageToolbar" fab dark small color="#ee888863" class="poa_left_center" @click.stop="showPrevPost">
+        <v-btn fab dark small color="#ee888863" class="poa_left_center" @click.stop="showPrevPost">
           <v-icon>{{ mdiChevronLeft }}</v-icon>
         </v-btn>
-        <v-btn v-show="showImageToolbar" fab dark small color="#ee888863" class="poa_right_center" @click.stop="showNextPost">
+        <v-btn fab dark small color="#ee888863" class="poa_right_center" @click.stop="showNextPost">
           <v-icon>{{ mdiChevronRight }}</v-icon>
         </v-btn>
-      </template>
+      </div>
     </v-img>
   </v-dialog>
 </template>
@@ -215,6 +220,7 @@ import {
   mdiMagnifyMinusOutline,
   mdiMagnifyPlusOutline,
   mdiPlaylistPlus,
+  mdiTagMultiple,
 } from '@mdi/js'
 import { computed, onMounted, ref, watch } from '@vue/composition-api'
 import DPlayer from './DPlayer.vue'
@@ -227,6 +233,7 @@ const innerWidth = ref(window.innerWidth)
 const innerHeight = ref(window.innerHeight)
 const downloading = ref(false)
 const scaleOn = ref(false)
+const showTagChipGroup = ref(store.isYKSite)
 
 const imageSelected = computed(() => store.imageList[store.imageSelectedIndex] ?? {})
 const isVideo = computed(() => ['.mp4', '.webm'].some(e => imageSelected.value.fileUrl?.endsWith(e)))
