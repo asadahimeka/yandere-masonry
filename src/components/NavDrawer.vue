@@ -3,14 +3,14 @@
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="title">Booru Masonry</v-list-item-title>
-        <v-list-item-subtitle>Booru sites waterfall layout.</v-list-item-subtitle>
+        <v-list-item-subtitle>Booru 站点瀑布流布局浏览</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
     <v-divider />
     <v-list v-if="store.isYKSite" dense nav>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="title">Shortcuts</v-list-item-title>
+          <v-list-item-title class="title">快捷方式</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item v-if="userName" link href="/user/home">
@@ -18,7 +18,7 @@
           <v-icon>{{ mdiAccount }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>Hello {{ userName }}!</v-list-item-title>
+          <v-list-item-title>{{ userName }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item v-if="userName" link :href="`/post?tags=vote%3A3%3A${userName}+order%3Avote&_wf=1`">
@@ -26,7 +26,7 @@
           <v-icon>{{ mdiStar }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>My Favorites</v-list-item-title>
+          <v-list-item-title>我的收藏夹</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item link href="/post/popular_recent?period=1d">
@@ -34,7 +34,7 @@
           <v-icon>{{ mdiFire }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>Popular(Last 24 hours)</v-list-item-title>
+          <v-list-item-title>人气作品 (日)</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item link href="/post/popular_recent?period=1w">
@@ -42,7 +42,7 @@
           <v-icon>{{ mdiFire }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>Popular(Last week)</v-list-item-title>
+          <v-list-item-title>人气作品 (周)</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item link href="/post/popular_recent?period=1m">
@@ -50,7 +50,7 @@
           <v-icon>{{ mdiFire }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>Popular(Last month)</v-list-item-title>
+          <v-list-item-title>人气作品 (月)</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item link href="/post/popular_recent?period=1y">
@@ -58,7 +58,7 @@
           <v-icon>{{ mdiFire }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>Popular(Last year)</v-list-item-title>
+          <v-list-item-title>人气作品 (年)</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item link href="/post?tags=order%3Arandom&page=1">
@@ -66,53 +66,14 @@
           <v-icon>{{ mdiShuffle }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>Random</v-list-item-title>
+          <v-list-item-title>随机作品</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
     <v-list dense nav>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="title">Blacklist</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item v-for="(item, index) in store.blacklist" :key="item">
-        <v-list-item-icon class="mr-2" @click="removeTagFromBlacklist(index)">
-          <v-icon>{{ mdiTagRemove }}</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>
-            <v-chip
-              label
-              small
-              outlined
-              close
-              @click:close="removeTagFromBlacklist(index)"
-            >
-              {{ item }}
-            </v-chip>
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item>
-        <v-list-item-icon class="mr-2" @click="addTagToBlacklist()">
-          <v-icon>{{ mdiTagPlus }}</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-text-field
-            v-model="inputTag"
-            class="ma-0 pa-0"
-            dense
-            hide-details
-            @keyup.enter="addTagToBlacklist()"
-          />
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
-    <v-list dense nav>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="title">Site List</v-list-item-title>
+          <v-list-item-title class="title">站点列表</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item v-for="link in siteLinks" :key="link" :href="dealLink(link)">
@@ -125,9 +86,43 @@
       </v-list-item>
     </v-list>
     <v-list dense nav>
+      <v-list-item class="mb-0">
+        <v-list-item-content>
+          <v-list-item-title class="title">标签黑名单</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item class="pa-0">
+        <v-list-item-content class="pt-0">
+          <v-combobox
+            v-model="store.blacklist"
+            :append-icon="null"
+            :items="[]"
+            class="ma-0 pa-0"
+            hide-details
+            hide-no-data
+            multiple
+            chips
+            @change="onComboboxChange"
+          >
+            <template #selection="{ item }">
+              <v-chip
+                label
+                small
+                outlined
+                close
+                @click:close="removeTagFromBlacklist(item)"
+              >
+                <span>{{ item }}</span>
+              </v-chip>
+            </template>
+          </v-combobox>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+    <v-list dense nav>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="title">About</v-list-item-title>
+          <v-list-item-title class="title">关于</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item link @click="openLink('https://github.com/asadahimeka/yandere-masonry/blob/main/CHANGELOG.md')">
@@ -136,7 +131,7 @@
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>v{{ version }}</v-list-item-title>
-          <v-list-item-subtitle>CHANGELOG</v-list-item-subtitle>
+          <v-list-item-subtitle>更新日志</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-list-item link @click="openLink('https://github.com/asadahimeka/yandere-masonry')">
@@ -171,8 +166,6 @@ import {
   mdiShuffle,
   mdiSourceFork,
   mdiStar,
-  mdiTagPlus,
-  mdiTagRemove,
 } from '@mdi/js'
 import { onMounted, ref } from '@vue/composition-api'
 import { siteDomains } from '@/api/booru'
@@ -191,18 +184,12 @@ const dealLink = (link: string) => {
   return `https://${link.includes('yande') ? `${link}/post` : link}?_wf=1`
 }
 
-const inputTag = ref('')
-
-const addTagToBlacklist = () => {
-  if (!inputTag.value) return
-  if (store.blacklist.includes(inputTag.value)) return
-  store.blacklist.push(inputTag.value)
-  localStorage.setItem('__blacklist', store.blacklist.join(','))
-  inputTag.value = ''
+const onComboboxChange = (val: string[]) => {
+  localStorage.setItem('__blacklist', val.join(','))
 }
 
-const removeTagFromBlacklist = (index: number) => {
-  store.blacklist.splice(index, 1)
+const removeTagFromBlacklist = (item: string) => {
+  store.blacklist.splice(store.blacklist.indexOf(item), 1)
   localStorage.setItem('__blacklist', store.blacklist.join(','))
 }
 

@@ -55,7 +55,7 @@
       </v-menu>
     </div>
     <div v-else style="display:flex" class="align-center hidden-sm-and-down">
-      <v-toolbar-title v-text="title" />
+      <v-toolbar-title class="hidden-md-and-down" v-text="title" />
       <input
         v-show="title.length > 2"
         :value="store.currentPage"
@@ -121,7 +121,7 @@
         </v-list-item>
       </v-list>
     </v-menu>
-    <span class="hidden-sm-and-down">已选择</span>
+    <span class="hidden-md-and-down">已选择</span>
     <span class="ml-1 mr-1" v-text="store.selectedImageList.length"></span>
     <v-btn icon @click="selectAll">
       <v-icon v-show="isNoSelected">{{ mdiCheckboxBlankOutline }}</v-icon>

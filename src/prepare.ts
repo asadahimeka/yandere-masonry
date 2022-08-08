@@ -1,6 +1,6 @@
 import ydStyle from '@/styles/style.css?inline'
 import knStyle from '@/styles/konachan.css?inline'
-import loadingStyle from '@/styles/loading.css?inline'
+import customStyle from '@/styles/custom.css?inline'
 
 export async function prepareApp(callback?: () => void) {
   if (doNotRun()) return
@@ -175,7 +175,7 @@ function replaceHead() {
     <link rel="stylesheet" href="https://lib.baomitu.com/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://lib.baomitu.com/vuetify/2.6.6/vuetify.min.css">
-    <style>${loadingStyle}::-webkit-scrollbar{width:0px}</style>
+    <style>${customStyle}::-webkit-scrollbar{width:0px}</style>
   `
 }
 
