@@ -174,6 +174,7 @@
       <div v-show="!isVideo && showImageToolbar" class="hidden-sm-and-down">
         <div style="position: absolute;bottom: 12px;padding: 0 12px;">
           <v-chip
+            v-show="postDetail.tags?.length"
             small
             class="mr-1"
             color="#ee8888b3"
