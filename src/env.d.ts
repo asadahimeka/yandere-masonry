@@ -14,10 +14,9 @@ declare module 'vuetify/lib/framework' {
 }
 
 declare module 'vue-masonry-css' {
-  import { PluginOption } from 'vite'
   import Vue from 'vue'
   export default {
-    install(app: typeof Vue, options: PluginOption): void
+    install(app: typeof Vue): void
   }
 }
 

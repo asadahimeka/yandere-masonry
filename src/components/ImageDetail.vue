@@ -166,34 +166,38 @@
           <span>关闭</span>
         </v-tooltip>
       </v-toolbar>
-      <!-- v-show="!notYKSite && showImageToolbar" -->
-      <v-chip-group
-        v-show="showImageToolbar"
-        class="hidden-sm-and-down"
-        style="position: absolute;bottom: 24px;padding: 0 12px;"
-        column
-      >
-        <v-chip
-          v-for="(item, i) in postDetail.tags || []"
-          :key="i"
-          small
-          class="mr-1"
-          :color="item.color"
-          text-color="#ffffff"
-          @click.stop="toTagsPage(item.tag)"
-          v-text="item.tagText"
-        />
-      </v-chip-group>
-      <div class="img_scale_scroll">
-        <img :src="scaleOn ? imageSelected.fileUrl ?? void 0 : void 0" alt="">
-      </div>
-      <video v-if="isVideo" controls style="width: 100%;" :src="imageSelected.fileUrl ?? void 0"></video>
-      <v-btn v-show="showImageToolbar" fab dark small color="#ee888863" class="poa_left_center" @click.stop="showPrevPost">
-        <v-icon>{{ mdiChevronLeft }}</v-icon>
-      </v-btn>
-      <v-btn v-show="showImageToolbar" fab dark small color="#ee888863" class="poa_right_center" @click.stop="showNextPost">
-        <v-icon>{{ mdiChevronRight }}</v-icon>
-      </v-btn>
+      <template v-if="isVideo">
+        <d-player style="width: 100%;" :options="{ video: { url: imageSelected.fileUrl } }" />
+        <!-- <video v-if="isVideo" controls style="width: 100%;" :src="imageSelected.fileUrl ?? void 0"></video> -->
+      </template>
+      <template v-else>
+        <v-chip-group
+          v-show="!notYKSite && showImageToolbar"
+          class="hidden-sm-and-down"
+          style="position: absolute;bottom: 24px;padding: 0 12px;"
+          column
+        >
+          <v-chip
+            v-for="(item, i) in postDetail.tags || []"
+            :key="i"
+            small
+            class="mr-1"
+            :color="item.color"
+            text-color="#ffffff"
+            @click.stop="toTagsPage(item.tag)"
+            v-text="item.tagText"
+          />
+        </v-chip-group>
+        <div class="img_scale_scroll">
+          <img :src="scaleOn ? imageSelected.fileUrl ?? void 0 : void 0" alt="">
+        </div>
+        <v-btn v-show="showImageToolbar" fab dark small color="#ee888863" class="poa_left_center" @click.stop="showPrevPost">
+          <v-icon>{{ mdiChevronLeft }}</v-icon>
+        </v-btn>
+        <v-btn v-show="showImageToolbar" fab dark small color="#ee888863" class="poa_right_center" @click.stop="showNextPost">
+          <v-icon>{{ mdiChevronRight }}</v-icon>
+        </v-btn>
+      </template>
     </v-img>
   </v-dialog>
 </template>
@@ -213,6 +217,7 @@ import {
   mdiPlaylistPlus,
 } from '@mdi/js'
 import { computed, onMounted, ref, watch } from '@vue/composition-api'
+import DPlayer from './DPlayer.vue'
 import { downloadFile, isURL, showMsg } from '@/utils'
 import { type PostDetail, addPostToFavorites, getPostDetail } from '@/api/moebooru'
 import store from '@/store'

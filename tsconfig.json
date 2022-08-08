@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "allowJs": true,
     "module": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
