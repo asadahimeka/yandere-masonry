@@ -17,7 +17,7 @@ const defaultLimitMap: Record<string, number> = {
   'realbooru.com': 42,
 }
 
-export const BOORU_PAGE_LIMIT = defaultLimitMap[location.host]
+export const BOORU_PAGE_LIMIT = defaultLimitMap[location.host] || 40
 
 export const isPidSite = sites[location.host]?.paginate === 'pid'
 

@@ -73,6 +73,7 @@ const calcFetchTimes = () => {
 export const initPosts = async () => {
   await searchPosts()
   if (store.requestStop) return
+  if (location.href.includes('safebooru')) return
   const times = calcFetchTimes()
   for (let index = 0; index < times; index++) {
     await searchPosts()
