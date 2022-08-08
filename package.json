@@ -16,7 +16,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@himeka/booru": "2.6.4",
+    "@himeka/booru": "2.7.1",
     "@vue/composition-api": "1.7.0",
     "date-fns": "2.29.1",
     "vue": "2.6.14",
