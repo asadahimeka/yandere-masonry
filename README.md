@@ -115,6 +115,12 @@ https://gelbooru.com/
 
 https://rule34.xxx/
 
+https://lolibooru.moe/
+
+https://www.sakugabooru.com/
+
+http://behoimi.org/
+
 https://safebooru.org/
 
 https://tbib.org/

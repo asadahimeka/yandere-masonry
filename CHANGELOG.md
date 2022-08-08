@@ -1,3 +1,13 @@
+## v0.19.0
+
+- feat: 使用 dplayer 替代原生播放器
+- feat: 添加标签显示隐藏按钮
+- feat: 支持 lolibooru
+- feat: 支持 sakugabooru
+- feat: 支持 3dbooru
+- fix: 修复某些站点图片加载错误
+- chore: 更新依赖
+
 ## v0.18.0
 
 - feat: 本地标签黑名单
