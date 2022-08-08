@@ -965,10 +965,10 @@
   optionalDependencies:
     prettier "^1.18.2 || ^2.0.0"
 
-"@vue/composition-api@1.6.2":
-  version "1.6.2"
-  resolved "https://registry.npmmirror.com/@vue/composition-api/-/composition-api-1.6.2.tgz#8e65cf60cd919f23649951ed14a67d43cd32131d"
-  integrity sha512-g6pCOaAB5Z987EwCBIDanRlramrgnWfrrYS8F/0axn2AL8EvyfAebDcLTSr48hac0G0rqC9ODp5LWaiupzl6Tw==
+"@vue/composition-api@1.7.0":
+  version "1.7.0"
+  resolved "https://registry.npmmirror.com/@vue/composition-api/-/composition-api-1.7.0.tgz#26fae79e5023fc6c9dfd99ca5d3d357e1c5b9c60"
+  integrity sha512-hxOgLYR+wjuPX9bkP2pAPlqUs98XxBoa9DSLyp1z6+YR92wC42PZcZKs4d+VRtcv4udOv041Kss+F6ap5nj8YA==
 
 "@vue/reactivity-transform@3.2.37":
   version "3.2.37"
@@ -3507,10 +3507,10 @@ vue@2.6.14:
   resolved "https://registry.npmmirror.com/vue/-/vue-2.6.14.tgz#e51aa5250250d569a3fbad3a8a5a687d6036e235"
   integrity sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ==
 
-vuetify@2.6.6:
-  version "2.6.6"
-  resolved "https://registry.npmmirror.com/vuetify/-/vuetify-2.6.6.tgz#7af178fece5ccd561639eba425fe6c0a5803b37e"
-  integrity sha512-H4KtxDFmDN8QiTRiGfBySyjMhVaHAJTKB0llGGKZT5jKxtnx9gvEtMWXKtVuRP0NJJP0H6xBPJHNOH7nT18qiQ==
+vuetify@2.6.8:
+  version "2.6.8"
+  resolved "https://registry.npmmirror.com/vuetify/-/vuetify-2.6.8.tgz#3f4cfa56b7eff4bad1818cd1812b47f6754e140a"
+  integrity sha512-CbJsIGfye++an5/I5ypmYgf74vxt5j0NJ/7UUIDXRYXZsM9YuEpnqo97Ob4LD6QEli1gJa6WXWS8pXLWk0ArPQ==
 
 webidl-conversions@^3.0.0:
   version "3.0.1"

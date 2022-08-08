@@ -17,11 +17,11 @@
   },
   "dependencies": {
     "@himeka/booru": "2.6.4",
-    "@vue/composition-api": "1.6.2",
+    "@vue/composition-api": "1.7.0",
     "date-fns": "2.29.1",
     "vue": "2.6.14",
     "vue-masonry-css": "1.0.3",
-    "vuetify": "2.6.6"
+    "vuetify": "2.6.8"
   },
   "devDependencies": {
     "@antfu/eslint-config-vue": "0.25.2",
