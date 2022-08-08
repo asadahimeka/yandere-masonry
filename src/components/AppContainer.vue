@@ -139,11 +139,10 @@ const maxHeightStyle = computed(() => {
 })
 
 const getImgSrc = (img: Post) => {
-  return 'https://upload-bbs.mihoyo.com/upload/2022/08/08/260511332/99742fb77603da1106a3c26b6df0e4bd_4608657059199403495.png'
-  // if (columnCount.value < 6) {
-  //   return img.sampleUrl ?? img.fileUrl ?? void 0
-  // }
-  // return img.previewUrl ?? img.fileUrl ?? void 0
+  if (columnCount.value < 6) {
+    return img.sampleUrl ?? img.fileUrl ?? void 0
+  }
+  return img.previewUrl ?? img.fileUrl ?? void 0
 }
 
 const onCtxMenu = (ev: MouseEvent, img: Post) => {

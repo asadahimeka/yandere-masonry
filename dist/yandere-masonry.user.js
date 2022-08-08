@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.18.0
+// @version              0.18.1
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout.
 // @author               asadahimeka
@@ -4411,7 +4411,11 @@ var __publicField = (obj, key, value) => {
       return "";
     });
     const getImgSrc = (img) => {
-      return "https://upload-bbs.mihoyo.com/upload/2022/08/08/260511332/99742fb77603da1106a3c26b6df0e4bd_4608657059199403495.png";
+      var _a2, _b2, _c2, _d;
+      if (columnCount.value < 6) {
+        return (_b2 = (_a2 = img.sampleUrl) != null ? _a2 : img.fileUrl) != null ? _b2 : void 0;
+      }
+      return (_d = (_c2 = img.previewUrl) != null ? _c2 : img.fileUrl) != null ? _d : void 0;
     };
     const onCtxMenu = (ev, img) => {
       ev.preventDefault();
