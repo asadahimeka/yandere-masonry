@@ -8,6 +8,7 @@
           :aspect-ratio="image.aspectRatio"
           @click="showImgModal(index)"
           @contextmenu="onCtxMenu($event, image)"
+          @error="onImageLoadError"
         >
           <template #placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
@@ -71,7 +72,7 @@
 
 <script setup lang="ts">
 import { mdiCheckCircle, mdiCloseCircle, mdiRefresh } from '@mdi/js'
-import { computed, nextTick, onMounted, ref, watch } from '@vue/composition-api'
+import { computed, nextTick, onMounted, ref, set, watch } from '@vue/composition-api'
 import type Post from '@himeka/booru/dist/structures/Post'
 import ImageDetail from './ImageDetail.vue'
 import { eventBus, isReachBottom, throttleScroll } from '@/utils'
@@ -174,6 +175,14 @@ const addToSelectedList = () => {
 const addFavorite = () => {
   const img = ctxActPost.value
   img && addPostToFavorites(img.id)
+}
+
+const onImageLoadError = (url: string) => {
+  const item = store.imageList.find(e => e.previewUrl == url)
+  console.log('item: ', item)
+  if (!item) return
+  set(item, 'previewUrl', null)
+  set(item, 'sampleUrl', null)
 }
 
 onMounted(async () => {

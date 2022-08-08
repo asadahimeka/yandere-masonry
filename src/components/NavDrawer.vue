@@ -181,7 +181,9 @@ const openLink = (link: string) => {
 }
 
 const dealLink = (link: string) => {
-  return `https://${link.includes('yande') ? `${link}/post` : link}?_wf=1`
+  if (link.includes('yande')) return 'https://yande.re/post?_wf=1'
+  if (link.includes('behoimi')) return 'http://behoimi.org?_wf=1'
+  return `https://${link}?_wf=1`
 }
 
 const onComboboxChange = (val: string[]) => {

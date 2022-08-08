@@ -12,6 +12,7 @@
       :aspect-ratio="imageSelected.aspectRatio"
       style="min-width: 300px;"
       @click="toggleToolbar"
+      @error="onImageLoadError"
     >
       <template #placeholder>
         <v-row class="fill-height ma-0" align="center" justify="center">
@@ -339,6 +340,10 @@ const showNextPost = async () => {
   if (store.imageSelectedIndex > store.imageList.length - 1) return
   store.imageSelectedIndex++
   await setPostDetail()
+}
+
+const onImageLoadError = () => {
+  imageSelected.value.sampleUrl = null
 }
 
 watch(() => store.showImageSelected, async val => {
