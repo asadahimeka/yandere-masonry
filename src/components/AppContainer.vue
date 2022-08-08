@@ -179,7 +179,6 @@ const addFavorite = () => {
 
 const onImageLoadError = (url: string) => {
   const item = store.imageList.find(e => e.previewUrl == url)
-  console.log('item: ', item)
   if (!item) return
   set(item, 'previewUrl', null)
   set(item, 'sampleUrl', null)

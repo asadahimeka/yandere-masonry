@@ -1,3 +1,7 @@
+## v0.19.1
+
+- fix: 修复 dplayer 初始化错误
+
 ## v0.19.0
 
 - feat: 使用 dplayer 替代原生播放器

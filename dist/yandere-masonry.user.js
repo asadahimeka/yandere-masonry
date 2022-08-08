@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.19.0
+// @version              0.19.1
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout.
 // @author               asadahimeka
@@ -21,7 +21,7 @@
 // @match                https://safebooru.org/*
 // @match                https://tbib.org/*
 // @match                https://xbooru.com/*
-// @match                https://behoimi.org/*
+// @match                http://behoimi.org/*
 // @match                https://rule34.paheal.net/*
 // @match                https://realbooru.com/*
 // @run-at               document-end
@@ -222,7 +222,7 @@ var __publicField = (obj, key, value) => {
     return Promise.all([
       loadScript("https://lib.baomitu.com/vue/2.6.14/vue.min.js"),
       loadScript("https://unpkg.com/@vue/composition-api@1.7.0/dist/vue-composition-api.prod.js"),
-      loadScript("https://lib.baomitu.com/vuetify/2.6.8/vuetify.min.js"),
+      loadScript("https://lib.baomitu.com/vuetify/2.6.6/vuetify.min.js"),
       loadScript("https://code.bdstatic.com/npm/vue-masonry-css@1.0.3/dist/vue-masonry.min.js")
     ]);
   }
@@ -3826,7 +3826,7 @@ var __publicField = (obj, key, value) => {
       };
     },
     async mounted() {
-      if (!window.DPlayer) {
+      if (!unsafeWindow.DPlayer) {
         await new Promise((resolve) => {
           const script = document.createElement("script");
           script.src = "https://lib.baomitu.com/dplayer/1.26.0/DPlayer.min.js";
@@ -3834,11 +3834,12 @@ var __publicField = (obj, key, value) => {
           document.head.appendChild(script);
         });
       }
+      await this.$nextTick();
       this.initPlayer();
     },
     methods: {
       initPlayer() {
-        const player = this.dp = new window.DPlayer(__spreadProps(__spreadValues({}, this.options), { container: this.$el }));
+        const player = this.dp = new unsafeWindow.DPlayer(__spreadProps(__spreadValues({}, this.options), { container: this.$el }));
         const events = player.events;
         Object.keys(events).forEach((item) => {
           if (item === "events") {
@@ -4595,7 +4596,6 @@ var __publicField = (obj, key, value) => {
     };
     const onImageLoadError = (url) => {
       const item = store.imageList.find((e) => e.previewUrl == url);
-      console.log("item: ", item);
       if (!item)
         return;
       VueCompositionAPI2.set(item, "previewUrl", null);

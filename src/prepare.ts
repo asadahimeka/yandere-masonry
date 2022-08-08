@@ -158,7 +158,7 @@ function loadDeps() {
   return Promise.all([
     loadScript('https://lib.baomitu.com/vue/2.6.14/vue.min.js'),
     loadScript('https://unpkg.com/@vue/composition-api@1.7.0/dist/vue-composition-api.prod.js'),
-    loadScript('https://lib.baomitu.com/vuetify/2.6.8/vuetify.min.js'),
+    loadScript('https://lib.baomitu.com/vuetify/2.6.6/vuetify.min.js'),
     loadScript('https://code.bdstatic.com/npm/vue-masonry-css@1.0.3/dist/vue-masonry.min.js'),
   ])
 }
