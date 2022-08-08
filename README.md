@@ -137,10 +137,12 @@ https://realbooru.com/
 
 ## Developing
 
-1. `git clone https://github.com/asadahimeka/yandere-masonry.git`
-2. `cd yandere-masonry`
-3. `yarn install`
-4. `yarn dev`
+```bash
+git clone https://github.com/asadahimeka/yandere-masonry.git
+cd yandere-masonry
+yarn install
+yarn dev
+```
 
 ### Vue 3 + TypeScript + Vite
 
@@ -158,3 +160,7 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
 
 You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+
+## License
+
+[MIT](https://github.com/asadahimeka/yandere-masonry/blob/main/LICENSE)
