@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.18.1
+// @version              0.19.0
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout.
 // @author               asadahimeka
@@ -10,15 +10,18 @@
 // @source               https://github.com/asadahimeka/yandere-masonry
 // @icon                 https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/f1f6267537a5aff959ee63ec2c9e4e52_4821140735490026106.jpg
 // @supportURL           https://github.com/asadahimeka/yandere-masonry/issues
-// @match                https://danbooru.donmai.us/*
+// @match                https://yande.re/*
 // @match                https://konachan.com/*
 // @match                https://konachan.net/*
-// @match                https://yande.re/*
+// @match                https://danbooru.donmai.us/*
 // @match                https://gelbooru.com/*
 // @match                https://rule34.xxx/*
+// @match                https://lolibooru.moe/*
+// @match                https://www.sakugabooru.com/*
 // @match                https://safebooru.org/*
 // @match                https://tbib.org/*
 // @match                https://xbooru.com/*
+// @match                https://behoimi.org/*
 // @match                https://rule34.paheal.net/*
 // @match                https://realbooru.com/*
 // @run-at               document-end
@@ -30,6 +33,8 @@
 // ==/UserScript==
 
 var __defProp = Object.defineProperty;
+var __defProps = Object.defineProperties;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
@@ -45,6 +50,7 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
+var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __publicField = (obj, key, value) => {
   __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
   return value;
@@ -215,8 +221,8 @@ var __publicField = (obj, key, value) => {
   function loadDeps() {
     return Promise.all([
       loadScript("https://lib.baomitu.com/vue/2.6.14/vue.min.js"),
-      loadScript("https://unpkg.com/@vue/composition-api@1.6.2/dist/vue-composition-api.prod.js"),
-      loadScript("https://lib.baomitu.com/vuetify/2.6.6/vuetify.min.js"),
+      loadScript("https://unpkg.com/@vue/composition-api@1.7.0/dist/vue-composition-api.prod.js"),
+      loadScript("https://lib.baomitu.com/vuetify/2.6.8/vuetify.min.js"),
       loadScript("https://code.bdstatic.com/npm/vue-masonry-css@1.0.3/dist/vue-masonry.min.js")
     ]);
   }
@@ -227,7 +233,7 @@ var __publicField = (obj, key, value) => {
     document.head.innerHTML = `
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="referrer" content="no-referrer">
+    ${location.href.includes("http://behoimi.org") ? "" : '<meta name="referrer" content="no-referrer">'}
     <title>${location.host.toUpperCase()} Masonry</title>
     <link rel="stylesheet" href="https://lib.baomitu.com/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
@@ -328,6 +334,7 @@ var __publicField = (obj, key, value) => {
   var mdiShuffle = "M14.83,13.41L13.42,14.82L16.55,17.95L14.5,20H20V14.5L17.96,16.54L14.83,13.41M14.5,4L16.54,6.04L4,18.59L5.41,20L17.96,7.46L20,9.5V4M10.59,9.17L5.41,4L4,5.41L9.17,10.58L10.59,9.17Z";
   var mdiSourceFork = "M6,2A3,3 0 0,1 9,5C9,6.28 8.19,7.38 7.06,7.81C7.15,8.27 7.39,8.83 8,9.63C9,10.92 11,12.83 12,14.17C13,12.83 15,10.92 16,9.63C16.61,8.83 16.85,8.27 16.94,7.81C15.81,7.38 15,6.28 15,5A3,3 0 0,1 18,2A3,3 0 0,1 21,5C21,6.32 20.14,7.45 18.95,7.85C18.87,8.37 18.64,9 18,9.83C17,11.17 15,13.08 14,14.38C13.39,15.17 13.15,15.73 13.06,16.19C14.19,16.62 15,17.72 15,19A3,3 0 0,1 12,22A3,3 0 0,1 9,19C9,17.72 9.81,16.62 10.94,16.19C10.85,15.73 10.61,15.17 10,14.38C9,13.08 7,11.17 6,9.83C5.36,9 5.13,8.37 5.05,7.85C3.86,7.45 3,6.32 3,5A3,3 0 0,1 6,2M6,4A1,1 0 0,0 5,5A1,1 0 0,0 6,6A1,1 0 0,0 7,5A1,1 0 0,0 6,4M18,4A1,1 0 0,0 17,5A1,1 0 0,0 18,6A1,1 0 0,0 19,5A1,1 0 0,0 18,4M12,18A1,1 0 0,0 11,19A1,1 0 0,0 12,20A1,1 0 0,0 13,19A1,1 0 0,0 12,18Z";
   var mdiStar = "M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z";
+  var mdiTagMultiple = "M5.5,9A1.5,1.5 0 0,0 7,7.5A1.5,1.5 0 0,0 5.5,6A1.5,1.5 0 0,0 4,7.5A1.5,1.5 0 0,0 5.5,9M17.41,11.58C17.77,11.94 18,12.44 18,13C18,13.55 17.78,14.05 17.41,14.41L12.41,19.41C12.05,19.77 11.55,20 11,20C10.45,20 9.95,19.78 9.58,19.41L2.59,12.42C2.22,12.05 2,11.55 2,11V6C2,4.89 2.89,4 4,4H9C9.55,4 10.05,4.22 10.41,4.58L17.41,11.58M13.54,5.71L14.54,4.71L21.41,11.58C21.78,11.94 22,12.45 22,13C22,13.55 21.78,14.05 21.42,14.41L16.04,19.79L15.04,18.79L20.75,13L13.54,5.71Z";
   var mdiViewDashboardVariant = "M2,5V19H8V5H2M9,5V10H15V5H9M16,5V14H22V5H16M9,11V19H15V11H9M16,15V19H22V15H16Z";
   const store = Vue__default["default"].observable({
     requestState: false,
@@ -529,61 +536,17 @@ var __publicField = (obj, key, value) => {
   var dist = {};
   var Constants = {};
   var require$$0 = {
-    "e621.net": {
-      domain: "e621.net",
+    "yande.re": {
+      domain: "yande.re",
       aliases: [
-        "e6",
-        "e621"
+        "yd",
+        "yand",
+        "yandere"
       ],
       nsfw: true,
       api: {
-        search: "/posts.json?",
+        search: "/post.json?",
         postView: "/post/show/"
-      },
-      random: true
-    },
-    "e926.net": {
-      domain: "e926.net",
-      aliases: [
-        "e9",
-        "e926"
-      ],
-      nsfw: false,
-      api: {
-        search: "/posts.json?",
-        postView: "/post/show/"
-      },
-      random: true,
-      defaultTags: [
-        "rating:safe"
-      ]
-    },
-    "hypnohub.net": {
-      domain: "hypnohub.net",
-      aliases: [
-        "hh",
-        "hypno",
-        "hypnohub"
-      ],
-      nsfw: true,
-      api: {
-        search: "/index.php?page=dapi&s=post&q=index&json=1&",
-        postView: "/post/show/"
-      },
-      paginate: "pid",
-      random: true
-    },
-    "danbooru.donmai.us": {
-      domain: "danbooru.donmai.us",
-      aliases: [
-        "db",
-        "dan",
-        "danbooru"
-      ],
-      nsfw: true,
-      api: {
-        search: "/posts.json?",
-        postView: "/posts/"
       },
       random: true
     },
@@ -613,19 +576,22 @@ var __publicField = (obj, key, value) => {
         search: "/post.json?",
         postView: "/post/show/"
       },
-      random: true
+      random: true,
+      defaultTags: [
+        "rating:safe"
+      ]
     },
-    "yande.re": {
-      domain: "yande.re",
+    "danbooru.donmai.us": {
+      domain: "danbooru.donmai.us",
       aliases: [
-        "yd",
-        "yand",
-        "yandere"
+        "db",
+        "dan",
+        "danbooru"
       ],
       nsfw: true,
       api: {
-        search: "/post.json?",
-        postView: "/post/show/"
+        search: "/posts.json?",
+        postView: "/posts/"
       },
       random: true
     },
@@ -657,6 +623,32 @@ var __publicField = (obj, key, value) => {
       },
       paginate: "pid",
       random: false
+    },
+    "lolibooru.moe": {
+      domain: "lolibooru.moe",
+      aliases: [
+        "loli",
+        "lolibooru"
+      ],
+      nsfw: true,
+      api: {
+        search: "/post.json?",
+        postView: "/post/show/"
+      },
+      random: true
+    },
+    "www.sakugabooru.com": {
+      domain: "www.sakugabooru.com",
+      aliases: [
+        "sakuga",
+        "sakugabooru"
+      ],
+      nsfw: true,
+      api: {
+        search: "/post.json?",
+        postView: "/post/show/"
+      },
+      random: true
     },
     "safebooru.org": {
       domain: "safebooru.org",
@@ -701,6 +693,35 @@ var __publicField = (obj, key, value) => {
       },
       paginate: "pid",
       random: false
+    },
+    "behoimi.org": {
+      domain: "behoimi.org",
+      aliases: [
+        "3d",
+        "3dbooru"
+      ],
+      nsfw: true,
+      api: {
+        search: "/post/index.json?",
+        postView: "/post/show/"
+      },
+      insecure: true,
+      random: true
+    },
+    "hypnohub.net": {
+      domain: "hypnohub.net",
+      aliases: [
+        "hh",
+        "hypno",
+        "hypnohub"
+      ],
+      nsfw: true,
+      api: {
+        search: "/index.php?page=dapi&s=post&q=index&json=1&",
+        postView: "/post/show/"
+      },
+      paginate: "pid",
+      random: true
     },
     "rule34.paheal.net": {
       domain: "rule34.paheal.net",
@@ -747,6 +768,35 @@ var __publicField = (obj, key, value) => {
       },
       paginate: "pid",
       random: false
+    },
+    "e621.net": {
+      domain: "e621.net",
+      aliases: [
+        "e6",
+        "e621"
+      ],
+      nsfw: true,
+      api: {
+        search: "/posts.json?",
+        postView: "/post/show/"
+      },
+      random: true
+    },
+    "e926.net": {
+      domain: "e926.net",
+      aliases: [
+        "e9",
+        "e926"
+      ],
+      nsfw: false,
+      api: {
+        search: "/posts.json?",
+        postView: "/post/show/"
+      },
+      random: true,
+      defaultTags: [
+        "rating:safe"
+      ]
     }
   };
   (function(exports) {
@@ -2045,13 +2095,13 @@ var __publicField = (obj, key, value) => {
     exports.resolveSite = resolveSite, exports.jsonfy = jsonfy, exports.shuffle = shuffle, exports.randInt = randInt, exports.validateSearchParams = validateSearchParams, exports.compareArrays = compareArrays;
   })(Utils$1);
   var Post$1 = {};
-  function parseImageUrl(e, t, i) {
+  function parseImageUrl(e, t, i, s = "file") {
     var _a2;
     if (!e || e.trim() === "" || t.is_deleted)
       return null;
-    if (e.startsWith("/data") && (e = `https://danbooru.donmai.us${e}`), e.startsWith("/cached") && (e = `https://danbooru.donmai.us${e}`), e.startsWith("/_images") && (e = `https://dollbooru.org${e}`), e.startsWith("//derpicdn.net") && (e = `https:${t.image}`), !t.file_url && t.directory !== void 0) {
+    if (e.startsWith("/data") && (e = `https://danbooru.donmai.us${e}`), e.startsWith("/cached") && (e = `https://danbooru.donmai.us${e}`), e.startsWith("/_images") && (e = `https://dollbooru.org${e}`), e.startsWith("//derpicdn.net") && (e = `https:${t.image}`), !t[`${s}_url`] && t.directory !== void 0) {
       const r = (_a2 = t.directory) != null ? _a2 : `${t.hash.substr(0, 2)}/${t.hash.substr(2, 2)}`;
-      e = `//${i.domain}/images/${r}/${t.image}`;
+      e = { preview: `//${i.domain}/thumbnails/${r}/thumbnail_${t.hash}.jpg`, sample: `//${i.domain}/samples/${r}/sample_${t.hash}.jpg`, file: `//${i.domain}/images/${r}/${t.image}` }[s];
     }
     return e.startsWith("http") || (e = `https:${e}`), encodeURI(e);
   }
@@ -2089,7 +2139,7 @@ var __publicField = (obj, key, value) => {
       __publicField(this, "data");
       this.data = e, this.booru = t;
       const i = e.is_deleted || e.is_banned;
-      this.fileUrl = parseImageUrl(e.file_url || e.image || (i ? e.source : void 0) || e.file && e.file.url || e.representations && e.representations.full, e, t), this.available = !i && this.fileUrl !== null, this.height = parseInt(e.height || e.image_height || e.file && e.file.height, 10), this.width = parseInt(e.width || e.image_width || e.file && e.file.width, 10), this.sampleUrl = parseImageUrl(e.sample_url || e.large_file_url || e.representations && e.representations.large || e.sample && e.sample.url, e, t), this.sampleHeight = parseInt(e.sample_height || e.sample && e.sample.height, 10), this.sampleWidth = parseInt(e.sample_width || e.sample && e.sample.width, 10), this.previewUrl = parseImageUrl(e.preview_url || e.preview_file_url && e.preview_file_url.replace(/(.*)preview(.*)jpg/, "$1720x720$2webp") || e.representations && e.representations.small || e.preview && e.preview.url, e, t), this.previewHeight = parseInt(e.preview_height || e.preview && e.preview.height, 10), this.previewWidth = parseInt(e.preview_width || e.preview && e.preview.width, 10), this.id = e.id ? e.id.toString() : "No ID available", this.tags = getTags(e), e.score && e.score.total ? this.score = e.score.total : this.score = e.score ? parseInt(e.score, 10) : e.score, this.source = e.source || e.sources || e.source_url, this.rating = e.rating || /(safe|suggestive|questionable|explicit)/i.exec(e.tags) || "u", Array.isArray(this.rating) && (this.rating = this.rating[0]), this.rating === "suggestive" && (this.rating = "q"), this.rating = this.rating.charAt(0), this.createdAt = null, typeof e.created_at == "object" ? this.createdAt = new Date(1e3 * e.created_at.s + e.created_at.n / 1e9) : typeof e.created_at == "number" ? this.createdAt = new Date(1e3 * e.created_at) : typeof e.change == "number" ? this.createdAt = new Date(1e3 * e.change) : this.createdAt = new Date(e.created_at || e.date);
+      this.fileUrl = parseImageUrl(e.file_url || e.image || (i ? e.source : void 0) || e.file && e.file.url || e.representations && e.representations.full, e, t), this.available = !i && this.fileUrl !== null, this.height = parseInt(e.height || e.image_height || e.file && e.file.height, 10), this.width = parseInt(e.width || e.image_width || e.file && e.file.width, 10), this.sampleUrl = parseImageUrl(e.sample_url || e.large_file_url || e.representations && e.representations.large || e.sample && e.sample.url || e.image, e, t, "sample"), this.sampleHeight = parseInt(e.sample_height || e.sample && e.sample.height, 10), this.sampleWidth = parseInt(e.sample_width || e.sample && e.sample.width, 10), this.previewUrl = parseImageUrl(e.preview_url || e.preview_file_url && e.preview_file_url.replace(/(.*)preview(.*)jpg/, "$1720x720$2webp") || e.representations && e.representations.small || e.preview && e.preview.url || e.image, e, t, "preview"), this.previewHeight = parseInt(e.preview_height || e.preview && e.preview.height, 10), this.previewWidth = parseInt(e.preview_width || e.preview && e.preview.width, 10), this.id = e.id ? e.id.toString() : "No ID available", this.tags = getTags(e), e.score && e.score.total ? this.score = e.score.total : this.score = e.score ? parseInt(e.score, 10) : e.score, this.source = e.source || e.sources || e.source_url, this.rating = e.rating || /(safe|suggestive|questionable|explicit)/i.exec(e.tags) || "u", Array.isArray(this.rating) && (this.rating = this.rating[0]), this.rating === "suggestive" && (this.rating = "q"), this.rating = this.rating.charAt(0), this.createdAt = null, typeof e.created_at == "object" ? this.createdAt = new Date(1e3 * e.created_at.s + e.created_at.n / 1e9) : typeof e.created_at == "number" ? this.createdAt = new Date(1e3 * e.created_at) : typeof e.change == "number" ? this.createdAt = new Date(1e3 * e.change) : this.createdAt = new Date(e.created_at || e.date);
     }
     get isRatingS() {
       return this.rating === "s";
@@ -2402,7 +2452,7 @@ var __publicField = (obj, key, value) => {
     "rule34.paheal.net": 70,
     "realbooru.com": 42
   };
-  const BOORU_PAGE_LIMIT = defaultLimitMap[location.host];
+  const BOORU_PAGE_LIMIT = defaultLimitMap[location.host] || 40;
   const isPidSite = ((_c = dist.sites[location.host]) == null ? void 0 : _c.paginate) === "pid";
   async function searchBooru(page2, tags2) {
     if (!tags2 || tags2 === "all")
@@ -2603,6 +2653,8 @@ var __publicField = (obj, key, value) => {
   const initPosts = async () => {
     await searchPosts();
     if (store.requestStop)
+      return;
+    if (location.href.includes("safebooru"))
       return;
     const times = calcFetchTimes();
     for (let index = 0; index < times; index++) {
@@ -3509,15 +3561,15 @@ var __publicField = (obj, key, value) => {
       options
     };
   }
-  const __cssModules$4 = {};
-  var __component__$4 = /* @__PURE__ */ normalizeComponent(__sfc_main$4, render$4, staticRenderFns$4, false, __vue2_injectStyles$4, null, null, null);
-  function __vue2_injectStyles$4(context) {
-    for (let o in __cssModules$4) {
-      this[o] = __cssModules$4[o];
+  const __cssModules$5 = {};
+  var __component__$5 = /* @__PURE__ */ normalizeComponent(__sfc_main$4, render$4, staticRenderFns$4, false, __vue2_injectStyles$5, null, null, null);
+  function __vue2_injectStyles$5(context) {
+    for (let o in __cssModules$5) {
+      this[o] = __cssModules$5[o];
     }
   }
   var AppBar = /* @__PURE__ */ function() {
-    return __component__$4.exports;
+    return __component__$5.exports;
   }();
   const __sfc_main$3 = {};
   __sfc_main$3.setup = (__props, __ctx) => {
@@ -3528,7 +3580,11 @@ var __publicField = (obj, key, value) => {
       window.open(link, "_blank", "noreferrer");
     };
     const dealLink = (link) => {
-      return `https://${link.includes("yande") ? `${link}/post` : link}?_wf=1`;
+      if (link.includes("yande"))
+        return "https://yande.re/post?_wf=1";
+      if (link.includes("behoimi"))
+        return "http://behoimi.org?_wf=1";
+      return `https://${link}?_wf=1`;
     };
     const onComboboxChange = (val) => {
       localStorage.setItem("__blacklist", val.join(","));
@@ -3748,14 +3804,68 @@ var __publicField = (obj, key, value) => {
     }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiSourceFork))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Forked from")]), _c2("v-list-item-subtitle", [_vm._v("yande-re-chinese-patch")])], 1)], 1)], 1)], 1);
   };
   var staticRenderFns$3 = [];
+  const __cssModules$4 = {};
+  var __component__$4 = /* @__PURE__ */ normalizeComponent(__sfc_main$3, render$3, staticRenderFns$3, false, __vue2_injectStyles$4, null, null, null);
+  function __vue2_injectStyles$4(context) {
+    for (let o in __cssModules$4) {
+      this[o] = __cssModules$4[o];
+    }
+  }
+  var NavDrawer = /* @__PURE__ */ function() {
+    return __component__$4.exports;
+  }();
+  const __vue2_script = {
+    props: {
+      options: {
+        type: Object
+      }
+    },
+    data() {
+      return {
+        dp: null
+      };
+    },
+    async mounted() {
+      if (!window.DPlayer) {
+        await new Promise((resolve) => {
+          const script = document.createElement("script");
+          script.src = "https://lib.baomitu.com/dplayer/1.26.0/DPlayer.min.js";
+          script.addEventListener("load", resolve, false);
+          document.head.appendChild(script);
+        });
+      }
+      this.initPlayer();
+    },
+    methods: {
+      initPlayer() {
+        const player = this.dp = new window.DPlayer(__spreadProps(__spreadValues({}, this.options), { container: this.$el }));
+        const events = player.events;
+        Object.keys(events).forEach((item) => {
+          if (item === "events") {
+            return false;
+          } else {
+            events[item].forEach((event) => {
+              player.on(event, () => this.$emit(event));
+            });
+          }
+        });
+      }
+    },
+    render(h) {
+      return h("div", {
+        class: "dplayer"
+      }, []);
+    }
+  };
+  let __vue2_render, __vue2_staticRenderFns;
   const __cssModules$3 = {};
-  var __component__$3 = /* @__PURE__ */ normalizeComponent(__sfc_main$3, render$3, staticRenderFns$3, false, __vue2_injectStyles$3, null, null, null);
+  var __component__$3 = /* @__PURE__ */ normalizeComponent(__vue2_script, __vue2_render, __vue2_staticRenderFns, false, __vue2_injectStyles$3, null, null, null);
   function __vue2_injectStyles$3(context) {
     for (let o in __cssModules$3) {
       this[o] = __cssModules$3[o];
     }
   }
-  var NavDrawer = /* @__PURE__ */ function() {
+  var DPlayer = /* @__PURE__ */ function() {
     return __component__$3.exports;
   }();
   const __sfc_main$2 = {};
@@ -3765,6 +3875,7 @@ var __publicField = (obj, key, value) => {
     const innerHeight = VueCompositionAPI2.ref(window.innerHeight);
     const downloading = VueCompositionAPI2.ref(false);
     const scaleOn = VueCompositionAPI2.ref(false);
+    const showTagChipGroup = VueCompositionAPI2.ref(store.isYKSite);
     const imageSelected = VueCompositionAPI2.computed(() => {
       var _a2;
       return (_a2 = store.imageList[store.imageSelectedIndex]) != null ? _a2 : {};
@@ -3871,6 +3982,9 @@ var __publicField = (obj, key, value) => {
       store.imageSelectedIndex++;
       await setPostDetail();
     };
+    const onImageLoadError = () => {
+      imageSelected.value.sampleUrl = null;
+    };
     VueCompositionAPI2.watch(() => store.showImageSelected, async (val) => {
       if (!val) {
         scaleOn.value = false;
@@ -3897,10 +4011,12 @@ var __publicField = (obj, key, value) => {
       mdiMagnifyMinusOutline,
       mdiMagnifyPlusOutline,
       mdiPlaylistPlus,
+      mdiTagMultiple,
       store,
       showImageToolbar,
       downloading,
       scaleOn,
+      showTagChipGroup,
       imageSelected,
       isVideo,
       imgSrc,
@@ -3917,11 +4033,15 @@ var __publicField = (obj, key, value) => {
       postDetail,
       addFavorite,
       showPrevPost,
-      showNextPost
+      showNextPost,
+      onImageLoadError
     };
   };
+  __sfc_main$2.components = Object.assign({
+    DPlayer
+  }, __sfc_main$2.components);
   var render$2 = function() {
-    var _vm$imageSelected$rat, _vm$imageSelected$fil, _vm$imageSelected$fil2;
+    var _vm$imageSelected$rat, _vm$imageSelected$fil, _vm$postDetail$tags;
     var _vm = this;
     var _h = _vm.$createElement;
     var _c2 = _vm._self._c || _h;
@@ -3948,7 +4068,8 @@ var __publicField = (obj, key, value) => {
         "aspect-ratio": _vm.imageSelected.aspectRatio
       },
       on: {
-        "click": _vm.toggleToolbar
+        "click": _vm.toggleToolbar,
+        "error": _vm.onImageLoadError
       },
       scopedSlots: _vm._u([{
         key: "placeholder",
@@ -4254,19 +4375,75 @@ var __publicField = (obj, key, value) => {
           }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiClose))])], 1)];
         }
       }], null, false, 3797348669)
-    }, [_c2("span", [_vm._v("\u5173\u95ED")])])], 1), _c2("v-chip-group", {
+    }, [_c2("span", [_vm._v("\u5173\u95ED")])])], 1), _vm.isVideo ? _c2("d-player", {
+      staticStyle: {
+        "width": "100%"
+      },
+      attrs: {
+        "options": {
+          theme: "#ee8888",
+          video: {
+            url: _vm.imageSelected.fileUrl
+          }
+        }
+      }
+    }) : _vm._e(), _c2("div", {
       directives: [{
         name: "show",
         rawName: "v-show",
-        value: _vm.showImageToolbar,
-        expression: "showImageToolbar"
+        value: !_vm.isVideo,
+        expression: "!isVideo"
       }],
-      staticClass: "hidden-sm-and-down",
+      staticClass: "img_scale_scroll"
+    }, [_c2("img", {
+      attrs: {
+        "src": _vm.scaleOn ? (_vm$imageSelected$fil = _vm.imageSelected.fileUrl) !== null && _vm$imageSelected$fil !== void 0 ? _vm$imageSelected$fil : void 0 : void 0,
+        "alt": ""
+      }
+    })]), _c2("div", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: !_vm.isVideo && _vm.showImageToolbar,
+        expression: "!isVideo && showImageToolbar"
+      }],
+      staticClass: "hidden-sm-and-down"
+    }, [_c2("div", {
       staticStyle: {
         "position": "absolute",
-        "bottom": "24px",
+        "bottom": "12px",
         "padding": "0 12px"
+      }
+    }, [_c2("v-chip", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (_vm$postDetail$tags = _vm.postDetail.tags) === null || _vm$postDetail$tags === void 0 ? void 0 : _vm$postDetail$tags.length,
+        expression: "postDetail.tags?.length"
+      }],
+      staticClass: "mr-1",
+      attrs: {
+        "small": "",
+        "color": "#ee8888b3",
+        "text-color": "#ffffff"
       },
+      on: {
+        "click": function($event) {
+          $event.stopPropagation();
+          _vm.showTagChipGroup = !_vm.showTagChipGroup;
+        }
+      }
+    }, [_c2("v-icon", {
+      attrs: {
+        "left": ""
+      }
+    }, [_vm._v(_vm._s(_vm.mdiTagMultiple))]), _c2("span", [_vm._v(_vm._s(_vm.showTagChipGroup ? "\u9690\u85CF" : "\u663E\u793A"))])], 1), _c2("v-chip-group", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.showTagChipGroup,
+        expression: "showTagChipGroup"
+      }],
       attrs: {
         "column": ""
       }
@@ -4289,28 +4466,7 @@ var __publicField = (obj, key, value) => {
           }
         }
       });
-    }), 1), _c2("div", {
-      staticClass: "img_scale_scroll"
-    }, [_c2("img", {
-      attrs: {
-        "src": _vm.scaleOn ? (_vm$imageSelected$fil = _vm.imageSelected.fileUrl) !== null && _vm$imageSelected$fil !== void 0 ? _vm$imageSelected$fil : void 0 : void 0,
-        "alt": ""
-      }
-    })]), _vm.isVideo ? _c2("video", {
-      staticStyle: {
-        "width": "100%"
-      },
-      attrs: {
-        "controls": "",
-        "src": (_vm$imageSelected$fil2 = _vm.imageSelected.fileUrl) !== null && _vm$imageSelected$fil2 !== void 0 ? _vm$imageSelected$fil2 : void 0
-      }
-    }) : _vm._e(), _c2("v-btn", {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.showImageToolbar,
-        expression: "showImageToolbar"
-      }],
+    }), 1)], 1), _c2("v-btn", {
       staticClass: "poa_left_center",
       attrs: {
         "fab": "",
@@ -4325,12 +4481,6 @@ var __publicField = (obj, key, value) => {
         }
       }
     }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiChevronLeft))])], 1), _c2("v-btn", {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.showImageToolbar,
-        expression: "showImageToolbar"
-      }],
       staticClass: "poa_right_center",
       attrs: {
         "fab": "",
@@ -4344,7 +4494,7 @@ var __publicField = (obj, key, value) => {
           return _vm.showNextPost.apply(null, arguments);
         }
       }
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiChevronRight))])], 1)], 1) : _vm._e()], 1);
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiChevronRight))])], 1)], 1)], 1) : _vm._e()], 1);
   };
   var staticRenderFns$2 = [];
   const __cssModules$2 = {};
@@ -4443,6 +4593,14 @@ var __publicField = (obj, key, value) => {
       const img = ctxActPost.value;
       img && addPostToFavorites(img.id);
     };
+    const onImageLoadError = (url) => {
+      const item = store.imageList.find((e) => e.previewUrl == url);
+      console.log("item: ", item);
+      if (!item)
+        return;
+      VueCompositionAPI2.set(item, "previewUrl", null);
+      VueCompositionAPI2.set(item, "sampleUrl", null);
+    };
     VueCompositionAPI2.onMounted(async () => {
       await initPosts();
       window.addEventListener("scroll", throttleScroll((scroll) => {
@@ -4481,7 +4639,8 @@ var __publicField = (obj, key, value) => {
       showImgModal,
       openDetail,
       addToSelectedList,
-      addFavorite
+      addFavorite,
+      onImageLoadError
     };
   };
   __sfc_main$1.components = Object.assign({
@@ -4519,7 +4678,8 @@ var __publicField = (obj, key, value) => {
           },
           "contextmenu": function($event) {
             return _vm.onCtxMenu($event, image);
-          }
+          },
+          "error": _vm.onImageLoadError
         },
         scopedSlots: _vm._u([{
           key: "placeholder",
