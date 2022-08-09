@@ -22,16 +22,21 @@ export default {
     await this.$nextTick()
     this.initPlayer()
   },
+  // eslint-disable-next-line vue/no-deprecated-destroyed-lifecycle
+  beforeDestroy() {
+    this.dp.destroy()
+    this.dp = null
+  },
   methods: {
     initPlayer() {
-      const player = this.dp = new unsafeWindow.DPlayer({ ...this.options, container: this.$el })
-      const events = player.events
+      this.dp = new unsafeWindow.DPlayer({ ...this.options, container: this.$el })
+      const events = this.dp.events
       Object.keys(events).forEach(item => {
         if (item === 'events') {
           return false
         } else {
           events[item].forEach(event => {
-            player.on(event, () => this.$emit(event))
+            this.dp.on(event, () => this.$emit(event))
           })
         }
       })
