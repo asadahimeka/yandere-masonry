@@ -14,7 +14,7 @@ Yande.re/Konachan Thumbnail Zoom & Double Click to Next Page & Waterfall Browse
 
 *For questions or suggestions please go to GitHub [feedback](https://github.com/asadahimeka/yandere-masonry/issues)*
 
-> Build with [vite](https://vitejs.dev) & [vite-plugin-tm-userscript](https://github.com/asadahimeka/vite-plugin-tm-userscript)
+Build with [vite](https://vitejs.dev) & [vite-plugin-tm-userscript](https://github.com/asadahimeka/vite-plugin-tm-userscript)
 
 ## Features
 
@@ -106,3 +106,15 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
 
 You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+
+## Copyright
+
+Modified from [yande-re-chinese-patch](https://github.com/coderzhaoziwei/yande-re-chinese-patch)
+
+Copyright © [coderzhaoziwei](https://github.com/coderzhaoziwei)
+
+Copyright © [asadahimeka](https://github.com/asadahimeka)
+
+## License
+
+[MIT](https://github.com/asadahimeka/yandere-masonry/blob/main/LICENSE)
