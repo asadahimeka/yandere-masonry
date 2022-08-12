@@ -85,23 +85,24 @@ function bindDblclick() {
   })
 }
 
+function setTagText(seletcor: string, textEn?: (el: HTMLElement) => string, display?: (en: string, cn: string) => string) {
+  const elements = document.querySelectorAll<HTMLElement>(seletcor)
+  for (const item of elements) {
+    const en = textEn?.(item) || item.innerHTML
+    const cn = window.__tagsCN?.[en]
+    if (cn) item.innerHTML = display?.(en, cn) || `${en} [${cn}]`
+  }
+}
+
 async function translateTags() {
   const response = await fetch('https://raw.githubusercontent.com/asadahimeka/yandere-masonry/main/src/data/tags_cn.json')
   window.__tagsCN = await response.json()
-  if (location.pathname.includes('tag')) {
-    const tagNames = document.querySelectorAll('td[class^=tag-type] a:last-child')
-    for (const tagName of tagNames) {
-      const tagCnName = window.__tagsCN?.[tagName.innerHTML]
-      if (tagCnName) tagName.innerHTML += ` [${tagCnName}]`
-    }
-    return
-  }
-  const tagElements = document.querySelectorAll('#tag-sidebar a[href^="/post?tags="]:not(.no-browser-link)')
-  for (const tagItem of tagElements) {
-    const tagEnStr = tagItem.getAttribute('href')?.match(/^\/post\?tags=(\S+)$/)?.[1] ?? ''
-    const tagCnStr = window.__tagsCN?.[tagEnStr]
-    if (tagCnStr) tagItem.innerHTML = `[${tagCnStr}]${tagEnStr.replace(/_/g, ' ')}`
-  }
+  const url = new URL(location.href)
+  if (url.pathname == '/tag') return setTagText('td[class^=tag-type] a:last-child')
+  if (!url.pathname.includes('/post')) return
+  const textEn = (el: HTMLElement) => el.innerHTML.replace(/\s+/g, '_')
+  setTagText('#site-title a[href^="/post?tags="]', textEn)
+  setTagText('#tag-sidebar a[href^="/post?tags="]:not(.no-browser-link)', textEn, (en, cn) => `[${cn}] ${en}`)
 }
 
 function removeOldListeners() {

@@ -14,19 +14,19 @@ a.thumb:visited {
 }
 
 li.tag-type-artist a[href^="/post"]:not(.no-browser-link)::before {
-  content: "[画师]";
+  content: "[画师] ";
 }
 
 li.tag-type-copyright a[href^="/post"]:not(.no-browser-link)::before {
-  content: "[版权]";
+  content: "[版权] ";
 }
 
 li.tag-type-character a[href^="/post"]:not(.no-browser-link)::before {
-  content: "[角色]";
+  content: "[角色] ";
 }
 
 li.tag-type-circle a[href^="/post"]:not(.no-browser-link)::before {
-  content: "[社团]";
+  content: "[社团] ";
 }
 
 #post-list {
