@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.19.1
+// @version              0.20.0
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout.
 // @author               asadahimeka
@@ -56,14 +56,14 @@ var __publicField = (obj, key, value) => {
   return value;
 };
 (() => {
-  var ydStyle = 'a.thumb{border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08]"}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743]"}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272]"}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2]"}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:100%;height:auto;margin-top:0;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}\n';
+  var ydStyle = 'a.thumb{padding-bottom:5px;border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08] "}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743] "}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272] "}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2] "}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:100%;height:auto;margin-top:0;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}\n';
   var knStyle = "#lsidebar{display:none}#post-popular ul#post-list-posts{display:flex;justify-content:center;flex-wrap:wrap}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
   var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_scale_on{width:auto!important;max-width:100vw!important;max-height:100vh!important;margin:0;padding:12px;overflow:auto}.img_detail_scale_on .v-image{display:block;max-height:100vh;margin:0 auto}.img_detail_scale_on .v-responsive__sizer,.img_detail_scale_on .v-image__image{display:none}.img_detail_scale_on .v-responsive__content{position:relative;width:auto!important;max-width:100vw!important;max-height:100vh;margin:0!important}.img_scale_scroll{display:none}.img_detail_scale_on .img_scale_scroll{display:block;max-width:100vw;max-height:calc(100vh - 30px);overflow:auto}.img_scale_scroll::-webkit-scrollbar{width:10px;height:10px}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}\n';
   async function prepareApp(callback) {
     if (doNotRun())
       return;
+    addSiteStyle();
     if (isMoebooru()) {
-      addSiteStyle();
       bindDblclick();
       setMoebooruLocale();
       translateTags();
@@ -111,6 +111,7 @@ var __publicField = (obj, key, value) => {
     await loadDeps();
   }
   function addSiteStyle() {
+    GM_addStyle("#enter-masonry{position:fixed;z-index:99;right:16px;top:10px;padding:8px 12px;border:0;border-radius:6px;color:#fff;outline:0;background: linear-gradient(to right, #ff758c 0%, #ff7eb3 100%);opacity:1;transform:scale(1);transition:opacity,transform .2s;cursor:pointer}#enter-masonry:hover{opacity:.8;transform:scale(1.05)}");
     if (location.href.includes("yande.re")) {
       GM_addStyle(ydStyle);
     }
@@ -140,26 +141,27 @@ var __publicField = (obj, key, value) => {
       clickX > w / 2 ? next == null ? void 0 : next.click() : prev == null ? void 0 : prev.click();
     });
   }
+  function setTagText(seletcor, textEn, display) {
+    var _a2;
+    const elements = document.querySelectorAll(seletcor);
+    for (const item of elements) {
+      const en = (textEn == null ? void 0 : textEn(item)) || item.innerHTML;
+      const cn = (_a2 = window.__tagsCN) == null ? void 0 : _a2[en];
+      if (cn)
+        item.innerHTML = (display == null ? void 0 : display(en, cn)) || `${en} [${cn}]`;
+    }
+  }
   async function translateTags() {
-    var _a2, _b2, _c2, _d, _e2;
     const response = await fetch("https://raw.githubusercontent.com/asadahimeka/yandere-masonry/main/src/data/tags_cn.json");
     window.__tagsCN = await response.json();
-    if (location.pathname.includes("tag")) {
-      const tagNames = document.querySelectorAll("td[class^=tag-type] a:last-child");
-      for (const tagName of tagNames) {
-        const tagCnName = (_a2 = window.__tagsCN) == null ? void 0 : _a2[tagName.innerHTML];
-        if (tagCnName)
-          tagName.innerHTML += ` [${tagCnName}]`;
-      }
+    const url = new URL(location.href);
+    if (url.pathname == "/tag")
+      return setTagText("td[class^=tag-type] a:last-child");
+    if (!url.pathname.includes("/post"))
       return;
-    }
-    const tagElements = document.querySelectorAll('#tag-sidebar a[href^="/post?tags="]:not(.no-browser-link)');
-    for (const tagItem of tagElements) {
-      const tagEnStr = (_d = (_c2 = (_b2 = tagItem.getAttribute("href")) == null ? void 0 : _b2.match(/^\/post\?tags=(\S+)$/)) == null ? void 0 : _c2[1]) != null ? _d : "";
-      const tagCnStr = (_e2 = window.__tagsCN) == null ? void 0 : _e2[tagEnStr];
-      if (tagCnStr)
-        tagItem.innerHTML = `[${tagCnStr}]${tagEnStr.replace(/_/g, " ")}`;
-    }
+    const textEn = (el) => el.innerHTML.replace(/\s+/g, "_");
+    setTagText('#site-title a[href^="/post?tags="]', textEn);
+    setTagText('#tag-sidebar a[href^="/post?tags="]:not(.no-browser-link)', textEn, (en, cn) => `[${cn}] ${en}`);
   }
   function removeOldListeners() {
     try {
@@ -193,7 +195,7 @@ var __publicField = (obj, key, value) => {
       const oldBtn = document.querySelector("#enter-masonry");
       oldBtn == null ? void 0 : oldBtn.remove();
     }
-    document.body.insertAdjacentHTML("beforeend", '<button id="enter-masonry" style="position:fixed;z-index:99;right:16px;top:10px">\u7011\u5E03\u6D41\u6A21\u5F0F</button>');
+    document.body.insertAdjacentHTML("beforeend", '<button id="enter-masonry">\u7011\u5E03\u6D41\u6A21\u5F0F</button>');
     const btn = document.querySelector("#enter-masonry");
     btn == null ? void 0 : btn.addEventListener("click", () => {
       fn();
@@ -301,6 +303,8 @@ var __publicField = (obj, key, value) => {
   var mdiArrowRightCircleOutline = "M6,13V11H14L10.5,7.5L11.92,6.08L17.84,12L11.92,17.92L10.5,16.5L14,13H6M22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12M20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12Z";
   var mdiBrightness6 = "M12,18V6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z";
   var mdiCalendar = "M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z";
+  var mdiCalendarBlank = "M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1";
+  var mdiCalendarEdit = "M19,3H18V1H16V3H8V1H6V3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H10V19H5V8H19V9H21V5A2,2 0 0,0 19,3M21.7,13.35L20.7,14.35L18.65,12.35L19.65,11.35C19.85,11.14 20.19,11.13 20.42,11.35L21.7,12.63C21.89,12.83 21.89,13.15 21.7,13.35M12,18.94L18.07,12.88L20.12,14.88L14.06,21H12V18.94Z";
   var mdiCalendarMonth = "M9,10V12H7V10H9M13,10V12H11V10H13M17,10V12H15V10H17M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5A2,2 0 0,1 5,3H6V1H8V3H16V1H18V3H19M19,19V8H5V19H19M9,14V16H7V14H9M13,14V16H11V14H13M17,14V16H15V14H17Z";
   var mdiCalendarSearch = "M15.5,12C18,12 20,14 20,16.5C20,17.38 19.75,18.21 19.31,18.9L22.39,22L21,23.39L17.88,20.32C17.19,20.75 16.37,21 15.5,21C13,21 11,19 11,16.5C11,14 13,12 15.5,12M15.5,14A2.5,2.5 0 0,0 13,16.5A2.5,2.5 0 0,0 15.5,19A2.5,2.5 0 0,0 18,16.5A2.5,2.5 0 0,0 15.5,14M19,8H5V19H9.5C9.81,19.75 10.26,20.42 10.81,21H5C3.89,21 3,20.1 3,19V5C3,3.89 3.89,3 5,3H6V1H8V3H16V1H18V3H19A2,2 0 0,1 21,5V13.03C20.5,12.22 19.8,11.54 19,11V8Z";
   var mdiCalendarText = "M14,14H7V16H14M19,19H5V8H19M19,3H18V1H16V3H8V1H6V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M17,10H7V12H17V10Z";
@@ -318,10 +322,13 @@ var __publicField = (obj, key, value) => {
   var mdiDelete = "M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z";
   var mdiDownload = "M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z";
   var mdiFileClockOutline = "M4 2A2 2 0 0 0 2 4V20A2 2 0 0 0 4 22H12.41A7 7 0 0 0 16 23A7 7 0 0 0 23 16A7 7 0 0 0 18 9.3V8L12 2H4M4 4H11V9H16A7 7 0 0 0 9 16A7 7 0 0 0 10.26 20H4V4M16 11A5 5 0 0 1 21 16A5 5 0 0 1 16 21A5 5 0 0 1 11 16A5 5 0 0 1 16 11M15 12V17L18.61 19.16L19.36 17.94L16.5 16.25V12H15Z";
+  var mdiFileGifBox = "M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3M10 10.5H7.5V13.5H8.5V12H10V13.7C10 14.4 9.5 15 8.7 15H7.3C6.5 15 6 14.3 6 13.7V10.4C6 9.7 6.5 9 7.3 9H8.6C9.5 9 10 9.7 10 10.3V10.5M13 15H11.5V9H13V15M17.5 10.5H16V11.5H17.5V13H16V15H14.5V9H17.5V10.5Z";
   var mdiFire = "M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z";
   var mdiGithub = "M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z";
   var mdiHeart = "M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z";
   var mdiHeartPlusOutline = "M12.67 20.74L12 21.35L10.55 20.03C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5C22 9.93 21.5 11.26 20.62 12.61C20 12.31 19.31 12.11 18.59 12.04C19.5 10.8 20 9.65 20 8.5C20 6.5 18.5 5 16.5 5C14.96 5 13.46 6 12.93 7.36H11.07C10.54 6 9.04 5 7.5 5C5.5 5 4 6.5 4 8.5C4 11.39 7.14 14.24 11.89 18.55L12 18.65L12.04 18.61C12.12 19.37 12.34 20.09 12.67 20.74M17 14V17H14V19H17V22H19V19H22V17H19V14H17Z";
+  var mdiHome = "M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z";
+  var mdiImageMultiple = "M22,16V4A2,2 0 0,0 20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16M11,12L13.03,14.71L16,11L20,16H8M2,6V20A2,2 0 0,0 4,22H18V20H4V6";
   var mdiInformationOutline = "M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z";
   var mdiLaunch = "M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z";
   var mdiLinkVariant = "M10.59,13.41C11,13.8 11,14.44 10.59,14.83C10.2,15.22 9.56,15.22 9.17,14.83C7.22,12.88 7.22,9.71 9.17,7.76V7.76L12.71,4.22C14.66,2.27 17.83,2.27 19.78,4.22C21.73,6.17 21.73,9.34 19.78,11.29L18.29,12.78C18.3,11.96 18.17,11.14 17.89,10.36L18.36,9.88C19.54,8.71 19.54,6.81 18.36,5.64C17.19,4.46 15.29,4.46 14.12,5.64L10.59,9.17C9.41,10.34 9.41,12.24 10.59,13.41M13.41,9.17C13.8,8.78 14.44,8.78 14.83,9.17C16.78,11.12 16.78,14.29 14.83,16.24V16.24L11.29,19.78C9.34,21.73 6.17,21.73 4.22,19.78C2.27,17.83 2.27,14.66 4.22,12.71L5.71,11.22C5.7,12.04 5.83,12.86 6.11,13.65L5.64,14.12C4.46,15.29 4.46,17.19 5.64,18.36C6.81,19.54 8.71,19.54 9.88,18.36L13.41,14.83C14.59,13.66 14.59,11.76 13.41,10.59C13,10.2 13,9.56 13.41,9.17Z";
@@ -335,7 +342,10 @@ var __publicField = (obj, key, value) => {
   var mdiSourceFork = "M6,2A3,3 0 0,1 9,5C9,6.28 8.19,7.38 7.06,7.81C7.15,8.27 7.39,8.83 8,9.63C9,10.92 11,12.83 12,14.17C13,12.83 15,10.92 16,9.63C16.61,8.83 16.85,8.27 16.94,7.81C15.81,7.38 15,6.28 15,5A3,3 0 0,1 18,2A3,3 0 0,1 21,5C21,6.32 20.14,7.45 18.95,7.85C18.87,8.37 18.64,9 18,9.83C17,11.17 15,13.08 14,14.38C13.39,15.17 13.15,15.73 13.06,16.19C14.19,16.62 15,17.72 15,19A3,3 0 0,1 12,22A3,3 0 0,1 9,19C9,17.72 9.81,16.62 10.94,16.19C10.85,15.73 10.61,15.17 10,14.38C9,13.08 7,11.17 6,9.83C5.36,9 5.13,8.37 5.05,7.85C3.86,7.45 3,6.32 3,5A3,3 0 0,1 6,2M6,4A1,1 0 0,0 5,5A1,1 0 0,0 6,6A1,1 0 0,0 7,5A1,1 0 0,0 6,4M18,4A1,1 0 0,0 17,5A1,1 0 0,0 18,6A1,1 0 0,0 19,5A1,1 0 0,0 18,4M12,18A1,1 0 0,0 11,19A1,1 0 0,0 12,20A1,1 0 0,0 13,19A1,1 0 0,0 12,18Z";
   var mdiStar = "M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z";
   var mdiTagMultiple = "M5.5,9A1.5,1.5 0 0,0 7,7.5A1.5,1.5 0 0,0 5.5,6A1.5,1.5 0 0,0 4,7.5A1.5,1.5 0 0,0 5.5,9M17.41,11.58C17.77,11.94 18,12.44 18,13C18,13.55 17.78,14.05 17.41,14.41L12.41,19.41C12.05,19.77 11.55,20 11,20C10.45,20 9.95,19.78 9.58,19.41L2.59,12.42C2.22,12.05 2,11.55 2,11V6C2,4.89 2.89,4 4,4H9C9.55,4 10.05,4.22 10.41,4.58L17.41,11.58M13.54,5.71L14.54,4.71L21.41,11.58C21.78,11.94 22,12.45 22,13C22,13.55 21.78,14.05 21.42,14.41L16.04,19.79L15.04,18.79L20.75,13L13.54,5.71Z";
+  var mdiVideo = "M17,10.5V7A1,1 0 0,0 16,6H4A1,1 0 0,0 3,7V17A1,1 0 0,0 4,18H16A1,1 0 0,0 17,17V13.5L21,17.5V6.5L17,10.5Z";
   var mdiViewDashboardVariant = "M2,5V19H8V5H2M9,5V10H15V5H9M16,5V14H22V5H16M9,11V19H15V11H9M16,15V19H22V15H16Z";
+  const ykFlag = ["konachan", "yande.re"].some((e) => location.href.includes(e));
+  const poolFlag = location.pathname == "/pool";
   const store = Vue__default["default"].observable({
     requestState: false,
     requestStop: false,
@@ -348,7 +358,9 @@ var __publicField = (obj, key, value) => {
     blacklist: ((_a = localStorage.getItem("__blacklist")) == null ? void 0 : _a.split(",").filter(Boolean)) || [],
     selectedImageList: [],
     selectedColumn: (_b = localStorage.getItem("__masonry_col")) != null ? _b : "0",
-    isYKSite: ["konachan", "yande.re"].some((e) => location.href.includes(e)),
+    isYKSite: ykFlag,
+    showPostList: !poolFlag,
+    showPoolList: ykFlag && poolFlag,
     toggleDrawer() {
       store.showDrawer = !store.showDrawer;
     },
@@ -488,7 +500,7 @@ var __publicField = (obj, key, value) => {
   function showMsg({ msg = "", type = "success" }) {
     eventBus.$emit("showSnackbar", msg, type);
   }
-  function isReachBottom() {
+  function notReachBottom() {
     const { clientHeight, scrollTop, scrollHeight } = document.documentElement;
     return clientHeight + scrollTop >= scrollHeight * 0.8;
   }
@@ -502,7 +514,7 @@ var __publicField = (obj, key, value) => {
       ticking = true;
       window.requestAnimationFrame(() => {
         const scroll = doc.scrollTop;
-        scroll > position ? downFn(scroll, arg) : upFn(scroll, arg);
+        scroll > position ? downFn(scroll, arg) : upFn == null ? void 0 : upFn(scroll, arg);
         position = scroll;
         ticking = false;
       });
@@ -2220,7 +2232,7 @@ var __publicField = (obj, key, value) => {
       return this.booru.postView(this.id);
     }
   }
-  var _default = Post$1.default = Post;
+  var _default$1 = Post$1.default = Post;
   var SearchResults$1 = {};
   var __createBinding = commonjsGlobal && commonjsGlobal.__createBinding || (Object.create ? function(t, e, r, s) {
     s === void 0 && (s = r);
@@ -2280,7 +2292,7 @@ var __publicField = (obj, key, value) => {
       return this.tagged(t, { invert: true });
     }
   }
-  SearchResults$1.default = SearchResults;
+  var _default = SearchResults$1.default = SearchResults;
   (function(exports) {
     var __importDefault2 = commonjsGlobal && commonjsGlobal.__importDefault || function(t) {
       return t && t.__esModule ? t : { default: t };
@@ -2559,12 +2571,19 @@ var __publicField = (obj, key, value) => {
   function isPopularPage() {
     return /(yande.re|konachan).*\/post\/popular_/.test(location.href);
   }
-  async function fetchPostsByPath() {
+  function isPoolShowPage() {
+    return /(yande.re|konachan).*\/pool\/show/.test(location.href);
+  }
+  async function fetchPostsByPath(postsKey, page2) {
     const url = new URL(location.href);
     url.pathname += ".json";
+    page2 && url.searchParams.set("page", page2.toString());
     const response = await fetch(url);
     const result = await response.json();
-    return result.map((e) => new _default(e, dist.forSite(location.host)));
+    const site = dist.forSite(location.host);
+    const results = postsKey ? result[postsKey] : result;
+    const posts = results.map((e) => new _default$1(e, site));
+    return new _default(posts, [], {}, site);
   }
   function splitTags(tagsData, limit, searchTerm) {
     let results = tagsData == null ? void 0 : tagsData.split(/\s+/);
@@ -2586,6 +2605,30 @@ var __publicField = (obj, key, value) => {
   function getRecentTags() {
     return splitTags(getTagsString("recent_tags"), 10);
   }
+  async function fetchPools(page2, query) {
+    const url = new URL("/pool.json", location.origin);
+    url.searchParams.set("page", page2.toString() || "1");
+    query && url.searchParams.set("query", query);
+    const jsonResp = await fetch(url);
+    const results = await jsonResp.json();
+    url.pathname = url.pathname.replace(".json", ".atom");
+    const xmlResp = await fetch(url);
+    const doc = new DOMParser().parseFromString(await xmlResp.text(), "text/xml");
+    const thumbMap = [...doc.querySelectorAll("entry")].reduce((acc, cur) => {
+      var _a2, _b2, _c2, _d;
+      const id = (_c2 = (_b2 = (_a2 = cur.querySelector("id")) == null ? void 0 : _a2.textContent) == null ? void 0 : _b2.match(/Pool\/(\d+)/)) == null ? void 0 : _c2[1];
+      const url2 = (_d = cur.querySelector("link[rel=enclosure]")) == null ? void 0 : _d.getAttribute("href");
+      if (id && url2)
+        acc[id] = url2;
+      return acc;
+    }, {});
+    for (const item of results) {
+      item.thumb = thumbMap[item.id];
+      item.created_at = formatDate(new Date(item.created_at));
+      item.updated_at = formatDate(new Date(item.updated_at));
+    }
+    return results;
+  }
   function getFirstPageNo(params2) {
     if (isPidSite) {
       const page2 = Number(params2.get("pid")) || 0;
@@ -2603,6 +2646,9 @@ var __publicField = (obj, key, value) => {
     url.searchParams.set(pageParamName, pageNo.toString());
     history.replaceState("", "", url);
   }
+  function dealBlacklist(results) {
+    return store.blacklist.length ? results.blacklist(store.blacklist) : results;
+  }
   const params = new URLSearchParams(location.search);
   let page = getFirstPageNo(params);
   let tags = params.get("tags");
@@ -2612,16 +2658,21 @@ var __publicField = (obj, key, value) => {
       action: async () => {
         const results = await fetchPostsByPath();
         store.requestStop = true;
-        return results;
+        return dealBlacklist(results);
+      }
+    },
+    {
+      test: isPoolShowPage,
+      action: async () => {
+        const results = await fetchPostsByPath("posts", page);
+        return tags ? results.tagged(tags) : results;
       }
     },
     {
       test: () => true,
       action: async () => {
-        let results = await searchBooru(page, tags);
-        if (store.blacklist.length)
-          results = results.blacklist(store.blacklist);
-        return results;
+        const results = await searchBooru(page, tags);
+        return dealBlacklist(results);
       }
     }
   ];
@@ -2679,8 +2730,8 @@ var __publicField = (obj, key, value) => {
     store.imageList = [];
     searchPosts();
   };
-  const __sfc_main$4 = {};
-  __sfc_main$4.setup = (__props, __ctx) => {
+  const __sfc_main$7 = {};
+  __sfc_main$7.setup = (__props, __ctx) => {
     const title = VueCompositionAPI2.computed(() => {
       return `${location.host.toUpperCase()} - ${store.imageList.length} Posts - Page `;
     });
@@ -2715,10 +2766,11 @@ var __publicField = (obj, key, value) => {
         return e.id !== id;
       });
     };
+    const tagsQuery = new URLSearchParams(location.search).get("tags");
     const searchState = VueCompositionAPI2.reactive({
-      showInput: false,
+      showInput: !!(tagsQuery == null ? void 0 : tagsQuery.includes("pool:")),
       showMenu: false,
-      searchTerm: new URLSearchParams(location.search).get("tags") || "",
+      searchTerm: tagsQuery || "",
       searchItems: store.isYKSite ? getRecentTags() : []
     });
     const onSearchTermInput = debounce(() => {
@@ -2854,6 +2906,15 @@ var __publicField = (obj, key, value) => {
     const goToPopularPage = () => {
       location.href = "/post/popular_recent?period=1d&_wf=1";
     };
+    const showPool = () => {
+      store.showPostList = false;
+      store.showPoolList = true;
+      history.pushState("", "", "/pool");
+    };
+    const poolQueryTerm = VueCompositionAPI2.ref("");
+    const searchPool = () => {
+      eventBus.$emit("loadPoolsByQuery", poolQueryTerm.value);
+    };
     const download = (url, name) => {
       loadingValue.value = 0;
       return downloadFile(url, name, {
@@ -2915,7 +2976,8 @@ var __publicField = (obj, key, value) => {
     };
     const exitMasonry = () => {
       const url = new URL(location.href);
-      url.searchParams.get("_wf") ? location.assign(location.origin) : location.reload();
+      url.searchParams.delete("_wf");
+      location.assign(url);
     };
     return {
       mdiBrightness6,
@@ -2931,6 +2993,8 @@ var __publicField = (obj, key, value) => {
       mdiDownload,
       mdiFileClockOutline,
       mdiFire,
+      mdiHome,
+      mdiImageMultiple,
       mdiLocationExit,
       mdiMagnify,
       mdiShuffle,
@@ -2964,6 +3028,9 @@ var __publicField = (obj, key, value) => {
       loadPrevPeriod,
       loadNextPeriod,
       goToPopularPage,
+      showPool,
+      poolQueryTerm,
+      searchPool,
       startDownload,
       exportFileUrls,
       toggleDarkmode,
@@ -2971,7 +3038,7 @@ var __publicField = (obj, key, value) => {
       exitMasonry
     };
   };
-  var render$4 = function() {
+  var render$7 = function() {
     var _vm = this;
     var _h = _vm.$createElement;
     var _c2 = _vm._self._c || _h;
@@ -3135,7 +3202,13 @@ var __publicField = (obj, key, value) => {
         },
         expression: "popSearchDate"
       }
-    })], 1)], 1) : _c2("div", {
+    })], 1), _c2("v-btn", {
+      staticClass: "ml-3",
+      attrs: {
+        "icon": "",
+        "href": "/post?_wf=1"
+      }
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiHome))])], 1)], 1) : _vm.store.showPostList ? _c2("div", {
       staticClass: "align-center hidden-sm-and-down",
       staticStyle: {
         "display": "flex"
@@ -3146,12 +3219,6 @@ var __publicField = (obj, key, value) => {
         "textContent": _vm._s(_vm.title)
       }
     }), _c2("input", {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.title.length > 2,
-        expression: "title.length > 2"
-      }],
       staticClass: "ml-1 mr-2 text-center rounded",
       style: {
         width: "40px",
@@ -3178,6 +3245,20 @@ var __publicField = (obj, key, value) => {
         }
       }
     }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiStar))])], 1) : _vm._e(), _c2("v-btn", {
+      attrs: {
+        "title": "\u56FE\u96C6 (Pool)",
+        "icon": ""
+      },
+      on: {
+        "click": function($event) {
+          return _vm.showPool();
+        }
+      }
+    }, [_c2("v-icon", {
+      attrs: {
+        "size": 20
+      }
+    }, [_vm._v(_vm._s(_vm.mdiImageMultiple))])], 1), _c2("v-btn", {
       attrs: {
         "title": "\u4EBA\u6C14",
         "icon": ""
@@ -3288,7 +3369,49 @@ var __publicField = (obj, key, value) => {
           return _vm.showTagsInput();
         }
       }
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiMagnify))])], 1)], 2), _c2("v-spacer"), _c2("v-menu", {
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiMagnify))])], 1)], 2) : _vm.store.showPoolList ? _c2("div", {
+      staticClass: "align-center",
+      staticStyle: {
+        "display": "flex"
+      }
+    }, [_vm.store.showPoolList ? _c2("v-toolbar-title", {
+      staticClass: "mr-3"
+    }, [_vm._v("Pools")]) : _vm._e(), _c2("v-text-field", {
+      attrs: {
+        "hide-details": "",
+        "append-icon": _vm.mdiMagnify
+      },
+      on: {
+        "keyup": function($event) {
+          if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter"))
+            return null;
+          return _vm.searchPool.apply(null, arguments);
+        }
+      },
+      model: {
+        value: _vm.poolQueryTerm,
+        callback: function($$v) {
+          _vm.poolQueryTerm = $$v;
+        },
+        expression: "poolQueryTerm"
+      }
+    }), _c2("v-btn", {
+      staticClass: "ml-3",
+      attrs: {
+        "icon": "",
+        "href": "/post?_wf=1"
+      }
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiHome))])], 1), _c2("v-btn", {
+      attrs: {
+        "title": "\u4EBA\u6C14",
+        "icon": ""
+      },
+      on: {
+        "click": function($event) {
+          return _vm.goToPopularPage();
+        }
+      }
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFire))])], 1)], 1) : _vm._e(), _c2("v-spacer"), _vm.store.showPostList ? [_c2("v-menu", {
       attrs: {
         "transition": "slide-y-transition",
         "offset-y": ""
@@ -3312,7 +3435,7 @@ var __publicField = (obj, key, value) => {
             }
           }, [_vm._v(_vm._s(_vm.store.selectedColumn === "0" ? "\u81EA\u52A8" : `${_vm.store.selectedColumn}\u5217`))])], 1)];
         }
-      }])
+      }], null, false, 4102914836)
     }, [_c2("v-list", {
       attrs: {
         "dense": ""
@@ -3385,7 +3508,7 @@ var __publicField = (obj, key, value) => {
             }
           }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiDownload))])], 1)];
         }
-      }])
+      }], null, false, 2310245454)
     }, [_c2("v-list", {
       staticStyle: {
         "min-width": "300px",
@@ -3482,7 +3605,7 @@ var __publicField = (obj, key, value) => {
           }
         }
       }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiDelete))])], 1)], 1)], 1);
-    }), 1)], 1)], 1), _c2("v-btn", {
+    }), 1)], 1)], 1)] : _vm._e(), _c2("v-btn", {
       attrs: {
         "title": "\u5207\u6362\u6DF1\u8272\u6A21\u5F0F",
         "icon": ""
@@ -3507,9 +3630,9 @@ var __publicField = (obj, key, value) => {
         "absolute": "",
         "bottom": ""
       }
-    })], 1);
+    })], 2);
   };
-  var staticRenderFns$4 = [];
+  var staticRenderFns$7 = [];
   function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
     var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
     if (render2) {
@@ -3561,18 +3684,18 @@ var __publicField = (obj, key, value) => {
       options
     };
   }
-  const __cssModules$5 = {};
-  var __component__$5 = /* @__PURE__ */ normalizeComponent(__sfc_main$4, render$4, staticRenderFns$4, false, __vue2_injectStyles$5, null, null, null);
-  function __vue2_injectStyles$5(context) {
-    for (let o in __cssModules$5) {
-      this[o] = __cssModules$5[o];
+  const __cssModules$8 = {};
+  var __component__$8 = /* @__PURE__ */ normalizeComponent(__sfc_main$7, render$7, staticRenderFns$7, false, __vue2_injectStyles$8, null, null, null);
+  function __vue2_injectStyles$8(context) {
+    for (let o in __cssModules$8) {
+      this[o] = __cssModules$8[o];
     }
   }
   var AppBar = /* @__PURE__ */ function() {
-    return __component__$5.exports;
+    return __component__$8.exports;
   }();
-  const __sfc_main$3 = {};
-  __sfc_main$3.setup = (__props, __ctx) => {
+  const __sfc_main$6 = {};
+  __sfc_main$6.setup = (__props, __ctx) => {
     const siteLinks = VueCompositionAPI2.ref(siteDomains);
     const userName = VueCompositionAPI2.ref("");
     const version = VueCompositionAPI2.ref(GM_info.script.version);
@@ -3605,6 +3728,7 @@ var __publicField = (obj, key, value) => {
       mdiArrowRightCircleOutline,
       mdiFire,
       mdiGithub,
+      mdiImageMultiple,
       mdiInformationOutline,
       mdiShuffle,
       mdiSourceFork,
@@ -3619,7 +3743,7 @@ var __publicField = (obj, key, value) => {
       removeTagFromBlacklist
     };
   };
-  var render$3 = function() {
+  var render$6 = function() {
     var _vm = this;
     var _h = _vm.$createElement;
     var _c2 = _vm._self._c || _h;
@@ -3659,6 +3783,13 @@ var __publicField = (obj, key, value) => {
     }, [_c2("v-list-item-icon", {
       staticClass: "mr-2"
     }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiStar))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u6211\u7684\u6536\u85CF\u5939")])], 1)], 1) : _vm._e(), _c2("v-list-item", {
+      attrs: {
+        "link": "",
+        "href": "/pool?page=1"
+      }
+    }, [_c2("v-list-item-icon", {
+      staticClass: "mr-2"
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiImageMultiple))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u56FE\u96C6 (Pool)")])], 1)], 1), _c2("v-list-item", {
       attrs: {
         "link": "",
         "href": "/post/popular_recent?period=1d"
@@ -3803,16 +3934,16 @@ var __publicField = (obj, key, value) => {
       staticClass: "mr-2"
     }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiSourceFork))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Forked from")]), _c2("v-list-item-subtitle", [_vm._v("yande-re-chinese-patch")])], 1)], 1)], 1)], 1);
   };
-  var staticRenderFns$3 = [];
-  const __cssModules$4 = {};
-  var __component__$4 = /* @__PURE__ */ normalizeComponent(__sfc_main$3, render$3, staticRenderFns$3, false, __vue2_injectStyles$4, null, null, null);
-  function __vue2_injectStyles$4(context) {
-    for (let o in __cssModules$4) {
-      this[o] = __cssModules$4[o];
+  var staticRenderFns$6 = [];
+  const __cssModules$7 = {};
+  var __component__$7 = /* @__PURE__ */ normalizeComponent(__sfc_main$6, render$6, staticRenderFns$6, false, __vue2_injectStyles$7, null, null, null);
+  function __vue2_injectStyles$7(context) {
+    for (let o in __cssModules$7) {
+      this[o] = __cssModules$7[o];
     }
   }
   var NavDrawer = /* @__PURE__ */ function() {
-    return __component__$4.exports;
+    return __component__$7.exports;
   }();
   const __vue2_script = {
     props: {
@@ -3837,16 +3968,20 @@ var __publicField = (obj, key, value) => {
       await this.$nextTick();
       this.initPlayer();
     },
+    beforeDestroy() {
+      this.dp.destroy();
+      this.dp = null;
+    },
     methods: {
       initPlayer() {
-        const player = this.dp = new unsafeWindow.DPlayer(__spreadProps(__spreadValues({}, this.options), { container: this.$el }));
-        const events = player.events;
+        this.dp = new unsafeWindow.DPlayer(__spreadProps(__spreadValues({}, this.options), { container: this.$el }));
+        const events = this.dp.events;
         Object.keys(events).forEach((item) => {
           if (item === "events") {
             return false;
           } else {
             events[item].forEach((event) => {
-              player.on(event, () => this.$emit(event));
+              this.dp.on(event, () => this.$emit(event));
             });
           }
         });
@@ -3859,18 +3994,18 @@ var __publicField = (obj, key, value) => {
     }
   };
   let __vue2_render, __vue2_staticRenderFns;
-  const __cssModules$3 = {};
-  var __component__$3 = /* @__PURE__ */ normalizeComponent(__vue2_script, __vue2_render, __vue2_staticRenderFns, false, __vue2_injectStyles$3, null, null, null);
-  function __vue2_injectStyles$3(context) {
-    for (let o in __cssModules$3) {
-      this[o] = __cssModules$3[o];
+  const __cssModules$6 = {};
+  var __component__$6 = /* @__PURE__ */ normalizeComponent(__vue2_script, __vue2_render, __vue2_staticRenderFns, false, __vue2_injectStyles$6, null, null, null);
+  function __vue2_injectStyles$6(context) {
+    for (let o in __cssModules$6) {
+      this[o] = __cssModules$6[o];
     }
   }
   var DPlayer = /* @__PURE__ */ function() {
-    return __component__$3.exports;
+    return __component__$6.exports;
   }();
-  const __sfc_main$2 = {};
-  __sfc_main$2.setup = (__props, __ctx) => {
+  const __sfc_main$5 = {};
+  __sfc_main$5.setup = (__props, __ctx) => {
     const showImageToolbar = VueCompositionAPI2.ref(true);
     const innerWidth = VueCompositionAPI2.ref(window.innerWidth);
     const innerHeight = VueCompositionAPI2.ref(window.innerHeight);
@@ -4038,10 +4173,10 @@ var __publicField = (obj, key, value) => {
       onImageLoadError
     };
   };
-  __sfc_main$2.components = Object.assign({
+  __sfc_main$5.components = Object.assign({
     DPlayer
-  }, __sfc_main$2.components);
-  var render$2 = function() {
+  }, __sfc_main$5.components);
+  var render$5 = function() {
     var _vm$imageSelected$rat, _vm$imageSelected$fil, _vm$postDetail$tags;
     var _vm = this;
     var _h = _vm.$createElement;
@@ -4383,6 +4518,7 @@ var __publicField = (obj, key, value) => {
       attrs: {
         "options": {
           theme: "#ee8888",
+          autoplay: true,
           video: {
             url: _vm.imageSelected.fileUrl
           }
@@ -4497,32 +4633,21 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiChevronRight))])], 1)], 1)], 1) : _vm._e()], 1);
   };
-  var staticRenderFns$2 = [];
-  const __cssModules$2 = {};
-  var __component__$2 = /* @__PURE__ */ normalizeComponent(__sfc_main$2, render$2, staticRenderFns$2, false, __vue2_injectStyles$2, null, null, null);
-  function __vue2_injectStyles$2(context) {
-    for (let o in __cssModules$2) {
-      this[o] = __cssModules$2[o];
+  var staticRenderFns$5 = [];
+  const __cssModules$5 = {};
+  var __component__$5 = /* @__PURE__ */ normalizeComponent(__sfc_main$5, render$5, staticRenderFns$5, false, __vue2_injectStyles$5, null, null, null);
+  function __vue2_injectStyles$5(context) {
+    for (let o in __cssModules$5) {
+      this[o] = __cssModules$5[o];
     }
   }
-  var ImageDetail = /* @__PURE__ */ function() {
-    return __component__$2.exports;
+  var PostDetail = /* @__PURE__ */ function() {
+    return __component__$5.exports;
   }();
-  const __sfc_main$1 = {};
-  __sfc_main$1.setup = (__props, __ctx) => {
-    const showSnackbar = VueCompositionAPI2.ref(false);
-    const snackbarText = VueCompositionAPI2.ref("");
-    const snackbarType = VueCompositionAPI2.ref("");
-    const snackbarTypeMap = VueCompositionAPI2.ref({
-      success: ["success", mdiCheckCircle],
-      error: ["red accent-2", mdiCloseCircle]
-    });
-    eventBus.$on("showSnackbar", (text, type) => {
-      snackbarText.value = text;
-      snackbarType.value = type || "";
-      showSnackbar.value = true;
-    });
+  const __sfc_main$4 = {};
+  __sfc_main$4.setup = (__props, __ctx) => {
     const showImageList = VueCompositionAPI2.ref(true);
+    const showFab = VueCompositionAPI2.ref(false);
     const columnCount = VueCompositionAPI2.computed(() => {
       return store.selectedColumn === "0" ? {
         300: 1,
@@ -4549,12 +4674,6 @@ var __publicField = (obj, key, value) => {
     const showMenu = VueCompositionAPI2.ref(false);
     const x = VueCompositionAPI2.ref(0);
     const y = VueCompositionAPI2.ref(0);
-    const isYKSite = VueCompositionAPI2.computed(() => {
-      return ["konachan", "yande"].some((e) => {
-        var _a2;
-        return (_a2 = store.imageList[0]) == null ? void 0 : _a2.booru.domain.includes(e);
-      });
-    });
     const maxHeightStyle = VueCompositionAPI2.computed(() => {
       const num = +store.selectedColumn;
       if (num == 0 || num > 3)
@@ -4601,38 +4720,40 @@ var __publicField = (obj, key, value) => {
       VueCompositionAPI2.set(item, "previewUrl", null);
       VueCompositionAPI2.set(item, "sampleUrl", null);
     };
+    const scrollFn = throttleScroll((scroll) => {
+      if (!showFab.value && scroll > 200)
+        showFab.value = true;
+      if (store.requestStop)
+        return;
+      if (store.requestState)
+        return;
+      notReachBottom() && searchPosts();
+    }, () => {
+      if (showFab.value)
+        showFab.value = false;
+    });
     VueCompositionAPI2.onMounted(async () => {
       await initPosts();
-      window.addEventListener("scroll", throttleScroll((scroll) => {
-        if (!store.showFab && scroll > 200)
-          store.showFab = true;
-        if (store.requestStop)
-          return;
-        if (store.requestState)
-          return;
-        isReachBottom() && searchPosts();
-      }, () => {
-        if (store.showFab)
-          store.showFab = false;
-      }));
+      window.addEventListener("scroll", scrollFn);
+    });
+    VueCompositionAPI2.onUnmounted(() => {
+      window.removeEventListener("scroll", scrollFn);
     });
     return {
+      mdiFileGifBox,
       mdiRefresh,
+      mdiVideo,
       refreshPosts,
       searchPosts,
       store,
-      showSnackbar,
-      snackbarText,
-      snackbarType,
-      snackbarTypeMap,
       showImageList,
+      showFab,
       columnCount,
       showNoMore,
       showLoadMore,
       showMenu,
       x,
       y,
-      isYKSite,
       maxHeightStyle,
       getImgSrc,
       onCtxMenu,
@@ -4643,20 +4764,14 @@ var __publicField = (obj, key, value) => {
       onImageLoadError
     };
   };
-  __sfc_main$1.components = Object.assign({
-    ImageDetail
-  }, __sfc_main$1.components);
-  var render$1 = function() {
-    var _vm$snackbarTypeMap$_, _vm$snackbarTypeMap$_2;
+  __sfc_main$4.components = Object.assign({
+    PostDetail
+  }, __sfc_main$4.components);
+  var render$4 = function() {
     var _vm = this;
     var _h = _vm.$createElement;
     var _c2 = _vm._self._c || _h;
-    return _vm.showImageList ? _c2("v-container", {
-      staticClass: "_vcont pa-2",
-      attrs: {
-        "fluid": ""
-      }
-    }, [_c2("masonry", {
+    return _vm.showImageList ? _c2("div", [_c2("masonry", {
       attrs: {
         "cols": _vm.columnCount,
         "gutter": "8px"
@@ -4699,7 +4814,17 @@ var __publicField = (obj, key, value) => {
           },
           proxy: true
         }], null, true)
-      })], 1);
+      }, [image.fileExt.toLowerCase() === "gif" ? _c2("v-icon", {
+        staticStyle: {
+          "position": "absolute",
+          "right": "5px"
+        }
+      }, [_vm._v(" " + _vm._s(_vm.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(image.fileExt.toLowerCase()) ? _c2("v-icon", {
+        staticStyle: {
+          "position": "absolute",
+          "right": "5px"
+        }
+      }, [_vm._v(" " + _vm._s(_vm.mdiVideo) + " ")]) : _vm._e()], 1)], 1);
     }), 1), _c2("div", {
       staticClass: "d-flex justify-center"
     }, [_c2("v-btn", {
@@ -4754,7 +4879,7 @@ var __publicField = (obj, key, value) => {
         },
         expression: "showMenu"
       }
-    }, [_c2("v-list", [_vm.isYKSite ? _c2("v-list-item", {
+    }, [_c2("v-list", [_vm.store.isYKSite ? _c2("v-list-item", {
       on: {
         "click": _vm.addFavorite
       }
@@ -4770,8 +4895,8 @@ var __publicField = (obj, key, value) => {
       directives: [{
         name: "show",
         rawName: "v-show",
-        value: _vm.store.showFab,
-        expression: "store.showFab"
+        value: _vm.showFab,
+        expression: "showFab"
       }],
       attrs: {
         "fab": "",
@@ -4786,7 +4911,290 @@ var __publicField = (obj, key, value) => {
           return _vm.refreshPosts();
         }
       }
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiRefresh))])], 1)], 1), _c2("ImageDetail"), _c2("v-snackbar", {
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiRefresh))])], 1)], 1), _c2("PostDetail")], 1) : _vm._e();
+  };
+  var staticRenderFns$4 = [];
+  const __cssModules$4 = {};
+  var __component__$4 = /* @__PURE__ */ normalizeComponent(__sfc_main$4, render$4, staticRenderFns$4, false, __vue2_injectStyles$4, null, null, null);
+  function __vue2_injectStyles$4(context) {
+    for (let o in __cssModules$4) {
+      this[o] = __cssModules$4[o];
+    }
+  }
+  var PostList = /* @__PURE__ */ function() {
+    return __component__$4.exports;
+  }();
+  const __sfc_main$3 = {};
+  __sfc_main$3.setup = (__props, __ctx) => {
+    const columnCount = VueCompositionAPI2.ref({
+      300: 1,
+      600: 1,
+      900: 2,
+      1200: 3,
+      1600: 4,
+      1920: 5,
+      2400: 6,
+      2700: 7,
+      3e3: 8,
+      default: 5
+    });
+    const noMore = VueCompositionAPI2.ref(false);
+    const showNoMore = VueCompositionAPI2.computed(() => !store.requestState && noMore.value);
+    const showLoadMore = VueCompositionAPI2.computed(() => !store.requestState && !noMore.value);
+    const page2 = VueCompositionAPI2.ref(Number(new URLSearchParams(location.search).get("page")) || 1);
+    const pools = VueCompositionAPI2.ref([]);
+    const loadData = async (query) => {
+      store.requestState = true;
+      try {
+        const results = await fetchPools(page2.value, query);
+        if (Array.isArray(results) && results.length > 0) {
+          pools.value = [...pools.value, ...results];
+          const url = new URL(location.href);
+          url.searchParams.set("page", page2.value.toString());
+          history.replaceState("", "", url);
+          page2.value++;
+        } else {
+          noMore.value = true;
+        }
+      } catch (error) {
+        console.log("fetchPools error: ", error);
+      } finally {
+        store.requestState = false;
+      }
+    };
+    const viewPool = (id) => {
+      window.open(`/post?tags=pool%3A${id}&_wf=1`, "_blank");
+    };
+    const scrollFn = throttleScroll(() => {
+      if (noMore.value)
+        return;
+      if (store.requestState)
+        return;
+      notReachBottom() && loadData();
+    });
+    VueCompositionAPI2.onMounted(async () => {
+      await loadData();
+      window.addEventListener("scroll", scrollFn);
+      eventBus.$on("loadPoolsByQuery", (query) => {
+        page2.value = 1;
+        pools.value = [];
+        loadData(query);
+      });
+    });
+    VueCompositionAPI2.onUnmounted(() => {
+      window.removeEventListener("scroll", scrollFn);
+      eventBus.$off("loadPoolsByQuery");
+    });
+    return {
+      mdiCalendarBlank,
+      mdiCalendarEdit,
+      mdiDownload,
+      mdiLaunch,
+      store,
+      columnCount,
+      showNoMore,
+      showLoadMore,
+      pools,
+      loadData,
+      viewPool
+    };
+  };
+  var render$3 = function() {
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c2 = _vm._self._c || _h;
+    return _c2("div", [_c2("masonry", {
+      attrs: {
+        "cols": _vm.columnCount,
+        "gutter": "8px"
+      }
+    }, _vm._l(_vm.pools, function(item) {
+      return _c2("v-card", {
+        key: item.id,
+        staticClass: "mb-2"
+      }, [_c2("v-img", {
+        attrs: {
+          "transition": "scroll-y-transition",
+          "src": item.thumb,
+          "height": "auto"
+        }
+      }), _c2("v-card-title", [_vm._v(_vm._s(item.name))]), _c2("v-card-subtitle", {
+        staticClass: "pb-0"
+      }, [_c2("v-tooltip", {
+        attrs: {
+          "bottom": ""
+        },
+        scopedSlots: _vm._u([{
+          key: "activator",
+          fn: function(_ref) {
+            var on = _ref.on, attrs = _ref.attrs;
+            return [_c2("span", _vm._g(_vm._b({
+              staticClass: "d-inline-block text-truncate",
+              staticStyle: {
+                "max-width": "100%"
+              }
+            }, "span", attrs, false), on), [_vm._v(_vm._s(item.description))])];
+          }
+        }], null, true)
+      }, [_c2("span", {
+        staticStyle: {
+          "display": "inline-block",
+          "max-width": "500px"
+        }
+      }, [_vm._v(_vm._s(item.description))])])], 1), _c2("v-card-text", {
+        staticClass: "pb-0"
+      }, [_c2("v-icon", {
+        attrs: {
+          "small": ""
+        }
+      }, [_vm._v(_vm._s(_vm.mdiCalendarBlank))]), _c2("span", {
+        staticClass: "ml-1 mr-4"
+      }, [_vm._v(_vm._s(item.created_at))]), _c2("v-icon", {
+        attrs: {
+          "small": ""
+        }
+      }, [_vm._v(_vm._s(_vm.mdiCalendarEdit))]), _c2("span", {
+        staticClass: "ml-1"
+      }, [_vm._v(_vm._s(item.updated_at))])], 1), _c2("v-card-actions", [_c2("v-list-item", {
+        staticClass: "grow"
+      }, [_c2("v-list-item-avatar", [_c2("v-img", {
+        staticClass: "elevation-6",
+        attrs: {
+          "alt": "",
+          "src": `/data/avatars/${item.user_id}.jpg`,
+          "lazy-src": "https://upload-bbs.mihoyo.com/upload/2022/08/13/190122060/f65e984cb2f5184ba167e461bfdeea55_8564255716639207386.png"
+        }
+      })], 1), _c2("v-row", {
+        attrs: {
+          "align": "center",
+          "justify": "end"
+        }
+      }, [_c2("v-list-item-content", {
+        staticClass: "ml-2"
+      }, [_c2("v-list-item-title", [_c2("a", {
+        attrs: {
+          "href": `/pool/show/${item.id}`,
+          "target": "_blank"
+        }
+      }, [_vm._v("Pool #" + _vm._s(item.id))])])], 1), _c2("v-chip", {
+        staticClass: "mr-1"
+      }, [_vm._v(_vm._s(item.post_count) + " \u5F20")]), _c2("v-tooltip", {
+        attrs: {
+          "bottom": ""
+        },
+        scopedSlots: _vm._u([{
+          key: "activator",
+          fn: function(_ref2) {
+            var on = _ref2.on, attrs = _ref2.attrs;
+            return [_c2("v-btn", _vm._g(_vm._b({
+              attrs: {
+                "icon": ""
+              },
+              on: {
+                "click": function($event) {
+                  return _vm.viewPool(item.id);
+                }
+              }
+            }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiLaunch))])], 1)];
+          }
+        }], null, true)
+      }, [_c2("span", [_vm._v("\u67E5\u770B")])]), _c2("v-tooltip", {
+        attrs: {
+          "bottom": ""
+        },
+        scopedSlots: _vm._u([{
+          key: "activator",
+          fn: function(_ref3) {
+            var on = _ref3.on, attrs = _ref3.attrs;
+            return [_c2("v-btn", _vm._g(_vm._b({
+              attrs: {
+                "icon": "",
+                "href": `/pool/zip/${item.id}?jpeg=1`
+              }
+            }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiDownload))])], 1)];
+          }
+        }], null, true)
+      }, [_c2("span", [_vm._v("\u4E0B\u8F7D")])])], 1)], 1)], 1)], 1);
+    }), 1), _c2("div", {
+      staticClass: "d-flex justify-center"
+    }, [_c2("v-btn", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.store.requestState,
+        expression: "store.requestState"
+      }],
+      attrs: {
+        "color": "#ee8888",
+        "text": ""
+      }
+    }, [_vm._v("\u52A0\u8F7D\u4E2D...")]), _c2("v-btn", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.showLoadMore,
+        expression: "showLoadMore"
+      }],
+      attrs: {
+        "color": "#ee8888",
+        "text": ""
+      },
+      on: {
+        "click": function($event) {
+          return _vm.loadData();
+        }
+      }
+    }, [_vm._v("\u52A0\u8F7D\u66F4\u591A")]), _c2("v-btn", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.showNoMore,
+        expression: "showNoMore"
+      }],
+      attrs: {
+        "color": "#ee8888",
+        "text": ""
+      }
+    }, [_vm._v("\u6CA1\u4E86")])], 1)], 1);
+  };
+  var staticRenderFns$3 = [];
+  const __cssModules$3 = {};
+  var __component__$3 = /* @__PURE__ */ normalizeComponent(__sfc_main$3, render$3, staticRenderFns$3, false, __vue2_injectStyles$3, null, null, null);
+  function __vue2_injectStyles$3(context) {
+    for (let o in __cssModules$3) {
+      this[o] = __cssModules$3[o];
+    }
+  }
+  var PoolList = /* @__PURE__ */ function() {
+    return __component__$3.exports;
+  }();
+  const __sfc_main$2 = {};
+  __sfc_main$2.setup = (__props, __ctx) => {
+    const showSnackbar = VueCompositionAPI2.ref(false);
+    const snackbarText = VueCompositionAPI2.ref("");
+    const snackbarType = VueCompositionAPI2.ref("");
+    const snackbarTypeMap = VueCompositionAPI2.ref({
+      success: ["success", mdiCheckCircle],
+      error: ["red accent-2", mdiCloseCircle]
+    });
+    eventBus.$on("showSnackbar", (text, type) => {
+      snackbarText.value = text;
+      snackbarType.value = type || "";
+      showSnackbar.value = true;
+    });
+    return {
+      showSnackbar,
+      snackbarText,
+      snackbarType,
+      snackbarTypeMap
+    };
+  };
+  var render$2 = function() {
+    var _vm$snackbarTypeMap$_, _vm$snackbarTypeMap$_2;
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c2 = _vm._self._c || _h;
+    return _c2("v-snackbar", {
       attrs: {
         "top": "",
         "color": (_vm$snackbarTypeMap$_ = _vm.snackbarTypeMap[_vm.snackbarType]) === null || _vm$snackbarTypeMap$_ === void 0 ? void 0 : _vm$snackbarTypeMap$_[0],
@@ -4809,7 +5217,40 @@ var __publicField = (obj, key, value) => {
       }]
     }, [_vm._v(_vm._s((_vm$snackbarTypeMap$_2 = _vm.snackbarTypeMap[_vm.snackbarType]) === null || _vm$snackbarTypeMap$_2 === void 0 ? void 0 : _vm$snackbarTypeMap$_2[1]))]), _c2("span", {
       staticClass: "ml-2"
-    }, [_vm._v(_vm._s(_vm.snackbarText))])], 1)], 1) : _vm._e();
+    }, [_vm._v(_vm._s(_vm.snackbarText))])], 1);
+  };
+  var staticRenderFns$2 = [];
+  const __cssModules$2 = {};
+  var __component__$2 = /* @__PURE__ */ normalizeComponent(__sfc_main$2, render$2, staticRenderFns$2, false, __vue2_injectStyles$2, null, null, null);
+  function __vue2_injectStyles$2(context) {
+    for (let o in __cssModules$2) {
+      this[o] = __cssModules$2[o];
+    }
+  }
+  var Snackbar = /* @__PURE__ */ function() {
+    return __component__$2.exports;
+  }();
+  const __sfc_main$1 = {};
+  __sfc_main$1.setup = (__props, __ctx) => {
+    return {
+      store
+    };
+  };
+  __sfc_main$1.components = Object.assign({
+    PostList,
+    PoolList,
+    Snackbar
+  }, __sfc_main$1.components);
+  var render$1 = function() {
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c2 = _vm._self._c || _h;
+    return _c2("v-container", {
+      staticClass: "_vcont pa-2",
+      attrs: {
+        "fluid": ""
+      }
+    }, [_vm.store.showPostList ? _c2("PostList") : _vm._e(), _vm.store.showPoolList ? _c2("PoolList") : _vm._e(), _c2("Snackbar")], 1);
   };
   var staticRenderFns$1 = [];
   const __cssModules$1 = {};
@@ -4825,13 +5266,9 @@ var __publicField = (obj, key, value) => {
   const __sfc_main = {};
   __sfc_main.setup = (__props, __ctx) => {
     const vuetify = useVuetify();
-    const changeTheme = () => {
-      var _a2;
-      const mode = (_a2 = localStorage.getItem("__darkmode")) != null ? _a2 : "dark";
-      vuetify.theme.dark = mode === "dark";
-    };
     VueCompositionAPI2.onMounted(() => {
-      changeTheme();
+      const mode = localStorage.getItem("__darkmode") || "dark";
+      vuetify.theme.dark = mode === "dark";
     });
     return {};
   };
