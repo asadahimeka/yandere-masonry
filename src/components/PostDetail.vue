@@ -167,7 +167,7 @@
           <span>关闭</span>
         </v-tooltip>
       </v-toolbar>
-      <d-player v-if="isVideo" style="width: 100%;" :options="{ theme: '#ee8888', video: { url: imageSelected.fileUrl } }" />
+      <d-player v-if="isVideo" style="width: 100%;" :options="{ theme: '#ee8888', autoplay: true, video: { url: imageSelected.fileUrl } }" />
       <!-- <video v-if="isVideo" controls style="width: 100%;" :src="imageSelected.fileUrl ?? void 0"></video> -->
       <div v-show="!isVideo" class="img_scale_scroll">
         <img :src="scaleOn ? imageSelected.fileUrl ?? void 0 : void 0" alt="">

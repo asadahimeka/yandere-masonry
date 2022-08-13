@@ -1,6 +1,7 @@
+import type SearchResults from '@himeka/booru/dist/structures/SearchResults'
 import store from '@/store'
 import { BOORU_PAGE_LIMIT, isPidSite, searchBooru } from '@/api/booru'
-import { fetchPostsByPath, isPopularPage } from '@/api/moebooru'
+import { fetchPostsByPath, isPoolShowPage, isPopularPage } from '@/api/moebooru'
 
 function getFirstPageNo(params: URLSearchParams) {
   if (isPidSite) {
@@ -21,6 +22,12 @@ function pushPageState(pageNo: number) {
   history.replaceState('', '', url)
 }
 
+function dealBlacklist(results: SearchResults) {
+  return store.blacklist.length
+    ? results.blacklist(store.blacklist)
+    : results
+}
+
 const params = new URLSearchParams(location.search)
 let page = getFirstPageNo(params)
 let tags = params.get('tags')
@@ -31,15 +38,21 @@ const fetchActions = [
     action: async () => {
       const results = await fetchPostsByPath()
       store.requestStop = true
-      return results
+      return dealBlacklist(results)
+    },
+  },
+  {
+    test: isPoolShowPage,
+    action: async () => {
+      const results = await fetchPostsByPath('posts', page)
+      return tags ? results.tagged(tags) : results
     },
   },
   {
     test: () => true,
     action: async () => {
-      let results = await searchBooru(page, tags)
-      if (store.blacklist.length) results = results.blacklist(store.blacklist)
-      return results
+      const results = await searchBooru(page, tags)
+      return dealBlacklist(results)
     },
   },
 ]

@@ -19,9 +19,14 @@ interface AppState {
   selectedImageList: SeletedPost[]
   selectedColumn: string
   isYKSite: boolean
+  showPostList: boolean
+  showPoolList: boolean
   toggleDrawer: () => void
   addToSelectedList: (item: Post) => void
 }
+
+const ykFlag = ['konachan', 'yande.re'].some(e => location.href.includes(e))
+const poolFlag = location.pathname == '/pool'
 
 const store = Vue.observable<AppState>({
   requestState: false,
@@ -35,7 +40,9 @@ const store = Vue.observable<AppState>({
   blacklist: localStorage.getItem('__blacklist')?.split(',').filter(Boolean) || [],
   selectedImageList: [],
   selectedColumn: localStorage.getItem('__masonry_col') ?? '0',
-  isYKSite: ['konachan', 'yande.re'].some(e => location.href.includes(e)),
+  isYKSite: ykFlag,
+  showPostList: !poolFlag,
+  showPoolList: ykFlag && poolFlag,
   toggleDrawer() {
     store.showDrawer = !store.showDrawer
   },

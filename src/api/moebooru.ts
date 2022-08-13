@@ -1,6 +1,7 @@
 import { forSite } from '@himeka/booru'
 import Post from '@himeka/booru/dist/structures/Post'
-import { showMsg } from '../utils'
+import SearchResults from '@himeka/booru/dist/structures/SearchResults'
+import { formatDate, showMsg } from '../utils'
 
 function getYandereUserId() {
   const match = document.cookie.match(/user_id=(\d+)/)
@@ -128,12 +129,20 @@ export function isPopularPage() {
   return /(yande.re|konachan).*\/post\/popular_/.test(location.href)
 }
 
-export async function fetchPostsByPath(): Promise<Post[]> {
+export function isPoolShowPage() {
+  return /(yande.re|konachan).*\/pool\/show/.test(location.href)
+}
+
+export async function fetchPostsByPath(postsKey?: string, page?: number): Promise<SearchResults> {
   const url = new URL(location.href)
   url.pathname += '.json'
+  page && url.searchParams.set('page', page.toString())
   const response = await fetch(url)
-  const result: [] = await response.json()
-  return result.map(e => new Post(e, forSite(location.host)))
+  const result = await response.json()
+  const site = forSite(location.host)
+  const results: [] = postsKey ? result[postsKey] : result
+  const posts = results.map(e => new Post(e, site))
+  return new SearchResults(posts, [], {}, site)
 }
 
 function splitTags(tagsData: string, limit: number, searchTerm?: string) {
@@ -154,4 +163,38 @@ export function searchTagsByName(searchTerm?: string) {
 
 export function getRecentTags() {
   return splitTags(getTagsString('recent_tags'), 10)
+}
+
+export interface Pool {
+  created_at: string
+  description: string
+  id: string
+  name: string
+  post_count: number
+  updated_at: string
+  user_id: string
+  thumb?: string
+}
+
+export async function fetchPools(page: number, query?: string): Promise<Pool[]> {
+  const url = new URL('/pool.json', location.origin)
+  url.searchParams.set('page', page.toString() || '1')
+  query && url.searchParams.set('query', query)
+  const jsonResp = await fetch(url)
+  const results: Pool[] = await jsonResp.json()
+  url.pathname = url.pathname.replace('.json', '.atom')
+  const xmlResp = await fetch(url)
+  const doc = new DOMParser().parseFromString(await xmlResp.text(), 'text/xml')
+  const thumbMap = [...doc.querySelectorAll('entry')].reduce<Record<string, string>>((acc, cur) => {
+    const id = cur.querySelector('id')?.textContent?.match(/Pool\/(\d+)/)?.[1]
+    const url = cur.querySelector('link[rel=enclosure]')?.getAttribute('href')
+    if (id && url) acc[id] = url
+    return acc
+  }, {})
+  for (const item of results) {
+    item.thumb = thumbMap[item.id]
+    item.created_at = formatDate(new Date(item.created_at))
+    item.updated_at = formatDate(new Date(item.updated_at))
+  }
+  return results
 }

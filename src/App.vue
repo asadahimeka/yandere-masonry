@@ -19,12 +19,9 @@ import AppContainer from './components/AppContainer.vue'
 import { useVuetify } from './plugins/vuetify'
 
 const vuetify = useVuetify()
-const changeTheme = () => {
-  const mode = localStorage.getItem('__darkmode') ?? 'dark'
-  vuetify.theme.dark = mode === 'dark'
-}
 
 onMounted(() => {
-  changeTheme()
+  const mode = localStorage.getItem('__darkmode') || 'dark'
+  vuetify.theme.dark = mode === 'dark'
 })
 </script>

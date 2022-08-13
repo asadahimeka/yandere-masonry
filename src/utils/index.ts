@@ -28,13 +28,13 @@ export function showMsg({ msg = '', type = 'success' }: MessageOptions) {
   eventBus.$emit('showSnackbar', msg, type)
 }
 
-export function isReachBottom() {
+export function notReachBottom() {
   const { clientHeight, scrollTop, scrollHeight } = document.documentElement
   return (clientHeight + scrollTop) >= scrollHeight * 0.8
 }
 
 type ScrollFn = (scroll: number, ev: Event) => void
-export function throttleScroll(downFn: ScrollFn, upFn: ScrollFn) {
+export function throttleScroll(downFn: ScrollFn, upFn?: ScrollFn) {
   const doc = document.documentElement
   let position = doc.scrollTop
   let ticking = false
@@ -43,7 +43,7 @@ export function throttleScroll(downFn: ScrollFn, upFn: ScrollFn) {
     ticking = true
     window.requestAnimationFrame(() => {
       const scroll = doc.scrollTop
-      scroll > position ? downFn(scroll, arg) : upFn(scroll, arg)
+      scroll > position ? downFn(scroll, arg) : upFn?.(scroll, arg)
       position = scroll
       ticking = false
     })

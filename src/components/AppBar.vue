@@ -53,11 +53,13 @@
           @input="showPopDatePicker = false"
         />
       </v-menu>
+      <v-btn class="ml-3" icon href="/post?_wf=1">
+        <v-icon>{{ mdiHome }}</v-icon>
+      </v-btn>
     </div>
-    <div v-else style="display:flex" class="align-center hidden-sm-and-down">
+    <div v-else-if="store.showPostList" style="display:flex" class="align-center hidden-sm-and-down">
       <v-toolbar-title class="hidden-md-and-down" v-text="title" />
       <input
-        v-show="title.length > 2"
         :value="store.currentPage"
         class="ml-1 mr-2 text-center rounded"
         :style="{ width: '40px', height: '30px', border: '1px solid #bbb', color: 'inherit' }"
@@ -66,6 +68,9 @@
       <template v-if="store.isYKSite">
         <v-btn v-if="userName" title="收藏夹" icon @click="fetchTaggedPosts(`vote:3:${userName} order:vote`)">
           <v-icon>{{ mdiStar }}</v-icon>
+        </v-btn>
+        <v-btn title="图集 (Pool)" icon @click="showPool()">
+          <v-icon :size="20">{{ mdiImageMultiple }}</v-icon>
         </v-btn>
         <v-btn title="人气" icon @click="goToPopularPage()">
           <v-icon>{{ mdiFire }}</v-icon>
@@ -107,67 +112,84 @@
         <v-icon>{{ mdiMagnify }}</v-icon>
       </v-btn>
     </div>
+    <div v-else-if="store.showPoolList" style="display:flex" class="align-center">
+      <v-toolbar-title v-if="store.showPoolList" class="mr-3">Pools</v-toolbar-title>
+      <v-text-field
+        v-model="poolQueryTerm"
+        hide-details
+        :append-icon="mdiMagnify"
+        @keyup.enter="searchPool"
+      />
+      <v-btn class="ml-3" icon href="/post?_wf=1">
+        <v-icon>{{ mdiHome }}</v-icon>
+      </v-btn>
+      <v-btn title="人气" icon @click="goToPopularPage()">
+        <v-icon>{{ mdiFire }}</v-icon>
+      </v-btn>
+    </div>
     <v-spacer />
-    <v-menu transition="slide-y-transition" offset-y>
-      <template #activator="{ on, attrs }">
-        <v-btn small class="mr-6" v-bind="attrs" v-on="on">
-          <v-icon left>{{ mdiViewDashboardVariant }}</v-icon>
-          <span style="margin-bottom:2px">{{ store.selectedColumn === '0' ? '自动' : `${store.selectedColumn}列` }}</span>
-        </v-btn>
-      </template>
-      <v-list dense>
-        <v-list-item v-for="(val, key) in cols" :key="key" dense @click="selColumn(key)">
-          <v-list-item-title v-text="val" />
-        </v-list-item>
-      </v-list>
-    </v-menu>
-    <span class="hidden-md-and-down">已选择</span>
-    <span class="ml-1 mr-1" v-text="store.selectedImageList.length"></span>
-    <v-btn icon @click="selectAll">
-      <v-icon v-show="isNoSelected">{{ mdiCheckboxBlankOutline }}</v-icon>
-      <v-icon v-show="isOneOrMoreSelected">{{ mdiCheckboxIntermediate }}</v-icon>
-      <v-icon v-show="isAllSelected">{{ mdiCheckboxMarked }}</v-icon>
-    </v-btn>
-    <v-menu dense offset-y :close-on-content-click="false">
-      <template #activator="{ on, attrs }">
-        <v-btn title="下载列表" icon v-bind="attrs" v-on="on">
-          <v-icon>{{ mdiDownload }}</v-icon>
-        </v-btn>
-      </template>
-      <v-list dense flat style="min-width: 300px;max-height: 80vh;overflow: auto;">
-        <v-subheader class="ml-2">
-          <span class="mr-4">下载列表</span>
-          <v-btn v-show="store.selectedImageList.length > 0" small @click="startDownload">
-            开始下载
+    <template v-if="store.showPostList">
+      <v-menu transition="slide-y-transition" offset-y>
+        <template #activator="{ on, attrs }">
+          <v-btn small class="mr-6" v-bind="attrs" v-on="on">
+            <v-icon left>{{ mdiViewDashboardVariant }}</v-icon>
+            <span style="margin-bottom:2px">{{ store.selectedColumn === '0' ? '自动' : `${store.selectedColumn}列` }}</span>
           </v-btn>
-          <v-btn v-show="store.selectedImageList.length > 0" class="ml-2" small @click="exportFileUrls">
-            输出下载地址
-          </v-btn>
-        </v-subheader>
-        <v-list-item-group color="primary">
-          <v-list-item v-for="item in store.selectedImageList" :key="item.id" dense two-line>
-            <v-list-item-avatar>
-              <v-btn v-if="!item.loading && !item.loaded" icon>
-                <v-icon>{{ mdiFileClockOutline }}</v-icon>
-              </v-btn>
-              <v-btn v-if="item.loaded" icon color="green">
-                <v-icon>{{ mdiCheckUnderlineCircle }}</v-icon>
-              </v-btn>
-              <v-progress-circular v-if="item.loading" :rotate="-90" :size="28" :value="loadingValue" color="pink" />
-            </v-list-item-avatar>
-            <v-list-item-content style="max-width: 240px;">
-              <v-list-item-title :title="item.fileDownloadName" v-text="item.fileDownloadName" />
-              <v-list-item-subtitle :title="item.fileUrl" v-text="item.fileUrl" />
-            </v-list-item-content>
-            <v-list-item-action>
-              <v-btn icon @click="removeFromList(item.id)">
-                <v-icon>{{ mdiDelete }}</v-icon>
-              </v-btn>
-            </v-list-item-action>
+        </template>
+        <v-list dense>
+          <v-list-item v-for="(val, key) in cols" :key="key" dense @click="selColumn(key)">
+            <v-list-item-title v-text="val" />
           </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-menu>
+        </v-list>
+      </v-menu>
+      <span class="hidden-md-and-down">已选择</span>
+      <span class="ml-1 mr-1" v-text="store.selectedImageList.length"></span>
+      <v-btn icon @click="selectAll">
+        <v-icon v-show="isNoSelected">{{ mdiCheckboxBlankOutline }}</v-icon>
+        <v-icon v-show="isOneOrMoreSelected">{{ mdiCheckboxIntermediate }}</v-icon>
+        <v-icon v-show="isAllSelected">{{ mdiCheckboxMarked }}</v-icon>
+      </v-btn>
+      <v-menu dense offset-y :close-on-content-click="false">
+        <template #activator="{ on, attrs }">
+          <v-btn title="下载列表" icon v-bind="attrs" v-on="on">
+            <v-icon>{{ mdiDownload }}</v-icon>
+          </v-btn>
+        </template>
+        <v-list dense flat style="min-width: 300px;max-height: 80vh;overflow: auto;">
+          <v-subheader class="ml-2">
+            <span class="mr-4">下载列表</span>
+            <v-btn v-show="store.selectedImageList.length > 0" small @click="startDownload">
+              开始下载
+            </v-btn>
+            <v-btn v-show="store.selectedImageList.length > 0" class="ml-2" small @click="exportFileUrls">
+              输出下载地址
+            </v-btn>
+          </v-subheader>
+          <v-list-item-group color="primary">
+            <v-list-item v-for="item in store.selectedImageList" :key="item.id" dense two-line>
+              <v-list-item-avatar>
+                <v-btn v-if="!item.loading && !item.loaded" icon>
+                  <v-icon>{{ mdiFileClockOutline }}</v-icon>
+                </v-btn>
+                <v-btn v-if="item.loaded" icon color="green">
+                  <v-icon>{{ mdiCheckUnderlineCircle }}</v-icon>
+                </v-btn>
+                <v-progress-circular v-if="item.loading" :rotate="-90" :size="28" :value="loadingValue" color="pink" />
+              </v-list-item-avatar>
+              <v-list-item-content style="max-width: 240px;">
+                <v-list-item-title :title="item.fileDownloadName" v-text="item.fileDownloadName" />
+                <v-list-item-subtitle :title="item.fileUrl" v-text="item.fileUrl" />
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-btn icon @click="removeFromList(item.id)">
+                  <v-icon>{{ mdiDelete }}</v-icon>
+                </v-btn>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-menu>
+    </template>
     <v-btn title="切换深色模式" icon @click="toggleDarkmode">
       <v-icon>{{ mdiBrightness6 }}</v-icon>
     </v-btn>
@@ -204,6 +226,8 @@ import {
   mdiDownload,
   mdiFileClockOutline,
   mdiFire,
+  mdiHome,
+  mdiImageMultiple,
   mdiLocationExit,
   mdiMagnify,
   mdiShuffle,
@@ -213,7 +237,7 @@ import {
 import { computed, onMounted, reactive, ref, set, watch } from '@vue/composition-api'
 import { useVuetify } from '@/plugins/vuetify'
 import store from '@/store'
-import { addDate, debounce, downloadFile, formatDate, showMsg, subDate } from '@/utils'
+import { addDate, debounce, downloadFile, eventBus, formatDate, showMsg, subDate } from '@/utils'
 import { loadPostsByPage, loadPostsByTags, refreshPosts } from '@/store/actions/post'
 import { getRecentTags, getUsername, isPopularPage, searchTagsByName } from '@/api/moebooru'
 
@@ -256,10 +280,11 @@ const removeFromList = (id: string) => {
   })
 }
 
+const tagsQuery = new URLSearchParams(location.search).get('tags')
 const searchState = reactive({
-  showInput: false,
+  showInput: !!tagsQuery?.includes('pool:'),
   showMenu: false,
-  searchTerm: new URLSearchParams(location.search).get('tags') || '',
+  searchTerm: tagsQuery || '',
   searchItems: store.isYKSite ? getRecentTags() : [],
 })
 
@@ -405,6 +430,17 @@ const goToPopularPage = () => {
   location.href = '/post/popular_recent?period=1d&_wf=1'
 }
 
+const showPool = () => {
+  store.showPostList = false
+  store.showPoolList = true
+  history.pushState('', '', '/pool')
+}
+
+const poolQueryTerm = ref('')
+const searchPool = () => {
+  eventBus.$emit('loadPoolsByQuery', poolQueryTerm.value)
+}
+
 const download = (url: string, name: string) => {
   loadingValue.value = 0
   return downloadFile(url, name, {
@@ -461,6 +497,7 @@ const goToPage = (ev: KeyboardEvent) => {
 
 const exitMasonry = () => {
   const url = new URL(location.href)
-  url.searchParams.get('_wf') ? location.assign(location.origin) : location.reload()
+  url.searchParams.delete('_wf')
+  location.assign(url)
 }
 </script>

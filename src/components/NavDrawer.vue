@@ -29,6 +29,14 @@
           <v-list-item-title>我的收藏夹</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+      <v-list-item link href="/pool?page=1">
+        <v-list-item-icon class="mr-2">
+          <v-icon>{{ mdiImageMultiple }}</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>图集 (Pool)</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
       <v-list-item link href="/post/popular_recent?period=1d">
         <v-list-item-icon class="mr-2">
           <v-icon>{{ mdiFire }}</v-icon>
@@ -162,6 +170,7 @@ import {
   mdiArrowRightCircleOutline,
   mdiFire,
   mdiGithub,
+  mdiImageMultiple,
   mdiInformationOutline,
   mdiShuffle,
   mdiSourceFork,
