@@ -4,8 +4,8 @@ import customStyle from '@/styles/custom.css?inline'
 
 export async function prepareApp(callback?: () => void) {
   if (doNotRun()) return
+  addSiteStyle()
   if (isMoebooru()) {
-    addSiteStyle()
     bindDblclick()
     setMoebooruLocale()
     translateTags()
@@ -57,6 +57,7 @@ async function initMasonry() {
 }
 
 function addSiteStyle() {
+  GM_addStyle('#enter-masonry{position:fixed;z-index:99;right:16px;top:10px;padding:8px 12px;border:0;border-radius:6px;color:#fff;outline:0;background: linear-gradient(to right, #ff758c 0%, #ff7eb3 100%);opacity:1;transform:scale(1);transition:opacity,transform .2s;cursor:pointer}#enter-masonry:hover{opacity:.8;transform:scale(1.05)}')
   if (location.href.includes('yande.re')) {
     GM_addStyle(ydStyle)
   }
@@ -134,7 +135,7 @@ function setMasonryMode(fn: () => void) {
     const oldBtn = document.querySelector('#enter-masonry') as HTMLButtonElement
     oldBtn?.remove()
   }
-  document.body.insertAdjacentHTML('beforeend', '<button id="enter-masonry" style="position:fixed;z-index:99;right:16px;top:10px">瀑布流模式</button>')
+  document.body.insertAdjacentHTML('beforeend', '<button id="enter-masonry">瀑布流模式</button>')
   const btn = document.querySelector('#enter-masonry') as HTMLButtonElement
   btn?.addEventListener('click', () => { fn() })
 }
