@@ -1,3 +1,12 @@
+## v0.20.0
+
+- feat: ✨ moebooru 支持在图集列表与详情页面进入瀑布流模式
+- feat: moebooru 添加返回首页按钮
+- feat: 瀑布流列表标注视频与 GIF 格式的作品
+- fix: 进入瀑布流按钮样式更改
+- fix: 修改 a.thumb 样式
+- docs: 更新翻译文件
+
 ## v0.19.1
 
 - fix: 修复 dplayer 初始化错误

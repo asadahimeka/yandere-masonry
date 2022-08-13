@@ -62,14 +62,23 @@ Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设
 
 #### 顶部操作
 
-- 站点切换，打开侧栏操作，支持站点见下方所述
+- 打开侧栏
+- 加载指定页数
 - 加载收藏夹、人气、随机作品（Y 站/K 站）
+- 加载图集（Pool）列表
 - 按标签搜索作品
 - 瀑布流显示列数切换，列数选择非自动且列数小于 6 时图片会以 sample_url (即点击详情的大小) 展示。
 - 批量选择
 - 查看下载列表
 - 深色模式切换
 - 退出瀑布流模式
+
+#### 侧栏操作
+
+- 站点切换，支持站点见下方所述
+- 进入收藏夹、人气、随机作品页面（Y 站/K 站）
+- 进入图集（Pool）页面（Y 站/K 站）
+- 本地标签黑名单
 
 #### 详情查看
 
@@ -133,12 +142,24 @@ https://realbooru.com/
 
 ## Screenshots
 
-![](https://upload-bbs.mihoyo.com/upload/2022/07/26/260511332/eb26e8bb6ec459b681f80f52c5e3026b_8896038464113321050.png)
-![](https://upload-bbs.mihoyo.com/upload/2022/07/26/260511332/08d32e6793f58921cab59d5a124b8bff_1695724723673167248.png)
-![](https://upload-bbs.mihoyo.com/upload/2022/07/26/260511332/7181e6197dd9b4cf6fe763291bd42c12_3932702791268709962.png)
-![](https://upload-bbs.mihoyo.com/upload/2022/07/26/260511332/c8e705ec84835e4624814cf420e37a31_3262693198820397564.png)
-![](https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/232674c7673d1c05a2e8efb028304067_7491959587592803223.png)
+![](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/a542077b61a2dcb85838baa41bf96c8c_7747043650649306795.png)
+
+![](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/14b7a0249234a79acac2d950db710b28_2747662949275143079.png)
+
+![](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/3886bf873b766f93e3cd103c0346705f_8954181707521812180.png)
+
+![](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/f18495ec74cf7895da6a583b6eef5815_2183319892513327746.png)
+
+![](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/59a35c4b527ec44904a6114a45033caf_7008024359546939405.png)
+
+![](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/c7c1ff0b187292ebc010fd40987ad52a_6882591913629167774.png)
+
+![](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/c0e70eea28e684bdb35e7ee77123235a_5045513856955976275.png)
+
+![](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/1fbb7f92ecba4a515b3a6781bd38610a_8247048012698921815.png)
+
 ![](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/7eec96d7c629bc30ff4b1942838d9ea2_7197279808091047211.png)
+
 ![](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/8dccc28bf99106aaab984feb383d4c1f_939382269553345713.png)
 
 ## Developing
@@ -172,9 +193,9 @@ You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/
 
 Modified from [yande-re-chinese-patch](https://github.com/coderzhaoziwei/yande-re-chinese-patch)
 
-Copyright © [coderzhaoziwei](https://github.com/coderzhaoziwei)
+© [coderzhaoziwei](https://github.com/coderzhaoziwei)
 
-Copyright © [asadahimeka](https://github.com/asadahimeka)
+© [asadahimeka](https://github.com/asadahimeka)
 
 ## License
 
