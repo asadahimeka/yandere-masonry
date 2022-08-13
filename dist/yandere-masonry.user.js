@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.20.0
+// @version              0.20.1
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout.
 // @author               asadahimeka
@@ -336,6 +336,7 @@ var __publicField = (obj, key, value) => {
   var mdiMagnify = "M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z";
   var mdiMagnifyMinusOutline = "M15.5,14H14.71L14.43,13.73C15.41,12.59 16,11.11 16,9.5A6.5,6.5 0 0,0 9.5,3A6.5,6.5 0 0,0 3,9.5A6.5,6.5 0 0,0 9.5,16C11.11,16 12.59,15.41 13.73,14.43L14,14.71V15.5L19,20.5L20.5,19L15.5,14M9.5,14C7,14 5,12 5,9.5C5,7 7,5 9.5,5C12,5 14,7 14,9.5C14,12 12,14 9.5,14M7,9H12V10H7V9Z";
   var mdiMagnifyPlusOutline = "M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14M12,10H10V12H9V10H7V9H9V7H10V9H12V10Z";
+  var mdiMessageAlertOutline = "M13,10H11V6H13V10M13,12H11V14H13V12M22,4V16A2,2 0 0,1 20,18H6L2,22V4A2,2 0 0,1 4,2H20A2,2 0 0,1 22,4M20,4H4V17.2L5.2,16H20V4Z";
   var mdiPlaylistPlus = "M3 16H10V14H3M18 14V10H16V14H12V16H16V20H18V16H22V14M14 6H3V8H14M14 10H3V12H14V10Z";
   var mdiRefresh = "M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z";
   var mdiShuffle = "M14.83,13.41L13.42,14.82L16.55,17.95L14.5,20H20V14.5L17.96,16.54L14.83,13.41M14.5,4L16.54,6.04L4,18.59L5.41,20L17.96,7.46L20,9.5V4M10.59,9.17L5.41,4L4,5.41L9.17,10.58L10.59,9.17Z";
@@ -3730,6 +3731,7 @@ var __publicField = (obj, key, value) => {
       mdiGithub,
       mdiImageMultiple,
       mdiInformationOutline,
+      mdiMessageAlertOutline,
       mdiShuffle,
       mdiSourceFork,
       mdiStar,
@@ -3916,12 +3918,23 @@ var __publicField = (obj, key, value) => {
       },
       on: {
         "click": function($event) {
+          return _vm.openLink("https://github.com/asadahimeka/yandere-masonry/issues");
+        }
+      }
+    }, [_c2("v-list-item-icon", {
+      staticClass: "mr-2"
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiMessageAlertOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u53CD\u9988")]), _c2("v-list-item-subtitle", [_vm._v("\u95EE\u9898\u4E0E\u5EFA\u8BAE")])], 1)], 1), _c2("v-list-item", {
+      attrs: {
+        "link": ""
+      },
+      on: {
+        "click": function($event) {
           return _vm.openLink("https://github.com/asadahimeka/yandere-masonry");
         }
       }
     }, [_c2("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiGithub))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Github")]), _c2("v-list-item-subtitle", [_vm._v("yandere-masonry")])], 1)], 1), _c2("v-list-item", {
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiGithub))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Github")]), _c2("v-list-item-subtitle", [_vm._v("\u6B22\u8FCE Star \u2606\u5F61")])], 1)], 1), _c2("v-list-item", {
       attrs: {
         "link": ""
       },
