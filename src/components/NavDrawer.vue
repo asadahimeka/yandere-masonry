@@ -142,13 +142,22 @@
           <v-list-item-subtitle>更新日志</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
+      <v-list-item link @click="openLink('https://github.com/asadahimeka/yandere-masonry/issues')">
+        <v-list-item-icon class="mr-2">
+          <v-icon>{{ mdiMessageAlertOutline }}</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>反馈</v-list-item-title>
+          <v-list-item-subtitle>问题与建议</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
       <v-list-item link @click="openLink('https://github.com/asadahimeka/yandere-masonry')">
         <v-list-item-icon class="mr-2">
           <v-icon>{{ mdiGithub }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>Github</v-list-item-title>
-          <v-list-item-subtitle>yandere-masonry</v-list-item-subtitle>
+          <v-list-item-subtitle>欢迎 Star ☆彡</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-list-item link @click="openLink('https://github.com/coderzhaoziwei/yande-re-chinese-patch')">
@@ -172,6 +181,7 @@ import {
   mdiGithub,
   mdiImageMultiple,
   mdiInformationOutline,
+  mdiMessageAlertOutline,
   mdiShuffle,
   mdiSourceFork,
   mdiStar,
