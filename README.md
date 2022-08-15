@@ -186,12 +186,15 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 
 You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
 
-## Thanks
+## Credits
 
 Modified from [coderzhaoziwei/yande-re-chinese-patch](https://github.com/coderzhaoziwei/yande-re-chinese-patch)
 
-[Booru API](https://github.com/asadahimeka/booru-search) modified from [AtoraSuunva/booru](https://github.com/AtoraSuunva/booru)
+[Booru Search API](https://github.com/asadahimeka/booru-search) modified from [AtoraSuunva/booru](https://github.com/AtoraSuunva/booru)
 
 ## License
 
 [MIT](https://github.com/asadahimeka/yandere-masonry/blob/main/LICENSE)
+
+Copyright © 2022 [asadahimeka](https://github.com/asadahimeka)
+
