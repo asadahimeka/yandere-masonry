@@ -194,7 +194,6 @@ Modified from [coderzhaoziwei/yande-re-chinese-patch](https://github.com/coderzh
 
 ## License
 
-[MIT](https://github.com/asadahimeka/yandere-masonry/blob/main/LICENSE)
+Licensed under the [MIT](https://github.com/asadahimeka/yandere-masonry/blob/main/LICENSE) license
 
-Copyright © 2022 [asadahimeka](https://github.com/asadahimeka)
-
+Copyright © 2022 Yumine Sakura
