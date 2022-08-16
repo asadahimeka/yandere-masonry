@@ -160,15 +160,6 @@
           <v-list-item-subtitle>欢迎 Star ☆彡</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link @click="openLink('https://github.com/coderzhaoziwei/yande-re-chinese-patch')">
-        <v-list-item-icon class="mr-2">
-          <v-icon>{{ mdiSourceFork }}</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>Forked from</v-list-item-title>
-          <v-list-item-subtitle>yande-re-chinese-patch</v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -183,7 +174,6 @@ import {
   mdiInformationOutline,
   mdiMessageAlertOutline,
   mdiShuffle,
-  mdiSourceFork,
   mdiStar,
 } from '@mdi/js'
 import { onMounted, ref } from '@vue/composition-api'

@@ -43,9 +43,9 @@ async function initMacy() {
       container: listEl,
       trueOrder: false,
       waitForImages: false,
-      columns: 6,
+      columns: 5,
       margin: 16,
-      breakAt: { 1800: 6, 1500: 5, 1200: 4, 900: 3, 600: 1 },
+      breakAt: { 1900: 6, 1600: 5, 1200: 4, 900: 2, 600: 1 },
     })
   }, 100)
 }
