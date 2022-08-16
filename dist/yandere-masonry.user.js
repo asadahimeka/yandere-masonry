@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.20.1
+// @version              0.20.2
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout.
 // @author               asadahimeka
@@ -10,18 +10,15 @@
 // @source               https://github.com/asadahimeka/yandere-masonry
 // @icon                 https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/f1f6267537a5aff959ee63ec2c9e4e52_4821140735490026106.jpg
 // @supportURL           https://github.com/asadahimeka/yandere-masonry/issues
-// @match                https://yande.re/*
+// @match                https://danbooru.donmai.us/*
 // @match                https://konachan.com/*
 // @match                https://konachan.net/*
-// @match                https://danbooru.donmai.us/*
+// @match                https://yande.re/*
 // @match                https://gelbooru.com/*
 // @match                https://rule34.xxx/*
-// @match                https://lolibooru.moe/*
-// @match                https://www.sakugabooru.com/*
 // @match                https://safebooru.org/*
 // @match                https://tbib.org/*
 // @match                https://xbooru.com/*
-// @match                http://behoimi.org/*
 // @match                https://rule34.paheal.net/*
 // @match                https://realbooru.com/*
 // @run-at               document-end
@@ -99,9 +96,9 @@ var __publicField = (obj, key, value) => {
         container: listEl,
         trueOrder: false,
         waitForImages: false,
-        columns: 6,
+        columns: 5,
         margin: 16,
-        breakAt: { 1800: 6, 1500: 5, 1200: 4, 900: 3, 600: 1 }
+        breakAt: { 1900: 6, 1600: 5, 1200: 4, 900: 2, 600: 1 }
       });
     }, 100);
   }
@@ -340,7 +337,6 @@ var __publicField = (obj, key, value) => {
   var mdiPlaylistPlus = "M3 16H10V14H3M18 14V10H16V14H12V16H16V20H18V16H22V14M14 6H3V8H14M14 10H3V12H14V10Z";
   var mdiRefresh = "M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z";
   var mdiShuffle = "M14.83,13.41L13.42,14.82L16.55,17.95L14.5,20H20V14.5L17.96,16.54L14.83,13.41M14.5,4L16.54,6.04L4,18.59L5.41,20L17.96,7.46L20,9.5V4M10.59,9.17L5.41,4L4,5.41L9.17,10.58L10.59,9.17Z";
-  var mdiSourceFork = "M6,2A3,3 0 0,1 9,5C9,6.28 8.19,7.38 7.06,7.81C7.15,8.27 7.39,8.83 8,9.63C9,10.92 11,12.83 12,14.17C13,12.83 15,10.92 16,9.63C16.61,8.83 16.85,8.27 16.94,7.81C15.81,7.38 15,6.28 15,5A3,3 0 0,1 18,2A3,3 0 0,1 21,5C21,6.32 20.14,7.45 18.95,7.85C18.87,8.37 18.64,9 18,9.83C17,11.17 15,13.08 14,14.38C13.39,15.17 13.15,15.73 13.06,16.19C14.19,16.62 15,17.72 15,19A3,3 0 0,1 12,22A3,3 0 0,1 9,19C9,17.72 9.81,16.62 10.94,16.19C10.85,15.73 10.61,15.17 10,14.38C9,13.08 7,11.17 6,9.83C5.36,9 5.13,8.37 5.05,7.85C3.86,7.45 3,6.32 3,5A3,3 0 0,1 6,2M6,4A1,1 0 0,0 5,5A1,1 0 0,0 6,6A1,1 0 0,0 7,5A1,1 0 0,0 6,4M18,4A1,1 0 0,0 17,5A1,1 0 0,0 18,6A1,1 0 0,0 19,5A1,1 0 0,0 18,4M12,18A1,1 0 0,0 11,19A1,1 0 0,0 12,20A1,1 0 0,0 13,19A1,1 0 0,0 12,18Z";
   var mdiStar = "M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z";
   var mdiTagMultiple = "M5.5,9A1.5,1.5 0 0,0 7,7.5A1.5,1.5 0 0,0 5.5,6A1.5,1.5 0 0,0 4,7.5A1.5,1.5 0 0,0 5.5,9M17.41,11.58C17.77,11.94 18,12.44 18,13C18,13.55 17.78,14.05 17.41,14.41L12.41,19.41C12.05,19.77 11.55,20 11,20C10.45,20 9.95,19.78 9.58,19.41L2.59,12.42C2.22,12.05 2,11.55 2,11V6C2,4.89 2.89,4 4,4H9C9.55,4 10.05,4.22 10.41,4.58L17.41,11.58M13.54,5.71L14.54,4.71L21.41,11.58C21.78,11.94 22,12.45 22,13C22,13.55 21.78,14.05 21.42,14.41L16.04,19.79L15.04,18.79L20.75,13L13.54,5.71Z";
   var mdiVideo = "M17,10.5V7A1,1 0 0,0 16,6H4A1,1 0 0,0 3,7V17A1,1 0 0,0 4,18H16A1,1 0 0,0 17,17V13.5L21,17.5V6.5L17,10.5Z";
@@ -549,17 +545,61 @@ var __publicField = (obj, key, value) => {
   var dist = {};
   var Constants = {};
   var require$$0 = {
-    "yande.re": {
-      domain: "yande.re",
+    "e621.net": {
+      domain: "e621.net",
       aliases: [
-        "yd",
-        "yand",
-        "yandere"
+        "e6",
+        "e621"
       ],
       nsfw: true,
       api: {
-        search: "/post.json?",
+        search: "/posts.json?",
         postView: "/post/show/"
+      },
+      random: true
+    },
+    "e926.net": {
+      domain: "e926.net",
+      aliases: [
+        "e9",
+        "e926"
+      ],
+      nsfw: false,
+      api: {
+        search: "/posts.json?",
+        postView: "/post/show/"
+      },
+      random: true,
+      defaultTags: [
+        "rating:safe"
+      ]
+    },
+    "hypnohub.net": {
+      domain: "hypnohub.net",
+      aliases: [
+        "hh",
+        "hypno",
+        "hypnohub"
+      ],
+      nsfw: true,
+      api: {
+        search: "/index.php?page=dapi&s=post&q=index&json=1&",
+        postView: "/post/show/"
+      },
+      paginate: "pid",
+      random: true
+    },
+    "danbooru.donmai.us": {
+      domain: "danbooru.donmai.us",
+      aliases: [
+        "db",
+        "dan",
+        "danbooru"
+      ],
+      nsfw: true,
+      api: {
+        search: "/posts.json?",
+        postView: "/posts/"
       },
       random: true
     },
@@ -589,22 +629,19 @@ var __publicField = (obj, key, value) => {
         search: "/post.json?",
         postView: "/post/show/"
       },
-      random: true,
-      defaultTags: [
-        "rating:safe"
-      ]
+      random: true
     },
-    "danbooru.donmai.us": {
-      domain: "danbooru.donmai.us",
+    "yande.re": {
+      domain: "yande.re",
       aliases: [
-        "db",
-        "dan",
-        "danbooru"
+        "yd",
+        "yand",
+        "yandere"
       ],
       nsfw: true,
       api: {
-        search: "/posts.json?",
-        postView: "/posts/"
+        search: "/post.json?",
+        postView: "/post/show/"
       },
       random: true
     },
@@ -636,32 +673,6 @@ var __publicField = (obj, key, value) => {
       },
       paginate: "pid",
       random: false
-    },
-    "lolibooru.moe": {
-      domain: "lolibooru.moe",
-      aliases: [
-        "loli",
-        "lolibooru"
-      ],
-      nsfw: true,
-      api: {
-        search: "/post.json?",
-        postView: "/post/show/"
-      },
-      random: true
-    },
-    "www.sakugabooru.com": {
-      domain: "www.sakugabooru.com",
-      aliases: [
-        "sakuga",
-        "sakugabooru"
-      ],
-      nsfw: true,
-      api: {
-        search: "/post.json?",
-        postView: "/post/show/"
-      },
-      random: true
     },
     "safebooru.org": {
       domain: "safebooru.org",
@@ -706,35 +717,6 @@ var __publicField = (obj, key, value) => {
       },
       paginate: "pid",
       random: false
-    },
-    "behoimi.org": {
-      domain: "behoimi.org",
-      aliases: [
-        "3d",
-        "3dbooru"
-      ],
-      nsfw: true,
-      api: {
-        search: "/post/index.json?",
-        postView: "/post/show/"
-      },
-      insecure: true,
-      random: true
-    },
-    "hypnohub.net": {
-      domain: "hypnohub.net",
-      aliases: [
-        "hh",
-        "hypno",
-        "hypnohub"
-      ],
-      nsfw: true,
-      api: {
-        search: "/index.php?page=dapi&s=post&q=index&json=1&",
-        postView: "/post/show/"
-      },
-      paginate: "pid",
-      random: true
     },
     "rule34.paheal.net": {
       domain: "rule34.paheal.net",
@@ -781,35 +763,6 @@ var __publicField = (obj, key, value) => {
       },
       paginate: "pid",
       random: false
-    },
-    "e621.net": {
-      domain: "e621.net",
-      aliases: [
-        "e6",
-        "e621"
-      ],
-      nsfw: true,
-      api: {
-        search: "/posts.json?",
-        postView: "/post/show/"
-      },
-      random: true
-    },
-    "e926.net": {
-      domain: "e926.net",
-      aliases: [
-        "e9",
-        "e926"
-      ],
-      nsfw: false,
-      api: {
-        search: "/posts.json?",
-        postView: "/post/show/"
-      },
-      random: true,
-      defaultTags: [
-        "rating:safe"
-      ]
     }
   };
   (function(exports) {
@@ -2108,13 +2061,13 @@ var __publicField = (obj, key, value) => {
     exports.resolveSite = resolveSite, exports.jsonfy = jsonfy, exports.shuffle = shuffle, exports.randInt = randInt, exports.validateSearchParams = validateSearchParams, exports.compareArrays = compareArrays;
   })(Utils$1);
   var Post$1 = {};
-  function parseImageUrl(e, t, i, s = "file") {
+  function parseImageUrl(e, t, i) {
     var _a2;
     if (!e || e.trim() === "" || t.is_deleted)
       return null;
-    if (e.startsWith("/data") && (e = `https://danbooru.donmai.us${e}`), e.startsWith("/cached") && (e = `https://danbooru.donmai.us${e}`), e.startsWith("/_images") && (e = `https://dollbooru.org${e}`), e.startsWith("//derpicdn.net") && (e = `https:${t.image}`), !t[`${s}_url`] && t.directory !== void 0) {
+    if (e.startsWith("/data") && (e = `https://danbooru.donmai.us${e}`), e.startsWith("/cached") && (e = `https://danbooru.donmai.us${e}`), e.startsWith("/_images") && (e = `https://dollbooru.org${e}`), e.startsWith("//derpicdn.net") && (e = `https:${t.image}`), !t.file_url && t.directory !== void 0) {
       const r = (_a2 = t.directory) != null ? _a2 : `${t.hash.substr(0, 2)}/${t.hash.substr(2, 2)}`;
-      e = { preview: `//${i.domain}/thumbnails/${r}/thumbnail_${t.hash}.jpg`, sample: `//${i.domain}/samples/${r}/sample_${t.hash}.jpg`, file: `//${i.domain}/images/${r}/${t.image}` }[s];
+      e = `//${i.domain}/images/${r}/${t.image}`;
     }
     return e.startsWith("http") || (e = `https:${e}`), encodeURI(e);
   }
@@ -2152,7 +2105,7 @@ var __publicField = (obj, key, value) => {
       __publicField(this, "data");
       this.data = e, this.booru = t;
       const i = e.is_deleted || e.is_banned;
-      this.fileUrl = parseImageUrl(e.file_url || e.image || (i ? e.source : void 0) || e.file && e.file.url || e.representations && e.representations.full, e, t), this.available = !i && this.fileUrl !== null, this.height = parseInt(e.height || e.image_height || e.file && e.file.height, 10), this.width = parseInt(e.width || e.image_width || e.file && e.file.width, 10), this.sampleUrl = parseImageUrl(e.sample_url || e.large_file_url || e.representations && e.representations.large || e.sample && e.sample.url || e.image, e, t, "sample"), this.sampleHeight = parseInt(e.sample_height || e.sample && e.sample.height, 10), this.sampleWidth = parseInt(e.sample_width || e.sample && e.sample.width, 10), this.previewUrl = parseImageUrl(e.preview_url || e.preview_file_url && e.preview_file_url.replace(/(.*)preview(.*)jpg/, "$1720x720$2webp") || e.representations && e.representations.small || e.preview && e.preview.url || e.image, e, t, "preview"), this.previewHeight = parseInt(e.preview_height || e.preview && e.preview.height, 10), this.previewWidth = parseInt(e.preview_width || e.preview && e.preview.width, 10), this.id = e.id ? e.id.toString() : "No ID available", this.tags = getTags(e), e.score && e.score.total ? this.score = e.score.total : this.score = e.score ? parseInt(e.score, 10) : e.score, this.source = e.source || e.sources || e.source_url, this.rating = e.rating || /(safe|suggestive|questionable|explicit)/i.exec(e.tags) || "u", Array.isArray(this.rating) && (this.rating = this.rating[0]), this.rating === "suggestive" && (this.rating = "q"), this.rating = this.rating.charAt(0), this.createdAt = null, typeof e.created_at == "object" ? this.createdAt = new Date(1e3 * e.created_at.s + e.created_at.n / 1e9) : typeof e.created_at == "number" ? this.createdAt = new Date(1e3 * e.created_at) : typeof e.change == "number" ? this.createdAt = new Date(1e3 * e.change) : this.createdAt = new Date(e.created_at || e.date);
+      this.fileUrl = parseImageUrl(e.file_url || e.image || (i ? e.source : void 0) || e.file && e.file.url || e.representations && e.representations.full, e, t), this.available = !i && this.fileUrl !== null, this.height = parseInt(e.height || e.image_height || e.file && e.file.height, 10), this.width = parseInt(e.width || e.image_width || e.file && e.file.width, 10), this.sampleUrl = parseImageUrl(e.sample_url || e.large_file_url || e.representations && e.representations.large || e.sample && e.sample.url, e, t), this.sampleHeight = parseInt(e.sample_height || e.sample && e.sample.height, 10), this.sampleWidth = parseInt(e.sample_width || e.sample && e.sample.width, 10), this.previewUrl = parseImageUrl(e.preview_url || e.preview_file_url && e.preview_file_url.replace(/(.*)preview(.*)jpg/, "$1720x720$2webp") || e.representations && e.representations.small || e.preview && e.preview.url, e, t), this.previewHeight = parseInt(e.preview_height || e.preview && e.preview.height, 10), this.previewWidth = parseInt(e.preview_width || e.preview && e.preview.width, 10), this.id = e.id ? e.id.toString() : "No ID available", this.tags = getTags(e), e.score && e.score.total ? this.score = e.score.total : this.score = e.score ? parseInt(e.score, 10) : e.score, this.source = e.source || e.sources || e.source_url, this.rating = e.rating || /(safe|suggestive|questionable|explicit)/i.exec(e.tags) || "u", Array.isArray(this.rating) && (this.rating = this.rating[0]), this.rating === "suggestive" && (this.rating = "q"), this.rating = this.rating.charAt(0), this.createdAt = null, typeof e.created_at == "object" ? this.createdAt = new Date(1e3 * e.created_at.s + e.created_at.n / 1e9) : typeof e.created_at == "number" ? this.createdAt = new Date(1e3 * e.created_at) : typeof e.change == "number" ? this.createdAt = new Date(1e3 * e.change) : this.createdAt = new Date(e.created_at || e.date);
     }
     get isRatingS() {
       return this.rating === "s";
@@ -3733,7 +3686,6 @@ var __publicField = (obj, key, value) => {
       mdiInformationOutline,
       mdiMessageAlertOutline,
       mdiShuffle,
-      mdiSourceFork,
       mdiStar,
       store,
       siteLinks,
@@ -3934,18 +3886,7 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c2("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiGithub))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Github")]), _c2("v-list-item-subtitle", [_vm._v("\u6B22\u8FCE Star \u2606\u5F61")])], 1)], 1), _c2("v-list-item", {
-      attrs: {
-        "link": ""
-      },
-      on: {
-        "click": function($event) {
-          return _vm.openLink("https://github.com/coderzhaoziwei/yande-re-chinese-patch");
-        }
-      }
-    }, [_c2("v-list-item-icon", {
-      staticClass: "mr-2"
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiSourceFork))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Forked from")]), _c2("v-list-item-subtitle", [_vm._v("yande-re-chinese-patch")])], 1)], 1)], 1)], 1);
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiGithub))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Github")]), _c2("v-list-item-subtitle", [_vm._v("\u6B22\u8FCE Star \u2606\u5F61")])], 1)], 1)], 1)], 1);
   };
   var staticRenderFns$6 = [];
   const __cssModules$7 = {};
