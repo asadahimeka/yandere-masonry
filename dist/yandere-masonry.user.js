@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.20.2
+// @version              0.20.3
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout.
 // @author               asadahimeka
@@ -10,15 +10,18 @@
 // @source               https://github.com/asadahimeka/yandere-masonry
 // @icon                 https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/f1f6267537a5aff959ee63ec2c9e4e52_4821140735490026106.jpg
 // @supportURL           https://github.com/asadahimeka/yandere-masonry/issues
-// @match                https://danbooru.donmai.us/*
+// @match                https://yande.re/*
 // @match                https://konachan.com/*
 // @match                https://konachan.net/*
-// @match                https://yande.re/*
+// @match                https://danbooru.donmai.us/*
 // @match                https://gelbooru.com/*
 // @match                https://rule34.xxx/*
+// @match                https://lolibooru.moe/*
+// @match                https://www.sakugabooru.com/*
 // @match                https://safebooru.org/*
 // @match                https://tbib.org/*
 // @match                https://xbooru.com/*
+// @match                http://behoimi.org/*
 // @match                https://rule34.paheal.net/*
 // @match                https://realbooru.com/*
 // @run-at               document-end
@@ -545,61 +548,17 @@ var __publicField = (obj, key, value) => {
   var dist = {};
   var Constants = {};
   var require$$0 = {
-    "e621.net": {
-      domain: "e621.net",
+    "yande.re": {
+      domain: "yande.re",
       aliases: [
-        "e6",
-        "e621"
+        "yd",
+        "yand",
+        "yandere"
       ],
       nsfw: true,
       api: {
-        search: "/posts.json?",
+        search: "/post.json?",
         postView: "/post/show/"
-      },
-      random: true
-    },
-    "e926.net": {
-      domain: "e926.net",
-      aliases: [
-        "e9",
-        "e926"
-      ],
-      nsfw: false,
-      api: {
-        search: "/posts.json?",
-        postView: "/post/show/"
-      },
-      random: true,
-      defaultTags: [
-        "rating:safe"
-      ]
-    },
-    "hypnohub.net": {
-      domain: "hypnohub.net",
-      aliases: [
-        "hh",
-        "hypno",
-        "hypnohub"
-      ],
-      nsfw: true,
-      api: {
-        search: "/index.php?page=dapi&s=post&q=index&json=1&",
-        postView: "/post/show/"
-      },
-      paginate: "pid",
-      random: true
-    },
-    "danbooru.donmai.us": {
-      domain: "danbooru.donmai.us",
-      aliases: [
-        "db",
-        "dan",
-        "danbooru"
-      ],
-      nsfw: true,
-      api: {
-        search: "/posts.json?",
-        postView: "/posts/"
       },
       random: true
     },
@@ -629,19 +588,22 @@ var __publicField = (obj, key, value) => {
         search: "/post.json?",
         postView: "/post/show/"
       },
-      random: true
+      random: true,
+      defaultTags: [
+        "rating:safe"
+      ]
     },
-    "yande.re": {
-      domain: "yande.re",
+    "danbooru.donmai.us": {
+      domain: "danbooru.donmai.us",
       aliases: [
-        "yd",
-        "yand",
-        "yandere"
+        "db",
+        "dan",
+        "danbooru"
       ],
       nsfw: true,
       api: {
-        search: "/post.json?",
-        postView: "/post/show/"
+        search: "/posts.json?",
+        postView: "/posts/"
       },
       random: true
     },
@@ -673,6 +635,32 @@ var __publicField = (obj, key, value) => {
       },
       paginate: "pid",
       random: false
+    },
+    "lolibooru.moe": {
+      domain: "lolibooru.moe",
+      aliases: [
+        "loli",
+        "lolibooru"
+      ],
+      nsfw: true,
+      api: {
+        search: "/post.json?",
+        postView: "/post/show/"
+      },
+      random: true
+    },
+    "www.sakugabooru.com": {
+      domain: "www.sakugabooru.com",
+      aliases: [
+        "sakuga",
+        "sakugabooru"
+      ],
+      nsfw: true,
+      api: {
+        search: "/post.json?",
+        postView: "/post/show/"
+      },
+      random: true
     },
     "safebooru.org": {
       domain: "safebooru.org",
@@ -717,6 +705,35 @@ var __publicField = (obj, key, value) => {
       },
       paginate: "pid",
       random: false
+    },
+    "behoimi.org": {
+      domain: "behoimi.org",
+      aliases: [
+        "3d",
+        "3dbooru"
+      ],
+      nsfw: true,
+      api: {
+        search: "/post/index.json?",
+        postView: "/post/show/"
+      },
+      insecure: true,
+      random: true
+    },
+    "hypnohub.net": {
+      domain: "hypnohub.net",
+      aliases: [
+        "hh",
+        "hypno",
+        "hypnohub"
+      ],
+      nsfw: true,
+      api: {
+        search: "/index.php?page=dapi&s=post&q=index&json=1&",
+        postView: "/post/show/"
+      },
+      paginate: "pid",
+      random: true
     },
     "rule34.paheal.net": {
       domain: "rule34.paheal.net",
@@ -763,6 +780,35 @@ var __publicField = (obj, key, value) => {
       },
       paginate: "pid",
       random: false
+    },
+    "e621.net": {
+      domain: "e621.net",
+      aliases: [
+        "e6",
+        "e621"
+      ],
+      nsfw: true,
+      api: {
+        search: "/posts.json?",
+        postView: "/post/show/"
+      },
+      random: true
+    },
+    "e926.net": {
+      domain: "e926.net",
+      aliases: [
+        "e9",
+        "e926"
+      ],
+      nsfw: false,
+      api: {
+        search: "/posts.json?",
+        postView: "/post/show/"
+      },
+      random: true,
+      defaultTags: [
+        "rating:safe"
+      ]
     }
   };
   (function(exports) {
@@ -2061,13 +2107,13 @@ var __publicField = (obj, key, value) => {
     exports.resolveSite = resolveSite, exports.jsonfy = jsonfy, exports.shuffle = shuffle, exports.randInt = randInt, exports.validateSearchParams = validateSearchParams, exports.compareArrays = compareArrays;
   })(Utils$1);
   var Post$1 = {};
-  function parseImageUrl(e, t, i) {
+  function parseImageUrl(e, t, i, s = "file") {
     var _a2;
     if (!e || e.trim() === "" || t.is_deleted)
       return null;
-    if (e.startsWith("/data") && (e = `https://danbooru.donmai.us${e}`), e.startsWith("/cached") && (e = `https://danbooru.donmai.us${e}`), e.startsWith("/_images") && (e = `https://dollbooru.org${e}`), e.startsWith("//derpicdn.net") && (e = `https:${t.image}`), !t.file_url && t.directory !== void 0) {
+    if (e.startsWith("/data") && (e = `https://danbooru.donmai.us${e}`), e.startsWith("/cached") && (e = `https://danbooru.donmai.us${e}`), e.startsWith("/_images") && (e = `https://dollbooru.org${e}`), e.startsWith("//derpicdn.net") && (e = `https:${t.image}`), !t[`${s}_url`] && t.directory !== void 0) {
       const r = (_a2 = t.directory) != null ? _a2 : `${t.hash.substr(0, 2)}/${t.hash.substr(2, 2)}`;
-      e = `//${i.domain}/images/${r}/${t.image}`;
+      e = { preview: `//${i.domain}/thumbnails/${r}/thumbnail_${t.hash}.jpg`, sample: `//${i.domain}/samples/${r}/sample_${t.hash}.jpg`, file: `//${i.domain}/images/${r}/${t.image}` }[s];
     }
     return e.startsWith("http") || (e = `https:${e}`), encodeURI(e);
   }
@@ -2105,7 +2151,7 @@ var __publicField = (obj, key, value) => {
       __publicField(this, "data");
       this.data = e, this.booru = t;
       const i = e.is_deleted || e.is_banned;
-      this.fileUrl = parseImageUrl(e.file_url || e.image || (i ? e.source : void 0) || e.file && e.file.url || e.representations && e.representations.full, e, t), this.available = !i && this.fileUrl !== null, this.height = parseInt(e.height || e.image_height || e.file && e.file.height, 10), this.width = parseInt(e.width || e.image_width || e.file && e.file.width, 10), this.sampleUrl = parseImageUrl(e.sample_url || e.large_file_url || e.representations && e.representations.large || e.sample && e.sample.url, e, t), this.sampleHeight = parseInt(e.sample_height || e.sample && e.sample.height, 10), this.sampleWidth = parseInt(e.sample_width || e.sample && e.sample.width, 10), this.previewUrl = parseImageUrl(e.preview_url || e.preview_file_url && e.preview_file_url.replace(/(.*)preview(.*)jpg/, "$1720x720$2webp") || e.representations && e.representations.small || e.preview && e.preview.url, e, t), this.previewHeight = parseInt(e.preview_height || e.preview && e.preview.height, 10), this.previewWidth = parseInt(e.preview_width || e.preview && e.preview.width, 10), this.id = e.id ? e.id.toString() : "No ID available", this.tags = getTags(e), e.score && e.score.total ? this.score = e.score.total : this.score = e.score ? parseInt(e.score, 10) : e.score, this.source = e.source || e.sources || e.source_url, this.rating = e.rating || /(safe|suggestive|questionable|explicit)/i.exec(e.tags) || "u", Array.isArray(this.rating) && (this.rating = this.rating[0]), this.rating === "suggestive" && (this.rating = "q"), this.rating = this.rating.charAt(0), this.createdAt = null, typeof e.created_at == "object" ? this.createdAt = new Date(1e3 * e.created_at.s + e.created_at.n / 1e9) : typeof e.created_at == "number" ? this.createdAt = new Date(1e3 * e.created_at) : typeof e.change == "number" ? this.createdAt = new Date(1e3 * e.change) : this.createdAt = new Date(e.created_at || e.date);
+      this.fileUrl = parseImageUrl(e.file_url || e.image || (i ? e.source : void 0) || e.file && e.file.url || e.representations && e.representations.full, e, t), this.available = !i && this.fileUrl !== null, this.height = parseInt(e.height || e.image_height || e.file && e.file.height, 10), this.width = parseInt(e.width || e.image_width || e.file && e.file.width, 10), this.sampleUrl = parseImageUrl(e.sample_url || e.large_file_url || e.representations && e.representations.large || e.sample && e.sample.url || e.image, e, t, "sample"), this.sampleHeight = parseInt(e.sample_height || e.sample && e.sample.height, 10), this.sampleWidth = parseInt(e.sample_width || e.sample && e.sample.width, 10), this.previewUrl = parseImageUrl(e.preview_url || e.preview_file_url && e.preview_file_url.replace(/(.*)preview(.*)jpg/, "$1720x720$2webp") || e.representations && e.representations.small || e.preview && e.preview.url || e.image, e, t, "preview"), this.previewHeight = parseInt(e.preview_height || e.preview && e.preview.height, 10), this.previewWidth = parseInt(e.preview_width || e.preview && e.preview.width, 10), this.id = e.id ? e.id.toString() : "No ID available", this.tags = getTags(e), e.score && e.score.total ? this.score = e.score.total : this.score = e.score ? parseInt(e.score, 10) : e.score, this.source = e.source || e.sources || e.source_url, this.rating = e.rating || /(safe|suggestive|questionable|explicit)/i.exec(e.tags) || "u", Array.isArray(this.rating) && (this.rating = this.rating[0]), this.rating === "suggestive" && (this.rating = "q"), this.rating = this.rating.charAt(0), this.createdAt = null, typeof e.created_at == "object" ? this.createdAt = new Date(1e3 * e.created_at.s + e.created_at.n / 1e9) : typeof e.created_at == "number" ? this.createdAt = new Date(1e3 * e.created_at) : typeof e.change == "number" ? this.createdAt = new Date(1e3 * e.change) : this.createdAt = new Date(e.created_at || e.date);
     }
     get isRatingS() {
       return this.rating === "s";
