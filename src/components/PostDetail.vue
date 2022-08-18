@@ -180,7 +180,7 @@
             class="mr-1"
             color="#ee8888b3"
             text-color="#ffffff"
-            @click.stop="showTagChipGroup = !showTagChipGroup"
+            @click.stop="toggleTagsShow()"
           >
             <v-icon left>{{ mdiTagMultiple }}</v-icon>
             <span>{{ showTagChipGroup ? '隐藏' : '显示' }}</span>
@@ -235,7 +235,12 @@ const innerWidth = ref(window.innerWidth)
 const innerHeight = ref(window.innerHeight)
 const downloading = ref(false)
 const scaleOn = ref(false)
-const showTagChipGroup = ref(store.isYKSite)
+const showTagChipGroup = ref(localStorage.getItem('__showTags') == '1')
+
+const toggleTagsShow = () => {
+  showTagChipGroup.value = !showTagChipGroup.value
+  localStorage.setItem('__showTags', showTagChipGroup.value ? '1' : '')
+}
 
 const imageSelected = computed(() => store.imageList[store.imageSelectedIndex] ?? {})
 const isVideo = computed(() => ['.mp4', '.webm'].some(e => imageSelected.value.fileUrl?.endsWith(e)))
