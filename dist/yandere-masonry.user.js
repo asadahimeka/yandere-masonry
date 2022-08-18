@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.20.3
+// @version              0.20.4
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout.
 // @author               asadahimeka
@@ -99,7 +99,7 @@ var __publicField = (obj, key, value) => {
         container: listEl,
         trueOrder: false,
         waitForImages: false,
-        columns: 5,
+        columns: 6,
         margin: 16,
         breakAt: { 1900: 6, 1600: 5, 1200: 4, 900: 2, 600: 1 }
       });
@@ -4011,7 +4011,11 @@ var __publicField = (obj, key, value) => {
     const innerHeight = VueCompositionAPI2.ref(window.innerHeight);
     const downloading = VueCompositionAPI2.ref(false);
     const scaleOn = VueCompositionAPI2.ref(false);
-    const showTagChipGroup = VueCompositionAPI2.ref(store.isYKSite);
+    const showTagChipGroup = VueCompositionAPI2.ref(localStorage.getItem("__showTags") == "1");
+    const toggleTagsShow = () => {
+      showTagChipGroup.value = !showTagChipGroup.value;
+      localStorage.setItem("__showTags", showTagChipGroup.value ? "1" : "");
+    };
     const imageSelected = VueCompositionAPI2.computed(() => {
       var _a2;
       return (_a2 = store.imageList[store.imageSelectedIndex]) != null ? _a2 : {};
@@ -4153,6 +4157,7 @@ var __publicField = (obj, key, value) => {
       downloading,
       scaleOn,
       showTagChipGroup,
+      toggleTagsShow,
       imageSelected,
       isVideo,
       imgSrc,
@@ -4567,7 +4572,7 @@ var __publicField = (obj, key, value) => {
       on: {
         "click": function($event) {
           $event.stopPropagation();
-          _vm.showTagChipGroup = !_vm.showTagChipGroup;
+          return _vm.toggleTagsShow();
         }
       }
     }, [_c2("v-icon", {
