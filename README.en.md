@@ -64,6 +64,12 @@ https://gelbooru.com/
 
 https://rule34.xxx/
 
+https://lolibooru.moe/
+
+https://www.sakugabooru.com/
+
+http://behoimi.org/
+
 https://safebooru.org/
 
 https://tbib.org/
@@ -107,10 +113,14 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 
 You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
 
+## Credits
+
+Modified from coderzhaoziwei/yande-re-chinese-patch
+
+[Booru Search API](https://github.com/asadahimeka/booru-search) modified from [AtoraSuunva/booru](https://github.com/AtoraSuunva/booru)
+
 ## License
 
-[MIT](https://github.com/asadahimeka/yandere-masonry/blob/main/LICENSE)
+Licensed under the [MIT](https://github.com/asadahimeka/yandere-masonry/blob/main/LICENSE) license
 
-Modified from [yande-re-chinese-patch](https://github.com/coderzhaoziwei/yande-re-chinese-patch)
-
-Thanks [@coderzhaoziwei](https://github.com/coderzhaoziwei)
+Copyright © 2022 Yumine Sakura

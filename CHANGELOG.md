@@ -1,3 +1,7 @@
+## v0.20.4
+
+- fix: 瀑布流模式详情记住标签显示隐藏状态
+
 ## v0.20.2
 
 - fix: 修改 macy 响应列数
@@ -240,4 +244,4 @@
 
 ## v0.0.1
 
-- init: 初版提交，Forked 自 [yande-re-chinese-patch](https://github.com/coderzhaoziwei/yande-re-chinese-patch)
+- init: 初版提交，Forked 自 yande-re-chinese-patch

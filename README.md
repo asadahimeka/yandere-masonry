@@ -48,7 +48,7 @@ Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设
 
 ### 标签中文翻译
 
-添加 Y 站与 K 站标签的中文翻译，翻译文件来自 [yande-re-chinese-patch](https://github.com/coderzhaoziwei/yande-re-chinese-patch/blob/main/source/data/tags.json)
+添加 Y 站与 K 站标签的中文翻译，翻译文件来自 yande-re-chinese-patch
 
 欢迎 [PR](https://github.com/asadahimeka/yandere-masonry/blob/main/src/data/tags_cn.json) 补充或校正翻译
 
@@ -188,7 +188,7 @@ You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/
 
 ## Credits
 
-Modified from [coderzhaoziwei/yande-re-chinese-patch](https://github.com/coderzhaoziwei/yande-re-chinese-patch)
+Modified from coderzhaoziwei/yande-re-chinese-patch
 
 [Booru Search API](https://github.com/asadahimeka/booru-search) modified from [AtoraSuunva/booru](https://github.com/AtoraSuunva/booru)
 
