@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.20.4
+// @version              0.20.5
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout.
 // @author               asadahimeka
@@ -3831,7 +3831,13 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", {
       staticClass: "title"
-    }, [_vm._v("\u7AD9\u70B9\u5217\u8868")])], 1)], 1), _vm._l(_vm.siteLinks, function(link) {
+    }, [_vm._v("\u7AD9\u70B9\u5217\u8868")])], 1)], 1), _c2("v-list-item", {
+      attrs: {
+        "href": "https://www.nanoka.top/illust/pixiv/"
+      }
+    }, [_c2("v-list-item-icon", {
+      staticClass: "mr-2"
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiArrowRightCircleOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Pixiv Ranking")])], 1)], 1), _vm._l(_vm.siteLinks, function(link) {
       return _c2("v-list-item", {
         key: link,
         attrs: {
