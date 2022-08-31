@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.21.0
+// @version              0.21.1
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout.
 // @author               asadahimeka
@@ -3936,7 +3936,7 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c2("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiWeb))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("v" + _vm._s(_vm.version))]), _c2("v-list-item-subtitle", [_vm._v("Web \u9884\u89C8\u7248\u672C")])], 1)], 1), _c2("v-list-item", {
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiWeb))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Web \u9884\u89C8\u7248\u672C")]), _c2("v-list-item-subtitle", [_vm._v("\u70B9\u51FB\u67E5\u770B")])], 1)], 1), _c2("v-list-item", {
       attrs: {
         "link": ""
       },

@@ -164,8 +164,8 @@
           <v-icon>{{ mdiWeb }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>v{{ version }}</v-list-item-title>
-          <v-list-item-subtitle>Web 预览版本</v-list-item-subtitle>
+          <v-list-item-title>Web 预览版本</v-list-item-title>
+          <v-list-item-subtitle>点击查看</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-list-item link @click="openLink('https://github.com/asadahimeka/yandere-masonry/issues')">
