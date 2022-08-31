@@ -76,21 +76,22 @@ export const searchPosts = async () => {
   }
 }
 
-const calcFetchTimes = () => {
-  const vcont = document.querySelector('._vcont')
-  const cnth = vcont?.clientHeight
-  const doch = document.documentElement.clientHeight
-  return cnth ? Math.floor(doch / cnth) : 1
-}
+// const calcFetchTimes = () => {
+//   const vcont = document.querySelector('._vcont')
+//   const cnth = vcont?.clientHeight
+//   const doch = document.documentElement.clientHeight
+//   return cnth ? Math.floor(doch / cnth) : 1
+// }
 
 export const initPosts = async () => {
   await searchPosts()
   if (store.requestStop) return
   if (location.href.includes('safebooru')) return
-  const times = calcFetchTimes()
-  for (let index = 0; index < times; index++) {
-    await searchPosts()
-  }
+  await searchPosts()
+  // const times = calcFetchTimes()
+  // for (let index = 0; index < times; index++) {
+  //   await searchPosts()
+  // }
 }
 
 export const refreshPosts = () => {
