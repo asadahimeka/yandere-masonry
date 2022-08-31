@@ -24,6 +24,8 @@ Sleazy Fork: [点击安装](https://sleazyfork.org/scripts/444885)
 
 GitHub 仓库文件: [点击安装](https://github.com/asadahimeka/yandere-masonry/raw/main/dist/yandere-masonry.user.js)
 
+Web 端预览版本: [点击查看](https://booru.vercel.app/)
+
 ## Tips
 
 Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设置 cookie 里的 `locale` 项来指定界面语言
