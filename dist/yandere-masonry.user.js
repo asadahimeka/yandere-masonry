@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.20.5
+// @version              0.21.0
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout.
 // @author               asadahimeka
@@ -344,6 +344,7 @@ var __publicField = (obj, key, value) => {
   var mdiTagMultiple = "M5.5,9A1.5,1.5 0 0,0 7,7.5A1.5,1.5 0 0,0 5.5,6A1.5,1.5 0 0,0 4,7.5A1.5,1.5 0 0,0 5.5,9M17.41,11.58C17.77,11.94 18,12.44 18,13C18,13.55 17.78,14.05 17.41,14.41L12.41,19.41C12.05,19.77 11.55,20 11,20C10.45,20 9.95,19.78 9.58,19.41L2.59,12.42C2.22,12.05 2,11.55 2,11V6C2,4.89 2.89,4 4,4H9C9.55,4 10.05,4.22 10.41,4.58L17.41,11.58M13.54,5.71L14.54,4.71L21.41,11.58C21.78,11.94 22,12.45 22,13C22,13.55 21.78,14.05 21.42,14.41L16.04,19.79L15.04,18.79L20.75,13L13.54,5.71Z";
   var mdiVideo = "M17,10.5V7A1,1 0 0,0 16,6H4A1,1 0 0,0 3,7V17A1,1 0 0,0 4,18H16A1,1 0 0,0 17,17V13.5L21,17.5V6.5L17,10.5Z";
   var mdiViewDashboardVariant = "M2,5V19H8V5H2M9,5V10H15V5H9M16,5V14H22V5H16M9,11V19H15V11H9M16,15V19H22V15H16Z";
+  var mdiWeb = "M16.36,14C16.44,13.34 16.5,12.68 16.5,12C16.5,11.32 16.44,10.66 16.36,10H19.74C19.9,10.64 20,11.31 20,12C20,12.69 19.9,13.36 19.74,14M14.59,19.56C15.19,18.45 15.65,17.25 15.97,16H18.92C17.96,17.65 16.43,18.93 14.59,19.56M14.34,14H9.66C9.56,13.34 9.5,12.68 9.5,12C9.5,11.32 9.56,10.65 9.66,10H14.34C14.43,10.65 14.5,11.32 14.5,12C14.5,12.68 14.43,13.34 14.34,14M12,19.96C11.17,18.76 10.5,17.43 10.09,16H13.91C13.5,17.43 12.83,18.76 12,19.96M8,8H5.08C6.03,6.34 7.57,5.06 9.4,4.44C8.8,5.55 8.35,6.75 8,8M5.08,16H8C8.35,17.25 8.8,18.45 9.4,19.56C7.57,18.93 6.03,17.65 5.08,16M4.26,14C4.1,13.36 4,12.69 4,12C4,11.31 4.1,10.64 4.26,10H7.64C7.56,10.66 7.5,11.32 7.5,12C7.5,12.68 7.56,13.34 7.64,14M12,4.03C12.83,5.23 13.5,6.57 13.91,8H10.09C10.5,6.57 11.17,5.23 12,4.03M18.92,8H15.97C15.65,6.75 15.19,5.55 14.59,4.44C16.43,5.07 17.96,6.34 18.92,8M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z";
   const ykFlag = ["konachan", "yande.re"].some((e) => location.href.includes(e));
   const poolFlag = location.pathname == "/pool";
   const store = Vue__default["default"].observable({
@@ -2695,22 +2696,13 @@ var __publicField = (obj, key, value) => {
       store.requestState = false;
     }
   };
-  const calcFetchTimes = () => {
-    const vcont = document.querySelector("._vcont");
-    const cnth = vcont == null ? void 0 : vcont.clientHeight;
-    const doch = document.documentElement.clientHeight;
-    return cnth ? Math.floor(doch / cnth) : 1;
-  };
   const initPosts = async () => {
     await searchPosts();
     if (store.requestStop)
       return;
     if (location.href.includes("safebooru"))
       return;
-    const times = calcFetchTimes();
-    for (let index = 0; index < times; index++) {
-      await searchPosts();
-    }
+    await searchPosts();
   };
   const refreshPosts = () => {
     page = 1;
@@ -3733,6 +3725,7 @@ var __publicField = (obj, key, value) => {
       mdiMessageAlertOutline,
       mdiShuffle,
       mdiStar,
+      mdiWeb,
       store,
       siteLinks,
       userName,
@@ -3831,13 +3824,7 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", {
       staticClass: "title"
-    }, [_vm._v("\u7AD9\u70B9\u5217\u8868")])], 1)], 1), _c2("v-list-item", {
-      attrs: {
-        "href": "https://www.nanoka.top/illust/pixiv/"
-      }
-    }, [_c2("v-list-item-icon", {
-      staticClass: "mr-2"
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiArrowRightCircleOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Pixiv Ranking")])], 1)], 1), _vm._l(_vm.siteLinks, function(link) {
+    }, [_vm._v("\u7AD9\u70B9\u5217\u8868")])], 1)], 1), _vm._l(_vm.siteLinks, function(link) {
       return _c2("v-list-item", {
         key: link,
         attrs: {
@@ -3846,7 +3833,29 @@ var __publicField = (obj, key, value) => {
       }, [_c2("v-list-item-icon", {
         staticClass: "mr-2"
       }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiArrowRightCircleOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(link.toUpperCase()))])], 1)], 1);
-    })], 2), _c2("v-list", {
+    }), _c2("v-divider"), _c2("v-list-item", {
+      attrs: {
+        "link": ""
+      },
+      on: {
+        "click": function($event) {
+          return _vm.openLink("https://www.nanoka.top/illust/pixiv/");
+        }
+      }
+    }, [_c2("v-list-item-icon", {
+      staticClass: "mr-2"
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiArrowRightCircleOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Pixiv Ranking")])], 1)], 1), _c2("v-list-item", {
+      attrs: {
+        "link": ""
+      },
+      on: {
+        "click": function($event) {
+          return _vm.openLink("https://pixiv.kanata.ml");
+        }
+      }
+    }, [_c2("v-list-item-icon", {
+      staticClass: "mr-2"
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiArrowRightCircleOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Pixiv Viewer")])], 1)], 1)], 2), _c2("v-list", {
       attrs: {
         "dense": "",
         "nav": ""
@@ -3917,6 +3926,17 @@ var __publicField = (obj, key, value) => {
     }, [_c2("v-list-item-icon", {
       staticClass: "mr-2"
     }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiInformationOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("v" + _vm._s(_vm.version))]), _c2("v-list-item-subtitle", [_vm._v("\u66F4\u65B0\u65E5\u5FD7")])], 1)], 1), _c2("v-list-item", {
+      attrs: {
+        "link": ""
+      },
+      on: {
+        "click": function($event) {
+          return _vm.openLink("https://booru.kanata.ml");
+        }
+      }
+    }, [_c2("v-list-item-icon", {
+      staticClass: "mr-2"
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiWeb))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("v" + _vm._s(_vm.version))]), _c2("v-list-item-subtitle", [_vm._v("Web \u9884\u89C8\u7248\u672C")])], 1)], 1), _c2("v-list-item", {
       attrs: {
         "link": ""
       },
