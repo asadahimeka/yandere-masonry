@@ -97,7 +97,7 @@
               class="mr-1"
               v-bind="attrs"
               v-on="on"
-              @click.stop="scaleOn = !scaleOn"
+              @click.stop="viewLargeImg()"
             >
               <v-icon>{{ scaleOn ? mdiMagnifyMinusOutline : mdiMagnifyPlusOutline }}</v-icon>
             </v-btn>
@@ -169,8 +169,8 @@
       </v-toolbar>
       <d-player v-if="isVideo" style="width: 100%;" :options="{ theme: '#ee8888', autoplay: true, video: { url: imageSelected.fileUrl } }" />
       <!-- <video v-if="isVideo" controls style="width: 100%;" :src="imageSelected.fileUrl ?? void 0"></video> -->
-      <div v-show="!isVideo" class="img_scale_scroll">
-        <img :src="scaleOn ? imageSelected.fileUrl ?? void 0 : void 0" alt="">
+      <div v-show="!isVideo" class="img_scale_scroll" draggable="false">
+        <img :src="scaleOn ? imageSelected.fileUrl ?? void 0 : void 0" draggable="false" alt="">
       </div>
       <div v-show="!isVideo && showImageToolbar" class="hidden-sm-and-down">
         <div style="position: absolute;bottom: 12px;padding: 0 12px;">
@@ -226,7 +226,7 @@ import {
 } from '@mdi/js'
 import { computed, onMounted, ref, watch } from '@vue/composition-api'
 import DPlayer from './DPlayer.vue'
-import { downloadFile, isURL, showMsg } from '@/utils'
+import { downloadFile, dragElement, isURL, showMsg } from '@/utils'
 import { type PostDetail, addPostToFavorites, getPostDetail } from '@/api/moebooru'
 import store from '@/store'
 
@@ -272,6 +272,7 @@ const notYKSite = computed(() => {
 })
 
 const toggleToolbar = () => {
+  if (scaleOn.value) return
   showImageToolbar.value = !showImageToolbar.value
 }
 
@@ -349,6 +350,16 @@ const showNextPost = async () => {
 
 const onImageLoadError = () => {
   imageSelected.value.sampleUrl = null
+}
+
+let clearDragEv: (() => void) | undefined
+const viewLargeImg = () => {
+  scaleOn.value = !scaleOn.value
+  if (scaleOn.value) {
+    clearDragEv = dragElement('.img_scale_scroll', 'img')
+  } else {
+    clearDragEv?.()
+  }
 }
 
 watch(() => store.showImageSelected, async val => {

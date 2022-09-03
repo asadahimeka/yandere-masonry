@@ -77,3 +77,51 @@ export function subDate(num: number, duration: string, date?: Date) {
   const res = sub(date || new Date(), { [duration]: num })
   return formatDate(res)
 }
+
+export function dragElement(sel: string, childSel: string) {
+  const cont = document.querySelector<HTMLElement>(sel)
+  if (!cont) return
+  const el = cont.querySelector<HTMLElement>(childSel)
+  if (!el) return
+
+  let prevPos: number[] = []
+  let needForRAF = true
+
+  const onMouseDown = (e: MouseEvent) => {
+    if (e.which !== 1) return
+    let left: number
+    let top: number
+    const elScroller = (e: MouseEvent) => {
+      if (needForRAF) {
+        needForRAF = false
+        const x = e.clientX
+        const y = e.clientY
+        left = cont.scrollLeft + (prevPos[0] - x)
+        top = cont.scrollTop + (prevPos[1] - y)
+        prevPos[0] = x
+        prevPos[1] = y
+        requestAnimationFrame(() => {
+          cont.scroll({ left, top })
+          needForRAF = true
+        })
+      }
+      return false
+    }
+    el.style.cursor = 'move'
+    prevPos = [e.clientX, e.clientY]
+    window.addEventListener('mousemove', elScroller)
+    const onMouseUp = () => {
+      window.removeEventListener('mousemove', elScroller)
+      el.style.cursor = 'auto'
+      window.removeEventListener('mouseup', onMouseUp)
+      return false
+    }
+    window.addEventListener('mouseup', onMouseUp)
+    return false
+  }
+  el.addEventListener('mousedown', onMouseDown)
+
+  return () => {
+    el.removeEventListener('mousedown', onMouseDown)
+  }
+}
