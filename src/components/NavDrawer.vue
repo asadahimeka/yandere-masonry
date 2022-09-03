@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="store.showDrawer" app temporary>
+  <v-navigation-drawer v-model="store.showDrawer" class="nav_drawer" app temporary>
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="title">Booru Masonry</v-list-item-title>

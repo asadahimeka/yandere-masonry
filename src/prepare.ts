@@ -177,7 +177,7 @@ function replaceHead() {
     <link rel="stylesheet" href="https://lib.baomitu.com/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://lib.baomitu.com/vuetify/2.6.6/vuetify.min.css">
-    <style>${customStyle}::-webkit-scrollbar{width:0px}</style>
+    <style>${customStyle}</style>
   `
 }
 
