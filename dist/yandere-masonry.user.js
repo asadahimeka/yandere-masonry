@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
-// @version              0.21.1
-// @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
+// @version              0.22.0
+// @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru、gelbooru、rule34 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout.
 // @author               asadahimeka
 // @namespace            me.asadahimeka.yanderemasonry
@@ -58,7 +58,7 @@ var __publicField = (obj, key, value) => {
 (() => {
   var ydStyle = 'a.thumb{padding-bottom:5px;border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08] "}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743] "}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272] "}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2] "}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:100%;height:auto;margin-top:0;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}\n';
   var knStyle = "#lsidebar{display:none}#post-popular ul#post-list-posts{display:flex;justify-content:center;flex-wrap:wrap}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
-  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_scale_on{width:auto!important;max-width:100vw!important;max-height:100vh!important;margin:0;padding:12px;overflow:auto}.img_detail_scale_on .v-image{display:block;max-height:100vh;margin:0 auto}.img_detail_scale_on .v-responsive__sizer,.img_detail_scale_on .v-image__image{display:none}.img_detail_scale_on .v-responsive__content{position:relative;width:auto!important;max-width:100vw!important;max-height:100vh;margin:0!important}.img_scale_scroll{display:none}.img_detail_scale_on .img_scale_scroll{display:block;max-width:100vw;max-height:calc(100vh - 30px);overflow:auto}.img_scale_scroll::-webkit-scrollbar{width:10px;height:10px}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}\n';
+  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_scale_on{width:auto!important;max-width:100vw!important;max-height:100vh!important;margin:0;padding:12px;overflow:auto}.img_detail_scale_on .v-image{display:block;max-height:100vh;margin:0 auto}.img_detail_scale_on .v-responsive__sizer,.img_detail_scale_on .v-image__image{display:none}.img_detail_scale_on .v-responsive__content{position:relative;width:auto!important;max-width:100vw!important;max-height:100vh;margin:0!important}.img_scale_scroll{display:none}.img_detail_scale_on .img_scale_scroll{display:block;min-width:500px;min-height:500px;max-width:100vw;max-height:calc(100vh - 30px);overflow:auto}::-webkit-scrollbar{width:0px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #fff;border-radius:7px}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}\n';
   async function prepareApp(callback) {
     if (doNotRun())
       return;
@@ -240,7 +240,7 @@ var __publicField = (obj, key, value) => {
     <link rel="stylesheet" href="https://lib.baomitu.com/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://lib.baomitu.com/vuetify/2.6.6/vuetify.min.css">
-    <style>${customStyle}::-webkit-scrollbar{width:0px}</style>
+    <style>${customStyle}</style>
   `;
   }
   function replaceBody() {
@@ -544,6 +544,53 @@ var __publicField = (obj, key, value) => {
   function subDate(num, duration, date) {
     const res = sub(date || new Date(), { [duration]: num });
     return formatDate(res);
+  }
+  function dragElement(sel, childSel) {
+    const cont = document.querySelector(sel);
+    if (!cont)
+      return;
+    const el = cont.querySelector(childSel);
+    if (!el)
+      return;
+    let prevPos = [];
+    let needForRAF = true;
+    const onMouseDown = (e) => {
+      if (e.which !== 1)
+        return;
+      let left;
+      let top;
+      const elScroller = (e2) => {
+        if (needForRAF) {
+          needForRAF = false;
+          const x = e2.clientX;
+          const y = e2.clientY;
+          left = cont.scrollLeft + (prevPos[0] - x);
+          top = cont.scrollTop + (prevPos[1] - y);
+          prevPos[0] = x;
+          prevPos[1] = y;
+          requestAnimationFrame(() => {
+            cont.scroll({ left, top });
+            needForRAF = true;
+          });
+        }
+        return false;
+      };
+      el.style.cursor = "move";
+      prevPos = [e.clientX, e.clientY];
+      window.addEventListener("mousemove", elScroller);
+      const onMouseUp = () => {
+        window.removeEventListener("mousemove", elScroller);
+        el.style.cursor = "auto";
+        window.removeEventListener("mouseup", onMouseUp);
+        return false;
+      };
+      window.addEventListener("mouseup", onMouseUp);
+      return false;
+    };
+    el.addEventListener("mousedown", onMouseDown);
+    return () => {
+      el.removeEventListener("mousedown", onMouseDown);
+    };
   }
   var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
   var dist = {};
@@ -3741,6 +3788,7 @@ var __publicField = (obj, key, value) => {
     var _h = _vm.$createElement;
     var _c2 = _vm._self._c || _h;
     return _c2("v-navigation-drawer", {
+      staticClass: "nav_drawer",
       attrs: {
         "app": "",
         "temporary": ""
@@ -3925,7 +3973,7 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c2("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiInformationOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("v" + _vm._s(_vm.version))]), _c2("v-list-item-subtitle", [_vm._v("\u66F4\u65B0\u65E5\u5FD7")])], 1)], 1), _c2("v-list-item", {
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiInformationOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("v" + _vm._s(_vm.version))]), _c2("v-list-item-subtitle", [_vm._v("\u67E5\u770B\u66F4\u65B0\u65E5\u5FD7")])], 1)], 1), _c2("v-list-item", {
       attrs: {
         "link": ""
       },
@@ -3947,7 +3995,7 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c2("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiMessageAlertOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u53CD\u9988")]), _c2("v-list-item-subtitle", [_vm._v("\u95EE\u9898\u4E0E\u5EFA\u8BAE")])], 1)], 1), _c2("v-list-item", {
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiMessageAlertOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u95EE\u9898\u4E0E\u5EFA\u8BAE")]), _c2("v-list-item-subtitle", [_vm._v("\u70B9\u51FB\u53CD\u9988")])], 1)], 1), _c2("v-list-item", {
       attrs: {
         "link": ""
       },
@@ -4072,6 +4120,8 @@ var __publicField = (obj, key, value) => {
       return ["konachan", "yande"].every((e) => !location.host.includes(e));
     });
     const toggleToolbar = () => {
+      if (scaleOn.value)
+        return;
       showImageToolbar.value = !showImageToolbar.value;
     };
     const toTagsPage = (tag) => {
@@ -4151,6 +4201,15 @@ var __publicField = (obj, key, value) => {
     const onImageLoadError = () => {
       imageSelected.value.sampleUrl = null;
     };
+    let clearDragEv;
+    const viewLargeImg = () => {
+      scaleOn.value = !scaleOn.value;
+      if (scaleOn.value) {
+        clearDragEv = dragElement(".img_scale_scroll", "img");
+      } else {
+        clearDragEv == null ? void 0 : clearDragEv();
+      }
+    };
     VueCompositionAPI2.watch(() => store.showImageSelected, async (val) => {
       if (!val) {
         scaleOn.value = false;
@@ -4201,7 +4260,8 @@ var __publicField = (obj, key, value) => {
       addFavorite,
       showPrevPost,
       showNextPost,
-      onImageLoadError
+      onImageLoadError,
+      viewLargeImg
     };
   };
   __sfc_main$5.components = Object.assign({
@@ -4392,12 +4452,12 @@ var __publicField = (obj, key, value) => {
             on: {
               "click": function($event) {
                 $event.stopPropagation();
-                _vm.scaleOn = !_vm.scaleOn;
+                return _vm.viewLargeImg();
               }
             }
           }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.scaleOn ? _vm.mdiMagnifyMinusOutline : _vm.mdiMagnifyPlusOutline))])], 1)];
         }
-      }], null, false, 3598500622)
+      }], null, false, 3669890410)
     }, [_c2("span", [_vm._v(_vm._s(_vm.scaleOn ? "\u7F29\u5C0F" : "\u67E5\u770B\u539F\u56FE"))])]) : _vm._e(), _c2("v-menu", {
       attrs: {
         "dense": "",
@@ -4562,10 +4622,14 @@ var __publicField = (obj, key, value) => {
         value: !_vm.isVideo,
         expression: "!isVideo"
       }],
-      staticClass: "img_scale_scroll"
+      staticClass: "img_scale_scroll",
+      attrs: {
+        "draggable": "false"
+      }
     }, [_c2("img", {
       attrs: {
         "src": _vm.scaleOn ? (_vm$imageSelected$fil = _vm.imageSelected.fileUrl) !== null && _vm$imageSelected$fil !== void 0 ? _vm$imageSelected$fil : void 0 : void 0,
+        "draggable": "false",
         "alt": ""
       }
     })]), _c2("div", {

@@ -156,7 +156,7 @@
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>v{{ version }}</v-list-item-title>
-          <v-list-item-subtitle>更新日志</v-list-item-subtitle>
+          <v-list-item-subtitle>查看更新日志</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-list-item link @click="openLink('https://booru.kanata.ml')">
@@ -173,8 +173,8 @@
           <v-icon>{{ mdiMessageAlertOutline }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>反馈</v-list-item-title>
-          <v-list-item-subtitle>问题与建议</v-list-item-subtitle>
+          <v-list-item-title>问题与建议</v-list-item-title>
+          <v-list-item-subtitle>点击反馈</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-list-item link @click="openLink('https://github.com/asadahimeka/yandere-masonry')">
