@@ -1,34 +1,23 @@
 // ==UserScript==
-// @name                 Yande.re 瀑布流浏览
-// @version              0.22.0
-// @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru、gelbooru、rule34 等)
-// @description:en       Yande.re/Konachan Masonry(Waterfall) Layout.
+// @name                 Yande.re 瀑布流浏览 (SFW 版)
+// @version              0.23.0
+// @description          Yande.re 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
+// @description:en       Yande.re/Konachan Masonry(Waterfall) Layout SFW version.
 // @author               asadahimeka
-// @namespace            me.asadahimeka.yanderemasonry
+// @namespace            me.asadahimeka.yanderemasonrysfw
 // @license              MIT
 // @homepage             https://www.nanoka.top
-// @source               https://github.com/asadahimeka/yandere-masonry
-// @icon                 https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/f1f6267537a5aff959ee63ec2c9e4e52_4821140735490026106.jpg
+// @source               https://github.com/asadahimeka/yandere-masonry/tree/sfw
+// @icon                 https://upload-bbs.mihoyo.com/upload/2022/09/04/190122060/b318139785924f0de881d3ecbb27f418_1279470952178910763.jpg
 // @supportURL           https://github.com/asadahimeka/yandere-masonry/issues
 // @match                https://yande.re/*
-// @match                https://konachan.com/*
-// @match                https://konachan.net/*
-// @match                https://danbooru.donmai.us/*
-// @match                https://gelbooru.com/*
-// @match                https://rule34.xxx/*
 // @match                https://lolibooru.moe/*
 // @match                https://www.sakugabooru.com/*
 // @match                https://safebooru.org/*
-// @match                https://tbib.org/*
-// @match                https://xbooru.com/*
-// @match                http://behoimi.org/*
-// @match                https://rule34.paheal.net/*
-// @match                https://realbooru.com/*
 // @run-at               document-end
 // @grant                GM_addStyle
 // @grant                unsafeWindow
 // @grant                GM_addElement
-// @grant                GM_info
 // @grant                GM_download
 // ==/UserScript==
 
@@ -311,25 +300,17 @@ var __publicField = (obj, key, value) => {
   var mdiCalendarToday = "M7,10H12V15H7M19,19H5V8H19M19,3H18V1H16V3H8V1H6V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3Z";
   var mdiCalendarWeek = "M6 1H8V3H16V1H18V3H19C20.11 3 21 3.9 21 5V19C21 20.11 20.11 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.89 3.89 3 5 3H6V1M5 8V19H19V8H5M7 10H17V12H7V10Z";
   var mdiCheckCircle = "M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z";
-  var mdiCheckUnderlineCircle = "M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M17,18H7V16H17V18M10.3,14L7,10.7L8.4,9.3L10.3,11.2L15.6,5.9L17,7.3L10.3,14Z";
-  var mdiCheckboxBlankOutline = "M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,5V19H5V5H19Z";
-  var mdiCheckboxIntermediate = "M19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V5H19V19M17,17H7V7H17V17Z";
-  var mdiCheckboxMarked = "M10,17L5,12L6.41,10.58L10,14.17L17.59,6.58L19,8M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z";
   var mdiChevronLeft = "M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z";
   var mdiChevronRight = "M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z";
   var mdiClose = "M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z";
   var mdiCloseCircle = "M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M15.59,7L12,10.59L8.41,7L7,8.41L10.59,12L7,15.59L8.41,17L12,13.41L15.59,17L17,15.59L13.41,12L17,8.41L15.59,7Z";
-  var mdiDelete = "M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z";
   var mdiDownload = "M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z";
-  var mdiFileClockOutline = "M4 2A2 2 0 0 0 2 4V20A2 2 0 0 0 4 22H12.41A7 7 0 0 0 16 23A7 7 0 0 0 23 16A7 7 0 0 0 18 9.3V8L12 2H4M4 4H11V9H16A7 7 0 0 0 9 16A7 7 0 0 0 10.26 20H4V4M16 11A5 5 0 0 1 21 16A5 5 0 0 1 16 21A5 5 0 0 1 11 16A5 5 0 0 1 16 11M15 12V17L18.61 19.16L19.36 17.94L16.5 16.25V12H15Z";
   var mdiFileGifBox = "M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3M10 10.5H7.5V13.5H8.5V12H10V13.7C10 14.4 9.5 15 8.7 15H7.3C6.5 15 6 14.3 6 13.7V10.4C6 9.7 6.5 9 7.3 9H8.6C9.5 9 10 9.7 10 10.3V10.5M13 15H11.5V9H13V15M17.5 10.5H16V11.5H17.5V13H16V15H14.5V9H17.5V10.5Z";
   var mdiFire = "M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z";
   var mdiGithub = "M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z";
   var mdiHeart = "M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z";
   var mdiHeartPlusOutline = "M12.67 20.74L12 21.35L10.55 20.03C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5C22 9.93 21.5 11.26 20.62 12.61C20 12.31 19.31 12.11 18.59 12.04C19.5 10.8 20 9.65 20 8.5C20 6.5 18.5 5 16.5 5C14.96 5 13.46 6 12.93 7.36H11.07C10.54 6 9.04 5 7.5 5C5.5 5 4 6.5 4 8.5C4 11.39 7.14 14.24 11.89 18.55L12 18.65L12.04 18.61C12.12 19.37 12.34 20.09 12.67 20.74M17 14V17H14V19H17V22H19V19H22V17H19V14H17Z";
   var mdiHome = "M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z";
-  var mdiImageMultiple = "M22,16V4A2,2 0 0,0 20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16M11,12L13.03,14.71L16,11L20,16H8M2,6V20A2,2 0 0,0 4,22H18V20H4V6";
-  var mdiInformationOutline = "M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z";
   var mdiLaunch = "M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z";
   var mdiLinkVariant = "M10.59,13.41C11,13.8 11,14.44 10.59,14.83C10.2,15.22 9.56,15.22 9.17,14.83C7.22,12.88 7.22,9.71 9.17,7.76V7.76L12.71,4.22C14.66,2.27 17.83,2.27 19.78,4.22C21.73,6.17 21.73,9.34 19.78,11.29L18.29,12.78C18.3,11.96 18.17,11.14 17.89,10.36L18.36,9.88C19.54,8.71 19.54,6.81 18.36,5.64C17.19,4.46 15.29,4.46 14.12,5.64L10.59,9.17C9.41,10.34 9.41,12.24 10.59,13.41M13.41,9.17C13.8,8.78 14.44,8.78 14.83,9.17C16.78,11.12 16.78,14.29 14.83,16.24V16.24L11.29,19.78C9.34,21.73 6.17,21.73 4.22,19.78C2.27,17.83 2.27,14.66 4.22,12.71L5.71,11.22C5.7,12.04 5.83,12.86 6.11,13.65L5.64,14.12C4.46,15.29 4.46,17.19 5.64,18.36C6.81,19.54 8.71,19.54 9.88,18.36L13.41,14.83C14.59,13.66 14.59,11.76 13.41,10.59C13,10.2 13,9.56 13.41,9.17Z";
   var mdiLocationExit = "M22 12L18 8V11H10V13H18V16M20 18A10 10 0 1 1 20 6H17.27A8 8 0 1 0 17.27 18Z";
@@ -339,11 +320,11 @@ var __publicField = (obj, key, value) => {
   var mdiMessageAlertOutline = "M13,10H11V6H13V10M13,12H11V14H13V12M22,4V16A2,2 0 0,1 20,18H6L2,22V4A2,2 0 0,1 4,2H20A2,2 0 0,1 22,4M20,4H4V17.2L5.2,16H20V4Z";
   var mdiPlaylistPlus = "M3 16H10V14H3M18 14V10H16V14H12V16H16V20H18V16H22V14M14 6H3V8H14M14 10H3V12H14V10Z";
   var mdiRefresh = "M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z";
+  var mdiScriptTextPlayOutline = "M9 14H14V15.7C13.9 15.8 13.9 15.9 13.8 16H9V14M9 12H14V10H9V12M9 8H14V6H9V8M7 5C7 4.4 7.4 4 8 4H16V13.8C16.6 13.4 17.3 13.2 18 13.1V5C18 4.4 18.4 4 19 4S20 4.4 20 5V6H22V5C22 3.3 20.7 2 19 2H8C6.3 2 5 3.3 5 5V16H7V5M13 19V18.4 18H2V19C2 20.7 3.3 22 5 22H13.8C13.3 21.1 13 20.1 13 19M17 16V22L22 19L17 16Z";
   var mdiShuffle = "M14.83,13.41L13.42,14.82L16.55,17.95L14.5,20H20V14.5L17.96,16.54L14.83,13.41M14.5,4L16.54,6.04L4,18.59L5.41,20L17.96,7.46L20,9.5V4M10.59,9.17L5.41,4L4,5.41L9.17,10.58L10.59,9.17Z";
   var mdiStar = "M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z";
   var mdiTagMultiple = "M5.5,9A1.5,1.5 0 0,0 7,7.5A1.5,1.5 0 0,0 5.5,6A1.5,1.5 0 0,0 4,7.5A1.5,1.5 0 0,0 5.5,9M17.41,11.58C17.77,11.94 18,12.44 18,13C18,13.55 17.78,14.05 17.41,14.41L12.41,19.41C12.05,19.77 11.55,20 11,20C10.45,20 9.95,19.78 9.58,19.41L2.59,12.42C2.22,12.05 2,11.55 2,11V6C2,4.89 2.89,4 4,4H9C9.55,4 10.05,4.22 10.41,4.58L17.41,11.58M13.54,5.71L14.54,4.71L21.41,11.58C21.78,11.94 22,12.45 22,13C22,13.55 21.78,14.05 21.42,14.41L16.04,19.79L15.04,18.79L20.75,13L13.54,5.71Z";
   var mdiVideo = "M17,10.5V7A1,1 0 0,0 16,6H4A1,1 0 0,0 3,7V17A1,1 0 0,0 4,18H16A1,1 0 0,0 17,17V13.5L21,17.5V6.5L17,10.5Z";
-  var mdiViewDashboardVariant = "M2,5V19H8V5H2M9,5V10H15V5H9M16,5V14H22V5H16M9,11V19H15V11H9M16,15V19H22V15H16Z";
   var mdiWeb = "M16.36,14C16.44,13.34 16.5,12.68 16.5,12C16.5,11.32 16.44,10.66 16.36,10H19.74C19.9,10.64 20,11.31 20,12C20,12.69 19.9,13.36 19.74,14M14.59,19.56C15.19,18.45 15.65,17.25 15.97,16H18.92C17.96,17.65 16.43,18.93 14.59,19.56M14.34,14H9.66C9.56,13.34 9.5,12.68 9.5,12C9.5,11.32 9.56,10.65 9.66,10H14.34C14.43,10.65 14.5,11.32 14.5,12C14.5,12.68 14.43,13.34 14.34,14M12,19.96C11.17,18.76 10.5,17.43 10.09,16H13.91C13.5,17.43 12.83,18.76 12,19.96M8,8H5.08C6.03,6.34 7.57,5.06 9.4,4.44C8.8,5.55 8.35,6.75 8,8M5.08,16H8C8.35,17.25 8.8,18.45 9.4,19.56C7.57,18.93 6.03,17.65 5.08,16M4.26,14C4.1,13.36 4,12.69 4,12C4,11.31 4.1,10.64 4.26,10H7.64C7.56,10.66 7.5,11.32 7.5,12C7.5,12.68 7.56,13.34 7.64,14M12,4.03C12.83,5.23 13.5,6.57 13.91,8H10.09C10.5,6.57 11.17,5.23 12,4.03M18.92,8H15.97C15.65,6.75 15.19,5.55 14.59,4.44C16.43,5.07 17.96,6.34 18.92,8M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z";
   const ykFlag = ["konachan", "yande.re"].some((e) => location.href.includes(e));
   const poolFlag = location.pathname == "/pool";
@@ -2497,8 +2478,7 @@ var __publicField = (obj, key, value) => {
       return Constants_3.BooruError;
     } });
   })(dist);
-  const blackList = /* @__PURE__ */ new Set(["e621.net", "e926.net", "hypnohub.net", "derpibooru.org"]);
-  const siteDomains = Object.keys(dist.sites).filter((e) => !blackList.has(e));
+  const siteDomains = ["yande.re", "lolibooru.moe", "www.sakugabooru.com", "safebooru.org"];
   const defaultLimitMap = {
     "yande.re": 40,
     "konachan.com": 21,
@@ -2731,7 +2711,10 @@ var __publicField = (obj, key, value) => {
       const posts = await ((_a2 = fetchActions.find((e) => e.test())) == null ? void 0 : _a2.action());
       if (Array.isArray(posts) && posts.length > 0) {
         store.currentPage = page;
-        store.imageList = [...store.imageList, ...posts];
+        store.imageList = [
+          ...store.imageList,
+          ...posts.filter((e) => ["s", "g"].includes(e.rating))
+        ];
         pushPageState(page);
         page++;
       } else {
@@ -2774,37 +2757,6 @@ var __publicField = (obj, key, value) => {
     const title = VueCompositionAPI2.computed(() => {
       return `${location.host.toUpperCase()} - ${store.imageList.length} Posts - Page `;
     });
-    const cols = VueCompositionAPI2.ref([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20].reduce((acc, cur) => {
-      acc[cur] = cur === 0 ? "\u81EA\u52A8" : `${cur} \u5217`;
-      return acc;
-    }, {}));
-    const selColumn = (val) => {
-      store.selectedColumn = val;
-      localStorage.setItem("__masonry_col", val);
-    };
-    const isNoSelected = VueCompositionAPI2.computed(() => store.selectedImageList.length === 0);
-    const isOneOrMoreSelected = VueCompositionAPI2.computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length < store.imageList.length);
-    const isAllSelected = VueCompositionAPI2.computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length === store.imageList.length);
-    const loadingValue = VueCompositionAPI2.ref(0);
-    const selectAll = () => {
-      if (isNoSelected.value || isOneOrMoreSelected.value) {
-        setTimeout(() => {
-          store.selectedImageList = [...store.imageList];
-        });
-      }
-      if (isAllSelected.value) {
-        setTimeout(() => {
-          store.selectedImageList = [];
-        });
-      }
-    };
-    const removeFromList = (id) => {
-      store.selectedImageList = store.selectedImageList.filter((e) => {
-        if (e.loading)
-          return true;
-        return e.id !== id;
-      });
-    };
     const tagsQuery = new URLSearchParams(location.search).get("tags");
     const searchState = VueCompositionAPI2.reactive({
       showInput: !!(tagsQuery == null ? void 0 : tagsQuery.includes("pool:")),
@@ -2945,54 +2897,9 @@ var __publicField = (obj, key, value) => {
     const goToPopularPage = () => {
       location.href = "/post/popular_recent?period=1d&_wf=1";
     };
-    const showPool = () => {
-      store.showPostList = false;
-      store.showPoolList = true;
-      history.pushState("", "", "/pool");
-    };
     const poolQueryTerm = VueCompositionAPI2.ref("");
     const searchPool = () => {
       eventBus.$emit("loadPoolsByQuery", poolQueryTerm.value);
-    };
-    const download = (url, name) => {
-      loadingValue.value = 0;
-      return downloadFile(url, name, {
-        saveAs: false,
-        onprogress: (d) => {
-          loadingValue.value = d.loaded / d.total * 100;
-        }
-      });
-    };
-    const startDownload = async () => {
-      try {
-        const len = store.selectedImageList.length;
-        for (let index = 0; index < len; index++) {
-          const item = store.selectedImageList[index];
-          const {
-            fileUrl,
-            fileDownloadName,
-            loaded
-          } = item;
-          if (!fileUrl)
-            continue;
-          if (loaded)
-            continue;
-          VueCompositionAPI2.set(item, "loading", true);
-          await download(fileUrl, `${fileDownloadName}.${fileUrl.split(".").pop()}`);
-          VueCompositionAPI2.set(item, "loading", false);
-          VueCompositionAPI2.set(item, "loaded", true);
-        }
-      } catch (error) {
-        const msg = error;
-        showMsg({
-          msg,
-          type: "error"
-        });
-      }
-    };
-    const exportFileUrls = async () => {
-      const urlText = store.selectedImageList.map((e) => e.fileUrl).join("\n");
-      await downloadFile(`data:text/plain;charset=utf-8,${encodeURIComponent(urlText)}`, "image-urls.txt");
     };
     const vuetify = useVuetify();
     const toggleDarkmode = () => {
@@ -3022,33 +2929,16 @@ var __publicField = (obj, key, value) => {
       mdiBrightness6,
       mdiCalendar,
       mdiCalendarSearch,
-      mdiCheckUnderlineCircle,
-      mdiCheckboxBlankOutline,
-      mdiCheckboxIntermediate,
-      mdiCheckboxMarked,
       mdiChevronLeft,
       mdiChevronRight,
-      mdiDelete,
-      mdiDownload,
-      mdiFileClockOutline,
       mdiFire,
       mdiHome,
-      mdiImageMultiple,
       mdiLocationExit,
       mdiMagnify,
       mdiShuffle,
       mdiStar,
-      mdiViewDashboardVariant,
       store,
       title,
-      cols,
-      selColumn,
-      isNoSelected,
-      isOneOrMoreSelected,
-      isAllSelected,
-      loadingValue,
-      selectAll,
-      removeFromList,
       searchState,
       onSearchTermInput,
       selectTag,
@@ -3067,11 +2957,8 @@ var __publicField = (obj, key, value) => {
       loadPrevPeriod,
       loadNextPeriod,
       goToPopularPage,
-      showPool,
       poolQueryTerm,
       searchPool,
-      startDownload,
-      exportFileUrls,
       toggleDarkmode,
       goToPage,
       exitMasonry
@@ -3285,30 +3172,6 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiStar))])], 1) : _vm._e(), _c2("v-btn", {
       attrs: {
-        "title": "\u56FE\u96C6 (Pool)",
-        "icon": ""
-      },
-      on: {
-        "click": function($event) {
-          return _vm.showPool();
-        }
-      }
-    }, [_c2("v-icon", {
-      attrs: {
-        "size": 20
-      }
-    }, [_vm._v(_vm._s(_vm.mdiImageMultiple))])], 1), _c2("v-btn", {
-      attrs: {
-        "title": "\u4EBA\u6C14",
-        "icon": ""
-      },
-      on: {
-        "click": function($event) {
-          return _vm.goToPopularPage();
-        }
-      }
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFire))])], 1), _c2("v-btn", {
-      attrs: {
         "title": "\u968F\u673A",
         "icon": ""
       },
@@ -3450,201 +3313,13 @@ var __publicField = (obj, key, value) => {
           return _vm.goToPopularPage();
         }
       }
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFire))])], 1)], 1) : _vm._e(), _c2("v-spacer"), _vm.store.showPostList ? [_c2("v-menu", {
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFire))])], 1)], 1) : _vm._e(), _c2("v-spacer"), _c2("v-btn", {
+      staticClass: "mr-6",
       attrs: {
-        "transition": "slide-y-transition",
-        "offset-y": ""
-      },
-      scopedSlots: _vm._u([{
-        key: "activator",
-        fn: function(_ref4) {
-          var on = _ref4.on, attrs = _ref4.attrs;
-          return [_c2("v-btn", _vm._g(_vm._b({
-            staticClass: "mr-6",
-            attrs: {
-              "small": ""
-            }
-          }, "v-btn", attrs, false), on), [_c2("v-icon", {
-            attrs: {
-              "left": ""
-            }
-          }, [_vm._v(_vm._s(_vm.mdiViewDashboardVariant))]), _c2("span", {
-            staticStyle: {
-              "margin-bottom": "2px"
-            }
-          }, [_vm._v(_vm._s(_vm.store.selectedColumn === "0" ? "\u81EA\u52A8" : `${_vm.store.selectedColumn}\u5217`))])], 1)];
-        }
-      }], null, false, 4102914836)
-    }, [_c2("v-list", {
-      attrs: {
-        "dense": ""
+        "small": "",
+        "href": "https://greasyfork.org/scripts/444885"
       }
-    }, _vm._l(_vm.cols, function(val, key) {
-      return _c2("v-list-item", {
-        key,
-        attrs: {
-          "dense": ""
-        },
-        on: {
-          "click": function($event) {
-            return _vm.selColumn(key);
-          }
-        }
-      }, [_c2("v-list-item-title", {
-        domProps: {
-          "textContent": _vm._s(val)
-        }
-      })], 1);
-    }), 1)], 1), _c2("span", {
-      staticClass: "hidden-md-and-down"
-    }, [_vm._v("\u5DF2\u9009\u62E9")]), _c2("span", {
-      staticClass: "ml-1 mr-1",
-      domProps: {
-        "textContent": _vm._s(_vm.store.selectedImageList.length)
-      }
-    }), _c2("v-btn", {
-      attrs: {
-        "icon": ""
-      },
-      on: {
-        "click": _vm.selectAll
-      }
-    }, [_c2("v-icon", {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.isNoSelected,
-        expression: "isNoSelected"
-      }]
-    }, [_vm._v(_vm._s(_vm.mdiCheckboxBlankOutline))]), _c2("v-icon", {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.isOneOrMoreSelected,
-        expression: "isOneOrMoreSelected"
-      }]
-    }, [_vm._v(_vm._s(_vm.mdiCheckboxIntermediate))]), _c2("v-icon", {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.isAllSelected,
-        expression: "isAllSelected"
-      }]
-    }, [_vm._v(_vm._s(_vm.mdiCheckboxMarked))])], 1), _c2("v-menu", {
-      attrs: {
-        "dense": "",
-        "offset-y": "",
-        "close-on-content-click": false
-      },
-      scopedSlots: _vm._u([{
-        key: "activator",
-        fn: function(_ref5) {
-          var on = _ref5.on, attrs = _ref5.attrs;
-          return [_c2("v-btn", _vm._g(_vm._b({
-            attrs: {
-              "title": "\u4E0B\u8F7D\u5217\u8868",
-              "icon": ""
-            }
-          }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiDownload))])], 1)];
-        }
-      }], null, false, 2310245454)
-    }, [_c2("v-list", {
-      staticStyle: {
-        "min-width": "300px",
-        "max-height": "80vh",
-        "overflow": "auto"
-      },
-      attrs: {
-        "dense": "",
-        "flat": ""
-      }
-    }, [_c2("v-subheader", {
-      staticClass: "ml-2"
-    }, [_c2("span", {
-      staticClass: "mr-4"
-    }, [_vm._v("\u4E0B\u8F7D\u5217\u8868")]), _c2("v-btn", {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.store.selectedImageList.length > 0,
-        expression: "store.selectedImageList.length > 0"
-      }],
-      attrs: {
-        "small": ""
-      },
-      on: {
-        "click": _vm.startDownload
-      }
-    }, [_vm._v(" \u5F00\u59CB\u4E0B\u8F7D ")]), _c2("v-btn", {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.store.selectedImageList.length > 0,
-        expression: "store.selectedImageList.length > 0"
-      }],
-      staticClass: "ml-2",
-      attrs: {
-        "small": ""
-      },
-      on: {
-        "click": _vm.exportFileUrls
-      }
-    }, [_vm._v(" \u8F93\u51FA\u4E0B\u8F7D\u5730\u5740 ")])], 1), _c2("v-list-item-group", {
-      attrs: {
-        "color": "primary"
-      }
-    }, _vm._l(_vm.store.selectedImageList, function(item) {
-      return _c2("v-list-item", {
-        key: item.id,
-        attrs: {
-          "dense": "",
-          "two-line": ""
-        }
-      }, [_c2("v-list-item-avatar", [!item.loading && !item.loaded ? _c2("v-btn", {
-        attrs: {
-          "icon": ""
-        }
-      }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFileClockOutline))])], 1) : _vm._e(), item.loaded ? _c2("v-btn", {
-        attrs: {
-          "icon": "",
-          "color": "green"
-        }
-      }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiCheckUnderlineCircle))])], 1) : _vm._e(), item.loading ? _c2("v-progress-circular", {
-        attrs: {
-          "rotate": -90,
-          "size": 28,
-          "value": _vm.loadingValue,
-          "color": "pink"
-        }
-      }) : _vm._e()], 1), _c2("v-list-item-content", {
-        staticStyle: {
-          "max-width": "240px"
-        }
-      }, [_c2("v-list-item-title", {
-        attrs: {
-          "title": item.fileDownloadName
-        },
-        domProps: {
-          "textContent": _vm._s(item.fileDownloadName)
-        }
-      }), _c2("v-list-item-subtitle", {
-        attrs: {
-          "title": item.fileUrl
-        },
-        domProps: {
-          "textContent": _vm._s(item.fileUrl)
-        }
-      })], 1), _c2("v-list-item-action", [_c2("v-btn", {
-        attrs: {
-          "icon": ""
-        },
-        on: {
-          "click": function($event) {
-            return _vm.removeFromList(item.id);
-          }
-        }
-      }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiDelete))])], 1)], 1)], 1);
-    }), 1)], 1)], 1)] : _vm._e(), _c2("v-btn", {
+    }, [_c2("span", [_vm._v("\u5B8C\u5168\u7248")])]), _c2("v-btn", {
       attrs: {
         "title": "\u5207\u6362\u6DF1\u8272\u6A21\u5F0F",
         "icon": ""
@@ -3669,7 +3344,7 @@ var __publicField = (obj, key, value) => {
         "absolute": "",
         "bottom": ""
       }
-    })], 2);
+    })], 1);
   };
   var staticRenderFns$7 = [];
   function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
@@ -3737,7 +3412,6 @@ var __publicField = (obj, key, value) => {
   __sfc_main$6.setup = (__props, __ctx) => {
     const siteLinks = VueCompositionAPI2.ref(siteDomains);
     const userName = VueCompositionAPI2.ref("");
-    const version = VueCompositionAPI2.ref(GM_info.script.version);
     const openLink = (link) => {
       window.open(link, "_blank", "noreferrer");
     };
@@ -3765,18 +3439,15 @@ var __publicField = (obj, key, value) => {
     return {
       mdiAccount,
       mdiArrowRightCircleOutline,
-      mdiFire,
       mdiGithub,
-      mdiImageMultiple,
-      mdiInformationOutline,
       mdiMessageAlertOutline,
+      mdiScriptTextPlayOutline,
       mdiShuffle,
       mdiStar,
       mdiWeb,
       store,
       siteLinks,
       userName,
-      version,
       openLink,
       dealLink,
       onComboboxChange,
@@ -3824,41 +3495,6 @@ var __publicField = (obj, key, value) => {
     }, [_c2("v-list-item-icon", {
       staticClass: "mr-2"
     }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiStar))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u6211\u7684\u6536\u85CF\u5939")])], 1)], 1) : _vm._e(), _c2("v-list-item", {
-      attrs: {
-        "link": "",
-        "href": "/pool?page=1"
-      }
-    }, [_c2("v-list-item-icon", {
-      staticClass: "mr-2"
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiImageMultiple))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u56FE\u96C6 (Pool)")])], 1)], 1), _c2("v-list-item", {
-      attrs: {
-        "link": "",
-        "href": "/post/popular_recent?period=1d"
-      }
-    }, [_c2("v-list-item-icon", {
-      staticClass: "mr-2"
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFire))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u4EBA\u6C14\u4F5C\u54C1 (\u65E5)")])], 1)], 1), _c2("v-list-item", {
-      attrs: {
-        "link": "",
-        "href": "/post/popular_recent?period=1w"
-      }
-    }, [_c2("v-list-item-icon", {
-      staticClass: "mr-2"
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFire))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u4EBA\u6C14\u4F5C\u54C1 (\u5468)")])], 1)], 1), _c2("v-list-item", {
-      attrs: {
-        "link": "",
-        "href": "/post/popular_recent?period=1m"
-      }
-    }, [_c2("v-list-item-icon", {
-      staticClass: "mr-2"
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFire))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u4EBA\u6C14\u4F5C\u54C1 (\u6708)")])], 1)], 1), _c2("v-list-item", {
-      attrs: {
-        "link": "",
-        "href": "/post/popular_recent?period=1y"
-      }
-    }, [_c2("v-list-item-icon", {
-      staticClass: "mr-2"
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFire))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u4EBA\u6C14\u4F5C\u54C1 (\u5E74)")])], 1)], 1), _c2("v-list-item", {
       attrs: {
         "link": "",
         "href": "/post?tags=order%3Arandom&page=1"
@@ -3968,12 +3604,12 @@ var __publicField = (obj, key, value) => {
       },
       on: {
         "click": function($event) {
-          return _vm.openLink("https://github.com/asadahimeka/yandere-masonry/blob/main/CHANGELOG.md");
+          return _vm.openLink("https://sleazyfork.org/scripts/444885");
         }
       }
     }, [_c2("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiInformationOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("v" + _vm._s(_vm.version))]), _c2("v-list-item-subtitle", [_vm._v("\u67E5\u770B\u66F4\u65B0\u65E5\u5FD7")])], 1)], 1), _c2("v-list-item", {
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiScriptTextPlayOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u5B8C\u5168\u7248")]), _c2("v-list-item-subtitle", [_vm._v("\u70B9\u51FB\u5B89\u88C5")])], 1)], 1), _c2("v-list-item", {
       attrs: {
         "link": ""
       },
@@ -3984,7 +3620,7 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c2("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiWeb))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Web \u9884\u89C8\u7248\u672C")]), _c2("v-list-item-subtitle", [_vm._v("\u70B9\u51FB\u67E5\u770B")])], 1)], 1), _c2("v-list-item", {
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiWeb))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Web \u9884\u89C8\u7248")]), _c2("v-list-item-subtitle", [_vm._v("\u70B9\u51FB\u67E5\u770B")])], 1)], 1), _c2("v-list-item", {
       attrs: {
         "link": ""
       },
