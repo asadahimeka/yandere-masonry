@@ -156,28 +156,35 @@
   background: #ddd;
 }
 
-.v-date-picker-table > table > thead > tr > th {
+.v-date-picker-table>table>thead>tr>th {
   padding: 0;
 }
-.v-date-picker-table > table > thead > tr > th:nth-child(1):before {
+
+.v-date-picker-table>table>thead>tr>th:nth-child(1):before {
   content: '日';
 }
-.v-date-picker-table > table > thead > tr > th:nth-child(2):before {
+
+.v-date-picker-table>table>thead>tr>th:nth-child(2):before {
   content: '一';
 }
-.v-date-picker-table > table > thead > tr > th:nth-child(3):before {
+
+.v-date-picker-table>table>thead>tr>th:nth-child(3):before {
   content: '二';
 }
-.v-date-picker-table > table > thead > tr > th:nth-child(4):before {
+
+.v-date-picker-table>table>thead>tr>th:nth-child(4):before {
   content: '三';
 }
-.v-date-picker-table > table > thead > tr > th:nth-child(5):before {
+
+.v-date-picker-table>table>thead>tr>th:nth-child(5):before {
   content: '四';
 }
-.v-date-picker-table > table > thead > tr > th:nth-child(6):before {
+
+.v-date-picker-table>table>thead>tr>th:nth-child(6):before {
   content: '五';
 }
-.v-date-picker-table > table > thead > tr > th:nth-child(7):before {
+
+.v-date-picker-table>table>thead>tr>th:nth-child(7):before {
   content: '六';
 }
 
@@ -197,4 +204,12 @@
 
 .v-list-item__title.title {
   line-height: 1.2 !important;
+}
+
+.blacklist_combobox [role="combobox"] {
+  padding: 0 !important;
+}
+
+.blacklist_combobox .v-chip {
+  margin-bottom: 4px !important;
 }

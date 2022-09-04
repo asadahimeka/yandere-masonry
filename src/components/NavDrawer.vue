@@ -92,7 +92,6 @@
           <v-list-item-title>{{ link.toUpperCase() }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-divider />
       <v-list-item link @click="openLink('https://www.nanoka.top/illust/pixiv/')">
         <v-list-item-icon class="mr-2">
           <v-icon>{{ mdiArrowRightCircleOutline }}</v-icon>
@@ -113,7 +112,8 @@
     <v-list dense nav>
       <v-list-item class="mb-0">
         <v-list-item-content>
-          <v-list-item-title class="title">标签黑名单</v-list-item-title>
+          <v-list-item-title class="title mb-1">标签黑名单</v-list-item-title>
+          <v-list-item-subtitle>下方输入标签，回车添加</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-list-item class="pa-0">
@@ -122,10 +122,12 @@
             v-model="store.blacklist"
             :append-icon="null"
             :items="[]"
-            class="ma-0 pa-0"
+            class="blacklist_combobox ma-0 pa-0"
             hide-details
             hide-no-data
             multiple
+            outlined
+            dense
             chips
             @change="onComboboxChange"
           >
