@@ -18,9 +18,9 @@ Build with [vite](https://vitejs.dev) & [vite-plugin-tm-userscript](https://gith
 
 ## Install
 
-<!-- Greasy Fork: [点击安装](https://greasyfork.org/zh-CN/scripts/444885) -->
+SFW 版 Greasy Fork: [点击安装](https://greasyfork.org/zh-CN/scripts/450751)
 
-<!-- Greasy Fork: [点击安装](https://greasyfork.org/zh-CN/scripts/444885) -->
+完全版 Greasy Fork: [点击安装](https://greasyfork.org/zh-CN/scripts/444885)
 
 Web 端预览版本: [点击查看](https://booru.vercel.app/)
 
