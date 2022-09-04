@@ -1,7 +1,6 @@
 import { search, sites } from '@himeka/booru'
 
-const blackList = new Set(['e621.net', 'e926.net', 'hypnohub.net', 'derpibooru.org'])
-export const siteDomains = Object.keys(sites).filter(e => !blackList.has(e))
+export const siteDomains = ['yande.re', 'lolibooru.moe', 'www.sakugabooru.com', 'safebooru.org']
 
 const defaultLimitMap: Record<string, number> = {
   'yande.re': 40,

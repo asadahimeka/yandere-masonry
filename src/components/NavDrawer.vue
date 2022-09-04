@@ -29,46 +29,6 @@
           <v-list-item-title>我的收藏夹</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link href="/pool?page=1">
-        <v-list-item-icon class="mr-2">
-          <v-icon>{{ mdiImageMultiple }}</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>图集 (Pool)</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item link href="/post/popular_recent?period=1d">
-        <v-list-item-icon class="mr-2">
-          <v-icon>{{ mdiFire }}</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>人气作品 (日)</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item link href="/post/popular_recent?period=1w">
-        <v-list-item-icon class="mr-2">
-          <v-icon>{{ mdiFire }}</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>人气作品 (周)</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item link href="/post/popular_recent?period=1m">
-        <v-list-item-icon class="mr-2">
-          <v-icon>{{ mdiFire }}</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>人气作品 (月)</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item link href="/post/popular_recent?period=1y">
-        <v-list-item-icon class="mr-2">
-          <v-icon>{{ mdiFire }}</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>人气作品 (年)</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
       <v-list-item link href="/post?tags=order%3Arandom&page=1">
         <v-list-item-icon class="mr-2">
           <v-icon>{{ mdiShuffle }}</v-icon>
@@ -150,13 +110,13 @@
           <v-list-item-title class="title">关于</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link @click="openLink('https://github.com/asadahimeka/yandere-masonry/blob/main/CHANGELOG.md')">
+      <v-list-item link @click="openLink('https://sleazyfork.org/scripts/444885')">
         <v-list-item-icon class="mr-2">
-          <v-icon>{{ mdiInformationOutline }}</v-icon>
+          <v-icon>{{ mdiScriptTextPlayOutline }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>v{{ version }}</v-list-item-title>
-          <v-list-item-subtitle>查看更新日志</v-list-item-subtitle>
+          <v-list-item-title>完全版</v-list-item-title>
+          <v-list-item-subtitle>点击安装</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-list-item link @click="openLink('https://booru.kanata.ml')">
@@ -164,7 +124,7 @@
           <v-icon>{{ mdiWeb }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>Web 预览版本</v-list-item-title>
+          <v-list-item-title>Web 预览版</v-list-item-title>
           <v-list-item-subtitle>点击查看</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -194,11 +154,9 @@
 import {
   mdiAccount,
   mdiArrowRightCircleOutline,
-  mdiFire,
   mdiGithub,
-  mdiImageMultiple,
-  mdiInformationOutline,
   mdiMessageAlertOutline,
+  mdiScriptTextPlayOutline,
   mdiShuffle,
   mdiStar,
   mdiWeb,
@@ -210,7 +168,6 @@ import store from '@/store'
 
 const siteLinks = ref(siteDomains)
 const userName = ref('')
-const version = ref(GM_info.script.version)
 
 const openLink = (link: string) => {
   window.open(link, '_blank', 'noreferrer')

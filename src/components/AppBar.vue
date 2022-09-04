@@ -69,12 +69,6 @@
         <v-btn v-if="userName" title="收藏夹" icon @click="fetchTaggedPosts(`vote:3:${userName} order:vote`)">
           <v-icon>{{ mdiStar }}</v-icon>
         </v-btn>
-        <v-btn title="图集 (Pool)" icon @click="showPool()">
-          <v-icon :size="20">{{ mdiImageMultiple }}</v-icon>
-        </v-btn>
-        <v-btn title="人气" icon @click="goToPopularPage()">
-          <v-icon>{{ mdiFire }}</v-icon>
-        </v-btn>
         <v-btn title="随机" icon @click="fetchTaggedPosts('order:random')">
           <v-icon>{{ mdiShuffle }}</v-icon>
         </v-btn>
@@ -128,68 +122,9 @@
       </v-btn>
     </div>
     <v-spacer />
-    <template v-if="store.showPostList">
-      <v-menu transition="slide-y-transition" offset-y>
-        <template #activator="{ on, attrs }">
-          <v-btn small class="mr-6" v-bind="attrs" v-on="on">
-            <v-icon left>{{ mdiViewDashboardVariant }}</v-icon>
-            <span style="margin-bottom:2px">{{ store.selectedColumn === '0' ? '自动' : `${store.selectedColumn}列` }}</span>
-          </v-btn>
-        </template>
-        <v-list dense>
-          <v-list-item v-for="(val, key) in cols" :key="key" dense @click="selColumn(key)">
-            <v-list-item-title v-text="val" />
-          </v-list-item>
-        </v-list>
-      </v-menu>
-      <span class="hidden-md-and-down">已选择</span>
-      <span class="ml-1 mr-1" v-text="store.selectedImageList.length"></span>
-      <v-btn icon @click="selectAll">
-        <v-icon v-show="isNoSelected">{{ mdiCheckboxBlankOutline }}</v-icon>
-        <v-icon v-show="isOneOrMoreSelected">{{ mdiCheckboxIntermediate }}</v-icon>
-        <v-icon v-show="isAllSelected">{{ mdiCheckboxMarked }}</v-icon>
-      </v-btn>
-      <v-menu dense offset-y :close-on-content-click="false">
-        <template #activator="{ on, attrs }">
-          <v-btn title="下载列表" icon v-bind="attrs" v-on="on">
-            <v-icon>{{ mdiDownload }}</v-icon>
-          </v-btn>
-        </template>
-        <v-list dense flat style="min-width: 300px;max-height: 80vh;overflow: auto;">
-          <v-subheader class="ml-2">
-            <span class="mr-4">下载列表</span>
-            <v-btn v-show="store.selectedImageList.length > 0" small @click="startDownload">
-              开始下载
-            </v-btn>
-            <v-btn v-show="store.selectedImageList.length > 0" class="ml-2" small @click="exportFileUrls">
-              输出下载地址
-            </v-btn>
-          </v-subheader>
-          <v-list-item-group color="primary">
-            <v-list-item v-for="item in store.selectedImageList" :key="item.id" dense two-line>
-              <v-list-item-avatar>
-                <v-btn v-if="!item.loading && !item.loaded" icon>
-                  <v-icon>{{ mdiFileClockOutline }}</v-icon>
-                </v-btn>
-                <v-btn v-if="item.loaded" icon color="green">
-                  <v-icon>{{ mdiCheckUnderlineCircle }}</v-icon>
-                </v-btn>
-                <v-progress-circular v-if="item.loading" :rotate="-90" :size="28" :value="loadingValue" color="pink" />
-              </v-list-item-avatar>
-              <v-list-item-content style="max-width: 240px;">
-                <v-list-item-title :title="item.fileDownloadName" v-text="item.fileDownloadName" />
-                <v-list-item-subtitle :title="item.fileUrl" v-text="item.fileUrl" />
-              </v-list-item-content>
-              <v-list-item-action>
-                <v-btn icon @click="removeFromList(item.id)">
-                  <v-icon>{{ mdiDelete }}</v-icon>
-                </v-btn>
-              </v-list-item-action>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-      </v-menu>
-    </template>
+    <v-btn small class="mr-6" href="https://greasyfork.org/scripts/444885">
+      <span>完全版</span>
+    </v-btn>
     <v-btn title="切换深色模式" icon @click="toggleDarkmode">
       <v-icon>{{ mdiBrightness6 }}</v-icon>
     </v-btn>
@@ -216,69 +151,25 @@ import {
   mdiCalendarText,
   mdiCalendarToday,
   mdiCalendarWeek,
-  mdiCheckUnderlineCircle,
-  mdiCheckboxBlankOutline,
-  mdiCheckboxIntermediate,
-  mdiCheckboxMarked,
   mdiChevronLeft,
   mdiChevronRight,
-  mdiDelete,
-  mdiDownload,
-  mdiFileClockOutline,
   mdiFire,
   mdiHome,
-  mdiImageMultiple,
   mdiLocationExit,
   mdiMagnify,
   mdiShuffle,
   mdiStar,
-  mdiViewDashboardVariant,
 } from '@mdi/js'
-import { computed, onMounted, reactive, ref, set, watch } from '@vue/composition-api'
+import { computed, onMounted, reactive, ref, watch } from '@vue/composition-api'
 import { useVuetify } from '@/plugins/vuetify'
 import store from '@/store'
-import { addDate, debounce, downloadFile, eventBus, formatDate, showMsg, subDate } from '@/utils'
+import { addDate, debounce, eventBus, formatDate, subDate } from '@/utils'
 import { loadPostsByPage, loadPostsByTags, refreshPosts } from '@/store/actions/post'
 import { getRecentTags, getUsername, isPopularPage, searchTagsByName } from '@/api/moebooru'
 
 const title = computed(() => {
   return `${location.host.toUpperCase()} - ${store.imageList.length} Posts - Page `
 })
-
-const cols = ref([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20].reduce<Record<string, string>>((acc, cur) => {
-  acc[cur] = cur === 0 ? '自动' : `${cur} 列`
-  return acc
-}, {}))
-
-const selColumn = (val: string) => {
-  store.selectedColumn = val
-  localStorage.setItem('__masonry_col', val)
-}
-
-const isNoSelected = computed(() => store.selectedImageList.length === 0)
-const isOneOrMoreSelected = computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length < store.imageList.length)
-const isAllSelected = computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length === store.imageList.length)
-const loadingValue = ref(0)
-
-const selectAll = () => {
-  if (isNoSelected.value || isOneOrMoreSelected.value) {
-    setTimeout(() => {
-      store.selectedImageList = [...store.imageList]
-    })
-  }
-  if (isAllSelected.value) {
-    setTimeout(() => {
-      store.selectedImageList = []
-    })
-  }
-}
-
-const removeFromList = (id: string) => {
-  store.selectedImageList = store.selectedImageList.filter(e => {
-    if (e.loading) return true
-    return e.id !== id
-  })
-}
 
 const tagsQuery = new URLSearchParams(location.search).get('tags')
 const searchState = reactive({
@@ -430,49 +321,9 @@ const goToPopularPage = () => {
   location.href = '/post/popular_recent?period=1d&_wf=1'
 }
 
-const showPool = () => {
-  store.showPostList = false
-  store.showPoolList = true
-  history.pushState('', '', '/pool')
-}
-
 const poolQueryTerm = ref('')
 const searchPool = () => {
   eventBus.$emit('loadPoolsByQuery', poolQueryTerm.value)
-}
-
-const download = (url: string, name: string) => {
-  loadingValue.value = 0
-  return downloadFile(url, name, {
-    saveAs: false,
-    onprogress: d => {
-      loadingValue.value = (d.loaded / d.total) * 100
-    },
-  })
-}
-
-const startDownload = async () => {
-  try {
-    const len = store.selectedImageList.length
-    for (let index = 0; index < len; index++) {
-      const item = store.selectedImageList[index]
-      const { fileUrl, fileDownloadName, loaded } = item
-      if (!fileUrl) continue
-      if (loaded) continue
-      set(item, 'loading', true)
-      await download(fileUrl, `${fileDownloadName}.${fileUrl.split('.').pop()}`)
-      set(item, 'loading', false)
-      set(item, 'loaded', true)
-    }
-  } catch (error) {
-    const msg = error as string
-    showMsg({ msg, type: 'error' })
-  }
-}
-
-const exportFileUrls = async () => {
-  const urlText = store.selectedImageList.map(e => e.fileUrl).join('\n')
-  await downloadFile(`data:text/plain;charset=utf-8,${encodeURIComponent(urlText)}`, 'image-urls.txt')
 }
 
 const vuetify = useVuetify()
