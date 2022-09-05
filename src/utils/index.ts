@@ -61,6 +61,31 @@ export function debounce<T extends unknown[]>(func: (...args: T) => void, delay:
   }
 }
 
+export const throttle = (fn: Function, wait = 300) => {
+  let inThrottle: boolean
+  let lastFn: ReturnType<typeof setTimeout>
+  let lastTime: number
+  return function (this: any) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const context = this
+    // eslint-disable-next-line prefer-rest-params
+    const args = arguments
+    if (!inThrottle) {
+      fn.apply(context, args)
+      lastTime = Date.now()
+      inThrottle = true
+    } else {
+      clearTimeout(lastFn)
+      lastFn = setTimeout(() => {
+        if (Date.now() - lastTime >= wait) {
+          fn.apply(context, args)
+          lastTime = Date.now()
+        }
+      }, Math.max(wait - (Date.now() - lastTime), 0))
+    }
+  }
+}
+
 export function formatDate(date: Date) {
   const year = date.getFullYear().toString()
   const month = (date.getMonth() + 1).toString()

@@ -282,7 +282,7 @@ const removeFromList = (id: string) => {
 
 const tagsQuery = new URLSearchParams(location.search).get('tags')
 const searchState = reactive({
-  showInput: !!tagsQuery?.includes('pool:'),
+  showInput: !!tagsQuery,
   showMenu: false,
   searchTerm: tagsQuery || '',
   searchItems: store.isYKSite ? getRecentTags() : [],

@@ -12,6 +12,7 @@
       :aspect-ratio="imageSelected.aspectRatio"
       style="min-width: 360px;"
       @click="toggleToolbar"
+      @wheel="onDetailWheel"
       @error="onImageLoadError"
     >
       <template #placeholder>
@@ -226,7 +227,7 @@ import {
 } from '@mdi/js'
 import { computed, onMounted, ref, watch } from '@vue/composition-api'
 import DPlayer from './DPlayer.vue'
-import { downloadFile, dragElement, isURL, showMsg } from '@/utils'
+import { downloadFile, dragElement, isURL, showMsg, throttle } from '@/utils'
 import { type PostDetail, addPostToFavorites, getPostDetail } from '@/api/moebooru'
 import store from '@/store'
 
@@ -361,6 +362,10 @@ const viewLargeImg = () => {
     clearDragEv?.()
   }
 }
+
+const onDetailWheel = throttle((ev: WheelEvent) => {
+  ev.deltaY > 0 ? showNextPost() : showPrevPost()
+}, 1000)
 
 watch(() => store.showImageSelected, async val => {
   if (!val) {

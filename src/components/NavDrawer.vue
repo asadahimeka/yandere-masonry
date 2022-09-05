@@ -166,7 +166,7 @@
           <v-icon>{{ mdiWeb }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>Web 预览版本</v-list-item-title>
+          <v-list-item-title>Web 预览版</v-list-item-title>
           <v-list-item-subtitle>点击查看</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
