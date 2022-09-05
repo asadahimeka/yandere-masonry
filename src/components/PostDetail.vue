@@ -1,7 +1,7 @@
 <template>
   <v-dialog
     v-model="store.showImageSelected"
-    :content-class="scaleOn ? 'img_detail_scale_on' : ''"
+    :content-class="scaleOn ? 'img_detail_scale_on' : 'img_detail'"
     :width="imageSelectedWidth > 360 ? imageSelectedWidth : 360"
     :overlay-opacity="0.7"
   >
@@ -10,7 +10,7 @@
       :src="imgSrc"
       :lazy-src="imgLasySrc"
       :aspect-ratio="imageSelected.aspectRatio"
-      style="min-width: 300px;"
+      style="min-width: 360px;"
       @click="toggleToolbar"
       @error="onImageLoadError"
     >
@@ -122,7 +122,7 @@
           <v-list dense flat>
             <v-list-item v-if="imageSelected.sampleUrl" two-line link dense>
               <v-list-item-content @click.stop="download(imageSelected.sampleUrl, imageSelected.sampleDownloadName)">
-                <v-list-item-title>下载缩略图</v-list-item-title>
+                <v-list-item-title>下载样品图</v-list-item-title>
                 <v-list-item-subtitle v-text="imageSelected.sampleDownloadText" />
               </v-list-item-content>
             </v-list-item>
@@ -170,7 +170,7 @@
       <d-player v-if="isVideo" style="width: 100%;" :options="{ theme: '#ee8888', autoplay: true, video: { url: imageSelected.fileUrl } }" />
       <!-- <video v-if="isVideo" controls style="width: 100%;" :src="imageSelected.fileUrl ?? void 0"></video> -->
       <div v-show="!isVideo" class="img_scale_scroll" draggable="false">
-        <img :src="scaleOn ? imageSelected.fileUrl ?? void 0 : void 0" draggable="false" alt="">
+        <img :src="scaleOn ? (imageSelected.jpegUrl || imageSelected.fileUrl || void 0) : void 0" draggable="false" alt="">
       </div>
       <div v-show="!isVideo && showImageToolbar" class="hidden-sm-and-down">
         <div style="position: absolute;bottom: 12px;padding: 0 12px;">
@@ -258,11 +258,11 @@ const imgLasySrc = computed(() => {
 const imageSelectedWidth = computed(() => {
   const width = Number.parseInt(
     Math.min(
-      innerWidth.value * 0.9,
+      innerWidth.value * 0.98,
       imageSelected.value.sampleWidth || innerWidth.value,
     ).toString(),
   )
-  const height = Math.min(innerHeight.value * 0.9, imageSelected.value.sampleHeight || innerHeight.value)
+  const height = Math.min(innerHeight.value * 0.98, imageSelected.value.sampleHeight || innerHeight.value)
   const width2 = Number.parseInt((height * imageSelected.value.aspectRatio).toString())
   return Math.min(width, width2)
 })
