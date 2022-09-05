@@ -8,7 +8,7 @@
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vue)
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vuetify)
 
-Yande.re 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览 (SFW 版)
+Yande.re 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览 (SFW 版）
 
 *有问题或建议请到 GitHub [反馈](https://github.com/asadahimeka/yandere-masonry/issues)*
 
@@ -22,7 +22,7 @@ SFW 版 Greasy Fork: [点击安装](https://greasyfork.org/zh-CN/scripts/450751)
 
 完全版 Greasy Fork: [点击安装](https://greasyfork.org/zh-CN/scripts/444885)
 
-Web 端预览版本: [点击查看](https://booru.vercel.app/)
+Web 端预览版本：[点击查看](https://booru.vercel.app/)
 
 ## Tips
 
@@ -93,17 +93,17 @@ Moebooru 站点可通过设置查询参数 `locale` 或者设置 cookie 里的 `
 
 缩略图放大与双击翻页支持的站点如下：
 
-https://yande.re/
+https://yande.re
 
 瀑布流支持的 Booru 站如下：
 
-https://yande.re/
+https://yande.re
 
-https://lolibooru.moe/
+https://lolibooru.moe
 
-https://www.sakugabooru.com/
+https://www.sakugabooru.com
 
-https://safebooru.org/
+https://safebooru.org
 
 ## Screenshots
 
@@ -130,10 +130,10 @@ https://safebooru.org/
 ## Developing
 
 ```bash
-git clone https://github.com/asadahimeka/yandere-masonry.git
-cd yandere-masonry
-yarn install
-yarn dev
+$ git clone https://github.com/asadahimeka/yandere-masonry.git
+$ cd yandere-masonry
+$ yarn install
+$ yarn dev
 ```
 
 ### Vue 3 + TypeScript + Vite

@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览 (SFW 版)
-// @version              0.23.0
-// @description          Yande.re 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式
-// @description:en       Yande.re/Konachan Masonry(Waterfall) Layout SFW version.
+// @name:en              Yande.re Masonry SFW
+// @version              0.23.1
+// @description          Yande.re 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 sakugabooru/lolibooru/safebooru)
+// @description:en       Yande.re/Konachan Masonry(Waterfall) Layout SFW version. Also support sakugabooru/lolibooru/safebooru.
 // @author               asadahimeka
 // @namespace            me.asadahimeka.yanderemasonrysfw
 // @license              MIT
@@ -2497,8 +2498,6 @@ var __publicField = (obj, key, value) => {
   async function searchBooru(page2, tags2) {
     if (!tags2 || tags2 === "all")
       tags2 = "";
-    if (location.href.includes("konachan.net"))
-      tags2 += " rating:safe";
     return dist.search(location.host, tags2, { page: page2, limit: BOORU_PAGE_LIMIT });
   }
   function getYandereUserId() {

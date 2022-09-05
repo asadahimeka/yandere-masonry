@@ -22,6 +22,5 @@ export const isPidSite = sites[location.host]?.paginate === 'pid'
 
 export async function searchBooru(page: number, tags: string | null) {
   if (!tags || tags === 'all') tags = ''
-  if (location.href.includes('konachan.net')) tags += ' rating:safe'
   return search(location.host, tags, { page, limit: BOORU_PAGE_LIMIT })
 }
