@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
-// @version              0.22.2
+// @version              0.22.3
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru et cetera.
 // @author               asadahimeka
@@ -59,7 +59,7 @@ var __publicField = (obj, key, value) => {
 (() => {
   var ydStyle = 'a.thumb{padding-bottom:5px;border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08] "}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743] "}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272] "}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2] "}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:100%;height:auto;margin-top:0;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}\n';
   var knStyle = "#lsidebar{display:none}#post-popular ul#post-list-posts{display:flex;justify-content:center;flex-wrap:wrap}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
-  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_scale_on{width:auto!important;max-width:100vw!important;max-height:100vh!important;margin:0;padding:12px;overflow:auto}.img_detail_scale_on .v-image{display:block;max-height:100vh;margin:0 auto}.img_detail_scale_on .v-responsive__sizer,.img_detail_scale_on .v-image__image{display:none}.img_detail_scale_on .v-responsive__content{position:relative;width:auto!important;max-width:100vw!important;max-height:100vh;margin:0!important}.img_scale_scroll{display:none}.img_detail_scale_on .img_scale_scroll{display:block;min-width:500px;min-height:500px;max-width:100vw;max-height:calc(100vh - 30px);overflow:auto}::-webkit-scrollbar{width:0px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #fff;border-radius:7px}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}\n';
+  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail{margin:0}.img_detail.v-dialog:not(.v-dialog--fullscreen){max-height:98%}.img_detail_scale_on{width:auto!important;max-width:100vw!important;max-height:100vh!important;margin:0;padding:12px;overflow:auto}.img_detail_scale_on .v-image{display:block;max-height:100vh;margin:0 auto}.img_detail_scale_on .v-responsive__sizer,.img_detail_scale_on .v-image__image{display:none}.img_detail_scale_on .v-responsive__content{position:relative;width:auto!important;max-width:100vw!important;max-height:100vh;margin:0!important}.img_scale_scroll{display:none}.img_detail_scale_on .img_scale_scroll{display:block;min-width:500px;min-height:500px;max-width:100vw;max-height:calc(100vh - 30px);overflow:auto}::-webkit-scrollbar{width:0px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #fff;border-radius:7px}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}\n';
   async function prepareApp(callback) {
     if (doNotRun())
       return;
@@ -532,6 +532,28 @@ var __publicField = (obj, key, value) => {
       }, delay);
     };
   }
+  const throttle = (fn, wait = 300) => {
+    let inThrottle;
+    let lastFn;
+    let lastTime;
+    return function() {
+      const context = this;
+      const args = arguments;
+      if (!inThrottle) {
+        fn.apply(context, args);
+        lastTime = Date.now();
+        inThrottle = true;
+      } else {
+        clearTimeout(lastFn);
+        lastFn = setTimeout(() => {
+          if (Date.now() - lastTime >= wait) {
+            fn.apply(context, args);
+            lastTime = Date.now();
+          }
+        }, Math.max(wait - (Date.now() - lastTime), 0));
+      }
+    };
+  };
   function formatDate(date) {
     const year = date.getFullYear().toString();
     const month = (date.getMonth() + 1).toString();
@@ -2806,7 +2828,7 @@ var __publicField = (obj, key, value) => {
     };
     const tagsQuery = new URLSearchParams(location.search).get("tags");
     const searchState = VueCompositionAPI2.reactive({
-      showInput: !!(tagsQuery == null ? void 0 : tagsQuery.includes("pool:")),
+      showInput: !!tagsQuery,
       showMenu: false,
       searchTerm: tagsQuery || "",
       searchItems: store.isYKSite ? getRecentTags() : []
@@ -3985,7 +4007,7 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c2("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiWeb))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Web \u9884\u89C8\u7248\u672C")]), _c2("v-list-item-subtitle", [_vm._v("\u70B9\u51FB\u67E5\u770B")])], 1)], 1), _c2("v-list-item", {
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiWeb))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Web \u9884\u89C8\u7248")]), _c2("v-list-item-subtitle", [_vm._v("\u70B9\u51FB\u67E5\u770B")])], 1)], 1), _c2("v-list-item", {
       attrs: {
         "link": ""
       },
@@ -4112,8 +4134,8 @@ var __publicField = (obj, key, value) => {
       return (_a2 = imageSelected.value.previewUrl) != null ? _a2 : void 0;
     });
     const imageSelectedWidth = VueCompositionAPI2.computed(() => {
-      const width = Number.parseInt(Math.min(innerWidth.value * 0.9, imageSelected.value.sampleWidth || innerWidth.value).toString());
-      const height = Math.min(innerHeight.value * 0.9, imageSelected.value.sampleHeight || innerHeight.value);
+      const width = Number.parseInt(Math.min(innerWidth.value * 0.98, imageSelected.value.sampleWidth || innerWidth.value).toString());
+      const height = Math.min(innerHeight.value * 0.98, imageSelected.value.sampleHeight || innerHeight.value);
       const width2 = Number.parseInt((height * imageSelected.value.aspectRatio).toString());
       return Math.min(width, width2);
     });
@@ -4211,6 +4233,9 @@ var __publicField = (obj, key, value) => {
         clearDragEv == null ? void 0 : clearDragEv();
       }
     };
+    const onDetailWheel = throttle((ev) => {
+      ev.deltaY > 0 ? showNextPost() : showPrevPost();
+    }, 1e3);
     VueCompositionAPI2.watch(() => store.showImageSelected, async (val) => {
       if (!val) {
         scaleOn.value = false;
@@ -4262,20 +4287,21 @@ var __publicField = (obj, key, value) => {
       showPrevPost,
       showNextPost,
       onImageLoadError,
-      viewLargeImg
+      viewLargeImg,
+      onDetailWheel
     };
   };
   __sfc_main$5.components = Object.assign({
     DPlayer
   }, __sfc_main$5.components);
   var render$5 = function() {
-    var _vm$imageSelected$rat, _vm$imageSelected$fil, _vm$postDetail$tags;
+    var _vm$imageSelected$rat, _vm$postDetail$tags;
     var _vm = this;
     var _h = _vm.$createElement;
     var _c2 = _vm._self._c || _h;
     return _c2("v-dialog", {
       attrs: {
-        "content-class": _vm.scaleOn ? "img_detail_scale_on" : "",
+        "content-class": _vm.scaleOn ? "img_detail_scale_on" : "img_detail",
         "width": _vm.imageSelectedWidth > 360 ? _vm.imageSelectedWidth : 360,
         "overlay-opacity": 0.7
       },
@@ -4288,7 +4314,7 @@ var __publicField = (obj, key, value) => {
       }
     }, [_vm.store.showImageSelected ? _c2("v-img", {
       staticStyle: {
-        "min-width": "300px"
+        "min-width": "360px"
       },
       attrs: {
         "src": _vm.imgSrc,
@@ -4297,6 +4323,7 @@ var __publicField = (obj, key, value) => {
       },
       on: {
         "click": _vm.toggleToolbar,
+        "wheel": _vm.onDetailWheel,
         "error": _vm.onImageLoadError
       },
       scopedSlots: _vm._u([{
@@ -4504,7 +4531,7 @@ var __publicField = (obj, key, value) => {
           return _vm.download(_vm.imageSelected.sampleUrl, _vm.imageSelected.sampleDownloadName);
         }
       }
-    }, [_c2("v-list-item-title", [_vm._v("\u4E0B\u8F7D\u7F29\u7565\u56FE")]), _c2("v-list-item-subtitle", {
+    }, [_c2("v-list-item-title", [_vm._v("\u4E0B\u8F7D\u6837\u54C1\u56FE")]), _c2("v-list-item-subtitle", {
       domProps: {
         "textContent": _vm._s(_vm.imageSelected.sampleDownloadText)
       }
@@ -4629,7 +4656,7 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c2("img", {
       attrs: {
-        "src": _vm.scaleOn ? (_vm$imageSelected$fil = _vm.imageSelected.fileUrl) !== null && _vm$imageSelected$fil !== void 0 ? _vm$imageSelected$fil : void 0 : void 0,
+        "src": _vm.scaleOn ? _vm.imageSelected.jpegUrl || _vm.imageSelected.fileUrl || void 0 : void 0,
         "draggable": "false",
         "alt": ""
       }
