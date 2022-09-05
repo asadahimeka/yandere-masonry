@@ -5,10 +5,11 @@ const blackList = new Set(['e621.net', 'e926.net', 'hypnohub.net', 'derpibooru.o
 
 module.exports = defineTmHeader({
   "name": "Yande.re 瀑布流浏览",
+  "name:en": "Yande.re Masonry",
   "namespace": "me.asadahimeka.yanderemasonry",
   "author": "asadahimeka",
-  "description": "Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru、gelbooru、rule34 等)",
-  "description:en": "Yande.re/Konachan Masonry(Waterfall) Layout.",
+  "description": "Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru 等)",
+  "description:en": "Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru et cetera.",
   "homepage": "https://www.nanoka.top",
   "source": "https://github.com/asadahimeka/yandere-masonry",
   "icon": "https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/f1f6267537a5aff959ee63ec2c9e4e52_4821140735490026106.jpg",

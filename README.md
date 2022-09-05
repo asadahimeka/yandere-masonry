@@ -22,9 +22,9 @@ Greasy Fork: [点击安装](https://greasyfork.org/zh-CN/scripts/444885)
 
 Sleazy Fork: [点击安装](https://sleazyfork.org/scripts/444885)
 
-GitHub 仓库文件: [点击安装](https://github.com/asadahimeka/yandere-masonry/raw/main/dist/yandere-masonry.user.js)
+GitHub 仓库文件：[点击安装](https://github.com/asadahimeka/yandere-masonry/raw/main/dist/yandere-masonry.user.js)
 
-Web 端预览版本: [点击查看](https://booru.vercel.app/)
+Web 端预览版本：[点击查看](https://booru.vercel.app/)
 
 ## Tips
 
@@ -69,7 +69,7 @@ Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设
 - 加载收藏夹、人气、随机作品（Y 站/K 站）
 - 加载图集（Pool）列表
 - 按标签搜索作品
-- 瀑布流显示列数切换，列数选择非自动且列数小于 6 时图片会以 sample_url (即点击详情的大小) 展示。
+- 瀑布流显示列数切换，列数选择非自动且列数小于 6 时图片会以 sample_url （即点击详情的大小） 展示。
 - 批量选择
 - 查看下载列表
 - 深色模式切换
@@ -93,6 +93,7 @@ Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设
 - 下载/加入下载列表
 - 打开标签页面
 - 点击图片控制按钮与标签显示
+- 查看原图时可使用鼠标拖动图片
 
 ### 站点支持
 
@@ -104,41 +105,41 @@ Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设
 
 缩略图放大与双击翻页支持的站点如下：
 
-https://yande.re/
+https://yande.re
 
-https://konachan.com/
+https://konachan.com
 
-https://konachan.net/
+https://konachan.net
 
 瀑布流支持的 Booru 站如下：
 
-https://danbooru.donmai.us/
+https://danbooru.donmai.us
 
-https://konachan.com/
+https://konachan.com
 
-https://konachan.net/
+https://konachan.net
 
-https://yande.re/
+https://yande.re
 
-https://gelbooru.com/
+https://gelbooru.com
 
-https://rule34.xxx/
+https://rule34.xxx
 
-https://lolibooru.moe/
+https://lolibooru.moe
 
-https://www.sakugabooru.com/
+https://www.sakugabooru.com
 
-http://behoimi.org/
+http://behoimi.org (3dbooru)
 
-https://safebooru.org/
+https://safebooru.org
 
-https://tbib.org/
+https://tbib.org
 
-https://xbooru.com/
+https://xbooru.com
 
-https://rule34.paheal.net/
+https://rule34.paheal.net
 
-https://realbooru.com/
+https://realbooru.com
 
 ## Screenshots
 
@@ -165,10 +166,10 @@ https://realbooru.com/
 ## Developing
 
 ```bash
-git clone https://github.com/asadahimeka/yandere-masonry.git
-cd yandere-masonry
-yarn install
-yarn dev
+$ git clone https://github.com/asadahimeka/yandere-masonry.git
+$ cd yandere-masonry
+$ yarn install
+$ yarn dev
 ```
 
 ### Vue 3 + TypeScript + Vite
