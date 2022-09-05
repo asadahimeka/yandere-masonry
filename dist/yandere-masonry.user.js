@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
-// @version              0.22.3
+// @version              0.22.4
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru et cetera.
 // @author               asadahimeka
@@ -59,7 +59,7 @@ var __publicField = (obj, key, value) => {
 (() => {
   var ydStyle = 'a.thumb{padding-bottom:5px;border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08] "}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743] "}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272] "}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2] "}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:100%;height:auto;margin-top:0;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}\n';
   var knStyle = "#lsidebar{display:none}#post-popular ul#post-list-posts{display:flex;justify-content:center;flex-wrap:wrap}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
-  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail{margin:0}.img_detail.v-dialog:not(.v-dialog--fullscreen){max-height:98%}.img_detail_scale_on{width:auto!important;max-width:100vw!important;max-height:100vh!important;margin:0;padding:12px;overflow:auto}.img_detail_scale_on .v-image{display:block;max-height:100vh;margin:0 auto}.img_detail_scale_on .v-responsive__sizer,.img_detail_scale_on .v-image__image{display:none}.img_detail_scale_on .v-responsive__content{position:relative;width:auto!important;max-width:100vw!important;max-height:100vh;margin:0!important}.img_scale_scroll{display:none}.img_detail_scale_on .img_scale_scroll{display:block;min-width:500px;min-height:500px;max-width:100vw;max-height:calc(100vh - 30px);overflow:auto}::-webkit-scrollbar{width:0px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #fff;border-radius:7px}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}\n';
+  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail{margin:0;overflow:hidden}.img_detail.v-dialog:not(.v-dialog--fullscreen){max-height:98%}.img_detail .v-image{max-height:calc(100vh - 10px)}.img_detail_scale_on{width:auto!important;max-width:100vw!important;max-height:100vh!important;margin:0;padding:0;overflow:auto}.img_detail_scale_on .v-image{display:block;max-height:100vh;margin:0 auto}.img_detail_scale_on .v-responsive__sizer,.img_detail_scale_on .v-image__image{display:none}.img_detail_scale_on .v-responsive__content{position:relative;width:auto!important;max-width:100vw!important;max-height:100vh;margin:0!important}.img_scale_scroll{display:none}.img_scale_scroll img{display:block;margin:0 auto}.img_detail_scale_on .img_scale_scroll{display:block;min-width:500px;min-height:500px;max-width:100vw;max-height:calc(100vh - 10px);overflow:auto}::-webkit-scrollbar{width:0px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #fff;border-radius:7px}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}\n';
   async function prepareApp(callback) {
     if (doNotRun())
       return;
@@ -325,6 +325,8 @@ var __publicField = (obj, key, value) => {
   var mdiFileClockOutline = "M4 2A2 2 0 0 0 2 4V20A2 2 0 0 0 4 22H12.41A7 7 0 0 0 16 23A7 7 0 0 0 23 16A7 7 0 0 0 18 9.3V8L12 2H4M4 4H11V9H16A7 7 0 0 0 9 16A7 7 0 0 0 10.26 20H4V4M16 11A5 5 0 0 1 21 16A5 5 0 0 1 16 21A5 5 0 0 1 11 16A5 5 0 0 1 16 11M15 12V17L18.61 19.16L19.36 17.94L16.5 16.25V12H15Z";
   var mdiFileGifBox = "M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3M10 10.5H7.5V13.5H8.5V12H10V13.7C10 14.4 9.5 15 8.7 15H7.3C6.5 15 6 14.3 6 13.7V10.4C6 9.7 6.5 9 7.3 9H8.6C9.5 9 10 9.7 10 10.3V10.5M13 15H11.5V9H13V15M17.5 10.5H16V11.5H17.5V13H16V15H14.5V9H17.5V10.5Z";
   var mdiFire = "M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z";
+  var mdiFitToScreenOutline = "M17 4H20C21.1 4 22 4.9 22 6V8H20V6H17V4M4 8V6H7V4H4C2.9 4 2 4.9 2 6V8H4M20 16V18H17V20H20C21.1 20 22 19.1 22 18V16H20M7 18H4V16H2V18C2 19.1 2.9 20 4 20H7V18M16 10V14H8V10H16M18 8H6V16H18V8Z";
+  var mdiFullscreen = "M5,5H10V7H7V10H5V5M14,5H19V10H17V7H14V5M17,14H19V19H14V17H17V14M10,17V19H5V14H7V17H10Z";
   var mdiGithub = "M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z";
   var mdiHeart = "M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z";
   var mdiHeartPlusOutline = "M12.67 20.74L12 21.35L10.55 20.03C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5C22 9.93 21.5 11.26 20.62 12.61C20 12.31 19.31 12.11 18.59 12.04C19.5 10.8 20 9.65 20 8.5C20 6.5 18.5 5 16.5 5C14.96 5 13.46 6 12.93 7.36H11.07C10.54 6 9.04 5 7.5 5C5.5 5 4 6.5 4 8.5C4 11.39 7.14 14.24 11.89 18.55L12 18.65L12.04 18.61C12.12 19.37 12.34 20.09 12.67 20.74M17 14V17H14V19H17V22H19V19H22V17H19V14H17Z";
@@ -522,38 +524,18 @@ var __publicField = (obj, key, value) => {
       });
     };
   }
-  function debounce(func, delay) {
-    let timer = null;
-    return (...args) => {
-      if (timer)
-        clearTimeout(timer);
+  function debounce(func, delay, immediate = false) {
+    let timer;
+    return function(...args) {
+      const callNow = immediate && !timer;
+      clearTimeout(timer);
       timer = setTimeout(() => {
-        func.call(null, ...args);
+        timer = void 0;
+        !immediate && func.apply(this, args);
       }, delay);
+      callNow && func.apply(this, args);
     };
   }
-  const throttle = (fn, wait = 300) => {
-    let inThrottle;
-    let lastFn;
-    let lastTime;
-    return function() {
-      const context = this;
-      const args = arguments;
-      if (!inThrottle) {
-        fn.apply(context, args);
-        lastTime = Date.now();
-        inThrottle = true;
-      } else {
-        clearTimeout(lastFn);
-        lastFn = setTimeout(() => {
-          if (Date.now() - lastTime >= wait) {
-            fn.apply(context, args);
-            lastTime = Date.now();
-          }
-        }, Math.max(wait - (Date.now() - lastTime), 0));
-      }
-    };
-  };
   function formatDate(date) {
     const year = date.getFullYear().toString();
     const month = (date.getMonth() + 1).toString();
@@ -4224,8 +4206,10 @@ var __publicField = (obj, key, value) => {
     const onImageLoadError = () => {
       imageSelected.value.sampleUrl = null;
     };
+    const isImgFitToPage = VueCompositionAPI2.ref(false);
     let clearDragEv;
     const viewLargeImg = () => {
+      isImgFitToPage.value = false;
       scaleOn.value = !scaleOn.value;
       if (scaleOn.value) {
         clearDragEv = dragElement(".img_scale_scroll", "img");
@@ -4233,9 +4217,19 @@ var __publicField = (obj, key, value) => {
         clearDragEv == null ? void 0 : clearDragEv();
       }
     };
-    const onDetailWheel = throttle((ev) => {
+    const onDetailWheel = debounce((ev) => {
+      if (scaleOn.value)
+        return;
       ev.deltaY > 0 ? showNextPost() : showPrevPost();
-    }, 1e3);
+    }, 500, true);
+    const reqFullscreen = async () => {
+      try {
+        const img = document.querySelector(".img_scale_scroll img");
+        await (img == null ? void 0 : img.requestFullscreen());
+      } catch (error) {
+        console.log("toggleFullscreen error: ", error);
+      }
+    };
     VueCompositionAPI2.watch(() => store.showImageSelected, async (val) => {
       if (!val) {
         scaleOn.value = false;
@@ -4255,6 +4249,8 @@ var __publicField = (obj, key, value) => {
       mdiChevronRight,
       mdiClose,
       mdiDownload,
+      mdiFitToScreenOutline,
+      mdiFullscreen,
       mdiHeart,
       mdiHeartPlusOutline,
       mdiLaunch,
@@ -4287,8 +4283,10 @@ var __publicField = (obj, key, value) => {
       showPrevPost,
       showNextPost,
       onImageLoadError,
+      isImgFitToPage,
       viewLargeImg,
-      onDetailWheel
+      onDetailWheel,
+      reqFullscreen
     };
   };
   __sfc_main$5.components = Object.assign({
@@ -4350,8 +4348,125 @@ var __publicField = (obj, key, value) => {
       directives: [{
         name: "show",
         rawName: "v-show",
-        value: _vm.showImageToolbar,
-        expression: "showImageToolbar"
+        value: _vm.showImageToolbar && _vm.scaleOn && !_vm.isVideo,
+        expression: "showImageToolbar && scaleOn && !isVideo"
+      }],
+      staticStyle: {
+        "position": "absolute",
+        "top": "0",
+        "width": "100%",
+        "z-index": "10"
+      },
+      attrs: {
+        "color": "transparent",
+        "height": "auto",
+        "flat": ""
+      }
+    }, [_c2("v-spacer"), _c2("v-tooltip", {
+      attrs: {
+        "bottom": ""
+      },
+      scopedSlots: _vm._u([{
+        key: "activator",
+        fn: function(_ref) {
+          var on = _ref.on, attrs = _ref.attrs;
+          return [_c2("v-btn", _vm._g(_vm._b({
+            staticClass: "mr-1",
+            attrs: {
+              "fab": "",
+              "dark": "",
+              "small": "",
+              "color": "#ee8888b3"
+            },
+            on: {
+              "click": function($event) {
+                $event.stopPropagation();
+                return _vm.viewLargeImg();
+              }
+            }
+          }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.scaleOn ? _vm.mdiMagnifyMinusOutline : _vm.mdiMagnifyPlusOutline))])], 1)];
+        }
+      }], null, false, 3669890410)
+    }, [_c2("span", [_vm._v(_vm._s(_vm.scaleOn ? "\u7F29\u5C0F" : "\u67E5\u770B\u539F\u56FE"))])]), _c2("v-tooltip", {
+      attrs: {
+        "bottom": ""
+      },
+      scopedSlots: _vm._u([{
+        key: "activator",
+        fn: function(_ref2) {
+          var on = _ref2.on, attrs = _ref2.attrs;
+          return [_c2("v-btn", _vm._g(_vm._b({
+            staticClass: "mr-1",
+            attrs: {
+              "fab": "",
+              "dark": "",
+              "small": "",
+              "color": "#ee8888b3"
+            },
+            on: {
+              "click": function($event) {
+                $event.stopPropagation();
+                _vm.isImgFitToPage = !_vm.isImgFitToPage;
+              }
+            }
+          }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFitToScreenOutline))])], 1)];
+        }
+      }], null, false, 742214152)
+    }, [_c2("span", [_vm._v("\u9002\u5E94\u5C4F\u5E55")])]), _c2("v-tooltip", {
+      attrs: {
+        "bottom": ""
+      },
+      scopedSlots: _vm._u([{
+        key: "activator",
+        fn: function(_ref3) {
+          var on = _ref3.on, attrs = _ref3.attrs;
+          return [_c2("v-btn", _vm._g(_vm._b({
+            staticClass: "mr-1",
+            attrs: {
+              "fab": "",
+              "dark": "",
+              "small": "",
+              "color": "#ee8888b3"
+            },
+            on: {
+              "click": function($event) {
+                $event.stopPropagation();
+                return _vm.reqFullscreen.apply(null, arguments);
+              }
+            }
+          }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFullscreen))])], 1)];
+        }
+      }], null, false, 4074451768)
+    }, [_c2("span", [_vm._v("\u5168\u5C4F")])]), _c2("v-tooltip", {
+      attrs: {
+        "bottom": ""
+      },
+      scopedSlots: _vm._u([{
+        key: "activator",
+        fn: function(_ref4) {
+          var on = _ref4.on, attrs = _ref4.attrs;
+          return [_c2("v-btn", _vm._g(_vm._b({
+            attrs: {
+              "fab": "",
+              "dark": "",
+              "small": "",
+              "color": "#ee8888b3"
+            },
+            on: {
+              "click": function($event) {
+                $event.stopPropagation();
+                return _vm.close.apply(null, arguments);
+              }
+            }
+          }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiClose))])], 1)];
+        }
+      }], null, false, 3797348669)
+    }, [_c2("span", [_vm._v("\u5173\u95ED")])])], 1), _c2("v-toolbar", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.showImageToolbar && !_vm.scaleOn,
+        expression: "showImageToolbar && !scaleOn"
       }],
       staticStyle: {
         "position": "absolute",
@@ -4371,7 +4486,6 @@ var __publicField = (obj, key, value) => {
         value: _vm.imageSelectedWidth > 400,
         expression: "imageSelectedWidth > 400"
       }],
-      staticClass: "hidden-sm-and-down",
       attrs: {
         "small": "",
         "color": "#ee8888b3",
@@ -4392,8 +4506,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref) {
-          var on = _ref.on, attrs = _ref.attrs;
+        fn: function(_ref5) {
+          var on = _ref5.on, attrs = _ref5.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -4417,8 +4531,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref2) {
-          var on = _ref2.on, attrs = _ref2.attrs;
+        fn: function(_ref6) {
+          var on = _ref6.on, attrs = _ref6.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -4442,8 +4556,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref3) {
-          var on = _ref3.on, attrs = _ref3.attrs;
+        fn: function(_ref7) {
+          var on = _ref7.on, attrs = _ref7.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -4467,8 +4581,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref4) {
-          var on = _ref4.on, attrs = _ref4.attrs;
+        fn: function(_ref8) {
+          var on = _ref8.on, attrs = _ref8.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -4494,8 +4608,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref5) {
-          var on = _ref5.on, attrs = _ref5.attrs;
+        fn: function(_ref9) {
+          var on = _ref9.on, attrs = _ref9.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             directives: [{
               name: "show",
@@ -4587,8 +4701,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref6) {
-          var on = _ref6.on, attrs = _ref6.attrs;
+        fn: function(_ref10) {
+          var on = _ref10.on, attrs = _ref10.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -4612,8 +4726,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref7) {
-          var on = _ref7.on, attrs = _ref7.attrs;
+        fn: function(_ref11) {
+          var on = _ref11.on, attrs = _ref11.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             attrs: {
               "fab": "",
@@ -4655,6 +4769,10 @@ var __publicField = (obj, key, value) => {
         "draggable": "false"
       }
     }, [_c2("img", {
+      style: _vm.isImgFitToPage ? {
+        maxWidth: "100vw",
+        maxHeight: "calc(100vh - 10px)"
+      } : {},
       attrs: {
         "src": _vm.scaleOn ? _vm.imageSelected.jpegUrl || _vm.imageSelected.fileUrl || void 0 : void 0,
         "draggable": "false",
