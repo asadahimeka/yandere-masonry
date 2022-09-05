@@ -21,7 +21,75 @@
         </v-row>
       </template>
       <v-toolbar
-        v-show="showImageToolbar"
+        v-show="showImageToolbar && scaleOn && !isVideo"
+        style="position:absolute;top:0;width:100%;z-index:10;"
+        color="transparent"
+        height="auto"
+        flat
+      >
+        <v-spacer />
+        <v-tooltip bottom>
+          <template #activator="{ on, attrs }">
+            <v-btn
+              fab
+              dark
+              small
+              color="#ee8888b3"
+              class="mr-1"
+              v-bind="attrs"
+              v-on="on"
+              @click.stop="viewLargeImg()"
+            >
+              <v-icon>{{ scaleOn ? mdiMagnifyMinusOutline : mdiMagnifyPlusOutline }}</v-icon>
+            </v-btn>
+          </template>
+          <span>{{ scaleOn ? '缩小' : '查看原图' }}</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template #activator="{ on, attrs }">
+            <v-btn
+              fab
+              dark
+              small
+              color="#ee8888b3"
+              v-bind="attrs"
+              class="mr-1"
+              v-on="on"
+              @click.stop="isImgFitToPage = !isImgFitToPage"
+            >
+              <v-icon>{{ mdiFitToScreenOutline }}</v-icon>
+            </v-btn>
+          </template>
+          <span>适应屏幕</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template #activator="{ on, attrs }">
+            <v-btn
+              fab
+              dark
+              small
+              color="#ee8888b3"
+              v-bind="attrs"
+              class="mr-1"
+              v-on="on"
+              @click.stop="reqFullscreen"
+            >
+              <v-icon>{{ mdiFullscreen }}</v-icon>
+            </v-btn>
+          </template>
+          <span>全屏</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template #activator="{ on, attrs }">
+            <v-btn fab dark small color="#ee8888b3" v-bind="attrs" v-on="on" @click.stop="close">
+              <v-icon>{{ mdiClose }}</v-icon>
+            </v-btn>
+          </template>
+          <span>关闭</span>
+        </v-tooltip>
+      </v-toolbar>
+      <v-toolbar
+        v-show="showImageToolbar && !scaleOn"
         style="position:absolute;top:0;width:100%;z-index:10;"
         color="transparent"
         height="auto"
@@ -32,7 +100,6 @@
           small
           color="#ee8888b3"
           text-color="#ffffff"
-          class="hidden-sm-and-down"
           @click.stop="toDetailPage"
           v-text="`${imageSelected.rating?.toUpperCase()} ${imageSelected.id}`"
         />
@@ -171,7 +238,12 @@
       <d-player v-if="isVideo" style="width: 100%;" :options="{ theme: '#ee8888', autoplay: true, video: { url: imageSelected.fileUrl } }" />
       <!-- <video v-if="isVideo" controls style="width: 100%;" :src="imageSelected.fileUrl ?? void 0"></video> -->
       <div v-show="!isVideo" class="img_scale_scroll" draggable="false">
-        <img :src="scaleOn ? (imageSelected.jpegUrl || imageSelected.fileUrl || void 0) : void 0" draggable="false" alt="">
+        <img
+          :src="scaleOn ? (imageSelected.jpegUrl || imageSelected.fileUrl || void 0) : void 0"
+          draggable="false"
+          :style="isImgFitToPage ? { maxWidth: '100vw', maxHeight: 'calc(100vh - 10px)' } : {}"
+          alt=""
+        >
       </div>
       <div v-show="!isVideo && showImageToolbar" class="hidden-sm-and-down">
         <div style="position: absolute;bottom: 12px;padding: 0 12px;">
@@ -216,6 +288,8 @@ import {
   mdiChevronRight,
   mdiClose,
   mdiDownload,
+  mdiFitToScreenOutline,
+  mdiFullscreen,
   mdiHeart,
   mdiHeartPlusOutline,
   mdiLaunch,
@@ -227,7 +301,7 @@ import {
 } from '@mdi/js'
 import { computed, onMounted, ref, watch } from '@vue/composition-api'
 import DPlayer from './DPlayer.vue'
-import { downloadFile, dragElement, isURL, showMsg, throttle } from '@/utils'
+import { debounce, downloadFile, dragElement, isURL, showMsg } from '@/utils'
 import { type PostDetail, addPostToFavorites, getPostDetail } from '@/api/moebooru'
 import store from '@/store'
 
@@ -353,8 +427,11 @@ const onImageLoadError = () => {
   imageSelected.value.sampleUrl = null
 }
 
+const isImgFitToPage = ref(false)
+
 let clearDragEv: (() => void) | undefined
 const viewLargeImg = () => {
+  isImgFitToPage.value = false
   scaleOn.value = !scaleOn.value
   if (scaleOn.value) {
     clearDragEv = dragElement('.img_scale_scroll', 'img')
@@ -363,9 +440,19 @@ const viewLargeImg = () => {
   }
 }
 
-const onDetailWheel = throttle((ev: WheelEvent) => {
+const onDetailWheel = debounce((ev: WheelEvent) => {
+  if (scaleOn.value) return
   ev.deltaY > 0 ? showNextPost() : showPrevPost()
-}, 1000)
+}, 500, true)
+
+const reqFullscreen = async () => {
+  try {
+    const img = document.querySelector('.img_scale_scroll img')
+    await img?.requestFullscreen()
+  } catch (error) {
+    console.log('toggleFullscreen error: ', error)
+  }
+}
 
 watch(() => store.showImageSelected, async val => {
   if (!val) {

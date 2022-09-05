@@ -77,10 +77,15 @@
 
 .img_detail {
   margin: 0;
+  overflow: hidden;
 }
 
 .img_detail.v-dialog:not(.v-dialog--fullscreen) {
   max-height: 98%;
+}
+
+.img_detail .v-image {
+  max-height: calc(100vh - 10px);
 }
 
 .img_detail_scale_on {
@@ -88,7 +93,7 @@
   max-width: 100vw !important;
   max-height: 100vh !important;
   margin: 0;
-  padding: 12px;
+  padding: 0;
   overflow: auto;
 }
 
@@ -115,12 +120,17 @@
   display: none;
 }
 
+.img_scale_scroll img {
+  display: block;
+  margin: 0 auto;
+}
+
 .img_detail_scale_on .img_scale_scroll {
   display: block;
   min-width: 500px;
   min-height: 500px;
   max-width: 100vw;
-  max-height: calc(100vh - 30px);
+  max-height: calc(100vh - 10px);
   overflow: auto;
 }
 
