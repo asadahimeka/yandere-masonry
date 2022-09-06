@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
-// @version              0.22.4
+// @version              0.23.0
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru et cetera.
 // @author               asadahimeka
@@ -59,7 +59,7 @@ var __publicField = (obj, key, value) => {
 (() => {
   var ydStyle = 'a.thumb{padding-bottom:5px;border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08] "}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743] "}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272] "}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2] "}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:100%;height:auto;margin-top:0;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}\n';
   var knStyle = "#lsidebar{display:none}#post-popular ul#post-list-posts{display:flex;justify-content:center;flex-wrap:wrap}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
-  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail{margin:0;overflow:hidden}.img_detail.v-dialog:not(.v-dialog--fullscreen){max-height:98%}.img_detail .v-image{max-height:calc(100vh - 10px)}.img_detail_scale_on{width:auto!important;max-width:100vw!important;max-height:100vh!important;margin:0;padding:0;overflow:auto}.img_detail_scale_on .v-image{display:block;max-height:100vh;margin:0 auto}.img_detail_scale_on .v-responsive__sizer,.img_detail_scale_on .v-image__image{display:none}.img_detail_scale_on .v-responsive__content{position:relative;width:auto!important;max-width:100vw!important;max-height:100vh;margin:0!important}.img_scale_scroll{display:none}.img_scale_scroll img{display:block;margin:0 auto}.img_detail_scale_on .img_scale_scroll{display:block;min-width:500px;min-height:500px;max-width:100vw;max-height:calc(100vh - 10px);overflow:auto}::-webkit-scrollbar{width:0px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #fff;border-radius:7px}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}\n';
+  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail{margin:0;overflow:hidden}.img_detail_loading{position:absolute;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0;backdrop-filter:blur(2px)}.img_detail.v-dialog:not(.v-dialog--fullscreen){max-height:98%}.img_detail .v-image{max-height:calc(100vh - 10px)}.img_detail_scale_on{width:auto!important;max-width:100vw!important;max-height:100vh!important;margin:0;padding:0;border-radius:0;overflow:auto}.img_detail_scale_on .v-image{display:block;max-height:100vh;margin:0 auto}.img_detail_scale_on .v-responsive__sizer,.img_detail_scale_on .v-image__image{display:none}.img_detail_scale_on .v-responsive__content{position:relative;width:auto!important;max-width:100vw!important;max-height:100vh;margin:0!important}.img_scale_scroll{display:none}.img_scale_scroll img{display:block;margin:0 auto}.img_detail_scale_on .img_scale_scroll{display:block;max-width:100vw;max-height:100vh;overflow:auto}::-webkit-scrollbar{width:0px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #fff;border-radius:7px}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}\n';
   async function prepareApp(callback) {
     if (doNotRun())
       return;
@@ -327,6 +327,7 @@ var __publicField = (obj, key, value) => {
   var mdiFire = "M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z";
   var mdiFitToScreenOutline = "M17 4H20C21.1 4 22 4.9 22 6V8H20V6H17V4M4 8V6H7V4H4C2.9 4 2 4.9 2 6V8H4M20 16V18H17V20H20C21.1 20 22 19.1 22 18V16H20M7 18H4V16H2V18C2 19.1 2.9 20 4 20H7V18M16 10V14H8V10H16M18 8H6V16H18V8Z";
   var mdiFullscreen = "M5,5H10V7H7V10H5V5M14,5H19V10H17V7H14V5M17,14H19V19H14V17H17V14M10,17V19H5V14H7V17H10Z";
+  var mdiFullscreenExit = "M14,14H19V16H16V19H14V14M5,14H10V19H8V16H5V14M8,5H10V10H5V8H8V5M19,8V10H14V5H16V8H19Z";
   var mdiGithub = "M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z";
   var mdiHeart = "M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z";
   var mdiHeartPlusOutline = "M12.67 20.74L12 21.35L10.55 20.03C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5C22 9.93 21.5 11.26 20.62 12.61C20 12.31 19.31 12.11 18.59 12.04C19.5 10.8 20 9.65 20 8.5C20 6.5 18.5 5 16.5 5C14.96 5 13.46 6 12.93 7.36H11.07C10.54 6 9.04 5 7.5 5C5.5 5 4 6.5 4 8.5C4 11.39 7.14 14.24 11.89 18.55L12 18.65L12.04 18.61C12.12 19.37 12.34 20.09 12.67 20.74M17 14V17H14V19H17V22H19V19H22V17H19V14H17Z";
@@ -336,14 +337,15 @@ var __publicField = (obj, key, value) => {
   var mdiLaunch = "M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z";
   var mdiLinkVariant = "M10.59,13.41C11,13.8 11,14.44 10.59,14.83C10.2,15.22 9.56,15.22 9.17,14.83C7.22,12.88 7.22,9.71 9.17,7.76V7.76L12.71,4.22C14.66,2.27 17.83,2.27 19.78,4.22C21.73,6.17 21.73,9.34 19.78,11.29L18.29,12.78C18.3,11.96 18.17,11.14 17.89,10.36L18.36,9.88C19.54,8.71 19.54,6.81 18.36,5.64C17.19,4.46 15.29,4.46 14.12,5.64L10.59,9.17C9.41,10.34 9.41,12.24 10.59,13.41M13.41,9.17C13.8,8.78 14.44,8.78 14.83,9.17C16.78,11.12 16.78,14.29 14.83,16.24V16.24L11.29,19.78C9.34,21.73 6.17,21.73 4.22,19.78C2.27,17.83 2.27,14.66 4.22,12.71L5.71,11.22C5.7,12.04 5.83,12.86 6.11,13.65L5.64,14.12C4.46,15.29 4.46,17.19 5.64,18.36C6.81,19.54 8.71,19.54 9.88,18.36L13.41,14.83C14.59,13.66 14.59,11.76 13.41,10.59C13,10.2 13,9.56 13.41,9.17Z";
   var mdiLocationExit = "M22 12L18 8V11H10V13H18V16M20 18A10 10 0 1 1 20 6H17.27A8 8 0 1 0 17.27 18Z";
+  var mdiLoupe = "M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22H20A2,2 0 0,0 22,20V12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z";
   var mdiMagnify = "M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z";
-  var mdiMagnifyMinusOutline = "M15.5,14H14.71L14.43,13.73C15.41,12.59 16,11.11 16,9.5A6.5,6.5 0 0,0 9.5,3A6.5,6.5 0 0,0 3,9.5A6.5,6.5 0 0,0 9.5,16C11.11,16 12.59,15.41 13.73,14.43L14,14.71V15.5L19,20.5L20.5,19L15.5,14M9.5,14C7,14 5,12 5,9.5C5,7 7,5 9.5,5C12,5 14,7 14,9.5C14,12 12,14 9.5,14M7,9H12V10H7V9Z";
   var mdiMagnifyPlusOutline = "M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14M12,10H10V12H9V10H7V9H9V7H10V9H12V10Z";
   var mdiMessageAlertOutline = "M13,10H11V6H13V10M13,12H11V14H13V12M22,4V16A2,2 0 0,1 20,18H6L2,22V4A2,2 0 0,1 4,2H20A2,2 0 0,1 22,4M20,4H4V17.2L5.2,16H20V4Z";
   var mdiPlaylistPlus = "M3 16H10V14H3M18 14V10H16V14H12V16H16V20H18V16H22V14M14 6H3V8H14M14 10H3V12H14V10Z";
   var mdiRefresh = "M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z";
   var mdiShuffle = "M14.83,13.41L13.42,14.82L16.55,17.95L14.5,20H20V14.5L17.96,16.54L14.83,13.41M14.5,4L16.54,6.04L4,18.59L5.41,20L17.96,7.46L20,9.5V4M10.59,9.17L5.41,4L4,5.41L9.17,10.58L10.59,9.17Z";
   var mdiStar = "M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z";
+  var mdiTableSplitCell = "M19 14H21V20H3V14H5V18H19V14M3 4V10H5V6H19V10H21V4H3M11 11V13H8V15L5 12L8 9V11H11M16 11V9L19 12L16 15V13H13V11H16Z";
   var mdiTagMultiple = "M5.5,9A1.5,1.5 0 0,0 7,7.5A1.5,1.5 0 0,0 5.5,6A1.5,1.5 0 0,0 4,7.5A1.5,1.5 0 0,0 5.5,9M17.41,11.58C17.77,11.94 18,12.44 18,13C18,13.55 17.78,14.05 17.41,14.41L12.41,19.41C12.05,19.77 11.55,20 11,20C10.45,20 9.95,19.78 9.58,19.41L2.59,12.42C2.22,12.05 2,11.55 2,11V6C2,4.89 2.89,4 4,4H9C9.55,4 10.05,4.22 10.41,4.58L17.41,11.58M13.54,5.71L14.54,4.71L21.41,11.58C21.78,11.94 22,12.45 22,13C22,13.55 21.78,14.05 21.42,14.41L16.04,19.79L15.04,18.79L20.75,13L13.54,5.71Z";
   var mdiVideo = "M17,10.5V7A1,1 0 0,0 16,6H4A1,1 0 0,0 3,7V17A1,1 0 0,0 4,18H16A1,1 0 0,0 17,17V13.5L21,17.5V6.5L17,10.5Z";
   var mdiViewDashboardVariant = "M2,5V19H8V5H2M9,5V10H15V5H9M16,5V14H22V5H16M9,11V19H15V11H9M16,15V19H22V15H16Z";
@@ -365,6 +367,7 @@ var __publicField = (obj, key, value) => {
     isYKSite: ykFlag,
     showPostList: !poolFlag,
     showPoolList: ykFlag && poolFlag,
+    isFullscreen: false,
     toggleDrawer() {
       store.showDrawer = !store.showDrawer;
     },
@@ -3021,6 +3024,22 @@ var __publicField = (obj, key, value) => {
       url.searchParams.delete("_wf");
       location.assign(url);
     };
+    const toggleFullscreen = async () => {
+      try {
+        if (document.fullscreenElement) {
+          await document.exitFullscreen();
+        } else {
+          await document.documentElement.requestFullscreen();
+        }
+      } catch (error) {
+        console.log("toggleFullscreen error: ", error);
+      }
+    };
+    VueCompositionAPI2.onMounted(() => {
+      document.addEventListener("fullscreenchange", () => {
+        store.isFullscreen = !!document.fullscreenElement;
+      });
+    });
     return {
       mdiBrightness6,
       mdiCalendar,
@@ -3035,6 +3054,8 @@ var __publicField = (obj, key, value) => {
       mdiDownload,
       mdiFileClockOutline,
       mdiFire,
+      mdiFullscreen,
+      mdiFullscreenExit,
       mdiHome,
       mdiImageMultiple,
       mdiLocationExit,
@@ -3077,7 +3098,8 @@ var __publicField = (obj, key, value) => {
       exportFileUrls,
       toggleDarkmode,
       goToPage,
-      exitMasonry
+      exitMasonry,
+      toggleFullscreen
     };
   };
   var render$7 = function() {
@@ -3501,11 +3523,12 @@ var __publicField = (obj, key, value) => {
     }), 1)], 1), _c2("span", {
       staticClass: "hidden-md-and-down"
     }, [_vm._v("\u5DF2\u9009\u62E9")]), _c2("span", {
-      staticClass: "ml-1 mr-1",
+      staticClass: "hidden-md-and-down ml-1 mr-1",
       domProps: {
         "textContent": _vm._s(_vm.store.selectedImageList.length)
       }
     }), _c2("v-btn", {
+      staticClass: "hidden-md-and-down",
       attrs: {
         "icon": ""
       },
@@ -3544,13 +3567,14 @@ var __publicField = (obj, key, value) => {
         fn: function(_ref5) {
           var on = _ref5.on, attrs = _ref5.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
+            staticClass: "hidden-md-and-down",
             attrs: {
               "title": "\u4E0B\u8F7D\u5217\u8868",
               "icon": ""
             }
           }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiDownload))])], 1)];
         }
-      }], null, false, 2310245454)
+      }], null, false, 3728188121)
     }, [_c2("v-list", {
       staticStyle: {
         "min-width": "300px",
@@ -3656,6 +3680,18 @@ var __publicField = (obj, key, value) => {
         "click": _vm.toggleDarkmode
       }
     }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiBrightness6))])], 1), _c2("v-btn", {
+      attrs: {
+        "title": "\u5207\u6362\u5168\u5C4F",
+        "icon": ""
+      },
+      on: {
+        "click": _vm.toggleFullscreen
+      }
+    }, [_c2("v-icon", {
+      attrs: {
+        "size": 30
+      }
+    }, [_vm._v(_vm._s(_vm.store.isFullscreen ? _vm.mdiFullscreenExit : _vm.mdiFullscreen))])], 1), _c2("v-btn", {
       attrs: {
         "title": "\u9000\u51FA\u7011\u5E03\u6D41\u6A21\u5F0F",
         "icon": ""
@@ -4086,6 +4122,7 @@ var __publicField = (obj, key, value) => {
   const __sfc_main$5 = {};
   __sfc_main$5.setup = (__props, __ctx) => {
     const showImageToolbar = VueCompositionAPI2.ref(true);
+    const imgLoading = VueCompositionAPI2.ref(false);
     const innerWidth = VueCompositionAPI2.ref(window.innerWidth);
     const innerHeight = VueCompositionAPI2.ref(window.innerHeight);
     const downloading = VueCompositionAPI2.ref(false);
@@ -4194,36 +4231,52 @@ var __publicField = (obj, key, value) => {
     const showPrevPost = async () => {
       if (store.imageSelectedIndex == 0)
         return;
+      imgLoading.value = true;
       store.imageSelectedIndex--;
       await setPostDetail();
     };
     const showNextPost = async () => {
       if (store.imageSelectedIndex > store.imageList.length - 1)
         return;
+      imgLoading.value = true;
       store.imageSelectedIndex++;
       await setPostDetail();
     };
     const onImageLoadError = () => {
+      imgLoading.value = false;
       imageSelected.value.sampleUrl = null;
     };
-    const isImgFitToPage = VueCompositionAPI2.ref(false);
-    let clearDragEv;
-    const viewLargeImg = () => {
-      isImgFitToPage.value = false;
-      scaleOn.value = !scaleOn.value;
-      if (scaleOn.value) {
-        clearDragEv = dragElement(".img_scale_scroll", "img");
-      } else {
-        clearDragEv == null ? void 0 : clearDragEv();
-      }
+    const scaleImgSrc = VueCompositionAPI2.computed(() => {
+      return scaleOn.value ? imageSelected.value.jpegUrl || imageSelected.value.fileUrl || void 0 : void 0;
+    });
+    const scaleImgStyleMap = {
+      FitToPage: {
+        maxWidth: "100vw",
+        maxHeight: "100vh"
+      },
+      FitToWidth: {
+        width: "100vw"
+      },
+      FitToHeight: {
+        height: "100vh"
+      },
+      Original: {}
     };
-    const onDetailWheel = debounce((ev) => {
-      if (scaleOn.value)
-        return;
-      ev.deltaY > 0 ? showNextPost() : showPrevPost();
-    }, 500, true);
+    const imgScaleState = VueCompositionAPI2.ref("FitToWidth");
+    let clearDragEv;
+    const zoomInImg = () => {
+      scaleOn.value = true;
+      imgLoading.value = true;
+      clearDragEv = dragElement(".img_scale_scroll", "img");
+    };
+    const zoomOutImg = () => {
+      scaleOn.value = false;
+      clearDragEv == null ? void 0 : clearDragEv();
+    };
     const reqFullscreen = async () => {
       try {
+        if (document.fullscreenElement)
+          return;
         const img = document.querySelector(".img_scale_scroll img");
         await (img == null ? void 0 : img.requestFullscreen());
       } catch (error) {
@@ -4238,11 +4291,24 @@ var __publicField = (obj, key, value) => {
         await setPostDetail();
       }
     });
+    const onResize = () => {
+      innerWidth.value = window.innerWidth;
+      innerHeight.value = window.innerHeight;
+    };
+    const onWheel = debounce((ev) => {
+      if (!store.showImageSelected)
+        return;
+      if (scaleOn.value && imgScaleState.value !== "FitToPage")
+        return;
+      ev.deltaY > 0 ? showNextPost() : showPrevPost();
+    }, 500, true);
     VueCompositionAPI2.onMounted(() => {
-      window.addEventListener("resize", () => {
-        innerWidth.value = window.innerWidth;
-        innerHeight.value = window.innerHeight;
-      });
+      window.addEventListener("resize", onResize);
+      window.addEventListener("wheel", onWheel);
+    });
+    VueCompositionAPI2.onUnmounted(() => {
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("wheel", onWheel);
     });
     return {
       mdiChevronLeft,
@@ -4255,12 +4321,14 @@ var __publicField = (obj, key, value) => {
       mdiHeartPlusOutline,
       mdiLaunch,
       mdiLinkVariant,
-      mdiMagnifyMinusOutline,
+      mdiLoupe,
       mdiMagnifyPlusOutline,
       mdiPlaylistPlus,
+      mdiTableSplitCell,
       mdiTagMultiple,
       store,
       showImageToolbar,
+      imgLoading,
       downloading,
       scaleOn,
       showTagChipGroup,
@@ -4283,9 +4351,11 @@ var __publicField = (obj, key, value) => {
       showPrevPost,
       showNextPost,
       onImageLoadError,
-      isImgFitToPage,
-      viewLargeImg,
-      onDetailWheel,
+      scaleImgSrc,
+      scaleImgStyleMap,
+      imgScaleState,
+      zoomInImg,
+      zoomOutImg,
       reqFullscreen
     };
   };
@@ -4321,30 +4391,30 @@ var __publicField = (obj, key, value) => {
       },
       on: {
         "click": _vm.toggleToolbar,
-        "wheel": _vm.onDetailWheel,
-        "error": _vm.onImageLoadError
-      },
-      scopedSlots: _vm._u([{
-        key: "placeholder",
-        fn: function() {
-          return [_c2("v-row", {
-            staticClass: "fill-height ma-0",
-            attrs: {
-              "align": "center",
-              "justify": "center"
-            }
-          }, [_c2("v-progress-circular", {
-            attrs: {
-              "size": 100,
-              "width": 6,
-              "indeterminate": "",
-              "color": "deep-purple"
-            }
-          })], 1)];
+        "loadstart": function($event) {
+          _vm.imgLoading = true;
         },
-        proxy: true
-      }], null, false, 4094259188)
-    }, [_c2("v-toolbar", {
+        "load": function($event) {
+          !_vm.scaleOn && (_vm.imgLoading = false);
+        },
+        "error": _vm.onImageLoadError
+      }
+    }, [_c2("v-row", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.imgLoading,
+        expression: "imgLoading"
+      }],
+      staticClass: "img_detail_loading"
+    }, [_c2("v-progress-circular", {
+      attrs: {
+        "size": 100,
+        "width": 6,
+        "indeterminate": "",
+        "color": "deep-purple"
+      }
+    })], 1), _c2("v-toolbar", {
       directives: [{
         name: "show",
         rawName: "v-show",
@@ -4362,7 +4432,7 @@ var __publicField = (obj, key, value) => {
         "height": "auto",
         "flat": ""
       }
-    }, [_c2("v-spacer"), _c2("v-tooltip", {
+    }, [_c2("v-tooltip", {
       attrs: {
         "bottom": ""
       },
@@ -4381,13 +4451,13 @@ var __publicField = (obj, key, value) => {
             on: {
               "click": function($event) {
                 $event.stopPropagation();
-                return _vm.viewLargeImg();
+                return _vm.toDetailPage.apply(null, arguments);
               }
             }
-          }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.scaleOn ? _vm.mdiMagnifyMinusOutline : _vm.mdiMagnifyPlusOutline))])], 1)];
+          }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiLinkVariant))])], 1)];
         }
-      }], null, false, 3669890410)
-    }, [_c2("span", [_vm._v(_vm._s(_vm.scaleOn ? "\u7F29\u5C0F" : "\u67E5\u770B\u539F\u56FE"))])]), _c2("v-tooltip", {
+      }], null, false, 3687422672)
+    }, [_c2("span", [_vm._v("\u8BE6\u60C5")])]), !_vm.notYKSite ? _c2("v-tooltip", {
       attrs: {
         "bottom": ""
       },
@@ -4406,13 +4476,13 @@ var __publicField = (obj, key, value) => {
             on: {
               "click": function($event) {
                 $event.stopPropagation();
-                _vm.isImgFitToPage = !_vm.isImgFitToPage;
+                return _vm.addFavorite.apply(null, arguments);
               }
             }
-          }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFitToScreenOutline))])], 1)];
+          }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.postDetail.voted ? _vm.mdiHeart : _vm.mdiHeartPlusOutline))])], 1)];
         }
-      }], null, false, 742214152)
-    }, [_c2("span", [_vm._v("\u9002\u5E94\u5C4F\u5E55")])]), _c2("v-tooltip", {
+      }], null, false, 2009326719)
+    }, [_c2("span", [_vm._v(_vm._s(_vm.postDetail.voted ? "\u5DF2\u6536\u85CF" : "\u6536\u85CF"))])]) : _vm._e(), _c2("v-spacer"), _c2("v-tooltip", {
       attrs: {
         "bottom": ""
       },
@@ -4431,13 +4501,13 @@ var __publicField = (obj, key, value) => {
             on: {
               "click": function($event) {
                 $event.stopPropagation();
-                return _vm.reqFullscreen.apply(null, arguments);
+                _vm.imgScaleState = "FitToPage";
               }
             }
-          }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFullscreen))])], 1)];
+          }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFitToScreenOutline))])], 1)];
         }
-      }], null, false, 4074451768)
-    }, [_c2("span", [_vm._v("\u5168\u5C4F")])]), _c2("v-tooltip", {
+      }], null, false, 77756214)
+    }, [_c2("span", [_vm._v("\u9002\u5E94\u9875\u9762")])]), _c2("v-tooltip", {
       attrs: {
         "bottom": ""
       },
@@ -4446,6 +4516,7 @@ var __publicField = (obj, key, value) => {
         fn: function(_ref4) {
           var on = _ref4.on, attrs = _ref4.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
+            staticClass: "mr-1",
             attrs: {
               "fab": "",
               "dark": "",
@@ -4455,13 +4526,117 @@ var __publicField = (obj, key, value) => {
             on: {
               "click": function($event) {
                 $event.stopPropagation();
-                return _vm.close.apply(null, arguments);
+                _vm.imgScaleState = "FitToWidth";
+              }
+            }
+          }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiTableSplitCell))])], 1)];
+        }
+      }], null, false, 3673816421)
+    }, [_c2("span", [_vm._v("\u9002\u5E94\u5BBD\u5EA6")])]), _c2("v-tooltip", {
+      attrs: {
+        "bottom": ""
+      },
+      scopedSlots: _vm._u([{
+        key: "activator",
+        fn: function(_ref5) {
+          var on = _ref5.on, attrs = _ref5.attrs;
+          return [_c2("v-btn", _vm._g(_vm._b({
+            staticClass: "mr-1",
+            attrs: {
+              "fab": "",
+              "dark": "",
+              "small": "",
+              "color": "#ee8888b3"
+            },
+            on: {
+              "click": function($event) {
+                $event.stopPropagation();
+                _vm.imgScaleState = "FitToHeight";
+              }
+            }
+          }, "v-btn", attrs, false), on), [_c2("v-icon", {
+            staticStyle: {
+              "transform": "rotate(90deg)"
+            }
+          }, [_vm._v(_vm._s(_vm.mdiTableSplitCell))])], 1)];
+        }
+      }], null, false, 2549717572)
+    }, [_c2("span", [_vm._v("\u9002\u5E94\u9AD8\u5EA6")])]), _c2("v-tooltip", {
+      attrs: {
+        "bottom": ""
+      },
+      scopedSlots: _vm._u([{
+        key: "activator",
+        fn: function(_ref6) {
+          var on = _ref6.on, attrs = _ref6.attrs;
+          return [_c2("v-btn", _vm._g(_vm._b({
+            staticClass: "mr-1",
+            attrs: {
+              "fab": "",
+              "dark": "",
+              "small": "",
+              "color": "#ee8888b3"
+            },
+            on: {
+              "click": function($event) {
+                $event.stopPropagation();
+                _vm.imgScaleState = "Original";
+              }
+            }
+          }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiLoupe))])], 1)];
+        }
+      }], null, false, 1182917555)
+    }, [_c2("span", [_vm._v("\u539F\u59CB\u5927\u5C0F")])]), !_vm.store.isFullscreen ? _c2("v-tooltip", {
+      attrs: {
+        "bottom": ""
+      },
+      scopedSlots: _vm._u([{
+        key: "activator",
+        fn: function(_ref7) {
+          var on = _ref7.on, attrs = _ref7.attrs;
+          return [_c2("v-btn", _vm._g(_vm._b({
+            staticClass: "mr-1",
+            attrs: {
+              "fab": "",
+              "dark": "",
+              "small": "",
+              "color": "#ee8888b3"
+            },
+            on: {
+              "click": function($event) {
+                $event.stopPropagation();
+                return _vm.reqFullscreen.apply(null, arguments);
+              }
+            }
+          }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFullscreen))])], 1)];
+        }
+      }], null, false, 4074451768)
+    }, [_c2("span", [_vm._v("\u5168\u5C4F")])]) : _vm._e(), _c2("v-tooltip", {
+      attrs: {
+        "bottom": ""
+      },
+      scopedSlots: _vm._u([{
+        key: "activator",
+        fn: function(_ref8) {
+          var on = _ref8.on, attrs = _ref8.attrs;
+          return [_c2("v-btn", _vm._g(_vm._b({
+            staticClass: "mr-1",
+            attrs: {
+              "fab": "",
+              "dark": "",
+              "small": "",
+              "color": "#ee8888b3"
+            },
+            on: {
+              "click": function($event) {
+                $event.stopPropagation();
+                return _vm.zoomOutImg();
               }
             }
           }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiClose))])], 1)];
         }
-      }], null, false, 3797348669)
-    }, [_c2("span", [_vm._v("\u5173\u95ED")])])], 1), _c2("v-toolbar", {
+      }], null, false, 2699018367)
+    }, [_c2("span", [_vm._v("\u8FD4\u56DE")])])], 1), _c2("v-toolbar", {
       directives: [{
         name: "show",
         rawName: "v-show",
@@ -4506,8 +4681,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref5) {
-          var on = _ref5.on, attrs = _ref5.attrs;
+        fn: function(_ref9) {
+          var on = _ref9.on, attrs = _ref9.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -4531,8 +4706,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref6) {
-          var on = _ref6.on, attrs = _ref6.attrs;
+        fn: function(_ref10) {
+          var on = _ref10.on, attrs = _ref10.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -4556,8 +4731,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref7) {
-          var on = _ref7.on, attrs = _ref7.attrs;
+        fn: function(_ref11) {
+          var on = _ref11.on, attrs = _ref11.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -4581,8 +4756,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref8) {
-          var on = _ref8.on, attrs = _ref8.attrs;
+        fn: function(_ref12) {
+          var on = _ref12.on, attrs = _ref12.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -4594,13 +4769,13 @@ var __publicField = (obj, key, value) => {
             on: {
               "click": function($event) {
                 $event.stopPropagation();
-                return _vm.viewLargeImg();
+                return _vm.zoomInImg();
               }
             }
-          }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.scaleOn ? _vm.mdiMagnifyMinusOutline : _vm.mdiMagnifyPlusOutline))])], 1)];
+          }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiMagnifyPlusOutline))])], 1)];
         }
-      }], null, false, 3669890410)
-    }, [_c2("span", [_vm._v(_vm._s(_vm.scaleOn ? "\u7F29\u5C0F" : "\u67E5\u770B\u539F\u56FE"))])]) : _vm._e(), _c2("v-menu", {
+      }], null, false, 3499412041)
+    }, [_c2("span", [_vm._v("\u67E5\u770B\u5927\u56FE")])]) : _vm._e(), _c2("v-menu", {
       attrs: {
         "dense": "",
         "open-on-hover": "",
@@ -4608,8 +4783,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref9) {
-          var on = _ref9.on, attrs = _ref9.attrs;
+        fn: function(_ref13) {
+          var on = _ref13.on, attrs = _ref13.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             directives: [{
               name: "show",
@@ -4701,8 +4876,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref10) {
-          var on = _ref10.on, attrs = _ref10.attrs;
+        fn: function(_ref14) {
+          var on = _ref14.on, attrs = _ref14.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -4726,8 +4901,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref11) {
-          var on = _ref11.on, attrs = _ref11.attrs;
+        fn: function(_ref15) {
+          var on = _ref15.on, attrs = _ref15.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             attrs: {
               "fab": "",
@@ -4769,14 +4944,16 @@ var __publicField = (obj, key, value) => {
         "draggable": "false"
       }
     }, [_c2("img", {
-      style: _vm.isImgFitToPage ? {
-        maxWidth: "100vw",
-        maxHeight: "calc(100vh - 10px)"
-      } : {},
+      style: _vm.scaleImgStyleMap[_vm.imgScaleState],
       attrs: {
-        "src": _vm.scaleOn ? _vm.imageSelected.jpegUrl || _vm.imageSelected.fileUrl || void 0 : void 0,
-        "draggable": "false",
-        "alt": ""
+        "src": _vm.scaleImgSrc,
+        "alt": "",
+        "draggable": "false"
+      },
+      on: {
+        "load": function($event) {
+          _vm.imgLoading = false;
+        }
       }
     })]), _c2("div", {
       directives: [{
