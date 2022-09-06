@@ -143,15 +143,15 @@
         </v-list>
       </v-menu>
       <span class="hidden-md-and-down">已选择</span>
-      <span class="ml-1 mr-1" v-text="store.selectedImageList.length"></span>
-      <v-btn icon @click="selectAll">
+      <span class="hidden-md-and-down ml-1 mr-1" v-text="store.selectedImageList.length"></span>
+      <v-btn class="hidden-md-and-down" icon @click="selectAll">
         <v-icon v-show="isNoSelected">{{ mdiCheckboxBlankOutline }}</v-icon>
         <v-icon v-show="isOneOrMoreSelected">{{ mdiCheckboxIntermediate }}</v-icon>
         <v-icon v-show="isAllSelected">{{ mdiCheckboxMarked }}</v-icon>
       </v-btn>
       <v-menu dense offset-y :close-on-content-click="false">
         <template #activator="{ on, attrs }">
-          <v-btn title="下载列表" icon v-bind="attrs" v-on="on">
+          <v-btn class="hidden-md-and-down" title="下载列表" icon v-bind="attrs" v-on="on">
             <v-icon>{{ mdiDownload }}</v-icon>
           </v-btn>
         </template>
@@ -193,6 +193,9 @@
     <v-btn title="切换深色模式" icon @click="toggleDarkmode">
       <v-icon>{{ mdiBrightness6 }}</v-icon>
     </v-btn>
+    <v-btn title="切换全屏" icon @click="toggleFullscreen">
+      <v-icon :size="30">{{ store.isFullscreen ? mdiFullscreenExit : mdiFullscreen }}</v-icon>
+    </v-btn>
     <v-btn title="退出瀑布流模式" icon @click="exitMasonry">
       <v-icon>{{ mdiLocationExit }}</v-icon>
     </v-btn>
@@ -226,6 +229,8 @@ import {
   mdiDownload,
   mdiFileClockOutline,
   mdiFire,
+  mdiFullscreen,
+  mdiFullscreenExit,
   mdiHome,
   mdiImageMultiple,
   mdiLocationExit,
@@ -500,4 +505,22 @@ const exitMasonry = () => {
   url.searchParams.delete('_wf')
   location.assign(url)
 }
+
+const toggleFullscreen = async () => {
+  try {
+    if (document.fullscreenElement) {
+      await document.exitFullscreen()
+    } else {
+      await document.documentElement.requestFullscreen()
+    }
+  } catch (error) {
+    console.log('toggleFullscreen error: ', error)
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('fullscreenchange', () => {
+    store.isFullscreen = !!document.fullscreenElement
+  })
+})
 </script>

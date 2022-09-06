@@ -80,6 +80,17 @@
   overflow: hidden;
 }
 
+.img_detail_loading {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  backdrop-filter: blur(2px);
+}
+
 .img_detail.v-dialog:not(.v-dialog--fullscreen) {
   max-height: 98%;
 }
@@ -94,6 +105,7 @@
   max-height: 100vh !important;
   margin: 0;
   padding: 0;
+  border-radius: 0;
   overflow: auto;
 }
 
@@ -127,10 +139,8 @@
 
 .img_detail_scale_on .img_scale_scroll {
   display: block;
-  min-width: 500px;
-  min-height: 500px;
   max-width: 100vw;
-  max-height: calc(100vh - 10px);
+  max-height: 100vh;
   overflow: auto;
 }
 

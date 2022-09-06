@@ -12,14 +12,13 @@
       :aspect-ratio="imageSelected.aspectRatio"
       style="min-width: 360px;"
       @click="toggleToolbar"
-      @wheel="onDetailWheel"
+      @loadstart="imgLoading = true"
+      @load="!scaleOn && (imgLoading = false)"
       @error="onImageLoadError"
     >
-      <template #placeholder>
-        <v-row class="fill-height ma-0" align="center" justify="center">
-          <v-progress-circular :size="100" :width="6" indeterminate color="deep-purple" />
-        </v-row>
-      </template>
+      <v-row v-show="imgLoading" class="img_detail_loading">
+        <v-progress-circular :size="100" :width="6" indeterminate color="deep-purple" />
+      </v-row>
       <v-toolbar
         v-show="showImageToolbar && scaleOn && !isVideo"
         style="position:absolute;top:0;width:100%;z-index:10;"
@@ -27,6 +26,40 @@
         height="auto"
         flat
       >
+        <v-tooltip bottom>
+          <template #activator="{ on, attrs }">
+            <v-btn
+              fab
+              dark
+              small
+              color="#ee8888b3"
+              v-bind="attrs"
+              class="mr-1"
+              v-on="on"
+              @click.stop="toDetailPage"
+            >
+              <v-icon>{{ mdiLinkVariant }}</v-icon>
+            </v-btn>
+          </template>
+          <span>详情</span>
+        </v-tooltip>
+        <v-tooltip v-if="!notYKSite" bottom>
+          <template #activator="{ on, attrs }">
+            <v-btn
+              fab
+              dark
+              small
+              color="#ee8888b3"
+              v-bind="attrs"
+              class="mr-1"
+              v-on="on"
+              @click.stop="addFavorite"
+            >
+              <v-icon>{{ postDetail.voted ? mdiHeart : mdiHeartPlusOutline }}</v-icon>
+            </v-btn>
+          </template>
+          <span>{{ postDetail.voted ? '已收藏' : '收藏' }}</span>
+        </v-tooltip>
         <v-spacer />
         <v-tooltip bottom>
           <template #activator="{ on, attrs }">
@@ -35,15 +68,15 @@
               dark
               small
               color="#ee8888b3"
-              class="mr-1"
               v-bind="attrs"
+              class="mr-1"
               v-on="on"
-              @click.stop="viewLargeImg()"
+              @click.stop="imgScaleState = 'FitToPage'"
             >
-              <v-icon>{{ scaleOn ? mdiMagnifyMinusOutline : mdiMagnifyPlusOutline }}</v-icon>
+              <v-icon>{{ mdiFitToScreenOutline }}</v-icon>
             </v-btn>
           </template>
-          <span>{{ scaleOn ? '缩小' : '查看原图' }}</span>
+          <span>适应页面</span>
         </v-tooltip>
         <v-tooltip bottom>
           <template #activator="{ on, attrs }">
@@ -52,17 +85,51 @@
               dark
               small
               color="#ee8888b3"
-              v-bind="attrs"
               class="mr-1"
+              v-bind="attrs"
               v-on="on"
-              @click.stop="isImgFitToPage = !isImgFitToPage"
+              @click.stop="imgScaleState = 'FitToWidth'"
             >
-              <v-icon>{{ mdiFitToScreenOutline }}</v-icon>
+              <v-icon>{{ mdiTableSplitCell }}</v-icon>
             </v-btn>
           </template>
-          <span>适应屏幕</span>
+          <span>适应宽度</span>
         </v-tooltip>
         <v-tooltip bottom>
+          <template #activator="{ on, attrs }">
+            <v-btn
+              fab
+              dark
+              small
+              color="#ee8888b3"
+              class="mr-1"
+              v-bind="attrs"
+              v-on="on"
+              @click.stop="imgScaleState = 'FitToHeight'"
+            >
+              <v-icon style="transform:rotate(90deg)">{{ mdiTableSplitCell }}</v-icon>
+            </v-btn>
+          </template>
+          <span>适应高度</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template #activator="{ on, attrs }">
+            <v-btn
+              fab
+              dark
+              small
+              color="#ee8888b3"
+              class="mr-1"
+              v-bind="attrs"
+              v-on="on"
+              @click.stop="imgScaleState = 'Original'"
+            >
+              <v-icon>{{ mdiLoupe }}</v-icon>
+            </v-btn>
+          </template>
+          <span>原始大小</span>
+        </v-tooltip>
+        <v-tooltip v-if="!store.isFullscreen" bottom>
           <template #activator="{ on, attrs }">
             <v-btn
               fab
@@ -81,11 +148,20 @@
         </v-tooltip>
         <v-tooltip bottom>
           <template #activator="{ on, attrs }">
-            <v-btn fab dark small color="#ee8888b3" v-bind="attrs" v-on="on" @click.stop="close">
+            <v-btn
+              fab
+              dark
+              small
+              color="#ee8888b3"
+              class="mr-1"
+              v-bind="attrs"
+              v-on="on"
+              @click.stop="zoomOutImg()"
+            >
               <v-icon>{{ mdiClose }}</v-icon>
             </v-btn>
           </template>
-          <span>关闭</span>
+          <span>返回</span>
         </v-tooltip>
       </v-toolbar>
       <v-toolbar
@@ -165,12 +241,12 @@
               class="mr-1"
               v-bind="attrs"
               v-on="on"
-              @click.stop="viewLargeImg()"
+              @click.stop="zoomInImg()"
             >
-              <v-icon>{{ scaleOn ? mdiMagnifyMinusOutline : mdiMagnifyPlusOutline }}</v-icon>
+              <v-icon>{{ mdiMagnifyPlusOutline }}</v-icon>
             </v-btn>
           </template>
-          <span>{{ scaleOn ? '缩小' : '查看原图' }}</span>
+          <span>查看大图</span>
         </v-tooltip>
         <v-menu dense open-on-hover offset-y>
           <template #activator="{ on, attrs }">
@@ -239,10 +315,11 @@
       <!-- <video v-if="isVideo" controls style="width: 100%;" :src="imageSelected.fileUrl ?? void 0"></video> -->
       <div v-show="!isVideo" class="img_scale_scroll" draggable="false">
         <img
-          :src="scaleOn ? (imageSelected.jpegUrl || imageSelected.fileUrl || void 0) : void 0"
-          draggable="false"
-          :style="isImgFitToPage ? { maxWidth: '100vw', maxHeight: 'calc(100vh - 10px)' } : {}"
+          :src="scaleImgSrc"
+          :style="scaleImgStyleMap[imgScaleState]"
           alt=""
+          draggable="false"
+          @load="imgLoading = false"
         >
       </div>
       <div v-show="!isVideo && showImageToolbar" class="hidden-sm-and-down">
@@ -294,18 +371,20 @@ import {
   mdiHeartPlusOutline,
   mdiLaunch,
   mdiLinkVariant,
-  mdiMagnifyMinusOutline,
+  mdiLoupe,
   mdiMagnifyPlusOutline,
   mdiPlaylistPlus,
+  mdiTableSplitCell,
   mdiTagMultiple,
 } from '@mdi/js'
-import { computed, onMounted, ref, watch } from '@vue/composition-api'
+import { computed, onMounted, onUnmounted, ref, watch } from '@vue/composition-api'
 import DPlayer from './DPlayer.vue'
 import { debounce, downloadFile, dragElement, isURL, showMsg } from '@/utils'
 import { type PostDetail, addPostToFavorites, getPostDetail } from '@/api/moebooru'
 import store from '@/store'
 
 const showImageToolbar = ref(true)
+const imgLoading = ref(false)
 const innerWidth = ref(window.innerWidth)
 const innerHeight = ref(window.innerHeight)
 const downloading = ref(false)
@@ -413,40 +492,53 @@ const setPostDetail = async () => {
 
 const showPrevPost = async () => {
   if (store.imageSelectedIndex == 0) return
+  imgLoading.value = true
   store.imageSelectedIndex--
   await setPostDetail()
 }
 
 const showNextPost = async () => {
   if (store.imageSelectedIndex > store.imageList.length - 1) return
+  imgLoading.value = true
   store.imageSelectedIndex++
   await setPostDetail()
 }
 
 const onImageLoadError = () => {
+  imgLoading.value = false
   imageSelected.value.sampleUrl = null
 }
 
-const isImgFitToPage = ref(false)
+const scaleImgSrc = computed(() => {
+  return scaleOn.value
+    ? (imageSelected.value.jpegUrl || imageSelected.value.fileUrl || void 0)
+    : void 0
+})
 
-let clearDragEv: (() => void) | undefined
-const viewLargeImg = () => {
-  isImgFitToPage.value = false
-  scaleOn.value = !scaleOn.value
-  if (scaleOn.value) {
-    clearDragEv = dragElement('.img_scale_scroll', 'img')
-  } else {
-    clearDragEv?.()
-  }
+const scaleImgStyleMap = {
+  FitToPage: { maxWidth: '100vw', maxHeight: '100vh' },
+  FitToWidth: { width: '100vw' },
+  FitToHeight: { height: '100vh' },
+  Original: {},
 }
 
-const onDetailWheel = debounce((ev: WheelEvent) => {
-  if (scaleOn.value) return
-  ev.deltaY > 0 ? showNextPost() : showPrevPost()
-}, 500, true)
+type ImgScaleState = 'FitToPage' | 'FitToWidth' | 'FitToHeight' | 'Original'
+const imgScaleState = ref<ImgScaleState>('FitToWidth')
+
+let clearDragEv: (() => void) | undefined
+const zoomInImg = () => {
+  scaleOn.value = true
+  imgLoading.value = true
+  clearDragEv = dragElement('.img_scale_scroll', 'img')
+}
+const zoomOutImg = () => {
+  scaleOn.value = false
+  clearDragEv?.()
+}
 
 const reqFullscreen = async () => {
   try {
+    if (document.fullscreenElement) return
     const img = document.querySelector('.img_scale_scroll img')
     await img?.requestFullscreen()
   } catch (error) {
@@ -463,10 +555,24 @@ watch(() => store.showImageSelected, async val => {
   }
 })
 
+const onResize = () => {
+  innerWidth.value = window.innerWidth
+  innerHeight.value = window.innerHeight
+}
+
+const onWheel = debounce((ev: WheelEvent) => {
+  if (!store.showImageSelected) return
+  if (scaleOn.value && imgScaleState.value !== 'FitToPage') return
+  ev.deltaY > 0 ? showNextPost() : showPrevPost()
+}, 500, true)
+
 onMounted(() => {
-  window.addEventListener('resize', () => {
-    innerWidth.value = window.innerWidth
-    innerHeight.value = window.innerHeight
-  })
+  window.addEventListener('resize', onResize)
+  window.addEventListener('wheel', onWheel)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', onResize)
+  window.removeEventListener('wheel', onWheel)
 })
 </script>
