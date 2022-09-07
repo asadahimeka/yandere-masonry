@@ -181,7 +181,7 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>详情图片预加载</v-list-item-title>
-          <v-list-item-subtitle>图片全屏时预加载下一张</v-list-item-subtitle>
+          <v-list-item-subtitle>预加载下一张样品图/原图</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
           <v-switch

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
-// @version              0.24.0
+// @version              0.24.1
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru et cetera.
 // @author               asadahimeka
@@ -4034,7 +4034,7 @@ var __publicField = (obj, key, value) => {
         },
         expression: "store.isListenWheelEvent"
       }
-    })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u8BE6\u60C5\u56FE\u7247\u9884\u52A0\u8F7D")]), _c2("v-list-item-subtitle", [_vm._v("\u56FE\u7247\u5168\u5C4F\u65F6\u9884\u52A0\u8F7D\u4E0B\u4E00\u5F20")])], 1), _c2("v-list-item-action", [_c2("v-switch", {
+    })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u8BE6\u60C5\u56FE\u7247\u9884\u52A0\u8F7D")]), _c2("v-list-item-subtitle", [_vm._v("\u9884\u52A0\u8F7D\u4E0B\u4E00\u5F20\u6837\u54C1\u56FE/\u539F\u56FE")])], 1), _c2("v-list-item-action", [_c2("v-switch", {
       on: {
         "change": _vm.onImgPreloadChange
       },
