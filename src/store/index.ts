@@ -21,6 +21,7 @@ interface AppState {
   isYKSite: boolean
   showPostList: boolean
   showPoolList: boolean
+  showNSFWContents: boolean
   isFullscreen: boolean
   toggleDrawer: () => void
   addToSelectedList: (item: Post) => void
@@ -44,6 +45,7 @@ const store = Vue.observable<AppState>({
   isYKSite: ykFlag,
   showPostList: !poolFlag,
   showPoolList: ykFlag && poolFlag,
+  showNSFWContents: localStorage.getItem('__showNSFW') !== '0',
   isFullscreen: false,
   toggleDrawer() {
     store.showDrawer = !store.showDrawer

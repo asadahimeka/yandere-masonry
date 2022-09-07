@@ -5,7 +5,7 @@
         <v-img
           transition="scroll-y-transition"
           :src="getImgSrc(image)"
-          :aspect-ratio="image.aspectRatio"
+          :aspect-ratio="image?.aspectRatio"
           @click="showImgModal(index)"
           @contextmenu="onCtxMenu($event, image)"
           @error="onImageLoadError"
@@ -16,13 +16,13 @@
             </v-row>
           </template>
           <v-icon
-            v-if="image.fileExt.toLowerCase() === 'gif'"
+            v-if="image?.fileExt.toLowerCase() === 'gif'"
             style="position: absolute;right: 5px"
           >
             {{ mdiFileGifBox }}
           </v-icon>
           <v-icon
-            v-if="['mp4', 'webm'].includes(image.fileExt.toLowerCase())"
+            v-if="['mp4', 'webm'].includes(image?.fileExt.toLowerCase())"
             style="position: absolute;right: 5px"
           >
             {{ mdiVideo }}
@@ -125,11 +125,11 @@ const maxHeightStyle = computed(() => {
   return ''
 })
 
-const getImgSrc = (img: Post) => {
+const getImgSrc = (img?: Post) => {
   if (columnCount.value < 6) {
-    return img.sampleUrl ?? img.fileUrl ?? void 0
+    return img?.sampleUrl ?? img?.fileUrl ?? void 0
   }
-  return img.previewUrl ?? img.fileUrl ?? void 0
+  return img?.previewUrl ?? img?.fileUrl ?? void 0
 }
 
 const onCtxMenu = (ev: MouseEvent, img: Post) => {

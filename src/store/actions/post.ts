@@ -63,7 +63,10 @@ export const searchPosts = async () => {
     const posts = await fetchActions.find(e => e.test())?.action()
     if (Array.isArray(posts) && posts.length > 0) {
       store.currentPage = page
-      store.imageList = [...store.imageList, ...posts]
+      store.imageList = [
+        ...store.imageList,
+        ...(store.showNSFWContents ? posts : posts.filter(e => ['s', 'g'].includes(e.rating))),
+      ]
       pushPageState(page)
       page++
     } else {

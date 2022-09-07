@@ -42,10 +42,10 @@
           <v-icon>{{ mdiFire }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>人气作品 (日)</v-list-item-title>
+          <v-list-item-title>人气作品</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link href="/post/popular_recent?period=1w">
+      <!-- <v-list-item link href="/post/popular_recent?period=1w">
         <v-list-item-icon class="mr-2">
           <v-icon>{{ mdiFire }}</v-icon>
         </v-list-item-icon>
@@ -68,7 +68,7 @@
         <v-list-item-content>
           <v-list-item-title>人气作品 (年)</v-list-item-title>
         </v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
       <v-list-item link href="/post?tags=order%3Arandom&page=1">
         <v-list-item-icon class="mr-2">
           <v-icon>{{ mdiShuffle }}</v-icon>
@@ -110,9 +110,14 @@
       </v-list-item>
     </v-list>
     <v-list dense nav>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="title">设置</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
       <v-list-item class="mb-0">
         <v-list-item-content>
-          <v-list-item-title class="title mb-1">标签黑名单</v-list-item-title>
+          <v-list-item-title>标签黑名单</v-list-item-title>
           <v-list-item-subtitle>下方输入标签，回车添加</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -144,6 +149,19 @@
             </template>
           </v-combobox>
         </v-list-item-content>
+      </v-list-item>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>NSFW 开关</v-list-item-title>
+          <v-list-item-subtitle>包含裸露或性描写内容</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-switch
+            v-model="switchValue"
+            color="deep-orange darken-1"
+            @change="onNSFWSwitchChange"
+          />
+        </v-list-item-action>
       </v-list-item>
     </v-list>
     <v-list dense nav>
@@ -231,6 +249,19 @@ const onComboboxChange = (val: string[]) => {
 const removeTagFromBlacklist = (item: string) => {
   store.blacklist.splice(store.blacklist.indexOf(item), 1)
   localStorage.setItem('__blacklist', store.blacklist.join(','))
+}
+
+const switchValue = ref(store.showNSFWContents)
+const setNSFWShow = (val: string) => {
+  const flag = val !== '0'
+  store.showNSFWContents = flag
+  switchValue.value = flag
+  localStorage.setItem('__showNSFW', val)
+  location.reload()
+}
+
+const onNSFWSwitchChange = (val: any) => {
+  setNSFWShow(val ? '1' : '0')
 }
 
 onMounted(async () => {
