@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
-// @version              0.23.0
+// @version              0.24.0
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru et cetera.
 // @author               asadahimeka
@@ -339,6 +339,7 @@ var __publicField = (obj, key, value) => {
   var mdiLocationExit = "M22 12L18 8V11H10V13H18V16M20 18A10 10 0 1 1 20 6H17.27A8 8 0 1 0 17.27 18Z";
   var mdiLoupe = "M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22H20A2,2 0 0,0 22,20V12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z";
   var mdiMagnify = "M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z";
+  var mdiMagnifyMinusOutline = "M15.5,14H14.71L14.43,13.73C15.41,12.59 16,11.11 16,9.5A6.5,6.5 0 0,0 9.5,3A6.5,6.5 0 0,0 3,9.5A6.5,6.5 0 0,0 9.5,16C11.11,16 12.59,15.41 13.73,14.43L14,14.71V15.5L19,20.5L20.5,19L15.5,14M9.5,14C7,14 5,12 5,9.5C5,7 7,5 9.5,5C12,5 14,7 14,9.5C14,12 12,14 9.5,14M7,9H12V10H7V9Z";
   var mdiMagnifyPlusOutline = "M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14M12,10H10V12H9V10H7V9H9V7H10V9H12V10Z";
   var mdiMessageAlertOutline = "M13,10H11V6H13V10M13,12H11V14H13V12M22,4V16A2,2 0 0,1 20,18H6L2,22V4A2,2 0 0,1 4,2H20A2,2 0 0,1 22,4M20,4H4V17.2L5.2,16H20V4Z";
   var mdiPlaylistPlus = "M3 16H10V14H3M18 14V10H16V14H12V16H16V20H18V16H22V14M14 6H3V8H14M14 10H3V12H14V10Z";
@@ -367,6 +368,9 @@ var __publicField = (obj, key, value) => {
     isYKSite: ykFlag,
     showPostList: !poolFlag,
     showPoolList: ykFlag && poolFlag,
+    showNSFWContents: localStorage.getItem("__showNSFW") !== "0",
+    isListenWheelEvent: localStorage.getItem("__listenWheel") !== "0",
+    isFullImgPreload: !!localStorage.getItem("__fullImgPreload"),
     isFullscreen: false,
     toggleDrawer() {
       store.showDrawer = !store.showDrawer;
@@ -2737,7 +2741,10 @@ var __publicField = (obj, key, value) => {
       const posts = await ((_a2 = fetchActions.find((e) => e.test())) == null ? void 0 : _a2.action());
       if (Array.isArray(posts) && posts.length > 0) {
         store.currentPage = page;
-        store.imageList = [...store.imageList, ...posts];
+        store.imageList = [
+          ...store.imageList,
+          ...store.showNSFWContents ? posts : posts.filter((e) => ["s", "g"].includes(e.rating))
+        ];
         pushPageState(page);
         page++;
       } else {
@@ -3794,6 +3801,25 @@ var __publicField = (obj, key, value) => {
       store.blacklist.splice(store.blacklist.indexOf(item), 1);
       localStorage.setItem("__blacklist", store.blacklist.join(","));
     };
+    const nsfwValue = VueCompositionAPI2.ref(store.showNSFWContents);
+    const setNSFWShow = (val) => {
+      const flag = val !== "0";
+      store.showNSFWContents = flag;
+      nsfwValue.value = flag;
+      localStorage.setItem("__showNSFW", val);
+      location.reload();
+    };
+    const onNSFWSwitchChange = (val) => {
+      setNSFWShow(val ? "1" : "0");
+    };
+    const onWheelSwitchChange = (val) => {
+      localStorage.setItem("__listenWheel", val ? "1" : "0");
+      location.reload();
+    };
+    const onImgPreloadChange = (val) => {
+      localStorage.setItem("__fullImgPreload", val ? "1" : "");
+      location.reload();
+    };
     VueCompositionAPI2.onMounted(async () => {
       if (store.isYKSite) {
         const name = await getUsername();
@@ -3819,7 +3845,11 @@ var __publicField = (obj, key, value) => {
       openLink,
       dealLink,
       onComboboxChange,
-      removeTagFromBlacklist
+      removeTagFromBlacklist,
+      nsfwValue,
+      onNSFWSwitchChange,
+      onWheelSwitchChange,
+      onImgPreloadChange
     };
   };
   var render$6 = function() {
@@ -3839,9 +3869,13 @@ var __publicField = (obj, key, value) => {
         },
         expression: "store.showDrawer"
       }
-    }, [_c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", {
+    }, [_c2("v-list-item", [_c2("v-list-item-avatar", [_c2("v-img", {
+      attrs: {
+        "src": "https://upload-bbs.mihoyo.com/upload/2022/09/07/190122060/8505ff4b535cb1487b521d73c7f71d63_865024295271530650.png"
+      }
+    })], 1), _c2("v-list-item-content", [_c2("v-list-item-title", {
       staticClass: "title"
-    }, [_vm._v("Booru Masonry")]), _c2("v-list-item-subtitle", [_vm._v("Booru \u7AD9\u70B9\u7011\u5E03\u6D41\u5E03\u5C40\u6D4F\u89C8")])], 1)], 1), _c2("v-divider"), _vm.store.isYKSite ? _c2("v-list", {
+    }, [_vm._v("Booru Masonry")]), _c2("v-list-item-subtitle", [_vm._v("Booru \u56FE\u7AD9\u7011\u5E03\u6D41\u6D4F\u89C8")])], 1)], 1), _c2("v-divider"), _vm.store.isYKSite ? _c2("v-list", {
       attrs: {
         "dense": "",
         "nav": ""
@@ -3876,28 +3910,7 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c2("v-list-item-icon", {
       staticClass: "mr-2"
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFire))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u4EBA\u6C14\u4F5C\u54C1 (\u65E5)")])], 1)], 1), _c2("v-list-item", {
-      attrs: {
-        "link": "",
-        "href": "/post/popular_recent?period=1w"
-      }
-    }, [_c2("v-list-item-icon", {
-      staticClass: "mr-2"
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFire))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u4EBA\u6C14\u4F5C\u54C1 (\u5468)")])], 1)], 1), _c2("v-list-item", {
-      attrs: {
-        "link": "",
-        "href": "/post/popular_recent?period=1m"
-      }
-    }, [_c2("v-list-item-icon", {
-      staticClass: "mr-2"
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFire))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u4EBA\u6C14\u4F5C\u54C1 (\u6708)")])], 1)], 1), _c2("v-list-item", {
-      attrs: {
-        "link": "",
-        "href": "/post/popular_recent?period=1y"
-      }
-    }, [_c2("v-list-item-icon", {
-      staticClass: "mr-2"
-    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFire))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u4EBA\u6C14\u4F5C\u54C1 (\u5E74)")])], 1)], 1), _c2("v-list-item", {
+    }, [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFire))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u4EBA\u6C14\u4F5C\u54C1")])], 1)], 1), _c2("v-list-item", {
       attrs: {
         "link": "",
         "href": "/post?tags=order%3Arandom&page=1"
@@ -3947,11 +3960,11 @@ var __publicField = (obj, key, value) => {
         "dense": "",
         "nav": ""
       }
-    }, [_c2("v-list-item", {
+    }, [_c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", {
+      staticClass: "title"
+    }, [_vm._v("\u8BBE\u7F6E")])], 1)], 1), _c2("v-list-item", {
       staticClass: "mb-0"
-    }, [_c2("v-list-item-content", [_c2("v-list-item-title", {
-      staticClass: "title mb-1"
-    }, [_vm._v("\u6807\u7B7E\u9ED1\u540D\u5355")]), _c2("v-list-item-subtitle", [_vm._v("\u4E0B\u65B9\u8F93\u5165\u6807\u7B7E\uFF0C\u56DE\u8F66\u6DFB\u52A0")])], 1)], 1), _c2("v-list-item", {
+    }, [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u6807\u7B7E\u9ED1\u540D\u5355")]), _c2("v-list-item-subtitle", [_vm._v("\u4E0B\u65B9\u8F93\u5165\u6807\u7B7E\uFF0C\u56DE\u8F66\u6DFB\u52A0")])], 1)], 1), _c2("v-list-item", {
       staticClass: "pa-0"
     }, [_c2("v-list-item-content", {
       staticClass: "pt-0"
@@ -3995,6 +4008,42 @@ var __publicField = (obj, key, value) => {
           _vm.$set(_vm.store, "blacklist", $$v);
         },
         expression: "store.blacklist"
+      }
+    })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("NSFW \u5F00\u5173")]), _c2("v-list-item-subtitle", [_vm._v("\u5305\u542B\u88F8\u9732\u6216\u6027\u63CF\u5199\u5185\u5BB9")])], 1), _c2("v-list-item-action", [_c2("v-switch", {
+      attrs: {
+        "color": "deep-orange darken-1"
+      },
+      on: {
+        "change": _vm.onNSFWSwitchChange
+      },
+      model: {
+        value: _vm.nsfwValue,
+        callback: function($$v) {
+          _vm.nsfwValue = $$v;
+        },
+        expression: "nsfwValue"
+      }
+    })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u76D1\u542C\u6EDA\u8F6E\u4E8B\u4EF6")]), _c2("v-list-item-subtitle", [_vm._v("\u8BE6\u60C5\u5F39\u7A97\u6EDA\u8F6E\u5207\u6362\u56FE\u7247")])], 1), _c2("v-list-item-action", [_c2("v-switch", {
+      on: {
+        "change": _vm.onWheelSwitchChange
+      },
+      model: {
+        value: _vm.store.isListenWheelEvent,
+        callback: function($$v) {
+          _vm.$set(_vm.store, "isListenWheelEvent", $$v);
+        },
+        expression: "store.isListenWheelEvent"
+      }
+    })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u8BE6\u60C5\u56FE\u7247\u9884\u52A0\u8F7D")]), _c2("v-list-item-subtitle", [_vm._v("\u56FE\u7247\u5168\u5C4F\u65F6\u9884\u52A0\u8F7D\u4E0B\u4E00\u5F20")])], 1), _c2("v-list-item-action", [_c2("v-switch", {
+      on: {
+        "change": _vm.onImgPreloadChange
+      },
+      model: {
+        value: _vm.store.isFullImgPreload,
+        callback: function($$v) {
+          _vm.$set(_vm.store, "isFullImgPreload", $$v);
+        },
+        expression: "store.isFullImgPreload"
       }
     })], 1)], 1)], 1), _c2("v-list", {
       attrs: {
@@ -4228,6 +4277,16 @@ var __publicField = (obj, key, value) => {
         };
       }
     };
+    const preload = new Image();
+    const preloadNextImg = () => {
+      if (!store.isFullImgPreload)
+        return;
+      const next = store.imageList[store.imageSelectedIndex + 1];
+      if (!next)
+        return;
+      const imgSrc2 = (scaleOn.value ? next.jpegUrl : next.sampleUrl) || next.fileUrl;
+      preload.src = imgSrc2 || "";
+    };
     const showPrevPost = async () => {
       if (store.imageSelectedIndex == 0)
         return;
@@ -4236,10 +4295,11 @@ var __publicField = (obj, key, value) => {
       await setPostDetail();
     };
     const showNextPost = async () => {
-      if (store.imageSelectedIndex > store.imageList.length - 1)
+      if (store.imageSelectedIndex >= store.imageList.length - 1)
         return;
       imgLoading.value = true;
       store.imageSelectedIndex++;
+      preloadNextImg();
       await setPostDetail();
     };
     const onImageLoadError = () => {
@@ -4249,6 +4309,9 @@ var __publicField = (obj, key, value) => {
     const scaleImgSrc = VueCompositionAPI2.computed(() => {
       return scaleOn.value ? imageSelected.value.jpegUrl || imageSelected.value.fileUrl || void 0 : void 0;
     });
+    const onScaleImgError = () => {
+      imageSelected.value.data.jpeg_url = null;
+    };
     const scaleImgStyleMap = {
       FitToPage: {
         maxWidth: "100vw",
@@ -4279,16 +4342,18 @@ var __publicField = (obj, key, value) => {
           return;
         const img = document.querySelector(".img_scale_scroll img");
         await (img == null ? void 0 : img.requestFullscreen());
+        preloadNextImg();
       } catch (error) {
         console.log("toggleFullscreen error: ", error);
       }
     };
     VueCompositionAPI2.watch(() => store.showImageSelected, async (val) => {
-      if (!val) {
+      if (val) {
+        await setPostDetail();
+        preloadNextImg();
+      } else {
         scaleOn.value = false;
         postDetail.value = {};
-      } else {
-        await setPostDetail();
       }
     });
     const onResize = () => {
@@ -4304,11 +4369,11 @@ var __publicField = (obj, key, value) => {
     }, 500, true);
     VueCompositionAPI2.onMounted(() => {
       window.addEventListener("resize", onResize);
-      window.addEventListener("wheel", onWheel);
+      store.isListenWheelEvent && window.addEventListener("wheel", onWheel);
     });
     VueCompositionAPI2.onUnmounted(() => {
       window.removeEventListener("resize", onResize);
-      window.removeEventListener("wheel", onWheel);
+      store.isListenWheelEvent && window.removeEventListener("wheel", onWheel);
     });
     return {
       mdiChevronLeft,
@@ -4322,6 +4387,7 @@ var __publicField = (obj, key, value) => {
       mdiLaunch,
       mdiLinkVariant,
       mdiLoupe,
+      mdiMagnifyMinusOutline,
       mdiMagnifyPlusOutline,
       mdiPlaylistPlus,
       mdiTableSplitCell,
@@ -4352,6 +4418,7 @@ var __publicField = (obj, key, value) => {
       showNextPost,
       onImageLoadError,
       scaleImgSrc,
+      onScaleImgError,
       scaleImgStyleMap,
       imgScaleState,
       zoomInImg,
@@ -4441,7 +4508,13 @@ var __publicField = (obj, key, value) => {
         fn: function(_ref) {
           var on = _ref.on, attrs = _ref.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
-            staticClass: "mr-1",
+            directives: [{
+              name: "show",
+              rawName: "v-show",
+              value: _vm.imageSelectedWidth > 400,
+              expression: "imageSelectedWidth > 400"
+            }],
+            staticClass: "mr-1 hidden-sm-and-down",
             attrs: {
               "fab": "",
               "dark": "",
@@ -4456,7 +4529,7 @@ var __publicField = (obj, key, value) => {
             }
           }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiLinkVariant))])], 1)];
         }
-      }], null, false, 3687422672)
+      }], null, false, 1671006697)
     }, [_c2("span", [_vm._v("\u8BE6\u60C5")])]), !_vm.notYKSite ? _c2("v-tooltip", {
       attrs: {
         "bottom": ""
@@ -4466,7 +4539,13 @@ var __publicField = (obj, key, value) => {
         fn: function(_ref2) {
           var on = _ref2.on, attrs = _ref2.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
-            staticClass: "mr-1",
+            directives: [{
+              name: "show",
+              rawName: "v-show",
+              value: _vm.imageSelectedWidth > 400,
+              expression: "imageSelectedWidth > 400"
+            }],
+            staticClass: "mr-1 hidden-sm-and-down",
             attrs: {
               "fab": "",
               "dark": "",
@@ -4481,7 +4560,7 @@ var __publicField = (obj, key, value) => {
             }
           }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.postDetail.voted ? _vm.mdiHeart : _vm.mdiHeartPlusOutline))])], 1)];
         }
-      }], null, false, 2009326719)
+      }], null, false, 1829394310)
     }, [_c2("span", [_vm._v(_vm._s(_vm.postDetail.voted ? "\u5DF2\u6536\u85CF" : "\u6536\u85CF"))])]) : _vm._e(), _c2("v-spacer"), _c2("v-tooltip", {
       attrs: {
         "bottom": ""
@@ -4491,7 +4570,7 @@ var __publicField = (obj, key, value) => {
         fn: function(_ref3) {
           var on = _ref3.on, attrs = _ref3.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
-            staticClass: "mr-1",
+            staticClass: "mr-1 hidden-sm-and-down",
             attrs: {
               "fab": "",
               "dark": "",
@@ -4506,7 +4585,7 @@ var __publicField = (obj, key, value) => {
             }
           }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiFitToScreenOutline))])], 1)];
         }
-      }], null, false, 77756214)
+      }], null, false, 653086614)
     }, [_c2("span", [_vm._v("\u9002\u5E94\u9875\u9762")])]), _c2("v-tooltip", {
       attrs: {
         "bottom": ""
@@ -4620,7 +4699,7 @@ var __publicField = (obj, key, value) => {
         fn: function(_ref8) {
           var on = _ref8.on, attrs = _ref8.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
-            staticClass: "mr-1",
+            staticClass: "mr-1 hidden-sm-and-down",
             attrs: {
               "fab": "",
               "dark": "",
@@ -4633,10 +4712,34 @@ var __publicField = (obj, key, value) => {
                 return _vm.zoomOutImg();
               }
             }
+          }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiMagnifyMinusOutline))])], 1)];
+        }
+      }], null, false, 2540952630)
+    }, [_c2("span", [_vm._v("\u7F29\u5C0F")])]), _c2("v-tooltip", {
+      attrs: {
+        "bottom": ""
+      },
+      scopedSlots: _vm._u([{
+        key: "activator",
+        fn: function(_ref9) {
+          var on = _ref9.on, attrs = _ref9.attrs;
+          return [_c2("v-btn", _vm._g(_vm._b({
+            attrs: {
+              "fab": "",
+              "dark": "",
+              "small": "",
+              "color": "#ee8888b3"
+            },
+            on: {
+              "click": function($event) {
+                $event.stopPropagation();
+                return _vm.close.apply(null, arguments);
+              }
+            }
           }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_vm.mdiClose))])], 1)];
         }
-      }], null, false, 2699018367)
-    }, [_c2("span", [_vm._v("\u8FD4\u56DE")])])], 1), _c2("v-toolbar", {
+      }], null, false, 3797348669)
+    }, [_c2("span", [_vm._v("\u5173\u95ED")])])], 1), _c2("v-toolbar", {
       directives: [{
         name: "show",
         rawName: "v-show",
@@ -4681,8 +4784,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref9) {
-          var on = _ref9.on, attrs = _ref9.attrs;
+        fn: function(_ref10) {
+          var on = _ref10.on, attrs = _ref10.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -4706,8 +4809,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref10) {
-          var on = _ref10.on, attrs = _ref10.attrs;
+        fn: function(_ref11) {
+          var on = _ref11.on, attrs = _ref11.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -4731,8 +4834,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref11) {
-          var on = _ref11.on, attrs = _ref11.attrs;
+        fn: function(_ref12) {
+          var on = _ref12.on, attrs = _ref12.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -4756,8 +4859,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref12) {
-          var on = _ref12.on, attrs = _ref12.attrs;
+        fn: function(_ref13) {
+          var on = _ref13.on, attrs = _ref13.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -4783,8 +4886,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref13) {
-          var on = _ref13.on, attrs = _ref13.attrs;
+        fn: function(_ref14) {
+          var on = _ref14.on, attrs = _ref14.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             directives: [{
               name: "show",
@@ -4876,8 +4979,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref14) {
-          var on = _ref14.on, attrs = _ref14.attrs;
+        fn: function(_ref15) {
+          var on = _ref15.on, attrs = _ref15.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             staticClass: "mr-1",
             attrs: {
@@ -4901,8 +5004,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref15) {
-          var on = _ref15.on, attrs = _ref15.attrs;
+        fn: function(_ref16) {
+          var on = _ref16.on, attrs = _ref16.attrs;
           return [_c2("v-btn", _vm._g(_vm._b({
             attrs: {
               "fab": "",
@@ -4953,7 +5056,8 @@ var __publicField = (obj, key, value) => {
       on: {
         "load": function($event) {
           _vm.imgLoading = false;
-        }
+        },
+        "error": _vm.onScaleImgError
       }
     })]), _c2("div", {
       directives: [{
@@ -5101,9 +5205,9 @@ var __publicField = (obj, key, value) => {
     const getImgSrc = (img) => {
       var _a2, _b2, _c2, _d;
       if (columnCount.value < 6) {
-        return (_b2 = (_a2 = img.sampleUrl) != null ? _a2 : img.fileUrl) != null ? _b2 : void 0;
+        return (_b2 = (_a2 = img == null ? void 0 : img.sampleUrl) != null ? _a2 : img == null ? void 0 : img.fileUrl) != null ? _b2 : void 0;
       }
-      return (_d = (_c2 = img.previewUrl) != null ? _c2 : img.fileUrl) != null ? _d : void 0;
+      return (_d = (_c2 = img == null ? void 0 : img.previewUrl) != null ? _c2 : img == null ? void 0 : img.fileUrl) != null ? _d : void 0;
     };
     const onCtxMenu = (ev, img) => {
       ev.preventDefault();
@@ -5203,7 +5307,7 @@ var __publicField = (obj, key, value) => {
         attrs: {
           "transition": "scroll-y-transition",
           "src": _vm.getImgSrc(image),
-          "aspect-ratio": image.aspectRatio
+          "aspect-ratio": image === null || image === void 0 ? void 0 : image.aspectRatio
         },
         on: {
           "click": function($event) {
@@ -5232,12 +5336,12 @@ var __publicField = (obj, key, value) => {
           },
           proxy: true
         }], null, true)
-      }, [image.fileExt.toLowerCase() === "gif" ? _c2("v-icon", {
+      }, [(image === null || image === void 0 ? void 0 : image.fileExt.toLowerCase()) === "gif" ? _c2("v-icon", {
         staticStyle: {
           "position": "absolute",
           "right": "5px"
         }
-      }, [_vm._v(" " + _vm._s(_vm.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(image.fileExt.toLowerCase()) ? _c2("v-icon", {
+      }, [_vm._v(" " + _vm._s(_vm.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(image === null || image === void 0 ? void 0 : image.fileExt.toLowerCase()) ? _c2("v-icon", {
         staticStyle: {
           "position": "absolute",
           "right": "5px"
