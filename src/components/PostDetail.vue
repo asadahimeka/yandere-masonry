@@ -29,12 +29,13 @@
         <v-tooltip bottom>
           <template #activator="{ on, attrs }">
             <v-btn
+              v-show="imageSelectedWidth > 400"
               fab
               dark
               small
               color="#ee8888b3"
               v-bind="attrs"
-              class="mr-1"
+              class="mr-1 hidden-sm-and-down"
               v-on="on"
               @click.stop="toDetailPage"
             >
@@ -46,12 +47,13 @@
         <v-tooltip v-if="!notYKSite" bottom>
           <template #activator="{ on, attrs }">
             <v-btn
+              v-show="imageSelectedWidth > 400"
               fab
               dark
               small
               color="#ee8888b3"
               v-bind="attrs"
-              class="mr-1"
+              class="mr-1 hidden-sm-and-down"
               v-on="on"
               @click.stop="addFavorite"
             >
@@ -69,7 +71,7 @@
               small
               color="#ee8888b3"
               v-bind="attrs"
-              class="mr-1"
+              class="mr-1 hidden-sm-and-down"
               v-on="on"
               @click.stop="imgScaleState = 'FitToPage'"
             >
@@ -153,15 +155,23 @@
               dark
               small
               color="#ee8888b3"
-              class="mr-1"
+              class="mr-1 hidden-sm-and-down"
               v-bind="attrs"
               v-on="on"
               @click.stop="zoomOutImg()"
             >
+              <v-icon>{{ mdiMagnifyMinusOutline }}</v-icon>
+            </v-btn>
+          </template>
+          <span>缩小</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template #activator="{ on, attrs }">
+            <v-btn fab dark small color="#ee8888b3" v-bind="attrs" v-on="on" @click.stop="close">
               <v-icon>{{ mdiClose }}</v-icon>
             </v-btn>
           </template>
-          <span>返回</span>
+          <span>关闭</span>
         </v-tooltip>
       </v-toolbar>
       <v-toolbar
@@ -320,6 +330,7 @@
           alt=""
           draggable="false"
           @load="imgLoading = false"
+          @error="onScaleImgError"
         >
       </div>
       <div v-show="!isVideo && showImageToolbar" class="hidden-sm-and-down">
@@ -372,6 +383,7 @@ import {
   mdiLaunch,
   mdiLinkVariant,
   mdiLoupe,
+  mdiMagnifyMinusOutline,
   mdiMagnifyPlusOutline,
   mdiPlaylistPlus,
   mdiTableSplitCell,
@@ -490,6 +502,15 @@ const setPostDetail = async () => {
   }
 }
 
+const preload = new Image()
+const preloadNextImg = () => {
+  if (!store.isFullImgPreload) return
+  const next = store.imageList[store.imageSelectedIndex + 1]
+  if (!next) return
+  const imgSrc = (scaleOn.value ? next.jpegUrl : next.sampleUrl) || next.fileUrl
+  preload.src = imgSrc || ''
+}
+
 const showPrevPost = async () => {
   if (store.imageSelectedIndex == 0) return
   imgLoading.value = true
@@ -498,9 +519,10 @@ const showPrevPost = async () => {
 }
 
 const showNextPost = async () => {
-  if (store.imageSelectedIndex > store.imageList.length - 1) return
+  if (store.imageSelectedIndex >= store.imageList.length - 1) return
   imgLoading.value = true
   store.imageSelectedIndex++
+  preloadNextImg()
   await setPostDetail()
 }
 
@@ -514,6 +536,11 @@ const scaleImgSrc = computed(() => {
     ? (imageSelected.value.jpegUrl || imageSelected.value.fileUrl || void 0)
     : void 0
 })
+
+const onScaleImgError = () => {
+  // @ts-expect-error data protected
+  imageSelected.value.data.jpeg_url = null
+}
 
 const scaleImgStyleMap = {
   FitToPage: { maxWidth: '100vw', maxHeight: '100vh' },
@@ -541,17 +568,19 @@ const reqFullscreen = async () => {
     if (document.fullscreenElement) return
     const img = document.querySelector('.img_scale_scroll img')
     await img?.requestFullscreen()
+    preloadNextImg()
   } catch (error) {
     console.log('toggleFullscreen error: ', error)
   }
 }
 
 watch(() => store.showImageSelected, async val => {
-  if (!val) {
+  if (val) {
+    await setPostDetail()
+    preloadNextImg()
+  } else {
     scaleOn.value = false
     postDetail.value = {}
-  } else {
-    await setPostDetail()
   }
 })
 
@@ -568,11 +597,11 @@ const onWheel = debounce((ev: WheelEvent) => {
 
 onMounted(() => {
   window.addEventListener('resize', onResize)
-  window.addEventListener('wheel', onWheel)
+  store.isListenWheelEvent && window.addEventListener('wheel', onWheel)
 })
 
 onUnmounted(() => {
   window.removeEventListener('resize', onResize)
-  window.removeEventListener('wheel', onWheel)
+  store.isListenWheelEvent && window.removeEventListener('wheel', onWheel)
 })
 </script>

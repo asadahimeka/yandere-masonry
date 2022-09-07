@@ -1,9 +1,12 @@
 <template>
   <v-navigation-drawer v-model="store.showDrawer" class="nav_drawer" app temporary>
     <v-list-item>
+      <v-list-item-avatar>
+        <v-img src="https://upload-bbs.mihoyo.com/upload/2022/09/07/190122060/8505ff4b535cb1487b521d73c7f71d63_865024295271530650.png" />
+      </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title class="title">Booru Masonry</v-list-item-title>
-        <v-list-item-subtitle>Booru 站点瀑布流布局浏览</v-list-item-subtitle>
+        <v-list-item-subtitle>Booru 图站瀑布流浏览</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
     <v-divider />
@@ -157,9 +160,33 @@
         </v-list-item-content>
         <v-list-item-action>
           <v-switch
-            v-model="switchValue"
+            v-model="nsfwValue"
             color="deep-orange darken-1"
             @change="onNSFWSwitchChange"
+          />
+        </v-list-item-action>
+      </v-list-item>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>监听滚轮事件</v-list-item-title>
+          <v-list-item-subtitle>详情弹窗滚轮切换图片</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-switch
+            v-model="store.isListenWheelEvent"
+            @change="onWheelSwitchChange"
+          />
+        </v-list-item-action>
+      </v-list-item>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>详情图片预加载</v-list-item-title>
+          <v-list-item-subtitle>图片全屏时预加载下一张</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-switch
+            v-model="store.isFullImgPreload"
+            @change="onImgPreloadChange"
           />
         </v-list-item-action>
       </v-list-item>
@@ -251,17 +278,26 @@ const removeTagFromBlacklist = (item: string) => {
   localStorage.setItem('__blacklist', store.blacklist.join(','))
 }
 
-const switchValue = ref(store.showNSFWContents)
+const nsfwValue = ref(store.showNSFWContents)
 const setNSFWShow = (val: string) => {
   const flag = val !== '0'
   store.showNSFWContents = flag
-  switchValue.value = flag
+  nsfwValue.value = flag
   localStorage.setItem('__showNSFW', val)
   location.reload()
 }
-
 const onNSFWSwitchChange = (val: any) => {
   setNSFWShow(val ? '1' : '0')
+}
+
+const onWheelSwitchChange = (val: any) => {
+  localStorage.setItem('__listenWheel', val ? '1' : '0')
+  location.reload()
+}
+
+const onImgPreloadChange = (val: any) => {
+  localStorage.setItem('__fullImgPreload', val ? '1' : '')
+  location.reload()
 }
 
 onMounted(async () => {
