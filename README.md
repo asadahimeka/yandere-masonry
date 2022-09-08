@@ -163,6 +163,12 @@ https://realbooru.com
 
 ![](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/8dccc28bf99106aaab984feb383d4c1f_939382269553345713.png)
 
+## Buy me a coffee
+
+访问 https://sponsors.nanoka.top
+
+赞助列表 https://sponsors.nanoka.top/account
+
 ## Developing
 
 ```bash
