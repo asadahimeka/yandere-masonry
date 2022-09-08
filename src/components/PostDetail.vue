@@ -522,8 +522,8 @@ const showNextPost = async () => {
   if (store.imageSelectedIndex >= store.imageList.length - 1) return
   imgLoading.value = true
   store.imageSelectedIndex++
-  preloadNextImg()
   await setPostDetail()
+  preloadNextImg()
 }
 
 const onImageLoadError = () => {
@@ -568,7 +568,6 @@ const reqFullscreen = async () => {
     if (document.fullscreenElement) return
     const img = document.querySelector('.img_scale_scroll img')
     await img?.requestFullscreen()
-    preloadNextImg()
   } catch (error) {
     console.log('toggleFullscreen error: ', error)
   }
