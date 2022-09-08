@@ -505,6 +505,7 @@ const setPostDetail = async () => {
 const preload = new Image()
 const preloadNextImg = () => {
   if (!store.isFullImgPreload) return
+  if (isVideo.value) return
   const next = store.imageList[store.imageSelectedIndex + 1]
   if (!next) return
   const imgSrc = (scaleOn.value ? next.jpegUrl : next.sampleUrl) || next.fileUrl
@@ -590,6 +591,7 @@ const onResize = () => {
 
 const onWheel = debounce((ev: WheelEvent) => {
   if (!store.showImageSelected) return
+  if (isVideo.value) return
   if (scaleOn.value && imgScaleState.value !== 'FitToPage') return
   ev.deltaY > 0 ? showNextPost() : showPrevPost()
 }, 500, true)
