@@ -394,6 +394,7 @@ import DPlayer from './DPlayer.vue'
 import { debounce, downloadFile, dragElement, isURL, showMsg } from '@/utils'
 import { type PostDetail, addPostToFavorites, getPostDetail } from '@/api/moebooru'
 import store from '@/store'
+import { searchPosts } from '@/store/actions/post'
 
 const showImageToolbar = ref(true)
 const imgLoading = ref(false)
@@ -502,14 +503,26 @@ const setPostDetail = async () => {
   }
 }
 
-const preload = new Image()
-const preloadNextImg = () => {
+const preloadImgEl = new Image()
+const preloadImg = (src: string) => {
+  console.log('preloadImg: ', src)
+  return new Promise((resolve, reject) => {
+    preloadImgEl.src = src
+    preloadImgEl.onload = resolve
+    preloadImgEl.onerror = reject
+  })
+}
+
+const preloadNextImg = async () => {
   if (!store.isFullImgPreload) return
   if (isVideo.value) return
-  const next = store.imageList[store.imageSelectedIndex + 1]
-  if (!next) return
-  const imgSrc = (scaleOn.value ? next.jpegUrl : next.sampleUrl) || next.fileUrl
-  preload.src = imgSrc || ''
+  for (let index = 1; index <= store.imgPreloadNum; index++) {
+    console.log('index: ', index)
+    const next = store.imageList[store.imageSelectedIndex + index]
+    if (!next) break
+    const imgSrc = (scaleOn.value ? next.jpegUrl : next.sampleUrl) || next.fileUrl
+    await preloadImg(imgSrc || '')
+  }
 }
 
 const showPrevPost = async () => {
@@ -520,7 +533,10 @@ const showPrevPost = async () => {
 }
 
 const showNextPost = async () => {
-  if (store.imageSelectedIndex >= store.imageList.length - 1) return
+  if (store.imageSelectedIndex >= store.imageList.length - 1) {
+    if (store.requestState || store.requestStop) return
+    await searchPosts()
+  }
   imgLoading.value = true
   store.imageSelectedIndex++
   await setPostDetail()

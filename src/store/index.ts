@@ -24,6 +24,7 @@ interface AppState {
   showNSFWContents: boolean
   isListenWheelEvent: boolean
   isFullImgPreload: boolean
+  imgPreloadNum: number
   isFullscreen: boolean
   toggleDrawer: () => void
   addToSelectedList: (item: Post) => void
@@ -50,6 +51,7 @@ const store = Vue.observable<AppState>({
   showNSFWContents: localStorage.getItem('__showNSFW') !== '0',
   isListenWheelEvent: localStorage.getItem('__listenWheel') !== '0',
   isFullImgPreload: !!localStorage.getItem('__fullImgPreload'),
+  imgPreloadNum: Number(localStorage.getItem('__imgPreloadNum')) || 1,
   isFullscreen: false,
   toggleDrawer() {
     store.showDrawer = !store.showDrawer

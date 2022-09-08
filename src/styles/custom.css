@@ -241,3 +241,15 @@
 .blacklist_combobox .v-chip {
   margin-bottom: 4px !important;
 }
+
+.preload_num {
+  width: 32px;
+  height: 30px;
+  margin: 0;
+  padding-left: 4px;
+  border: 1px solid #bbb;
+  color: inherit;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: textfield;
+}

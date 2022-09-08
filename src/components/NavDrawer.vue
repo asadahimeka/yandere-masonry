@@ -190,6 +190,22 @@
           />
         </v-list-item-action>
       </v-list-item>
+      <v-list-item v-if="store.isFullImgPreload">
+        <v-list-item-content>
+          <v-list-item-title>图片预加载数量</v-list-item-title>
+          <v-list-item-subtitle>实验性/不保证可用</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action class="pl-1">
+          <input
+            :value="store.imgPreloadNum"
+            class="text-center rounded preload_num"
+            type="number"
+            min="0"
+            max="5"
+            @blur="onPreloadNumBlur"
+          >
+        </v-list-item-action>
+      </v-list-item>
     </v-list>
     <v-list dense nav>
       <v-list-item>
@@ -298,6 +314,19 @@ const onWheelSwitchChange = (val: any) => {
 const onImgPreloadChange = (val: any) => {
   localStorage.setItem('__fullImgPreload', val ? '1' : '')
   location.reload()
+}
+
+const onPreloadNumBlur = (ev: Event) => {
+  const input = ev.target as HTMLInputElement
+  if (input.validationMessage) {
+    input.value = '1'
+    store.imgPreloadNum = 1
+    localStorage.setItem('__imgPreloadNum', '1')
+  } else {
+    const num = Number(input.value) || 1
+    store.imgPreloadNum = num
+    localStorage.setItem('__imgPreloadNum', num.toString())
+  }
 }
 
 onMounted(async () => {
