@@ -18,6 +18,8 @@ Build with [vite](https://vitejs.dev) & [vite-plugin-tm-userscript](https://gith
 
 ## Install
 
+如何安装用户脚本管理器插件不再赘述，可以参照 [Greasy Fork 首页](https://greasyfork.org/zh-CN) 提示安装浏览器插件
+
 Greasy Fork: [点击安装](https://greasyfork.org/zh-CN/scripts/444885)
 
 Sleazy Fork: [点击安装](https://sleazyfork.org/scripts/444885)
@@ -163,7 +165,7 @@ https://realbooru.com
 
 ![](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/8dccc28bf99106aaab984feb383d4c1f_939382269553345713.png)
 
-## Buy me a coffee
+## Sponsor / Donate
 
 访问 https://sponsors.nanoka.top
 
