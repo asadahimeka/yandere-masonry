@@ -14,7 +14,7 @@ export default {
     if (!unsafeWindow.DPlayer) {
       await new Promise(resolve => {
         const script = document.createElement('script')
-        script.src = 'https://lib.baomitu.com/dplayer/1.26.0/DPlayer.min.js'
+        script.src = 'https://unpkg.com/dplayer@1.26.0/dist/DPlayer.min.js'
         script.addEventListener('load', resolve, false)
         document.head.appendChild(script)
       })
