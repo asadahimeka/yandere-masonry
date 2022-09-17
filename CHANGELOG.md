@@ -1,3 +1,7 @@
+## v0.24.7
+
+- fix: 修复因 Gelbooru CSP 导致的 DPlayer 加载失败
+
 ## v0.24.6
 
 - fix: 修改所有 CDN 为 UNPKG

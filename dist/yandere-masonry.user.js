@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.24.6
+// @version              0.24.7
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru 等)
@@ -4153,12 +4153,7 @@ var __publicField = (obj, key, value) => {
     },
     async mounted() {
       if (!unsafeWindow.DPlayer) {
-        await new Promise((resolve) => {
-          const script = document.createElement("script");
-          script.src = "https://unpkg.com/dplayer@1.26.0/dist/DPlayer.min.js";
-          script.addEventListener("load", resolve, false);
-          document.head.appendChild(script);
-        });
+        await loadScript("https://unpkg.com/dplayer@1.26.0/dist/DPlayer.min.js");
       }
       await this.$nextTick();
       this.initPlayer();

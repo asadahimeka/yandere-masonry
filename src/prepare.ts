@@ -141,7 +141,7 @@ function setMasonryMode(fn: () => void) {
 }
 
 const specialSites = ['gelbooru']
-function loadScript(src: string) {
+export function loadScript(src: string) {
   return new Promise<void>(resolve => {
     let script: HTMLScriptElement
     if (specialSites.some(e => location.href.includes(e))) {

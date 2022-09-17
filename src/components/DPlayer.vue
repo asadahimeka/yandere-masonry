@@ -1,4 +1,6 @@
 <script>
+import { loadScript } from '@/prepare'
+
 export default {
   props: {
     options: {
@@ -12,12 +14,7 @@ export default {
   },
   async mounted() {
     if (!unsafeWindow.DPlayer) {
-      await new Promise(resolve => {
-        const script = document.createElement('script')
-        script.src = 'https://unpkg.com/dplayer@1.26.0/dist/DPlayer.min.js'
-        script.addEventListener('load', resolve, false)
-        document.head.appendChild(script)
-      })
+      await loadScript('https://unpkg.com/dplayer@1.26.0/dist/DPlayer.min.js')
     }
     await this.$nextTick()
     this.initPlayer()
