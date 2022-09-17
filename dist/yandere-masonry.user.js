@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.24.5
+// @version              0.24.6
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru 等)
@@ -96,7 +96,7 @@ var __publicField = (obj, key, value) => {
     for (const item of listEl.children) {
       item.setAttribute("style", "width:auto;margin:0 10px 10px 0;vertical-align:top");
     }
-    await loadScript("https://lib.baomitu.com/macy/2.5.1/macy.min.js");
+    await loadScript("https://unpkg.com/macy@2.5.1/dist/macy.js");
     setTimeout(() => {
       new Macy({
         container: listEl,
@@ -225,10 +225,10 @@ var __publicField = (obj, key, value) => {
   }
   function loadDeps() {
     return Promise.all([
-      loadScript("https://lib.baomitu.com/vue/2.6.14/vue.min.js"),
+      loadScript("https://unpkg.com/vue@2.6.14/dist/vue.min.js"),
       loadScript("https://unpkg.com/@vue/composition-api@1.7.0/dist/vue-composition-api.prod.js"),
-      loadScript("https://lib.baomitu.com/vuetify/2.6.6/vuetify.min.js"),
-      loadScript("https://code.bdstatic.com/npm/vue-masonry-css@1.0.3/dist/vue-masonry.min.js")
+      loadScript("https://unpkg.com/vuetify@2.6.6/dist/vuetify.min.js"),
+      loadScript("https://unpkg.com/vue-masonry-css@1.0.3/dist/vue-masonry.min.js")
     ]);
   }
   function replaceHead() {
@@ -240,9 +240,9 @@ var __publicField = (obj, key, value) => {
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     ${location.href.includes("http://behoimi.org") ? "" : '<meta name="referrer" content="no-referrer">'}
     <title>${location.host.toUpperCase()} Masonry</title>
-    <link rel="stylesheet" href="https://lib.baomitu.com/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/normalize.css@8.0.1/normalize.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
-    <link rel="stylesheet" href="https://lib.baomitu.com/vuetify/2.6.6/vuetify.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/vuetify@2.6.6/dist/vuetify.min.css">
     <style>${customStyle}</style>
   `;
   }
@@ -4155,7 +4155,7 @@ var __publicField = (obj, key, value) => {
       if (!unsafeWindow.DPlayer) {
         await new Promise((resolve) => {
           const script = document.createElement("script");
-          script.src = "https://lib.baomitu.com/dplayer/1.26.0/DPlayer.min.js";
+          script.src = "https://unpkg.com/dplayer@1.26.0/dist/DPlayer.min.js";
           script.addEventListener("load", resolve, false);
           document.head.appendChild(script);
         });
