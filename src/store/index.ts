@@ -6,6 +6,10 @@ interface SeletedPost extends Post {
   loaded?: boolean
 }
 
+interface AppSettings {
+  masonryLayout: boolean
+}
+
 interface AppState {
   requestState: boolean
   requestStop: boolean
@@ -26,6 +30,7 @@ interface AppState {
   isFullImgPreload: boolean
   imgPreloadNum: number
   isFullscreen: boolean
+  settings: AppSettings
   toggleDrawer: () => void
   addToSelectedList: (item: Post) => void
 }
@@ -53,6 +58,9 @@ const store = Vue.observable<AppState>({
   isFullImgPreload: !!localStorage.getItem('__fullImgPreload'),
   imgPreloadNum: Number(localStorage.getItem('__imgPreloadNum')) || 1,
   isFullscreen: false,
+  settings: {
+    masonryLayout: localStorage.getItem('__masonryLayout') !== '0',
+  },
   toggleDrawer() {
     store.showDrawer = !store.showDrawer
   },

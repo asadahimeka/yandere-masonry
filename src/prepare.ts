@@ -36,6 +36,7 @@ async function initMacy() {
   for (const item of listEl.children) {
     item.setAttribute('style', 'width:auto;margin:0 10px 10px 0;vertical-align:top')
   }
+  if (localStorage.getItem('__masonryLayout') === '0') return
   await loadScript('https://unpkg.com/macy@2.5.1/dist/macy.js')
   setTimeout(() => {
     // eslint-disable-next-line no-new

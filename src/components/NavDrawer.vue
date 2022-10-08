@@ -206,6 +206,18 @@
           >
         </v-list-item-action>
       </v-list-item>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>缩略图瀑布流布局</v-list-item-title>
+          <v-list-item-subtitle>设置布局为瀑布流/等高</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-switch
+            v-model="store.settings.masonryLayout"
+            @change="onmasonryLayoutChange"
+          />
+        </v-list-item-action>
+      </v-list-item>
     </v-list>
     <v-list dense nav>
       <v-list-item>
@@ -314,6 +326,10 @@ const onWheelSwitchChange = (val: any) => {
 const onImgPreloadChange = (val: any) => {
   localStorage.setItem('__fullImgPreload', val ? '1' : '')
   location.reload()
+}
+
+const onmasonryLayoutChange = (val: any) => {
+  localStorage.setItem('__masonryLayout', val ? '1' : '0')
 }
 
 const onPreloadNumBlur = (ev: Event) => {

@@ -1,7 +1,13 @@
 <template>
   <div v-if="showImageList">
     <masonry :cols="columnCount" gutter="8px">
-      <v-card v-for="(image, index) in store.imageList" :key="index" class="mb-2" :style="maxHeightStyle">
+      <v-card
+        v-for="(image, index) in store.imageList"
+        :key="index"
+        class="mb-2"
+        :class="{ normal_gird_cont: !store.settings.masonryLayout }"
+        :style="maxHeightStyle"
+      >
         <v-img
           transition="scroll-y-transition"
           :src="getImgSrc(image)"

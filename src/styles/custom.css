@@ -253,3 +253,12 @@
   -webkit-appearance: none !important;
   -moz-appearance: textfield;
 }
+
+.normal_gird_cont {
+  height: 300px !important;
+  overflow: hidden;
+}
+
+.normal_gird_cont .v-responsive__sizer {
+  padding-bottom: 300px !important;
+}
