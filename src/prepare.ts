@@ -157,13 +157,10 @@ export function loadScript(src: string) {
   })
 }
 
-function loadDeps() {
-  return Promise.all([
-    loadScript('https://unpkg.com/vue@2.6.14/dist/vue.min.js'),
-    loadScript('https://unpkg.com/@vue/composition-api@1.7.0/dist/vue-composition-api.prod.js'),
-    loadScript('https://unpkg.com/vuetify@2.6.6/dist/vuetify.min.js'),
-    loadScript('https://unpkg.com/vue-masonry-css@1.0.3/dist/vue-masonry.min.js'),
-  ])
+async function loadDeps() {
+  await loadScript('https://unpkg.com/vue@2.7.13/dist/vue.min.js')
+  await loadScript('https://unpkg.com/vuetify@2.6.12/dist/vuetify.min.js')
+  await loadScript('https://unpkg.com/vue-masonry-css@1.0.3/dist/vue-masonry.min.js')
 }
 
 function replaceHead() {
@@ -177,7 +174,7 @@ function replaceHead() {
     <title>${location.host.toUpperCase()} Masonry</title>
     <link rel="stylesheet" href="https://unpkg.com/normalize.css@8.0.1/normalize.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
-    <link rel="stylesheet" href="https://unpkg.com/vuetify@2.6.6/dist/vuetify.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/vuetify@2.6.12/dist/vuetify.min.css">
     <style>${customStyle}</style>
   `
 }
