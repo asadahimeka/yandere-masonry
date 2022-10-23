@@ -45,16 +45,11 @@
       "tampermonkey",
       "vue",
       "vuetify",
-      "unplugin-vue2-script-setup/types"
     ],
   },
   "vueCompilerOptions": {
-    "target": 2,
-    "experimentalTemplateCompilerOptions": {
-      "compatConfig": {
-        "MODE": 2
-      }
-    }
+    "target": 2.7,
+    // "target": 2, // For Vue version <= 2.6.14
   },
   "include": [
     "src/**/*.ts",

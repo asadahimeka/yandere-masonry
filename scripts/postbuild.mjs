@@ -11,13 +11,13 @@ async function main() {
     script
       .replace(prepareStr, '')
       .replace(
-        '(function(Vue2, VueCompositionAPI2, VueMasonry2, Vuetify2) {',
-        '(() => {\n  ' + prepareStr + 'prepareApp(() => {(function(Vue2, VueCompositionAPI2, VueMasonry2, Vuetify2) {',
+        '(function(Vue2, VueMasonry2, Vuetify2) {',
+        '(() => {\n  ' + prepareStr + 'prepareApp(() => {(function(Vue2, VueMasonry2, Vuetify2) {',
       )
       .replace('prepareApp(initApp)', 'initApp()')
       .replace(
-        '})(Vue, VueCompositionAPI, VueMasonry, Vuetify);',
-        '  })(Vue, VueCompositionAPI, VueMasonry, Vuetify);});\n})();'
+        '})(Vue, VueMasonry, Vuetify);',
+        '  })(Vue, VueMasonry, Vuetify);});\n})();'
       )
   )
 }

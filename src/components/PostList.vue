@@ -80,7 +80,7 @@
 
 <script setup lang="ts">
 import { mdiFileGifBox, mdiRefresh, mdiVideo } from '@mdi/js'
-import { computed, nextTick, onMounted, onUnmounted, ref, set, watch } from '@vue/composition-api'
+import { computed, nextTick, onMounted, onUnmounted, ref, set, watch } from 'vue'
 import type Post from '@himeka/booru/dist/structures/Post'
 import PostDetail from './PostDetail.vue'
 import { notReachBottom, throttleScroll } from '@/utils'

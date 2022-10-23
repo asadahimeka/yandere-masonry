@@ -1,22 +1,18 @@
 import { URL, fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
-import { createVuePlugin as Vue2 } from 'vite-plugin-vue2'
-import ScriptSetup from 'unplugin-vue2-script-setup/vite'
-import Userscript from 'vite-plugin-tm-userscript'
+import vue from '@vitejs/plugin-vue2'
+import userscript from 'vite-plugin-tm-userscript'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    // https://github.com/underfin/vite-plugin-vue2
-    Vue2({ target: 'esnext' }),
-    // https://github.com/antfu/unplugin-vue2-script-setup
-    ScriptSetup(),
+    // https://github.com/vitejs/vite-plugin-vue2
+    vue(),
     // https://github.com/asadahimeka/vite-plugin-tm-userscript
-    Userscript({
+    userscript({
       externalGlobals: {
         'vue': ['Vue'],
         'vuetify': ['Vuetify'],
-        '@vue/composition-api': ['VueCompositionAPI'],
         'vue-masonry-css': ['VueMasonry'],
       },
     }),

@@ -69,7 +69,7 @@
 
 <script setup lang="ts">
 import { mdiCalendarBlank, mdiCalendarEdit, mdiDownload, mdiLaunch } from '@mdi/js'
-import { computed, onMounted, onUnmounted, ref } from '@vue/composition-api'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { type Pool, fetchPools } from '@/api/moebooru'
 import { eventBus, notReachBottom, throttleScroll } from '@/utils'
 import store from '@/store'

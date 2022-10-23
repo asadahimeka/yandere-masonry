@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { mdiCheckCircle, mdiCloseCircle } from '@mdi/js'
-import { ref } from '@vue/composition-api'
+import { ref } from 'vue'
 import { eventBus } from '@/utils'
 
 const showSnackbar = ref(false)

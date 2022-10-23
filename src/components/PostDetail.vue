@@ -321,7 +321,7 @@
           <span>关闭</span>
         </v-tooltip>
       </v-toolbar>
-      <d-player v-if="isVideo" style="width: 100%;" :options="{ theme: '#ee8888', autoplay: true, video: { url: imageSelected.fileUrl } }" />
+      <DPlayer v-if="isVideo" style="width: 100%;" :options="{ theme: '#ee8888', autoplay: true, video: { url: imageSelected.fileUrl } }" />
       <!-- <video v-if="isVideo" controls style="width: 100%;" :src="imageSelected.fileUrl ?? void 0"></video> -->
       <div v-show="!isVideo" class="img_scale_scroll" draggable="false">
         <img
@@ -389,7 +389,7 @@ import {
   mdiTableSplitCell,
   mdiTagMultiple,
 } from '@mdi/js'
-import { computed, onMounted, onUnmounted, ref, watch } from '@vue/composition-api'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import DPlayer from './DPlayer.vue'
 import { debounce, downloadFile, dragElement, isURL, showMsg } from '@/utils'
 import { type PostDetail, addPostToFavorites, getPostDetail } from '@/api/moebooru'

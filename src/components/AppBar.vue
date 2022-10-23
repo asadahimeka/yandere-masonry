@@ -239,7 +239,7 @@ import {
   mdiStar,
   mdiViewDashboardVariant,
 } from '@mdi/js'
-import { computed, onMounted, reactive, ref, set, watch } from '@vue/composition-api'
+import { computed, onMounted, reactive, ref, set, watch } from 'vue'
 import { useVuetify } from '@/plugins/vuetify'
 import store from '@/store'
 import { addDate, debounce, downloadFile, eventBus, formatDate, showMsg, subDate } from '@/utils'

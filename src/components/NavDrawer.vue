@@ -278,7 +278,7 @@ import {
   mdiStar,
   mdiWeb,
 } from '@mdi/js'
-import { onMounted, ref } from '@vue/composition-api'
+import { onMounted, ref } from 'vue'
 import { siteDomains } from '@/api/booru'
 import { getUsername } from '@/api/moebooru'
 import store from '@/store'
