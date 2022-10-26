@@ -130,11 +130,13 @@
 
 .img_scale_scroll {
   display: none;
+  user-select: none;
 }
 
 .img_scale_scroll img {
   display: block;
   margin: 0 auto;
+  user-select: none;
 }
 
 .img_detail_scale_on .img_scale_scroll {

@@ -155,6 +155,23 @@
               dark
               small
               color="#ee8888b3"
+              class="mr-1"
+              v-bind="attrs"
+              v-on="on"
+              @click.stop="rotateImg"
+            >
+              <v-icon>{{ mdiRotateRight }}</v-icon>
+            </v-btn>
+          </template>
+          <span>旋转</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template #activator="{ on, attrs }">
+            <v-btn
+              fab
+              dark
+              small
+              color="#ee8888b3"
               class="mr-1 hidden-sm-and-down"
               v-bind="attrs"
               v-on="on"
@@ -326,7 +343,7 @@
       <div v-show="!isVideo" class="img_scale_scroll" draggable="false">
         <img
           :src="scaleImgSrc"
-          :style="scaleImgStyleMap[imgScaleState]"
+          :style="scaleImgStyle"
           alt=""
           draggable="false"
           @load="imgLoading = false"
@@ -386,6 +403,7 @@ import {
   mdiMagnifyMinusOutline,
   mdiMagnifyPlusOutline,
   mdiPlaylistPlus,
+  mdiRotateRight,
   mdiTableSplitCell,
   mdiTagMultiple,
 } from '@mdi/js'
@@ -569,6 +587,16 @@ const scaleImgStyleMap = {
 type ImgScaleState = 'FitToPage' | 'FitToWidth' | 'FitToHeight' | 'Original'
 const imgScaleState = ref<ImgScaleState>('FitToWidth')
 
+const imgRotateDeg = ref(0)
+const rotateImg = () => {
+  imgRotateDeg.value += 90
+}
+
+const scaleImgStyle = computed(() => ({
+  ...scaleImgStyleMap[imgScaleState.value],
+  transform: `rotate(${imgRotateDeg.value}deg)`,
+}))
+
 let clearDragEv: (() => void) | undefined
 const zoomInImg = () => {
   scaleOn.value = true
@@ -577,6 +605,7 @@ const zoomInImg = () => {
 }
 const zoomOutImg = () => {
   scaleOn.value = false
+  imgRotateDeg.value = 0
   clearDragEv?.()
 }
 
