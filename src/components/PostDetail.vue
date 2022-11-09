@@ -589,7 +589,7 @@ const scaleImgStyleMap = {
 }
 
 type ImgScaleState = 'FitToPage' | 'FitToWidth' | 'FitToHeight' | 'Original'
-const imgScaleState = ref<ImgScaleState>('FitToWidth')
+const imgScaleState = ref<ImgScaleState>('Original')
 
 const imgRotateDeg = ref(0)
 const rotateImg = () => {
