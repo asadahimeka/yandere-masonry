@@ -52,6 +52,9 @@
         <v-list-item v-if="store.isYKSite" @click="addFavorite">
           <v-list-item-title>加入收藏</v-list-item-title>
         </v-list-item>
+        <v-list-item @click="downloadCtxPost">
+          <v-list-item-title>下载原文件</v-list-item-title>
+        </v-list-item>
         <v-list-item @click="openDetail">
           <v-list-item-title>新标签页打开</v-list-item-title>
         </v-list-item>
@@ -83,7 +86,7 @@ import { mdiFileGifBox, mdiRefresh, mdiVideo } from '@mdi/js'
 import { computed, nextTick, onMounted, onUnmounted, ref, set, watch } from 'vue'
 import type Post from '@himeka/booru/dist/structures/Post'
 import PostDetail from './PostDetail.vue'
-import { notReachBottom, throttleScroll } from '@/utils'
+import { downloadFile, notReachBottom, showMsg, throttleScroll } from '@/utils'
 import { addPostToFavorites } from '@/api/moebooru'
 import { initPosts, refreshPosts, searchPosts } from '@/store/actions/post'
 import store from '@/store'
@@ -167,6 +170,17 @@ const addToSelectedList = () => {
 const addFavorite = () => {
   const img = ctxActPost.value
   img && addPostToFavorites(img.id)
+}
+
+const downloadCtxPost = async () => {
+  if (!ctxActPost.value) return
+  const { fileUrl, fileDownloadName } = ctxActPost.value
+  if (!fileUrl) return
+  try {
+    await downloadFile(fileUrl, `${fileDownloadName}.${fileUrl.split('.').pop()}`)
+  } catch (error) {
+    showMsg({ msg: `下载出错: ${error}`, type: 'error' })
+  }
 }
 
 const onImageLoadError = (url: string) => {
