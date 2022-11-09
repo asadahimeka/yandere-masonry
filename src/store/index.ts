@@ -8,6 +8,7 @@ interface SeletedPost extends Post {
 
 interface AppSettings {
   masonryLayout: boolean
+  isListenKeyupEvent: boolean
 }
 
 interface AppState {
@@ -60,6 +61,7 @@ const store = Vue.observable<AppState>({
   isFullscreen: false,
   settings: {
     masonryLayout: localStorage.getItem('__masonryLayout') !== '0',
+    isListenKeyupEvent: localStorage.getItem('__listenKeyup') !== '0',
   },
   toggleDrawer() {
     store.showDrawer = !store.showDrawer

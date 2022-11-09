@@ -180,6 +180,18 @@
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
+          <v-list-item-title>监听键盘事件</v-list-item-title>
+          <v-list-item-subtitle>详情A/D/←/→切换图片</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-switch
+            v-model="store.settings.isListenKeyupEvent"
+            @change="onKeyupSwitchChange"
+          />
+        </v-list-item-action>
+      </v-list-item>
+      <v-list-item>
+        <v-list-item-content>
           <v-list-item-title>详情图片预加载</v-list-item-title>
           <v-list-item-subtitle>预加载下一张样品图/原图</v-list-item-subtitle>
         </v-list-item-content>
@@ -320,6 +332,11 @@ const onNSFWSwitchChange = (val: any) => {
 
 const onWheelSwitchChange = (val: any) => {
   localStorage.setItem('__listenWheel', val ? '1' : '0')
+  location.reload()
+}
+
+const onKeyupSwitchChange = (val: any) => {
+  localStorage.setItem('__listenKeyup', val ? '1' : '0')
   location.reload()
 }
 

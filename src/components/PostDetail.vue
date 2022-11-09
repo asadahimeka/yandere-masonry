@@ -506,6 +506,10 @@ const addFavorite = async () => {
 
 const setPostDetail = async () => {
   if (store.isYKSite) {
+    postDetail.value = {
+      voted: false,
+      tags: [],
+    }
     const result = await getPostDetail(imageSelected.value.id)
     if (result) postDetail.value = result
   } else {
@@ -634,20 +638,39 @@ const onResize = () => {
   innerHeight.value = window.innerHeight
 }
 
+const isTriggerEvent = computed(() => {
+  if (!store.showImageSelected) return false
+  if (isVideo.value) return false
+  if (scaleOn.value && imgScaleState.value !== 'FitToPage') return false
+  return true
+})
+
 const onWheel = debounce((ev: WheelEvent) => {
-  if (!store.showImageSelected) return
-  if (isVideo.value) return
-  if (scaleOn.value && imgScaleState.value !== 'FitToPage') return
+  if (!isTriggerEvent.value) return
   ev.deltaY > 0 ? showNextPost() : showPrevPost()
+}, 500, true)
+
+const onKeyup = debounce((ev: KeyboardEvent) => {
+  if (!isTriggerEvent.value) return
+  ev.preventDefault()
+  if (['ArrowLeft', 'a', 'A'].includes(ev.key)) {
+    showPrevPost()
+    return
+  }
+  if (['ArrowRight', 'd', 'D'].includes(ev.key)) {
+    showNextPost()
+  }
 }, 500, true)
 
 onMounted(() => {
   window.addEventListener('resize', onResize)
   store.isListenWheelEvent && window.addEventListener('wheel', onWheel)
+  store.settings.isListenKeyupEvent && window.addEventListener('keyup', onKeyup)
 })
 
 onUnmounted(() => {
   window.removeEventListener('resize', onResize)
   store.isListenWheelEvent && window.removeEventListener('wheel', onWheel)
+  store.settings.isListenKeyupEvent && window.removeEventListener('keyup', onKeyup)
 })
 </script>
