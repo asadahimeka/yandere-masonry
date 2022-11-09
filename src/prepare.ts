@@ -11,13 +11,13 @@ export async function prepareApp(callback?: () => void) {
     translateTags()
     initMacy()
   }
-  addEventListener('load', () => {
+  setTimeout(() => {
     setMasonryMode(async () => {
       removeOldListeners()
       await initMasonry()
       callback?.()
     })
-  })
+  }, 1000)
 }
 
 function doNotRun() {
