@@ -265,7 +265,7 @@
   padding-bottom: 300px !important;
 }
 
-.theme--light .v-overlay--active .v-overlay__scrim {
+/* .theme--light .v-overlay--active .v-overlay__scrim {
   opacity: 1 !important;
   background-color: rgb(33, 33, 33, .7) !important;
   backdrop-filter: blur(5px);
@@ -275,4 +275,4 @@
   opacity: 1 !important;
   background-color: rgb(33, 33, 33, .7) !important;
   backdrop-filter: blur(5px);
-}
+} */
