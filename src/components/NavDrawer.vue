@@ -153,6 +153,24 @@
           </v-combobox>
         </v-list-item-content>
       </v-list-item>
+      <v-list-item class="mb-0">
+        <v-list-item-content>
+          <v-list-item-title>API Credentials</v-list-item-title>
+          <v-list-item-subtitle>形如: &api_key=xx&user_id=1</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item class="pa-0">
+        <v-list-item-content class="pt-0">
+          <v-text-field
+            v-model="store.settings.credentialQuery"
+            class="blacklist_combobox ma-0 pa-0"
+            hide-details
+            outlined
+            dense
+            @change="onCredentialQueryChange"
+          />
+        </v-list-item-content>
+      </v-list-item>
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>NSFW 开关</v-list-item-title>
@@ -347,6 +365,10 @@ const onImgPreloadChange = (val: any) => {
 
 const onmasonryLayoutChange = (val: any) => {
   localStorage.setItem('__masonryLayout', val ? '1' : '0')
+}
+
+const onCredentialQueryChange = (val: any) => {
+  localStorage.setItem('__credentialQuery', val)
 }
 
 const onPreloadNumBlur = (ev: Event) => {

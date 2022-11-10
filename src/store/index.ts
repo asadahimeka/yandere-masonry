@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import type Post from '@himeka/booru/dist/structures/Post'
+import type { Post } from '@himeka/booru'
 
 interface SeletedPost extends Post {
   loading?: boolean
@@ -9,6 +9,7 @@ interface SeletedPost extends Post {
 interface AppSettings {
   masonryLayout: boolean
   isListenKeyupEvent: boolean
+  credentialQuery: string
 }
 
 interface AppState {
@@ -62,6 +63,7 @@ const store = Vue.observable<AppState>({
   settings: {
     masonryLayout: localStorage.getItem('__masonryLayout') !== '0',
     isListenKeyupEvent: localStorage.getItem('__listenKeyup') !== '0',
+    credentialQuery: localStorage.getItem('__credentialQuery') || '',
   },
   toggleDrawer() {
     store.showDrawer = !store.showDrawer

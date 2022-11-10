@@ -1,6 +1,4 @@
-import { forSite } from '@himeka/booru'
-import Post from '@himeka/booru/dist/structures/Post'
-import SearchResults from '@himeka/booru/dist/structures/SearchResults'
+import { Post, SearchResults, forSite } from '@himeka/booru'
 import { formatDate, showMsg } from '../utils'
 
 function getYandereUserId() {

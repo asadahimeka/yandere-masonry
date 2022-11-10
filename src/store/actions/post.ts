@@ -1,4 +1,4 @@
-import type SearchResults from '@himeka/booru/dist/structures/SearchResults'
+import type { SearchResults } from '@himeka/booru'
 import store from '@/store'
 import { BOORU_PAGE_LIMIT, isPidSite, searchBooru } from '@/api/booru'
 import { fetchPostsByPath, isPoolShowPage, isPopularPage } from '@/api/moebooru'

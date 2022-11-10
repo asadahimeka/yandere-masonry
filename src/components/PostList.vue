@@ -84,7 +84,7 @@
 <script setup lang="ts">
 import { mdiFileGifBox, mdiRefresh, mdiVideo } from '@mdi/js'
 import { computed, nextTick, onMounted, onUnmounted, ref, set, watch } from 'vue'
-import type Post from '@himeka/booru/dist/structures/Post'
+import type { Post } from '@himeka/booru'
 import PostDetail from './PostDetail.vue'
 import { downloadFile, notReachBottom, showMsg, throttleScroll } from '@/utils'
 import { addPostToFavorites } from '@/api/moebooru'

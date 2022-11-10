@@ -14,6 +14,7 @@ export default defineConfig({
         'vue': ['Vue'],
         'vuetify': ['Vuetify'],
         'vue-masonry-css': ['VueMasonry'],
+        'fast-xml-parser': ['fxparser'],
       },
     }),
   ],

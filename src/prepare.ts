@@ -158,9 +158,10 @@ export function loadScript(src: string) {
 }
 
 async function loadDeps() {
-  await loadScript('https://unpkg.com/vue@2.7.13/dist/vue.min.js')
+  await loadScript('https://unpkg.com/vue@2.7.14/dist/vue.min.js')
   await loadScript('https://unpkg.com/vuetify@2.6.12/dist/vuetify.min.js')
   await loadScript('https://unpkg.com/vue-masonry-css@1.0.3/dist/vue-masonry.min.js')
+  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.0.11/fxparser.min.js')
 }
 
 function replaceHead() {

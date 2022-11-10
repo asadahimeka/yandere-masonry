@@ -15,9 +15,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@himeka/booru": "2.7.3",
+    "@himeka/booru": "2.7.6",
     "date-fns": "2.29.3",
-    "vue": "2.7.13",
+    "vue": "2.7.14",
     "vue-masonry-css": "1.0.3",
     "vuetify": "2.6.12"
   },
@@ -37,6 +37,6 @@
     "typescript": "4.8.4",
     "vite": "2.9.5",
     "vite-plugin-tm-userscript": "1.2.0",
-    "vue-template-compiler": "2.7.13"
+    "vue-template-compiler": "2.7.14"
   }
 }
