@@ -143,6 +143,10 @@ https://rule34.paheal.net
 
 https://realbooru.com
 
+https://booru.allthefallen.moe
+
+https://aibooru.online
+
 ## Screenshots
 
 ![](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/a542077b61a2dcb85838baa41bf96c8c_7747043650649306795.png)

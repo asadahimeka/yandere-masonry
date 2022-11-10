@@ -83,10 +83,10 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@himeka/booru@2.7.1":
-  version "2.7.1"
-  resolved "https://registry.npmmirror.com/@himeka/booru/-/booru-2.7.1.tgz#7147a6bcbcf6e19053f7db24834de1634b32c637"
-  integrity sha512-F8ikl+83E2kNzv3DmNtOI06mKmYFkEYpbrKjtuMU3xxyeOjUuMjGC+/8hoE1HOm7KBWxBah9Reqvl57ujWpgXQ==
+"@himeka/booru@2.7.2":
+  version "2.7.2"
+  resolved "https://registry.npmmirror.com/@himeka/booru/-/booru-2.7.2.tgz#b54f187006aebffb8a46d9dfe19d174f35cc9451"
+  integrity sha512-/Nnsm90AU2B6mFBtqj1dodNzDQpO4/Up+dqWpi1FjA0wqYqaGva4ItDes+DNwKvK6ddR1y4UeQZzQ+C0NyXUrg==
   dependencies:
     fast-xml-parser "^3.19.0"
     node-fetch "^2.6.7"
