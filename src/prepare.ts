@@ -1,4 +1,5 @@
-import ydStyle from '@/styles/style.css?inline'
+import prepareStyle from '@/styles/prepare.css?inline'
+import ydStyle from '@/styles/yandere.css?inline'
 import knStyle from '@/styles/konachan.css?inline'
 import customStyle from '@/styles/custom.css?inline'
 
@@ -11,13 +12,17 @@ export async function prepareApp(callback?: () => void) {
     translateTags()
     initMacy()
   }
-  setTimeout(() => {
-    setMasonryMode(async () => {
-      removeOldListeners()
-      await initMasonry()
-      callback?.()
-    })
-  }, 1000)
+  await sleep(1000)
+  addMoeLocaleSelect()
+  setMasonryMode(async () => {
+    removeOldListeners()
+    await initMasonry()
+    callback?.()
+  })
+}
+
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 function doNotRun() {
@@ -26,7 +31,7 @@ function doNotRun() {
 }
 
 function isMoebooru() {
-  return ['yande.re', 'konachan'].some(e => location.href.includes(e))
+  return ['yande.re', 'konachan', 'lolibooru', 'sakugabooru'].some(e => location.href.includes(e))
 }
 
 async function initMacy() {
@@ -58,7 +63,7 @@ async function initMasonry() {
 }
 
 function addSiteStyle() {
-  GM_addStyle('#enter-masonry{position:fixed;z-index:99;right:16px;top:10px;padding:8px 12px;border:0;border-radius:6px;color:#fff;outline:0;background: linear-gradient(to right, #ff758c 0%, #ff7eb3 100%);opacity:1;transform:scale(1);transition:opacity,transform .2s;cursor:pointer}#enter-masonry:hover{opacity:.8;transform:scale(1.05)}')
+  GM_addStyle(prepareStyle)
   if (location.href.includes('yande.re')) {
     GM_addStyle(ydStyle)
   }
@@ -67,14 +72,34 @@ function addSiteStyle() {
   }
 }
 
+const locales = ['de', 'en', 'es', 'ja', 'ru', 'zh_CN', 'zh_TW']
+
 function setMoebooruLocale() {
   if (document.title === 'Access denied') return
   if (document.cookie.includes('locale=')) return
   const url = new URL(location.href)
   if (url.searchParams.get('_wf')) return
   if (url.searchParams.get('locale')) return
-  url.searchParams.set('locale', 'zh_CN')
+  const browserLang = navigator.language
+  const locale = locales.find(e => e == browserLang.replace('-', '_') || e == browserLang.split('-')[0])
+  if (!locale) return
+  url.searchParams.set('locale', locale)
   location.assign(url)
+}
+
+function addMoeLocaleSelect() {
+  if (!isMoebooru()) return
+  const params = new URLSearchParams(location.search)
+  if (params.get('_wf')) return
+  document.body.insertAdjacentHTML('beforeend', `<select id="locale-select"><option value="">- lang -</option>${locales.map(e => `<option value="${e}">${e}</option>`).join('')}</select>`)
+  const sel = document.querySelector('#locale-select') as HTMLSelectElement
+  sel?.addEventListener('change', function () {
+    const { value } = this
+    if (!value) return
+    const url = new URL(location.href)
+    url.searchParams.set('locale', value)
+    location.assign(url)
+  })
 }
 
 function bindDblclick() {
@@ -97,6 +122,8 @@ function setTagText(seletcor: string, textEn?: (el: HTMLElement) => string, disp
 }
 
 async function translateTags() {
+  const locale = document.cookie.match(/locale=(\w+)/)?.[1]
+  if (locale && locale !== 'zh_CN') return
   const response = await fetch('https://raw.githubusercontent.com/asadahimeka/yandere-masonry/main/src/data/tags_cn.json')
   window.__tagsCN = await response.json()
   const url = new URL(location.href)

@@ -120,7 +120,7 @@
       </v-list-item>
       <v-list-item class="mb-0">
         <v-list-item-content>
-          <v-list-item-title>标签黑名单</v-list-item-title>
+          <v-list-item-title>本地标签黑名单</v-list-item-title>
           <v-list-item-subtitle>下方输入标签，回车添加</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -155,7 +155,7 @@
       </v-list-item>
       <v-list-item class="mb-0">
         <v-list-item-content>
-          <v-list-item-title>API Credentials</v-list-item-title>
+          <v-list-item-title>当前站点 API Credentials</v-list-item-title>
           <v-list-item-subtitle>形如: &api_key=xx&user_id=1</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
