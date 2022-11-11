@@ -2,10 +2,10 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.25.2
-// @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru 等)
-// @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru et cetera.
-// @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru 等)
+// @version              0.26.0
+// @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
+// @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
+// @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @author               asadahimeka
 // @namespace            me.asadahimeka.yanderemasonry
 // @license              MIT
@@ -23,6 +23,8 @@
 // @match                http://behoimi.org/*
 // @match                https://rule34.paheal.net/*
 // @match                https://realbooru.com/*
+// @match                https://booru.allthefallen.moe/*
+// @match                https://aibooru.online/*
 // @homepage             https://www.nanoka.top
 // @source               https://github.com/asadahimeka/yandere-masonry
 // @icon                 https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/f1f6267537a5aff959ee63ec2c9e4e52_4821140735490026106.jpg
@@ -42,9 +44,10 @@ var __publicField = (obj, key, value) => {
   return value;
 };
 (() => {
+  var prepareStyle = "#enter-masonry{position:fixed;z-index:99;right:16px;top:10px;padding:6px 10px;font-size:13px;border:0;border-radius:6px;color:#fff;outline:0;background:linear-gradient(to right,#ff758c 0%,#ff7eb3 100%);opacity:1;transform:scale(1);transition:opacity,transform .2s;cursor:pointer}#enter-masonry:hover{opacity:.8;transform:scale(1.05)}#locale-select{position:fixed;z-index:99;right:110px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}\n";
   var ydStyle = 'a.thumb{padding-bottom:5px;border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08] "}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743] "}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272] "}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2] "}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:100%;height:auto;margin-top:0;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}\n';
   var knStyle = "#lsidebar{display:none}#post-popular ul#post-list-posts{display:flex;justify-content:center;flex-wrap:wrap}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
-  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail{margin:0;overflow:hidden}.img_detail_loading{position:absolute;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0;backdrop-filter:blur(2px)}.img_detail.v-dialog:not(.v-dialog--fullscreen){max-height:98%}.img_detail .v-image{max-height:calc(100vh - 10px)}.img_detail_scale_on{width:auto!important;max-width:100vw!important;max-height:100vh!important;margin:0;padding:0;border-radius:0;overflow:auto}.img_detail_scale_on .v-image{display:block;max-height:100vh;margin:0 auto}.img_detail_scale_on .v-responsive__sizer,.img_detail_scale_on .v-image__image{display:none}.img_detail_scale_on .v-responsive__content{position:relative;width:auto!important;max-width:100vw!important;max-height:100vh;margin:0!important}.img_scale_scroll{display:none;user-select:none}.img_scale_scroll img{display:block;margin:0 auto;user-select:none}.img_detail_scale_on .img_scale_scroll{display:block;max-width:100vw;max-height:100vh;overflow:auto}::-webkit-scrollbar{width:0px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #fff;border-radius:7px}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.normal_gird_cont{height:300px!important;overflow:hidden}.normal_gird_cont .v-responsive__sizer{padding-bottom:300px!important}.theme--light .v-overlay--active .v-overlay__scrim,.theme--dark .v-overlay--active .v-overlay__scrim{opacity:1!important;background-color:#212121b3!important;backdrop-filter:blur(5px)}\n';
+  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail{margin:0;overflow:hidden}.img_detail_loading{position:absolute;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0;backdrop-filter:blur(2px)}.img_detail.v-dialog:not(.v-dialog--fullscreen){max-height:98%}.img_detail .v-image{max-height:calc(100vh - 10px)}.img_detail_scale_on{width:auto!important;max-width:100vw!important;max-height:100vh!important;margin:0;padding:0;border-radius:0;overflow:auto}.img_detail_scale_on .v-image{display:block;max-height:100vh;margin:0 auto}.img_detail_scale_on .v-responsive__sizer,.img_detail_scale_on .v-image__image{display:none}.img_detail_scale_on .v-responsive__content{position:relative;width:auto!important;max-width:100vw!important;max-height:100vh;margin:0!important}.img_scale_scroll{display:none;user-select:none}.img_scale_scroll img{display:block;margin:0 auto;user-select:none}.img_detail_scale_on .img_scale_scroll{display:block;max-width:100vw;max-height:100vh;overflow:auto}::-webkit-scrollbar{width:0px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #fff;border-radius:7px}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.normal_gird_cont{height:300px!important;overflow:hidden}.normal_gird_cont .v-responsive__sizer{padding-bottom:300px!important}\n';
   async function prepareApp(callback) {
     if (doNotRun())
       return;
@@ -55,20 +58,23 @@ var __publicField = (obj, key, value) => {
       translateTags();
       initMacy();
     }
-    setTimeout(() => {
-      setMasonryMode(async () => {
-        removeOldListeners();
-        await initMasonry();
-        callback == null ? void 0 : callback();
-      });
-    }, 1e3);
+    await sleep(1e3);
+    addMoeLocaleSelect();
+    setMasonryMode(async () => {
+      removeOldListeners();
+      await initMasonry();
+      callback == null ? void 0 : callback();
+    });
+  }
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
   function doNotRun() {
     const mimeTypes = ["jpg", "jpeg", "png", "gif", "mp4", "webm", "json", "xml"];
     return mimeTypes.some((e) => location.pathname.endsWith(`.${e}`));
   }
   function isMoebooru() {
-    return ["yande.re", "konachan"].some((e) => location.href.includes(e));
+    return ["yande.re", "konachan", "lolibooru", "sakugabooru"].some((e) => location.href.includes(e));
   }
   async function initMacy() {
     if (!location.href.includes("yande.re/post"))
@@ -99,7 +105,7 @@ var __publicField = (obj, key, value) => {
     await loadDeps();
   }
   function addSiteStyle() {
-    GM_addStyle("#enter-masonry{position:fixed;z-index:99;right:16px;top:10px;padding:8px 12px;border:0;border-radius:6px;color:#fff;outline:0;background: linear-gradient(to right, #ff758c 0%, #ff7eb3 100%);opacity:1;transform:scale(1);transition:opacity,transform .2s;cursor:pointer}#enter-masonry:hover{opacity:.8;transform:scale(1.05)}");
+    GM_addStyle(prepareStyle);
     if (location.href.includes("yande.re")) {
       GM_addStyle(ydStyle);
     }
@@ -107,6 +113,7 @@ var __publicField = (obj, key, value) => {
       GM_addStyle(ydStyle + knStyle);
     }
   }
+  const locales = ["de", "en", "es", "ja", "ru", "zh_CN", "zh_TW"];
   function setMoebooruLocale() {
     if (document.title === "Access denied")
       return;
@@ -117,8 +124,29 @@ var __publicField = (obj, key, value) => {
       return;
     if (url.searchParams.get("locale"))
       return;
-    url.searchParams.set("locale", "zh_CN");
+    const browserLang = navigator.language;
+    const locale = locales.find((e) => e == browserLang.replace("-", "_") || e == browserLang.split("-")[0]);
+    if (!locale)
+      return;
+    url.searchParams.set("locale", locale);
     location.assign(url);
+  }
+  function addMoeLocaleSelect() {
+    if (!isMoebooru())
+      return;
+    const params2 = new URLSearchParams(location.search);
+    if (params2.get("_wf"))
+      return;
+    document.body.insertAdjacentHTML("beforeend", `<select id="locale-select"><option value="">- lang -</option>${locales.map((e) => `<option value="${e}">${e}</option>`).join("")}</select>`);
+    const sel = document.querySelector("#locale-select");
+    sel == null ? void 0 : sel.addEventListener("change", function() {
+      const { value } = this;
+      if (!value)
+        return;
+      const url = new URL(location.href);
+      url.searchParams.set("locale", value);
+      location.assign(url);
+    });
   }
   function bindDblclick() {
     document.addEventListener("dblclick", (e) => {
@@ -140,6 +168,10 @@ var __publicField = (obj, key, value) => {
     }
   }
   async function translateTags() {
+    var _a2;
+    const locale = (_a2 = document.cookie.match(/locale=(\w+)/)) == null ? void 0 : _a2[1];
+    if (locale && locale !== "zh_CN")
+      return;
     const response = await fetch("https://raw.githubusercontent.com/asadahimeka/yandere-masonry/main/src/data/tags_cn.json");
     window.__tagsCN = await response.json();
     const url = new URL(location.href);
@@ -209,9 +241,10 @@ var __publicField = (obj, key, value) => {
     });
   }
   async function loadDeps() {
-    await loadScript("https://unpkg.com/vue@2.7.13/dist/vue.min.js");
+    await loadScript("https://unpkg.com/vue@2.7.14/dist/vue.min.js");
     await loadScript("https://unpkg.com/vuetify@2.6.12/dist/vuetify.min.js");
     await loadScript("https://unpkg.com/vue-masonry-css@1.0.3/dist/vue-masonry.min.js");
+    await loadScript("https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.0.11/fxparser.min.js");
   }
   function replaceHead() {
     const el = document.querySelector('[name="csrf-token"]');
@@ -244,7 +277,7 @@ var __publicField = (obj, key, value) => {
     </div>
   `;
   }
-  prepareApp(() => {(function(Vue2, VueMasonry2, Vuetify2) {
+  prepareApp(() => {(function(Vue2, VueMasonry2, Vuetify2, fastXmlParser) {
   var _a, _b, _c;
   "use strict";
   ;
@@ -359,7 +392,8 @@ var __publicField = (obj, key, value) => {
     isFullscreen: false,
     settings: {
       masonryLayout: localStorage.getItem("__masonryLayout") !== "0",
-      isListenKeyupEvent: localStorage.getItem("__listenKeyup") !== "0"
+      isListenKeyupEvent: localStorage.getItem("__listenKeyup") !== "0",
+      credentialQuery: localStorage.getItem("__credentialQuery") || ""
     },
     toggleDrawer() {
       store.showDrawer = !store.showDrawer;
@@ -633,10 +667,56 @@ var __publicField = (obj, key, value) => {
       el.removeEventListener("mousedown", onMouseDown);
     };
   }
-  var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
-  var dist = {};
-  var Constants = {};
-  var require$$0 = {
+  function getAugmentedNamespace(n) {
+    if (n.__esModule)
+      return n;
+    var a = Object.defineProperty({}, "__esModule", { value: true });
+    Object.keys(n).forEach(function(k) {
+      var d = Object.getOwnPropertyDescriptor(n, k);
+      Object.defineProperty(a, k, d.get ? d : {
+        enumerable: true,
+        get: function() {
+          return n[k];
+        }
+      });
+    });
+    return a;
+  }
+  function unfetch_module(e, n) {
+    return n = n || {}, new Promise(function(t, r) {
+      var s = new XMLHttpRequest(), o = [], u = [], i = {}, a = function() {
+        return { ok: 2 == (s.status / 100 | 0), statusText: s.statusText, status: s.status, url: s.responseURL, text: function() {
+          return Promise.resolve(s.responseText);
+        }, json: function() {
+          return Promise.resolve(s.responseText).then(JSON.parse);
+        }, blob: function() {
+          return Promise.resolve(new Blob([s.response]));
+        }, clone: a, headers: { keys: function() {
+          return o;
+        }, entries: function() {
+          return u;
+        }, get: function(e2) {
+          return i[e2.toLowerCase()];
+        }, has: function(e2) {
+          return e2.toLowerCase() in i;
+        } } };
+      };
+      for (var l in s.open(n.method || "get", e, true), s.onload = function() {
+        s.getAllResponseHeaders().replace(/^(.*?):[^\S\n]*([\s\S]*?)$/gm, function(e2, n2, t2) {
+          o.push(n2 = n2.toLowerCase()), u.push([n2, t2]), i[n2] = i[n2] ? i[n2] + "," + t2 : t2;
+        }), t(a());
+      }, s.onerror = r, s.withCredentials = "include" == n.credentials, n.headers)
+        s.setRequestHeader(l, n.headers[l]);
+      s.send(n.body || null);
+    });
+  }
+  var unfetch_module$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+    __proto__: null,
+    "default": unfetch_module
+  }, Symbol.toStringTag, { value: "Module" }));
+  var require$$0 = /* @__PURE__ */ getAugmentedNamespace(unfetch_module$1);
+  self.fetch || (self.fetch = require$$0.default || require$$0);
+  var sites_default = {
     "yande.re": {
       domain: "yande.re",
       aliases: [
@@ -744,7 +824,7 @@ var __publicField = (obj, key, value) => {
         "sakuga",
         "sakugabooru"
       ],
-      nsfw: true,
+      nsfw: false,
       api: {
         search: "/post.json?",
         postView: "/post/show/"
@@ -773,7 +853,7 @@ var __publicField = (obj, key, value) => {
         "tbib",
         "big"
       ],
-      nsfw: false,
+      nsfw: true,
       api: {
         search: "/index.php?page=dapi&s=post&q=index&json=1&",
         postView: "/index.php?page=post&s=view&json=1&id="
@@ -822,7 +902,7 @@ var __publicField = (obj, key, value) => {
         postView: "/post/show/"
       },
       paginate: "pid",
-      random: true
+      random: false
     },
     "rule34.paheal.net": {
       domain: "rule34.paheal.net",
@@ -895,1339 +975,217 @@ var __publicField = (obj, key, value) => {
         postView: "/post/show/"
       },
       random: true,
-      defaultTags: [
-        "rating:safe"
-      ]
-    }
-  };
-  (function(exports) {
-    var __importDefault2 = commonjsGlobal && commonjsGlobal.__importDefault || function(r) {
-      return r && r.__esModule ? r : { default: r };
-    };
-    Object.defineProperty(exports, "__esModule", { value: true }), exports.defaultOptions = exports.searchURI = exports.USER_AGENT = exports.BooruError = exports.sites = void 0;
-    const sites_json_1 = __importDefault2(require$$0), expandedTags = { "rating:e": "rating:explicit", "rating:q": "rating:questionable", "rating:s": "rating:safe" };
-    exports.sites = sites_json_1.default;
-    class BooruError extends Error {
-      constructor(r) {
-        super(r instanceof Error ? r.message : r), r instanceof Error ? this.stack = r.stack : Error.captureStackTrace(this, BooruError), this.name = "BooruError";
-      }
-    }
-    function expandTags(r) {
-      return r.map((r2) => {
-        const t = expandedTags[r2.toLowerCase()];
-        return encodeURIComponent(t || r2);
-      });
-    }
-    function searchURI(r, t = [], e = 100, o = 1) {
-      return "pid" === r.paginate && (o -= 1), `http${r.insecure ? "" : "s"}://${r.domain}${r.api.search}${r.tagQuery}=${expandTags(t).join(r.tagJoin)}&limit=${e}&${r.paginate}=${o}`;
-    }
-    exports.BooruError = BooruError, exports.USER_AGENT = "booru (https://github.com/AtoraSuunva/booru)", exports.searchURI = searchURI, exports.defaultOptions = { headers: { Accept: "application/json, application/xml;q=0.9, */*;q=0.8" } };
-  })(Constants);
-  var Booru = {};
-  var browser = { exports: {} };
-  (function(module, exports) {
-    var getGlobal = function() {
-      if (typeof self !== "undefined") {
-        return self;
-      }
-      if (typeof window !== "undefined") {
-        return window;
-      }
-      if (typeof global2 !== "undefined") {
-        return global2;
-      }
-      throw new Error("unable to locate global object");
-    };
-    var global2 = getGlobal();
-    module.exports = exports = global2.fetch;
-    if (global2.fetch) {
-      exports.default = global2.fetch.bind(global2);
-    }
-    exports.Headers = global2.Headers;
-    exports.Request = global2.Request;
-    exports.Response = global2.Response;
-  })(browser, browser.exports);
-  var Utils$1 = {};
-  var parser = {};
-  var node2json = {};
-  var util$4 = {};
-  (function(exports) {
-    const nameStartChar = ":A-Za-z_\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD";
-    const nameChar = nameStartChar + "\\-.\\d\\u00B7\\u0300-\\u036F\\u203F-\\u2040";
-    const nameRegexp = "[" + nameStartChar + "][" + nameChar + "]*";
-    const regexName = new RegExp("^" + nameRegexp + "$");
-    const getAllMatches = function(string, regex) {
-      const matches = [];
-      let match = regex.exec(string);
-      while (match) {
-        const allmatches = [];
-        allmatches.startIndex = regex.lastIndex - match[0].length;
-        const len = match.length;
-        for (let index = 0; index < len; index++) {
-          allmatches.push(match[index]);
-        }
-        matches.push(allmatches);
-        match = regex.exec(string);
-      }
-      return matches;
-    };
-    const isName = function(string) {
-      const match = regexName.exec(string);
-      return !(match === null || typeof match === "undefined");
-    };
-    exports.isExist = function(v) {
-      return typeof v !== "undefined";
-    };
-    exports.isEmptyObject = function(obj) {
-      return Object.keys(obj).length === 0;
-    };
-    exports.merge = function(target, a, arrayMode) {
-      if (a) {
-        const keys = Object.keys(a);
-        const len = keys.length;
-        for (let i = 0; i < len; i++) {
-          if (arrayMode === "strict") {
-            target[keys[i]] = [a[keys[i]]];
-          } else {
-            target[keys[i]] = a[keys[i]];
-          }
-        }
-      }
-    };
-    exports.getValue = function(v) {
-      if (exports.isExist(v)) {
-        return v;
-      } else {
-        return "";
-      }
-    };
-    exports.buildOptions = function(options, defaultOptions2, props2) {
-      let newOptions = {};
-      if (!options) {
-        return defaultOptions2;
-      }
-      for (let i = 0; i < props2.length; i++) {
-        if (options[props2[i]] !== void 0) {
-          newOptions[props2[i]] = options[props2[i]];
-        } else {
-          newOptions[props2[i]] = defaultOptions2[props2[i]];
-        }
-      }
-      return newOptions;
-    };
-    exports.isTagNameInArrayMode = function(tagName, arrayMode, parentTagName) {
-      if (arrayMode === false) {
-        return false;
-      } else if (arrayMode instanceof RegExp) {
-        return arrayMode.test(tagName);
-      } else if (typeof arrayMode === "function") {
-        return !!arrayMode(tagName, parentTagName);
-      }
-      return arrayMode === "strict";
-    };
-    exports.isName = isName;
-    exports.getAllMatches = getAllMatches;
-    exports.nameRegexp = nameRegexp;
-  })(util$4);
-  const util$3 = util$4;
-  const convertToJson = function(node, options, parentTagName) {
-    const jObj = {};
-    if (!options.alwaysCreateTextNode && (!node.child || util$3.isEmptyObject(node.child)) && (!node.attrsMap || util$3.isEmptyObject(node.attrsMap))) {
-      return util$3.isExist(node.val) ? node.val : "";
-    }
-    if (util$3.isExist(node.val) && !(typeof node.val === "string" && (node.val === "" || node.val === options.cdataPositionChar))) {
-      const asArray = util$3.isTagNameInArrayMode(node.tagname, options.arrayMode, parentTagName);
-      jObj[options.textNodeName] = asArray ? [node.val] : node.val;
-    }
-    util$3.merge(jObj, node.attrsMap, options.arrayMode);
-    const keys = Object.keys(node.child);
-    for (let index = 0; index < keys.length; index++) {
-      const tagName = keys[index];
-      if (node.child[tagName] && node.child[tagName].length > 1) {
-        jObj[tagName] = [];
-        for (let tag in node.child[tagName]) {
-          if (node.child[tagName].hasOwnProperty(tag)) {
-            jObj[tagName].push(convertToJson(node.child[tagName][tag], options, tagName));
-          }
-        }
-      } else {
-        const result = convertToJson(node.child[tagName][0], options, tagName);
-        const asArray = options.arrayMode === true && typeof result === "object" || util$3.isTagNameInArrayMode(tagName, options.arrayMode, parentTagName);
-        jObj[tagName] = asArray ? [result] : result;
-      }
-    }
-    return jObj;
-  };
-  node2json.convertToJson = convertToJson;
-  var xmlstr2xmlnode = {};
-  var xmlNode$1 = function(tagname, parent, val) {
-    this.tagname = tagname;
-    this.parent = parent;
-    this.child = {};
-    this.attrsMap = {};
-    this.val = val;
-    this.addChild = function(child) {
-      if (Array.isArray(this.child[child.tagname])) {
-        this.child[child.tagname].push(child);
-      } else {
-        this.child[child.tagname] = [child];
-      }
-    };
-  };
-  const hexRegex = /^[-+]?0x[a-fA-F0-9]+$/;
-  const numRegex = /^([\-\+])?(0*)(\.[0-9]+([eE]\-?[0-9]+)?|[0-9]+(\.[0-9]+([eE]\-?[0-9]+)?)?)$/;
-  if (!Number.parseInt && window.parseInt) {
-    Number.parseInt = window.parseInt;
-  }
-  if (!Number.parseFloat && window.parseFloat) {
-    Number.parseFloat = window.parseFloat;
-  }
-  const consider = {
-    hex: true,
-    leadingZeros: true,
-    decimalPoint: ".",
-    eNotation: true
-  };
-  function toNumber$1(str, options = {}) {
-    options = Object.assign({}, consider, options);
-    if (!str || typeof str !== "string")
-      return str;
-    let trimmedStr = str.trim();
-    if (options.skipLike !== void 0 && options.skipLike.test(trimmedStr))
-      return str;
-    else if (options.hex && hexRegex.test(trimmedStr)) {
-      return Number.parseInt(trimmedStr, 16);
-    } else {
-      const match = numRegex.exec(trimmedStr);
-      if (match) {
-        const sign = match[1];
-        const leadingZeros = match[2];
-        let numTrimmedByZeros = trimZeros(match[3]);
-        const eNotation = match[4] || match[6];
-        if (!options.leadingZeros && leadingZeros.length > 0 && sign && trimmedStr[2] !== ".")
-          return str;
-        else if (!options.leadingZeros && leadingZeros.length > 0 && !sign && trimmedStr[1] !== ".")
-          return str;
-        else {
-          const num = Number(trimmedStr);
-          const numStr = "" + num;
-          if (numStr.search(/[eE]/) !== -1) {
-            if (options.eNotation)
-              return num;
-            else
-              return str;
-          } else if (eNotation) {
-            if (options.eNotation)
-              return num;
-            else
-              return str;
-          } else if (trimmedStr.indexOf(".") !== -1) {
-            if (numStr === "0" && numTrimmedByZeros === "")
-              return num;
-            else if (numStr === numTrimmedByZeros)
-              return num;
-            else if (sign && numStr === "-" + numTrimmedByZeros)
-              return num;
-            else
-              return str;
-          }
-          if (leadingZeros) {
-            if (numTrimmedByZeros === numStr)
-              return num;
-            else if (sign + numTrimmedByZeros === numStr)
-              return num;
-            else
-              return str;
-          }
-          if (trimmedStr === numStr)
-            return num;
-          else if (trimmedStr === sign + numStr)
-            return num;
-          return str;
-        }
-      } else {
-        return str;
-      }
-    }
-  }
-  function trimZeros(numStr) {
-    if (numStr && numStr.indexOf(".") !== -1) {
-      numStr = numStr.replace(/0+$/, "");
-      if (numStr === ".")
-        numStr = "0";
-      else if (numStr[0] === ".")
-        numStr = "0" + numStr;
-      else if (numStr[numStr.length - 1] === ".")
-        numStr = numStr.substr(0, numStr.length - 1);
-      return numStr;
-    }
-    return numStr;
-  }
-  var strnum = toNumber$1;
-  const util$2 = util$4;
-  const buildOptions$3 = util$4.buildOptions;
-  const xmlNode = xmlNode$1;
-  const toNumber = strnum;
-  "<((!\\[CDATA\\[([\\s\\S]*?)(]]>))|((NAME:)?(NAME))([^>]*)>|((\\/)(NAME)\\s*>))([^<]*)".replace(/NAME/g, util$2.nameRegexp);
-  if (!Number.parseInt && window.parseInt) {
-    Number.parseInt = window.parseInt;
-  }
-  if (!Number.parseFloat && window.parseFloat) {
-    Number.parseFloat = window.parseFloat;
-  }
-  const defaultOptions$2 = {
-    attributeNamePrefix: "@_",
-    attrNodeName: false,
-    textNodeName: "#text",
-    ignoreAttributes: true,
-    ignoreNameSpace: false,
-    allowBooleanAttributes: false,
-    parseNodeValue: true,
-    parseAttributeValue: false,
-    arrayMode: false,
-    trimValues: true,
-    cdataTagName: false,
-    cdataPositionChar: "\\c",
-    numParseOptions: {
-      hex: true,
-      leadingZeros: true
+      defaultTags: ["rating:safe"]
     },
-    tagValueProcessor: function(a, tagName) {
-      return a;
+    "booru.allthefallen.moe": {
+      domain: "booru.allthefallen.moe",
+      aliases: [
+        "atf",
+        "atfbooru"
+      ],
+      nsfw: true,
+      api: {
+        search: "/posts.json?",
+        postView: "/posts/"
+      },
+      random: true
     },
-    attrValueProcessor: function(a, attrName) {
-      return a;
-    },
-    stopNodes: [],
-    alwaysCreateTextNode: false
+    "aibooru.online": {
+      domain: "aibooru.online",
+      aliases: [
+        "ai",
+        "aibooru"
+      ],
+      nsfw: true,
+      api: {
+        search: "/posts.json?",
+        postView: "/posts/"
+      },
+      random: true
+    }
   };
-  xmlstr2xmlnode.defaultOptions = defaultOptions$2;
-  const props$2 = [
-    "attributeNamePrefix",
-    "attrNodeName",
-    "textNodeName",
-    "ignoreAttributes",
-    "ignoreNameSpace",
-    "allowBooleanAttributes",
-    "parseNodeValue",
-    "parseAttributeValue",
-    "arrayMode",
-    "trimValues",
-    "cdataTagName",
-    "cdataPositionChar",
-    "tagValueProcessor",
-    "attrValueProcessor",
-    "parseTrueNumberOnly",
-    "numParseOptions",
-    "stopNodes",
-    "alwaysCreateTextNode"
-  ];
-  xmlstr2xmlnode.props = props$2;
-  function processTagValue(tagName, val, options) {
-    if (val) {
-      if (options.trimValues) {
-        val = val.trim();
-      }
-      val = options.tagValueProcessor(val, tagName);
-      val = parseValue(val, options.parseNodeValue, options.numParseOptions);
-    }
-    return val;
-  }
-  function resolveNameSpace(tagname, options) {
-    if (options.ignoreNameSpace) {
-      const tags2 = tagname.split(":");
-      const prefix = tagname.charAt(0) === "/" ? "/" : "";
-      if (tags2[0] === "xmlns") {
-        return "";
-      }
-      if (tags2.length === 2) {
-        tagname = prefix + tags2[1];
-      }
-    }
-    return tagname;
-  }
-  function parseValue(val, shouldParse, options) {
-    if (shouldParse && typeof val === "string") {
-      const newval = val.trim();
-      if (newval === "true")
-        return true;
-      else if (newval === "false")
-        return false;
-      else
-        return toNumber(val, options);
-    } else {
-      if (util$2.isExist(val)) {
-        return val;
+  var expandedTags = {
+    "rating:e": "rating:explicit",
+    "rating:q": "rating:questionable",
+    "rating:s": "rating:safe"
+  };
+  var sites = sites_default;
+  var BooruError = class extends Error {
+    constructor(message) {
+      super(message instanceof Error ? message.message : message);
+      if (message instanceof Error) {
+        this.stack = message.stack;
       } else {
-        return "";
+        Error.captureStackTrace(this, BooruError);
       }
-    }
-  }
-  const attrsRegx = new RegExp(`([^\\s=]+)\\s*(=\\s*(['"])(.*?)\\3)?`, "g");
-  function buildAttributesMap(attrStr, options) {
-    if (!options.ignoreAttributes && typeof attrStr === "string") {
-      attrStr = attrStr.replace(/\r?\n/g, " ");
-      const matches = util$2.getAllMatches(attrStr, attrsRegx);
-      const len = matches.length;
-      const attrs = {};
-      for (let i = 0; i < len; i++) {
-        const attrName = resolveNameSpace(matches[i][1], options);
-        if (attrName.length) {
-          if (matches[i][4] !== void 0) {
-            if (options.trimValues) {
-              matches[i][4] = matches[i][4].trim();
-            }
-            matches[i][4] = options.attrValueProcessor(matches[i][4], attrName);
-            attrs[options.attributeNamePrefix + attrName] = parseValue(
-              matches[i][4],
-              options.parseAttributeValue,
-              options.numParseOptions
-            );
-          } else if (options.allowBooleanAttributes) {
-            attrs[options.attributeNamePrefix + attrName] = true;
-          }
-        }
-      }
-      if (!Object.keys(attrs).length) {
-        return;
-      }
-      if (options.attrNodeName) {
-        const attrCollection = {};
-        attrCollection[options.attrNodeName] = attrs;
-        return attrCollection;
-      }
-      return attrs;
-    }
-  }
-  const getTraversalObj = function(xmlData, options) {
-    xmlData = xmlData.replace(/\r\n?/g, "\n");
-    options = buildOptions$3(options, defaultOptions$2, props$2);
-    const xmlObj = new xmlNode("!xml");
-    let currentNode = xmlObj;
-    let textData = "";
-    for (let i = 0; i < xmlData.length; i++) {
-      const ch = xmlData[i];
-      if (ch === "<") {
-        if (xmlData[i + 1] === "/") {
-          const closeIndex = findClosingIndex(xmlData, ">", i, "Closing Tag is not closed.");
-          let tagName = xmlData.substring(i + 2, closeIndex).trim();
-          if (options.ignoreNameSpace) {
-            const colonIndex = tagName.indexOf(":");
-            if (colonIndex !== -1) {
-              tagName = tagName.substr(colonIndex + 1);
-            }
-          }
-          if (currentNode) {
-            if (currentNode.val) {
-              currentNode.val = util$2.getValue(currentNode.val) + "" + processTagValue(tagName, textData, options);
-            } else {
-              currentNode.val = processTagValue(tagName, textData, options);
-            }
-          }
-          if (options.stopNodes.length && options.stopNodes.includes(currentNode.tagname)) {
-            currentNode.child = [];
-            if (currentNode.attrsMap == void 0) {
-              currentNode.attrsMap = {};
-            }
-            currentNode.val = xmlData.substr(currentNode.startIndex + 1, i - currentNode.startIndex - 1);
-          }
-          currentNode = currentNode.parent;
-          textData = "";
-          i = closeIndex;
-        } else if (xmlData[i + 1] === "?") {
-          i = findClosingIndex(xmlData, "?>", i, "Pi Tag is not closed.");
-        } else if (xmlData.substr(i + 1, 3) === "!--") {
-          i = findClosingIndex(xmlData, "-->", i, "Comment is not closed.");
-        } else if (xmlData.substr(i + 1, 2) === "!D") {
-          const closeIndex = findClosingIndex(xmlData, ">", i, "DOCTYPE is not closed.");
-          const tagExp = xmlData.substring(i, closeIndex);
-          if (tagExp.indexOf("[") >= 0) {
-            i = xmlData.indexOf("]>", i) + 1;
-          } else {
-            i = closeIndex;
-          }
-        } else if (xmlData.substr(i + 1, 2) === "![") {
-          const closeIndex = findClosingIndex(xmlData, "]]>", i, "CDATA is not closed.") - 2;
-          const tagExp = xmlData.substring(i + 9, closeIndex);
-          if (textData) {
-            currentNode.val = util$2.getValue(currentNode.val) + "" + processTagValue(currentNode.tagname, textData, options);
-            textData = "";
-          }
-          if (options.cdataTagName) {
-            const childNode = new xmlNode(options.cdataTagName, currentNode, tagExp);
-            currentNode.addChild(childNode);
-            currentNode.val = util$2.getValue(currentNode.val) + options.cdataPositionChar;
-            if (tagExp) {
-              childNode.val = tagExp;
-            }
-          } else {
-            currentNode.val = (currentNode.val || "") + (tagExp || "");
-          }
-          i = closeIndex + 2;
-        } else {
-          const result = closingIndexForOpeningTag(xmlData, i + 1);
-          let tagExp = result.data;
-          const closeIndex = result.index;
-          const separatorIndex = tagExp.indexOf(" ");
-          let tagName = tagExp;
-          let shouldBuildAttributesMap = true;
-          if (separatorIndex !== -1) {
-            tagName = tagExp.substr(0, separatorIndex).replace(/\s\s*$/, "");
-            tagExp = tagExp.substr(separatorIndex + 1);
-          }
-          if (options.ignoreNameSpace) {
-            const colonIndex = tagName.indexOf(":");
-            if (colonIndex !== -1) {
-              tagName = tagName.substr(colonIndex + 1);
-              shouldBuildAttributesMap = tagName !== result.data.substr(colonIndex + 1);
-            }
-          }
-          if (currentNode && textData) {
-            if (currentNode.tagname !== "!xml") {
-              currentNode.val = util$2.getValue(currentNode.val) + "" + processTagValue(currentNode.tagname, textData, options);
-            }
-          }
-          if (tagExp.length > 0 && tagExp.lastIndexOf("/") === tagExp.length - 1) {
-            if (tagName[tagName.length - 1] === "/") {
-              tagName = tagName.substr(0, tagName.length - 1);
-              tagExp = tagName;
-            } else {
-              tagExp = tagExp.substr(0, tagExp.length - 1);
-            }
-            const childNode = new xmlNode(tagName, currentNode, "");
-            if (tagName !== tagExp) {
-              childNode.attrsMap = buildAttributesMap(tagExp, options);
-            }
-            currentNode.addChild(childNode);
-          } else {
-            const childNode = new xmlNode(tagName, currentNode);
-            if (options.stopNodes.length && options.stopNodes.includes(childNode.tagname)) {
-              childNode.startIndex = closeIndex;
-            }
-            if (tagName !== tagExp && shouldBuildAttributesMap) {
-              childNode.attrsMap = buildAttributesMap(tagExp, options);
-            }
-            currentNode.addChild(childNode);
-            currentNode = childNode;
-          }
-          textData = "";
-          i = closeIndex;
-        }
-      } else {
-        textData += xmlData[i];
-      }
-    }
-    return xmlObj;
-  };
-  function closingIndexForOpeningTag(data, i) {
-    let attrBoundary;
-    let tagExp = "";
-    for (let index = i; index < data.length; index++) {
-      let ch = data[index];
-      if (attrBoundary) {
-        if (ch === attrBoundary)
-          attrBoundary = "";
-      } else if (ch === '"' || ch === "'") {
-        attrBoundary = ch;
-      } else if (ch === ">") {
-        return {
-          data: tagExp,
-          index
-        };
-      } else if (ch === "	") {
-        ch = " ";
-      }
-      tagExp += ch;
-    }
-  }
-  function findClosingIndex(xmlData, str, i, errMsg) {
-    const closingIndex = xmlData.indexOf(str, i);
-    if (closingIndex === -1) {
-      throw new Error(errMsg);
-    } else {
-      return closingIndex + str.length - 1;
-    }
-  }
-  xmlstr2xmlnode.getTraversalObj = getTraversalObj;
-  var validator = {};
-  const util$1 = util$4;
-  const defaultOptions$1 = {
-    allowBooleanAttributes: false
-  };
-  const props$1 = ["allowBooleanAttributes"];
-  validator.validate = function(xmlData, options) {
-    options = util$1.buildOptions(options, defaultOptions$1, props$1);
-    const tags2 = [];
-    let tagFound = false;
-    let reachedRoot = false;
-    if (xmlData[0] === "\uFEFF") {
-      xmlData = xmlData.substr(1);
-    }
-    for (let i = 0; i < xmlData.length; i++) {
-      if (xmlData[i] === "<" && xmlData[i + 1] === "?") {
-        i += 2;
-        i = readPI(xmlData, i);
-        if (i.err)
-          return i;
-      } else if (xmlData[i] === "<") {
-        let tagStartPos = i;
-        i++;
-        if (xmlData[i] === "!") {
-          i = readCommentAndCDATA(xmlData, i);
-          continue;
-        } else {
-          let closingTag = false;
-          if (xmlData[i] === "/") {
-            closingTag = true;
-            i++;
-          }
-          let tagName = "";
-          for (; i < xmlData.length && xmlData[i] !== ">" && xmlData[i] !== " " && xmlData[i] !== "	" && xmlData[i] !== "\n" && xmlData[i] !== "\r"; i++) {
-            tagName += xmlData[i];
-          }
-          tagName = tagName.trim();
-          if (tagName[tagName.length - 1] === "/") {
-            tagName = tagName.substring(0, tagName.length - 1);
-            i--;
-          }
-          if (!validateTagName(tagName)) {
-            let msg;
-            if (tagName.trim().length === 0) {
-              msg = "Invalid space after '<'.";
-            } else {
-              msg = "Tag '" + tagName + "' is an invalid name.";
-            }
-            return getErrorObject("InvalidTag", msg, getLineNumberForPosition(xmlData, i));
-          }
-          const result = readAttributeStr(xmlData, i);
-          if (result === false) {
-            return getErrorObject("InvalidAttr", "Attributes for '" + tagName + "' have open quote.", getLineNumberForPosition(xmlData, i));
-          }
-          let attrStr = result.value;
-          i = result.index;
-          if (attrStr[attrStr.length - 1] === "/") {
-            const attrStrStart = i - attrStr.length;
-            attrStr = attrStr.substring(0, attrStr.length - 1);
-            const isValid = validateAttributeString(attrStr, options);
-            if (isValid === true) {
-              tagFound = true;
-            } else {
-              return getErrorObject(isValid.err.code, isValid.err.msg, getLineNumberForPosition(xmlData, attrStrStart + isValid.err.line));
-            }
-          } else if (closingTag) {
-            if (!result.tagClosed) {
-              return getErrorObject("InvalidTag", "Closing tag '" + tagName + "' doesn't have proper closing.", getLineNumberForPosition(xmlData, i));
-            } else if (attrStr.trim().length > 0) {
-              return getErrorObject("InvalidTag", "Closing tag '" + tagName + "' can't have attributes or invalid starting.", getLineNumberForPosition(xmlData, tagStartPos));
-            } else {
-              const otg = tags2.pop();
-              if (tagName !== otg.tagName) {
-                let openPos = getLineNumberForPosition(xmlData, otg.tagStartPos);
-                return getErrorObject(
-                  "InvalidTag",
-                  "Expected closing tag '" + otg.tagName + "' (opened in line " + openPos.line + ", col " + openPos.col + ") instead of closing tag '" + tagName + "'.",
-                  getLineNumberForPosition(xmlData, tagStartPos)
-                );
-              }
-              if (tags2.length == 0) {
-                reachedRoot = true;
-              }
-            }
-          } else {
-            const isValid = validateAttributeString(attrStr, options);
-            if (isValid !== true) {
-              return getErrorObject(isValid.err.code, isValid.err.msg, getLineNumberForPosition(xmlData, i - attrStr.length + isValid.err.line));
-            }
-            if (reachedRoot === true) {
-              return getErrorObject("InvalidXml", "Multiple possible root nodes found.", getLineNumberForPosition(xmlData, i));
-            } else {
-              tags2.push({ tagName, tagStartPos });
-            }
-            tagFound = true;
-          }
-          for (i++; i < xmlData.length; i++) {
-            if (xmlData[i] === "<") {
-              if (xmlData[i + 1] === "!") {
-                i++;
-                i = readCommentAndCDATA(xmlData, i);
-                continue;
-              } else if (xmlData[i + 1] === "?") {
-                i = readPI(xmlData, ++i);
-                if (i.err)
-                  return i;
-              } else {
-                break;
-              }
-            } else if (xmlData[i] === "&") {
-              const afterAmp = validateAmpersand(xmlData, i);
-              if (afterAmp == -1)
-                return getErrorObject("InvalidChar", "char '&' is not expected.", getLineNumberForPosition(xmlData, i));
-              i = afterAmp;
-            }
-          }
-          if (xmlData[i] === "<") {
-            i--;
-          }
-        }
-      } else {
-        if (xmlData[i] === " " || xmlData[i] === "	" || xmlData[i] === "\n" || xmlData[i] === "\r") {
-          continue;
-        }
-        return getErrorObject("InvalidChar", "char '" + xmlData[i] + "' is not expected.", getLineNumberForPosition(xmlData, i));
-      }
-    }
-    if (!tagFound) {
-      return getErrorObject("InvalidXml", "Start tag expected.", 1);
-    } else if (tags2.length == 1) {
-      return getErrorObject("InvalidTag", "Unclosed tag '" + tags2[0].tagName + "'.", getLineNumberForPosition(xmlData, tags2[0].tagStartPos));
-    } else if (tags2.length > 0) {
-      return getErrorObject("InvalidXml", "Invalid '" + JSON.stringify(tags2.map((t) => t.tagName), null, 4).replace(/\r?\n/g, "") + "' found.", { line: 1, col: 1 });
-    }
-    return true;
-  };
-  function readPI(xmlData, i) {
-    const start = i;
-    for (; i < xmlData.length; i++) {
-      if (xmlData[i] == "?" || xmlData[i] == " ") {
-        const tagname = xmlData.substr(start, i - start);
-        if (i > 5 && tagname === "xml") {
-          return getErrorObject("InvalidXml", "XML declaration allowed only at the start of the document.", getLineNumberForPosition(xmlData, i));
-        } else if (xmlData[i] == "?" && xmlData[i + 1] == ">") {
-          i++;
-          break;
-        } else {
-          continue;
-        }
-      }
-    }
-    return i;
-  }
-  function readCommentAndCDATA(xmlData, i) {
-    if (xmlData.length > i + 5 && xmlData[i + 1] === "-" && xmlData[i + 2] === "-") {
-      for (i += 3; i < xmlData.length; i++) {
-        if (xmlData[i] === "-" && xmlData[i + 1] === "-" && xmlData[i + 2] === ">") {
-          i += 2;
-          break;
-        }
-      }
-    } else if (xmlData.length > i + 8 && xmlData[i + 1] === "D" && xmlData[i + 2] === "O" && xmlData[i + 3] === "C" && xmlData[i + 4] === "T" && xmlData[i + 5] === "Y" && xmlData[i + 6] === "P" && xmlData[i + 7] === "E") {
-      let angleBracketsCount = 1;
-      for (i += 8; i < xmlData.length; i++) {
-        if (xmlData[i] === "<") {
-          angleBracketsCount++;
-        } else if (xmlData[i] === ">") {
-          angleBracketsCount--;
-          if (angleBracketsCount === 0) {
-            break;
-          }
-        }
-      }
-    } else if (xmlData.length > i + 9 && xmlData[i + 1] === "[" && xmlData[i + 2] === "C" && xmlData[i + 3] === "D" && xmlData[i + 4] === "A" && xmlData[i + 5] === "T" && xmlData[i + 6] === "A" && xmlData[i + 7] === "[") {
-      for (i += 8; i < xmlData.length; i++) {
-        if (xmlData[i] === "]" && xmlData[i + 1] === "]" && xmlData[i + 2] === ">") {
-          i += 2;
-          break;
-        }
-      }
-    }
-    return i;
-  }
-  const doubleQuote = '"';
-  const singleQuote = "'";
-  function readAttributeStr(xmlData, i) {
-    let attrStr = "";
-    let startChar = "";
-    let tagClosed = false;
-    for (; i < xmlData.length; i++) {
-      if (xmlData[i] === doubleQuote || xmlData[i] === singleQuote) {
-        if (startChar === "") {
-          startChar = xmlData[i];
-        } else if (startChar !== xmlData[i])
-          ;
-        else {
-          startChar = "";
-        }
-      } else if (xmlData[i] === ">") {
-        if (startChar === "") {
-          tagClosed = true;
-          break;
-        }
-      }
-      attrStr += xmlData[i];
-    }
-    if (startChar !== "") {
-      return false;
-    }
-    return {
-      value: attrStr,
-      index: i,
-      tagClosed
-    };
-  }
-  const validAttrStrRegxp = new RegExp(`(\\s*)([^\\s=]+)(\\s*=)?(\\s*(['"])(([\\s\\S])*?)\\5)?`, "g");
-  function validateAttributeString(attrStr, options) {
-    const matches = util$1.getAllMatches(attrStr, validAttrStrRegxp);
-    const attrNames = {};
-    for (let i = 0; i < matches.length; i++) {
-      if (matches[i][1].length === 0) {
-        return getErrorObject("InvalidAttr", "Attribute '" + matches[i][2] + "' has no space in starting.", getPositionFromMatch(matches[i]));
-      } else if (matches[i][3] === void 0 && !options.allowBooleanAttributes) {
-        return getErrorObject("InvalidAttr", "boolean attribute '" + matches[i][2] + "' is not allowed.", getPositionFromMatch(matches[i]));
-      }
-      const attrName = matches[i][2];
-      if (!validateAttrName(attrName)) {
-        return getErrorObject("InvalidAttr", "Attribute '" + attrName + "' is an invalid name.", getPositionFromMatch(matches[i]));
-      }
-      if (!attrNames.hasOwnProperty(attrName)) {
-        attrNames[attrName] = 1;
-      } else {
-        return getErrorObject("InvalidAttr", "Attribute '" + attrName + "' is repeated.", getPositionFromMatch(matches[i]));
-      }
-    }
-    return true;
-  }
-  function validateNumberAmpersand(xmlData, i) {
-    let re = /\d/;
-    if (xmlData[i] === "x") {
-      i++;
-      re = /[\da-fA-F]/;
-    }
-    for (; i < xmlData.length; i++) {
-      if (xmlData[i] === ";")
-        return i;
-      if (!xmlData[i].match(re))
-        break;
-    }
-    return -1;
-  }
-  function validateAmpersand(xmlData, i) {
-    i++;
-    if (xmlData[i] === ";")
-      return -1;
-    if (xmlData[i] === "#") {
-      i++;
-      return validateNumberAmpersand(xmlData, i);
-    }
-    let count = 0;
-    for (; i < xmlData.length; i++, count++) {
-      if (xmlData[i].match(/\w/) && count < 20)
-        continue;
-      if (xmlData[i] === ";")
-        break;
-      return -1;
-    }
-    return i;
-  }
-  function getErrorObject(code, message, lineNumber) {
-    return {
-      err: {
-        code,
-        msg: message,
-        line: lineNumber.line || lineNumber,
-        col: lineNumber.col
-      }
-    };
-  }
-  function validateAttrName(attrName) {
-    return util$1.isName(attrName);
-  }
-  function validateTagName(tagname) {
-    return util$1.isName(tagname);
-  }
-  function getLineNumberForPosition(xmlData, index) {
-    const lines = xmlData.substring(0, index).split(/\r?\n/);
-    return {
-      line: lines.length,
-      col: lines[lines.length - 1].length + 1
-    };
-  }
-  function getPositionFromMatch(match) {
-    return match.startIndex + match[1].length;
-  }
-  var nimndata = {};
-  const char = function(a) {
-    return String.fromCharCode(a);
-  };
-  const chars = {
-    nilChar: char(176),
-    missingChar: char(201),
-    nilPremitive: char(175),
-    missingPremitive: char(200),
-    emptyChar: char(178),
-    emptyValue: char(177),
-    boundryChar: char(179),
-    objStart: char(198),
-    arrStart: char(204),
-    arrayEnd: char(185)
-  };
-  const charsArr = [
-    chars.nilChar,
-    chars.nilPremitive,
-    chars.missingChar,
-    chars.missingPremitive,
-    chars.boundryChar,
-    chars.emptyChar,
-    chars.emptyValue,
-    chars.arrayEnd,
-    chars.objStart,
-    chars.arrStart
-  ];
-  const _e = function(node, e_schema, options) {
-    if (typeof e_schema === "string") {
-      if (node && node[0] && node[0].val !== void 0) {
-        return getValue(node[0].val);
-      } else {
-        return getValue(node);
-      }
-    } else {
-      const hasValidData = hasData(node);
-      if (hasValidData === true) {
-        let str = "";
-        if (Array.isArray(e_schema)) {
-          str += chars.arrStart;
-          const itemSchema = e_schema[0];
-          const arr_len = node.length;
-          if (typeof itemSchema === "string") {
-            for (let arr_i = 0; arr_i < arr_len; arr_i++) {
-              const r = getValue(node[arr_i].val);
-              str = processValue(str, r);
-            }
-          } else {
-            for (let arr_i = 0; arr_i < arr_len; arr_i++) {
-              const r = _e(node[arr_i], itemSchema, options);
-              str = processValue(str, r);
-            }
-          }
-          str += chars.arrayEnd;
-        } else {
-          str += chars.objStart;
-          const keys = Object.keys(e_schema);
-          if (Array.isArray(node)) {
-            node = node[0];
-          }
-          for (let i in keys) {
-            const key = keys[i];
-            let r;
-            if (!options.ignoreAttributes && node.attrsMap && node.attrsMap[key]) {
-              r = _e(node.attrsMap[key], e_schema[key], options);
-            } else if (key === options.textNodeName) {
-              r = _e(node.val, e_schema[key], options);
-            } else {
-              r = _e(node.child[key], e_schema[key], options);
-            }
-            str = processValue(str, r);
-          }
-        }
-        return str;
-      } else {
-        return hasValidData;
-      }
+      this.name = "BooruError";
     }
   };
-  const getValue = function(a) {
-    switch (a) {
-      case void 0:
-        return chars.missingPremitive;
-      case null:
-        return chars.nilPremitive;
-      case "":
-        return chars.emptyValue;
-      default:
-        return a;
+  function expandTags(tags2) {
+    return tags2.map((v) => {
+      const ex = expandedTags[v.toLowerCase()];
+      return encodeURIComponent(ex ? ex : v);
+    });
+  }
+  function searchURI(site, tags2 = [], limit = 100, page2 = 1, credentials) {
+    if (site.paginate === "pid")
+      page2 -= 1;
+    let credentialsQuery = "";
+    if (credentials == null ? void 0 : credentials.query) {
+      const q = credentials.query;
+      credentialsQuery = q.startsWith("&") ? q : "&" + q;
+    }
+    return `http${site.insecure ? "" : "s"}://${site.domain}${site.api.search}${site.tagQuery}=${expandTags(tags2).join(site.tagJoin)}&limit=${limit}&${site.paginate}=${page2}${credentialsQuery}`;
+  }
+  var defaultOptions = {
+    headers: {
+      Accept: "application/json, application/xml;q=0.9, */*;q=0.8",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Edg/106.0.1370.52"
     }
   };
-  const processValue = function(str, r) {
-    if (!isAppChar(r[0]) && !isAppChar(str[str.length - 1])) {
-      str += chars.boundryChar;
-    }
-    return str + r;
-  };
-  const isAppChar = function(ch) {
-    return charsArr.indexOf(ch) !== -1;
-  };
-  function hasData(jObj) {
-    if (jObj === void 0) {
-      return chars.missingChar;
-    } else if (jObj === null) {
-      return chars.nilChar;
-    } else if (jObj.child && Object.keys(jObj.child).length === 0 && (!jObj.attrsMap || Object.keys(jObj.attrsMap).length === 0)) {
-      return chars.emptyChar;
-    } else {
-      return true;
-    }
-  }
-  const x2j$1 = xmlstr2xmlnode;
-  const buildOptions$2 = util$4.buildOptions;
-  const convert2nimn = function(node, e_schema, options) {
-    options = buildOptions$2(options, x2j$1.defaultOptions, x2j$1.props);
-    return _e(node, e_schema, options);
-  };
-  nimndata.convert2nimn = convert2nimn;
-  var node2json_str = {};
-  const util = util$4;
-  const buildOptions$1 = util$4.buildOptions;
-  const x2j = xmlstr2xmlnode;
-  const convertToJsonString = function(node, options) {
-    options = buildOptions$1(options, x2j.defaultOptions, x2j.props);
-    options.indentBy = options.indentBy || "";
-    return _cToJsonStr(node, options);
-  };
-  const _cToJsonStr = function(node, options, level) {
-    let jObj = "{";
-    const keys = Object.keys(node.child);
-    for (let index = 0; index < keys.length; index++) {
-      const tagname = keys[index];
-      if (node.child[tagname] && node.child[tagname].length > 1) {
-        jObj += '"' + tagname + '" : [ ';
-        for (let tag in node.child[tagname]) {
-          jObj += _cToJsonStr(node.child[tagname][tag], options) + " , ";
-        }
-        jObj = jObj.substr(0, jObj.length - 1) + " ] ";
-      } else {
-        jObj += '"' + tagname + '" : ' + _cToJsonStr(node.child[tagname][0], options) + " ,";
-      }
-    }
-    util.merge(jObj, node.attrsMap);
-    if (util.isEmptyObject(jObj)) {
-      return util.isExist(node.val) ? node.val : "";
-    } else {
-      if (util.isExist(node.val)) {
-        if (!(typeof node.val === "string" && (node.val === "" || node.val === options.cdataPositionChar))) {
-          jObj += '"' + options.textNodeName + '" : ' + stringval(node.val);
-        }
-      }
-    }
-    if (jObj[jObj.length - 1] === ",") {
-      jObj = jObj.substr(0, jObj.length - 2);
-    }
-    return jObj + "}";
-  };
-  function stringval(v) {
-    if (v === true || v === false || !isNaN(v)) {
-      return v;
-    } else {
-      return '"' + v + '"';
-    }
-  }
-  node2json_str.convertToJsonString = convertToJsonString;
-  const buildOptions = util$4.buildOptions;
-  const defaultOptions = {
-    attributeNamePrefix: "@_",
-    attrNodeName: false,
-    textNodeName: "#text",
-    ignoreAttributes: true,
-    cdataTagName: false,
-    cdataPositionChar: "\\c",
-    format: false,
-    indentBy: "  ",
-    supressEmptyNode: false,
-    tagValueProcessor: function(a) {
-      return a;
-    },
-    attrValueProcessor: function(a) {
-      return a;
-    }
-  };
-  const props = [
-    "attributeNamePrefix",
-    "attrNodeName",
-    "textNodeName",
-    "ignoreAttributes",
-    "cdataTagName",
-    "cdataPositionChar",
-    "format",
-    "indentBy",
-    "supressEmptyNode",
-    "tagValueProcessor",
-    "attrValueProcessor",
-    "rootNodeName"
-  ];
-  function Parser(options) {
-    this.options = buildOptions(options, defaultOptions, props);
-    if (this.options.ignoreAttributes || this.options.attrNodeName) {
-      this.isAttribute = function() {
-        return false;
-      };
-    } else {
-      this.attrPrefixLen = this.options.attributeNamePrefix.length;
-      this.isAttribute = isAttribute;
-    }
-    if (this.options.cdataTagName) {
-      this.isCDATA = isCDATA;
-    } else {
-      this.isCDATA = function() {
-        return false;
-      };
-    }
-    this.replaceCDATAstr = replaceCDATAstr;
-    this.replaceCDATAarr = replaceCDATAarr;
-    this.processTextOrObjNode = processTextOrObjNode;
-    if (this.options.format) {
-      this.indentate = indentate;
-      this.tagEndChar = ">\n";
-      this.newLine = "\n";
-    } else {
-      this.indentate = function() {
-        return "";
-      };
-      this.tagEndChar = ">";
-      this.newLine = "";
-    }
-    if (this.options.supressEmptyNode) {
-      this.buildTextNode = buildEmptyTextNode;
-      this.buildObjNode = buildEmptyObjNode;
-    } else {
-      this.buildTextNode = buildTextValNode;
-      this.buildObjNode = buildObjectNode;
-    }
-    this.buildTextValNode = buildTextValNode;
-    this.buildObjectNode = buildObjectNode;
-  }
-  Parser.prototype.parse = function(jObj) {
-    if (Array.isArray(jObj) && this.options.rootNodeName && this.options.rootNodeName.length > 1) {
-      jObj = {
-        [this.options.rootNodeName]: jObj
-      };
-    }
-    return this.j2x(jObj, 0).val;
-  };
-  Parser.prototype.j2x = function(jObj, level) {
-    let attrStr = "";
-    let val = "";
-    for (let key in jObj) {
-      if (typeof jObj[key] === "undefined")
-        ;
-      else if (jObj[key] === null) {
-        val += this.indentate(level) + "<" + key + "/" + this.tagEndChar;
-      } else if (jObj[key] instanceof Date) {
-        val += this.buildTextNode(jObj[key], key, "", level);
-      } else if (typeof jObj[key] !== "object") {
-        const attr = this.isAttribute(key);
-        if (attr) {
-          attrStr += " " + attr + '="' + this.options.attrValueProcessor("" + jObj[key]) + '"';
-        } else if (this.isCDATA(key)) {
-          if (jObj[this.options.textNodeName]) {
-            val += this.replaceCDATAstr(jObj[this.options.textNodeName], jObj[key]);
-          } else {
-            val += this.replaceCDATAstr("", jObj[key]);
-          }
-        } else {
-          if (key === this.options.textNodeName) {
-            if (jObj[this.options.cdataTagName])
-              ;
-            else {
-              val += this.options.tagValueProcessor("" + jObj[key]);
-            }
-          } else {
-            val += this.buildTextNode(jObj[key], key, "", level);
-          }
-        }
-      } else if (Array.isArray(jObj[key])) {
-        if (this.isCDATA(key)) {
-          val += this.indentate(level);
-          if (jObj[this.options.textNodeName]) {
-            val += this.replaceCDATAarr(jObj[this.options.textNodeName], jObj[key]);
-          } else {
-            val += this.replaceCDATAarr("", jObj[key]);
-          }
-        } else {
-          const arrLen = jObj[key].length;
-          for (let j = 0; j < arrLen; j++) {
-            const item = jObj[key][j];
-            if (typeof item === "undefined")
-              ;
-            else if (item === null) {
-              val += this.indentate(level) + "<" + key + "/" + this.tagEndChar;
-            } else if (typeof item === "object") {
-              val += this.processTextOrObjNode(item, key, level);
-            } else {
-              val += this.buildTextNode(item, key, "", level);
-            }
-          }
-        }
-      } else {
-        if (this.options.attrNodeName && key === this.options.attrNodeName) {
-          const Ks = Object.keys(jObj[key]);
-          const L = Ks.length;
-          for (let j = 0; j < L; j++) {
-            attrStr += " " + Ks[j] + '="' + this.options.attrValueProcessor("" + jObj[key][Ks[j]]) + '"';
-          }
-        } else {
-          val += this.processTextOrObjNode(jObj[key], key, level);
-        }
-      }
-    }
-    return { attrStr, val };
-  };
-  function processTextOrObjNode(object, key, level) {
-    const result = this.j2x(object, level + 1);
-    if (object[this.options.textNodeName] !== void 0 && Object.keys(object).length === 1) {
-      return this.buildTextNode(result.val, key, result.attrStr, level);
-    } else {
-      return this.buildObjNode(result.val, key, result.attrStr, level);
-    }
-  }
-  function replaceCDATAstr(str, cdata) {
-    str = this.options.tagValueProcessor("" + str);
-    if (this.options.cdataPositionChar === "" || str === "") {
-      return str + "<![CDATA[" + cdata + "]]" + this.tagEndChar;
-    } else {
-      return str.replace(this.options.cdataPositionChar, "<![CDATA[" + cdata + "]]" + this.tagEndChar);
-    }
-  }
-  function replaceCDATAarr(str, cdata) {
-    str = this.options.tagValueProcessor("" + str);
-    if (this.options.cdataPositionChar === "" || str === "") {
-      return str + "<![CDATA[" + cdata.join("]]><![CDATA[") + "]]" + this.tagEndChar;
-    } else {
-      for (let v in cdata) {
-        str = str.replace(this.options.cdataPositionChar, "<![CDATA[" + cdata[v] + "]]>");
-      }
-      return str + this.newLine;
-    }
-  }
-  function buildObjectNode(val, key, attrStr, level) {
-    if (attrStr && val.indexOf("<") === -1) {
-      return this.indentate(level) + "<" + key + attrStr + ">" + val + "</" + key + this.tagEndChar;
-    } else {
-      return this.indentate(level) + "<" + key + attrStr + this.tagEndChar + val + this.indentate(level) + "</" + key + this.tagEndChar;
-    }
-  }
-  function buildEmptyObjNode(val, key, attrStr, level) {
-    if (val !== "") {
-      return this.buildObjectNode(val, key, attrStr, level);
-    } else {
-      return this.indentate(level) + "<" + key + attrStr + "/" + this.tagEndChar;
-    }
-  }
-  function buildTextValNode(val, key, attrStr, level) {
-    return this.indentate(level) + "<" + key + attrStr + ">" + this.options.tagValueProcessor(val) + "</" + key + this.tagEndChar;
-  }
-  function buildEmptyTextNode(val, key, attrStr, level) {
-    if (val !== "") {
-      return this.buildTextValNode(val, key, attrStr, level);
-    } else {
-      return this.indentate(level) + "<" + key + attrStr + "/" + this.tagEndChar;
-    }
-  }
-  function indentate(level) {
-    return this.options.indentBy.repeat(level);
-  }
-  function isAttribute(name) {
-    if (name.startsWith(this.options.attributeNamePrefix)) {
-      return name.substr(this.attrPrefixLen);
-    } else {
-      return false;
-    }
-  }
-  function isCDATA(name) {
-    return name === this.options.cdataTagName;
-  }
-  var json2xml = Parser;
-  (function(exports) {
-    const nodeToJson = node2json;
-    const xmlToNodeobj = xmlstr2xmlnode;
-    const x2xmlnode = xmlstr2xmlnode;
-    const buildOptions2 = util$4.buildOptions;
-    const validator$1 = validator;
-    exports.parse = function(xmlData, givenOptions = {}, validationOption) {
-      if (validationOption) {
-        if (validationOption === true)
-          validationOption = {};
-        const result = validator$1.validate(xmlData, validationOption);
-        if (result !== true) {
-          throw Error(result.err.msg);
-        }
-      }
-      if (givenOptions.parseTrueNumberOnly && givenOptions.parseNodeValue !== false && !givenOptions.numParseOptions) {
-        givenOptions.numParseOptions = {
-          leadingZeros: false
-        };
-      }
-      let options = buildOptions2(givenOptions, x2xmlnode.defaultOptions, x2xmlnode.props);
-      const traversableObj = xmlToNodeobj.getTraversalObj(xmlData, options);
-      return nodeToJson.convertToJson(traversableObj, options);
-    };
-    exports.convertTonimn = nimndata.convert2nimn;
-    exports.getTraversalObj = xmlToNodeobj.getTraversalObj;
-    exports.convertToJson = nodeToJson.convertToJson;
-    exports.convertToJsonString = node2json_str.convertToJsonString;
-    exports.validate = validator$1.validate;
-    exports.j2xParser = json2xml;
-    exports.parseToNimn = function(xmlData, schema, options) {
-      return exports.convertTonimn(exports.getTraversalObj(xmlData, options), schema, options);
-    };
-  })(parser);
-  (function(exports) {
-    Object.defineProperty(exports, "__esModule", { value: true }), exports.compareArrays = exports.validateSearchParams = exports.randInt = exports.shuffle = exports.jsonfy = exports.resolveSite = void 0;
-    const Constants_12 = Constants, fast_xml_parser_1 = parser;
-    function resolveSite(t) {
-      if ("string" != typeof t)
-        return null;
-      t = t.toLowerCase();
-      for (const r in Constants_12.sites)
-        if (r === t || Constants_12.sites[r].domain === t || Constants_12.sites[r].aliases.includes(t))
-          return r;
+  function resolveSite(domain) {
+    if (typeof domain !== "string") {
       return null;
     }
-    function jsonfy(t) {
-      var _a2;
-      if ("object" == typeof t)
-        return t;
-      const r = (0, fast_xml_parser_1.parse)(t, { ignoreAttributes: false, attributeNamePrefix: "" });
-      if (r.html || r["!doctype"]) {
-        const t2 = r.html || ((_a2 = r["!doctype"]) == null ? void 0 : _a2.html), e = [];
-        throw t2.body.h1 && e.push(t2.body.h1), t2.body.p && e.push(t2.body.p["#text"]), new Constants_12.BooruError(`The Booru sent back an error: '${e.join(": ")}'`);
+    domain = domain.toLowerCase();
+    for (const site in sites) {
+      if (site === domain || sites[site].domain === domain || sites[site].aliases.includes(domain)) {
+        return site;
       }
-      return r.posts.post ? r.posts.post : r.posts.tag ? Array.isArray(r.posts.tag) ? r.posts.tag : [r.posts.tag] : [];
     }
-    function shuffle(t) {
-      let r, e, o = t.length;
-      for (; 0 !== o; )
-        e = Math.floor(Math.random() * o), o -= 1, r = t[o], t[o] = t[e], t[e] = r;
-      return t;
-    }
-    function randInt(t, r) {
-      return t = Math.ceil(t), r = Math.floor(r), Math.floor(Math.random() * (r - t + 1)) + t;
-    }
-    function validateSearchParams(t, r) {
-      const e = resolveSite(t);
-      if ("number" != typeof r && (r = parseInt(r, 10)), null === e)
-        throw new Constants_12.BooruError("Site not supported");
-      if ("number" != typeof r || Number.isNaN(r))
-        throw new Constants_12.BooruError("`limit` should be an int");
-      return { site: e, limit: r };
-    }
-    function compareArrays(t, r) {
-      return t.filter((t2) => r.some((r2) => t2.toLowerCase() === r2.toLowerCase()));
-    }
-    exports.resolveSite = resolveSite, exports.jsonfy = jsonfy, exports.shuffle = shuffle, exports.randInt = randInt, exports.validateSearchParams = validateSearchParams, exports.compareArrays = compareArrays;
-  })(Utils$1);
-  var Post$1 = {};
-  function parseImageUrl(e, t, i, s = "file") {
+    return null;
+  }
+  var xmlParser = new fastXmlParser.XMLParser({
+    ignoreAttributes: false,
+    attributeNamePrefix: ""
+  });
+  function jsonfy(xml) {
     var _a2;
-    if (!e || "" === e.trim() || t.is_deleted)
+    if (typeof xml === "object")
+      return xml;
+    const data = xmlParser.parse(xml);
+    if (data.html || data["!doctype"]) {
+      const page2 = data.html || ((_a2 = data["!doctype"]) == null ? void 0 : _a2.html);
+      const message = [];
+      if (page2.body.h1) {
+        message.push(page2.body.h1);
+      }
+      if (page2.body.p) {
+        message.push(page2.body.p["#text"]);
+      }
+      throw new BooruError(
+        `The Booru sent back an error: '${message.join(": ")}'`
+      );
+    }
+    if (data.posts.post) {
+      return data.posts.post;
+    }
+    if (data.posts.tag) {
+      return Array.isArray(data.posts.tag) ? data.posts.tag : [data.posts.tag];
+    }
+    return [];
+  }
+  function tryParseJSON(data) {
+    if (data === "") {
+      return [];
+    }
+    return JSON.parse(data);
+  }
+  function shuffle(array) {
+    let currentIndex = array.length;
+    let temporaryValue;
+    let randomIndex;
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+    return array;
+  }
+  function compareArrays(arr1, arr2) {
+    return arr1.filter(
+      (e1) => arr2.some((e2) => e1.toLowerCase() === e2.toLowerCase())
+    );
+  }
+  function parseImageUrl(url, data, booru, type = "file") {
+    var _a2;
+    if (!url || url.trim() === "" || data.is_deleted) {
       return null;
-    if (e.startsWith("/data") && (e = `https://danbooru.donmai.us${e}`), e.startsWith("/cached") && (e = `https://danbooru.donmai.us${e}`), e.startsWith("/_images") && (e = `https://dollbooru.org${e}`), e.startsWith("//derpicdn.net") && (e = `https:${t.image}`), !t[`${s}_url`] && void 0 !== t.directory) {
-      const r = (_a2 = t.directory) != null ? _a2 : `${t.hash.substr(0, 2)}/${t.hash.substr(2, 2)}`;
-      e = { preview: `//${i.domain}/thumbnails/${r}/thumbnail_${t.hash}.jpg`, sample: `//${i.domain}/samples/${r}/sample_${t.hash}.jpg`, file: `//${i.domain}/images/${r}/${t.image}` }[s];
     }
-    return e.startsWith("http") || (e = `https:${e}`), encodeURI(e);
+    if (url.startsWith("/data")) {
+      url = `https://${booru.domain}${url}`;
+    }
+    if (url.startsWith("/cached")) {
+      url = `https://${booru.domain}${url}`;
+    }
+    if (url.startsWith("/_images")) {
+      url = `https://dollbooru.org${url}`;
+    }
+    if (url.startsWith("//derpicdn.net")) {
+      url = `https:${data.image}`;
+    }
+    if (!data[`${type}_url`] && data.directory !== void 0) {
+      const directory = (_a2 = data.directory) != null ? _a2 : `${data.hash.substr(0, 2)}/${data.hash.substr(2, 2)}`;
+      const hash = data.image.split(".")[0];
+      const map = {
+        preview: `//${booru.domain}/thumbnails/${directory}/thumbnail_${hash}.jpg`,
+        sample: `//${booru.domain}/samples/${directory}/sample_${hash}.jpg`,
+        file: `//${booru.domain}/images/${directory}/${data.image}`
+      };
+      url = map[type];
+    }
+    if (!url.startsWith("http")) {
+      url = `https:${url}`;
+    }
+    return encodeURI(url);
   }
-  function getTags(e) {
-    let t = [];
-    return Array.isArray(e.tags) ? e.tags : (t = e.tags && e.tags.general ? Object.values(e.tags).reduce((e2, t2) => e2.concat(t2), []) : e.tags ? e.tags.split(" ") : e.tag_string.split(" ").map((e2) => e2.replace(/,/g, "").replace(/ /g, "_")), t.filter((e2) => "" !== e2));
+  function getTags(data) {
+    let tags2 = [];
+    if (Array.isArray(data.tags)) {
+      tags2 = data.tags;
+    } else if (data.tags && data.tags.general) {
+      tags2 = Object.values(data.tags).reduce(
+        (acc, v) => acc = acc.concat(v),
+        []
+      );
+    } else if (typeof data.tags === "string") {
+      tags2 = fromTagString(data.tags);
+    } else if (typeof data.tag_string === "string") {
+      tags2 = fromTagString(data.tag_string);
+    }
+    return tags2.filter((v) => v !== "");
   }
-  function formatFileSize(e) {
-    return null == e ? "N/A" : e > 1048576 ? (e / 1048576).toFixed(2) + "MB" : e > 1024 ? (e / 1024).toFixed(2) + "KB" : e.toFixed(2) + "B";
+  function fromTagString(tags2) {
+    return tags2.split(" ").map((v) => v.replace(/,/g, ""));
   }
-  function getFileExt(e) {
+  function formatFileSize(size) {
+    if (size == null)
+      return "N/A";
+    if (size > 1024 * 1024) {
+      return (size / (1024 * 1024)).toFixed(2) + "MB";
+    }
+    if (size > 1024) {
+      return (size / 1024).toFixed(2) + "KB";
+    }
+    return size.toFixed(2) + "B";
+  }
+  function getFileExt(url) {
     var _a2;
-    return (_a2 = e == null ? void 0 : e.split(".").pop()) != null ? _a2 : "";
+    return (_a2 = url == null ? void 0 : url.split(".").pop()) != null ? _a2 : "";
   }
-  Object.defineProperty(Post$1, "__esModule", { value: true });
-  class Post {
-    constructor(e, t) {
+  function dealDanbooruPreviewUrl(url, booru) {
+    if ([
+      "danbooru.donmai.us",
+      "aibooru.online"
+    ].includes(booru.domain)) {
+      return url && url.replace(/(.*)preview(.*)jpg/, "$1720x720$2webp");
+    }
+    return url;
+  }
+  var Post = class {
+    constructor(data, booru) {
       __publicField(this, "booru");
       __publicField(this, "fileUrl");
       __publicField(this, "height");
@@ -2246,18 +1204,90 @@ var __publicField = (obj, key, value) => {
       __publicField(this, "rating");
       __publicField(this, "createdAt");
       __publicField(this, "data");
-      this.data = e, this.booru = t;
-      const i = e.is_deleted || e.is_banned;
-      this.fileUrl = parseImageUrl(e.file_url || e.image || (i ? e.source : void 0) || e.file && e.file.url || e.representations && e.representations.full, e, t), this.available = !i && null !== this.fileUrl, this.height = parseInt(e.height || e.image_height || e.file && e.file.height, 10), this.width = parseInt(e.width || e.image_width || e.file && e.file.width, 10), this.sampleUrl = parseImageUrl(e.sample_url || e.large_file_url || e.representations && e.representations.large || e.sample && e.sample.url || e.image, e, t, "sample"), this.sampleHeight = parseInt(e.sample_height || e.sample && e.sample.height, 10), this.sampleWidth = parseInt(e.sample_width || e.sample && e.sample.width, 10), this.previewUrl = parseImageUrl(e.preview_url || e.preview_file_url && e.preview_file_url.replace(/(.*)preview(.*)jpg/, "$1720x720$2webp") || e.representations && e.representations.small || e.preview && e.preview.url || e.image, e, t, "preview"), this.previewHeight = parseInt(e.preview_height || e.preview && e.preview.height, 10), this.previewWidth = parseInt(e.preview_width || e.preview && e.preview.width, 10), this.id = e.id ? e.id.toString() : "No ID available", this.tags = getTags(e), e.score && e.score.total ? this.score = e.score.total : this.score = e.score ? parseInt(e.score, 10) : e.score, this.source = e.source || e.sources || e.source_url, this.rating = e.rating || /(safe|suggestive|questionable|explicit)/i.exec(e.tags) || "u", Array.isArray(this.rating) && (this.rating = this.rating[0]), "suggestive" === this.rating && (this.rating = "q"), this.rating = this.rating.charAt(0), this.createdAt = null, "object" == typeof e.created_at ? this.createdAt = new Date(1e3 * e.created_at.s + e.created_at.n / 1e9) : "number" == typeof e.created_at ? this.createdAt = new Date(1e3 * e.created_at) : "number" == typeof e.change ? this.createdAt = new Date(1e3 * e.change) : this.createdAt = new Date(e.created_at || e.date);
+      this.data = data;
+      this.booru = booru;
+      const deletedOrBanned = data.is_deleted || data.is_banned;
+      this.fileUrl = parseImageUrl(
+        data.file_url || data.image || (deletedOrBanned ? data.source : void 0) || data.file && data.file.url || data.representations && data.representations.full,
+        data,
+        booru
+      );
+      this.available = !deletedOrBanned && this.fileUrl !== null;
+      this.height = parseInt(
+        data.height || data.image_height || data.file && data.file.height,
+        10
+      );
+      this.width = parseInt(
+        data.width || data.image_width || data.file && data.file.width,
+        10
+      );
+      this.sampleUrl = parseImageUrl(
+        data.sample_url || data.large_file_url || data.representations && data.representations.large || data.sample && data.sample.url || data.image,
+        data,
+        booru,
+        "sample"
+      );
+      this.sampleHeight = parseInt(
+        data.sample_height || data.sample && data.sample.height,
+        10
+      );
+      this.sampleWidth = parseInt(
+        data.sample_width || data.sample && data.sample.width,
+        10
+      );
+      this.previewUrl = parseImageUrl(
+        data.preview_url || dealDanbooruPreviewUrl(data.preview_file_url, booru) || data.representations && data.representations.small || data.preview && data.preview.url || data.image,
+        data,
+        booru,
+        "preview"
+      );
+      this.previewHeight = parseInt(
+        data.preview_height || data.preview && data.preview.height,
+        10
+      );
+      this.previewWidth = parseInt(
+        data.preview_width || data.preview && data.preview.width,
+        10
+      );
+      this.id = data.id ? data.id.toString() : "No ID available";
+      this.tags = getTags(data);
+      if (data.score && data.score.total) {
+        this.score = data.score.total;
+      } else {
+        this.score = data.score ? parseInt(data.score, 10) : data.score;
+      }
+      this.source = data.source || data.sources || data.source_url;
+      this.rating = data.rating || /(safe|suggestive|questionable|explicit)/i.exec(data.tags) || "u";
+      if (Array.isArray(this.rating)) {
+        this.rating = this.rating[0];
+      }
+      if (this.rating === "suggestive") {
+        this.rating = "q";
+      }
+      this.rating = this.rating.charAt(0);
+      this.createdAt = null;
+      if (typeof data.created_at === "object") {
+        this.createdAt = new Date(
+          data.created_at.s * 1e3 + data.created_at.n / 1e9
+        );
+      } else if (typeof data.created_at === "number") {
+        this.createdAt = new Date(data.created_at * 1e3);
+      } else if (typeof data.created_at === "string") {
+        this.createdAt = new Date(data.created_at);
+      } else if (typeof data.change === "number") {
+        this.createdAt = new Date(data.change * 1e3);
+      } else {
+        this.createdAt = new Date(data.created_at || data.date);
+      }
     }
     get isRatingS() {
-      return "s" === this.rating;
+      return this.rating === "s";
     }
     get isRatingQ() {
-      return "q" === this.rating;
+      return this.rating === "q";
     }
     get isRatingE() {
-      return "e" === this.rating;
+      return this.rating === "e";
     }
     get aspectRatio() {
       return this.width / this.height;
@@ -2318,53 +1348,41 @@ var __publicField = (obj, key, value) => {
       return `${this.booru.domain}.${this.id}.${this.width}x${this.height}`.replace(/\./g, "_");
     }
     get createdTime() {
-      const e = this.createdAt;
-      return e ? `${e.toLocaleDateString()} ${e.toLocaleTimeString("en-DE")}` : "";
+      const date = this.createdAt;
+      if (!date)
+        return "";
+      return `${date.toLocaleDateString()} ${date.toLocaleTimeString("en-DE")}`;
     }
     get sourceUrl() {
-      const e = Array.isArray(this.source) ? this.source[0] : this.source;
-      return e ? /^https:\/\/i\.pximg\.net\/img-original\/img\/[\d/]{19}\/([\d]{1,})_p[\d]{1,}\.(jpg|png)$/.test(e) ? `https://pixiv.net/artworks/${RegExp.$1}` : e : "";
+      const source = Array.isArray(this.source) ? this.source[0] : this.source;
+      if (!source)
+        return "";
+      if (/^https:\/\/i\.pximg\.net\/img-original\/img\/[\d/]{19}\/([\d]{1,})_p[\d]{1,}\.(jpg|png)$/.test(source)) {
+        const pid = RegExp.$1;
+        return `https://pixiv.net/artworks/${pid}`;
+      }
+      return source;
     }
     get postView() {
       return this.booru.postView(this.id);
     }
-  }
-  var _default$1 = Post$1.default = Post;
-  var SearchResults$1 = {};
-  var __createBinding = commonjsGlobal && commonjsGlobal.__createBinding || (Object.create ? function(t, e, r, s) {
-    void 0 === s && (s = r);
-    var i = Object.getOwnPropertyDescriptor(e, r);
-    i && !("get" in i ? !e.__esModule : i.writable || i.configurable) || (i = { enumerable: true, get: function() {
-      return e[r];
-    } }), Object.defineProperty(t, s, i);
-  } : function(t, e, r, s) {
-    void 0 === s && (s = r), t[s] = e[r];
-  }), __setModuleDefault = commonjsGlobal && commonjsGlobal.__setModuleDefault || (Object.create ? function(t, e) {
-    Object.defineProperty(t, "default", { enumerable: true, value: e });
-  } : function(t, e) {
-    t.default = e;
-  }), __importStar = commonjsGlobal && commonjsGlobal.__importStar || function(t) {
-    if (t && t.__esModule)
-      return t;
-    var e = {};
-    if (null != t)
-      for (var r in t)
-        "default" !== r && Object.prototype.hasOwnProperty.call(t, r) && __createBinding(e, t, r);
-    return __setModuleDefault(e, t), e;
   };
-  Object.defineProperty(SearchResults$1, "__esModule", { value: true });
-  const Utils = __importStar(Utils$1);
-  class SearchResults extends Array {
-    constructor(t, e, r, s) {
-      super(t.length);
+  var SearchResults = class extends Array {
+    constructor(posts, tags2, options, booru) {
+      super(posts.length);
       __publicField(this, "booru");
       __publicField(this, "page");
       __publicField(this, "tags");
       __publicField(this, "options");
       __publicField(this, "posts");
-      for (let e2 = 0; e2 < t.length; e2++)
-        this[e2] = t[e2];
-      this.posts = t, this.tags = e, this.options = r, this.booru = s, this.page = r && r.page || 0;
+      for (let i = 0; i < posts.length; i++) {
+        this[i] = posts[i];
+      }
+      this.posts = posts;
+      this.tags = tags2;
+      this.options = options;
+      this.booru = booru;
+      this.page = options ? options.page || 0 : 0;
     }
     get first() {
       return this[0];
@@ -2373,119 +1391,210 @@ var __publicField = (obj, key, value) => {
       return this[this.length - 1];
     }
     nextPage() {
-      const t = this.options;
-      return t.page = this.page + 1, this.booru.search(this.tags, t);
+      const opts = this.options;
+      opts.page = this.page + 1;
+      return this.booru.search(this.tags, opts);
     }
-    tagged(t, { invert: e = false } = {}) {
-      Array.isArray(t) || (t = [t]);
-      const r = [];
-      for (const s of this) {
-        const i = Utils.compareArrays(t, s.tags).length;
-        (!e && i > 0 || e && 0 === i) && r.push(s);
+    tagged(tags2, { invert = false } = {}) {
+      if (!Array.isArray(tags2)) {
+        tags2 = [tags2];
       }
-      return new SearchResults(r, this.tags, this.options, this.booru);
-    }
-    blacklist(t) {
-      return this.tagged(t, { invert: true });
-    }
-  }
-  var _default = SearchResults$1.default = SearchResults;
-  (function(exports) {
-    var __importDefault2 = commonjsGlobal && commonjsGlobal.__importDefault || function(t) {
-      return t && t.__esModule ? t : { default: t };
-    };
-    Object.defineProperty(exports, "__esModule", { value: true }), exports.Booru = void 0;
-    const node_fetch_1 = __importDefault2(browser.exports), Constants_12 = Constants, Utils_1 = Utils$1, Post_1 = __importDefault2(Post$1), SearchResults_1 = __importDefault2(SearchResults$1);
-    class Booru2 {
-      constructor(t, e) {
-        __publicField(this, "domain");
-        __publicField(this, "site");
-        __publicField(this, "credentials");
-        const s = (0, Utils_1.resolveSite)(t.domain);
-        if (null === s)
-          throw new Error(`Invalid site passed: ${t}`);
-        this.domain = s, this.site = t, this.credentials = e;
-      }
-      async search(t, { limit: e = 1, random: s = false, page: r = 1, showUnavailable: a = false } = {}) {
-        const i = s && !this.site.random ? 100 : 0;
-        try {
-          const o = await this.doSearchRequest(t, { limit: e, random: s, page: r, showUnavailable: a });
-          return this.parseSearchResult(o, { fakeLimit: i, tags: t, limit: e, random: s, page: r, showUnavailable: a });
-        } catch (t2) {
-          throw t2 instanceof Error ? new Constants_12.BooruError(t2) : t2;
+      const posts = [];
+      for (const p of this) {
+        const m = compareArrays(tags2, p.tags).length;
+        if (!invert && m > 0 || invert && m === 0) {
+          posts.push(p);
         }
       }
-      postView(t) {
-        if ("string" == typeof t && Number.isNaN(parseInt(t, 10)))
-          throw new Constants_12.BooruError(`Not a valid id for postView: ${t}`);
-        return `http${this.site.insecure ? "" : "s"}://${this.domain}${this.site.api.postView}${t}`;
+      return new SearchResults(posts, this.tags, this.options, this.booru);
+    }
+    blacklist(tags2) {
+      return this.tagged(tags2, { invert: true });
+    }
+  };
+  var Booru = class {
+    constructor(site, credentials) {
+      __publicField(this, "domain");
+      __publicField(this, "site");
+      __publicField(this, "credentials");
+      const domain = resolveSite(site.domain);
+      if (domain === null) {
+        throw new Error(`Invalid site passed: ${site}`);
       }
-      async doSearchRequest(t, { uri: e = null, limit: s = 1, random: r = false, page: a = 1 } = {}) {
-        let i;
-        Array.isArray(t) || (t = [t]), r && (this.site.random ? t.push("order:random") : i = 100), this.site.defaultTags && (t = t.concat(this.site.defaultTags.filter((e2) => !t.includes(e2))));
-        const o = e || this.getSearchUrl({ tags: t, limit: i || s, page: a }), n = Constants_12.defaultOptions, l = "xml" === this.site.type;
-        try {
-          const t2 = await (0, node_fetch_1.default)(o, n);
-          if (503 === t2.status && (await t2.clone().text()).includes("cf-browser-verification"))
-            throw new Constants_12.BooruError("Received a CloudFlare browser verification request. Can't proceed.");
-          const e2 = l ? await t2.text() : await t2.json(), s2 = l ? (0, Utils_1.jsonfy)(e2) : e2;
-          if (t2.ok)
-            return s2;
-          throw new Constants_12.BooruError(`Received HTTP ${t2.status} from booru: '${s2.error || s2.message || JSON.stringify(s2)}'`);
-        } catch (t2) {
-          if ("invalid-json" === t2.type)
-            return "";
-          throw t2;
+      this.domain = domain;
+      this.site = site;
+      this.credentials = credentials;
+    }
+    async search(tags2, {
+      limit = 1,
+      random = false,
+      page: page2 = 1,
+      showUnavailable = false,
+      credentials
+    } = {}) {
+      const fakeLimit = random && !this.site.random ? 100 : 0;
+      try {
+        const searchResult = await this.doSearchRequest(tags2, {
+          limit,
+          random,
+          page: page2,
+          showUnavailable,
+          credentials: credentials || this.credentials
+        });
+        return this.parseSearchResult(searchResult, {
+          fakeLimit,
+          tags: tags2,
+          limit,
+          random,
+          page: page2,
+          showUnavailable
+        });
+      } catch (err) {
+        if (err instanceof Error) {
+          throw new BooruError(err);
+        } else {
+          throw err;
         }
       }
-      getSearchUrl({ tags: t = [], limit: e = 100, page: s = 1 }) {
-        return (0, Constants_12.searchURI)(this.site, t, e, s);
+    }
+    postView(id) {
+      if (typeof id === "string" && Number.isNaN(parseInt(id, 10))) {
+        throw new BooruError(`Not a valid id for postView: ${id}`);
       }
-      parseSearchResult(t, { fakeLimit: e, tags: s, limit: r, random: a, page: i, showUnavailable: o }) {
-        if (false === t.success)
-          throw new Constants_12.BooruError(t.message || t.reason);
-        let n;
-        t["@attributes"] && (t = "0" !== t["@attributes"].count && t.post ? Array.isArray(t.post) ? t.post : [t.post] : []), t.posts && (t = t.posts), t.images && (t = t.images), "" === t ? n = [] : e ? n = (0, Utils_1.shuffle)(t) : t.constructor === Object && (n = [t]);
-        let l = (n || t).slice(0, r).map((t2) => new Post_1.default(t2, this));
-        const u = { limit: r, random: a, page: i, showUnavailable: o };
-        return void 0 === s && (s = []), Array.isArray(s) || (s = [s]), o || (l = l.filter((t2) => t2.available)), new SearchResults_1.default(l, s, u, this);
+      return `http${this.site.insecure ? "" : "s"}://${this.domain}${this.site.api.postView}${id}`;
+    }
+    async doSearchRequest(tags2, {
+      uri = null,
+      limit = 1,
+      random = false,
+      page: page2 = 1,
+      credentials
+    } = {}) {
+      if (!Array.isArray(tags2))
+        tags2 = [tags2];
+      let fakeLimit;
+      if (random) {
+        if (this.site.random) {
+          tags2.push("order:random");
+        } else {
+          fakeLimit = 100;
+        }
+      }
+      if (this.site.defaultTags) {
+        tags2 = tags2.concat(this.site.defaultTags.filter((v) => !tags2.includes(v)));
+      }
+      const fetchuri = uri || this.getSearchUrl({ tags: tags2, limit: fakeLimit || limit, page: page2, credentials });
+      const options = defaultOptions;
+      const xml = this.site.type === "xml";
+      try {
+        const response = await fetch(fetchuri, options);
+        if (response.status === 503) {
+          const body = await response.clone().text();
+          if (body.includes("cf-browser-verification")) {
+            throw new BooruError(
+              "Received a CloudFlare browser verification request. Can't proceed."
+            );
+          }
+        }
+        const data = await response.text();
+        const posts = xml ? jsonfy(data) : tryParseJSON(data);
+        if (!response.ok) {
+          throw new BooruError(
+            `Received HTTP ${response.status} from booru: '${posts.error || posts.message || JSON.stringify(posts)}'`
+          );
+        } else {
+          return posts;
+        }
+      } catch (err) {
+        if (err.type === "invalid-json")
+          return "";
+        throw err;
       }
     }
-    exports.Booru = Booru2, exports.default = Booru2;
-  })(Booru);
-  var Derpibooru$1 = {};
-  var __importDefault$1 = commonjsGlobal && commonjsGlobal.__importDefault || function(e) {
-    return e && e.__esModule ? e : { default: e };
+    getSearchUrl({
+      tags: tags2 = [],
+      limit = 100,
+      page: page2 = 1,
+      credentials
+    }) {
+      return searchURI(this.site, tags2, limit, page2, credentials);
+    }
+    parseSearchResult(result, {
+      fakeLimit,
+      tags: tags2,
+      limit,
+      random,
+      page: page2,
+      showUnavailable
+    }) {
+      if (result.success === false) {
+        throw new BooruError(result.message || result.reason);
+      }
+      if (result["@attributes"]) {
+        const attributes = result["@attributes"];
+        if (attributes.count === "0" || !result.post) {
+          result = [];
+        } else if (Array.isArray(result.post)) {
+          result = result.post;
+        } else {
+          result = [result.post];
+        }
+      }
+      if (result.posts) {
+        result = result.posts;
+      }
+      if (result.images) {
+        result = result.images;
+      }
+      let r;
+      if (result === "") {
+        r = [];
+      } else if (fakeLimit) {
+        r = shuffle(result);
+      } else if (result.constructor === Object) {
+        r = [result];
+      }
+      const results = r || result;
+      let posts = results.slice(0, limit).map((v) => new Post(v, this));
+      const options = { limit, random, page: page2, showUnavailable };
+      if (tags2 === void 0) {
+        tags2 = [];
+      }
+      if (!Array.isArray(tags2)) {
+        tags2 = [tags2];
+      }
+      if (!showUnavailable) {
+        posts = posts.filter((p) => p.available);
+      }
+      return new SearchResults(posts, tags2, options, this);
+    }
   };
-  Object.defineProperty(Derpibooru$1, "__esModule", { value: true });
-  const Constants_1 = Constants, Booru_1$1 = __importDefault$1(Booru);
-  class Derpibooru extends Booru_1$1.default {
-    constructor(e, t) {
-      super(e, t);
+  var Booru_default = Booru;
+  var Derpibooru = class extends Booru_default {
+    constructor(site, credentials) {
+      super(site, credentials);
     }
-    search(e, { limit: t = 1, random: r = false, page: s = 0 } = {}) {
-      Array.isArray(e) || (e = [e]), void 0 === e[0] && (e[0] = "*"), s += 1;
-      const o = this.getSearchUrl({ tags: e, limit: t, page: s }) + (r && "string" === this.site.random ? `&${this.site.random}` : "") + (this.credentials ? `&key=${this.credentials.token}` : "");
-      return super.doSearchRequest(e, { limit: t, random: r, page: s, uri: o }).then((o2) => super.parseSearchResult(o2, { fakeLimit: 0, tags: e, limit: t, random: r, page: s })).catch((e2) => Promise.reject(new Constants_1.BooruError(e2)));
+    search(tags2, { limit = 1, random = false, page: page2 = 0 } = {}) {
+      if (!Array.isArray(tags2)) {
+        tags2 = [tags2];
+      }
+      if (tags2[0] === void 0) {
+        tags2[0] = "*";
+      }
+      page2 += 1;
+      const uri = this.getSearchUrl({ tags: tags2, limit, page: page2 }) + (random && this.site.random === "string" ? `&${this.site.random}` : "") + (this.credentials ? `&key=${this.credentials.token}` : "");
+      return super.doSearchRequest(tags2, { limit, random, page: page2, uri }).then(
+        (r) => super.parseSearchResult(r, { fakeLimit: 0, tags: tags2, limit, random, page: page2 })
+      ).catch((e) => Promise.reject(new BooruError(e)));
     }
-  }
-  Derpibooru$1.default = Derpibooru;
-  var XmlBooru$1 = {};
-  var __importDefault = commonjsGlobal && commonjsGlobal.__importDefault || function(e) {
-    return e && e.__esModule ? e : { default: e };
   };
-  Object.defineProperty(XmlBooru$1, "__esModule", { value: true });
-  const Booru_1 = __importDefault(Booru);
-  class XmlBooru extends Booru_1.default {
-    constructor(e, t) {
-      super(e, t);
+  var XmlBooru = class extends Booru_default {
+    constructor(site, credentials) {
+      super(site, credentials);
     }
-  }
-  XmlBooru$1.default = XmlBooru;
-  var Site$1 = {};
-  Object.defineProperty(Site$1, "__esModule", { value: true });
-  class Site {
-    constructor(a) {
+  };
+  var Site = class {
+    constructor(data) {
       __publicField(this, "domain");
       __publicField(this, "type");
       __publicField(this, "aliases");
@@ -2497,57 +1606,57 @@ var __publicField = (obj, key, value) => {
       __publicField(this, "tagJoin");
       __publicField(this, "insecure");
       __publicField(this, "defaultTags");
-      var _a2, _b2, _c2, _d, _e2, _f, _g, _h, _i;
-      this.domain = a.domain, this.type = (_a2 = a.type) != null ? _a2 : "json", this.aliases = (_b2 = a.aliases) != null ? _b2 : [], this.nsfw = a.nsfw, this.api = (_c2 = a.api) != null ? _c2 : {}, this.paginate = (_d = a.paginate) != null ? _d : "page", this.random = (_e2 = a.random) != null ? _e2 : false, this.tagQuery = (_f = a.tagQuery) != null ? _f : "tags", this.tagJoin = (_g = a.tagJoin) != null ? _g : "+", this.insecure = (_h = a.insecure) != null ? _h : false, this.defaultTags = (_i = a.defaultTags) != null ? _i : [];
+      var _a2, _b2, _c2, _d, _e, _f, _g, _h, _i;
+      this.domain = data.domain;
+      this.type = (_a2 = data.type) != null ? _a2 : "json";
+      this.aliases = (_b2 = data.aliases) != null ? _b2 : [];
+      this.nsfw = data.nsfw;
+      this.api = (_c2 = data.api) != null ? _c2 : {};
+      this.paginate = (_d = data.paginate) != null ? _d : "page";
+      this.random = (_e = data.random) != null ? _e : false;
+      this.tagQuery = (_f = data.tagQuery) != null ? _f : "tags";
+      this.tagJoin = (_g = data.tagJoin) != null ? _g : "+";
+      this.insecure = (_h = data.insecure) != null ? _h : false;
+      this.defaultTags = (_i = data.defaultTags) != null ? _i : [];
     }
+  };
+  var BooruTypes = {
+    derpi: Derpibooru,
+    xml: XmlBooru
+  };
+  var booruCache = {};
+  function booruFrom(booruSite, credentials) {
+    return new (booruSite.type !== void 0 && BooruTypes[booruSite.type] ? BooruTypes[booruSite.type] : Booru_default)(booruSite, credentials);
   }
-  Site$1.default = Site;
-  (function(exports) {
-    var __importDefault2 = commonjsGlobal && commonjsGlobal.__importDefault || function(r) {
-      return r && r.__esModule ? r : { default: r };
-    };
-    Object.defineProperty(exports, "__esModule", { value: true }), exports.BooruError = exports.resolveSite = exports.sites = exports.BooruClass = exports.search = exports.forSite = void 0;
-    const Constants_12 = Constants, Booru_12 = __importDefault2(Booru), Derpibooru_1 = __importDefault2(Derpibooru$1), XmlBooru_1 = __importDefault2(XmlBooru$1), Site_1 = __importDefault2(Site$1), Utils_1 = Utils$1, BooruTypes = { derpi: Derpibooru_1.default, xml: XmlBooru_1.default }, booruCache = {};
-    function booruFrom(r, e) {
-      return new (void 0 !== r.type && BooruTypes[r.type] ? BooruTypes[r.type] : Booru_12.default)(r, e);
+  function booruForSite(site, credentials = null) {
+    const rSite = resolveSite(site);
+    if (!rSite)
+      throw new BooruError("Site not supported");
+    const booruSite = new Site(sites[rSite]);
+    return booruFrom(booruSite, credentials);
+  }
+  function search(site, tags2 = [], { limit = 1, random = false, page: page2 = 1, credentials } = {}) {
+    const rSite = resolveSite(site);
+    if (typeof limit === "string") {
+      limit = parseInt(limit, 10);
     }
-    function booruForSite(r, e = null) {
-      const o = (0, Utils_1.resolveSite)(r);
-      if (!o)
-        throw new Constants_12.BooruError("Site not supported");
-      return booruFrom(new Site_1.default(Constants_12.sites[o]), e);
+    if (rSite === null) {
+      throw new BooruError("Site not supported");
     }
-    function search(r, e = [], { limit: o = 1, random: t = false, page: s = 1, credentials: u } = {}) {
-      const n = (0, Utils_1.resolveSite)(r);
-      if ("string" == typeof o && (o = parseInt(o, 10)), null === n)
-        throw new Constants_12.BooruError("Site not supported");
-      if (!Array.isArray(e) && "string" != typeof e)
-        throw new Constants_12.BooruError("`tags` should be an array or string");
-      if ("number" != typeof o || Number.isNaN(o))
-        throw new Constants_12.BooruError("`limit` should be an int");
-      const i = new Site_1.default(Constants_12.sites[n]);
-      return booruCache[n] || (booruCache[n] = booruFrom(i)), booruCache[n].search(e, { limit: o, random: t, page: s, credentials: u });
+    if (!Array.isArray(tags2) && typeof tags2 !== "string") {
+      throw new BooruError("`tags` should be an array or string");
     }
-    exports.forSite = booruForSite, exports.default = booruForSite, exports.search = search;
-    var Booru_2 = Booru;
-    Object.defineProperty(exports, "BooruClass", { enumerable: true, get: function() {
-      return Booru_2.Booru;
-    } });
-    var Constants_2 = Constants;
-    Object.defineProperty(exports, "sites", { enumerable: true, get: function() {
-      return Constants_2.sites;
-    } });
-    var Utils_2 = Utils$1;
-    Object.defineProperty(exports, "resolveSite", { enumerable: true, get: function() {
-      return Utils_2.resolveSite;
-    } });
-    var Constants_3 = Constants;
-    Object.defineProperty(exports, "BooruError", { enumerable: true, get: function() {
-      return Constants_3.BooruError;
-    } });
-  })(dist);
+    if (typeof limit !== "number" || Number.isNaN(limit)) {
+      throw new BooruError("`limit` should be an int");
+    }
+    const booruSite = new Site(sites[rSite]);
+    if (!booruCache[rSite]) {
+      booruCache[rSite] = booruFrom(booruSite);
+    }
+    return booruCache[rSite].search(tags2, { limit, random, page: page2, credentials });
+  }
   const blackList = /* @__PURE__ */ new Set(["e621.net", "e926.net", "hypnohub.net", "derpibooru.org"]);
-  const siteDomains = Object.keys(dist.sites).filter((e) => !blackList.has(e));
+  const siteDomains = Object.keys(sites).filter((e) => !blackList.has(e));
   const defaultLimitMap = {
     "yande.re": 40,
     "konachan.com": 21,
@@ -2562,11 +1671,11 @@ var __publicField = (obj, key, value) => {
     "realbooru.com": 42
   };
   const BOORU_PAGE_LIMIT = defaultLimitMap[location.host] || 40;
-  const isPidSite = ((_c = dist.sites[location.host]) == null ? void 0 : _c.paginate) === "pid";
+  const isPidSite = ((_c = sites[location.host]) == null ? void 0 : _c.paginate) === "pid";
   async function searchBooru(page2, tags2) {
     if (!tags2 || tags2 === "all")
       tags2 = "";
-    return dist.search(location.host, tags2, { page: page2, limit: BOORU_PAGE_LIMIT });
+    return search(location.host, tags2, { page: page2, limit: BOORU_PAGE_LIMIT, credentials: { query: store.settings.credentialQuery } });
   }
   function getYandereUserId() {
     const match = document.cookie.match(/user_id=(\d+)/);
@@ -2675,10 +1784,10 @@ var __publicField = (obj, key, value) => {
     page2 && url.searchParams.set("page", page2.toString());
     const response = await fetch(url);
     const result = await response.json();
-    const site = dist.forSite(location.host);
+    const site = booruForSite(location.host);
     const results = postsKey ? result[postsKey] : result;
-    const posts = results.map((e) => new _default$1(e, site));
-    return new _default(posts, [], {}, site);
+    const posts = results.map((e) => new Post(e, site));
+    return new SearchResults(posts, [], {}, site);
   }
   function splitTags(tagsData, limit, searchTerm) {
     let results = tagsData == null ? void 0 : tagsData.split(/\s+/);
@@ -3268,6 +2377,9 @@ var __publicField = (obj, key, value) => {
       const onmasonryLayoutChange = (val) => {
         localStorage.setItem("__masonryLayout", val ? "1" : "0");
       };
+      const onCredentialQueryChange = (val) => {
+        localStorage.setItem("__credentialQuery", val);
+      };
       const onPreloadNumBlur = (ev) => {
         const input = ev.target;
         if (input.validationMessage) {
@@ -3287,7 +2399,7 @@ var __publicField = (obj, key, value) => {
             userName.value = name;
         }
       });
-      return { __sfc: true, siteLinks, userName, version, openLink, dealLink, onComboboxChange, removeTagFromBlacklist, nsfwValue, setNSFWShow, onNSFWSwitchChange, onWheelSwitchChange, onKeyupSwitchChange, onImgPreloadChange, onmasonryLayoutChange, onPreloadNumBlur, mdiAccount, mdiArrowRightCircleOutline, mdiFire, mdiGithub, mdiImageMultiple, mdiInformationOutline, mdiMessageAlertOutline, mdiShuffle, mdiStar, mdiWeb, store };
+      return { __sfc: true, siteLinks, userName, version, openLink, dealLink, onComboboxChange, removeTagFromBlacklist, nsfwValue, setNSFWShow, onNSFWSwitchChange, onWheelSwitchChange, onKeyupSwitchChange, onImgPreloadChange, onmasonryLayoutChange, onCredentialQueryChange, onPreloadNumBlur, mdiAccount, mdiArrowRightCircleOutline, mdiFire, mdiGithub, mdiImageMultiple, mdiInformationOutline, mdiMessageAlertOutline, mdiShuffle, mdiStar, mdiWeb, store };
     }
   });
   var _sfc_render$7 = function render() {
@@ -3300,13 +2412,15 @@ var __publicField = (obj, key, value) => {
       return _setup.openLink("https://www.nanoka.top/illust/pixiv/");
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiArrowRightCircleOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Pixiv Ranking")])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://pixiv.kanata.ml");
-    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiArrowRightCircleOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Pixiv Viewer")])], 1)], 1)], 2), _c2("v-list", { attrs: { "dense": "", "nav": "" } }, [_c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", { staticClass: "title" }, [_vm._v("\u8BBE\u7F6E")])], 1)], 1), _c2("v-list-item", { staticClass: "mb-0" }, [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u6807\u7B7E\u9ED1\u540D\u5355")]), _c2("v-list-item-subtitle", [_vm._v("\u4E0B\u65B9\u8F93\u5165\u6807\u7B7E\uFF0C\u56DE\u8F66\u6DFB\u52A0")])], 1)], 1), _c2("v-list-item", { staticClass: "pa-0" }, [_c2("v-list-item-content", { staticClass: "pt-0" }, [_c2("v-combobox", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "append-icon": null, "items": [], "hide-details": "", "hide-no-data": "", "multiple": "", "outlined": "", "dense": "", "chips": "" }, on: { "change": _setup.onComboboxChange }, scopedSlots: _vm._u([{ key: "selection", fn: function({ item }) {
+    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiArrowRightCircleOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Pixiv Viewer")])], 1)], 1)], 2), _c2("v-list", { attrs: { "dense": "", "nav": "" } }, [_c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", { staticClass: "title" }, [_vm._v("\u8BBE\u7F6E")])], 1)], 1), _c2("v-list-item", { staticClass: "mb-0" }, [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u672C\u5730\u6807\u7B7E\u9ED1\u540D\u5355")]), _c2("v-list-item-subtitle", [_vm._v("\u4E0B\u65B9\u8F93\u5165\u6807\u7B7E\uFF0C\u56DE\u8F66\u6DFB\u52A0")])], 1)], 1), _c2("v-list-item", { staticClass: "pa-0" }, [_c2("v-list-item-content", { staticClass: "pt-0" }, [_c2("v-combobox", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "append-icon": null, "items": [], "hide-details": "", "hide-no-data": "", "multiple": "", "outlined": "", "dense": "", "chips": "" }, on: { "change": _setup.onComboboxChange }, scopedSlots: _vm._u([{ key: "selection", fn: function({ item }) {
       return [_c2("v-chip", { attrs: { "label": "", "small": "", "outlined": "", "close": "" }, on: { "click:close": function($event) {
         return _setup.removeTagFromBlacklist(item);
       } } }, [_c2("span", [_vm._v(_vm._s(item))])])];
     } }]), model: { value: _setup.store.blacklist, callback: function($$v) {
       _vm.$set(_setup.store, "blacklist", $$v);
-    }, expression: "store.blacklist" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("NSFW \u5F00\u5173")]), _c2("v-list-item-subtitle", [_vm._v("\u5305\u542B\u88F8\u9732\u6216\u6027\u63CF\u5199\u5185\u5BB9")])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "color": "deep-orange darken-1" }, on: { "change": _setup.onNSFWSwitchChange }, model: { value: _setup.nsfwValue, callback: function($$v) {
+    }, expression: "store.blacklist" } })], 1)], 1), _c2("v-list-item", { staticClass: "mb-0" }, [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u5F53\u524D\u7AD9\u70B9 API Credentials")]), _c2("v-list-item-subtitle", [_vm._v("\u5F62\u5982: &api_key=xx&user_id=1")])], 1)], 1), _c2("v-list-item", { staticClass: "pa-0" }, [_c2("v-list-item-content", { staticClass: "pt-0" }, [_c2("v-text-field", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "hide-details": "", "outlined": "", "dense": "" }, on: { "change": _setup.onCredentialQueryChange }, model: { value: _setup.store.settings.credentialQuery, callback: function($$v) {
+      _vm.$set(_setup.store.settings, "credentialQuery", $$v);
+    }, expression: "store.settings.credentialQuery" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("NSFW \u5F00\u5173")]), _c2("v-list-item-subtitle", [_vm._v("\u5305\u542B\u88F8\u9732\u6216\u6027\u63CF\u5199\u5185\u5BB9")])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "color": "deep-orange darken-1" }, on: { "change": _setup.onNSFWSwitchChange }, model: { value: _setup.nsfwValue, callback: function($$v) {
       _setup.nsfwValue = $$v;
     }, expression: "nsfwValue" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u76D1\u542C\u6EDA\u8F6E\u4E8B\u4EF6")]), _c2("v-list-item-subtitle", [_vm._v("\u8BE6\u60C5\u5F39\u7A97\u6EDA\u8F6E\u5207\u6362\u56FE\u7247")])], 1), _c2("v-list-item-action", [_c2("v-switch", { on: { "change": _setup.onWheelSwitchChange }, model: { value: _setup.store.isListenWheelEvent, callback: function($$v) {
       _vm.$set(_setup.store, "isListenWheelEvent", $$v);
@@ -4113,5 +3227,5 @@ var __publicField = (obj, key, value) => {
     app.$mount("#app");
   }
   initApp();
-  })(Vue, VueMasonry, Vuetify);});
+  })(Vue, VueMasonry, Vuetify, {XMLParser});});
 })();

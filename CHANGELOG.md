@@ -1,3 +1,10 @@
+## v0.26.0
+
+- feat: 支持 atfbooru 与 aibooru
+- feat: 支持设置站点 API Key 查询字符串
+- feat: 添加 moebooru 语言选择
+- revert: 回滚弹窗遮罩样式
+
 ## v0.25.2
 
 - feat:  详情弹窗支持使用 A/D/←/→ 加载上一张/下一张图片
