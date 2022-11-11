@@ -1,0 +1,35 @@
+#enter-masonry {
+  position: fixed;
+  z-index: 99;
+  right: 16px;
+  top: 10px;
+  padding: 6px 10px;
+  font-size: 13px;
+  border: 0;
+  border-radius: 6px;
+  color: #fff;
+  outline: 0;
+  background: linear-gradient(to right, #ff758c 0%, #ff7eb3 100%);
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity, transform .2s;
+  cursor: pointer
+}
+
+#enter-masonry:hover {
+  opacity: .8;
+  transform: scale(1.05)
+}
+
+#locale-select {
+  position: fixed;
+  z-index: 99;
+  right: 110px;
+  top: 12px;
+  font-size: 13px;
+  padding: 5px;
+  background: #ee9ca7;
+  background: linear-gradient(to left, #ffdde1, #ee9ca7);
+  border: none;
+  border-radius: 6px;
+}
