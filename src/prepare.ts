@@ -38,22 +38,18 @@ async function initMacy() {
   if (!location.href.includes('yande.re/post')) return
   const listEl = document.querySelector('#post-list-posts')
   if (!listEl) return
+  listEl.classList.add('flexbin')
+  // const isMasonry = localStorage.getItem('__masonryLayout') !== '0'
+  // isMasonry && listEl.classList.add('mm-masonry')
   for (const item of listEl.children) {
-    item.setAttribute('style', 'width:auto;margin:0 10px 10px 0;vertical-align:top')
+    const img = item.querySelector('img')
+    img?.classList.add('flexbin-img')
+    const w = Number(img?.getAttribute('width'))
+    let h = Number(img?.getAttribute('height'))
+    h += w * 0.15
+    item.setAttribute('style', `width:auto;margin:0 10px 10px 0;vertical-align:top;--w:${w};--h:${h}`)
+    // item.classList.add('mm-masonry__item')
   }
-  if (localStorage.getItem('__masonryLayout') === '0') return
-  await loadScript('https://unpkg.com/macy@2.5.1/dist/macy.js')
-  setTimeout(() => {
-    // eslint-disable-next-line no-new
-    new Macy({
-      container: listEl,
-      trueOrder: false,
-      waitForImages: false,
-      columns: 6,
-      margin: 16,
-      breakAt: { 1900: 6, 1600: 5, 1200: 4, 900: 2, 600: 1 },
-    })
-  }, 100)
 }
 
 async function initMasonry() {

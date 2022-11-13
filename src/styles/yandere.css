@@ -90,3 +90,143 @@ li.tag-type-circle a[href^="/post"]:not(.no-browser-link)::before {
 #post-popular a.directlink {
   margin-top: 5px;
 }
+
+.mm-masonry {
+  --gap: 24;
+  --col-width: 240;
+}
+
+.mm-masonry {
+  --_col-width: var(--col-width, 280);
+  --_col-width-px: calc(var(--_col-width) * 1px);
+  --_gap: calc(var(--gap, 20) * 1px);
+  display: var(--display, grid) !important;
+  grid-template-columns: repeat(auto-fill, minmax(var(--_col-width-px), 1fr));
+  grid-auto-rows: 1px;
+  column-gap: var(--_gap);
+}
+
+.mm-masonry__item {
+  --img-proportional-height: calc(var(--h) * var(--_col-width) / (var(--w)));
+  grid-row-end: span var(--img-proportional-height, 240);
+  overflow: hidden;
+}
+
+.mm-masonry__item:not(:last-child) {
+  margin-bottom: var(--_gap);
+}
+
+.mm-masonry__img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.flexbin {
+  display: flex !important;
+  overflow: hidden;
+  flex-wrap: wrap;
+  margin: -2.5px;
+}
+
+.flexbin:after {
+  content: '';
+  flex-grow: 999999999;
+  min-width: 300px;
+  height: 0;
+}
+
+.flexbin>* {
+  position: relative;
+  display: block !important;
+  height: 330px;
+  margin: 2.5px;
+  flex-grow: 1;
+}
+
+.flexbin .flexbin-img {
+  width: auto !important;
+  height: 300px !important;
+  object-fit: cover;
+  max-width: 100%;
+  min-width: 100%;
+  vertical-align: bottom;
+}
+
+.flexbin.flexbin-margin {
+  margin: 2.5px;
+}
+
+@media (max-width: 980px) {
+  .flexbin {
+    display: flex !important;
+    overflow: hidden;
+    flex-wrap: wrap;
+    margin: -2.5px;
+  }
+
+  .flexbin:after {
+    content: '';
+    flex-grow: 999999999;
+    min-width: 150px;
+    height: 0;
+  }
+
+  .flexbin>* {
+    position: relative;
+    display: block !important;
+    height: 180px;
+    margin: 2.5px;
+    flex-grow: 1;
+  }
+
+  .flexbin .flexbin-img {
+    width: auto !important;
+    height: 150px !important;
+    object-fit: cover;
+    max-width: 100%;
+    min-width: 100%;
+    vertical-align: bottom;
+  }
+
+  .flexbin.flexbin-margin {
+    margin: 2.5px;
+  }
+}
+
+@media (max-width: 400px) {
+  .flexbin {
+    display: flex !important;
+    overflow: hidden;
+    flex-wrap: wrap;
+    margin: -2.5px;
+  }
+
+  .flexbin:after {
+    content: '';
+    flex-grow: 999999999;
+    min-width: 100px;
+    height: 0;
+  }
+
+  .flexbin>* {
+    position: relative;
+    display: block !important;
+    height: 130px;
+    margin: 2.5px;
+    flex-grow: 1;
+  }
+
+  .flexbin .flexbin-img {
+    width: auto !important;
+    height: 100px !important;
+    object-fit: cover;
+    max-width: 100%;
+    min-width: 100%;
+    vertical-align: bottom;
+  }
+
+  .flexbin.flexbin-margin {
+    margin: 2.5px;
+  }
+}
