@@ -443,11 +443,11 @@ const imgLasySrc = computed(() => {
 const imageSelectedWidth = computed(() => {
   const width = Number.parseInt(
     Math.min(
-      innerWidth.value * 0.98,
+      innerWidth.value * 1,
       imageSelected.value.sampleWidth || innerWidth.value,
     ).toString(),
   )
-  const height = Math.min(innerHeight.value * 0.98, imageSelected.value.sampleHeight || innerHeight.value)
+  const height = Math.min(innerHeight.value * 1, imageSelected.value.sampleHeight || innerHeight.value)
   const width2 = Number.parseInt((height * imageSelected.value.aspectRatio).toString())
   return Math.min(width, width2)
 })

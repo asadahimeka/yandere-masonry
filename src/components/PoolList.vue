@@ -1,6 +1,6 @@
 <template>
   <div>
-    <masonry :cols="columnCount" gutter="8px">
+    <v-masonry :cols="columnCount" gutter="8px">
       <v-card v-for="item in pools" :key="item.id" class="mb-2">
         <v-img transition="scroll-y-transition" :src="item.thumb" height="auto" />
         <v-card-title>{{ item.name }}</v-card-title>
@@ -58,7 +58,7 @@
           </v-list-item>
         </v-card-actions>
       </v-card>
-    </masonry>
+    </v-masonry>
     <div class="d-flex justify-center">
       <v-btn v-show="store.requestState" color="#ee8888" text>加载中...</v-btn>
       <v-btn v-show="showLoadMore" color="#ee8888" text @click="loadData()">加载更多</v-btn>

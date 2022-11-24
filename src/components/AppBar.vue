@@ -129,7 +129,7 @@
     </div>
     <v-spacer />
     <template v-if="store.showPostList">
-      <v-menu transition="slide-y-transition" offset-y>
+      <v-menu v-if="store.settings.masonryLayout !== 'flexbin'" transition="slide-y-transition" offset-y>
         <template #activator="{ on, attrs }">
           <v-btn small class="mr-6" v-bind="attrs" v-on="on">
             <v-icon left>{{ mdiViewDashboardVariant }}</v-icon>

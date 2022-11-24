@@ -92,11 +92,11 @@
 }
 
 .img_detail.v-dialog:not(.v-dialog--fullscreen) {
-  max-height: 98%;
+  max-height: 100%;
 }
 
 .img_detail .v-image {
-  max-height: calc(100vh - 10px);
+  max-height: calc(100vh - 5px);
 }
 
 .img_detail_scale_on {
@@ -256,16 +256,7 @@
   -moz-appearance: textfield;
 }
 
-.normal_gird_cont {
-  height: 300px !important;
-  overflow: hidden;
-}
-
-.normal_gird_cont .v-responsive__sizer {
-  padding-bottom: 300px !important;
-}
-
-/* .theme--light .v-overlay--active .v-overlay__scrim {
+.theme--light .v-overlay--active .v-overlay__scrim {
   opacity: 1 !important;
   background-color: rgb(33, 33, 33, .7) !important;
   backdrop-filter: blur(5px);
@@ -275,4 +266,104 @@
   opacity: 1 !important;
   background-color: rgb(33, 33, 33, .7) !important;
   backdrop-filter: blur(5px);
-} */
+}
+
+.wf-grid .posts-image-card .v-responsive__sizer {
+  padding-bottom: 100% !important;
+}
+
+.flexbin {
+  display: flex !important;
+  overflow: hidden;
+  flex-wrap: wrap;
+  margin: 2.5px;
+  transition: 0.2s;
+}
+
+.flexbin:after {
+  content: '';
+  flex-grow: 999999999;
+  min-width: 15vw;
+  height: 0;
+}
+
+.flexbin .posts-image-card {
+  position: relative;
+  display: block !important;
+  height: 15vw !important;
+  margin: 2.5px !important;
+  padding-bottom: 0 !important;
+  flex-grow: 1;
+  transition: 0.2s;
+}
+
+.flexbin .post-image {
+  position: initial !important;
+  width: auto !important;
+  height: 15vw !important;
+  object-fit: cover;
+  max-width: 100%;
+  min-width: 100%;
+  vertical-align: bottom;
+  transition: 0.2s;
+}
+
+.flexbin .post-image::before {
+  content: 'Loading...';
+}
+
+@media (max-width: 1280px) {
+  .flexbin:after {
+    min-width: 20vw !important;
+  }
+
+  .flexbin .posts-image-card {
+    height: 20vw !important;
+  }
+
+  .flexbin .post-image {
+    height: 20vw !important;
+  }
+}
+
+@media (max-width: 980px) {
+  .flexbin:after {
+    min-width: 30vw !important;
+  }
+
+  .flexbin .posts-image-card {
+    height: 30vw !important;
+  }
+
+  .flexbin .post-image {
+    height: 30vw !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .flexbin:after {
+    min-width: 40vw !important;
+  }
+
+  .flexbin .posts-image-card {
+    height: 40vw !important;
+  }
+
+  .flexbin .post-image {
+    height: 40vw !important;
+  }
+}
+
+@media (max-width: 570px) {
+  .flexbin:after {
+    min-width: 60vw !important;
+  }
+
+  .flexbin .posts-image-card {
+    height: 60vw !important;
+  }
+
+  .flexbin .post-image {
+    height: 60vw !important;
+  }
+}

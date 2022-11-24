@@ -7,7 +7,7 @@ interface SeletedPost extends Post {
 }
 
 interface AppSettings {
-  masonryLayout: boolean
+  masonryLayout: string
   isListenKeyupEvent: boolean
   credentialQuery: string
 }
@@ -61,7 +61,7 @@ const store = Vue.observable<AppState>({
   imgPreloadNum: Number(localStorage.getItem('__imgPreloadNum')) || 1,
   isFullscreen: false,
   settings: {
-    masonryLayout: localStorage.getItem('__masonryLayout') !== '0',
+    masonryLayout: localStorage.getItem('__masonryLayout') || 'masonry',
     isListenKeyupEvent: localStorage.getItem('__listenKeyup') !== '0',
     credentialQuery: localStorage.getItem('__credentialQuery') || '',
   },

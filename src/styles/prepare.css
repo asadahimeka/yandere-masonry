@@ -33,3 +33,16 @@
   border: none;
   border-radius: 6px;
 }
+
+#wf-type-select {
+  position: fixed;
+  z-index: 99;
+  right: 190px;
+  top: 12px;
+  font-size: 13px;
+  padding: 5px;
+  background: #ee9ca7;
+  background: linear-gradient(to left, #ffdde1, #ee9ca7);
+  border: none;
+  border-radius: 6px;
+}

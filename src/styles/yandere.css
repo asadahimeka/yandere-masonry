@@ -116,9 +116,14 @@ li.tag-type-circle a[href^="/post"]:not(.no-browser-link)::before {
   margin-bottom: var(--_gap);
 }
 
+#post-list ul#post-list-posts .mm-masonry__item .inner,
+#post-popular ul#post-list-posts .mm-masonry__item .inner {
+  height: 100% !important;
+}
+
 .mm-masonry__img {
-  width: 100%;
-  height: auto;
+  width: 100% !important;
+  height: 100% !important;
   object-fit: cover;
 }
 
@@ -126,107 +131,57 @@ li.tag-type-circle a[href^="/post"]:not(.no-browser-link)::before {
   display: flex !important;
   overflow: hidden;
   flex-wrap: wrap;
-  margin: -2.5px;
+  margin: 2.5px;
 }
 
 .flexbin:after {
   content: '';
   flex-grow: 999999999;
-  min-width: 300px;
+  min-width: 200px;
   height: 0;
 }
 
-.flexbin>* {
+.flexbin .flexbin-item {
   position: relative;
   display: block !important;
-  height: 330px;
+  height: 230px;
   margin: 2.5px;
   flex-grow: 1;
 }
 
 .flexbin .flexbin-img {
   width: auto !important;
-  height: 300px !important;
+  height: 200px !important;
   object-fit: cover;
   max-width: 100%;
   min-width: 100%;
   vertical-align: bottom;
 }
 
-.flexbin.flexbin-margin {
-  margin: 2.5px;
-}
-
 @media (max-width: 980px) {
-  .flexbin {
-    display: flex !important;
-    overflow: hidden;
-    flex-wrap: wrap;
-    margin: -2.5px;
-  }
-
   .flexbin:after {
-    content: '';
-    flex-grow: 999999999;
     min-width: 150px;
-    height: 0;
   }
 
-  .flexbin>* {
-    position: relative;
-    display: block !important;
+  .flexbin .flexbin-item {
     height: 180px;
-    margin: 2.5px;
-    flex-grow: 1;
   }
 
   .flexbin .flexbin-img {
-    width: auto !important;
     height: 150px !important;
-    object-fit: cover;
-    max-width: 100%;
-    min-width: 100%;
-    vertical-align: bottom;
-  }
-
-  .flexbin.flexbin-margin {
-    margin: 2.5px;
   }
 }
 
 @media (max-width: 400px) {
-  .flexbin {
-    display: flex !important;
-    overflow: hidden;
-    flex-wrap: wrap;
-    margin: -2.5px;
-  }
-
   .flexbin:after {
-    content: '';
-    flex-grow: 999999999;
     min-width: 100px;
-    height: 0;
   }
 
-  .flexbin>* {
-    position: relative;
-    display: block !important;
+  .flexbin .flexbin-item {
     height: 130px;
-    margin: 2.5px;
-    flex-grow: 1;
   }
 
   .flexbin .flexbin-img {
-    width: auto !important;
     height: 100px !important;
-    object-fit: cover;
-    max-width: 100%;
-    min-width: 100%;
-    vertical-align: bottom;
-  }
-
-  .flexbin.flexbin-margin {
-    margin: 2.5px;
   }
 }

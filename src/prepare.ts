@@ -10,10 +10,11 @@ export async function prepareApp(callback?: () => void) {
     bindDblclick()
     setMoebooruLocale()
     translateTags()
-    initMacy()
+    addMoeLocaleSelect()
+    addWfTypeSelect()
+    initLayout()
   }
   await sleep(1000)
-  addMoeLocaleSelect()
   setMasonryMode(async () => {
     removeOldListeners()
     await initMasonry()
@@ -34,22 +35,61 @@ function isMoebooru() {
   return ['yande.re', 'konachan', 'lolibooru', 'sakugabooru'].some(e => location.href.includes(e))
 }
 
-async function initMacy() {
+const wfTypeActions: Record<string, Function> = {
+  masonry: (list: HTMLElement) => {
+    list.classList.add('mm-masonry')
+    for (const item of list.children) {
+      const img = item.querySelector('img')
+      const w = Number(img?.getAttribute('width'))
+      let h = Number(img?.getAttribute('height'))
+      h += w * 0.17
+      item.setAttribute('style', `width:auto;margin:0 0 12px 0;vertical-align:top;--w:${w};--h:${h}`)
+      item.classList.add('mm-masonry__item')
+      img?.classList.add('mm-masonry__img')
+    }
+  },
+  grid: (list: HTMLElement) => {
+    list.classList.add('mm-masonry')
+    for (const item of list.children) {
+      const img = item.querySelector('img')
+      item.setAttribute('style', 'width:auto;margin:0 0 12px 0;vertical-align:top;--img-proportional-height:263;')
+      item.classList.add('mm-masonry__item')
+      img?.classList.add('mm-masonry__img')
+    }
+  },
+  flexbin: (list: HTMLElement) => {
+    list.classList.add('flexbin')
+    for (const item of list.children) {
+      const img = item.querySelector('img')
+      item.setAttribute('style', 'width:auto;margin:0 10px 10px 0;vertical-align:top;')
+      item.classList.add('flexbin-item')
+      img?.classList.add('flexbin-img')
+    }
+  },
+}
+
+async function initLayout() {
   if (!location.href.includes('yande.re/post')) return
   const listEl = document.querySelector('#post-list-posts')
   if (!listEl) return
-  listEl.classList.add('flexbin')
-  // const isMasonry = localStorage.getItem('__masonryLayout') !== '0'
-  // isMasonry && listEl.classList.add('mm-masonry')
-  for (const item of listEl.children) {
-    const img = item.querySelector('img')
-    img?.classList.add('flexbin-img')
-    const w = Number(img?.getAttribute('width'))
-    let h = Number(img?.getAttribute('height'))
-    h += w * 0.15
-    item.setAttribute('style', `width:auto;margin:0 10px 10px 0;vertical-align:top;--w:${w};--h:${h}`)
-    // item.classList.add('mm-masonry__item')
-  }
+  const wfType = localStorage.getItem('__wfType') || 'masonry'
+  wfTypeActions[wfType]?.(listEl)
+}
+
+function addWfTypeSelect() {
+  const params = new URLSearchParams(location.search)
+  if (params.get('_wf')) return
+  const type = localStorage.getItem('__wfType') || 'masonry'
+  document.body.insertAdjacentHTML('beforeend', `<select id="wf-type-select">${Object.keys(wfTypeActions).map(e => `<option ${type == e ? 'selected' : ''} value="${e}">${e}</option>`).join('')}</select>`)
+  const sel = document.querySelector('#wf-type-select') as HTMLSelectElement
+  sel?.addEventListener('change', function () {
+    const { value } = this
+    if (!value) return
+    localStorage.setItem('__wfType', value)
+    setTimeout(() => {
+      location.reload()
+    }, 200)
+  })
 }
 
 async function initMasonry() {
@@ -84,7 +124,6 @@ function setMoebooruLocale() {
 }
 
 function addMoeLocaleSelect() {
-  if (!isMoebooru()) return
   const params = new URLSearchParams(location.search)
   if (params.get('_wf')) return
   document.body.insertAdjacentHTML('beforeend', `<select id="locale-select"><option value="">- lang -</option>${locales.map(e => `<option value="${e}">${e}</option>`).join('')}</select>`)

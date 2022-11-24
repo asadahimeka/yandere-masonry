@@ -238,14 +238,24 @@
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title>缩略图瀑布流布局</v-list-item-title>
-          <v-list-item-subtitle>设置布局为瀑布流/等高</v-list-item-subtitle>
+          <v-list-item-title>图片列表布局</v-list-item-title>
+          <v-list-item-subtitle>masonry/grid/flexbin</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
-          <v-switch
+          <!-- <v-switch
             v-model="store.settings.masonryLayout"
             @change="onmasonryLayoutChange"
-          />
+          /> -->
+          <v-menu transition="slide-y-transition" offset-y>
+            <template #activator="{ on, attrs }">
+              <v-btn small v-bind="attrs" style="text-transform:none" v-on="on">{{ store.settings.masonryLayout }}</v-btn>
+            </template>
+            <v-list dense>
+              <v-list-item v-for="(val, key) in ['masonry', 'grid', 'flexbin']" :key="key" dense @click="onMasonryLayoutChange(val)">
+                <v-list-item-title v-text="val" />
+              </v-list-item>
+            </v-list>
+          </v-menu>
         </v-list-item-action>
       </v-list-item>
     </v-list>
@@ -363,8 +373,9 @@ const onImgPreloadChange = (val: any) => {
   location.reload()
 }
 
-const onmasonryLayoutChange = (val: any) => {
-  localStorage.setItem('__masonryLayout', val ? '1' : '0')
+const onMasonryLayoutChange = (val: any) => {
+  localStorage.setItem('__masonryLayout', val)
+  location.reload()
 }
 
 const onCredentialQueryChange = (val: any) => {

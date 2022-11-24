@@ -1,14 +1,24 @@
 <template>
   <div v-if="showImageList">
-    <masonry :cols="columnCount" gutter="8px">
+    <wf-layout>
       <v-card
         v-for="(image, index) in store.imageList"
         :key="index"
-        class="mb-2"
-        :class="{ normal_gird_cont: !store.settings.masonryLayout }"
+        class="mb-2 posts-image-card"
         :style="maxHeightStyle"
       >
+        <div v-if="store.settings.masonryLayout === 'flexbin'">
+          <img
+            class="post-image"
+            alt=""
+            :src="getImgSrc(image)"
+            @click="showImgModal(index)"
+            @contextmenu="onCtxMenu($event, image)"
+            @error="onImageLoadError(image.previewUrl || '')"
+          >
+        </div>
         <v-img
+          v-else
           transition="scroll-y-transition"
           :src="getImgSrc(image)"
           :aspect-ratio="image?.aspectRatio"
@@ -35,7 +45,7 @@
           </v-icon>
         </v-img>
       </v-card>
-    </masonry>
+    </wf-layout>
     <div class="d-flex justify-center">
       <v-btn v-show="store.requestState" color="#ee8888" text>
         加载中...
@@ -93,22 +103,6 @@ import store from '@/store'
 
 const showImageList = ref(true)
 const showFab = ref(false)
-const columnCount = computed(() => {
-  return store.selectedColumn === '0'
-    ? {
-        300: 1,
-        600: 2,
-        900: 3,
-        1200: 4,
-        1600: 6,
-        1920: 7,
-        2400: 8,
-        2700: 9,
-        3000: 10,
-        default: 6,
-      }
-    : +store.selectedColumn
-})
 
 watch(
   () => store.selectedColumn,
@@ -135,10 +129,11 @@ const maxHeightStyle = computed(() => {
 })
 
 const getImgSrc = (img?: Post) => {
-  if (columnCount.value < 6) {
-    return img?.sampleUrl ?? img?.fileUrl ?? void 0
+  const num = +store.selectedColumn
+  if (num != 0 && num < 7) {
+    return img?.sampleUrl || img?.fileUrl || void 0
   }
-  return img?.previewUrl ?? img?.fileUrl ?? void 0
+  return img?.previewUrl || img?.fileUrl || void 0
 }
 
 const onCtxMenu = (ev: MouseEvent, img: Post) => {
