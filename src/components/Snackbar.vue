@@ -2,7 +2,6 @@
   <v-snackbar
     v-model="showSnackbar"
     top
-    right
     :color="snackbarTypeMap[snackbarType]?.[0]"
     :timeout="2000"
     :min-width="160"

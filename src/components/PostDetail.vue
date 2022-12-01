@@ -1,389 +1,359 @@
 <template>
-  <v-dialog
-    v-model="store.showImageSelected"
-    :content-class="scaleOn ? 'img_detail_scale_on' : 'img_detail'"
-    :width="imageSelectedWidth > 360 ? imageSelectedWidth : 360"
-    :overlay-opacity="0.7"
-  >
-    <v-img
-      v-if="store.showImageSelected"
-      :src="imgSrc"
-      :lazy-src="imgLasySrc"
-      :aspect-ratio="imageSelected.aspectRatio"
-      style="min-width: 360px;"
-      @click="toggleToolbar"
-      @loadstart="imgLoading = true"
-      @load="!scaleOn && (imgLoading = false)"
-      @error="onImageLoadError"
-    >
-      <v-row v-show="imgLoading" class="img_detail_loading">
-        <v-progress-circular :size="100" :width="6" indeterminate color="deep-purple" />
-      </v-row>
-      <v-toolbar
-        v-show="showImageToolbar && scaleOn && !isVideo"
-        style="position:absolute;top:0;width:100%;z-index:10;"
-        color="transparent"
-        height="auto"
-        flat
-      >
-        <v-tooltip bottom>
-          <template #activator="{ on, attrs }">
-            <v-btn
-              v-show="imageSelectedWidth > 400"
-              fab
-              dark
-              small
-              color="#ee8888b3"
-              v-bind="attrs"
-              class="mr-1 hidden-sm-and-down"
-              v-on="on"
-              @click.stop="toDetailPage"
-            >
-              <v-icon>{{ mdiLinkVariant }}</v-icon>
-            </v-btn>
-          </template>
-          <span>详情</span>
-        </v-tooltip>
-        <v-tooltip v-if="!notYKSite" bottom>
-          <template #activator="{ on, attrs }">
-            <v-btn
-              v-show="imageSelectedWidth > 400"
-              fab
-              dark
-              small
-              color="#ee8888b3"
-              v-bind="attrs"
-              class="mr-1 hidden-sm-and-down"
-              v-on="on"
-              @click.stop="addFavorite"
-            >
-              <v-icon>{{ postDetail.voted ? mdiHeart : mdiHeartPlusOutline }}</v-icon>
-            </v-btn>
-          </template>
-          <span>{{ postDetail.voted ? '已收藏' : '收藏' }}</span>
-        </v-tooltip>
-        <v-spacer />
-        <v-tooltip bottom>
-          <template #activator="{ on, attrs }">
-            <v-btn
-              fab
-              dark
-              small
-              color="#ee8888b3"
-              v-bind="attrs"
-              class="mr-1 hidden-sm-and-down"
-              v-on="on"
-              @click.stop="imgScaleState = 'FitToPage'"
-            >
-              <v-icon>{{ mdiFitToScreenOutline }}</v-icon>
-            </v-btn>
-          </template>
-          <span>适应页面</span>
-        </v-tooltip>
-        <v-tooltip bottom>
-          <template #activator="{ on, attrs }">
-            <v-btn
-              fab
-              dark
-              small
-              color="#ee8888b3"
-              class="mr-1"
-              v-bind="attrs"
-              v-on="on"
-              @click.stop="imgScaleState = 'FitToWidth'"
-            >
-              <v-icon>{{ mdiTableSplitCell }}</v-icon>
-            </v-btn>
-          </template>
-          <span>适应宽度</span>
-        </v-tooltip>
-        <v-tooltip bottom>
-          <template #activator="{ on, attrs }">
-            <v-btn
-              fab
-              dark
-              small
-              color="#ee8888b3"
-              class="mr-1"
-              v-bind="attrs"
-              v-on="on"
-              @click.stop="imgScaleState = 'FitToHeight'"
-            >
-              <v-icon style="transform:rotate(90deg)">{{ mdiTableSplitCell }}</v-icon>
-            </v-btn>
-          </template>
-          <span>适应高度</span>
-        </v-tooltip>
-        <v-tooltip bottom>
-          <template #activator="{ on, attrs }">
-            <v-btn
-              fab
-              dark
-              small
-              color="#ee8888b3"
-              class="mr-1"
-              v-bind="attrs"
-              v-on="on"
-              @click.stop="imgScaleState = 'Original'"
-            >
-              <v-icon>{{ mdiLoupe }}</v-icon>
-            </v-btn>
-          </template>
-          <span>原始大小</span>
-        </v-tooltip>
-        <v-tooltip v-if="!store.isFullscreen" bottom>
-          <template #activator="{ on, attrs }">
-            <v-btn
-              fab
-              dark
-              small
-              color="#ee8888b3"
-              v-bind="attrs"
-              class="mr-1"
-              v-on="on"
-              @click.stop="reqFullscreen"
-            >
-              <v-icon>{{ mdiFullscreen }}</v-icon>
-            </v-btn>
-          </template>
-          <span>全屏</span>
-        </v-tooltip>
-        <v-tooltip bottom>
-          <template #activator="{ on, attrs }">
-            <v-btn
-              fab
-              dark
-              small
-              color="#ee8888b3"
-              class="mr-1"
-              v-bind="attrs"
-              v-on="on"
-              @click.stop="rotateImg"
-            >
-              <v-icon>{{ mdiRotateRight }}</v-icon>
-            </v-btn>
-          </template>
-          <span>旋转</span>
-        </v-tooltip>
-        <v-tooltip bottom>
-          <template #activator="{ on, attrs }">
-            <v-btn
-              fab
-              dark
-              small
-              color="#ee8888b3"
-              class="mr-1 hidden-sm-and-down"
-              v-bind="attrs"
-              v-on="on"
-              @click.stop="zoomOutImg()"
-            >
-              <v-icon>{{ mdiMagnifyMinusOutline }}</v-icon>
-            </v-btn>
-          </template>
-          <span>缩小</span>
-        </v-tooltip>
-        <v-tooltip bottom>
-          <template #activator="{ on, attrs }">
-            <v-btn fab dark small color="#ee8888b3" v-bind="attrs" v-on="on" @click.stop="close">
-              <v-icon>{{ mdiClose }}</v-icon>
-            </v-btn>
-          </template>
-          <span>关闭</span>
-        </v-tooltip>
-      </v-toolbar>
-      <v-toolbar
-        v-show="showImageToolbar && !scaleOn"
-        style="position:absolute;top:0;width:100%;z-index:10;"
-        color="transparent"
-        height="auto"
-        flat
-      >
-        <v-chip
-          v-show="imageSelectedWidth > 400"
-          small
-          color="#ee8888b3"
-          text-color="#ffffff"
-          @click.stop="toDetailPage"
-          v-text="`${imageSelected.rating?.toUpperCase()} ${imageSelected.id}`"
+  <v-dialog v-model="store.showImageSelected" fullscreen>
+    <div v-if="store.showImageSelected" class="img_detail_cont" @click="onDtlContClick">
+      <template v-if="isVideo">
+        <DPlayer
+          v-if="isVideoShow"
+          :style="`width: ${imageSelectedWidth > imageSelected.width ? imageSelected.width : imageSelectedWidth}px`"
+          :options="{ theme: '#ee8888', autoplay: true, loop: true, video: { url: imageSelected.fileUrl } }"
         />
-        <v-spacer />
-        <v-tooltip v-if="!notYKSite" bottom>
-          <template #activator="{ on, attrs }">
-            <v-btn
-              fab
-              dark
-              small
-              color="#ee8888b3"
-              v-bind="attrs"
-              class="mr-1"
-              v-on="on"
-              @click.stop="addFavorite"
-            >
-              <v-icon>{{ postDetail.voted ? mdiHeart : mdiHeartPlusOutline }}</v-icon>
-            </v-btn>
-          </template>
-          <span>{{ postDetail.voted ? '已收藏' : '收藏' }}</span>
-        </v-tooltip>
-        <v-tooltip bottom>
-          <template #activator="{ on, attrs }">
-            <v-btn
-              fab
-              dark
-              small
-              color="#ee8888b3"
-              v-bind="attrs"
-              class="mr-1"
-              v-on="on"
-              @click.stop="toDetailPage"
-            >
-              <v-icon>{{ mdiLinkVariant }}</v-icon>
-            </v-btn>
-          </template>
-          <span>详情</span>
-        </v-tooltip>
-        <v-tooltip v-if="imageSelected.sourceUrl" bottom>
-          <template #activator="{ on, attrs }">
-            <v-btn
-              fab
-              dark
-              small
-              color="#ee8888b3"
-              v-bind="attrs"
-              class="mr-1"
-              v-on="on"
-              @click.stop="toSourcePage"
-            >
-              <v-icon>{{ mdiLaunch }}</v-icon>
-            </v-btn>
-          </template>
-          <span>{{ `来源 ${imageSelected.sourceUrl}` }}</span>
-        </v-tooltip>
-        <v-tooltip v-if="!isVideo" bottom>
-          <template #activator="{ on, attrs }">
-            <v-btn
-              fab
-              dark
-              small
-              color="#ee8888b3"
-              class="mr-1"
-              v-bind="attrs"
-              v-on="on"
-              @click.stop="zoomInImg()"
-            >
-              <v-icon>{{ mdiMagnifyPlusOutline }}</v-icon>
-            </v-btn>
-          </template>
-          <span>查看大图</span>
-        </v-tooltip>
-        <v-menu dense open-on-hover offset-y>
-          <template #activator="{ on, attrs }">
-            <v-btn
-              v-show="!downloading"
-              fab
-              dark
-              small
-              color="#ee8888b3"
-              class="mr-1"
-              v-bind="attrs"
-              v-on="on"
-            >
-              <v-icon>{{ mdiDownload }}</v-icon>
-            </v-btn>
-          </template>
-          <v-list dense flat>
-            <v-list-item v-if="imageSelected.sampleUrl" two-line link dense>
-              <v-list-item-content @click.stop="download(imageSelected.sampleUrl, imageSelected.sampleDownloadName)">
-                <v-list-item-title>下载样品图</v-list-item-title>
-                <v-list-item-subtitle v-text="imageSelected.sampleDownloadText" />
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item v-if="imageSelected.jpegUrl" two-line link dense>
-              <v-list-item-content @click.stop="download(imageSelected.jpegUrl, imageSelected.jpegDownloadName)">
-                <v-list-item-title>下载高清图</v-list-item-title>
-                <v-list-item-subtitle v-text="imageSelected.jpegDownloadText" />
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item two-line link dense>
-              <v-list-item-content @click.stop="download(imageSelected.fileUrl, imageSelected.fileDownloadName)">
-                <v-list-item-title>下载原文件</v-list-item-title>
-                <v-list-item-subtitle v-text="imageSelected.fileDownloadText" />
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-        <v-progress-circular v-show="downloading" indeterminate class="ml-1 mr-2" color="#ee8888b3" />
-        <v-tooltip bottom>
-          <template #activator="{ on, attrs }">
-            <v-btn
-              fab
-              dark
-              small
-              color="#ee8888b3"
-              class="mr-1"
-              v-bind="attrs"
-              v-on="on"
-              @click.stop="addToList"
-            >
-              <v-icon>{{ mdiPlaylistPlus }}</v-icon>
-            </v-btn>
-          </template>
-          <span>加入下载列表</span>
-        </v-tooltip>
-        <v-tooltip bottom>
-          <template #activator="{ on, attrs }">
-            <v-btn fab dark small color="#ee8888b3" v-bind="attrs" v-on="on" @click.stop="close">
-              <v-icon>{{ mdiClose }}</v-icon>
-            </v-btn>
-          </template>
-          <span>关闭</span>
-        </v-tooltip>
-      </v-toolbar>
-      <DPlayer v-if="isVideo" style="width: 100%;" :options="{ theme: '#ee8888', autoplay: true, video: { url: imageSelected.fileUrl } }" />
-      <!-- <video v-if="isVideo" controls style="width: 100%;" :src="imageSelected.fileUrl ?? void 0"></video> -->
-      <div v-show="!isVideo" class="img_scale_scroll" draggable="false">
+      </template>
+      <div
+        v-else
+        :class="{ img_scale_scroll: scaleOn, img_scale_normal: !scaleOn }"
+        draggable="false"
+      >
         <img
+          v-if="!scaleOn"
+          :src="imgSrc"
+          :width="imageSelectedWidth"
+          class="img_detail_sample"
+          alt=""
+          @click.stop="toggleToolbar"
+          @load="imgLoading = false"
+          @error="onImageLoadError"
+        >
+        <img
+          v-if="scaleOn"
           :src="scaleImgSrc"
           :style="scaleImgStyle"
+          class="img_detail_scale"
           alt=""
           draggable="false"
           @load="imgLoading = false"
           @error="onScaleImgError"
         >
+        <v-row v-show="imgLoading" class="img_detail_loading">
+          <img v-if="!scaleOn" :src="imgLasySrc" :width="imageSelectedWidth" alt="">
+          <v-progress-circular :size="100" :width="6" indeterminate color="deep-purple" />
+        </v-row>
       </div>
-      <div v-show="!isVideo && showImageToolbar" class="hidden-sm-and-down">
-        <div style="position: absolute;bottom: 12px;padding: 0 12px;">
+    </div>
+    <v-toolbar
+      v-show="showImageToolbar && scaleOn && !isVideo"
+      style="position:absolute;top:0;width:100%;z-index:10;"
+      color="transparent"
+      height="auto"
+      flat
+    >
+      <v-spacer />
+      <v-tooltip bottom>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            fab
+            dark
+            small
+            color="#ee8888b3"
+            v-bind="attrs"
+            class="mr-1 hidden-sm-and-down"
+            v-on="on"
+            @click.stop="imgScaleState = 'FitToPage'"
+          >
+            <v-icon>{{ mdiFitToScreenOutline }}</v-icon>
+          </v-btn>
+        </template>
+        <span>适应页面</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            fab
+            dark
+            small
+            color="#ee8888b3"
+            class="mr-1"
+            v-bind="attrs"
+            v-on="on"
+            @click.stop="imgScaleState = 'FitToWidth'"
+          >
+            <v-icon>{{ mdiTableSplitCell }}</v-icon>
+          </v-btn>
+        </template>
+        <span>适应宽度</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            fab
+            dark
+            small
+            color="#ee8888b3"
+            class="mr-1"
+            v-bind="attrs"
+            v-on="on"
+            @click.stop="imgScaleState = 'FitToHeight'"
+          >
+            <v-icon style="transform:rotate(90deg)">{{ mdiTableSplitCell }}</v-icon>
+          </v-btn>
+        </template>
+        <span>适应高度</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            fab
+            dark
+            small
+            color="#ee8888b3"
+            class="mr-1"
+            v-bind="attrs"
+            v-on="on"
+            @click.stop="imgScaleState = 'Original'"
+          >
+            <v-icon>{{ mdiLoupe }}</v-icon>
+          </v-btn>
+        </template>
+        <span>原始大小</span>
+      </v-tooltip>
+      <v-tooltip v-if="!store.isFullscreen" bottom>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            fab
+            dark
+            small
+            color="#ee8888b3"
+            v-bind="attrs"
+            class="mr-1"
+            v-on="on"
+            @click.stop="reqFullscreen"
+          >
+            <v-icon>{{ mdiFullscreen }}</v-icon>
+          </v-btn>
+        </template>
+        <span>全屏</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            fab
+            dark
+            small
+            color="#ee8888b3"
+            class="mr-1"
+            v-bind="attrs"
+            v-on="on"
+            @click.stop="rotateImg"
+          >
+            <v-icon>{{ mdiRotateRight }}</v-icon>
+          </v-btn>
+        </template>
+        <span>旋转</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            fab
+            dark
+            small
+            color="#ee8888b3"
+            class="mr-1 hidden-sm-and-down"
+            v-bind="attrs"
+            v-on="on"
+            @click.stop="zoomOutImg()"
+          >
+            <v-icon>{{ mdiMagnifyMinusOutline }}</v-icon>
+          </v-btn>
+        </template>
+        <span>缩小</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template #activator="{ on, attrs }">
+          <v-btn fab dark small color="#ee8888b3" v-bind="attrs" v-on="on" @click.stop="close">
+            <v-icon>{{ mdiClose }}</v-icon>
+          </v-btn>
+        </template>
+        <span>关闭</span>
+      </v-tooltip>
+    </v-toolbar>
+    <v-toolbar
+      v-show="showImageToolbar && !scaleOn"
+      style="position:absolute;top:0;width:100%;z-index:10;"
+      color="transparent"
+      height="auto"
+      flat
+    >
+      <v-chip
+        small
+        color="#ee8888b3"
+        text-color="#ffffff"
+        @click.stop="toDetailPage"
+        v-text="`${imageSelected.rating?.toUpperCase()} ${imageSelected.id}`"
+      />
+      <v-spacer />
+      <v-tooltip v-if="!notYKSite" bottom>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            fab
+            dark
+            small
+            color="#ee8888b3"
+            v-bind="attrs"
+            class="mr-1"
+            v-on="on"
+            @click.stop="addFavorite"
+          >
+            <v-icon>{{ postDetail.voted ? mdiHeart : mdiHeartPlusOutline }}</v-icon>
+          </v-btn>
+        </template>
+        <span>{{ postDetail.voted ? '已收藏' : '收藏' }}</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            fab
+            dark
+            small
+            color="#ee8888b3"
+            v-bind="attrs"
+            class="mr-1"
+            v-on="on"
+            @click.stop="toDetailPage"
+          >
+            <v-icon>{{ mdiLinkVariant }}</v-icon>
+          </v-btn>
+        </template>
+        <span>详情</span>
+      </v-tooltip>
+      <v-tooltip v-if="imageSelected.sourceUrl" bottom>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            fab
+            dark
+            small
+            color="#ee8888b3"
+            v-bind="attrs"
+            class="mr-1"
+            v-on="on"
+            @click.stop="toSourcePage"
+          >
+            <v-icon>{{ mdiLaunch }}</v-icon>
+          </v-btn>
+        </template>
+        <span>{{ `来源 ${imageSelected.sourceUrl}` }}</span>
+      </v-tooltip>
+      <v-tooltip v-if="!isVideo" bottom>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            fab
+            dark
+            small
+            color="#ee8888b3"
+            class="mr-1"
+            v-bind="attrs"
+            v-on="on"
+            @click.stop="zoomInImg()"
+          >
+            <v-icon>{{ mdiMagnifyPlusOutline }}</v-icon>
+          </v-btn>
+        </template>
+        <span>查看大图</span>
+      </v-tooltip>
+      <v-menu dense open-on-hover offset-y>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            v-show="!downloading"
+            fab
+            dark
+            small
+            color="#ee8888b3"
+            class="mr-1"
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon>{{ mdiDownload }}</v-icon>
+          </v-btn>
+        </template>
+        <v-list dense flat>
+          <v-list-item v-if="imageSelected.sampleUrl" two-line link dense>
+            <v-list-item-content @click.stop="download(imageSelected.sampleUrl, imageSelected.sampleDownloadName)">
+              <v-list-item-title>下载样品图</v-list-item-title>
+              <v-list-item-subtitle v-text="imageSelected.sampleDownloadText" />
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item v-if="imageSelected.jpegUrl" two-line link dense>
+            <v-list-item-content @click.stop="download(imageSelected.jpegUrl, imageSelected.jpegDownloadName)">
+              <v-list-item-title>下载高清图</v-list-item-title>
+              <v-list-item-subtitle v-text="imageSelected.jpegDownloadText" />
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item two-line link dense>
+            <v-list-item-content @click.stop="download(imageSelected.fileUrl, imageSelected.fileDownloadName)">
+              <v-list-item-title>下载原文件</v-list-item-title>
+              <v-list-item-subtitle v-text="imageSelected.fileDownloadText" />
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      <v-progress-circular v-show="downloading" indeterminate class="ml-1 mr-2" color="#ee8888b3" />
+      <v-tooltip bottom>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            fab
+            dark
+            small
+            color="#ee8888b3"
+            class="mr-1"
+            v-bind="attrs"
+            v-on="on"
+            @click.stop="addToList"
+          >
+            <v-icon>{{ mdiPlaylistPlus }}</v-icon>
+          </v-btn>
+        </template>
+        <span>加入下载列表</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template #activator="{ on, attrs }">
+          <v-btn fab dark small color="#ee8888b3" v-bind="attrs" v-on="on" @click.stop="close">
+            <v-icon>{{ mdiClose }}</v-icon>
+          </v-btn>
+        </template>
+        <span>关闭</span>
+      </v-tooltip>
+    </v-toolbar>
+    <div v-show="showImageToolbar" class="hidden-sm-and-down">
+      <div v-show="!isVideo" style="position: absolute;bottom: 12px;padding: 0 12px;">
+        <v-chip
+          v-show="postDetail.tags?.length"
+          small
+          class="mr-1"
+          color="#ee8888b3"
+          text-color="#ffffff"
+          @click.stop="toggleTagsShow()"
+        >
+          <v-icon left>{{ mdiTagMultiple }}</v-icon>
+          <span>{{ showTagChipGroup ? '隐藏' : '显示' }}</span>
+        </v-chip>
+        <v-chip-group v-show="showTagChipGroup" column>
           <v-chip
-            v-show="postDetail.tags?.length"
+            v-for="(item, i) in postDetail.tags || []"
+            :key="i"
             small
             class="mr-1"
-            color="#ee8888b3"
+            :color="item.color"
             text-color="#ffffff"
-            @click.stop="toggleTagsShow()"
-          >
-            <v-icon left>{{ mdiTagMultiple }}</v-icon>
-            <span>{{ showTagChipGroup ? '隐藏' : '显示' }}</span>
-          </v-chip>
-          <v-chip-group v-show="showTagChipGroup" column>
-            <v-chip
-              v-for="(item, i) in postDetail.tags || []"
-              :key="i"
-              small
-              class="mr-1"
-              :color="item.color"
-              text-color="#ffffff"
-              @click.stop="toTagsPage(item.tag)"
-              v-text="item.tagText"
-            />
-          </v-chip-group>
-        </div>
-        <v-btn fab dark small color="#ee888863" class="poa_left_center" @click.stop="showPrevPost">
-          <v-icon>{{ mdiChevronLeft }}</v-icon>
-        </v-btn>
-        <v-btn fab dark small color="#ee888863" class="poa_right_center" @click.stop="showNextPost">
-          <v-icon>{{ mdiChevronRight }}</v-icon>
-        </v-btn>
+            @click.stop="toTagsPage(item.tag)"
+            v-text="item.tagText"
+          />
+        </v-chip-group>
       </div>
-    </v-img>
+      <v-btn fab dark small color="#ee888863" class="poa_left_center" @click.stop="showPrevPost">
+        <v-icon>{{ mdiChevronLeft }}</v-icon>
+      </v-btn>
+      <v-btn fab dark small color="#ee888863" class="poa_right_center" @click.stop="showNextPost">
+        <v-icon>{{ mdiChevronRight }}</v-icon>
+      </v-btn>
+    </div>
   </v-dialog>
 </template>
 
@@ -407,7 +377,7 @@ import {
   mdiTableSplitCell,
   mdiTagMultiple,
 } from '@mdi/js'
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import DPlayer from './DPlayer.vue'
 import { debounce, downloadFile, dragElement, isURL, showMsg } from '@/utils'
 import { type PostDetail, addPostToFavorites, getPostDetail } from '@/api/moebooru'
@@ -415,7 +385,7 @@ import store from '@/store'
 import { searchPosts } from '@/store/actions/post'
 
 const showImageToolbar = ref(true)
-const imgLoading = ref(false)
+const imgLoading = ref(true)
 const innerWidth = ref(window.innerWidth)
 const innerHeight = ref(window.innerHeight)
 const downloading = ref(false)
@@ -496,6 +466,13 @@ const close = () => {
   store.showImageSelected = false
 }
 
+const onDtlContClick = (ev: Event) => {
+  const el = ev.target as HTMLElement
+  if (el.className.includes('img_detail_cont')) {
+    close()
+  }
+}
+
 const postDetail = ref<PostDetail>({})
 
 const addFavorite = async () => {
@@ -547,10 +524,18 @@ const preloadNextImg = async () => {
   }
 }
 
+const isVideoShow = ref(true)
+const toggleVideoShow = async () => {
+  isVideoShow.value = false
+  await nextTick()
+  isVideoShow.value = true
+}
+
 const showPrevPost = async () => {
   if (store.imageSelectedIndex == 0) return
   imgLoading.value = true
   store.imageSelectedIndex--
+  isVideo.value && toggleVideoShow()
   await setPostDetail()
 }
 
@@ -561,6 +546,7 @@ const showNextPost = async () => {
   }
   imgLoading.value = true
   store.imageSelectedIndex++
+  isVideo.value && toggleVideoShow()
   await setPostDetail()
   preloadNextImg()
 }
@@ -593,19 +579,22 @@ const imgScaleState = ref<ImgScaleState>('Original')
 
 const imgRotateDeg = ref(0)
 const rotateImg = () => {
+  imgScaleState.value = 'FitToPage'
   imgRotateDeg.value += 90
 }
 
 const scaleImgStyle = computed(() => ({
   ...scaleImgStyleMap[imgScaleState.value],
-  transform: `rotate(${imgRotateDeg.value}deg)`,
+  'transform': `rotate(${imgRotateDeg.value}deg)`,
+  'transform-origin': 'center center',
 }))
 
 let clearDragEv: (() => void) | undefined
-const zoomInImg = () => {
+const zoomInImg = async () => {
   scaleOn.value = true
   imgLoading.value = true
-  clearDragEv = dragElement('.img_scale_scroll', 'img')
+  await nextTick()
+  clearDragEv = dragElement('.img_scale_scroll', '.img_detail_scale')
 }
 const zoomOutImg = () => {
   scaleOn.value = false
@@ -616,7 +605,7 @@ const zoomOutImg = () => {
 const reqFullscreen = async () => {
   try {
     if (document.fullscreenElement) return
-    const img = document.querySelector('.img_scale_scroll img')
+    const img = document.querySelector('.img_detail_scale')
     await img?.requestFullscreen()
   } catch (error) {
     console.log('toggleFullscreen error: ', error)
@@ -625,6 +614,7 @@ const reqFullscreen = async () => {
 
 watch(() => store.showImageSelected, async val => {
   if (val) {
+    imgLoading.value = true
     await setPostDetail()
     preloadNextImg()
   } else {

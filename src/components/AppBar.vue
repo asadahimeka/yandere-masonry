@@ -165,6 +165,17 @@
               输出下载地址
             </v-btn>
           </v-subheader>
+          <v-radio-group
+            v-if="store.isYKSite"
+            v-model="downloadUrlKey"
+            class="mt-1 ml-3"
+            hide-details
+            dense
+            row
+          >
+            <v-radio label="大图" value="jpegUrl" />
+            <v-radio label="原图" value="fileUrl" />
+          </v-radio-group>
           <v-list-item-group color="primary">
             <v-list-item v-for="item in store.selectedImageList" :key="item.id" dense two-line>
               <v-list-item-avatar>
@@ -177,8 +188,8 @@
                 <v-progress-circular v-if="item.loading" :rotate="-90" :size="28" :value="loadingValue" color="pink" />
               </v-list-item-avatar>
               <v-list-item-content style="max-width: 240px;">
-                <v-list-item-title :title="item.fileDownloadName" v-text="item.fileDownloadName" />
-                <v-list-item-subtitle :title="item.fileUrl" v-text="item.fileUrl" />
+                <v-list-item-title :title="item[downloadNameKey]" v-text="item[downloadNameKey]" />
+                <v-list-item-subtitle :title="item[downloadUrlKey]" v-text="item[downloadUrlKey]" />
               </v-list-item-content>
               <v-list-item-action>
                 <v-btn icon @click="removeFromList(item.id)">
@@ -456,16 +467,27 @@ const download = (url: string, name: string) => {
   })
 }
 
+type ImgUrlKeys = 'fileUrl' | 'jpegUrl'
+type ImgNameKeys = 'jpegDownloadName' | 'fileDownloadName'
+const downloadUrlKey = ref<ImgUrlKeys>('fileUrl')
+const downloadNameMap: Record<ImgUrlKeys, ImgNameKeys> = {
+  fileUrl: 'fileDownloadName',
+  jpegUrl: 'jpegDownloadName',
+}
+const downloadNameKey = computed(() => {
+  return downloadNameMap[downloadUrlKey.value] || 'fileDownloadName'
+})
 const startDownload = async () => {
   try {
     const len = store.selectedImageList.length
     for (let index = 0; index < len; index++) {
       const item = store.selectedImageList[index]
-      const { fileUrl, fileDownloadName, loaded } = item
-      if (!fileUrl) continue
-      if (loaded) continue
+      const downloadUrl = item[downloadUrlKey.value] || item.fileUrl
+      const downloadName = item[downloadNameKey.value]
+      if (!downloadUrl) continue
+      if (item.loaded) continue
       set(item, 'loading', true)
-      await download(fileUrl, `${fileDownloadName}.${fileUrl.split('.').pop()}`)
+      await download(downloadUrl, `${downloadName}.${downloadUrl.split('.').pop()}`)
       set(item, 'loading', false)
       set(item, 'loaded', true)
     }
@@ -476,7 +498,7 @@ const startDownload = async () => {
 }
 
 const exportFileUrls = async () => {
-  const urlText = store.selectedImageList.map(e => e.fileUrl).join('\n')
+  const urlText = store.selectedImageList.map(e => e[downloadUrlKey.value] || e.fileUrl).join('\n')
   await downloadFile(`data:text/plain;charset=utf-8,${encodeURIComponent(urlText)}`, 'image-urls.txt')
 }
 

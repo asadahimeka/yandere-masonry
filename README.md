@@ -83,6 +83,12 @@ Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设
 - 进入收藏夹、人气、随机作品页面（Y 站/K 站）
 - 进入图集（Pool）页面（Y 站/K 站）
 - 本地标签黑名单
+- 设置站点 API Credentials
+- 切换 NSFW 内容显示
+- 设置图片信息流布局
+  - Masonry (等宽不等高)
+  - Grid (等宽等高)
+  - Flexbin (等高不等宽)
 
 #### 详情查看
 

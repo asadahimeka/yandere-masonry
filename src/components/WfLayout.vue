@@ -3,7 +3,7 @@
     <v-masonry v-if="isMasonry" :cols="columnCount" gutter="8px">
       <slot></slot>
     </v-masonry>
-    <div v-if="wfType === 'flexbin'" class="flexbin">
+    <div v-else class="flexbin">
       <slot></slot>
     </div>
   </div>
@@ -15,12 +15,12 @@ import store from '@/store'
 export default {
   data() {
     return {
-      wfType: localStorage.getItem('__masonryLayout') || 'masonry',
+      wfType: store.settings.masonryLayout || 'masonry',
     }
   },
   computed: {
     isMasonry() {
-      return ['masonry', 'grid'].includes(this.wfType)
+      return ['masonry', 'grid', '1'].includes(this.wfType)
     },
     wfClass() {
       return {
