@@ -1,3 +1,14 @@
+## v0.27.0
+
+- feat: 支持设置图片信息流布局
+  - Masonry (等宽不等高)
+  - Grid (等宽等高)
+  - Flexbin (等高不等宽)
+- fix: 下载列表可选择图片qingxid
+- fix: 详情弹窗修改为整屏弹出
+- fix: 图片详情样品图可使用右键复制
+- fix: 视频详情加载上/下一个按钮，样式修改
+
 ## v0.26.0
 
 - feat: 支持 atfbooru 与 aibooru
