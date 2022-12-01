@@ -8,7 +8,7 @@ import WfLayout from './components/WfLayout.vue'
 import App from './App.vue'
 
 function initApp() {
-  Vue.use(VueMasonry, { name: 'v-masonry' })
+  Vue.use(VueMasonry)
   Vue.component('WfLayout', WfLayout)
   const vuetify = installVuetify()
   const app = new Vue({

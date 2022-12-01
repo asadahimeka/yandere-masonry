@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.27.0
+// @version              0.27.1
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -474,7 +474,7 @@ var __publicField = (obj, key, value) => {
   };
   var _sfc_render$9 = function render() {
     var _vm = this, _c2 = _vm._self._c;
-    return _c2("div", { class: _vm.wfClass }, [_vm.isMasonry ? _c2("v-masonry", { attrs: { "cols": _vm.columnCount, "gutter": "8px" } }, [_vm._t("default")], 2) : _c2("div", { staticClass: "flexbin" }, [_vm._t("default")], 2)], 1);
+    return _c2("div", { class: _vm.wfClass }, [_vm.isMasonry ? _c2("masonry", { attrs: { "cols": _vm.columnCount, "gutter": "8px" } }, [_vm._t("default")], 2) : _c2("div", { staticClass: "flexbin" }, [_vm._t("default")], 2)], 1);
   };
   var _sfc_staticRenderFns$9 = [];
   var __component__$9 = /* @__PURE__ */ normalizeComponent(
@@ -3212,7 +3212,7 @@ var __publicField = (obj, key, value) => {
   });
   var _sfc_render$3 = function render() {
     var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
-    return _c2("div", [_c2("v-masonry", { attrs: { "cols": _setup.columnCount, "gutter": "8px" } }, _vm._l(_setup.pools, function(item) {
+    return _c2("div", [_c2("masonry", { attrs: { "cols": _setup.columnCount, "gutter": "8px" } }, _vm._l(_setup.pools, function(item) {
       return _c2("v-card", { key: item.id, staticClass: "mb-2" }, [_c2("v-img", { attrs: { "transition": "scroll-y-transition", "src": item.thumb, "height": "auto" } }), _c2("v-card-title", [_vm._v(_vm._s(item.name))]), _c2("v-card-subtitle", { staticClass: "pb-0" }, [_c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
         return [_c2("span", _vm._g(_vm._b({ staticClass: "d-inline-block text-truncate", staticStyle: { "max-width": "100%" } }, "span", attrs, false), on), [_vm._v(_vm._s(item.description))])];
       } }], null, true) }, [_c2("span", { staticStyle: { "display": "inline-block", "max-width": "500px" } }, [_vm._v(_vm._s(item.description))])])], 1), _c2("v-card-text", { staticClass: "pb-0" }, [_c2("v-icon", { attrs: { "small": "" } }, [_vm._v(_vm._s(_setup.mdiCalendarBlank))]), _c2("span", { staticClass: "ml-1 mr-4" }, [_vm._v(_vm._s(item.created_at))]), _c2("v-icon", { attrs: { "small": "" } }, [_vm._v(_vm._s(_setup.mdiCalendarEdit))]), _c2("span", { staticClass: "ml-1" }, [_vm._v(_vm._s(item.updated_at))])], 1), _c2("v-card-actions", [_c2("v-list-item", { staticClass: "grow" }, [_c2("v-list-item-avatar", [_c2("v-img", { staticClass: "elevation-6", attrs: { "alt": "", "src": `/data/avatars/${item.user_id}.jpg`, "lazy-src": "https://upload-bbs.mihoyo.com/upload/2022/08/13/190122060/f65e984cb2f5184ba167e461bfdeea55_8564255716639207386.png" } })], 1), _c2("v-row", { attrs: { "align": "center", "justify": "end" } }, [_c2("v-list-item-content", { staticClass: "ml-2" }, [_c2("v-list-item-title", [_c2("a", { attrs: { "href": `/pool/show/${item.id}`, "target": "_blank" } }, [_vm._v("Pool #" + _vm._s(item.id))])])], 1), _c2("v-chip", { staticClass: "mr-1" }, [_vm._v(_vm._s(item.post_count) + " \u5F20")]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
@@ -3325,7 +3325,7 @@ var __publicField = (obj, key, value) => {
   );
   var App = __component__.exports;
   function initApp() {
-    Vue__default["default"].use(VueMasonry__default["default"], { name: "v-masonry" });
+    Vue__default["default"].use(VueMasonry__default["default"]);
     Vue__default["default"].component("WfLayout", WfLayout);
     const vuetify = installVuetify();
     const app = new Vue__default["default"]({

@@ -1,8 +1,8 @@
 <template>
   <div :class="wfClass">
-    <v-masonry v-if="isMasonry" :cols="columnCount" gutter="8px">
+    <masonry v-if="isMasonry" :cols="columnCount" gutter="8px">
       <slot></slot>
-    </v-masonry>
+    </masonry>
     <div v-else class="flexbin">
       <slot></slot>
     </div>
