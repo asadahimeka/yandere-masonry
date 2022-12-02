@@ -14,7 +14,7 @@
         draggable="false"
       >
         <v-row v-show="imgLoading" class="img_detail_loading">
-          <img v-if="showPreviewThumb" :src="imgLasySrc" :width="imageSelectedWidth" alt="">
+          <img v-if="(showPreviewThumb && !scaleOn)" :src="imgLasySrc" :width="imageSelectedWidth" alt="">
           <v-progress-circular :size="100" :width="6" indeterminate color="deep-purple" />
         </v-row>
         <img
