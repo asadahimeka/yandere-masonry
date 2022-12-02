@@ -2,7 +2,7 @@
   <v-navigation-drawer v-model="store.showDrawer" class="nav_drawer" app temporary>
     <v-list-item>
       <v-list-item-avatar>
-        <img width="40" src="https://upload-bbs.mihoyo.com/upload/2022/09/07/190122060/8505ff4b535cb1487b521d73c7f71d63_865024295271530650.png" alt="">
+        <img width="40" src="https://upload-bbs.mihoyo.com/upload/2022/09/07/190122060/8505ff4b535cb1487b521d73c7f71d63_865024295271530650.png" alt="" loading="lazy">
       </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title class="title">Booru Masonry</v-list-item-title>
@@ -156,7 +156,7 @@
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-title>NSFW 开关</v-list-item-title>
+            <v-list-item-title>显示 NSFW 内容</v-list-item-title>
             <v-list-item-subtitle>包含裸露或性描写内容</v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-action>

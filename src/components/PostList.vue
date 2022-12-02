@@ -11,6 +11,7 @@
           <img
             class="post-image"
             alt=""
+            loading="lazy"
             :src="getImgSrc(image)"
             @click="showImgModal(index)"
             @contextmenu="onCtxMenu($event, image)"

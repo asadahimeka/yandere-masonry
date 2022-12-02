@@ -142,7 +142,6 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <span class="hidden-md-and-down">已选择</span>
       <span class="hidden-md-and-down ml-1 mr-1" v-text="store.selectedImageList.length"></span>
       <v-btn class="hidden-md-and-down" icon @click="selectAll">
         <v-icon v-show="isNoSelected">{{ mdiCheckboxBlankOutline }}</v-icon>

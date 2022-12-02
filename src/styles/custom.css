@@ -79,6 +79,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -90,6 +91,7 @@
 .img_detail_loading::after {
   content: '';
   position: absolute;
+  z-index: 1;
   top: 0;
   left: 0;
   width: 100%;
@@ -100,6 +102,10 @@
 .img_detail_loading .v-progress-circular {
   position: absolute;
   z-index: 10;
+}
+
+.img_detail_loading img {
+  object-fit: cover;
 }
 
 .img_scale_scroll {

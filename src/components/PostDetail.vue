@@ -13,10 +13,14 @@
         :class="{ img_scale_scroll: scaleOn, img_scale_normal: !scaleOn }"
         draggable="false"
       >
+        <v-row v-show="imgLoading" class="img_detail_loading">
+          <img v-if="showPreviewThumb" :src="imgLasySrc" :width="imageSelectedWidth" alt="">
+          <v-progress-circular :size="100" :width="6" indeterminate color="deep-purple" />
+        </v-row>
         <img
           v-if="!scaleOn"
           :src="imgSrc"
-          :width="imageSelectedWidth"
+          :width="imgLoading ? 0 : imageSelectedWidth"
           class="img_detail_sample"
           alt=""
           @click.stop="toggleToolbar"
@@ -33,10 +37,6 @@
           @load="imgLoading = false"
           @error="onScaleImgError"
         >
-        <v-row v-show="imgLoading" class="img_detail_loading">
-          <img v-if="!scaleOn" :src="imgLasySrc" :width="imageSelectedWidth" alt="">
-          <v-progress-circular :size="100" :width="6" indeterminate color="deep-purple" />
-        </v-row>
       </div>
     </div>
     <v-toolbar
@@ -322,7 +322,7 @@
       </v-tooltip>
     </v-toolbar>
     <div v-show="showImageToolbar" class="hidden-sm-and-down">
-      <div v-show="!isVideo" style="position: absolute;bottom: 12px;padding: 0 12px;">
+      <div v-show="!isVideo" style="position: absolute;z-index: 10;bottom: 12px;padding: 0 12px;">
         <v-chip
           v-show="postDetail.tags?.length"
           small
@@ -347,10 +347,10 @@
           />
         </v-chip-group>
       </div>
-      <v-btn fab dark small color="#ee888863" class="poa_left_center" @click.stop="showPrevPost">
+      <v-btn fab dark small color="#ee888863" class="poa_left_center" style="z-index: 10;" @click.stop="showPrevPost">
         <v-icon>{{ mdiChevronLeft }}</v-icon>
       </v-btn>
-      <v-btn fab dark small color="#ee888863" class="poa_right_center" @click.stop="showNextPost">
+      <v-btn fab dark small color="#ee888863" class="poa_right_center" style="z-index: 10;" @click.stop="showNextPost">
         <v-icon>{{ mdiChevronRight }}</v-icon>
       </v-btn>
     </div>
@@ -531,8 +531,13 @@ const toggleVideoShow = async () => {
   isVideoShow.value = true
 }
 
+const showPreviewThumb = ref(true)
+
 const showPrevPost = async () => {
   if (store.imageSelectedIndex == 0) return
+  if (showPreviewThumb.value) {
+    showPreviewThumb.value = false
+  }
   imgLoading.value = true
   store.imageSelectedIndex--
   isVideo.value && toggleVideoShow()
@@ -540,6 +545,9 @@ const showPrevPost = async () => {
 }
 
 const showNextPost = async () => {
+  if (showPreviewThumb.value) {
+    showPreviewThumb.value = false
+  }
   if (store.imageSelectedIndex >= store.imageList.length - 1) {
     if (store.requestState || store.requestStop) return
     await searchPosts()
@@ -592,7 +600,9 @@ const scaleImgStyle = computed(() => ({
 let clearDragEv: (() => void) | undefined
 const zoomInImg = async () => {
   scaleOn.value = true
-  imgLoading.value = true
+  if (imageSelected.value.sampleUrl) {
+    imgLoading.value = true
+  }
   await nextTick()
   clearDragEv = dragElement('.img_scale_scroll', '.img_detail_scale')
 }
@@ -620,6 +630,8 @@ watch(() => store.showImageSelected, async val => {
   } else {
     scaleOn.value = false
     postDetail.value = {}
+    await nextTick()
+    showPreviewThumb.value = true
   }
 })
 
