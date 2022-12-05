@@ -3,7 +3,7 @@
     <masonry v-if="isMasonry" :cols="columnCount" gutter="8px">
       <slot></slot>
     </masonry>
-    <div v-else class="flexbin">
+    <div v-else class="justified-container">
       <slot></slot>
     </div>
   </div>

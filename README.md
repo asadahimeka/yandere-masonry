@@ -88,7 +88,7 @@ Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设
 - 设置图片信息流布局
   - Masonry (等宽不等高)
   - Grid (等宽等高)
-  - Flexbin (等高不等宽)
+  - Flexbin (适高不等宽)
 
 #### 详情查看
 

@@ -57,13 +57,16 @@ const wfTypeActions: Record<string, Function> = {
       img?.classList.add('mm-masonry__img')
     }
   },
-  flexbin: (list: HTMLElement) => {
-    list.classList.add('flexbin')
+  justified: (list: HTMLElement) => {
+    list.classList.add('justified-container')
     for (const item of list.children) {
       const img = item.querySelector('img')
-      item.setAttribute('style', 'width:auto;margin:0 10px 10px 0;vertical-align:top;')
-      item.classList.add('flexbin-item')
-      img?.classList.add('flexbin-img')
+      const w = Number(img?.getAttribute('width'))
+      const h = Number(img?.getAttribute('height'))
+      const width = w * 300 / h
+      item.setAttribute('style', `width:${width}px;flex-grow:${width};margin:0 10px 10px 0;vertical-align:top;`)
+      item.querySelector('.thumb')?.setAttribute('style', `padding-bottom:${h / w * 101}%`)
+      item.classList.add('justified-item')
     }
   },
 }

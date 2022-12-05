@@ -5,9 +5,10 @@
         v-for="(image, index) in store.imageList"
         :key="index"
         class="mb-2 posts-image-card"
-        :style="maxHeightStyle"
+        :style="store.settings.masonryLayout === 'flexbin' ? `width:${image.width * 300 / image.height}px;flex-grow:${image.width * 300 / image.height}` : maxHeightStyle"
       >
-        <div v-if="store.settings.masonryLayout === 'flexbin'">
+        <template v-if="store.settings.masonryLayout === 'flexbin'">
+          <div :style="`padding-bottom:${image.height / image.width * 100}%`"></div>
           <img
             class="post-image"
             alt=""
@@ -17,7 +18,7 @@
             @contextmenu="onCtxMenu($event, image)"
             @error="onImageLoadError(image.previewUrl || '')"
           >
-        </div>
+        </template>
         <v-img
           v-else
           transition="scroll-y-transition"
