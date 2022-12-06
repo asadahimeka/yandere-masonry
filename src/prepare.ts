@@ -80,6 +80,7 @@ async function initLayout() {
 }
 
 function addWfTypeSelect() {
+  if (!location.href.includes('yande.re/post')) return
   const params = new URLSearchParams(location.search)
   if (params.get('_wf')) return
   const type = localStorage.getItem('__wfType') || 'masonry'
