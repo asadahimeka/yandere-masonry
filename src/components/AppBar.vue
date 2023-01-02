@@ -150,7 +150,7 @@
       </v-btn>
       <v-menu dense offset-y :close-on-content-click="false">
         <template #activator="{ on, attrs }">
-          <v-btn class="hidden-md-and-down" title="下载列表" icon v-bind="attrs" v-on="on">
+          <v-btn title="下载列表" icon v-bind="attrs" v-on="on">
             <v-icon>{{ mdiDownload }}</v-icon>
           </v-btn>
         </template>
