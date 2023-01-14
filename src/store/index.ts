@@ -18,6 +18,7 @@ interface AppState {
   showImageSelected: boolean
   imageSelectedIndex: number
   showDrawer: boolean
+  showSettings: boolean
   showFab: boolean
   currentPage: number
   blacklist: string[]
@@ -46,6 +47,7 @@ const store = Vue.observable<AppState>({
   showImageSelected: false,
   imageSelectedIndex: 0,
   showDrawer: false,
+  showSettings: false,
   showFab: false,
   currentPage: 1,
   imageList: [],

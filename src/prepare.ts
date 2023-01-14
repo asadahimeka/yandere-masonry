@@ -240,7 +240,7 @@ function replaceHead() {
     ${location.href.includes('http://behoimi.org') ? '' : '<meta name="referrer" content="no-referrer">'}
     <title>${location.host.toUpperCase()} Masonry</title>
     <link rel="stylesheet" href="https://unpkg.com/normalize.css@8.0.1/normalize.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
+    <link rel="stylesheet" href="https://fonts.loli.net/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://unpkg.com/vuetify@2.6.12/dist/vuetify.min.css">
     <style>${customStyle}</style>
   `

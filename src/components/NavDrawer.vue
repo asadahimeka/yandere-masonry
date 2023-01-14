@@ -67,177 +67,40 @@
             <v-list-item-title class="title">站点列表</v-list-item-title>
           </v-list-item-content>
         </template>
-        <v-list-item v-for="link in siteLinks" :key="link" :href="dealLink(link)">
-          <v-list-item-icon class="mr-2">
-            <v-icon>{{ mdiArrowRightCircleOutline }}</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>{{ link.toUpperCase() }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item link @click="openLink('https://www.nanoka.top/illust/pixiv/')">
-          <v-list-item-icon class="mr-2">
-            <v-icon>{{ mdiArrowRightCircleOutline }}</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>Pixiv Ranking</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item link @click="openLink('https://pixiv.kanata.ml')">
-          <v-list-item-icon class="mr-2">
-            <v-icon>{{ mdiArrowRightCircleOutline }}</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>Pixiv Viewer</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+        <v-list-item-group :value="actSiteIndex" color="primary">
+          <v-list-item v-for="link in siteLinks" :key="link" :href="dealLink(link)">
+            <v-list-item-icon class="mr-2">
+              <img :src="dealFavicon(link)" loading="lazy" class="site_icon">
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>{{ link.toUpperCase() }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item link @click="openLink('https://www.nanoka.top/illust/pixiv/')">
+            <v-list-item-icon class="mr-2">
+              <img src="https://www.nanoka.top/images/favicon.ico" loading="lazy" class="site_icon">
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Pixiv Ranking</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item link @click="openLink('https://pixiv.kanata.ml')">
+            <v-list-item-icon class="mr-2">
+              <img src="https://pixiv.kanata.ml/favicon.ico" loading="lazy" class="site_icon">
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Pixiv Viewer</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
       </v-list-group>
     </v-list>
     <v-list dense nav>
-      <v-list-group :value="true" no-action>
-        <template #activator>
-          <v-list-item-content>
-            <v-list-item-title class="title">设置</v-list-item-title>
-          </v-list-item-content>
-        </template>
-
-        <v-list-item class="mb-0">
-          <v-list-item-content>
-            <v-list-item-title>本地标签黑名单</v-list-item-title>
-            <v-list-item-subtitle>下方输入标签，回车添加</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item class="pa-0">
-          <v-list-item-content class="pt-0">
-            <v-combobox
-              v-model="store.blacklist"
-              :append-icon="null"
-              :items="[]"
-              class="blacklist_combobox ma-0 pa-0"
-              hide-details
-              hide-no-data
-              multiple
-              outlined
-              dense
-              chips
-              @change="onComboboxChange"
-            >
-              <template #selection="{ item }">
-                <v-chip
-                  label
-                  small
-                  outlined
-                  close
-                  @click:close="removeTagFromBlacklist(item)"
-                >
-                  <span>{{ item }}</span>
-                </v-chip>
-              </template>
-            </v-combobox>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item class="mb-0">
-          <v-list-item-content>
-            <v-list-item-title>当前站点 API Credentials</v-list-item-title>
-            <v-list-item-subtitle>形如: &api_key=xx&user_id=1</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item class="pa-0">
-          <v-list-item-content class="pt-0">
-            <v-text-field
-              v-model="store.settings.credentialQuery"
-              class="blacklist_combobox ma-0 pa-0"
-              hide-details
-              outlined
-              dense
-              @change="onCredentialQueryChange"
-            />
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title>显示 NSFW 内容</v-list-item-title>
-            <v-list-item-subtitle>包含裸露或性描写内容</v-list-item-subtitle>
-          </v-list-item-content>
-          <v-list-item-action>
-            <v-switch
-              v-model="nsfwValue"
-              color="deep-orange darken-1"
-              @change="onNSFWSwitchChange"
-            />
-          </v-list-item-action>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title>监听滚轮事件</v-list-item-title>
-            <v-list-item-subtitle>详情弹窗滚轮切换图片</v-list-item-subtitle>
-          </v-list-item-content>
-          <v-list-item-action>
-            <v-switch
-              v-model="store.isListenWheelEvent"
-              @change="onWheelSwitchChange"
-            />
-          </v-list-item-action>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title>监听键盘事件</v-list-item-title>
-            <v-list-item-subtitle>详情A/D/←/→切换图片</v-list-item-subtitle>
-          </v-list-item-content>
-          <v-list-item-action>
-            <v-switch
-              v-model="store.settings.isListenKeyupEvent"
-              @change="onKeyupSwitchChange"
-            />
-          </v-list-item-action>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title>详情图片预加载</v-list-item-title>
-            <v-list-item-subtitle>预加载下一张样品图/原图</v-list-item-subtitle>
-          </v-list-item-content>
-          <v-list-item-action>
-            <v-switch
-              v-model="store.isFullImgPreload"
-              @change="onImgPreloadChange"
-            />
-          </v-list-item-action>
-        </v-list-item>
-        <v-list-item v-if="store.isFullImgPreload">
-          <v-list-item-content>
-            <v-list-item-title>图片预加载数量</v-list-item-title>
-            <v-list-item-subtitle>实验性/不保证可用</v-list-item-subtitle>
-          </v-list-item-content>
-          <v-list-item-action class="pl-1">
-            <input
-              :value="store.imgPreloadNum"
-              class="text-center rounded preload_num"
-              type="number"
-              min="0"
-              max="5"
-              @blur="onPreloadNumBlur"
-            >
-          </v-list-item-action>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title>图片列表布局</v-list-item-title>
-            <v-list-item-subtitle>masonry/grid/flexbin</v-list-item-subtitle>
-          </v-list-item-content>
-          <v-list-item-action>
-            <v-menu transition="slide-y-transition" offset-y>
-              <template #activator="{ on, attrs }">
-                <v-btn small v-bind="attrs" style="text-transform:none" v-on="on">{{ store.settings.masonryLayout }}</v-btn>
-              </template>
-              <v-list dense>
-                <v-list-item v-for="(val, key) in ['masonry', 'grid', 'flexbin']" :key="key" dense @click="onMasonryLayoutChange(val)">
-                  <v-list-item-title v-text="val" />
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </v-list-item-action>
-        </v-list-item>
-      </v-list-group>
+      <v-list-item link @click="showSettingDrawer()">
+        <v-list-item-content>
+          <v-list-item-title class="title">设置</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
     </v-list>
     <v-list dense nav>
       <v-list-group :value="true" no-action>
@@ -291,7 +154,6 @@
 <script setup lang="ts">
 import {
   mdiAccount,
-  mdiArrowRightCircleOutline,
   mdiFire,
   mdiGithub,
   mdiImageMultiple,
@@ -301,7 +163,7 @@ import {
   mdiStar,
   mdiWeb,
 } from '@mdi/js'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { siteDomains } from '@/api/booru'
 import { getUsername } from '@/api/moebooru'
 import store from '@/store'
@@ -320,62 +182,19 @@ const dealLink = (link: string) => {
   return `https://${link}?_wf=1`
 }
 
-const onComboboxChange = (val: string[]) => {
-  localStorage.setItem('__blacklist', val.join(','))
+const dealFavicon = (link: string) => {
+  if (link.includes('konachan')) return 'https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/cbd0b71ead30e0777e5b023170ba415c_4819570566325089051.png'
+  if (link.includes('behoimi')) return 'https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/d3b97f45046795c87c12ad5704074f32_1333245617164582614.png'
+  return `https://${link}/favicon.ico`
 }
 
-const removeTagFromBlacklist = (item: string) => {
-  store.blacklist.splice(store.blacklist.indexOf(item), 1)
-  localStorage.setItem('__blacklist', store.blacklist.join(','))
-}
+const actSiteIndex = computed(() => {
+  return siteDomains.findIndex(e => location.host.includes(e))
+})
 
-const nsfwValue = ref(store.showNSFWContents)
-const setNSFWShow = (val: string) => {
-  const flag = val !== '0'
-  store.showNSFWContents = flag
-  nsfwValue.value = flag
-  localStorage.setItem('__showNSFW', val)
-  location.reload()
-}
-const onNSFWSwitchChange = (val: any) => {
-  setNSFWShow(val ? '1' : '0')
-}
-
-const onWheelSwitchChange = (val: any) => {
-  localStorage.setItem('__listenWheel', val ? '1' : '0')
-  location.reload()
-}
-
-const onKeyupSwitchChange = (val: any) => {
-  localStorage.setItem('__listenKeyup', val ? '1' : '0')
-  location.reload()
-}
-
-const onImgPreloadChange = (val: any) => {
-  localStorage.setItem('__fullImgPreload', val ? '1' : '')
-  location.reload()
-}
-
-const onMasonryLayoutChange = (val: any) => {
-  localStorage.setItem('__masonryLayout', val)
-  location.reload()
-}
-
-const onCredentialQueryChange = (val: any) => {
-  localStorage.setItem('__credentialQuery', val)
-}
-
-const onPreloadNumBlur = (ev: Event) => {
-  const input = ev.target as HTMLInputElement
-  if (input.validationMessage) {
-    input.value = '1'
-    store.imgPreloadNum = 1
-    localStorage.setItem('__imgPreloadNum', '1')
-  } else {
-    const num = Number(input.value) || 1
-    store.imgPreloadNum = num
-    localStorage.setItem('__imgPreloadNum', num.toString())
-  }
+const showSettingDrawer = () => {
+  store.showDrawer = false
+  store.showSettings = true
 }
 
 onMounted(async () => {

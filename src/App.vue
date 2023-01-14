@@ -4,6 +4,7 @@
     <NavDrawer />
     <v-main app>
       <AppContainer />
+      <SettingsDrawer />
     </v-main>
   </v-app>
 </template>
@@ -15,6 +16,7 @@
 import { onMounted } from 'vue'
 import AppBar from './components/AppBar.vue'
 import NavDrawer from './components/NavDrawer.vue'
+import SettingsDrawer from './components/SettingsDrawer.vue'
 import AppContainer from './components/AppContainer.vue'
 import { useVuetify } from './plugins/vuetify'
 

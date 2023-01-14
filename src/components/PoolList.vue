@@ -60,9 +60,9 @@
       </v-card>
     </masonry>
     <div class="d-flex justify-center">
-      <v-btn v-show="store.requestState" color="#ee8888" text>加载中...</v-btn>
-      <v-btn v-show="showLoadMore" color="#ee8888" text @click="loadData()">加载更多</v-btn>
-      <v-btn v-show="showNoMore" color="#ee8888" text>没了</v-btn>
+      <v-btn v-show="store.requestState" color="primary" text>加载中...</v-btn>
+      <v-btn v-show="showLoadMore" color="primary" text @click="loadData()">加载更多</v-btn>
+      <v-btn v-show="showNoMore" color="primary" text>没了</v-btn>
     </div>
   </div>
 </template>

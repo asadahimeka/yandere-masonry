@@ -15,7 +15,7 @@ function installVuetify() {
       iconfont: 'mdiSvg',
     },
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         light: {
           primary: '#8E24AA',

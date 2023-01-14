@@ -1,6 +1,6 @@
 <template>
-  <v-app-bar app dense>
-    <v-app-bar-nav-icon @click="store.toggleDrawer" />
+  <v-app-bar app dense flat :elevation="2">
+    <v-app-bar-nav-icon @click="store.toggleDrawer()" />
     <div v-if="store.isYKSite && showPopAction" style="display:flex" class="align-center hidden-sm-and-down">
       <v-toolbar-title class="mr-4" v-text="popTitle" />
       <v-switch v-model="isPopSearchByDate" hide-details :label="isPopSearchByDate ? '按日期' : '最近人气'" />
@@ -129,20 +129,13 @@
     </div>
     <v-spacer />
     <template v-if="store.showPostList">
-      <v-menu v-if="store.settings.masonryLayout !== 'flexbin'" transition="slide-y-transition" offset-y>
-        <template #activator="{ on, attrs }">
-          <v-btn small class="mr-6" v-bind="attrs" v-on="on">
-            <v-icon left>{{ mdiViewDashboardVariant }}</v-icon>
-            <span style="margin-bottom:2px">{{ store.selectedColumn === '0' ? '自动' : `${store.selectedColumn}列` }}</span>
-          </v-btn>
-        </template>
-        <v-list dense>
-          <v-list-item v-for="(val, key) in cols" :key="key" dense @click="selColumn(key)">
-            <v-list-item-title v-text="val" />
-          </v-list-item>
-        </v-list>
-      </v-menu>
-      <span class="hidden-md-and-down ml-1 mr-1" v-text="store.selectedImageList.length"></span>
+      <span
+        v-show="store.selectedImageList.length"
+        class="hidden-md-and-down ml-1 mr-1"
+        style="margin-top: 2px;"
+      >
+        {{ store.selectedImageList.length }}
+      </span>
       <v-btn class="hidden-md-and-down" icon @click="selectAll">
         <v-icon v-show="isNoSelected">{{ mdiCheckboxBlankOutline }}</v-icon>
         <v-icon v-show="isOneOrMoreSelected">{{ mdiCheckboxIntermediate }}</v-icon>
@@ -206,6 +199,9 @@
     <v-btn title="切换全屏" icon @click="toggleFullscreen">
       <v-icon :size="30">{{ store.isFullscreen ? mdiFullscreenExit : mdiFullscreen }}</v-icon>
     </v-btn>
+    <v-btn title="设置" icon @click="store.showSettings = true">
+      <v-icon :size="22">{{ mdiCog }}</v-icon>
+    </v-btn>
     <v-btn title="退出瀑布流模式" icon @click="exitMasonry">
       <v-icon>{{ mdiLocationExit }}</v-icon>
     </v-btn>
@@ -235,6 +231,7 @@ import {
   mdiCheckboxMarked,
   mdiChevronLeft,
   mdiChevronRight,
+  mdiCog,
   mdiDelete,
   mdiDownload,
   mdiFileClockOutline,
@@ -247,7 +244,6 @@ import {
   mdiMagnify,
   mdiShuffle,
   mdiStar,
-  mdiViewDashboardVariant,
 } from '@mdi/js'
 import { computed, onMounted, reactive, ref, set, watch } from 'vue'
 import { useVuetify } from '@/plugins/vuetify'
@@ -259,16 +255,6 @@ import { getRecentTags, getUsername, isPopularPage, searchTagsByName } from '@/a
 const title = computed(() => {
   return `${location.host.toUpperCase()} - ${store.imageList.length} Posts - Page `
 })
-
-const cols = ref([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20].reduce<Record<string, string>>((acc, cur) => {
-  acc[cur] = cur === 0 ? '自动' : `${cur} 列`
-  return acc
-}, {}))
-
-const selColumn = (val: string) => {
-  store.selectedColumn = val
-  localStorage.setItem('__masonry_col', val)
-}
 
 const isNoSelected = computed(() => store.selectedImageList.length === 0)
 const isOneOrMoreSelected = computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length < store.imageList.length)
@@ -476,9 +462,20 @@ const downloadNameMap: Record<ImgUrlKeys, ImgNameKeys> = {
 const downloadNameKey = computed(() => {
   return downloadNameMap[downloadUrlKey.value] || 'fileDownloadName'
 })
+const isGelbooru = location.host.includes('gelbooru')
 const startDownload = async () => {
   try {
     const len = store.selectedImageList.length
+    if (isGelbooru) {
+      for (let index = 0; index < len; index++) {
+        const item = store.selectedImageList[index]
+        const downloadUrl = item[downloadUrlKey.value] || item.fileUrl
+        const downloadName = item[downloadNameKey.value]
+        if (!downloadUrl) continue
+        download(downloadUrl, `${downloadName}.${downloadUrl.split('.').pop()}`)
+      }
+      return
+    }
     for (let index = 0; index < len; index++) {
       const item = store.selectedImageList[index]
       const downloadUrl = item[downloadUrlKey.value] || item.fileUrl

@@ -5,7 +5,7 @@
         <DPlayer
           v-if="isVideoShow"
           :style="`width: ${imageSelectedWidth > imageSelected.width ? imageSelected.width : imageSelectedWidth}px`"
-          :options="{ theme: '#ee8888', autoplay: true, loop: true, video: { url: imageSelected.fileUrl } }"
+          :options="{ theme: '#8E24AA', autoplay: true, loop: true, video: { url: imageSelected.fileUrl } }"
         />
       </template>
       <div
@@ -41,6 +41,7 @@
     </div>
     <v-toolbar
       v-show="showImageToolbar && scaleOn && !isVideo"
+      class="img_detail_btn_color"
       style="position:absolute;top:0;width:100%;z-index:10;"
       color="transparent"
       height="auto"
@@ -51,9 +52,8 @@
         <template #activator="{ on, attrs }">
           <v-btn
             fab
-            dark
             small
-            color="#ee8888b3"
+            color="primary"
             v-bind="attrs"
             class="mr-1 hidden-sm-and-down"
             v-on="on"
@@ -68,9 +68,8 @@
         <template #activator="{ on, attrs }">
           <v-btn
             fab
-            dark
             small
-            color="#ee8888b3"
+            color="primary"
             class="mr-1"
             v-bind="attrs"
             v-on="on"
@@ -85,9 +84,8 @@
         <template #activator="{ on, attrs }">
           <v-btn
             fab
-            dark
             small
-            color="#ee8888b3"
+            color="primary"
             class="mr-1"
             v-bind="attrs"
             v-on="on"
@@ -102,9 +100,8 @@
         <template #activator="{ on, attrs }">
           <v-btn
             fab
-            dark
             small
-            color="#ee8888b3"
+            color="primary"
             class="mr-1"
             v-bind="attrs"
             v-on="on"
@@ -119,9 +116,8 @@
         <template #activator="{ on, attrs }">
           <v-btn
             fab
-            dark
             small
-            color="#ee8888b3"
+            color="primary"
             v-bind="attrs"
             class="mr-1"
             v-on="on"
@@ -136,9 +132,8 @@
         <template #activator="{ on, attrs }">
           <v-btn
             fab
-            dark
             small
-            color="#ee8888b3"
+            color="primary"
             class="mr-1"
             v-bind="attrs"
             v-on="on"
@@ -153,9 +148,8 @@
         <template #activator="{ on, attrs }">
           <v-btn
             fab
-            dark
             small
-            color="#ee8888b3"
+            color="primary"
             class="mr-1 hidden-sm-and-down"
             v-bind="attrs"
             v-on="on"
@@ -168,7 +162,7 @@
       </v-tooltip>
       <v-tooltip bottom>
         <template #activator="{ on, attrs }">
-          <v-btn fab dark small color="#ee8888b3" v-bind="attrs" v-on="on" @click.stop="close">
+          <v-btn fab small color="primary" v-bind="attrs" v-on="on" @click.stop="close">
             <v-icon>{{ mdiClose }}</v-icon>
           </v-btn>
         </template>
@@ -177,6 +171,7 @@
     </v-toolbar>
     <v-toolbar
       v-show="showImageToolbar && !scaleOn"
+      class="img_detail_btn_color"
       style="position:absolute;top:0;width:100%;z-index:10;"
       color="transparent"
       height="auto"
@@ -184,8 +179,7 @@
     >
       <v-chip
         small
-        color="#ee8888b3"
-        text-color="#ffffff"
+        color="primary"
         @click.stop="toDetailPage"
         v-text="`${imageSelected.rating?.toUpperCase()} ${imageSelected.id}`"
       />
@@ -194,9 +188,8 @@
         <template #activator="{ on, attrs }">
           <v-btn
             fab
-            dark
             small
-            color="#ee8888b3"
+            color="primary"
             v-bind="attrs"
             class="mr-1"
             v-on="on"
@@ -211,9 +204,8 @@
         <template #activator="{ on, attrs }">
           <v-btn
             fab
-            dark
             small
-            color="#ee8888b3"
+            color="primary"
             v-bind="attrs"
             class="mr-1"
             v-on="on"
@@ -228,9 +220,8 @@
         <template #activator="{ on, attrs }">
           <v-btn
             fab
-            dark
             small
-            color="#ee8888b3"
+            color="primary"
             v-bind="attrs"
             class="mr-1"
             v-on="on"
@@ -245,9 +236,8 @@
         <template #activator="{ on, attrs }">
           <v-btn
             fab
-            dark
             small
-            color="#ee8888b3"
+            color="primary"
             class="mr-1"
             v-bind="attrs"
             v-on="on"
@@ -263,9 +253,8 @@
           <v-btn
             v-show="!downloading"
             fab
-            dark
             small
-            color="#ee8888b3"
+            color="primary"
             class="mr-1"
             v-bind="attrs"
             v-on="on"
@@ -294,14 +283,13 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-progress-circular v-show="downloading" indeterminate class="ml-1 mr-2" color="#ee8888b3" />
+      <v-progress-circular v-show="downloading" indeterminate class="ml-1 mr-2" color="primary" />
       <v-tooltip bottom>
         <template #activator="{ on, attrs }">
           <v-btn
             fab
-            dark
             small
-            color="#ee8888b3"
+            color="primary"
             class="mr-1"
             v-bind="attrs"
             v-on="on"
@@ -314,21 +302,20 @@
       </v-tooltip>
       <v-tooltip bottom>
         <template #activator="{ on, attrs }">
-          <v-btn fab dark small color="#ee8888b3" v-bind="attrs" v-on="on" @click.stop="close">
+          <v-btn fab small color="primary" v-bind="attrs" v-on="on" @click.stop="close">
             <v-icon>{{ mdiClose }}</v-icon>
           </v-btn>
         </template>
         <span>关闭</span>
       </v-tooltip>
     </v-toolbar>
-    <div v-show="showImageToolbar" class="hidden-sm-and-down">
+    <div v-show="showImageToolbar" class="img_detail_btn_color hidden-sm-and-down">
       <div v-show="!isVideo" style="position: absolute;z-index: 10;bottom: 12px;padding: 0 12px;">
         <v-chip
           v-show="postDetail.tags?.length"
           small
           class="mr-1"
-          color="#ee8888b3"
-          text-color="#ffffff"
+          color="primary"
           @click.stop="toggleTagsShow()"
         >
           <v-icon left>{{ mdiTagMultiple }}</v-icon>
@@ -347,10 +334,10 @@
           />
         </v-chip-group>
       </div>
-      <v-btn fab dark small color="#ee888863" class="poa_left_center" style="z-index: 10;" @click.stop="showPrevPost">
+      <v-btn fab small color="primary" class="poa_left_center" style="z-index: 10;" @click.stop="showPrevPost">
         <v-icon>{{ mdiChevronLeft }}</v-icon>
       </v-btn>
-      <v-btn fab dark small color="#ee888863" class="poa_right_center" style="z-index: 10;" @click.stop="showNextPost">
+      <v-btn fab small color="primary" class="poa_right_center" style="z-index: 10;" @click.stop="showNextPost">
         <v-icon>{{ mdiChevronRight }}</v-icon>
       </v-btn>
     </div>
@@ -448,13 +435,18 @@ const toSourcePage = () => {
 
 const download = async (url: string | null, name: string) => {
   if (!url) return
+  if (location.host.includes('gelbooru')) {
+    setTimeout(() => {
+      downloading.value = false
+    }, 1000)
+  }
   try {
     downloading.value = true
     await downloadFile(url, name)
-  } catch (error) {
-    showMsg({ msg: `下载出错: ${error}`, type: 'error' })
-  } finally {
     downloading.value = false
+  } catch (error) {
+    downloading.value = false
+    showMsg({ msg: `下载出错: ${error}`, type: 'error' })
   }
 }
 
@@ -495,7 +487,7 @@ const setPostDetail = async () => {
       tags: imageSelected.value.tags.map(e => ({
         tag: e,
         tagText: e,
-        color: '#E87A90cc',
+        color: '#8F77B5',
         type: 'general',
       })),
     }

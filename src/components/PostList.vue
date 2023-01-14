@@ -49,13 +49,13 @@
       </v-card>
     </wf-layout>
     <div class="d-flex justify-center">
-      <v-btn v-show="store.requestState" color="#ee8888" text>
+      <v-btn v-show="store.requestState" color="primary" text>
         加载中...
       </v-btn>
-      <v-btn v-show="showLoadMore" color="#ee8888" text @click="searchPosts()">
+      <v-btn v-show="showLoadMore" color="primary" text @click="searchPosts()">
         加载更多
       </v-btn>
-      <v-btn v-show="showNoMore" color="#ee8888" text>
+      <v-btn v-show="showNoMore" color="primary" text>
         下面没有了...
       </v-btn>
     </div>
