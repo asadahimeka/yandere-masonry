@@ -69,7 +69,7 @@ Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设
 - 打开侧栏
 - 加载指定页数
 - 加载收藏夹、人气、随机作品（Y 站/K 站）
-- 加载图集（Pool）列表
+- 加载图集（Pool）列表（Y 站/K 站）
 - 按标签搜索作品
 - 瀑布流显示列数切换，列数选择非自动且列数小于 6 时图片会以 sample_url （即点击详情的大小） 展示。
 - 批量选择
@@ -88,7 +88,7 @@ Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设
 - 设置图片信息流布局
   - Masonry (等宽不等高)
   - Grid (等宽等高)
-  - Flexbin (适高不等宽)
+  - Justified (适高不等宽)
 
 #### 详情查看
 
@@ -121,13 +121,13 @@ https://konachan.net
 
 瀑布流支持的 Booru 站如下：
 
-https://danbooru.donmai.us
+https://yande.re
 
 https://konachan.com
 
 https://konachan.net
 
-https://yande.re
+https://danbooru.donmai.us
 
 https://gelbooru.com
 
@@ -175,11 +175,9 @@ https://aibooru.online
 
 ![](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/8dccc28bf99106aaab984feb383d4c1f_939382269553345713.png)
 
-## Sponsor / Donate
+## Sponsors
 
-访问 https://sponsors.nanoka.top
-
-赞助列表 https://sponsors.nanoka.top/account
+赞助列表: https://sponsors.nanoka.top/account
 
 ## Developing
 
@@ -209,7 +207,7 @@ You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/
 
 ## Credits
 
-Modified from coderzhaoziwei/yande-re-chinese-patch
+Modified from [coderzhaoziwei/yande-re-chinese-patch](https://github.com/coderzhaoziwei/yande-re-chinese-patch)
 
 [Booru Search API](https://github.com/asadahimeka/booru-search) modified from [AtoraSuunva/booru](https://github.com/AtoraSuunva/booru)
 
@@ -218,3 +216,5 @@ Modified from coderzhaoziwei/yande-re-chinese-patch
 Licensed under the [MIT](https://github.com/asadahimeka/yandere-masonry/blob/main/LICENSE) license
 
 Copyright © 2022 Yumine Sakura
+
+<p><img src="https://api.moedog.org/count/@asadahimeka-yandere-masonry-github" alt="yandere-masonry"></p>

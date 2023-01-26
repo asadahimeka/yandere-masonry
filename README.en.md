@@ -10,11 +10,29 @@
 
 [中文](https://github.com/asadahimeka/yandere-masonry/blob/main/readme.md) | English
 
-Yande.re/Konachan Thumbnail Zoom & Double Click to Next Page & Waterfall Browse
+Yande.re/Konachan Thumbnail Zoom & Double Click to Next Page & Waterfall Browsing
 
-*For questions or suggestions please go to GitHub [feedback](https://github.com/asadahimeka/yandere-masonry/issues)*
+Changelog see [CHANGELOG.md](https://github.com/asadahimeka/yandere-masonry/blob/main/CHANGELOG.md)
+
+*For questions or suggestions please go to GitHub [Issues](https://github.com/asadahimeka/yandere-masonry/issues)*
 
 Build with [vite](https://vitejs.dev) & [vite-plugin-tm-userscript](https://github.com/asadahimeka/vite-plugin-tm-userscript)
+
+## Install
+
+How to install the userscript manager plugin is not repeated, you can refer to [Greasy Fork](https://greasyfork.org) homepage tips to install the browser plugin.
+
+Greasy Fork: [Click to install](https://greasyfork.org/zh-CN/scripts/444885)
+
+Sleazy Fork: [Click to install](https://sleazyfork.org/scripts/444885)
+
+GitHub Raw：[Click to install](https://github.com/asadahimeka/yandere-masonry/raw/main/dist/yandere-masonry.user.js)
+
+Web Preview：[Click to view](https://booru.vercel.app)
+
+## Tips
+
+Please note that the application interface language in waterfall mode is Chinese. And i18n support is working in progress.
 
 ## Features
 
@@ -26,13 +44,56 @@ Enlarge the thumbnail of the list page, currently compatible with yande.re and K
 
 Double-click any area on the left side of the page to enter the previous page, double-click any area on the right side of the page to enter the next page, currently compatible with yande.re and Konachan
 
+### Visited marking
+
+A horizontal line will be marked below the image that has been clicked on the details page, using the :visited feature of the `<a>` tag, which will expire after clearing the browser cache, currently compatible with yande.re and Konachan
+
 ### Waterfall mode
 
 Click the upper right button to enter waterfall mode
 
-### Output Download Address
+#### Output Download Address
 
 In waterfall mode, you can use the `输出下载地址` function to save the image address TXT and then use Thunder, IDM, wget, etc. to download in batches, see https://github.com/FoXZilla/Pxer/issues/8
+
+#### Topbar action
+
+- Open sidebar
+- Load specified number of pages
+- Load favorites, popular, random posts (yande.re / Konachan)
+- Load pools (yande.re / Konachan)
+- Search posts by tags
+- Waterfall display column toggle, if the number of columns is selected non-automatically and the number of columns is less than 6, the images will be displayed as sample_url (i.e. the size of the clicked details).
+- Batch selection
+- View download list
+- Toggle dark mode
+- Exit waterfall mode
+
+#### Sidebar action
+
+- Site switching, see below for supported sites
+- Go to Favorites, Popular, Random posts page (yande.re / Konachan)
+- Go to the Pool page (yande.re / Konachan)
+- Local tag blacklist
+- Set site API Credentials
+- Toggle NSFW content display
+- Set image flow layout
+  - Masonry (equal width and not equal height)
+  - Grid (equal width and height)
+  - Justified (fit height and not equal width)
+
+#### Details View
+
+Click on the thumbnail to view the details, and the following actions can be performed
+
+- Add to favorites (yande.re / Konachan)
+- Open detail page
+- Open source link
+- View original image
+- Download / Add to download list
+- Open tags page
+- Click on the image to toggle button and tags display
+- When viewing the original image you can use the mouse to drag and drop the image itself to move it
 
 ### Site Support
 
@@ -42,43 +103,47 @@ In waterfall mode, you can use the `输出下载地址` function to save the ima
 >
 > This script is mainly for the convenience of image browsing. Other functions such as downloading are simply supported, and are not guaranteed to be fully available. In addition, there is a situation where the image list of the origin site page is inconsistent with the list returned by the API, please be aware
 
-The sites supported by thumbnail enlargement and double-click page turning are as follows:
+The supported sites for thumbnail enlargement and double-click page flip are as follows:
 
-https://yande.re/
+https://yande.re
 
-https://konachan.com/
+https://konachan.com
 
-https://konachan.net/
+https://konachan.net
 
-The Booru stations supported by Waterfall are as follows:
+The supported booru sites for waterfall layout are as follows:
 
-https://danbooru.donmai.us/
+https://yande.re
 
-https://konachan.com/
+https://konachan.com
 
-https://konachan.net/
+https://konachan.net
 
-https://yande.re/
+https://danbooru.donmai.us
 
-https://gelbooru.com/
+https://gelbooru.com
 
-https://rule34.xxx/
+https://rule34.xxx
 
-https://lolibooru.moe/
+https://lolibooru.moe
 
-https://www.sakugabooru.com/
+https://www.sakugabooru.com
 
-http://behoimi.org/
+http://behoimi.org (3dbooru)
 
-https://safebooru.org/
+https://safebooru.org
 
-https://tbib.org/
+https://tbib.org
 
-https://xbooru.com/
+https://xbooru.com
 
-https://rule34.paheal.net/
+https://rule34.paheal.net
 
-https://realbooru.com/
+https://realbooru.com
+
+https://booru.allthefallen.moe
+
+https://aibooru.online
 
 ## Screenshots
 
@@ -88,6 +153,10 @@ https://realbooru.com/
 ![](https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/232674c7673d1c05a2e8efb028304067_7491959587592803223.png)
 ![](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/7eec96d7c629bc30ff4b1942838d9ea2_7197279808091047211.png)
 ![](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/8dccc28bf99106aaab984feb383d4c1f_939382269553345713.png)
+
+## Sponsors
+
+Sponsors list: https://sponsors.nanoka.top/account
 
 ## Developing
 
@@ -115,7 +184,7 @@ You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/
 
 ## Credits
 
-Modified from coderzhaoziwei/yande-re-chinese-patch
+Modified from [coderzhaoziwei/yande-re-chinese-patch](https://github.com/coderzhaoziwei/yande-re-chinese-patch)
 
 [Booru Search API](https://github.com/asadahimeka/booru-search) modified from [AtoraSuunva/booru](https://github.com/AtoraSuunva/booru)
 
@@ -124,3 +193,5 @@ Modified from coderzhaoziwei/yande-re-chinese-patch
 Licensed under the [MIT](https://github.com/asadahimeka/yandere-masonry/blob/main/LICENSE) license
 
 Copyright © 2022 Yumine Sakura
+
+<p><img src="https://api.moedog.org/count/@asadahimeka-yandere-masonry-github-en" alt="yandere-masonry"></p>
