@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.28.0
+// @version              0.28.1
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -391,6 +391,7 @@ var __publicField = (obj, key, value) => {
     addToSelectedList(item) {
       if (store.selectedImageList.some((e) => e.id === item.id))
         return;
+      Object.assign(item, { fileNameWithTags: `${location.hostname} ${item.id} ${item.tags.join(" ")}` });
       store.selectedImageList.push(item);
     }
   });
@@ -1983,7 +1984,9 @@ var __publicField = (obj, key, value) => {
     }
     return Number(params2.get("page")) || 1;
   }
-  function pushPageState(pageNo) {
+  function pushPageState(pageNo, latePageQuery = false) {
+    if (latePageQuery && pageNo > 1)
+      pageNo -= 1;
     let pageParamName = "page";
     if (isPidSite) {
       pageParamName = "pid";
@@ -2023,7 +2026,7 @@ var __publicField = (obj, key, value) => {
       }
     }
   ];
-  const searchPosts = async () => {
+  const searchPosts = async (latePageQuery = false) => {
     var _a2;
     store.requestState = true;
     try {
@@ -2034,7 +2037,7 @@ var __publicField = (obj, key, value) => {
           ...store.imageList,
           ...store.showNSFWContents ? posts : posts.filter((e) => ["s", "g"].includes(e.rating))
         ];
-        pushPageState(page);
+        pushPageState(page, latePageQuery);
         page++;
       } else {
         store.requestStop = true;
@@ -2046,12 +2049,12 @@ var __publicField = (obj, key, value) => {
     }
   };
   const initPosts = async () => {
-    await searchPosts();
+    await searchPosts(true);
     if (store.requestStop)
       return;
     if (location.href.includes("safebooru"))
       return;
-    await searchPosts();
+    await searchPosts(true);
   };
   const refreshPosts = () => {
     page = 1;
@@ -2284,7 +2287,7 @@ var __publicField = (obj, key, value) => {
           for (let index = 0; index < len; index++) {
             const item = store.selectedImageList[index];
             const downloadUrl = item[downloadUrlKey.value] || item.fileUrl;
-            const downloadName = item[downloadNameKey.value];
+            const downloadName = store.isYKSite ? item.fileNameWithTags : item[downloadNameKey.value];
             if (!downloadUrl)
               continue;
             if (item.loaded)
@@ -2301,7 +2304,7 @@ var __publicField = (obj, key, value) => {
       };
       const exportFileUrls = async () => {
         const urlText = store.selectedImageList.map((e) => e[downloadUrlKey.value] || e.fileUrl).join("\n");
-        await downloadFile(`data:text/plain;charset=utf-8,${encodeURIComponent(urlText)}`, "image-urls.txt");
+        await downloadFile(`data:text/plain;charset=utf-8,${store.isYKSite ? decodeURIComponent(urlText) : urlText}`, "image-urls.txt");
       };
       const vuetify = useVuetify();
       const toggleDarkmode = () => {
@@ -2411,7 +2414,7 @@ var __publicField = (obj, key, value) => {
     } }], null, false, 2310245454) }, [_c2("v-list", { staticStyle: { "min-width": "300px", "max-height": "80vh", "overflow": "auto" }, attrs: { "dense": "", "flat": "" } }, [_c2("v-subheader", { staticClass: "ml-2" }, [_c2("span", { staticClass: "mr-4" }, [_vm._v("\u4E0B\u8F7D\u5217\u8868")]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], attrs: { "small": "" }, on: { "click": _setup.startDownload } }, [_vm._v(" \u5F00\u59CB\u4E0B\u8F7D ")]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], staticClass: "ml-2", attrs: { "small": "" }, on: { "click": _setup.exportFileUrls } }, [_vm._v(" \u8F93\u51FA\u4E0B\u8F7D\u5730\u5740 ")])], 1), _setup.store.isYKSite ? _c2("v-radio-group", { staticClass: "mt-1 ml-3", attrs: { "hide-details": "", "dense": "", "row": "" }, model: { value: _setup.downloadUrlKey, callback: function($$v) {
       _setup.downloadUrlKey = $$v;
     }, expression: "downloadUrlKey" } }, [_c2("v-radio", { attrs: { "label": "\u5927\u56FE", "value": "jpegUrl" } }), _c2("v-radio", { attrs: { "label": "\u539F\u56FE", "value": "fileUrl" } })], 1) : _vm._e(), _c2("v-list-item-group", { attrs: { "color": "primary" } }, _vm._l(_setup.store.selectedImageList, function(item) {
-      return _c2("v-list-item", { key: item.id, attrs: { "dense": "", "two-line": "" } }, [_c2("v-list-item-avatar", [!item.loading && !item.loaded ? _c2("v-btn", { attrs: { "icon": "" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFileClockOutline))])], 1) : _vm._e(), item.loaded ? _c2("v-btn", { attrs: { "icon": "", "color": "green" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiCheckUnderlineCircle))])], 1) : _vm._e(), item.loading ? _c2("v-progress-circular", { attrs: { "rotate": -90, "size": 28, "value": _setup.loadingValue, "color": "pink" } }) : _vm._e()], 1), _c2("v-list-item-content", { staticStyle: { "max-width": "240px" } }, [_c2("v-list-item-title", { attrs: { "title": item[_setup.downloadNameKey] }, domProps: { "textContent": _vm._s(item[_setup.downloadNameKey]) } }), _c2("v-list-item-subtitle", { attrs: { "title": item[_setup.downloadUrlKey] }, domProps: { "textContent": _vm._s(item[_setup.downloadUrlKey]) } })], 1), _c2("v-list-item-action", [_c2("v-btn", { attrs: { "icon": "" }, on: { "click": function($event) {
+      return _c2("v-list-item", { key: item.id, attrs: { "dense": "", "two-line": "" } }, [_c2("v-list-item-avatar", [!item.loading && !item.loaded ? _c2("v-btn", { attrs: { "icon": "" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFileClockOutline))])], 1) : _vm._e(), item.loaded ? _c2("v-btn", { attrs: { "icon": "", "color": "green" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiCheckUnderlineCircle))])], 1) : _vm._e(), item.loading ? _c2("v-progress-circular", { attrs: { "rotate": -90, "size": 28, "value": _setup.loadingValue, "color": "pink" } }) : _vm._e()], 1), _c2("v-list-item-content", { staticStyle: { "max-width": "240px" } }, [_c2("v-list-item-subtitle", { attrs: { "title": item.fileNameWithTags }, domProps: { "textContent": _vm._s(item.fileNameWithTags) } }), _c2("v-list-item-subtitle", { attrs: { "title": item[_setup.downloadUrlKey] }, domProps: { "textContent": _vm._s(item[_setup.downloadUrlKey]) } })], 1), _c2("v-list-item-action", [_c2("v-btn", { attrs: { "icon": "" }, on: { "click": function($event) {
         return _setup.removeFromList(item.id);
       } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDelete))])], 1)], 1)], 1);
     }), 1)], 1)], 1)] : _vm._e(), _c2("v-btn", { attrs: { "title": "\u5207\u6362\u6DF1\u8272\u6A21\u5F0F", "icon": "" }, on: { "click": _setup.toggleDarkmode } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiBrightness6))])], 1), _c2("v-btn", { attrs: { "title": "\u5207\u6362\u5168\u5C4F", "icon": "" }, on: { "click": _setup.toggleFullscreen } }, [_c2("v-icon", { attrs: { "size": 30 } }, [_vm._v(_vm._s(_setup.store.isFullscreen ? _setup.mdiFullscreenExit : _setup.mdiFullscreen))])], 1), _c2("v-btn", { attrs: { "title": "\u8BBE\u7F6E", "icon": "" }, on: { "click": function($event) {
@@ -2768,9 +2771,12 @@ var __publicField = (obj, key, value) => {
             downloading.value = false;
           }, 1e3);
         }
+        if (store.isYKSite) {
+          name = `${location.hostname} ${imageSelected.value.id} ${imageSelected.value.tags.join(" ")}`;
+        }
         try {
           downloading.value = true;
-          await downloadFile(url, name);
+          await downloadFile(url, `${name}.${url.split(".").pop()}`);
           downloading.value = false;
         } catch (error) {
           downloading.value = false;
@@ -3189,7 +3195,7 @@ var __publicField = (obj, key, value) => {
           return;
         if (store.requestState)
           return;
-        notReachBottom() && searchPosts();
+        notReachBottom() && searchPosts(true);
       }, () => {
         if (showFab.value)
           showFab.value = false;
