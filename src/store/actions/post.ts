@@ -11,7 +11,8 @@ function getFirstPageNo(params: URLSearchParams) {
   return Number(params.get('page')) || 1
 }
 
-function pushPageState(pageNo: number) {
+function pushPageState(pageNo: number, latePageQuery = false) {
+  if (latePageQuery && pageNo > 1) pageNo -= 1
   let pageParamName = 'page'
   if (isPidSite) {
     pageParamName = 'pid'
@@ -57,7 +58,7 @@ const fetchActions = [
   },
 ]
 
-export const searchPosts = async () => {
+export const searchPosts = async (latePageQuery = false) => {
   store.requestState = true
   try {
     const posts = await fetchActions.find(e => e.test())?.action()
@@ -67,7 +68,7 @@ export const searchPosts = async () => {
         ...store.imageList,
         ...(store.showNSFWContents ? posts : posts.filter(e => ['s', 'g'].includes(e.rating))),
       ]
-      pushPageState(page)
+      pushPageState(page, latePageQuery)
       page++
     } else {
       store.requestStop = true
@@ -87,10 +88,10 @@ export const searchPosts = async () => {
 // }
 
 export const initPosts = async () => {
-  await searchPosts()
+  await searchPosts(true)
   if (store.requestStop) return
   if (location.href.includes('safebooru')) return
-  await searchPosts()
+  await searchPosts(true)
   // const times = calcFetchTimes()
   // for (let index = 0; index < times; index++) {
   //   await searchPosts()

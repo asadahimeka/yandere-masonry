@@ -440,9 +440,12 @@ const download = async (url: string | null, name: string) => {
       downloading.value = false
     }, 1000)
   }
+  if (store.isYKSite) {
+    name = `${location.hostname} ${imageSelected.value.id} ${imageSelected.value.tags.join(' ')}`
+  }
   try {
     downloading.value = true
-    await downloadFile(url, name)
+    await downloadFile(url, `${name}.${url.split('.').pop()}`)
     downloading.value = false
   } catch (error) {
     downloading.value = false

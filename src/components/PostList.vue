@@ -191,7 +191,7 @@ const scrollFn = throttleScroll(scroll => {
   if (!showFab.value && scroll > 200) showFab.value = true
   if (store.requestStop) return
   if (store.requestState) return
-  notReachBottom() && searchPosts()
+  notReachBottom() && searchPosts(true)
 }, () => {
   if (showFab.value) showFab.value = false
 })

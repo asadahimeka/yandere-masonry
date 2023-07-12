@@ -152,3 +152,7 @@ export function dragElement(sel: string, childSel: string) {
     el.removeEventListener('mousedown', onMouseDown)
   }
 }
+
+export function getLastPathsegment(url: string | null) {
+  return url?.split('/').pop()
+}

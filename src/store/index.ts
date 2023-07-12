@@ -4,6 +4,7 @@ import type { Post } from '@himeka/booru'
 interface SeletedPost extends Post {
   loading?: boolean
   loaded?: boolean
+  fileNameWithTags?: string
 }
 
 interface AppSettings {
@@ -72,6 +73,7 @@ const store = Vue.observable<AppState>({
   },
   addToSelectedList(item) {
     if (store.selectedImageList.some(e => e.id === item.id)) return
+    Object.assign(item, { fileNameWithTags: `${location.hostname} ${item.id} ${item.tags.join(' ')}` })
     store.selectedImageList.push(item)
   },
 })

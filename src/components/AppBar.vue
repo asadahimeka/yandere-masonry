@@ -180,7 +180,8 @@
                 <v-progress-circular v-if="item.loading" :rotate="-90" :size="28" :value="loadingValue" color="pink" />
               </v-list-item-avatar>
               <v-list-item-content style="max-width: 240px;">
-                <v-list-item-title :title="item[downloadNameKey]" v-text="item[downloadNameKey]" />
+                <!-- <v-list-item-title :title="item[downloadNameKey]" v-text="item[downloadNameKey]" /> -->
+                <v-list-item-subtitle :title="item.fileNameWithTags" v-text="item.fileNameWithTags" />
                 <v-list-item-subtitle :title="item[downloadUrlKey]" v-text="item[downloadUrlKey]" />
               </v-list-item-content>
               <v-list-item-action>
@@ -479,7 +480,7 @@ const startDownload = async () => {
     for (let index = 0; index < len; index++) {
       const item = store.selectedImageList[index]
       const downloadUrl = item[downloadUrlKey.value] || item.fileUrl
-      const downloadName = item[downloadNameKey.value]
+      const downloadName = store.isYKSite ? item.fileNameWithTags : item[downloadNameKey.value]
       if (!downloadUrl) continue
       if (item.loaded) continue
       set(item, 'loading', true)
@@ -495,7 +496,7 @@ const startDownload = async () => {
 
 const exportFileUrls = async () => {
   const urlText = store.selectedImageList.map(e => e[downloadUrlKey.value] || e.fileUrl).join('\n')
-  await downloadFile(`data:text/plain;charset=utf-8,${encodeURIComponent(urlText)}`, 'image-urls.txt')
+  await downloadFile(`data:text/plain;charset=utf-8,${store.isYKSite ? decodeURIComponent(urlText) : urlText}`, 'image-urls.txt')
 }
 
 const vuetify = useVuetify()
