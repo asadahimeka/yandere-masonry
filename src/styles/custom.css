@@ -444,6 +444,10 @@
   box-shadow: none !important;
 }
 
+.theme--light .nav_drawer .sel_menu_btn .v-icon {
+  color: #8E24AA !important;
+}
+
 .theme--light .sel_menu_btn .v-btn__content {
   line-height: 1 !important;
 }

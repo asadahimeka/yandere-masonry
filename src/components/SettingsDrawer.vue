@@ -9,7 +9,7 @@
   >
     <v-list-item>
       <v-list-item-content>
-        <v-list-item-title class="title">设置</v-list-item-title>
+        <v-list-item-title class="title">{{ $t('UxxldE9xRwmQctrvba5Y8') }}</v-list-item-title>
       </v-list-item-content>
       <v-list-item-icon @click="store.showSettings = false">
         <v-btn icon>
@@ -21,8 +21,8 @@
     <v-list dense nav>
       <v-list-item class="mb-0">
         <v-list-item-content>
-          <v-list-item-title>本地标签黑名单</v-list-item-title>
-          <v-list-item-subtitle>下方输入标签，回车添加</v-list-item-subtitle>
+          <v-list-item-title>{{ $t('_Efl8k8uYQj9iJmj3kwbd') }}</v-list-item-title>
+          <v-list-item-subtitle :title="$t('jMod2JozzAnwHuD-3KuPb')">{{ $t('jMod2JozzAnwHuD-3KuPb') }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-list-item class="pa-0">
@@ -56,8 +56,8 @@
       </v-list-item>
       <v-list-item class="mb-0">
         <v-list-item-content>
-          <v-list-item-title>当前站点 API Credentials</v-list-item-title>
-          <v-list-item-subtitle>形如: &api_key=xx&user_id=1</v-list-item-subtitle>
+          <v-list-item-title>{{ $t('RstKmO7YVQMpaDoucxUel') }}</v-list-item-title>
+          <v-list-item-subtitle :title="$t('1F-R4qChHIzZaohu5GJzl')">{{ $t('1F-R4qChHIzZaohu5GJzl') }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-list-item class="pa-0">
@@ -74,8 +74,8 @@
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title>显示 NSFW 内容</v-list-item-title>
-          <v-list-item-subtitle>包含裸露或性描写内容</v-list-item-subtitle>
+          <v-list-item-title>{{ $t('Lm_HFVHpv4XCjilV3NLKu') }}</v-list-item-title>
+          <v-list-item-subtitle :title="$t('A16qoBulYQJLbHe9mqNwm')">{{ $t('A16qoBulYQJLbHe9mqNwm') }}</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
           <v-switch
@@ -87,8 +87,8 @@
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title>监听滚轮事件</v-list-item-title>
-          <v-list-item-subtitle>详情弹窗滚轮切换图片</v-list-item-subtitle>
+          <v-list-item-title>{{ $t('_nQfaNuwbvPAIFKOY6_7u') }}</v-list-item-title>
+          <v-list-item-subtitle :title="$t('SIUUZ4wqJTOilEdcX3EOi')">{{ $t('SIUUZ4wqJTOilEdcX3EOi') }}</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
           <v-switch
@@ -99,8 +99,8 @@
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title>监听键盘事件</v-list-item-title>
-          <v-list-item-subtitle>详情弹窗使用A/D/←/→切换图片</v-list-item-subtitle>
+          <v-list-item-title>{{ $t('fVE5taO6GDTPbILat4GCt') }}</v-list-item-title>
+          <v-list-item-subtitle :title="$t('w95XGurDhDfOfw7XH4JFW')">{{ $t('w95XGurDhDfOfw7XH4JFW') }}</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
           <v-switch
@@ -111,8 +111,8 @@
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title>详情图片预加载</v-list-item-title>
-          <v-list-item-subtitle>详情弹窗预加载下一张样品图/原图</v-list-item-subtitle>
+          <v-list-item-title>{{ $t('kFcteLMfnoezhOwuTlLFC') }}</v-list-item-title>
+          <v-list-item-subtitle :title="$t('FT1uJs8XG__n5qBvuFsH4')">{{ $t('FT1uJs8XG__n5qBvuFsH4') }}</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
           <v-switch
@@ -123,8 +123,8 @@
       </v-list-item>
       <v-list-item v-if="store.isFullImgPreload">
         <v-list-item-content>
-          <v-list-item-title>图片预加载数量</v-list-item-title>
-          <v-list-item-subtitle>实验性/不保证可用</v-list-item-subtitle>
+          <v-list-item-title>{{ $t('G3b7rbyQEj3_rgzVsNJZY') }}</v-list-item-title>
+          <v-list-item-subtitle :title="$t('iRt9V9wNQASic3D7-wTZo')">{{ $t('iRt9V9wNQASic3D7-wTZo') }}</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action class="pl-1">
           <input
@@ -139,13 +139,13 @@
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title>图片列表布局</v-list-item-title>
-          <v-list-item-subtitle>Masonry/Grid/Justified</v-list-item-subtitle>
+          <v-list-item-title :title="$t('kop_-39vkeg-bz2wztJ9O')">{{ $t('kop_-39vkeg-bz2wztJ9O') }}</v-list-item-title>
+          <v-list-item-subtitle title="Masonry/Grid/Justified">Masonry/Grid/Justified</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
           <v-menu transition="slide-y-transition" offset-y>
             <template #activator="{ on, attrs }">
-              <v-btn small v-bind="attrs" class="sel_menu_btn" v-on="on">
+              <v-btn small v-bind="attrs" class="sel_menu_btn" style="max-width: 100px;" v-on="on">
                 {{ actLayout }}
                 <v-icon :size="16">{{ mdiChevronDown }}</v-icon>
               </v-btn>
@@ -162,14 +162,14 @@
       </v-list-item>
       <v-list-item v-if="store.settings.masonryLayout !== 'flexbin'">
         <v-list-item-content>
-          <v-list-item-title>瀑布流列数</v-list-item-title>
-          <v-list-item-subtitle>小于7列时列表会加载大图</v-list-item-subtitle>
+          <v-list-item-title>{{ $t('tt_YdgKCA_5m-aSTSMPQ_') }}</v-list-item-title>
+          <v-list-item-subtitle :title="$t('rXjhc8VuGloy1wZ09noNB')">{{ $t('rXjhc8VuGloy1wZ09noNB') }}</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
           <v-menu transition="slide-y-transition" offset-y>
             <template #activator="{ on, attrs }">
               <v-btn small v-bind="attrs" class="sel_menu_btn" v-on="on">
-                <span style="margin-bottom:2px">{{ store.selectedColumn === '0' ? '自动' : `${store.selectedColumn}列` }}</span>
+                <span style="margin-bottom:2px">{{ store.selectedColumn === '0' ? $t('uxIs3XkeVzkrEX985zHk3') : store.selectedColumn + $t('dU7ou5kVM0s9DMju5e2tS') }}</span>
                 <v-icon :size="16">{{ mdiChevronDown }}</v-icon>
               </v-btn>
             </template>
@@ -191,6 +191,7 @@
 import { computed, ref } from 'vue'
 import { mdiChevronDown, mdiClose } from '@mdi/js'
 import store from '@/store'
+import i18n from '@/utils/i18n'
 
 const onComboboxChange = (val: string[]) => {
   localStorage.setItem('__blacklist', val.join(','))
@@ -229,13 +230,13 @@ const onImgPreloadChange = (val: any) => {
 }
 
 const layoutTypes = ref([
-  ['masonry', 'Masonry/等宽不等高'],
-  ['grid', 'Grid/等宽等高'],
-  ['flexbin', 'Justified/适高不等宽'],
+  ['masonry', `Masonry/${i18n.t('6jPGehET9TViankl5-SRu')}`],
+  ['grid', `Grid/${i18n.t('vfUg8xP6WptIhSL0E9b9D')}`],
+  ['flexbin', `Justified/${i18n.t('LZbI8am7nD-LiemZzroFF')}`],
 ])
 
 const actLayout = computed(() => {
-  return layoutTypes.value.find(e => e[0] === store.settings.masonryLayout)?.[1]
+  return layoutTypes.value.find(e => e[0] === store.settings.masonryLayout)?.[1]?.split('/')?.[0]
 })
 
 const actLayoutIndex = computed(() => {
@@ -266,7 +267,7 @@ const onPreloadNumBlur = (ev: Event) => {
 
 const colList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20]
 const cols = ref(colList.reduce<Record<string, string>>((acc, cur) => {
-  acc[cur] = cur === 0 ? '自动' : `${cur} 列`
+  acc[cur] = cur === 0 ? i18n.t('uxIs3XkeVzkrEX985zHk3').toString() : `${cur} ${i18n.t('dU7ou5kVM0s9DMju5e2tS')}`
   return acc
 }, {}))
 

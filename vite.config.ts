@@ -13,7 +13,7 @@ export default defineConfig({
       externalGlobals: {
         'vue': ['Vue'],
         'vuetify': ['Vuetify'],
-        'vue-masonry-css': ['VueMasonry'],
+        'vue-i18n': ['VueI18n'],
         'fast-xml-parser': ['fxparser'],
       },
     }),

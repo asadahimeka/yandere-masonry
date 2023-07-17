@@ -6,7 +6,7 @@
       </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title class="title">Booru Masonry</v-list-item-title>
-        <v-list-item-subtitle>Booru 图站瀑布流浏览</v-list-item-subtitle>
+        <v-list-item-subtitle :title="$t('l8CbIALt_VWUnzBl_Rmgf')">{{ $t('l8CbIALt_VWUnzBl_Rmgf') }}</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
     <v-divider />
@@ -14,7 +14,7 @@
       <v-list-group :value="true" no-action>
         <template #activator>
           <v-list-item-content>
-            <v-list-item-title class="title">快捷方式</v-list-item-title>
+            <v-list-item-title class="title">{{ $t('CacM8tispuPNrSxxpt9GX') }}</v-list-item-title>
           </v-list-item-content>
         </template>
 
@@ -31,7 +31,7 @@
             <v-icon>{{ mdiStar }}</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title>我的收藏夹</v-list-item-title>
+            <v-list-item-title>{{ $t('zs8YTCc8d8XFUgRnp7m_w') }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link href="/pool?page=1">
@@ -39,7 +39,7 @@
             <v-icon>{{ mdiImageMultiple }}</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title>图集 (Pool)</v-list-item-title>
+            <v-list-item-title>{{ $t('DXEhXAQbkiCMU_l252jo_') }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link href="/post/popular_recent?period=1d">
@@ -47,7 +47,7 @@
             <v-icon>{{ mdiFire }}</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title>人气作品</v-list-item-title>
+            <v-list-item-title>{{ $t('7Cgsr4PUMbezDXNfWdvWH') }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link href="/post?tags=order%3Arandom&page=1">
@@ -55,7 +55,7 @@
             <v-icon>{{ mdiShuffle }}</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title>随机作品</v-list-item-title>
+            <v-list-item-title>{{ $t('StU1-52QJmNFKQ5soJCyG') }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-group>
@@ -64,7 +64,7 @@
       <v-list-group :value="true" no-action>
         <template #activator>
           <v-list-item-content>
-            <v-list-item-title class="title">站点列表</v-list-item-title>
+            <v-list-item-title class="title">{{ $t('e2_EYvweJsVoIZlIWkPRV') }}</v-list-item-title>
           </v-list-item-content>
         </template>
         <v-list-item-group :value="actSiteIndex" color="primary">
@@ -98,7 +98,7 @@
     <v-list dense nav>
       <v-list-item link @click="showSettingDrawer()">
         <v-list-item-content>
-          <v-list-item-title class="title">设置</v-list-item-title>
+          <v-list-item-title class="title">{{ $t('UxxldE9xRwmQctrvba5Y8') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -106,7 +106,7 @@
       <v-list-group :value="true" no-action>
         <template #activator>
           <v-list-item-content>
-            <v-list-item-title class="title">关于</v-list-item-title>
+            <v-list-item-title class="title">{{ $t('PT74UDfKA45vTVTst_-hD') }}</v-list-item-title>
           </v-list-item-content>
         </template>
 
@@ -116,7 +116,7 @@
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>v{{ version }}</v-list-item-title>
-            <v-list-item-subtitle>查看更新日志</v-list-item-subtitle>
+            <v-list-item-subtitle>{{ $t('iJ0h220tvMmUhkfIMYI-W') }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link @click="openLink('https://booru.kanata.ml')">
@@ -124,8 +124,8 @@
             <v-icon>{{ mdiWeb }}</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title>Web 预览版</v-list-item-title>
-            <v-list-item-subtitle>点击查看</v-list-item-subtitle>
+            <v-list-item-title>{{ $t('qWcqQRsE9nN43MaZ2BmN9') }}</v-list-item-title>
+            <v-list-item-subtitle>{{ $t('jerGO2OCuW9TdnEnGYRWd') }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link @click="openLink('https://github.com/asadahimeka/yandere-masonry/issues')">
@@ -133,8 +133,8 @@
             <v-icon>{{ mdiMessageAlertOutline }}</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title>问题与建议</v-list-item-title>
-            <v-list-item-subtitle>点击反馈</v-list-item-subtitle>
+            <v-list-item-title>{{ $t('23iEYyiQlLVhFIqGbj527') }}</v-list-item-title>
+            <v-list-item-subtitle>{{ $t('4g1TUy2kwQrdOs-w4JobB') }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link @click="openLink('https://github.com/asadahimeka/yandere-masonry')">
@@ -143,7 +143,7 @@
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>Github</v-list-item-title>
-            <v-list-item-subtitle>欢迎 Star ☆彡</v-list-item-subtitle>
+            <v-list-item-subtitle>{{ $t('7Xq5puLNcT0mAvoxElqdf') }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list-group>

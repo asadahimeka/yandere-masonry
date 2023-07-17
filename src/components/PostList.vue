@@ -50,28 +50,28 @@
     </wf-layout>
     <div class="d-flex justify-center">
       <v-btn v-show="store.requestState" color="primary" text>
-        加载中...
+        {{ $t('RN4dt81l_fZMWODsskZob') }}...
       </v-btn>
       <v-btn v-show="showLoadMore" color="primary" text @click="searchPosts()">
-        加载更多
+        {{ $t('fC8XNfCl04zK7vgeaRZMQ') }}
       </v-btn>
       <v-btn v-show="showNoMore" color="primary" text>
-        下面没有了...
+        {{ $t('Z4pa8GhgE63OGGvCqAld0') }}...
       </v-btn>
     </div>
     <v-menu v-model="showMenu" :position-x="x" :position-y="y" absolute offset-y>
       <v-list>
         <v-list-item v-if="store.isYKSite" @click="addFavorite">
-          <v-list-item-title>加入收藏</v-list-item-title>
+          <v-list-item-title>{{ $t('Dnnio9m9RZA6bkTLytc99') }}</v-list-item-title>
         </v-list-item>
         <v-list-item @click="downloadCtxPost">
-          <v-list-item-title>下载原文件</v-list-item-title>
+          <v-list-item-title>{{ $t('VpuyxZtIoDF9-YyOm0tK_') }}</v-list-item-title>
         </v-list-item>
         <v-list-item @click="openDetail">
-          <v-list-item-title>新标签页打开</v-list-item-title>
+          <v-list-item-title>{{ $t('EsiorRgoeHI8h7IHMLDA4') }}</v-list-item-title>
         </v-list-item>
         <v-list-item @click="addToSelectedList">
-          <v-list-item-title>加入下载列表</v-list-item-title>
+          <v-list-item-title>{{ $t('hVmfDxXoj8vkgVQabEOSr') }}</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
@@ -102,6 +102,7 @@ import { downloadFile, notReachBottom, showMsg, throttleScroll } from '@/utils'
 import { addPostToFavorites } from '@/api/moebooru'
 import { initPosts, refreshPosts, searchPosts } from '@/store/actions/post'
 import store from '@/store'
+import i18n from '@/utils/i18n'
 
 const showImageList = ref(true)
 const showFab = ref(false)
@@ -176,7 +177,7 @@ const downloadCtxPost = async () => {
   try {
     await downloadFile(fileUrl, `${fileDownloadName}.${fileUrl.split('.').pop()}`)
   } catch (error) {
-    showMsg({ msg: `下载出错: ${error}`, type: 'error' })
+    showMsg({ msg: `${i18n.t('FAqj5ONm50QMfIt9Vq2p1')}: ${error}`, type: 'error' })
   }
 }
 

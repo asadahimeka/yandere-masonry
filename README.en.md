@@ -8,15 +8,18 @@
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vue)
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vuetify)
 
-[中文](https://github.com/asadahimeka/yandere-masonry/blob/main/readme.md) | English
+[中文](https://github.com/asadahimeka/yandere-masonry/blob/main/README.md) | English
 
 Yande.re/Konachan Thumbnail Zoom & Double Click to Next Page & Waterfall Browsing
+
+> Modified from [zhzwz/yande-re-chinese-patch](https://github.com/zhzwz/yande-re-chinese-patch)
 
 Changelog see [CHANGELOG.md](https://github.com/asadahimeka/yandere-masonry/blob/main/CHANGELOG.md)
 
 *For questions or suggestions please go to GitHub [Issues](https://github.com/asadahimeka/yandere-masonry/issues)*
 
 Build with [vite](https://vitejs.dev) & [vite-plugin-tm-userscript](https://github.com/asadahimeka/vite-plugin-tm-userscript)
+
 
 ## Install
 
@@ -29,10 +32,6 @@ Sleazy Fork: [Click to install](https://sleazyfork.org/scripts/444885)
 GitHub Raw：[Click to install](https://github.com/asadahimeka/yandere-masonry/raw/main/dist/yandere-masonry.user.js)
 
 Web Preview：[Click to view](https://booru.vercel.app)
-
-## Tips
-
-Please note that the application interface language in waterfall mode is Chinese. And i18n support is working in progress.
 
 ## Features
 
@@ -54,7 +53,7 @@ Click the upper right button to enter waterfall mode
 
 #### Output Download Address
 
-In waterfall mode, you can use the `输出下载地址` function to save the image address TXT and then use Thunder, IDM, wget, etc. to download in batches, see https://github.com/FoXZilla/Pxer/issues/8
+In waterfall mode, you can use the `Output download links` function to save the image address TXT and then use Thunder, IDM, wget, etc. to download in batches, see https://github.com/FoXZilla/Pxer/issues/8
 
 #### Topbar action
 
@@ -184,7 +183,7 @@ You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/
 
 ## Credits
 
-Modified from [coderzhaoziwei/yande-re-chinese-patch](https://github.com/coderzhaoziwei/yande-re-chinese-patch)
+[zhzwz/yande-re-chinese-patch](https://github.com/zhzwz/yande-re-chinese-patch)
 
 [Booru Search API](https://github.com/asadahimeka/booru-search) modified from [AtoraSuunva/booru](https://github.com/AtoraSuunva/booru)
 

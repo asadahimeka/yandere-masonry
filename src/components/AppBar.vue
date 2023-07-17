@@ -3,7 +3,7 @@
     <v-app-bar-nav-icon @click="store.toggleDrawer()" />
     <div v-if="store.isYKSite && showPopAction" style="display:flex" class="align-center hidden-sm-and-down">
       <v-toolbar-title class="mr-4" v-text="popTitle" />
-      <v-switch v-model="isPopSearchByDate" hide-details :label="isPopSearchByDate ? '按日期' : '最近人气'" />
+      <v-switch v-model="isPopSearchByDate" hide-details :label="isPopSearchByDate ? $t('nd4UjZy2ILsc-iW9iu7xR') : $t('elkBQ9moOZ-KMcy5bt_Ts')" />
       <v-menu transition="slide-y-transition" offset-y>
         <template #activator="{ on, attrs }">
           <v-btn small class="ml-4" v-bind="attrs" v-on="on">
@@ -15,7 +15,7 @@
           <v-list-item v-for="(val, key) in periodComputedMap" :key="key" dense @click="selPeriod(key)">
             <v-list-item-title>
               <v-icon left>{{ val[1] }}</v-icon>
-              <span>{{ val[0].slice(-1) }}</span>
+              <span>{{ val[0] }}</span>
             </v-list-item-title>
           </v-list-item>
         </v-list>
@@ -66,16 +66,16 @@
         @keyup="goToPage($event)"
       >
       <template v-if="store.isYKSite">
-        <v-btn v-if="userName" title="收藏夹" icon @click="fetchTaggedPosts(`vote:3:${userName} order:vote`)">
+        <v-btn v-if="userName" :title="$t('HzMBcS2oNGVIoLiHWprim')" icon @click="fetchTaggedPosts(`vote:3:${userName} order:vote`)">
           <v-icon>{{ mdiStar }}</v-icon>
         </v-btn>
-        <v-btn title="图集 (Pool)" icon @click="showPool()">
+        <v-btn :title="$t('DXEhXAQbkiCMU_l252jo_')" icon @click="showPool()">
           <v-icon :size="20">{{ mdiImageMultiple }}</v-icon>
         </v-btn>
-        <v-btn title="人气" icon @click="goToPopularPage()">
+        <v-btn :title="$t('9juZMc0gPIgvMPKVORpJ1')" icon @click="goToPopularPage()">
           <v-icon>{{ mdiFire }}</v-icon>
         </v-btn>
-        <v-btn title="随机" icon @click="fetchTaggedPosts('order:random')">
+        <v-btn :title="$t('6acPWiYq2-OdySa2_xqDu')" icon @click="fetchTaggedPosts('order:random')">
           <v-icon>{{ mdiShuffle }}</v-icon>
         </v-btn>
       </template>
@@ -108,7 +108,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-btn title="搜索标签" icon @click="showTagsInput()">
+      <v-btn :title="$t('ZztrWbSaaaas3v0cHtSmh')" icon @click="showTagsInput()">
         <v-icon>{{ mdiMagnify }}</v-icon>
       </v-btn>
     </div>
@@ -123,7 +123,7 @@
       <v-btn class="ml-3" icon href="/post?_wf=1">
         <v-icon>{{ mdiHome }}</v-icon>
       </v-btn>
-      <v-btn title="人气" icon @click="goToPopularPage()">
+      <v-btn :title="$t('9juZMc0gPIgvMPKVORpJ1')" icon @click="goToPopularPage()">
         <v-icon>{{ mdiFire }}</v-icon>
       </v-btn>
     </div>
@@ -143,18 +143,18 @@
       </v-btn>
       <v-menu dense offset-y :close-on-content-click="false">
         <template #activator="{ on, attrs }">
-          <v-btn title="下载列表" icon v-bind="attrs" v-on="on">
+          <v-btn :title="$t('OKs1ePekQA4Ona839U114')" icon v-bind="attrs" v-on="on">
             <v-icon>{{ mdiDownload }}</v-icon>
           </v-btn>
         </template>
         <v-list dense flat style="min-width: 300px;max-height: 80vh;overflow: auto;">
           <v-subheader class="ml-2">
-            <span class="mr-4">下载列表</span>
+            <span class="mr-4">{{ $t('OKs1ePekQA4Ona839U114') }}</span>
             <v-btn v-show="store.selectedImageList.length > 0" small @click="startDownload">
-              开始下载
+              {{ $t('cKn4cfAxzdgh_HD6OFibB') }}
             </v-btn>
             <v-btn v-show="store.selectedImageList.length > 0" class="ml-2" small @click="exportFileUrls">
-              输出下载地址
+              {{ $t('J2Ckb_-LITfmww4aEksqk') }}
             </v-btn>
           </v-subheader>
           <v-radio-group
@@ -165,8 +165,8 @@
             dense
             row
           >
-            <v-radio label="大图" value="jpegUrl" />
-            <v-radio label="原图" value="fileUrl" />
+            <v-radio :label="$t('aVqN9TBRCbNGsW3Y2D2Nm')" value="jpegUrl" />
+            <v-radio :label="$t('jDjashxA-oBPo19DXI504')" value="fileUrl" />
           </v-radio-group>
           <v-list-item-group color="primary">
             <v-list-item v-for="item in store.selectedImageList" :key="item.id" dense two-line>
@@ -194,16 +194,30 @@
         </v-list>
       </v-menu>
     </template>
-    <v-btn title="切换深色模式" icon @click="toggleDarkmode">
+    <v-btn :title="$t('u8mEnSo4mxDRUbj7FeAll')" icon @click="toggleDarkmode">
       <v-icon>{{ mdiBrightness6 }}</v-icon>
     </v-btn>
-    <v-btn title="切换全屏" icon @click="toggleFullscreen">
+    <v-btn :title="$t('OrwwNKZ7I70-ecpspE8d_')" icon @click="toggleFullscreen">
       <v-icon :size="30">{{ store.isFullscreen ? mdiFullscreenExit : mdiFullscreen }}</v-icon>
     </v-btn>
-    <v-btn title="设置" icon @click="store.showSettings = true">
+    <v-menu transition="slide-y-transition" offset-y>
+      <template #activator="{ on, attrs }">
+        <v-btn title="Language" icon v-bind="attrs" v-on="on">
+          <v-icon>{{ mdiTranslate }}</v-icon>
+        </v-btn>
+      </template>
+      <v-list dense>
+        <v-list-item-group v-model="currentLang" color="primary">
+          <v-list-item v-for="lang in langList" :key="lang.value" :value="lang.value" dense @click="selectLang(lang.value)">
+            <v-list-item-title>{{ lang.label }}</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-menu>
+    <v-btn :title="$t('UxxldE9xRwmQctrvba5Y8')" icon @click="store.showSettings = true">
       <v-icon :size="22">{{ mdiCog }}</v-icon>
     </v-btn>
-    <v-btn title="退出瀑布流模式" icon @click="exitMasonry">
+    <v-btn :title="$t('ClZdL9hGweOokP7Mn_Ptq')" icon @click="exitMasonry">
       <v-icon>{{ mdiLocationExit }}</v-icon>
     </v-btn>
     <v-progress-linear
@@ -245,6 +259,7 @@ import {
   mdiMagnify,
   mdiShuffle,
   mdiStar,
+  mdiTranslate,
 } from '@mdi/js'
 import { computed, onMounted, reactive, ref, set, watch } from 'vue'
 import { useVuetify } from '@/plugins/vuetify'
@@ -252,6 +267,7 @@ import store from '@/store'
 import { addDate, debounce, downloadFile, eventBus, formatDate, showMsg, subDate } from '@/utils'
 import { loadPostsByPage, loadPostsByTags, refreshPosts } from '@/store/actions/post'
 import { getRecentTags, getUsername, isPopularPage, searchTagsByName } from '@/api/moebooru'
+import i18n from '@/utils/i18n'
 
 const title = computed(() => {
   return `${location.host.toUpperCase()} - ${store.imageList.length} Posts - Page `
@@ -265,7 +281,11 @@ const loadingValue = ref(0)
 const selectAll = () => {
   if (isNoSelected.value || isOneOrMoreSelected.value) {
     setTimeout(() => {
-      store.selectedImageList = [...store.imageList]
+      const arr = [...store.imageList]
+      arr.forEach(item => {
+        Object.assign(item, { fileNameWithTags: `${location.hostname} ${item.id} ${item.tags.join(' ')}` })
+      })
+      store.selectedImageList = arr
     })
   }
   if (isAllSelected.value) {
@@ -347,10 +367,10 @@ const onSearchTermKeydown = (ev: KeyboardEvent) => {
 const showPopAction = ref(isPopularPage())
 
 const periodMap: Record<string, string[]> = {
-  '1d': ['按日', mdiCalendarToday, 'day'],
-  '1w': ['按周', mdiCalendarWeek, 'week'],
-  '1m': ['按月', mdiCalendarMonth, 'month'],
-  '1y': ['按年', mdiCalendarText, 'year'],
+  '1d': [i18n.t('Mt3-hyoH7f_pW2gnfxyur').toString(), mdiCalendarToday, 'day'],
+  '1w': [i18n.t('riciqzr6ILBnpPc7KtG-C').toString(), mdiCalendarWeek, 'week'],
+  '1m': [i18n.t('PQhFo-g7sgagimkleVoZR').toString(), mdiCalendarMonth, 'month'],
+  '1y': [i18n.t('ze1PaiGdX4ufmoOLv_xw6').toString(), mdiCalendarText, 'year'],
 }
 const periodByDateMap = (() => {
   const map = { ...periodMap }
@@ -535,6 +555,19 @@ const toggleFullscreen = async () => {
   } catch (error) {
     console.log('toggleFullscreen error: ', error)
   }
+}
+
+const currentLang = ref(i18n.locale)
+const langList = [
+  { value: 'zh-Hans', label: '简体中文' },
+  { value: 'zh-Hant', label: '繁體中文' },
+  { value: 'ja', label: '日本語' },
+  { value: 'en', label: 'English' },
+]
+const selectLang = (val: string) => {
+  currentLang.value = val
+  i18n.locale = val
+  localStorage.setItem('__LANG', val)
 }
 
 onMounted(() => {

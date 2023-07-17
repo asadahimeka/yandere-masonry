@@ -4,6 +4,7 @@ import { prepareApp } from './prepare'
 import Vue from 'vue'
 import VueMasonry from 'vue-masonry-css'
 import installVuetify from './plugins/vuetify'
+import i18n from './utils/i18n'
 import WfLayout from './components/WfLayout.vue'
 import App from './App.vue'
 
@@ -13,6 +14,7 @@ function initApp() {
   const vuetify = installVuetify()
   const app = new Vue({
     vuetify,
+    i18n,
     render: h => h(App),
   })
   app.$mount('#app')

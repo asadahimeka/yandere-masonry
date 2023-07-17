@@ -1,5 +1,6 @@
 import { Post, SearchResults, forSite } from '@himeka/booru'
 import { formatDate, showMsg } from '../utils'
+import i18n from '@/utils/i18n'
 
 function getYandereUserId() {
   const match = document.cookie.match(/user_id=(\d+)/)
@@ -60,15 +61,16 @@ export interface PostDetail {
   }[]
 }
 
-const tagInfoMap: Record<string, string[]> = {
-  circle: ['社团', '#00bbbbcc'],
-  artist: ['画师', '#FFB11Bf1'],
-  copyright: ['版权', '#C1328Ede'],
-  character: ['角色', '#00aa00cc'],
+const tagInfoMap: Record<string, any[]> = {
+  circle: [i18n.t('ZtQHZx-pEjmu_o3dQD1fc'), '#00bbbbcc'],
+  artist: [i18n.t('Ym0HIEu9Q80qXB31LuC6c'), '#FFB11Bf1'],
+  copyright: [i18n.t('juT6gwLOg5r1h2vFpFf6P'), '#C1328Ede'],
+  character: [i18n.t('aonlPAu9kEkkwNvQg0DBk'), '#00aa00cc'],
   general: ['', '#E87A90cc'],
   faults: ['', '#AB3B3Ada'],
 }
 // const tagSortOrder = ['circle', 'artist', 'copyright', 'character', 'general']
+const isCNLang = i18n.locale.includes('zh')
 export async function getPostDetail(id: string): Promise<PostDetail | false> {
   try {
     if (!id) return false
@@ -82,7 +84,7 @@ export async function getPostDetail(id: string): Promise<PostDetail | false> {
         const tagText = [
           typeText && `[ ${typeText} ] `,
           tag,
-          tagCN && ` [ ${tagCN} ]`,
+          isCNLang && tagCN && ` [ ${tagCN} ]`,
         ].filter(Boolean).join('')
         return {
           tag,
@@ -110,15 +112,15 @@ export async function addPostToFavorites(id: string) {
     body: form,
   })
   if (!response.ok) {
-    showMsg({ msg: `收藏失败: ${response.status}`, type: 'error' })
+    showMsg({ msg: `${i18n.t('MWVfUiW8egLWq7MgV-wzc')}: ${response.status}`, type: 'error' })
     return false
   }
   const result = await response.json()
   if (result.success) {
-    showMsg({ msg: '收藏成功' })
+    showMsg({ msg: i18n.t('ctWGhVvqB2k_1TX2iY0l2').toString() })
     return true
   } else {
-    showMsg({ msg: `收藏失败: ${result.reason}`, type: 'error' })
+    showMsg({ msg: `${i18n.t('MWVfUiW8egLWq7MgV-wzc')}: ${result.reason}`, type: 'error' })
     return false
   }
 }

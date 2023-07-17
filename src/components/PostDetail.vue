@@ -62,7 +62,7 @@
             <v-icon>{{ mdiFitToScreenOutline }}</v-icon>
           </v-btn>
         </template>
-        <span>适应页面</span>
+        <span>{{ $t('M-wISnLiQgM_DURMwKZGT') }}</span>
       </v-tooltip>
       <v-tooltip bottom>
         <template #activator="{ on, attrs }">
@@ -78,7 +78,7 @@
             <v-icon>{{ mdiTableSplitCell }}</v-icon>
           </v-btn>
         </template>
-        <span>适应宽度</span>
+        <span>{{ $t('ad8lEoWap_nT9U69WBKen') }}</span>
       </v-tooltip>
       <v-tooltip bottom>
         <template #activator="{ on, attrs }">
@@ -94,7 +94,7 @@
             <v-icon style="transform:rotate(90deg)">{{ mdiTableSplitCell }}</v-icon>
           </v-btn>
         </template>
-        <span>适应高度</span>
+        <span>{{ $t('GjMNbm97OgVvpIYlkOisE') }}</span>
       </v-tooltip>
       <v-tooltip bottom>
         <template #activator="{ on, attrs }">
@@ -110,7 +110,7 @@
             <v-icon>{{ mdiLoupe }}</v-icon>
           </v-btn>
         </template>
-        <span>原始大小</span>
+        <span>{{ $t('KkkM-iz8RCVQoTrTfhS5j') }}</span>
       </v-tooltip>
       <v-tooltip v-if="!store.isFullscreen" bottom>
         <template #activator="{ on, attrs }">
@@ -126,7 +126,7 @@
             <v-icon>{{ mdiFullscreen }}</v-icon>
           </v-btn>
         </template>
-        <span>全屏</span>
+        <span>{{ $t('XvOYJ5gHo37M1XztPl18z') }}</span>
       </v-tooltip>
       <v-tooltip bottom>
         <template #activator="{ on, attrs }">
@@ -142,7 +142,7 @@
             <v-icon>{{ mdiRotateRight }}</v-icon>
           </v-btn>
         </template>
-        <span>旋转</span>
+        <span>{{ $t('_bQs7o9oQSo7ao1G0cp3d') }}</span>
       </v-tooltip>
       <v-tooltip bottom>
         <template #activator="{ on, attrs }">
@@ -158,7 +158,7 @@
             <v-icon>{{ mdiMagnifyMinusOutline }}</v-icon>
           </v-btn>
         </template>
-        <span>缩小</span>
+        <span>{{ $t('lPPsX2CZbXwC-EGN79Rki') }}</span>
       </v-tooltip>
       <v-tooltip bottom>
         <template #activator="{ on, attrs }">
@@ -166,7 +166,7 @@
             <v-icon>{{ mdiClose }}</v-icon>
           </v-btn>
         </template>
-        <span>关闭</span>
+        <span>{{ $t('t83UAY18UebTg1_-zFGP3') }}</span>
       </v-tooltip>
     </v-toolbar>
     <v-toolbar
@@ -198,7 +198,7 @@
             <v-icon>{{ postDetail.voted ? mdiHeart : mdiHeartPlusOutline }}</v-icon>
           </v-btn>
         </template>
-        <span>{{ postDetail.voted ? '已收藏' : '收藏' }}</span>
+        <span>{{ postDetail.voted ? $t('pEU9Y9K7DsODkocCDwq_O') : $t('2ZPEAvLkCbV3mC0iJAw9K') }}</span>
       </v-tooltip>
       <v-tooltip bottom>
         <template #activator="{ on, attrs }">
@@ -214,7 +214,7 @@
             <v-icon>{{ mdiLinkVariant }}</v-icon>
           </v-btn>
         </template>
-        <span>详情</span>
+        <span>{{ $t('caFFJlrS1wa_F86uKPykd') }}</span>
       </v-tooltip>
       <v-tooltip v-if="imageSelected.sourceUrl" bottom>
         <template #activator="{ on, attrs }">
@@ -230,7 +230,7 @@
             <v-icon>{{ mdiLaunch }}</v-icon>
           </v-btn>
         </template>
-        <span>{{ `来源 ${imageSelected.sourceUrl}` }}</span>
+        <span>{{ $t('qSF4OLshg2EEX4CwtBE6r') }} {{ imageSelected.sourceUrl }}</span>
       </v-tooltip>
       <v-tooltip v-if="!isVideo" bottom>
         <template #activator="{ on, attrs }">
@@ -246,7 +246,7 @@
             <v-icon>{{ mdiMagnifyPlusOutline }}</v-icon>
           </v-btn>
         </template>
-        <span>查看大图</span>
+        <span>{{ $t('B_ptN5O-9PhmG5ymGGtc6') }}</span>
       </v-tooltip>
       <v-menu dense open-on-hover offset-y>
         <template #activator="{ on, attrs }">
@@ -265,19 +265,19 @@
         <v-list dense flat>
           <v-list-item v-if="imageSelected.sampleUrl" two-line link dense>
             <v-list-item-content @click.stop="download(imageSelected.sampleUrl, imageSelected.sampleDownloadName)">
-              <v-list-item-title>下载样品图</v-list-item-title>
+              <v-list-item-title>{{ $t('wI4KHHIe3zNRziW4lDZrp') }}</v-list-item-title>
               <v-list-item-subtitle v-text="imageSelected.sampleDownloadText" />
             </v-list-item-content>
           </v-list-item>
           <v-list-item v-if="imageSelected.jpegUrl" two-line link dense>
             <v-list-item-content @click.stop="download(imageSelected.jpegUrl, imageSelected.jpegDownloadName)">
-              <v-list-item-title>下载高清图</v-list-item-title>
+              <v-list-item-title>{{ $t('k4YzDnBtd_S2UpAQucGxF') }}</v-list-item-title>
               <v-list-item-subtitle v-text="imageSelected.jpegDownloadText" />
             </v-list-item-content>
           </v-list-item>
           <v-list-item two-line link dense>
             <v-list-item-content @click.stop="download(imageSelected.fileUrl, imageSelected.fileDownloadName)">
-              <v-list-item-title>下载原文件</v-list-item-title>
+              <v-list-item-title>{{ $t('VpuyxZtIoDF9-YyOm0tK_') }}</v-list-item-title>
               <v-list-item-subtitle v-text="imageSelected.fileDownloadText" />
             </v-list-item-content>
           </v-list-item>
@@ -298,7 +298,7 @@
             <v-icon>{{ mdiPlaylistPlus }}</v-icon>
           </v-btn>
         </template>
-        <span>加入下载列表</span>
+        <span>{{ $t('hVmfDxXoj8vkgVQabEOSr') }}</span>
       </v-tooltip>
       <v-tooltip bottom>
         <template #activator="{ on, attrs }">
@@ -306,7 +306,7 @@
             <v-icon>{{ mdiClose }}</v-icon>
           </v-btn>
         </template>
-        <span>关闭</span>
+        <span>{{ $t('t83UAY18UebTg1_-zFGP3') }}</span>
       </v-tooltip>
     </v-toolbar>
     <div v-show="showImageToolbar" class="img_detail_btn_color hidden-sm-and-down">
@@ -319,7 +319,7 @@
           @click.stop="toggleTagsShow()"
         >
           <v-icon left>{{ mdiTagMultiple }}</v-icon>
-          <span>{{ showTagChipGroup ? '隐藏' : '显示' }}</span>
+          <span>{{ showTagChipGroup ? $t('gM92sLo0Cqfl2rCaXlOhc') : $t('l5W-EtJ_ar-SY2lF4H5Zm') }}</span>
         </v-chip>
         <v-chip-group v-show="showTagChipGroup" column>
           <v-chip
@@ -370,6 +370,7 @@ import { debounce, downloadFile, dragElement, isURL, showMsg } from '@/utils'
 import { type PostDetail, addPostToFavorites, getPostDetail } from '@/api/moebooru'
 import store from '@/store'
 import { searchPosts } from '@/store/actions/post'
+import i18n from '@/utils/i18n'
 
 const showImageToolbar = ref(true)
 const imgLoading = ref(true)
@@ -449,7 +450,7 @@ const download = async (url: string | null, name: string) => {
     downloading.value = false
   } catch (error) {
     downloading.value = false
-    showMsg({ msg: `下载出错: ${error}`, type: 'error' })
+    showMsg({ msg: `${i18n.t('FAqj5ONm50QMfIt9Vq2p1')}: ${error}`, type: 'error' })
   }
 }
 

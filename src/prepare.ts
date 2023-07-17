@@ -202,7 +202,8 @@ function setMasonryMode(fn: () => void) {
     const oldBtn = document.querySelector('#enter-masonry') as HTMLButtonElement
     oldBtn?.remove()
   }
-  document.body.insertAdjacentHTML('beforeend', '<button id="enter-masonry">瀑布流模式</button>')
+  const btnText = navigator.language.includes('zh') ? '瀑布流模式' : 'Browsing'
+  document.body.insertAdjacentHTML('beforeend', `<button id="enter-masonry">${btnText}</button>`)
   const btn = document.querySelector('#enter-masonry') as HTMLButtonElement
   btn?.addEventListener('click', () => { fn() })
 }
@@ -224,9 +225,9 @@ export function loadScript(src: string) {
 }
 
 async function loadDeps() {
-  await loadScript('https://unpkg.com/vue@2.7.14/dist/vue.min.js')
-  await loadScript('https://unpkg.com/vuetify@2.6.12/dist/vuetify.min.js')
-  await loadScript('https://unpkg.com/vue-masonry-css@1.0.3/dist/vue-masonry.min.js')
+  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.min.js')
+  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.0/vuetify.min.js')
+  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.28.2/vue-i18n.min.js')
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.0.11/fxparser.min.js')
 }
 
@@ -239,9 +240,9 @@ function replaceHead() {
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     ${location.href.includes('http://behoimi.org') ? '' : '<meta name="referrer" content="no-referrer">'}
     <title>${location.host.toUpperCase()} Masonry</title>
-    <link rel="stylesheet" href="https://unpkg.com/normalize.css@8.0.1/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://fonts.loli.net/css?family=Roboto:100,300,400,500,700,900">
-    <link rel="stylesheet" href="https://unpkg.com/vuetify@2.6.12/dist/vuetify.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.0/vuetify.min.css">
     <style>${customStyle}</style>
   `
 }

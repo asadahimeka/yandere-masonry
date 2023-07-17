@@ -8,13 +8,18 @@
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vue)
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vuetify)
 
+中文 | [English](https://github.com/asadahimeka/yandere-masonry/blob/main/README.en.md)
+
 Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览
+
+> Modified from [zhzwz/yande-re-chinese-patch](https://github.com/zhzwz/yande-re-chinese-patch)
 
 *有问题或建议请到 GitHub [反馈](https://github.com/asadahimeka/yandere-masonry/issues)*
 
 更新日志见 [CHANGELOG.md](https://github.com/asadahimeka/yandere-masonry/blob/main/CHANGELOG.md)
 
 Build with [vite](https://vitejs.dev) & [vite-plugin-tm-userscript](https://github.com/asadahimeka/vite-plugin-tm-userscript)
+
 
 ## Install
 
@@ -207,9 +212,9 @@ You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/
 
 ## Credits
 
-Modified from [coderzhaoziwei/yande-re-chinese-patch](https://github.com/coderzhaoziwei/yande-re-chinese-patch)
+[zhzwz/yande-re-chinese-patch](https://github.com/zhzwz/yande-re-chinese-patch)
 
-[Booru Search API](https://github.com/asadahimeka/booru-search) modified from [AtoraSuunva/booru](https://github.com/AtoraSuunva/booru)
+[Booru Search](https://github.com/asadahimeka/booru-search) modified from [AtoraSuunva/booru](https://github.com/AtoraSuunva/booru)
 
 ## License
 

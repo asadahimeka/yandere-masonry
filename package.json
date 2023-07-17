@@ -16,10 +16,11 @@
   },
   "dependencies": {
     "@himeka/booru": "2.7.6",
-    "date-fns": "2.29.3",
+    "date-fns": "2.30.0",
     "vue": "2.7.14",
+    "vue-i18n": "8.28.2",
     "vue-masonry-css": "1.0.3",
-    "vuetify": "2.6.12"
+    "vuetify": "2.7.0"
   },
   "devDependencies": {
     "@antfu/eslint-config-vue": "0.27.0",
@@ -36,7 +37,7 @@
     "semver": "7.3.8",
     "typescript": "4.8.4",
     "vite": "2.9.5",
-    "vite-plugin-tm-userscript": "1.2.0",
+    "vite-plugin-tm-userscript": "1.2.1",
     "vue-template-compiler": "2.7.14"
   }
 }

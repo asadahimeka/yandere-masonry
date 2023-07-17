@@ -37,14 +37,14 @@
               <v-list-item-content class="ml-2">
                 <v-list-item-title><a :href="`/pool/show/${item.id}`" target="_blank">Pool #{{ item.id }}</a></v-list-item-title>
               </v-list-item-content>
-              <v-chip class="mr-1">{{ item.post_count }} 张</v-chip>
+              <v-chip class="mr-1">{{ item.post_count }} {{ $t('xJJTEE3nZ4HVXGFfiN-LC') }}</v-chip>
               <v-tooltip bottom>
                 <template #activator="{ on, attrs }">
                   <v-btn icon v-bind="attrs" v-on="on" @click="viewPool(item.id)">
                     <v-icon>{{ mdiLaunch }}</v-icon>
                   </v-btn>
                 </template>
-                <span>查看</span>
+                <span>{{ $t('tGi6xYfvStBmR8qduEmKX') }}</span>
               </v-tooltip>
               <v-tooltip bottom>
                 <template #activator="{ on, attrs }">
@@ -52,7 +52,7 @@
                     <v-icon>{{ mdiDownload }}</v-icon>
                   </v-btn>
                 </template>
-                <span>下载</span>
+                <span>{{ $t('Xtk-NnMgSQZmheJ87nbRV') }}</span>
               </v-tooltip>
             </v-row>
           </v-list-item>
@@ -60,9 +60,9 @@
       </v-card>
     </masonry>
     <div class="d-flex justify-center">
-      <v-btn v-show="store.requestState" color="primary" text>加载中...</v-btn>
-      <v-btn v-show="showLoadMore" color="primary" text @click="loadData()">加载更多</v-btn>
-      <v-btn v-show="showNoMore" color="primary" text>没了</v-btn>
+      <v-btn v-show="store.requestState" color="primary" text>{{ $t('RN4dt81l_fZMWODsskZob') }}...</v-btn>
+      <v-btn v-show="showLoadMore" color="primary" text @click="loadData()">{{ $t('fC8XNfCl04zK7vgeaRZMQ') }}</v-btn>
+      <v-btn v-show="showNoMore" color="primary" text>{{ $t('4hOFoP4M3ZkL3RiN7XOc8') }}</v-btn>
     </div>
   </div>
 </template>
