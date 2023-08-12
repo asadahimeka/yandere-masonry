@@ -194,7 +194,7 @@ const downloadCtxPost = async (post?: Post) => {
     fileDownloadName = `${location.hostname} ${img.id} ${img.tags.join(' ')}`
   }
   try {
-    await downloadFile(fileUrl, `${location.hostname}/${fileDownloadName}.${fileUrl.split('.').pop()}`)
+    await downloadFile(fileUrl, `${fileDownloadName}.${fileUrl.split('.').pop()}`)
   } catch (error) {
     showMsg({ msg: `${i18n.t('FAqj5ONm50QMfIt9Vq2p1')}: ${error}`, type: 'error' })
   }

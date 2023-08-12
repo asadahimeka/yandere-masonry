@@ -7,7 +7,9 @@ export function isURL(s: string) {
   return /^https?:\/\/.*/.test(s)
 }
 
+const isSubpathDL = Boolean(localStorage.getItem('__dl_subpath_on'))
 export function downloadFile(url: string, name: string, options?: Partial<Tampermonkey.DownloadRequest>) {
+  if (isSubpathDL) name = `${location.hostname}/${name}`
   return new Promise<void>((resolve, reject) => {
     GM_download({
       url,

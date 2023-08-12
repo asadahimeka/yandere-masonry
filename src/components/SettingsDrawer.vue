@@ -183,7 +183,35 @@
           </v-menu>
         </v-list-item-action>
       </v-list-item>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>{{ $t('PBjdNKuj02doUvOf2zZqP') }}</v-list-item-title>
+          <v-list-item-subtitle :title="$t('z_oL9s5fS164W4_gITOGZ')">{{ $t('z_oL9s5fS164W4_gITOGZ') }}</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-switch
+            v-model="isDLSubpath"
+            :loading="dlSubLoading"
+            @change="onDLSubpathChange"
+          />
+        </v-list-item-action>
+      </v-list-item>
     </v-list>
+    <v-dialog v-model="showDLConfirm" max-width="600">
+      <v-card>
+        <v-card-title class="text-h5">{{ $t('ti3akdSS3iZV9NsGzIo3m') }}</v-card-title>
+        <v-card-text>
+          {{ $t('LN_Rsic4V50DrXbsv9T9L') }}<br>
+          {{ $t('OJ8X55GXx5k3peoSXSujf') }}<br>
+          {{ $t('ujBgilCWNgFNV8Q2IDMWS') }}
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn text @click="setDLSubpathOn('')">{{ $t('9dq_DxgMG88eom9Gq-4nT') }}</v-btn>
+          <v-btn color="primary" text @click="setDLSubpathOn('1')">{{ $t('0VAN4cJ-_mUxvtmg4KEi1') }}</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-navigation-drawer>
 </template>
 
@@ -227,6 +255,25 @@ const onKeyupSwitchChange = (val: any) => {
 const onImgPreloadChange = (val: any) => {
   localStorage.setItem('__fullImgPreload', val ? '1' : '')
   location.reload()
+}
+
+const dlSubLoading = ref(false)
+const showDLConfirm = ref(false)
+const isDLSubpath = ref(Boolean(localStorage.getItem('__dl_subpath_on')))
+const setDLSubpathOn = (val: any) => {
+  isDLSubpath.value = !!val
+  localStorage.setItem('__dl_subpath_on', val)
+  showDLConfirm.value = false
+  dlSubLoading.value = false
+  location.reload()
+}
+const onDLSubpathChange = (val: any) => {
+  dlSubLoading.value = true
+  if (val) {
+    showDLConfirm.value = true
+  } else {
+    setDLSubpathOn('')
+  }
 }
 
 const layoutTypes = ref([

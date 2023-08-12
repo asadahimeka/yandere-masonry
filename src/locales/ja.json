@@ -88,5 +88,13 @@
   "wI4KHHIe3zNRziW4lDZrp": "サンプル画像をダウンロード",
   "xJJTEE3nZ4HVXGFfiN-LC": "枚",
   "ze1PaiGdX4ufmoOLv_xw6": "年別",
-  "zs8YTCc8d8XFUgRnp7m_w": "私のお気に入り"
+  "zs8YTCc8d8XFUgRnp7m_w": "私のお気に入り",
+  "PBjdNKuj02doUvOf2zZqP": "画像をサブフォルダーに保存する",
+  "z_oL9s5fS164W4_gITOGZ": "写真を保存するには、デフォルトのダウンロード ディレクトリにサイトにちなんだ名前のフォルダーを作成します。Tampermonkey の「ダウンロード モード」を「ブラウザ API」に変更する必要があります。",
+  "0VAN4cJ-_mUxvtmg4KEi1": "OK",
+  "9dq_DxgMG88eom9Gq-4nT": "キャンセル",
+  "LN_Rsic4V50DrXbsv9T9L": "サブフォルダーのダウンロードを有効にしてもよろしいですか? \nTampermonkey の「ダウンロード モード」を「ブラウザ API」に変更していることを確認してください。",
+  "OJ8X55GXx5k3peoSXSujf": "開く方法: Tampermonkey 設定の「構成モード」を「初心者」から「上級」に変更し、「ダウンロード ベータ」を見つけて、「ダウンロード モード」を「ブラウザ API」に変更します。",
+  "ti3akdSS3iZV9NsGzIo3m": "ヒント",
+  "ujBgilCWNgFNV8Q2IDMWS": "ヒント: 便宜上、ブラウザの設定で [ダウンロード前に各ファイルの保存場所を確認する] オプションをオフにすることができます。"
 }
