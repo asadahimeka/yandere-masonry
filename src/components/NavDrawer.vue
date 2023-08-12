@@ -84,9 +84,9 @@
               <v-list-item-title>Pixiv Ranking</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item link @click="openLink('https://pixiv.kanata.ml')">
+          <v-list-item link @click="openLink('https://pixiv.pics')">
             <v-list-item-icon class="mr-2">
-              <img src="https://pixiv.kanata.ml/favicon.ico" loading="lazy" class="site_icon">
+              <img src="https://pixiv.pics/favicon.ico" loading="lazy" class="site_icon">
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>Pixiv Viewer</v-list-item-title>

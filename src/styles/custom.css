@@ -458,3 +458,28 @@
 .theme--light .v-app-bar .v-btn--icon {
   color: rgba(0,0,0,.87) !important;
 }
+
+.posts-image-actions {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  padding: 2px;
+  text-align: center;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: .4s;
+}
+
+.posts-image-card:hover .posts-image-actions {
+  opacity: 1;
+  visibility: visible;
+}
+
+.posts-image-type {
+  position: absolute;
+  top: 0;
+  right: 5px;
+}

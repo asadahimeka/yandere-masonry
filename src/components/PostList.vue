@@ -33,19 +33,33 @@
               <v-progress-circular indeterminate color="deep-purple" />
             </v-row>
           </template>
-          <v-icon
-            v-if="image?.fileExt.toLowerCase() === 'gif'"
-            style="position: absolute;right: 5px"
-          >
-            {{ mdiFileGifBox }}
-          </v-icon>
-          <v-icon
-            v-if="['mp4', 'webm'].includes(image?.fileExt.toLowerCase())"
-            style="position: absolute;right: 5px"
-          >
-            {{ mdiVideo }}
-          </v-icon>
         </v-img>
+        <v-icon
+          v-if="image?.fileExt.toLowerCase() === 'gif'"
+          class="posts-image-type"
+        >
+          {{ mdiFileGifBox }}
+        </v-icon>
+        <v-icon
+          v-if="['mp4', 'webm'].includes(image?.fileExt.toLowerCase())"
+          class="posts-image-type"
+        >
+          {{ mdiVideo }}
+        </v-icon>
+        <div class="posts-image-actions">
+          <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" @click.stop="openDetail(image)">
+            <v-icon>{{ mdiLinkVariant }}</v-icon>
+          </v-btn>
+          <v-btn icon color="#fff" :title="$t('hVmfDxXoj8vkgVQabEOSr')" @click.stop="addToSelectedList(image)">
+            <v-icon>{{ mdiPlaylistPlus }}</v-icon>
+          </v-btn>
+          <v-btn icon color="#fff" :title="$t('VpuyxZtIoDF9-YyOm0tK_')" @click.stop="downloadCtxPost(image)">
+            <v-icon>{{ mdiDownload }}</v-icon>
+          </v-btn>
+          <v-btn v-if="store.isYKSite" icon color="#fff" :title="$t('Dnnio9m9RZA6bkTLytc99')" @click.stop="addFavorite(image.id)">
+            <v-icon>{{ mdiHeartPlusOutline }}</v-icon>
+          </v-btn>
+        </div>
       </v-card>
     </wf-layout>
     <div class="d-flex justify-center">
@@ -94,7 +108,7 @@
 </template>
 
 <script setup lang="ts">
-import { mdiFileGifBox, mdiRefresh, mdiVideo } from '@mdi/js'
+import { mdiDownload, mdiFileGifBox, mdiHeartPlusOutline, mdiLinkVariant, mdiPlaylistPlus, mdiRefresh, mdiVideo } from '@mdi/js'
 import { computed, nextTick, onMounted, onUnmounted, ref, set, watch } from 'vue'
 import type { Post } from '@himeka/booru'
 import PostDetail from './PostDetail.vue'
@@ -155,27 +169,32 @@ const showImgModal = (index: number) => {
   store.showImageSelected = true
 }
 
-const openDetail = () => {
-  const img = ctxActPost.value
+const openDetail = (post?: Post) => {
+  const img = post || ctxActPost.value
   img && window.open(img.postView, '_blank', 'noreferrer')
 }
 
-const addToSelectedList = () => {
-  const img = ctxActPost.value
+const addToSelectedList = (post?: Post) => {
+  const img = post || ctxActPost.value
   img && store.addToSelectedList(img)
 }
 
-const addFavorite = () => {
-  const img = ctxActPost.value
-  img && addPostToFavorites(img.id)
+const addFavorite = (id?: string) => {
+  const imgId = id || ctxActPost.value?.id
+  imgId && addPostToFavorites(imgId)
 }
 
-const downloadCtxPost = async () => {
-  if (!ctxActPost.value) return
-  const { fileUrl, fileDownloadName } = ctxActPost.value
+const downloadCtxPost = async (post?: Post) => {
+  const img = post || ctxActPost.value
+  if (!img) return
+  const { fileUrl } = img
+  let { fileDownloadName } = img
   if (!fileUrl) return
+  if (store.isYKSite) {
+    fileDownloadName = `${location.hostname} ${img.id} ${img.tags.join(' ')}`
+  }
   try {
-    await downloadFile(fileUrl, `${fileDownloadName}.${fileUrl.split('.').pop()}`)
+    await downloadFile(fileUrl, `${location.hostname}/${fileDownloadName}.${fileUrl.split('.').pop()}`)
   } catch (error) {
     showMsg({ msg: `${i18n.t('FAqj5ONm50QMfIt9Vq2p1')}: ${error}`, type: 'error' })
   }
