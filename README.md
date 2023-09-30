@@ -180,9 +180,13 @@ https://aibooru.online
 
 ![](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/8dccc28bf99106aaab984feb383d4c1f_939382269553345713.png)
 
-## Sponsors
+## Donate/Sponsors
 
 赞助列表: https://sponsors.nanoka.top/account
+
+<a href="https://sponsors.nanoka.top" target="_blank">
+<img width="160" src="https://upload-bbs.miyoushe.com/upload/2023/09/30/260511332/379cb3e57561c164124b641324ab24c7_1468657779553037247.jpg" alt>
+</a>
 
 ## Developing
 
