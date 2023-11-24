@@ -57,9 +57,13 @@ Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设
 
 ### 标签中文翻译
 
-添加 Y 站与 K 站标签的中文翻译，翻译文件来自 yande-re-chinese-patch
+- 添加 Y 站与 K 站标签的中文翻译，翻译文件来自 [yande-re-chinese-patch](https://github.com/zhzwz/yande-re-chinese-patch)
 
-欢迎 [PR](https://github.com/asadahimeka/yandere-masonry/blob/main/src/data/tags_cn.json) 补充或校正翻译
+  欢迎 [PR](https://github.com/asadahimeka/yandere-masonry/blob/main/src/data/tags_cn.json) 补充或校正翻译
+
+- 添加 danbooru 系站点标签翻译, 翻译文件来自 [danbooru-diffusion-prompt-builder](https://github.com/wfjsw/danbooru-diffusion-prompt-builder)
+
+  欢迎 [PR](https://github.com/asadahimeka/danbooru_tags_json/blob/main/yaml/_add_extra.yaml) 补充或校正翻译
 
 ### 瀑布流模式
 

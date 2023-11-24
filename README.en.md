@@ -155,7 +155,8 @@ https://aibooru.online
 
 ## Sponsors
 
-Sponsors list: https://sponsors.nanoka.top/account
+<!-- Sponsors list: https://sponsors.nanoka.top/account -->
+Thanks for [TSUKYU](https://twitter.com/Tsukyui)'s support
 
 ## Developing
 

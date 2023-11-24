@@ -13,6 +13,8 @@ export async function prepareApp(callback?: () => void) {
     addMoeLocaleSelect()
     addWfTypeSelect()
     initLayout()
+  } else {
+    translateDanbooruTags()
   }
   await sleep(1000)
   setMasonryMode(async () => {
@@ -32,7 +34,7 @@ function doNotRun() {
 }
 
 function isMoebooru() {
-  return ['yande.re', 'konachan', 'lolibooru', 'sakugabooru'].some(e => location.href.includes(e))
+  return ['yande.re', 'konachan', 'lolibooru', 'sakugabooru'].some(e => location.host.includes(e))
 }
 
 const wfTypeActions: Record<string, Function> = {
@@ -104,10 +106,10 @@ async function initMasonry() {
 
 function addSiteStyle() {
   GM_addStyle(prepareStyle)
-  if (location.href.includes('yande.re')) {
+  if (location.host.includes('yande.re')) {
     GM_addStyle(ydStyle)
   }
-  if (location.href.includes('konachan')) {
+  if (location.host.includes('konachan')) {
     GM_addStyle(ydStyle + knStyle)
   }
 }
@@ -171,6 +173,24 @@ async function translateTags() {
   const textEn = (el: HTMLElement) => el.innerHTML.replace(/\s+/g, '_')
   setTagText('#site-title a[href^="/post?tags="]', textEn)
   setTagText('#tag-sidebar a[href^="/post?tags="]:not(.no-browser-link)', textEn, (en, cn) => `[${cn}] ${en}`)
+}
+
+async function translateDanbooruTags() {
+  if (!navigator.language.includes('zh')) return
+  let tagsCache = sessionStorage.getItem('__YM_TAGS_CN_CACHE') || ''
+  if (!tagsCache) {
+    try {
+      const response = await fetch('https://raw.githubusercontent.com/asadahimeka/danbooru_tags_json/main/json/_tags_translate_cn.json')
+      tagsCache = await response.text()
+      sessionStorage.setItem('__YM_TAGS_CN_CACHE', tagsCache)
+    } catch (error) {}
+  }
+  window.__tagsCN = JSON.parse(tagsCache || '{}')
+  const textEn = (el: HTMLElement) => el.innerText.trim()
+  const textCn = (en: string, cn: string) => `[${cn}] ${en}`
+  setTagText('.tag-list li a[href*="post"]:not([onclick])', textEn, textCn)
+  setTagText('#tag-sidebar li a[href*="post"]:not([onclick])', textEn, textCn)
+  setTagText('#tags-table td.name-column a[href*="post"]', (el: HTMLElement) => el.innerText.trim().replace(/_/g, ' '), textCn)
 }
 
 function removeOldListeners() {

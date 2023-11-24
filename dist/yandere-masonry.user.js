@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.29.1
+// @version              0.30.0
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -47,7 +47,7 @@ var __publicField = (obj, key, value) => {
   var prepareStyle = "#enter-masonry{position:fixed;z-index:99;right:16px;top:10px;height:30px;padding:6px 10px;font-size:13px;border:0;border-radius:6px;color:#fff;outline:0;background:linear-gradient(to right,#ff758c 0%,#ff7eb3 100%);opacity:1;transform:scale(1);transition:opacity,transform .2s;cursor:pointer}#enter-masonry:hover{opacity:.8;transform:scale(1.05)}#locale-select{position:fixed;z-index:99;right:110px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}#wf-type-select{position:fixed;z-index:99;right:190px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}\n";
   var ydStyle = 'a.thumb{padding-bottom:5px;border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08] "}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743] "}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272] "}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2] "}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:100%;height:auto;margin-top:0;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}.mm-masonry{--gap: 24;--col-width: 240}.mm-masonry{--_col-width: var(--col-width, 280);--_col-width-px: calc(var(--_col-width) * 1px);--_gap: calc(var(--gap, 20) * 1px);display:var(--display, grid)!important;grid-template-columns:repeat(auto-fill,minmax(var(--_col-width-px),1fr));grid-auto-rows:1px;column-gap:var(--_gap)}.mm-masonry__item{--img-proportional-height: calc(var(--h) * var(--_col-width) / (var(--w)));grid-row-end:span var(--img-proportional-height, 240);overflow:hidden}.mm-masonry__item:not(:last-child){margin-bottom:var(--_gap)}#post-list ul#post-list-posts .mm-masonry__item .inner,#post-popular ul#post-list-posts .mm-masonry__item .inner{height:100%!important}.mm-masonry__img{width:100%!important;height:100%!important;object-fit:cover}.justified-container{display:flex!important;flex-wrap:wrap}.justified-container:after{content:"";flex-grow:999999999}.justified-item{position:relative}.justified-item img.preview{position:absolute;top:0;left:0;width:100%;vertical-align:bottom;object-fit:cover}\n';
   var knStyle = "#lsidebar{display:none}#post-popular ul#post-list-posts{display:flex;justify-content:center;flex-wrap:wrap}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
-  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;max-width:100vw;max-height:100vh;margin:0 auto}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}::-webkit-scrollbar{width:0px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #fff;border-radius:7px}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.flexbin{display:flex!important;overflow:hidden;flex-wrap:wrap;margin:2.5px;transition:.2s}.flexbin:after{content:"";flex-grow:999999999;min-width:15vw;height:0}.flexbin .posts-image-card{position:relative;display:block!important;height:15vw!important;margin:2.5px!important;padding-bottom:0!important;flex-grow:1;transition:.2s}.flexbin .post-image{position:initial!important;width:auto!important;height:15vw!important;object-fit:cover;max-width:100%;min-width:100%;vertical-align:bottom;transition:.2s}.flexbin .post-image:before{content:"Loading..."}@media (max-width: 1280px){.flexbin:after{min-width:20vw!important}.flexbin .posts-image-card,.flexbin .post-image{height:20vw!important}}@media (max-width: 980px){.flexbin:after{min-width:30vw!important}.flexbin .posts-image-card,.flexbin .post-image{height:30vw!important}}@media (max-width: 768px){.flexbin:after{min-width:40vw!important}.flexbin .posts-image-card,.flexbin .post-image{height:40vw!important}}@media (max-width: 570px){.flexbin:after{min-width:60vw!important}.flexbin .posts-image-card,.flexbin .post-image{height:60vw!important}}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{position:relative;margin-bottom:0!important;background-color:#dcdcdc}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .img_detail_btn_color .v-chip.primary,.theme--light .img_detail_btn_color .v-btn.primary{background-color:#8e24aab3!important;border-color:#8e24aab3!important}.theme--dark .img_detail_btn_color .v-chip.primary,.theme--dark .img_detail_btn_color .v-btn.primary{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-type{position:absolute;top:0;right:5px}\n';
+  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;max-width:100vw;max-height:100vh;margin:0 auto}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}::-webkit-scrollbar{width:0px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #fff;border-radius:7px}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.flexbin{display:flex!important;overflow:hidden;flex-wrap:wrap;margin:2.5px;transition:.2s}.flexbin:after{content:"";flex-grow:999999999;min-width:15vw;height:0}.flexbin .posts-image-card{position:relative;display:block!important;height:15vw!important;margin:2.5px!important;padding-bottom:0!important;flex-grow:1;transition:.2s}.flexbin .post-image{position:initial!important;width:auto!important;height:15vw!important;object-fit:cover;max-width:100%;min-width:100%;vertical-align:bottom;transition:.2s}.flexbin .post-image:before{content:"Loading..."}@media (max-width: 1280px){.flexbin:after{min-width:20vw!important}.flexbin .posts-image-card,.flexbin .post-image{height:20vw!important}}@media (max-width: 980px){.flexbin:after{min-width:30vw!important}.flexbin .posts-image-card,.flexbin .post-image{height:30vw!important}}@media (max-width: 768px){.flexbin:after{min-width:40vw!important}.flexbin .posts-image-card,.flexbin .post-image{height:40vw!important}}@media (max-width: 570px){.flexbin:after{min-width:60vw!important}.flexbin .posts-image-card,.flexbin .post-image{height:60vw!important}}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{position:relative;margin-bottom:0!important;background-color:#dcdcdc}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .img_detail_btn_color .v-chip.primary,.theme--light .img_detail_btn_color .v-btn.primary{background-color:#8e24aab3!important;border-color:#8e24aab3!important}.theme--dark .img_detail_btn_color .v-chip.primary,.theme--dark .img_detail_btn_color .v-btn.primary{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-type{position:absolute!important;top:0;right:0px;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}\n';
   async function prepareApp(callback) {
     if (doNotRun())
       return;
@@ -59,6 +59,8 @@ var __publicField = (obj, key, value) => {
       addMoeLocaleSelect();
       addWfTypeSelect();
       initLayout();
+    } else {
+      translateDanbooruTags();
     }
     await sleep(1e3);
     setMasonryMode(async () => {
@@ -75,7 +77,7 @@ var __publicField = (obj, key, value) => {
     return mimeTypes.some((e) => location.pathname.endsWith(`.${e}`));
   }
   function isMoebooru() {
-    return ["yande.re", "konachan", "lolibooru", "sakugabooru"].some((e) => location.href.includes(e));
+    return ["yande.re", "konachan", "lolibooru", "sakugabooru"].some((e) => location.host.includes(e));
   }
   const wfTypeActions = {
     masonry: (list) => {
@@ -149,10 +151,10 @@ var __publicField = (obj, key, value) => {
   }
   function addSiteStyle() {
     GM_addStyle(prepareStyle);
-    if (location.href.includes("yande.re")) {
+    if (location.host.includes("yande.re")) {
       GM_addStyle(ydStyle);
     }
-    if (location.href.includes("konachan")) {
+    if (location.host.includes("konachan")) {
       GM_addStyle(ydStyle + knStyle);
     }
   }
@@ -223,6 +225,25 @@ var __publicField = (obj, key, value) => {
     const textEn = (el) => el.innerHTML.replace(/\s+/g, "_");
     setTagText('#site-title a[href^="/post?tags="]', textEn);
     setTagText('#tag-sidebar a[href^="/post?tags="]:not(.no-browser-link)', textEn, (en2, cn) => `[${cn}] ${en2}`);
+  }
+  async function translateDanbooruTags() {
+    if (!navigator.language.includes("zh"))
+      return;
+    let tagsCache = sessionStorage.getItem("__YM_TAGS_CN_CACHE") || "";
+    if (!tagsCache) {
+      try {
+        const response = await fetch("https://raw.githubusercontent.com/asadahimeka/danbooru_tags_json/main/json/_tags_translate_cn.json");
+        tagsCache = await response.text();
+        sessionStorage.setItem("__YM_TAGS_CN_CACHE", tagsCache);
+      } catch (error) {
+      }
+    }
+    window.__tagsCN = JSON.parse(tagsCache || "{}");
+    const textEn = (el) => el.innerText.trim();
+    const textCn = (en2, cn) => `[${cn}] ${en2}`;
+    setTagText('.tag-list li a[href*="post"]:not([onclick])', textEn, textCn);
+    setTagText('#tag-sidebar li a[href*="post"]:not([onclick])', textEn, textCn);
+    setTagText('#tags-table td.name-column a[href*="post"]', (el) => el.innerText.trim().replace(/_/g, " "), textCn);
   }
   function removeOldListeners() {
     try {
@@ -576,7 +597,7 @@ var __publicField = (obj, key, value) => {
   const _Efl8k8uYQj9iJmj3kwbd$3 = "\u672C\u5730\u6807\u7B7E\u9ED1\u540D\u5355";
   const RstKmO7YVQMpaDoucxUel$3 = "\u5F53\u524D\u7AD9\u70B9 API Credentials";
   const Lm_HFVHpv4XCjilV3NLKu$3 = "\u663E\u793A NSFW \u5185\u5BB9";
-  const A16qoBulYQJLbHe9mqNwm$3 = "\u5305\u542B\u88F8\u9732\u6216\u6027\u63CF\u5199\u5185\u5BB9";
+  const A16qoBulYQJLbHe9mqNwm$3 = "\u5305\u542B\u88F8\u9732\u3001\u6027\u63CF\u5199\u5185\u5BB9\u7B49\u8FC7\u6FC0\u5185\u5BB9";
   const _nQfaNuwbvPAIFKOY6_7u$3 = "\u76D1\u542C\u6EDA\u8F6E\u4E8B\u4EF6";
   const SIUUZ4wqJTOilEdcX3EOi$3 = "\u8BE6\u60C5\u5F39\u7A97\u6EDA\u8F6E\u5207\u6362\u56FE\u7247";
   const fVE5taO6GDTPbILat4GCt$3 = "\u76D1\u542C\u952E\u76D8\u4E8B\u4EF6";
@@ -695,7 +716,7 @@ var __publicField = (obj, key, value) => {
     ujBgilCWNgFNV8Q2IDMWS: ujBgilCWNgFNV8Q2IDMWS$3
   };
   const UxxldE9xRwmQctrvba5Y8$2 = "\u8A2D\u7F6E";
-  const A16qoBulYQJLbHe9mqNwm$2 = "\u5305\u542B\u88F8\u9732\u6216\u6027\u63CF\u5BEB\u5167\u5BB9";
+  const A16qoBulYQJLbHe9mqNwm$2 = "\u5305\u542B\u88F8\u9732\u3001\u6027\u611B\u63CF\u5BEB\u5167\u5BB9\u7B49\u904E\u6FC0\u5167\u5BB9";
   const CacM8tispuPNrSxxpt9GX$2 = "\u5FEB\u6377\u65B9\u5F0F";
   const ClZdL9hGweOokP7Mn_Ptq$2 = "\u9000\u51FA\u7011\u5E03\u6D41\u6A21\u5F0F";
   const DXEhXAQbkiCMU_l252jo_$2 = "\u5716\u96C6 (Pool)";
@@ -854,7 +875,7 @@ var __publicField = (obj, key, value) => {
     ujBgilCWNgFNV8Q2IDMWS: ujBgilCWNgFNV8Q2IDMWS$2
   };
   const UxxldE9xRwmQctrvba5Y8$1 = "Settings";
-  const A16qoBulYQJLbHe9mqNwm$1 = "Contains nudity or sexual descriptions";
+  const A16qoBulYQJLbHe9mqNwm$1 = "Contains excessive content such as nudity and sexual descriptions";
   const CacM8tispuPNrSxxpt9GX$1 = "Shortcuts";
   const ClZdL9hGweOokP7Mn_Ptq$1 = "Exit Waterfall Mode";
   const DXEhXAQbkiCMU_l252jo_$1 = "Pools";
@@ -1014,7 +1035,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     ujBgilCWNgFNV8Q2IDMWS: ujBgilCWNgFNV8Q2IDMWS$1
   };
   const UxxldE9xRwmQctrvba5Y8 = "\u8A2D\u5B9A";
-  const A16qoBulYQJLbHe9mqNwm = "\u30CC\u30FC\u30C9\u3084\u6027\u7684\u306A\u63CF\u5199\u304C\u542B\u307E\u308C\u308B";
+  const A16qoBulYQJLbHe9mqNwm = "\u30CC\u30FC\u30C9\u3084\u6027\u7684\u63CF\u5199\u306A\u3069\u306E\u904E\u5EA6\u306A\u5185\u5BB9\u304C\u542B\u307E\u308C\u3066\u3044\u308B\u3082\u306E";
   const CacM8tispuPNrSxxpt9GX = "\u30B7\u30E7\u30FC\u30C8\u30AB\u30C3\u30C8";
   const ClZdL9hGweOokP7Mn_Ptq = "\u30A6\u30A9\u30FC\u30BF\u30FC\u30D5\u30A9\u30FC\u30EB\u30E2\u30FC\u30C9\u3092\u7D42\u4E86\u3059\u308B";
   const DXEhXAQbkiCMU_l252jo_ = "\u30D7\u30FC\u30EB";
@@ -2792,6 +2813,52 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     return results;
   }
+  function isRule34FavPage() {
+    return /rule34\.xxx\/index\.php\?page\=favorites\&s\=view/.test(location.href);
+  }
+  async function fetchRule34Favorites(page2) {
+    const url = new URL(location.href);
+    url.searchParams.set("pid", `${(page2 - 1) * 50}`);
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const results = [...doc.querySelectorAll("#content .thumb")].map(async (el) => {
+      var _a2, _b2;
+      const img = el.querySelector("img");
+      const imgSrc = (img == null ? void 0 : img.src) || "";
+      const postView = (_a2 = el.querySelector("a")) == null ? void 0 : _a2.href;
+      const { width, height } = await getImageSize(imgSrc);
+      return {
+        id: (_b2 = postView == null ? void 0 : postView.match(/id=(\d+)/)) == null ? void 0 : _b2[1],
+        postView,
+        previewUrl: imgSrc,
+        sampleUrl: imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, "$1samples$2sample_$3"),
+        fileUrl: imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.jpeg"),
+        tags: img == null ? void 0 : img.title.split(/\s+/),
+        width,
+        height,
+        aspectRatio: width / height,
+        fileExt: "jpg",
+        rating: ""
+      };
+    });
+    return Promise.all(results);
+  }
+  function getImageSize(url) {
+    return new Promise((resolve) => {
+      if (!url) {
+        resolve({ width: 0, height: 0 });
+        return;
+      }
+      const image = new Image();
+      image.onload = () => {
+        resolve({ width: image.width, height: image.height });
+      };
+      image.onerror = () => {
+        resolve({ width: 0, height: 0 });
+      };
+      image.src = url;
+    });
+  }
   function getFirstPageNo(params2) {
     if (isPidSite) {
       const page2 = Number(params2.get("pid")) || 0;
@@ -2800,6 +2867,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return Number(params2.get("page")) || 1;
   }
   function pushPageState(pageNo, latePageQuery = false) {
+    if (isRule34FavPage())
+      return;
     if (latePageQuery && pageNo > 1)
       pageNo -= 1;
     let pageParamName = "page";
@@ -2831,6 +2900,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       action: async () => {
         const results = await fetchPostsByPath("posts", page);
         return tags ? results.tagged(tags) : results;
+      }
+    },
+    {
+      test: isRule34FavPage,
+      action: async () => {
+        const results = await fetchRule34Favorites(page);
+        return store.blacklist.length ? results.filter((e) => !store.blacklist.some((w) => e.tags.includes(w))) : results;
       }
     },
     {
@@ -3333,7 +3409,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }, proxy: true }]) }, [_c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://github.com/asadahimeka/yandere-masonry/blob/main/CHANGELOG.md");
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiInformationOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("v" + _vm._s(_setup.version))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("iJ0h220tvMmUhkfIMYI-W")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
-      return _setup.openLink("https://booru.kanata.ml");
+      return _setup.openLink("https://booru.pixiv.pics");
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiWeb))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("qWcqQRsE9nN43MaZ2BmN9")))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("jerGO2OCuW9TdnEnGYRWd")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://github.com/asadahimeka/yandere-masonry/issues");
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiMessageAlertOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("23iEYyiQlLVhFIqGbj527")))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("4g1TUy2kwQrdOs-w4JobB")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
@@ -3564,6 +3640,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var _sfc_main$5 = /* @__PURE__ */ Vue2.defineComponent({
     __name: "PostDetail",
     setup(__props) {
+      const notR34Fav = Vue2.ref(!isRule34FavPage());
       const showImageToolbar = Vue2.ref(true);
       const imgLoading = Vue2.ref(true);
       const innerWidth = Vue2.ref(window.innerWidth);
@@ -3668,6 +3745,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         if (isSuccess)
           postDetail.value.voted = true;
       };
+      const isCNLang2 = i18n.locale.includes("zh");
       const setPostDetail = async () => {
         if (store.isYKSite) {
           postDetail.value = {
@@ -3680,12 +3758,16 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         } else {
           postDetail.value = {
             voted: false,
-            tags: imageSelected.value.tags.map((e) => ({
-              tag: e,
-              tagText: e,
-              color: "#8F77B5",
-              type: "general"
-            }))
+            tags: imageSelected.value.tags.map((tag) => {
+              var _a2;
+              const tagCN = (_a2 = window.__tagsCN) == null ? void 0 : _a2[tag.replace(/_/g, " ")];
+              return {
+                tag,
+                tagText: isCNLang2 && tagCN ? `${tag} [ ${tagCN} ]` : tag,
+                color: "#8F77B5",
+                type: "general"
+              };
+            })
           };
         }
       };
@@ -3745,15 +3827,45 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         await setPostDetail();
         preloadNextImg();
       };
-      const onImageLoadError = () => {
+      const onImageLoadError = (ev) => {
         imgLoading.value = false;
         imageSelected.value.sampleUrl = null;
+        if (notR34Fav.value) {
+          return;
+        }
+        const { fileUrl } = imageSelected.value;
+        const el = ev.target;
+        if (!(el == null ? void 0 : el.src.includes("/images/"))) {
+          el.src = imageSelected.value.fileUrl || "";
+          return;
+        }
+        if (fileUrl == null ? void 0 : fileUrl.includes(".jpeg")) {
+          imageSelected.value.fileUrl = fileUrl.replace(/\.jpeg(\?\d+)?$/, ".jpg");
+          return;
+        }
+        if (fileUrl == null ? void 0 : fileUrl.includes(".jpg")) {
+          imageSelected.value.fileUrl = fileUrl.replace(/\.jpg(\?\d+)?$/, ".png");
+        }
       };
       const scaleImgSrc = Vue2.computed(() => {
         return scaleOn.value ? imageSelected.value.jpegUrl || imageSelected.value.fileUrl || void 0 : void 0;
       });
-      const onScaleImgError = () => {
-        imageSelected.value.data.jpeg_url = null;
+      const onScaleImgError = (ev) => {
+        if (notR34Fav.value) {
+          imageSelected.value.data.jpeg_url = null;
+          return;
+        }
+        imgLoading.value = false;
+        const { fileUrl } = imageSelected.value;
+        if (fileUrl == null ? void 0 : fileUrl.includes(".jpeg")) {
+          imageSelected.value.fileUrl = fileUrl.replace(/\.jpeg(\?\d+)?$/, ".jpg");
+          ev.target.src = imageSelected.value.fileUrl;
+          return;
+        }
+        if (fileUrl == null ? void 0 : fileUrl.includes(".jpg")) {
+          imageSelected.value.fileUrl = fileUrl.replace(/\.jpg(\?\d+)?$/, ".png");
+          ev.target.src = imageSelected.value.fileUrl;
+        }
       };
       const scaleImgStyleMap = {
         FitToPage: { maxWidth: "100vw", maxHeight: "100vh" },
@@ -3848,7 +3960,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         store.isListenWheelEvent && window.removeEventListener("wheel", onWheel);
         store.settings.isListenKeyupEvent && window.removeEventListener("keyup", onKeyup);
       });
-      return { __sfc: true, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, showTagChipGroup, toggleTagsShow, imageSelected, isVideo, imgSrc, imgLasySrc, imageSelectedWidth, notYKSite, toggleToolbar, toTagsPage, toDetailPage, toSourcePage, download, addToList, close, onDtlContClick, postDetail, addFavorite, setPostDetail, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, showPrevPost, showNextPost, onImageLoadError, scaleImgSrc, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isTriggerEvent, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFitToScreenOutline, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, DPlayer, store };
+      return { __sfc: true, notR34Fav, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, showTagChipGroup, toggleTagsShow, imageSelected, isVideo, imgSrc, imgLasySrc, imageSelectedWidth, notYKSite, toggleToolbar, toTagsPage, toDetailPage, toSourcePage, download, addToList, close, onDtlContClick, postDetail, addFavorite, isCNLang: isCNLang2, setPostDetail, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, showPrevPost, showNextPost, onImageLoadError, scaleImgSrc, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isTriggerEvent, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFitToScreenOutline, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, DPlayer, store };
     }
   });
   var _sfc_render$5 = function render() {
@@ -3926,9 +4038,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         $event.stopPropagation();
         return _setup.zoomInImg();
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiMagnifyPlusOutline))])], 1)];
-    } }], null, false, 826778205) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("B_ptN5O-9PhmG5ymGGtc6")))])]) : _vm._e(), _c2("v-menu", { attrs: { "dense": "", "open-on-hover": "", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    } }], null, false, 826778205) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("B_ptN5O-9PhmG5ymGGtc6")))])]) : _vm._e(), _setup.notR34Fav ? _c2("v-menu", { attrs: { "dense": "", "open-on-hover": "", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c2("v-btn", _vm._g(_vm._b({ directives: [{ name: "show", rawName: "v-show", value: !_setup.downloading, expression: "!downloading" }], staticClass: "mr-1", attrs: { "fab": "", "small": "", "color": "primary" } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1)];
-    } }]) }, [_c2("v-list", { attrs: { "dense": "", "flat": "" } }, [_setup.imageSelected.sampleUrl ? _c2("v-list-item", { attrs: { "two-line": "", "link": "", "dense": "" } }, [_c2("v-list-item-content", { on: { "click": function($event) {
+    } }], null, false, 1113469611) }, [_c2("v-list", { attrs: { "dense": "", "flat": "" } }, [_setup.imageSelected.sampleUrl ? _c2("v-list-item", { attrs: { "two-line": "", "link": "", "dense": "" } }, [_c2("v-list-item-content", { on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.download(_setup.imageSelected.sampleUrl, _setup.imageSelected.sampleDownloadName);
     } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("wI4KHHIe3zNRziW4lDZrp")))]), _c2("v-list-item-subtitle", { domProps: { "textContent": _vm._s(_setup.imageSelected.sampleDownloadText) } })], 1)], 1) : _vm._e(), _setup.imageSelected.jpegUrl ? _c2("v-list-item", { attrs: { "two-line": "", "link": "", "dense": "" } }, [_c2("v-list-item-content", { on: { "click": function($event) {
@@ -3937,12 +4049,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("k4YzDnBtd_S2UpAQucGxF")))]), _c2("v-list-item-subtitle", { domProps: { "textContent": _vm._s(_setup.imageSelected.jpegDownloadText) } })], 1)], 1) : _vm._e(), _c2("v-list-item", { attrs: { "two-line": "", "link": "", "dense": "" } }, [_c2("v-list-item-content", { on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.download(_setup.imageSelected.fileUrl, _setup.imageSelected.fileDownloadName);
-    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("VpuyxZtIoDF9-YyOm0tK_")))]), _c2("v-list-item-subtitle", { domProps: { "textContent": _vm._s(_setup.imageSelected.fileDownloadText) } })], 1)], 1)], 1)], 1), _c2("v-progress-circular", { directives: [{ name: "show", rawName: "v-show", value: _setup.downloading, expression: "downloading" }], staticClass: "ml-1 mr-2", attrs: { "indeterminate": "", "color": "primary" } }), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("VpuyxZtIoDF9-YyOm0tK_")))]), _c2("v-list-item-subtitle", { domProps: { "textContent": _vm._s(_setup.imageSelected.fileDownloadText) } })], 1)], 1)], 1)], 1) : _vm._e(), _c2("v-progress-circular", { directives: [{ name: "show", rawName: "v-show", value: _setup.downloading, expression: "downloading" }], staticClass: "ml-1 mr-2", attrs: { "indeterminate": "", "color": "primary" } }), _setup.notR34Fav ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addToList.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiPlaylistPlus))])], 1)];
-    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("hVmfDxXoj8vkgVQabEOSr")))])]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    } }], null, false, 285759982) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("hVmfDxXoj8vkgVQabEOSr")))])]) : _vm._e(), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c2("v-btn", _vm._g(_vm._b({ attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.close.apply(null, arguments);
@@ -3978,6 +4090,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var _sfc_main$4 = /* @__PURE__ */ Vue2.defineComponent({
     __name: "PostList",
     setup(__props) {
+      const isR34Fav = Vue2.ref(isRule34FavPage());
       const showImageList = Vue2.ref(true);
       const showFab = Vue2.ref(false);
       Vue2.watch(
@@ -4006,9 +4119,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         if (num != 0 && num < 7) {
           return (img == null ? void 0 : img.sampleUrl) || (img == null ? void 0 : img.fileUrl) || void 0;
         }
+        if (location.hostname === "danbooru.donmai.us" && (img == null ? void 0 : img.previewUrl)) {
+          img.previewUrl = img.previewUrl.replace(/(.*)\/180x180\/(.*)jpg/, "$1/720x720/$2webp");
+        }
         return (img == null ? void 0 : img.previewUrl) || (img == null ? void 0 : img.fileUrl) || void 0;
       };
       const onCtxMenu = (ev, img) => {
+        if (isR34Fav.value)
+          return;
         ev.preventDefault();
         showMenu.value = false;
         x.value = ev.clientX;
@@ -4078,7 +4196,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       Vue2.onUnmounted(() => {
         window.removeEventListener("scroll", scrollFn);
       });
-      return { __sfc: true, showImageList, showFab, showNoMore, showLoadMore, ctxActPost, showMenu, x, y, maxHeightStyle, getImgSrc, onCtxMenu, showImgModal, openDetail, addToSelectedList, addFavorite, downloadCtxPost, onImageLoadError, scrollFn, mdiDownload, mdiFileGifBox, mdiHeartPlusOutline, mdiLinkVariant, mdiPlaylistPlus, mdiRefresh, mdiVideo, PostDetail, refreshPosts, searchPosts, store };
+      return { __sfc: true, isR34Fav, showImageList, showFab, showNoMore, showLoadMore, ctxActPost, showMenu, x, y, maxHeightStyle, getImgSrc, onCtxMenu, showImgModal, openDetail, addToSelectedList, addFavorite, downloadCtxPost, onImageLoadError, scrollFn, mdiDownload, mdiFileGifBox, mdiHeartPlusOutline, mdiLinkVariant, mdiPlaylistPlus, mdiRefresh, mdiVideo, PostDetail, refreshPosts, searchPosts, store };
     }
   });
   var _sfc_render$4 = function render() {
@@ -4096,7 +4214,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return _setup.onCtxMenu($event, image);
       }, "error": _setup.onImageLoadError }, scopedSlots: _vm._u([{ key: "placeholder", fn: function() {
         return [_c2("v-row", { staticClass: "fill-height ma-0", attrs: { "align": "center", "justify": "center" } }, [_c2("v-progress-circular", { attrs: { "indeterminate": "", "color": "deep-purple" } })], 1)];
-      }, proxy: true }], null, true) }), (image == null ? void 0 : image.fileExt.toLowerCase()) === "gif" ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(image == null ? void 0 : image.fileExt.toLowerCase()) ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), _c2("div", { staticClass: "posts-image-actions" }, [_c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4") }, on: { "click": function($event) {
+      }, proxy: true }], null, true) }), (image == null ? void 0 : image.fileExt.toLowerCase()) === "gif" ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(image == null ? void 0 : image.fileExt.toLowerCase()) ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav ? _c2("div", { staticClass: "posts-image-actions" }, [_c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.openDetail(image);
       } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
@@ -4108,7 +4226,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1), _setup.store.isYKSite ? _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("Dnnio9m9RZA6bkTLytc99") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addFavorite(image.id);
-      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHeartPlusOutline))])], 1) : _vm._e()], 1)], 2);
+      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHeartPlusOutline))])], 1) : _vm._e()], 1) : _vm._e()], 2);
     }), 1), _c2("div", { staticClass: "d-flex justify-center" }, [_c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.requestState, expression: "store.requestState" }], attrs: { "color": "primary", "text": "" } }, [_vm._v(" " + _vm._s(_vm.$t("RN4dt81l_fZMWODsskZob")) + "... ")]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showLoadMore, expression: "showLoadMore" }], attrs: { "color": "primary", "text": "" }, on: { "click": function($event) {
       return _setup.searchPosts();
     } } }, [_vm._v(" " + _vm._s(_vm.$t("fC8XNfCl04zK7vgeaRZMQ")) + " ")]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showNoMore, expression: "showNoMore" }], attrs: { "color": "primary", "text": "" } }, [_vm._v(" " + _vm._s(_vm.$t("Z4pa8GhgE63OGGvCqAld0")) + "... ")])], 1), _c2("v-menu", { attrs: { "position-x": _setup.x, "position-y": _setup.y, "absolute": "", "offset-y": "" }, model: { value: _setup.showMenu, callback: function($$v) {

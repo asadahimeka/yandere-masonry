@@ -479,7 +479,15 @@
 }
 
 .posts-image-type {
-  position: absolute;
+  position: absolute !important;
   top: 0;
-  right: 5px;
+  right: 0px;
+  padding: 2px 4px;
+  border-bottom-left-radius: 4px;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+}
+
+.theme--light .posts-image-type  {
+  background: rgba(255,255,255,0.4);
 }

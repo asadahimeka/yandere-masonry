@@ -46,7 +46,7 @@
         >
           {{ mdiVideo }}
         </v-icon>
-        <div class="posts-image-actions">
+        <div v-if="!isR34Fav" class="posts-image-actions">
           <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" @click.stop="openDetail(image)">
             <v-icon>{{ mdiLinkVariant }}</v-icon>
           </v-btn>
@@ -114,9 +114,12 @@ import type { Post } from '@himeka/booru'
 import PostDetail from './PostDetail.vue'
 import { downloadFile, notReachBottom, showMsg, throttleScroll } from '@/utils'
 import { addPostToFavorites } from '@/api/moebooru'
+import { isRule34FavPage } from '@/api/rule34'
 import { initPosts, refreshPosts, searchPosts } from '@/store/actions/post'
 import store from '@/store'
 import i18n from '@/utils/i18n'
+
+const isR34Fav = ref(isRule34FavPage())
 
 const showImageList = ref(true)
 const showFab = ref(false)
@@ -150,10 +153,14 @@ const getImgSrc = (img?: Post) => {
   if (num != 0 && num < 7) {
     return img?.sampleUrl || img?.fileUrl || void 0
   }
+  if (location.hostname === 'danbooru.donmai.us' && img?.previewUrl) {
+    img.previewUrl = img.previewUrl.replace(/(.*)\/180x180\/(.*)jpg/, '$1/720x720/$2webp')
+  }
   return img?.previewUrl || img?.fileUrl || void 0
 }
 
 const onCtxMenu = (ev: MouseEvent, img: Post) => {
+  if (isR34Fav.value) return
   ev.preventDefault()
   showMenu.value = false
   x.value = ev.clientX

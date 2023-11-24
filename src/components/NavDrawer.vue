@@ -119,7 +119,7 @@
             <v-list-item-subtitle>{{ $t('iJ0h220tvMmUhkfIMYI-W') }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link @click="openLink('https://booru.kanata.ml')">
+        <v-list-item link @click="openLink('https://booru.pixiv.pics')">
           <v-list-item-icon class="mr-2">
             <v-icon>{{ mdiWeb }}</v-icon>
           </v-list-item-icon>

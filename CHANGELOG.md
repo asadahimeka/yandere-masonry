@@ -1,3 +1,9 @@
+## v0.30.0
+
+- feat: 添加 danbooru 标签翻译, 数据来自 [danbooru-diffusion-prompt-builder](https://github.com/wfjsw/danbooru-diffusion-prompt-builder)
+- feat: 简单适配从 rule34.xxx 收藏夹界面进入瀑布流模式
+- fix: danbooru.donmai.us 使用 720x720 缩略图
+
 ## v0.29.1
 
 - feat: 支持保存图片到子文件夹，需要将 Tampermonkey 的“下载模式”修改为“浏览器 API”。

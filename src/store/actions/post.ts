@@ -2,6 +2,7 @@ import type { SearchResults } from '@himeka/booru'
 import store from '@/store'
 import { BOORU_PAGE_LIMIT, isPidSite, searchBooru } from '@/api/booru'
 import { fetchPostsByPath, isPoolShowPage, isPopularPage } from '@/api/moebooru'
+import { fetchRule34Favorites, isRule34FavPage } from '@/api/rule34'
 
 function getFirstPageNo(params: URLSearchParams) {
   if (isPidSite) {
@@ -12,6 +13,7 @@ function getFirstPageNo(params: URLSearchParams) {
 }
 
 function pushPageState(pageNo: number, latePageQuery = false) {
+  if (isRule34FavPage()) return
   if (latePageQuery && pageNo > 1) pageNo -= 1
   let pageParamName = 'page'
   if (isPidSite) {
@@ -47,6 +49,15 @@ const fetchActions = [
     action: async () => {
       const results = await fetchPostsByPath('posts', page)
       return tags ? results.tagged(tags) : results
+    },
+  },
+  {
+    test: isRule34FavPage,
+    action: async () => {
+      const results = await fetchRule34Favorites(page)
+      return store.blacklist.length
+        ? results.filter(e => !store.blacklist.some(w => e.tags.includes(w)))
+        : results
     },
   },
   {

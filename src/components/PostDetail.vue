@@ -248,7 +248,7 @@
         </template>
         <span>{{ $t('B_ptN5O-9PhmG5ymGGtc6') }}</span>
       </v-tooltip>
-      <v-menu dense open-on-hover offset-y>
+      <v-menu v-if="notR34Fav" dense open-on-hover offset-y>
         <template #activator="{ on, attrs }">
           <v-btn
             v-show="!downloading"
@@ -284,7 +284,7 @@
         </v-list>
       </v-menu>
       <v-progress-circular v-show="downloading" indeterminate class="ml-1 mr-2" color="primary" />
-      <v-tooltip bottom>
+      <v-tooltip v-if="notR34Fav" bottom>
         <template #activator="{ on, attrs }">
           <v-btn
             fab
@@ -368,9 +368,12 @@ import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import DPlayer from './DPlayer.vue'
 import { debounce, downloadFile, dragElement, isURL, showMsg } from '@/utils'
 import { type PostDetail, addPostToFavorites, getPostDetail } from '@/api/moebooru'
+import { isRule34FavPage } from '@/api/rule34'
 import store from '@/store'
 import { searchPosts } from '@/store/actions/post'
 import i18n from '@/utils/i18n'
+
+const notR34Fav = ref(!isRule34FavPage())
 
 const showImageToolbar = ref(true)
 const imgLoading = ref(true)
@@ -477,6 +480,7 @@ const addFavorite = async () => {
   if (isSuccess) postDetail.value.voted = true
 }
 
+const isCNLang = i18n.locale.includes('zh')
 const setPostDetail = async () => {
   if (store.isYKSite) {
     postDetail.value = {
@@ -488,12 +492,15 @@ const setPostDetail = async () => {
   } else {
     postDetail.value = {
       voted: false,
-      tags: imageSelected.value.tags.map(e => ({
-        tag: e,
-        tagText: e,
-        color: '#8F77B5',
-        type: 'general',
-      })),
+      tags: imageSelected.value.tags.map(tag => {
+        const tagCN = window.__tagsCN?.[tag.replace(/_/g, ' ')]
+        return {
+          tag,
+          tagText: isCNLang && tagCN ? `${tag} [ ${tagCN} ]` : tag,
+          color: '#8F77B5',
+          type: 'general',
+        }
+      }),
     }
   }
 }
@@ -555,9 +562,25 @@ const showNextPost = async () => {
   preloadNextImg()
 }
 
-const onImageLoadError = () => {
+const onImageLoadError = (ev: Event) => {
   imgLoading.value = false
   imageSelected.value.sampleUrl = null
+  if (notR34Fav.value) {
+    return
+  }
+  const { fileUrl } = imageSelected.value
+  const el = ev.target as HTMLImageElement
+  if (!el?.src.includes('/images/')) {
+    el.src = imageSelected.value.fileUrl || ''
+    return
+  }
+  if (fileUrl?.includes('.jpeg')) {
+    imageSelected.value.fileUrl = fileUrl.replace(/\.jpeg(\?\d+)?$/, '.jpg')
+    return
+  }
+  if (fileUrl?.includes('.jpg')) {
+    imageSelected.value.fileUrl = fileUrl.replace(/\.jpg(\?\d+)?$/, '.png')
+  }
 }
 
 const scaleImgSrc = computed(() => {
@@ -566,9 +589,23 @@ const scaleImgSrc = computed(() => {
     : void 0
 })
 
-const onScaleImgError = () => {
-  // @ts-expect-error data protected
-  imageSelected.value.data.jpeg_url = null
+const onScaleImgError = (ev: Event) => {
+  if (notR34Fav.value) {
+    // @ts-expect-error data protected
+    imageSelected.value.data.jpeg_url = null
+    return
+  }
+  imgLoading.value = false
+  const { fileUrl } = imageSelected.value
+  if (fileUrl?.includes('.jpeg')) {
+    imageSelected.value.fileUrl = fileUrl.replace(/\.jpeg(\?\d+)?$/, '.jpg')
+    ;(ev.target as HTMLImageElement).src = imageSelected.value.fileUrl
+    return
+  }
+  if (fileUrl?.includes('.jpg')) {
+    imageSelected.value.fileUrl = fileUrl.replace(/\.jpg(\?\d+)?$/, '.png')
+    ;(ev.target as HTMLImageElement).src = imageSelected.value.fileUrl
+  }
 }
 
 const scaleImgStyleMap = {
