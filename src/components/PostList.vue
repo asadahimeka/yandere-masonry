@@ -1,6 +1,70 @@
 <template>
   <div v-if="showImageList">
-    <wf-layout>
+    <virtual-waterfall
+      v-if="store.settings.masonryLayout === 'virtual'"
+      :items="store.imageList"
+      :calc-item-height="calcItemHeight"
+      :gap="10"
+      style="min-height: 99vh"
+    >
+      <template #default="{ item, index }">
+        <v-card class="posts-image-card">
+          <v-img
+            transition="scroll-y-transition"
+            :src="getImgSrc(item)"
+            :aspect-ratio="item?.aspectRatio"
+            style="background: gainsboro;"
+            @click="showImgModal(index)"
+            @error="onImageLoadError"
+          />
+          <template v-if="store.isYKSite">
+            <v-icon
+              v-if="//@ts-ignore
+                item?.data?.has_children"
+              class="posts-image-type"
+              dense
+            >
+              {{ mdiFileTree }}
+            </v-icon>
+            <v-icon
+              v-if="//@ts-ignore
+                item?.data?.parent_id"
+              class="posts-image-type"
+              dense
+            >
+              {{ mdiFolderNetwork }}
+            </v-icon>
+          </template>
+          <v-icon
+            v-if="item?.fileExt.toLowerCase() === 'gif'"
+            class="posts-image-type"
+          >
+            {{ mdiFileGifBox }}
+          </v-icon>
+          <v-icon
+            v-if="['mp4', 'webm'].includes(item?.fileExt.toLowerCase())"
+            class="posts-image-type"
+          >
+            {{ mdiVideo }}
+          </v-icon>
+          <div v-if="!isR34Fav" class="posts-image-actions">
+            <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" @click.stop="openDetail(item)">
+              <v-icon>{{ mdiLinkVariant }}</v-icon>
+            </v-btn>
+            <v-btn icon color="#fff" :title="$t('hVmfDxXoj8vkgVQabEOSr')" @click.stop="addToSelectedList(item)">
+              <v-icon>{{ mdiPlaylistPlus }}</v-icon>
+            </v-btn>
+            <v-btn icon color="#fff" :title="$t('VpuyxZtIoDF9-YyOm0tK_')" @click.stop="downloadCtxPost(item)">
+              <v-icon>{{ mdiDownload }}</v-icon>
+            </v-btn>
+            <v-btn v-if="store.isYKSite" icon color="#fff" :title="$t('Dnnio9m9RZA6bkTLytc99')" @click.stop="addFavorite(item.id)">
+              <v-icon>{{ mdiHeartPlusOutline }}</v-icon>
+            </v-btn>
+          </div>
+        </v-card>
+      </template>
+    </virtual-waterfall>
+    <wf-layout v-else>
       <v-card
         v-for="(image, index) in store.imageList"
         :key="index"
@@ -34,6 +98,24 @@
             </v-row>
           </template>
         </v-img>
+        <template v-if="store.isYKSite">
+          <v-icon
+            v-if="//@ts-ignore
+              image?.data?.has_children"
+            class="posts-image-type"
+            dense
+          >
+            {{ mdiFileTree }}
+          </v-icon>
+          <v-icon
+            v-if="//@ts-ignore
+              image?.data?.parent_id"
+            class="posts-image-type"
+            dense
+          >
+            {{ mdiFolderNetwork }}
+          </v-icon>
+        </template>
         <v-icon
           v-if="image?.fileExt.toLowerCase() === 'gif'"
           class="posts-image-type"
@@ -108,7 +190,7 @@
 </template>
 
 <script setup lang="ts">
-import { mdiDownload, mdiFileGifBox, mdiHeartPlusOutline, mdiLinkVariant, mdiPlaylistPlus, mdiRefresh, mdiVideo } from '@mdi/js'
+import { mdiDownload, mdiFileGifBox, mdiFileTree, mdiFolderNetwork, mdiHeartPlusOutline, mdiLinkVariant, mdiPlaylistPlus, mdiRefresh, mdiVideo } from '@mdi/js'
 import { computed, nextTick, onMounted, onUnmounted, ref, set, watch } from 'vue'
 import type { Post } from '@himeka/booru'
 import PostDetail from './PostDetail.vue'
@@ -212,6 +294,10 @@ const onImageLoadError = (url: string) => {
   if (!item) return
   set(item, 'previewUrl', null)
   set(item, 'sampleUrl', null)
+}
+
+const calcItemHeight = (item: any, itemWidth: number) => {
+  return item.height * (itemWidth / item.width)
 }
 
 const scrollFn = throttleScroll(scroll => {

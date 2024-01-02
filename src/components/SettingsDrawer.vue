@@ -160,7 +160,7 @@
           </v-menu>
         </v-list-item-action>
       </v-list-item>
-      <v-list-item v-if="store.settings.masonryLayout !== 'flexbin'">
+      <v-list-item v-if="['masonry', 'grid'].includes(store.settings.masonryLayout)">
         <v-list-item-content>
           <v-list-item-title>{{ $t('tt_YdgKCA_5m-aSTSMPQ_') }}</v-list-item-title>
           <v-list-item-subtitle :title="$t('rXjhc8VuGloy1wZ09noNB')">{{ $t('rXjhc8VuGloy1wZ09noNB') }}</v-list-item-subtitle>
@@ -280,6 +280,7 @@ const layoutTypes = ref([
   ['masonry', `Masonry/${i18n.t('6jPGehET9TViankl5-SRu')}`],
   ['grid', `Grid/${i18n.t('vfUg8xP6WptIhSL0E9b9D')}`],
   ['flexbin', `Justified/${i18n.t('LZbI8am7nD-LiemZzroFF')}`],
+  ['virtual', 'Virtual/Waterfall(Experimental)'],
 ])
 
 const actLayout = computed(() => {

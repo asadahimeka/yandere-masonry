@@ -277,7 +277,8 @@
   -moz-appearance: textfield;
 }
 
-.dplayer-notice-list, .dplayer-bezel-icon {
+.dplayer-notice-list,
+.dplayer-bezel-icon {
   opacity: 0 !important;
   visibility: hidden !important;
 }
@@ -456,7 +457,7 @@
 .theme--light .nav_drawer .v-btn--icon,
 .theme--light .v-app-bar .v-icon,
 .theme--light .v-app-bar .v-btn--icon {
-  color: rgba(0,0,0,.87) !important;
+  color: rgba(0, 0, 0, .87) !important;
 }
 
 .posts-image-actions {
@@ -466,7 +467,7 @@
   width: 100%;
   padding: 2px;
   text-align: center;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
   opacity: 0;
   visibility: hidden;
@@ -484,10 +485,10 @@
   right: 0px;
   padding: 2px 4px;
   border-bottom-left-radius: 4px;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
 }
 
-.theme--light .posts-image-type  {
-  background: rgba(255,255,255,0.4);
+.theme--light .posts-image-type {
+  background: rgba(255, 255, 255, 0.4);
 }

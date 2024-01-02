@@ -321,6 +321,31 @@
           <v-icon left>{{ mdiTagMultiple }}</v-icon>
           <span>{{ showTagChipGroup ? $t('gM92sLo0Cqfl2rCaXlOhc') : $t('l5W-EtJ_ar-SY2lF4H5Zm') }}</span>
         </v-chip>
+        <template v-if="store.isYKSite">
+          <v-chip
+            v-if="//@ts-ignore
+              imageSelected?.data?.parent_id"
+            small
+            class="mr-1"
+            color="primary"
+            @click.stop="//@ts-ignore
+              toPidPage(imageSelected?.data?.parent_id)"
+          >
+            <v-icon small left>{{ mdiFolderNetwork }}</v-icon>
+            <span>{{ $t('sMkrF8bqCTJZZ1kXTkT_R') }}</span>
+          </v-chip>
+          <v-chip
+            v-if="//@ts-ignore
+              imageSelected?.data?.has_children"
+            small
+            class="mr-1"
+            color="primary"
+            @click.stop="toTagsPage(`parent:${imageSelected?.id}&_wf=1`)"
+          >
+            <v-icon small left>{{ mdiFileTree }}</v-icon>
+            <span>{{ $t('u0K7A_hv1RZSJl6TDR61A') }}</span>
+          </v-chip>
+        </template>
         <v-chip-group v-show="showTagChipGroup" column>
           <v-chip
             v-for="(item, i) in postDetail.tags || []"
@@ -350,7 +375,9 @@ import {
   mdiChevronRight,
   mdiClose,
   mdiDownload,
+  mdiFileTree,
   mdiFitToScreenOutline,
+  mdiFolderNetwork,
   mdiFullscreen,
   mdiHeart,
   mdiHeartPlusOutline,
@@ -425,6 +452,11 @@ const toggleToolbar = () => {
 const toTagsPage = (tag: string) => {
   if (notYKSite.value) return
   window.open(`/post?tags=${tag}`, '_blank', 'noreferrer')
+}
+
+const toPidPage = (pid: string) => {
+  if (notYKSite.value) return
+  window.open(`/post/show/${pid}`, '_blank', 'noreferrer')
 }
 
 const toDetailPage = () => {

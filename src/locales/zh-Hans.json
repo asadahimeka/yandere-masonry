@@ -96,5 +96,7 @@
   "0VAN4cJ-_mUxvtmg4KEi1": "确定",
   "LN_Rsic4V50DrXbsv9T9L": "确定要开启子文件夹下载功能吗？请确保您已将 Tampermonkey 的“下载模式”修改为“浏览器 API”。",
   "OJ8X55GXx5k3peoSXSujf": "打开方式：将 Tampermonkey 设置中的“配置模式”由“新手”改为“高级”，然后找到“下载 BETA”，将“下载模式”修改为“浏览器 API”。",
-  "ujBgilCWNgFNV8Q2IDMWS": "提示：为方便使用，可以将浏览器设置中“下载前询问每个文件的保存位置”选项关闭。"
+  "ujBgilCWNgFNV8Q2IDMWS": "提示：为方便使用，可以将浏览器设置中“下载前询问每个文件的保存位置”选项关闭。",
+  "sMkrF8bqCTJZZ1kXTkT_R": "查看父投稿",
+  "u0K7A_hv1RZSJl6TDR61A": "查看子项"
 }

@@ -96,5 +96,7 @@
   "LN_Rsic4V50DrXbsv9T9L": "Are you sure you want to enable subfolder downloads? \nMake sure you have modified Tampermonkey's \"Download Mode\" to \"Browser API\".",
   "OJ8X55GXx5k3peoSXSujf": "How to open it: Change the \"Configuration Mode\" in the Tampermonkey settings from \"Novice\" to \"Advanced\", then find \"Download BETA\", and change the \"Download Mode\" to \"Browser API\".",
   "ti3akdSS3iZV9NsGzIo3m": "Tips",
-  "ujBgilCWNgFNV8Q2IDMWS": "Tip: For convenience, you can turn off the \"Ask where to save each file before downloading\" option in the browser settings."
+  "ujBgilCWNgFNV8Q2IDMWS": "Tip: For convenience, you can turn off the \"Ask where to save each file before downloading\" option in the browser settings.",
+  "sMkrF8bqCTJZZ1kXTkT_R": "Parent",
+  "u0K7A_hv1RZSJl6TDR61A": "Child"
 }

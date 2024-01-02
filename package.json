@@ -16,17 +16,18 @@
   },
   "dependencies": {
     "@himeka/booru": "2.7.6",
+    "@vueuse/core": "10.7.1",
     "date-fns": "2.30.0",
-    "vue": "2.7.14",
+    "vue": "2.7.16",
     "vue-i18n": "8.28.2",
     "vue-masonry-css": "1.0.3",
-    "vuetify": "2.7.0"
+    "vuetify": "2.7.1"
   },
   "devDependencies": {
     "@antfu/eslint-config-vue": "0.27.0",
-    "@mdi/js": "^7.0.96",
-    "@types/node": "18.11.3",
-    "@types/tampermonkey": "4.0.5",
+    "@mdi/js": "^7.4.47",
+    "@types/node": "20.10.6",
+    "@types/tampermonkey": "5.0.2",
     "@vitejs/plugin-vue2": "1.1.2",
     "chalk": "5.1.2",
     "enquirer": "2.3.6",
@@ -38,6 +39,6 @@
     "typescript": "4.8.4",
     "vite": "2.9.5",
     "vite-plugin-tm-userscript": "1.2.1",
-    "vue-template-compiler": "2.7.14"
+    "vue-template-compiler": "2.7.16"
   }
 }

@@ -100,6 +100,9 @@ export const searchPosts = async (latePageQuery = false) => {
 
 export const initPosts = async () => {
   await searchPosts(true)
+  if (store.settings.masonryLayout === 'virtual') {
+    document.documentElement.scrollTop = 1
+  }
   if (store.requestStop) return
   if (location.href.includes('safebooru')) return
   await searchPosts(true)
@@ -127,5 +130,9 @@ export const loadPostsByTags = (searchTerm: string) => {
   page = 1
   tags = searchTerm
   store.imageList = []
-  searchPosts()
+  searchPosts().then(() => {
+    if (store.settings.masonryLayout === 'virtual') {
+      document.documentElement.scrollTop = 1
+    }
+  })
 }
