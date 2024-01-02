@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.30.0
+// @version              0.31.0
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -615,6 +615,8 @@ var __publicField = (obj, key, value) => {
   const LN_Rsic4V50DrXbsv9T9L$3 = "\u786E\u5B9A\u8981\u5F00\u542F\u5B50\u6587\u4EF6\u5939\u4E0B\u8F7D\u529F\u80FD\u5417\uFF1F\u8BF7\u786E\u4FDD\u60A8\u5DF2\u5C06 Tampermonkey \u7684\u201C\u4E0B\u8F7D\u6A21\u5F0F\u201D\u4FEE\u6539\u4E3A\u201C\u6D4F\u89C8\u5668 API\u201D\u3002";
   const OJ8X55GXx5k3peoSXSujf$3 = "\u6253\u5F00\u65B9\u5F0F\uFF1A\u5C06 Tampermonkey \u8BBE\u7F6E\u4E2D\u7684\u201C\u914D\u7F6E\u6A21\u5F0F\u201D\u7531\u201C\u65B0\u624B\u201D\u6539\u4E3A\u201C\u9AD8\u7EA7\u201D\uFF0C\u7136\u540E\u627E\u5230\u201C\u4E0B\u8F7D BETA\u201D\uFF0C\u5C06\u201C\u4E0B\u8F7D\u6A21\u5F0F\u201D\u4FEE\u6539\u4E3A\u201C\u6D4F\u89C8\u5668 API\u201D\u3002";
   const ujBgilCWNgFNV8Q2IDMWS$3 = "\u63D0\u793A\uFF1A\u4E3A\u65B9\u4FBF\u4F7F\u7528\uFF0C\u53EF\u4EE5\u5C06\u6D4F\u89C8\u5668\u8BBE\u7F6E\u4E2D\u201C\u4E0B\u8F7D\u524D\u8BE2\u95EE\u6BCF\u4E2A\u6587\u4EF6\u7684\u4FDD\u5B58\u4F4D\u7F6E\u201D\u9009\u9879\u5173\u95ED\u3002";
+  const sMkrF8bqCTJZZ1kXTkT_R$3 = "\u67E5\u770B\u7236\u6295\u7A3F";
+  const u0K7A_hv1RZSJl6TDR61A$3 = "\u67E5\u770B\u5B50\u9879";
   var zhHans = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$3,
     "ZtQHZx-pEjmu_o3dQD1fc": "\u793E\u56E2",
@@ -713,7 +715,9 @@ var __publicField = (obj, key, value) => {
     "0VAN4cJ-_mUxvtmg4KEi1": "\u786E\u5B9A",
     LN_Rsic4V50DrXbsv9T9L: LN_Rsic4V50DrXbsv9T9L$3,
     OJ8X55GXx5k3peoSXSujf: OJ8X55GXx5k3peoSXSujf$3,
-    ujBgilCWNgFNV8Q2IDMWS: ujBgilCWNgFNV8Q2IDMWS$3
+    ujBgilCWNgFNV8Q2IDMWS: ujBgilCWNgFNV8Q2IDMWS$3,
+    sMkrF8bqCTJZZ1kXTkT_R: sMkrF8bqCTJZZ1kXTkT_R$3,
+    u0K7A_hv1RZSJl6TDR61A: u0K7A_hv1RZSJl6TDR61A$3
   };
   const UxxldE9xRwmQctrvba5Y8$2 = "\u8A2D\u7F6E";
   const A16qoBulYQJLbHe9mqNwm$2 = "\u5305\u542B\u88F8\u9732\u3001\u6027\u611B\u63CF\u5BEB\u5167\u5BB9\u7B49\u904E\u6FC0\u5167\u5BB9";
@@ -774,6 +778,8 @@ var __publicField = (obj, key, value) => {
   const OJ8X55GXx5k3peoSXSujf$2 = "\u6253\u958B\u65B9\u5F0F\uFF1A\u5C07 Tampermonkey \u8A2D\u7F6E\u4E2D\u7684\u201C\u914D\u7F6E\u6A21\u5F0F\u201D\u7531\u201C\u65B0\u624B\u201D\u6539\u70BA\u201C\u9AD8\u7D1A\u201D\uFF0C\u7136\u5F8C\u627E\u5230\u201C\u4E0B\u8F09 BETA\u201D\uFF0C\u5C07\u201C\u4E0B\u8F09\u6A21\u5F0F\u201D\u4FEE\u6539\u70BA\u201C\u700F\u89BD\u5668 API\u201D\u3002";
   const ti3akdSS3iZV9NsGzIo3m$2 = "\u63D0\u793A";
   const ujBgilCWNgFNV8Q2IDMWS$2 = "\u63D0\u793A\uFF1A\u70BA\u65B9\u4FBF\u4F7F\u7528\uFF0C\u53EF\u4EE5\u5C07\u700F\u89BD\u5668\u8A2D\u7F6E\u4E2D\u201C\u4E0B\u8F09\u524D\u8A62\u554F\u6BCF\u500B\u6587\u4EF6\u7684\u4FDD\u5B58\u4F4D\u7F6E\u201D\u9078\u9805\u95DC\u9589\u3002";
+  const sMkrF8bqCTJZZ1kXTkT_R$2 = "\u67E5\u770B\u7236\u6295\u7A3F";
+  const u0K7A_hv1RZSJl6TDR61A$2 = "\u67E5\u770B\u5B50\u9805";
   var zhHant = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$2,
     "1F-R4qChHIzZaohu5GJzl": "\u5F62\u5982: &api_key=xx&user_id=1",
@@ -872,7 +878,9 @@ var __publicField = (obj, key, value) => {
     LN_Rsic4V50DrXbsv9T9L: LN_Rsic4V50DrXbsv9T9L$2,
     OJ8X55GXx5k3peoSXSujf: OJ8X55GXx5k3peoSXSujf$2,
     ti3akdSS3iZV9NsGzIo3m: ti3akdSS3iZV9NsGzIo3m$2,
-    ujBgilCWNgFNV8Q2IDMWS: ujBgilCWNgFNV8Q2IDMWS$2
+    ujBgilCWNgFNV8Q2IDMWS: ujBgilCWNgFNV8Q2IDMWS$2,
+    sMkrF8bqCTJZZ1kXTkT_R: sMkrF8bqCTJZZ1kXTkT_R$2,
+    u0K7A_hv1RZSJl6TDR61A: u0K7A_hv1RZSJl6TDR61A$2
   };
   const UxxldE9xRwmQctrvba5Y8$1 = "Settings";
   const A16qoBulYQJLbHe9mqNwm$1 = "Contains excessive content such as nudity and sexual descriptions";
@@ -934,6 +942,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const OJ8X55GXx5k3peoSXSujf$1 = 'How to open it: Change the "Configuration Mode" in the Tampermonkey settings from "Novice" to "Advanced", then find "Download BETA", and change the "Download Mode" to "Browser API".';
   const ti3akdSS3iZV9NsGzIo3m$1 = "Tips";
   const ujBgilCWNgFNV8Q2IDMWS$1 = 'Tip: For convenience, you can turn off the "Ask where to save each file before downloading" option in the browser settings.';
+  const sMkrF8bqCTJZZ1kXTkT_R$1 = "Parent";
+  const u0K7A_hv1RZSJl6TDR61A$1 = "Child";
   var en = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$1,
     "1F-R4qChHIzZaohu5GJzl": "e.g: &api_key=xx&user_id=1",
@@ -1032,7 +1042,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     LN_Rsic4V50DrXbsv9T9L: LN_Rsic4V50DrXbsv9T9L$1,
     OJ8X55GXx5k3peoSXSujf: OJ8X55GXx5k3peoSXSujf$1,
     ti3akdSS3iZV9NsGzIo3m: ti3akdSS3iZV9NsGzIo3m$1,
-    ujBgilCWNgFNV8Q2IDMWS: ujBgilCWNgFNV8Q2IDMWS$1
+    ujBgilCWNgFNV8Q2IDMWS: ujBgilCWNgFNV8Q2IDMWS$1,
+    sMkrF8bqCTJZZ1kXTkT_R: sMkrF8bqCTJZZ1kXTkT_R$1,
+    u0K7A_hv1RZSJl6TDR61A: u0K7A_hv1RZSJl6TDR61A$1
   };
   const UxxldE9xRwmQctrvba5Y8 = "\u8A2D\u5B9A";
   const A16qoBulYQJLbHe9mqNwm = "\u30CC\u30FC\u30C9\u3084\u6027\u7684\u63CF\u5199\u306A\u3069\u306E\u904E\u5EA6\u306A\u5185\u5BB9\u304C\u542B\u307E\u308C\u3066\u3044\u308B\u3082\u306E";
@@ -1093,6 +1105,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const OJ8X55GXx5k3peoSXSujf = "\u958B\u304F\u65B9\u6CD5: Tampermonkey \u8A2D\u5B9A\u306E\u300C\u69CB\u6210\u30E2\u30FC\u30C9\u300D\u3092\u300C\u521D\u5FC3\u8005\u300D\u304B\u3089\u300C\u4E0A\u7D1A\u300D\u306B\u5909\u66F4\u3057\u3001\u300C\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9 \u30D9\u30FC\u30BF\u300D\u3092\u898B\u3064\u3051\u3066\u3001\u300C\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9 \u30E2\u30FC\u30C9\u300D\u3092\u300C\u30D6\u30E9\u30A6\u30B6 API\u300D\u306B\u5909\u66F4\u3057\u307E\u3059\u3002";
   const ti3akdSS3iZV9NsGzIo3m = "\u30D2\u30F3\u30C8";
   const ujBgilCWNgFNV8Q2IDMWS = "\u30D2\u30F3\u30C8: \u4FBF\u5B9C\u4E0A\u3001\u30D6\u30E9\u30A6\u30B6\u306E\u8A2D\u5B9A\u3067 [\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u524D\u306B\u5404\u30D5\u30A1\u30A4\u30EB\u306E\u4FDD\u5B58\u5834\u6240\u3092\u78BA\u8A8D\u3059\u308B] \u30AA\u30D7\u30B7\u30E7\u30F3\u3092\u30AA\u30D5\u306B\u3059\u308B\u3053\u3068\u304C\u3067\u304D\u307E\u3059\u3002";
+  const sMkrF8bqCTJZZ1kXTkT_R = "Parent";
+  const u0K7A_hv1RZSJl6TDR61A = "Child";
   var ja = {
     UxxldE9xRwmQctrvba5Y8,
     "1F-R4qChHIzZaohu5GJzl": "\u4F8B\uFF1A&api_key=xx&user_id=1",
@@ -1191,7 +1205,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     LN_Rsic4V50DrXbsv9T9L,
     OJ8X55GXx5k3peoSXSujf,
     ti3akdSS3iZV9NsGzIo3m,
-    ujBgilCWNgFNV8Q2IDMWS
+    ujBgilCWNgFNV8Q2IDMWS,
+    sMkrF8bqCTJZZ1kXTkT_R,
+    u0K7A_hv1RZSJl6TDR61A
   };
   Vue__default["default"].use(VueI18n__default["default"]);
   const langMap = {
@@ -1311,7 +1327,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       options
     };
   }
-  const _sfc_main$a = {
+  const _sfc_main$b = {
     data() {
       return {
         wfType: store.settings.masonryLayout || "masonry"
@@ -1342,9 +1358,449 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }
     }
   };
-  var _sfc_render$a = function render() {
+  var _sfc_render$b = function render() {
     var _vm = this, _c2 = _vm._self._c;
     return _c2("div", { class: _vm.wfClass }, [_vm.isMasonry ? _c2("masonry", { attrs: { "cols": _vm.columnCount, "gutter": "8px" } }, [_vm._t("default")], 2) : _c2("div", { staticClass: "justified-container" }, [_vm._t("default")], 2)], 1);
+  };
+  var _sfc_staticRenderFns$b = [];
+  var __component__$b = /* @__PURE__ */ normalizeComponent(
+    _sfc_main$b,
+    _sfc_render$b,
+    _sfc_staticRenderFns$b,
+    false,
+    null,
+    null,
+    null,
+    null
+  );
+  var WfLayout = __component__$b.exports;
+  Vue__default["default"].util.warn;
+  function tryOnScopeDispose(fn) {
+    if (Vue2.getCurrentScope()) {
+      Vue2.onScopeDispose(fn);
+      return true;
+    }
+    return false;
+  }
+  function toValue(r) {
+    return typeof r === "function" ? r() : Vue2.unref(r);
+  }
+  const isClient = typeof window !== "undefined" && typeof document !== "undefined";
+  typeof WorkerGlobalScope !== "undefined" && globalThis instanceof WorkerGlobalScope;
+  const toString = Object.prototype.toString;
+  const isObject = (val) => toString.call(val) === "[object Object]";
+  const noop = () => {
+  };
+  function getLifeCycleTarget(target) {
+    return target || Vue2.getCurrentInstance();
+  }
+  function tryOnMounted(fn, sync = true, target) {
+    const instance = getLifeCycleTarget();
+    if (instance)
+      Vue2.onMounted(fn, target);
+    else if (sync)
+      fn();
+    else
+      Vue2.nextTick(fn);
+  }
+  function unrefElement(elRef) {
+    var _a2;
+    const plain = toValue(elRef);
+    return (_a2 = plain == null ? void 0 : plain.$el) != null ? _a2 : plain;
+  }
+  const defaultWindow = isClient ? window : void 0;
+  isClient ? window.document : void 0;
+  isClient ? window.navigator : void 0;
+  isClient ? window.location : void 0;
+  function useEventListener(...args) {
+    let target;
+    let events;
+    let listeners;
+    let options;
+    if (typeof args[0] === "string" || Array.isArray(args[0])) {
+      [events, listeners, options] = args;
+      target = defaultWindow;
+    } else {
+      [target, events, listeners, options] = args;
+    }
+    if (!target)
+      return noop;
+    if (!Array.isArray(events))
+      events = [events];
+    if (!Array.isArray(listeners))
+      listeners = [listeners];
+    const cleanups = [];
+    const cleanup = () => {
+      cleanups.forEach((fn) => fn());
+      cleanups.length = 0;
+    };
+    const register = (el, event, listener, options2) => {
+      el.addEventListener(event, listener, options2);
+      return () => el.removeEventListener(event, listener, options2);
+    };
+    const stopWatch = Vue2.watch(
+      () => [unrefElement(target), toValue(options)],
+      ([el, options2]) => {
+        cleanup();
+        if (!el)
+          return;
+        const optionsClone = isObject(options2) ? { ...options2 } : options2;
+        cleanups.push(
+          ...events.flatMap((event) => {
+            return listeners.map((listener) => register(el, event, listener, optionsClone));
+          })
+        );
+      },
+      { immediate: true, flush: "post" }
+    );
+    const stop = () => {
+      stopWatch();
+      cleanup();
+    };
+    tryOnScopeDispose(stop);
+    return stop;
+  }
+  function useMounted() {
+    const isMounted = Vue2.ref(false);
+    if (Vue2.getCurrentInstance()) {
+      Vue2.onMounted(() => {
+        isMounted.value = true;
+      });
+    }
+    return isMounted;
+  }
+  function useSupported(callback) {
+    const isMounted = useMounted();
+    return Vue2.computed(() => {
+      isMounted.value;
+      return Boolean(callback());
+    });
+  }
+  function useMutationObserver(target, callback, options = {}) {
+    const { window: window2 = defaultWindow, ...mutationOptions } = options;
+    let observer;
+    const isSupported = useSupported(() => window2 && "MutationObserver" in window2);
+    const cleanup = () => {
+      if (observer) {
+        observer.disconnect();
+        observer = void 0;
+      }
+    };
+    const stopWatch = Vue2.watch(
+      () => unrefElement(target),
+      (el) => {
+        cleanup();
+        if (isSupported.value && window2 && el) {
+          observer = new MutationObserver(callback);
+          observer.observe(el, mutationOptions);
+        }
+      },
+      { immediate: true }
+    );
+    const takeRecords = () => {
+      return observer == null ? void 0 : observer.takeRecords();
+    };
+    const stop = () => {
+      cleanup();
+      stopWatch();
+    };
+    tryOnScopeDispose(stop);
+    return {
+      isSupported,
+      stop,
+      takeRecords
+    };
+  }
+  function useResizeObserver(target, callback, options = {}) {
+    const { window: window2 = defaultWindow, ...observerOptions } = options;
+    let observer;
+    const isSupported = useSupported(() => window2 && "ResizeObserver" in window2);
+    const cleanup = () => {
+      if (observer) {
+        observer.disconnect();
+        observer = void 0;
+      }
+    };
+    const targets = Vue2.computed(() => Array.isArray(target) ? target.map((el) => unrefElement(el)) : [unrefElement(target)]);
+    const stopWatch = Vue2.watch(
+      targets,
+      (els) => {
+        cleanup();
+        if (isSupported.value && window2) {
+          observer = new ResizeObserver(callback);
+          for (const _el of els)
+            _el && observer.observe(_el, observerOptions);
+        }
+      },
+      { immediate: true, flush: "post", deep: true }
+    );
+    const stop = () => {
+      cleanup();
+      stopWatch();
+    };
+    tryOnScopeDispose(stop);
+    return {
+      isSupported,
+      stop
+    };
+  }
+  function useElementBounding(target, options = {}) {
+    const {
+      reset = true,
+      windowResize = true,
+      windowScroll = true,
+      immediate = true
+    } = options;
+    const height = Vue2.ref(0);
+    const bottom = Vue2.ref(0);
+    const left = Vue2.ref(0);
+    const right = Vue2.ref(0);
+    const top = Vue2.ref(0);
+    const width = Vue2.ref(0);
+    const x = Vue2.ref(0);
+    const y = Vue2.ref(0);
+    function update() {
+      const el = unrefElement(target);
+      if (!el) {
+        if (reset) {
+          height.value = 0;
+          bottom.value = 0;
+          left.value = 0;
+          right.value = 0;
+          top.value = 0;
+          width.value = 0;
+          x.value = 0;
+          y.value = 0;
+        }
+        return;
+      }
+      const rect = el.getBoundingClientRect();
+      height.value = rect.height;
+      bottom.value = rect.bottom;
+      left.value = rect.left;
+      right.value = rect.right;
+      top.value = rect.top;
+      width.value = rect.width;
+      x.value = rect.x;
+      y.value = rect.y;
+    }
+    useResizeObserver(target, update);
+    Vue2.watch(() => unrefElement(target), (ele) => !ele && update());
+    useMutationObserver(target, update, {
+      attributeFilter: ["style", "class"]
+    });
+    if (windowScroll)
+      useEventListener("scroll", update, { capture: true, passive: true });
+    if (windowResize)
+      useEventListener("resize", update, { passive: true });
+    tryOnMounted(() => {
+      if (immediate)
+        update();
+    });
+    return {
+      height,
+      bottom,
+      left,
+      right,
+      top,
+      width,
+      x,
+      y,
+      update
+    };
+  }
+  function useElementSize(target, initialSize = { width: 0, height: 0 }, options = {}) {
+    const { window: window2 = defaultWindow, box = "content-box" } = options;
+    const isSVG = Vue2.computed(() => {
+      var _a2, _b2;
+      return (_b2 = (_a2 = unrefElement(target)) == null ? void 0 : _a2.namespaceURI) == null ? void 0 : _b2.includes("svg");
+    });
+    const width = Vue2.ref(initialSize.width);
+    const height = Vue2.ref(initialSize.height);
+    const { stop: stop1 } = useResizeObserver(
+      target,
+      ([entry]) => {
+        const boxSize = box === "border-box" ? entry.borderBoxSize : box === "content-box" ? entry.contentBoxSize : entry.devicePixelContentBoxSize;
+        if (window2 && isSVG.value) {
+          const $elem = unrefElement(target);
+          if ($elem) {
+            const styles = window2.getComputedStyle($elem);
+            width.value = Number.parseFloat(styles.width);
+            height.value = Number.parseFloat(styles.height);
+          }
+        } else {
+          if (boxSize) {
+            const formatBoxSize = Array.isArray(boxSize) ? boxSize : [boxSize];
+            width.value = formatBoxSize.reduce((acc, { inlineSize }) => acc + inlineSize, 0);
+            height.value = formatBoxSize.reduce((acc, { blockSize }) => acc + blockSize, 0);
+          } else {
+            width.value = entry.contentRect.width;
+            height.value = entry.contentRect.height;
+          }
+        }
+      },
+      options
+    );
+    tryOnMounted(() => {
+      const ele = unrefElement(target);
+      if (ele) {
+        width.value = "offsetWidth" in ele ? ele.offsetWidth : initialSize.width;
+        height.value = "offsetHeight" in ele ? ele.offsetHeight : initialSize.height;
+      }
+    });
+    const stop2 = Vue2.watch(
+      () => unrefElement(target),
+      (ele) => {
+        width.value = ele ? initialSize.width : 0;
+        height.value = ele ? initialSize.height : 0;
+      }
+    );
+    function stop() {
+      stop1();
+      stop2();
+    }
+    return {
+      width,
+      height,
+      stop
+    };
+  }
+  var _sfc_main$a = /* @__PURE__ */ Vue2.defineComponent({
+    __name: "VirtualWaterfall",
+    props: {
+      virtual: { type: Boolean, default: true },
+      rowKey: { default: "id" },
+      gap: { default: 15 },
+      preloadScreenCount: { default: () => [0, 0] },
+      itemMinWidth: { default: 220 },
+      maxColumnCount: { default: 10 },
+      minColumnCount: { default: 2 },
+      items: { default: () => [] },
+      calcItemHeight: { type: Function, default: (item, itemWidth) => 250 }
+    },
+    setup(__props) {
+      const props2 = __props;
+      const content = Vue2.ref();
+      const { width: contentWidth } = useElementSize(content);
+      const { top: contentTop } = useElementBounding(content);
+      Vue2.onMounted(() => {
+        if (contentWidth.value === 0 && content.value) {
+          contentWidth.value = Number.parseInt(window.getComputedStyle(content.value).width);
+        }
+      });
+      const columnCount = Vue2.computed(() => {
+        if (!contentWidth.value) {
+          return 0;
+        }
+        const cWidth = contentWidth.value - props2.gap * 2;
+        if (cWidth >= props2.itemMinWidth * 2) {
+          const count = Math.floor(cWidth / props2.itemMinWidth);
+          if (props2.maxColumnCount && count > props2.maxColumnCount) {
+            return props2.maxColumnCount;
+          }
+          return count;
+        }
+        return props2.minColumnCount;
+      });
+      const columnsTop = Vue2.ref(new Array(columnCount.value).fill(props2.gap));
+      const itemWidth = Vue2.computed(() => {
+        if (!contentWidth.value || columnCount.value <= 0) {
+          return 0;
+        }
+        const gap = (columnCount.value - 1) * props2.gap + props2.gap * 2;
+        return Math.floor((contentWidth.value - gap) / columnCount.value);
+      });
+      const itemSpaces = Vue2.ref([]);
+      const getColumnIndex = () => {
+        return columnsTop.value.indexOf(Math.min(...columnsTop.value));
+      };
+      Vue2.watchEffect(() => {
+        if (!columnCount.value) {
+          itemSpaces.value = [];
+          return;
+        }
+        const length = props2.items.length;
+        const spaces = new Array(length);
+        let start = 0;
+        const cache = itemSpaces.value.length && length > itemSpaces.value.length;
+        if (cache) {
+          start = itemSpaces.value.length;
+        } else {
+          columnsTop.value = new Array(columnCount.value).fill(props2.gap);
+        }
+        for (let i = 0; i < length; i++) {
+          if (cache && i < start) {
+            spaces[i] = itemSpaces.value[i];
+            continue;
+          }
+          const columnIndex = getColumnIndex();
+          const h = props2.calcItemHeight(props2.items[i], itemWidth.value);
+          const top = columnsTop.value[columnIndex];
+          const space = {
+            index: i,
+            item: props2.items[i],
+            column: columnIndex,
+            top,
+            left: (itemWidth.value + props2.gap) * columnIndex + props2.gap,
+            bottom: top + h,
+            height: h
+          };
+          columnsTop.value[columnIndex] += h + props2.gap;
+          spaces[i] = space;
+        }
+        itemSpaces.value = spaces;
+      });
+      const itemRenderList = Vue2.computed(() => {
+        var _a2, _b2, _c2, _d, _e, _f;
+        const length = itemSpaces.value.length;
+        if (!length) {
+          return [];
+        }
+        if (!props2.virtual) {
+          return itemSpaces.value;
+        }
+        const parentTop = (_c2 = (_b2 = (_a2 = content.value) == null ? void 0 : _a2.parentElement) == null ? void 0 : _b2.offsetTop) != null ? _c2 : 0;
+        const tp = -contentTop.value + parentTop;
+        const [topPreloadScreenCount, bottomPreloadScreenCount] = props2.preloadScreenCount;
+        const innerHeight = (_f = (_e = (_d = content.value) == null ? void 0 : _d.parentElement) == null ? void 0 : _e.clientHeight) != null ? _f : 0;
+        const minLimit = tp - topPreloadScreenCount * innerHeight;
+        const maxLimit = tp + (bottomPreloadScreenCount + 1) * innerHeight;
+        let start = 0;
+        let end = 0;
+        let open = true;
+        for (let i = 0; i < length; i++) {
+          const t = itemSpaces.value[i].top;
+          const b = itemSpaces.value[i].bottom;
+          if (t >= minLimit && t <= maxLimit || b >= minLimit && b <= maxLimit || t < minLimit && b > maxLimit) {
+            if (open) {
+              start = i;
+              open = false;
+            }
+            end = i;
+          }
+        }
+        return itemSpaces.value.slice(start, end + 1);
+      });
+      return { __sfc: true, props: props2, content, contentWidth, contentTop, columnCount, columnsTop, itemWidth, itemSpaces, getColumnIndex, itemRenderList };
+    }
+  });
+  var _sfc_render$a = function render() {
+    var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
+    return _c2("div", { ref: "content", style: {
+      position: "relative",
+      willChange: "height",
+      height: `${Math.max(..._setup.columnsTop)}px`
+    } }, _vm._l(_setup.itemRenderList, function(data) {
+      var _a2;
+      return _c2("div", { key: (_a2 = data.item[_vm.rowKey]) != null ? _a2 : data.index, style: {
+        position: "absolute",
+        contentVisibility: "auto",
+        width: `${_setup.itemWidth}px`,
+        height: `${data.height}px`,
+        transform: `translate(${data.left}px, ${data.top}px)`,
+        containIntrinsicSize: `${_setup.itemWidth}px ${data.height}px`
+      }, attrs: { "data-index": data.index } }, [_vm._t("default", null, { "item": data.item, "index": data.index })], 2);
+    }), 0);
   };
   var _sfc_staticRenderFns$a = [];
   var __component__$a = /* @__PURE__ */ normalizeComponent(
@@ -1357,7 +1813,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     null,
     null
   );
-  var WfLayout = __component__$a.exports;
+  var VirtualWaterfall = __component__$a.exports;
   var mdiAccount = "M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z";
   var mdiBrightness6 = "M12,18V6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z";
   var mdiCalendar = "M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z";
@@ -1383,8 +1839,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var mdiDownload = "M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z";
   var mdiFileClockOutline = "M4 2A2 2 0 0 0 2 4V20A2 2 0 0 0 4 22H12.41A7 7 0 0 0 16 23A7 7 0 0 0 23 16A7 7 0 0 0 18 9.3V8L12 2H4M4 4H11V9H16A7 7 0 0 0 9 16A7 7 0 0 0 10.26 20H4V4M16 11A5 5 0 0 1 21 16A5 5 0 0 1 16 21A5 5 0 0 1 11 16A5 5 0 0 1 16 11M15 12V17L18.61 19.16L19.36 17.94L16.5 16.25V12H15Z";
   var mdiFileGifBox = "M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3M10 10.5H7.5V13.5H8.5V12H10V13.7C10 14.4 9.5 15 8.7 15H7.3C6.5 15 6 14.3 6 13.7V10.4C6 9.7 6.5 9 7.3 9H8.6C9.5 9 10 9.7 10 10.3V10.5M13 15H11.5V9H13V15M17.5 10.5H16V11.5H17.5V13H16V15H14.5V9H17.5V10.5Z";
+  var mdiFileTree = "M3,3H9V7H3V3M15,10H21V14H15V10M15,17H21V21H15V17M13,13H7V18H13V20H7L5,20V9H7V11H13V13Z";
   var mdiFire = "M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z";
   var mdiFitToScreenOutline = "M17 4H20C21.1 4 22 4.9 22 6V8H20V6H17V4M4 8V6H7V4H4C2.9 4 2 4.9 2 6V8H4M20 16V18H17V20H20C21.1 20 22 19.1 22 18V16H20M7 18H4V16H2V18C2 19.1 2.9 20 4 20H7V18M16 10V14H8V10H16M18 8H6V16H18V8Z";
+  var mdiFolderNetwork = "M3,15V5A2,2 0 0,1 5,3H11L13,5H19A2,2 0 0,1 21,7V15A2,2 0 0,1 19,17H13V19H14A1,1 0 0,1 15,20H22V22H15A1,1 0 0,1 14,23H10A1,1 0 0,1 9,22H2V20H9A1,1 0 0,1 10,19H11V17H5A2,2 0 0,1 3,15Z";
   var mdiFullscreen = "M5,5H10V7H7V10H5V5M14,5H19V10H17V7H14V5M17,14H19V19H14V17H17V14M10,17V19H5V14H7V17H10Z";
   var mdiFullscreenExit = "M14,14H19V16H16V19H14V14M5,14H10V19H8V16H5V14M8,5H10V10H5V8H8V5M19,8V10H14V5H16V8H19Z";
   var mdiGithub = "M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z";
@@ -2941,6 +3399,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   };
   const initPosts = async () => {
     await searchPosts(true);
+    if (store.settings.masonryLayout === "virtual") {
+      document.documentElement.scrollTop = 1;
+    }
     if (store.requestStop)
       return;
     if (location.href.includes("safebooru"))
@@ -2963,7 +3424,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     page = 1;
     tags = searchTerm;
     store.imageList = [];
-    searchPosts();
+    searchPosts().then(() => {
+      if (store.settings.masonryLayout === "virtual") {
+        document.documentElement.scrollTop = 1;
+      }
+    });
   };
   var _sfc_main$9 = /* @__PURE__ */ Vue2.defineComponent({
     __name: "AppBar",
@@ -3482,7 +3947,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const layoutTypes = Vue2.ref([
         ["masonry", `Masonry/${i18n.t("6jPGehET9TViankl5-SRu")}`],
         ["grid", `Grid/${i18n.t("vfUg8xP6WptIhSL0E9b9D")}`],
-        ["flexbin", `Justified/${i18n.t("LZbI8am7nD-LiemZzroFF")}`]
+        ["flexbin", `Justified/${i18n.t("LZbI8am7nD-LiemZzroFF")}`],
+        ["virtual", "Virtual/Waterfall(Experimental)"]
       ]);
       const actLayout = Vue2.computed(() => {
         var _a2, _b2, _c2;
@@ -3553,7 +4019,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return _c2("v-list-item", { key: item[0], attrs: { "dense": "" }, on: { "click": function($event) {
         return _setup.onMasonryLayoutChange(item[0]);
       } } }, [_c2("v-list-item-title", { domProps: { "textContent": _vm._s(item[1]) } })], 1);
-    }), 1)], 1)], 1)], 1)], 1), _setup.store.settings.masonryLayout !== "flexbin" ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("tt_YdgKCA_5m-aSTSMPQ_")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("rXjhc8VuGloy1wZ09noNB") } }, [_vm._v(_vm._s(_vm.$t("rXjhc8VuGloy1wZ09noNB")))])], 1), _c2("v-list-item-action", [_c2("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    }), 1)], 1)], 1)], 1)], 1), ["masonry", "grid"].includes(_setup.store.settings.masonryLayout) ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("tt_YdgKCA_5m-aSTSMPQ_")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("rXjhc8VuGloy1wZ09noNB") } }, [_vm._v(_vm._s(_vm.$t("rXjhc8VuGloy1wZ09noNB")))])], 1), _c2("v-list-item-action", [_c2("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "sel_menu_btn", attrs: { "small": "" } }, "v-btn", attrs, false), on), [_c2("span", { staticStyle: { "margin-bottom": "2px" } }, [_vm._v(_vm._s(_setup.store.selectedColumn === "0" ? _vm.$t("uxIs3XkeVzkrEX985zHk3") : _setup.store.selectedColumn + _vm.$t("dU7ou5kVM0s9DMju5e2tS")))]), _c2("v-icon", { attrs: { "size": 16 } }, [_vm._v(_vm._s(_setup.mdiChevronDown))])], 1)];
     } }], null, false, 2104038103) }, [_c2("v-list", { attrs: { "dense": "" } }, [_c2("v-list-item-group", { attrs: { "value": _setup.actCol, "color": "primary" } }, _vm._l(_setup.cols, function(val, key) {
       return _c2("v-list-item", { key, attrs: { "dense": "" }, on: { "click": function($event) {
@@ -3695,6 +4161,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         if (notYKSite.value)
           return;
         window.open(`/post?tags=${tag}`, "_blank", "noreferrer");
+      };
+      const toPidPage = (pid) => {
+        if (notYKSite.value)
+          return;
+        window.open(`/post/show/${pid}`, "_blank", "noreferrer");
       };
       const toDetailPage = () => {
         window.open(imageSelected.value.postView, "_blank", "noreferrer");
@@ -3960,11 +4431,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         store.isListenWheelEvent && window.removeEventListener("wheel", onWheel);
         store.settings.isListenKeyupEvent && window.removeEventListener("keyup", onKeyup);
       });
-      return { __sfc: true, notR34Fav, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, showTagChipGroup, toggleTagsShow, imageSelected, isVideo, imgSrc, imgLasySrc, imageSelectedWidth, notYKSite, toggleToolbar, toTagsPage, toDetailPage, toSourcePage, download, addToList, close, onDtlContClick, postDetail, addFavorite, isCNLang: isCNLang2, setPostDetail, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, showPrevPost, showNextPost, onImageLoadError, scaleImgSrc, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isTriggerEvent, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFitToScreenOutline, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, DPlayer, store };
+      return { __sfc: true, notR34Fav, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, showTagChipGroup, toggleTagsShow, imageSelected, isVideo, imgSrc, imgLasySrc, imageSelectedWidth, notYKSite, toggleToolbar, toTagsPage, toPidPage, toDetailPage, toSourcePage, download, addToList, close, onDtlContClick, postDetail, addFavorite, isCNLang: isCNLang2, setPostDetail, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, showPrevPost, showNextPost, onImageLoadError, scaleImgSrc, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isTriggerEvent, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFileTree, mdiFitToScreenOutline, mdiFolderNetwork, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, DPlayer, store };
     }
   });
   var _sfc_render$5 = function render() {
-    var _a2, _b2;
+    var _a2, _b2, _c3, _d, _e, _f;
     var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
     return _c2("v-dialog", { attrs: { "fullscreen": "" }, model: { value: _setup.store.showImageSelected, callback: function($$v) {
       _vm.$set(_setup.store, "showImageSelected", $$v);
@@ -4062,12 +4533,20 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c2("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar, expression: "showImageToolbar" }], staticClass: "img_detail_btn_color hidden-sm-and-down" }, [_c2("div", { directives: [{ name: "show", rawName: "v-show", value: !_setup.isVideo, expression: "!isVideo" }], staticStyle: { "position": "absolute", "z-index": "10", "bottom": "12px", "padding": "0 12px" } }, [_c2("v-chip", { directives: [{ name: "show", rawName: "v-show", value: (_b2 = _setup.postDetail.tags) == null ? void 0 : _b2.length, expression: "postDetail.tags?.length" }], staticClass: "mr-1", attrs: { "small": "", "color": "primary" }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.toggleTagsShow();
-    } } }, [_c2("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(_setup.mdiTagMultiple))]), _c2("span", [_vm._v(_vm._s(_setup.showTagChipGroup ? _vm.$t("gM92sLo0Cqfl2rCaXlOhc") : _vm.$t("l5W-EtJ_ar-SY2lF4H5Zm")))])], 1), _c2("v-chip-group", { directives: [{ name: "show", rawName: "v-show", value: _setup.showTagChipGroup, expression: "showTagChipGroup" }], attrs: { "column": "" } }, _vm._l(_setup.postDetail.tags || [], function(item, i) {
+    } } }, [_c2("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(_setup.mdiTagMultiple))]), _c2("span", [_vm._v(_vm._s(_setup.showTagChipGroup ? _vm.$t("gM92sLo0Cqfl2rCaXlOhc") : _vm.$t("l5W-EtJ_ar-SY2lF4H5Zm")))])], 1), _setup.store.isYKSite ? [((_d = (_c3 = _setup.imageSelected) == null ? void 0 : _c3.data) == null ? void 0 : _d.parent_id) ? _c2("v-chip", { staticClass: "mr-1", attrs: { "small": "", "color": "primary" }, on: { "click": function($event) {
+      var _a3, _b3;
+      $event.stopPropagation();
+      _setup.toPidPage((_b3 = (_a3 = _setup.imageSelected) == null ? void 0 : _a3.data) == null ? void 0 : _b3.parent_id);
+    } } }, [_c2("v-icon", { attrs: { "small": "", "left": "" } }, [_vm._v(_vm._s(_setup.mdiFolderNetwork))]), _c2("span", [_vm._v(_vm._s(_vm.$t("sMkrF8bqCTJZZ1kXTkT_R")))])], 1) : _vm._e(), ((_f = (_e = _setup.imageSelected) == null ? void 0 : _e.data) == null ? void 0 : _f.has_children) ? _c2("v-chip", { staticClass: "mr-1", attrs: { "small": "", "color": "primary" }, on: { "click": function($event) {
+      var _a3;
+      $event.stopPropagation();
+      return _setup.toTagsPage(`parent:${(_a3 = _setup.imageSelected) == null ? void 0 : _a3.id}&_wf=1`);
+    } } }, [_c2("v-icon", { attrs: { "small": "", "left": "" } }, [_vm._v(_vm._s(_setup.mdiFileTree))]), _c2("span", [_vm._v(_vm._s(_vm.$t("u0K7A_hv1RZSJl6TDR61A")))])], 1) : _vm._e()] : _vm._e(), _c2("v-chip-group", { directives: [{ name: "show", rawName: "v-show", value: _setup.showTagChipGroup, expression: "showTagChipGroup" }], attrs: { "column": "" } }, _vm._l(_setup.postDetail.tags || [], function(item, i) {
       return _c2("v-chip", { key: i, staticClass: "mr-1", attrs: { "small": "", "color": item.color, "text-color": "#ffffff" }, domProps: { "textContent": _vm._s(item.tagText) }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.toTagsPage(item.tag);
       } } });
-    }), 1)], 1), _c2("v-btn", { staticClass: "poa_left_center", staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
+    }), 1)], 2), _c2("v-btn", { staticClass: "poa_left_center", staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.showPrevPost.apply(null, arguments);
     } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiChevronLeft))])], 1), _c2("v-btn", { staticClass: "poa_right_center", staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
@@ -4177,6 +4656,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         Vue2.set(item, "previewUrl", null);
         Vue2.set(item, "sampleUrl", null);
       };
+      const calcItemHeight = (item, itemWidth) => {
+        return item.height * (itemWidth / item.width);
+      };
       const scrollFn = throttleScroll((scroll) => {
         if (!showFab.value && scroll > 200)
           showFab.value = true;
@@ -4196,12 +4678,30 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       Vue2.onUnmounted(() => {
         window.removeEventListener("scroll", scrollFn);
       });
-      return { __sfc: true, isR34Fav, showImageList, showFab, showNoMore, showLoadMore, ctxActPost, showMenu, x, y, maxHeightStyle, getImgSrc, onCtxMenu, showImgModal, openDetail, addToSelectedList, addFavorite, downloadCtxPost, onImageLoadError, scrollFn, mdiDownload, mdiFileGifBox, mdiHeartPlusOutline, mdiLinkVariant, mdiPlaylistPlus, mdiRefresh, mdiVideo, PostDetail, refreshPosts, searchPosts, store };
+      return { __sfc: true, isR34Fav, showImageList, showFab, showNoMore, showLoadMore, ctxActPost, showMenu, x, y, maxHeightStyle, getImgSrc, onCtxMenu, showImgModal, openDetail, addToSelectedList, addFavorite, downloadCtxPost, onImageLoadError, calcItemHeight, scrollFn, mdiDownload, mdiFileGifBox, mdiFileTree, mdiFolderNetwork, mdiHeartPlusOutline, mdiLinkVariant, mdiPlaylistPlus, mdiRefresh, mdiVideo, PostDetail, refreshPosts, searchPosts, store };
     }
   });
   var _sfc_render$4 = function render() {
     var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
-    return _setup.showImageList ? _c2("div", [_c2("wf-layout", _vm._l(_setup.store.imageList, function(image, index) {
+    return _setup.showImageList ? _c2("div", [_setup.store.settings.masonryLayout === "virtual" ? _c2("virtual-waterfall", { staticStyle: { "min-height": "99vh" }, attrs: { "items": _setup.store.imageList, "calc-item-height": _setup.calcItemHeight, "gap": 10 }, scopedSlots: _vm._u([{ key: "default", fn: function({ item, index }) {
+      var _a2, _b2;
+      return [_c2("v-card", { staticClass: "posts-image-card" }, [_c2("v-img", { staticStyle: { "background": "gainsboro" }, attrs: { "transition": "scroll-y-transition", "src": _setup.getImgSrc(item), "aspect-ratio": item == null ? void 0 : item.aspectRatio }, on: { "click": function($event) {
+        return _setup.showImgModal(index);
+      }, "error": _setup.onImageLoadError } }), _setup.store.isYKSite ? [((_a2 = item == null ? void 0 : item.data) == null ? void 0 : _a2.has_children) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), ((_b2 = item == null ? void 0 : item.data) == null ? void 0 : _b2.parent_id) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), (item == null ? void 0 : item.fileExt.toLowerCase()) === "gif" ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(item == null ? void 0 : item.fileExt.toLowerCase()) ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav ? _c2("div", { staticClass: "posts-image-actions" }, [_c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4") }, on: { "click": function($event) {
+        $event.stopPropagation();
+        return _setup.openDetail(item);
+      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
+        $event.stopPropagation();
+        return _setup.addToSelectedList(item);
+      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiPlaylistPlus))])], 1), _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("VpuyxZtIoDF9-YyOm0tK_") }, on: { "click": function($event) {
+        $event.stopPropagation();
+        return _setup.downloadCtxPost(item);
+      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1), _setup.store.isYKSite ? _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("Dnnio9m9RZA6bkTLytc99") }, on: { "click": function($event) {
+        $event.stopPropagation();
+        return _setup.addFavorite(item.id);
+      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHeartPlusOutline))])], 1) : _vm._e()], 1) : _vm._e()], 2)];
+    } }], null, false, 4066981690) }) : _c2("wf-layout", _vm._l(_setup.store.imageList, function(image, index) {
+      var _a2, _b2;
       return _c2("v-card", { key: index, staticClass: "mb-2 posts-image-card", style: _setup.store.settings.masonryLayout === "flexbin" ? `width:${image.width * 300 / image.height}px;flex-grow:${image.width * 300 / image.height}` : _setup.maxHeightStyle }, [_setup.store.settings.masonryLayout === "flexbin" ? [_c2("div", { style: `padding-bottom:${image.height / image.width * 100}%` }), _c2("img", { staticClass: "post-image", attrs: { "alt": "", "loading": "lazy", "src": _setup.getImgSrc(image) }, on: { "click": function($event) {
         return _setup.showImgModal(index);
       }, "contextmenu": function($event) {
@@ -4214,7 +4714,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return _setup.onCtxMenu($event, image);
       }, "error": _setup.onImageLoadError }, scopedSlots: _vm._u([{ key: "placeholder", fn: function() {
         return [_c2("v-row", { staticClass: "fill-height ma-0", attrs: { "align": "center", "justify": "center" } }, [_c2("v-progress-circular", { attrs: { "indeterminate": "", "color": "deep-purple" } })], 1)];
-      }, proxy: true }], null, true) }), (image == null ? void 0 : image.fileExt.toLowerCase()) === "gif" ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(image == null ? void 0 : image.fileExt.toLowerCase()) ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav ? _c2("div", { staticClass: "posts-image-actions" }, [_c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4") }, on: { "click": function($event) {
+      }, proxy: true }], null, true) }), _setup.store.isYKSite ? [((_a2 = image == null ? void 0 : image.data) == null ? void 0 : _a2.has_children) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), ((_b2 = image == null ? void 0 : image.data) == null ? void 0 : _b2.parent_id) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), (image == null ? void 0 : image.fileExt.toLowerCase()) === "gif" ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(image == null ? void 0 : image.fileExt.toLowerCase()) ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav ? _c2("div", { staticClass: "posts-image-actions" }, [_c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.openDetail(image);
       } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
@@ -4429,6 +4929,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function initApp() {
     Vue__default["default"].use(Plugin);
     Vue__default["default"].component("WfLayout", WfLayout);
+    Vue__default["default"].component("VirtualWaterfall", VirtualWaterfall);
     const vuetify = installVuetify();
     const app = new Vue__default["default"]({
       vuetify,

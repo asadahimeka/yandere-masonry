@@ -1,3 +1,8 @@
+## v0.31.0
+
+- feat: 添加虚拟瀑布流布局（实验性）
+- feat: 添加父投稿与子项提示（Y 站和 K 站）
+
 ## v0.30.0
 
 - feat: 添加 danbooru 标签翻译, 数据来自 [danbooru-diffusion-prompt-builder](https://github.com/wfjsw/danbooru-diffusion-prompt-builder)
