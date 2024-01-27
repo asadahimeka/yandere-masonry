@@ -1,5 +1,5 @@
 <template>
-  <v-container class="_vcont pa-2" fluid>
+  <v-container class="_vcont pa-4" fluid>
     <PostList v-if="store.showPostList" />
     <PoolList v-if="store.showPoolList" />
     <Snackbar />

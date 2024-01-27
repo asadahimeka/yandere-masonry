@@ -165,7 +165,7 @@ function setTagText(seletcor: string, textEn?: (el: HTMLElement) => string, disp
 async function translateTags() {
   const locale = document.cookie.match(/locale=(\w+)/)?.[1]
   if (locale && locale !== 'zh_CN') return
-  const response = await fetch('https://raw.githubusercontent.com/asadahimeka/yandere-masonry/main/src/data/tags_cn.json')
+  const response = await fetch('https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/tags_cn.json')
   window.__tagsCN = await response.json()
   const url = new URL(location.href)
   if (url.pathname == '/tag') return setTagText('td[class^=tag-type] a:last-child')
@@ -180,7 +180,7 @@ async function translateDanbooruTags() {
   let tagsCache = sessionStorage.getItem('__YM_TAGS_CN_CACHE') || ''
   if (!tagsCache) {
     try {
-      const response = await fetch('https://raw.githubusercontent.com/asadahimeka/danbooru_tags_json/main/json/_tags_translate_cn.json')
+      const response = await fetch('https://cdn.jsdelivr.net/gh/asadahimeka/danbooru_tags_json@main/json/_tags_translate_cn.json')
       tagsCache = await response.text()
       sessionStorage.setItem('__YM_TAGS_CN_CACHE', tagsCache)
     } catch (error) {}
@@ -245,8 +245,8 @@ export function loadScript(src: string) {
 }
 
 async function loadDeps() {
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.min.js')
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.0/vuetify.min.js')
+  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.16/vue.min.js')
+  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.1/vuetify.min.js')
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.28.2/vue-i18n.min.js')
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.0.11/fxparser.min.js')
 }
@@ -261,8 +261,8 @@ function replaceHead() {
     ${location.href.includes('http://behoimi.org') ? '' : '<meta name="referrer" content="no-referrer">'}
     <title>${location.host.toUpperCase()} Masonry</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <link rel="stylesheet" href="https://fonts.loli.net/css?family=Roboto:100,300,400,500,700,900">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.0/vuetify.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.1/vuetify.min.css">
     <style>${customStyle}</style>
   `
 }

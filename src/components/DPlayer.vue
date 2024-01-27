@@ -14,7 +14,7 @@ export default {
   },
   async mounted() {
     if (!unsafeWindow.DPlayer) {
-      await loadScript('https://cdn.staticfile.org/dplayer/1.27.1/DPlayer.min.js')
+      await loadScript('https://cdnjs.cloudflare.com/ajax/libs/dplayer/1.27.1/DPlayer.min.js')
     }
     await this.$nextTick()
     this.initPlayer()

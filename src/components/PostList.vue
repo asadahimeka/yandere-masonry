@@ -2,6 +2,7 @@
   <div v-if="showImageList">
     <virtual-waterfall
       v-if="store.settings.masonryLayout === 'virtual'"
+      :class="{ 'wf-no-fit-screen': notFitScreen }"
       :items="store.imageList"
       :calc-item-height="calcItemHeight"
       :gap="10"
@@ -13,7 +14,7 @@
             transition="scroll-y-transition"
             :src="getImgSrc(item)"
             :aspect-ratio="item?.aspectRatio"
-            style="background: gainsboro;"
+            style="background: gainsboro;border-radius: 4px;"
             @click="showImgModal(index)"
             @error="onImageLoadError"
           />
@@ -68,11 +69,10 @@
       <v-card
         v-for="(image, index) in store.imageList"
         :key="index"
-        class="mb-2 posts-image-card"
-        :style="store.settings.masonryLayout === 'flexbin' ? `width:${image.width * 300 / image.height}px;flex-grow:${image.width * 300 / image.height}` : maxHeightStyle"
+        class="posts-image-card"
+        :style="store.settings.masonryLayout === 'flexbin' ? `--w:${image.width};--h:${image.height}` : maxHeightStyle"
       >
         <template v-if="store.settings.masonryLayout === 'flexbin'">
-          <div :style="`padding-bottom:${image.height / image.width * 100}%`"></div>
           <img
             class="post-image"
             alt=""
@@ -201,8 +201,8 @@ import { initPosts, refreshPosts, searchPosts } from '@/store/actions/post'
 import store from '@/store'
 import i18n from '@/utils/i18n'
 
+const notFitScreen = ref(localStorage.getItem('__fitScreen') == '0')
 const isR34Fav = ref(isRule34FavPage())
-
 const showImageList = ref(true)
 const showFab = ref(false)
 

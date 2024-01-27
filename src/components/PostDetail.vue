@@ -53,7 +53,6 @@
           <v-btn
             fab
             small
-            color="primary"
             v-bind="attrs"
             class="mr-1 hidden-sm-and-down"
             v-on="on"
@@ -69,7 +68,6 @@
           <v-btn
             fab
             small
-            color="primary"
             class="mr-1"
             v-bind="attrs"
             v-on="on"
@@ -85,7 +83,6 @@
           <v-btn
             fab
             small
-            color="primary"
             class="mr-1"
             v-bind="attrs"
             v-on="on"
@@ -101,7 +98,6 @@
           <v-btn
             fab
             small
-            color="primary"
             class="mr-1"
             v-bind="attrs"
             v-on="on"
@@ -117,7 +113,6 @@
           <v-btn
             fab
             small
-            color="primary"
             v-bind="attrs"
             class="mr-1"
             v-on="on"
@@ -133,7 +128,6 @@
           <v-btn
             fab
             small
-            color="primary"
             class="mr-1"
             v-bind="attrs"
             v-on="on"
@@ -149,7 +143,6 @@
           <v-btn
             fab
             small
-            color="primary"
             class="mr-1 hidden-sm-and-down"
             v-bind="attrs"
             v-on="on"
@@ -162,7 +155,7 @@
       </v-tooltip>
       <v-tooltip bottom>
         <template #activator="{ on, attrs }">
-          <v-btn fab small color="primary" v-bind="attrs" v-on="on" @click.stop="close">
+          <v-btn fab small v-bind="attrs" v-on="on" @click.stop="close">
             <v-icon>{{ mdiClose }}</v-icon>
           </v-btn>
         </template>
@@ -179,7 +172,6 @@
     >
       <v-chip
         small
-        color="primary"
         @click.stop="toDetailPage"
         v-text="`${imageSelected.rating?.toUpperCase()} ${imageSelected.id}`"
       />
@@ -189,7 +181,6 @@
           <v-btn
             fab
             small
-            color="primary"
             v-bind="attrs"
             class="mr-1"
             v-on="on"
@@ -205,7 +196,6 @@
           <v-btn
             fab
             small
-            color="primary"
             v-bind="attrs"
             class="mr-1"
             v-on="on"
@@ -221,7 +211,6 @@
           <v-btn
             fab
             small
-            color="primary"
             v-bind="attrs"
             class="mr-1"
             v-on="on"
@@ -237,7 +226,6 @@
           <v-btn
             fab
             small
-            color="primary"
             class="mr-1"
             v-bind="attrs"
             v-on="on"
@@ -254,7 +242,6 @@
             v-show="!downloading"
             fab
             small
-            color="primary"
             class="mr-1"
             v-bind="attrs"
             v-on="on"
@@ -289,7 +276,6 @@
           <v-btn
             fab
             small
-            color="primary"
             class="mr-1"
             v-bind="attrs"
             v-on="on"
@@ -302,7 +288,7 @@
       </v-tooltip>
       <v-tooltip bottom>
         <template #activator="{ on, attrs }">
-          <v-btn fab small color="primary" v-bind="attrs" v-on="on" @click.stop="close">
+          <v-btn fab small v-bind="attrs" v-on="on" @click.stop="close">
             <v-icon>{{ mdiClose }}</v-icon>
           </v-btn>
         </template>
@@ -315,7 +301,6 @@
           v-show="postDetail.tags?.length"
           small
           class="mr-1"
-          color="primary"
           @click.stop="toggleTagsShow()"
         >
           <v-icon left>{{ mdiTagMultiple }}</v-icon>
@@ -327,7 +312,6 @@
               imageSelected?.data?.parent_id"
             small
             class="mr-1"
-            color="primary"
             @click.stop="//@ts-ignore
               toPidPage(imageSelected?.data?.parent_id)"
           >
@@ -339,7 +323,6 @@
               imageSelected?.data?.has_children"
             small
             class="mr-1"
-            color="primary"
             @click.stop="toTagsPage(`parent:${imageSelected?.id}&_wf=1`)"
           >
             <v-icon small left>{{ mdiFileTree }}</v-icon>
@@ -359,10 +342,10 @@
           />
         </v-chip-group>
       </div>
-      <v-btn fab small color="primary" class="poa_left_center" style="z-index: 10;" @click.stop="showPrevPost">
+      <v-btn fab small class="poa_left_center" style="z-index: 10;" @click.stop="showPrevPost">
         <v-icon>{{ mdiChevronLeft }}</v-icon>
       </v-btn>
-      <v-btn fab small color="primary" class="poa_right_center" style="z-index: 10;" @click.stop="showNextPost">
+      <v-btn fab small class="poa_right_center" style="z-index: 10;" @click.stop="showNextPost">
         <v-icon>{{ mdiChevronRight }}</v-icon>
       </v-btn>
     </div>

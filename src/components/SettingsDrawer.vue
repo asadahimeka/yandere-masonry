@@ -196,6 +196,18 @@
           />
         </v-list-item-action>
       </v-list-item>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>{{ '图片铺满屏幕' }}</v-list-item-title>
+          <v-list-item-subtitle>{{ '关闭此功能的话屏幕两侧会留白' }}</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-switch
+            v-model="isFitScreen"
+            @change="onFitScreenChange"
+          />
+        </v-list-item-action>
+      </v-list-item>
     </v-list>
     <v-dialog v-model="showDLConfirm" max-width="600">
       <v-card>
@@ -254,6 +266,12 @@ const onKeyupSwitchChange = (val: any) => {
 
 const onImgPreloadChange = (val: any) => {
   localStorage.setItem('__fullImgPreload', val ? '1' : '')
+  location.reload()
+}
+
+const isFitScreen = ref(localStorage.getItem('__fitScreen') != '0')
+const onFitScreenChange = (val: any) => {
+  localStorage.setItem('__fitScreen', val ? '1' : '0')
   location.reload()
 }
 
