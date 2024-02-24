@@ -21,7 +21,23 @@
     <v-list dense nav>
       <v-list-item class="mb-0">
         <v-list-item-content>
-          <v-list-item-title>{{ $t('_Efl8k8uYQj9iJmj3kwbd') }}</v-list-item-title>
+          <v-list-item-title>
+            <div class="d-flex align-center">
+              <span>{{ $t('_Efl8k8uYQj9iJmj3kwbd') }}</span>
+              <v-tooltip bottom>
+                <template #activator="{ on, attrs }">
+                  <v-btn class="ml-2" icon v-bind="attrs" v-on="on" @click.stop="exportBlacklist"><v-icon :size="18">{{ mdiContentCopy }}</v-icon></v-btn>
+                </template>
+                <span>{{ $t('EVPG1YZDtykdz3htyf11u') }}</span>
+              </v-tooltip>
+              <v-tooltip bottom>
+                <template #activator="{ on, attrs }">
+                  <v-btn icon v-bind="attrs" v-on="on" @click.stop="importBlacklist"><v-icon :size="18">{{ mdiContentPaste }}</v-icon></v-btn>
+                </template>
+                <span>{{ $t('kCYFwKpwznYIKRmB1tCww') }}</span>
+              </v-tooltip>
+            </div>
+          </v-list-item-title>
           <v-list-item-subtitle :title="$t('jMod2JozzAnwHuD-3KuPb')">{{ $t('jMod2JozzAnwHuD-3KuPb') }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -198,13 +214,25 @@
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title>{{ '图片铺满屏幕' }}</v-list-item-title>
-          <v-list-item-subtitle>{{ '关闭此功能的话屏幕两侧会留白' }}</v-list-item-subtitle>
+          <v-list-item-title>{{ $t('fbIpwMw2yVoSxP66OJ32z') }}</v-list-item-title>
+          <v-list-item-subtitle :title="$t('tEvQYzSVnggYAcM1uv9Tt')">{{ $t('tEvQYzSVnggYAcM1uv9Tt') }}</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
           <v-switch
             v-model="isFitScreen"
             @change="onFitScreenChange"
+          />
+        </v-list-item-action>
+      </v-list-item>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>自动进入瀑布流模式</v-list-item-title>
+          <v-list-item-subtitle>打开源站时直接进入瀑布流浏览模式</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-switch
+            v-model="isAutoWfMode"
+            @change="onAutoWfModeChange"
           />
         </v-list-item-action>
       </v-list-item>
@@ -229,9 +257,10 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { mdiChevronDown, mdiClose } from '@mdi/js'
+import { mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste } from '@mdi/js'
 import store from '@/store'
 import i18n from '@/utils/i18n'
+import { showMsg } from '@/utils'
 
 const onComboboxChange = (val: string[]) => {
   localStorage.setItem('__blacklist', val.join(','))
@@ -240,6 +269,30 @@ const onComboboxChange = (val: string[]) => {
 const removeTagFromBlacklist = (item: string) => {
   store.blacklist.splice(store.blacklist.indexOf(item), 1)
   localStorage.setItem('__blacklist', store.blacklist.join(','))
+}
+
+const exportBlacklist = () => {
+  navigator
+    .clipboard
+    .writeText(store.blacklist.join(','))
+    .then(() => showMsg({ msg: i18n.t('99kLMSzDYJCAf1yK9QYzy') as string }))
+    .catch(() => showMsg({ msg: i18n.t('si-zDDRFrEwDTCkp53Q44') as string, type: 'error' }))
+}
+
+const importBlacklist = () => {
+  navigator
+    .clipboard
+    .readText()
+    .then(text => {
+      if (text) {
+        store.blacklist = [...new Set([
+          ...store.blacklist,
+          ...text.split(',').filter(Boolean),
+        ])]
+        localStorage.setItem('__blacklist', store.blacklist.join(','))
+      }
+    })
+    .catch(() => showMsg({ msg: i18n.t('si-zDDRFrEwDTCkp53Q44') as string, type: 'error' }))
 }
 
 const nsfwValue = ref(store.showNSFWContents)
@@ -272,6 +325,12 @@ const onImgPreloadChange = (val: any) => {
 const isFitScreen = ref(localStorage.getItem('__fitScreen') != '0')
 const onFitScreenChange = (val: any) => {
   localStorage.setItem('__fitScreen', val ? '1' : '0')
+  location.reload()
+}
+
+const isAutoWfMode = ref(!!localStorage.getItem('__autoWfMode'))
+const onAutoWfModeChange = (val: any) => {
+  localStorage.setItem('__autoWfMode', val ? '1' : '')
   location.reload()
 }
 

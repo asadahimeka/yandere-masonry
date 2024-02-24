@@ -81,10 +81,15 @@ async function initLayout() {
   wfTypeActions[wfType]?.(listEl)
 }
 
+const isAutoWf = (() => {
+  const params = new URLSearchParams(location.search)
+  if (params.get('_wf')) return true
+  return !!localStorage.getItem('__autoWfMode')
+})()
+
 function addWfTypeSelect() {
   if (!location.href.includes('yande.re/post')) return
-  const params = new URLSearchParams(location.search)
-  if (params.get('_wf')) return
+  if (isAutoWf) return
   const type = localStorage.getItem('__wfType') || 'masonry'
   document.body.insertAdjacentHTML('beforeend', `<select id="wf-type-select">${Object.keys(wfTypeActions).map(e => `<option ${type == e ? 'selected' : ''} value="${e}">${e}</option>`).join('')}</select>`)
   const sel = document.querySelector('#wf-type-select') as HTMLSelectElement
@@ -119,8 +124,8 @@ const locales = ['de', 'en', 'es', 'ja', 'ru', 'zh_CN', 'zh_TW']
 function setMoebooruLocale() {
   if (document.title === 'Access denied') return
   if (document.cookie.includes('locale=')) return
+  if (isAutoWf) return
   const url = new URL(location.href)
-  if (url.searchParams.get('_wf')) return
   if (url.searchParams.get('locale')) return
   const browserLang = navigator.language
   const locale = locales.find(e => e == browserLang.replace('-', '_') || e == browserLang.split('-')[0])
@@ -130,8 +135,7 @@ function setMoebooruLocale() {
 }
 
 function addMoeLocaleSelect() {
-  const params = new URLSearchParams(location.search)
-  if (params.get('_wf')) return
+  if (isAutoWf) return
   document.body.insertAdjacentHTML('beforeend', `<select id="locale-select"><option value="">- lang -</option>${locales.map(e => `<option value="${e}">${e}</option>`).join('')}</select>`)
   const sel = document.querySelector('#locale-select') as HTMLSelectElement
   sel?.addEventListener('change', function () {
@@ -216,8 +220,7 @@ function removeOldListeners() {
 }
 
 function setMasonryMode(fn: () => void) {
-  const params = new URLSearchParams(location.search)
-  if (params.get('_wf')) return fn()
+  if (isAutoWf) return fn()
   if (location.href.includes('safebooru')) {
     const oldBtn = document.querySelector('#enter-masonry') as HTMLButtonElement
     oldBtn?.remove()

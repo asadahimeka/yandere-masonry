@@ -175,6 +175,12 @@
         @click.stop="toDetailPage"
         v-text="`${imageSelected.rating?.toUpperCase()} ${imageSelected.id}`"
       />
+      <v-chip
+        class="ml-1"
+        small
+        :title="imageSelected.createdTime"
+        v-text="`${imageSelected.createdAt && formatDistanceToNow(imageSelected.createdAt, { addSuffix: true })}`"
+      />
       <v-spacer />
       <v-tooltip v-if="!notYKSite" bottom>
         <template #activator="{ on, attrs }">
@@ -375,6 +381,7 @@ import {
   mdiTagMultiple,
 } from '@mdi/js'
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import { formatDistanceToNow } from 'date-fns/esm'
 import DPlayer from './DPlayer.vue'
 import { debounce, downloadFile, dragElement, isURL, showMsg } from '@/utils'
 import { type PostDetail, addPostToFavorites, getPostDetail } from '@/api/moebooru'

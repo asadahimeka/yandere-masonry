@@ -1,5 +1,5 @@
 <template>
-  <div :class="wfClass">
+  <div class="wf-layout" :class="wfClass">
     <masonry v-if="isMasonry" :cols="columnCount" gutter="8px">
       <slot></slot>
     </masonry>

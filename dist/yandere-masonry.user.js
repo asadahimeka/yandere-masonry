@@ -47,7 +47,7 @@ var __publicField = (obj, key, value) => {
   var prepareStyle = "#enter-masonry{position:fixed;z-index:99;right:16px;top:10px;height:30px;padding:6px 10px;font-size:13px;border:0;border-radius:6px;color:#fff;outline:0;background:linear-gradient(to right,#ff758c 0%,#ff7eb3 100%);opacity:1;transform:scale(1);transition:opacity,transform .2s;cursor:pointer}#enter-masonry:hover{opacity:.8;transform:scale(1.05)}#locale-select{position:fixed;z-index:99;right:110px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}#wf-type-select{position:fixed;z-index:99;right:190px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}\n";
   var ydStyle = 'a.thumb{padding-bottom:5px;border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08] "}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743] "}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272] "}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2] "}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:100%;height:auto;margin-top:0;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}.mm-masonry{--gap: 24;--col-width: 240}.mm-masonry{--_col-width: var(--col-width, 280);--_col-width-px: calc(var(--_col-width) * 1px);--_gap: calc(var(--gap, 20) * 1px);display:var(--display, grid)!important;grid-template-columns:repeat(auto-fill,minmax(var(--_col-width-px),1fr));grid-auto-rows:1px;column-gap:var(--_gap)}.mm-masonry__item{--img-proportional-height: calc(var(--h) * var(--_col-width) / (var(--w)));grid-row-end:span var(--img-proportional-height, 240);overflow:hidden}.mm-masonry__item:not(:last-child){margin-bottom:var(--_gap)}#post-list ul#post-list-posts .mm-masonry__item .inner,#post-popular ul#post-list-posts .mm-masonry__item .inner{height:100%!important}.mm-masonry__img{width:100%!important;height:100%!important;object-fit:cover}.justified-container{display:flex!important;flex-wrap:wrap}.justified-container:after{content:"";flex-grow:999999999}.justified-item{position:relative}.justified-item img.preview{position:absolute;top:0;left:0;width:100%;vertical-align:bottom;object-fit:cover}\n';
   var knStyle = "#lsidebar{display:none}#post-popular ul#post-list-posts{display:flex;justify-content:center;flex-wrap:wrap}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
-  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;max-width:100vw;max-height:100vh;margin:0 auto}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}::-webkit-scrollbar{width:0px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #fff;border-radius:7px}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.flexbin{display:flex!important;overflow:hidden;flex-wrap:wrap;margin:2.5px;transition:.2s}.flexbin:after{content:"";flex-grow:999999999;min-width:15vw;height:0}.flexbin .posts-image-card{position:relative;display:block!important;height:15vw!important;margin:2.5px!important;padding-bottom:0!important;flex-grow:1;transition:.2s}.flexbin .post-image{position:initial!important;width:auto!important;height:15vw!important;object-fit:cover;max-width:100%;min-width:100%;vertical-align:bottom;transition:.2s}.flexbin .post-image:before{content:"Loading..."}@media (max-width: 1280px){.flexbin:after{min-width:20vw!important}.flexbin .posts-image-card,.flexbin .post-image{height:20vw!important}}@media (max-width: 980px){.flexbin:after{min-width:30vw!important}.flexbin .posts-image-card,.flexbin .post-image{height:30vw!important}}@media (max-width: 768px){.flexbin:after{min-width:40vw!important}.flexbin .posts-image-card,.flexbin .post-image{height:40vw!important}}@media (max-width: 570px){.flexbin:after{min-width:60vw!important}.flexbin .posts-image-card,.flexbin .post-image{height:60vw!important}}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{position:relative;margin-bottom:0!important;background-color:#dcdcdc}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .img_detail_btn_color .v-chip.primary,.theme--light .img_detail_btn_color .v-btn.primary{background-color:#8e24aab3!important;border-color:#8e24aab3!important}.theme--dark .img_detail_btn_color .v-chip.primary,.theme--dark .img_detail_btn_color .v-btn.primary{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-type{position:absolute!important;top:0;right:0px;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}\n';
+  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;max-width:100vw;max-height:100vh;margin:0 auto}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}::-webkit-scrollbar{width:0px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e9eef6;border-radius:7px}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.posts-image-card{margin-bottom:8px}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{--jstf-w: 340;--jstf-w-px: 340PX;position:relative;flex-grow:calc(var(--w) * var(--jstf-w) / var(--h));width:calc(var(--w) * var(--jstf-w-px) / var(--h));margin-bottom:0!important;padding-bottom:0!important;background-color:#dcdcdc}@media screen and (max-width: 500px){.justified-container .posts-image-card{--jstf-w: 240;--jstf-w-px: 240PX}}.justified-container .posts-image-card:before{content:"";display:block;padding-bottom:calc(var(--h) / var(--w) * 100%)!important}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .img_detail_btn_color .v-chip.primary,.theme--light .img_detail_btn_color .v-btn.primary{background-color:#8e24aab3!important;border-color:#8e24aab3!important}.theme--dark .img_detail_btn_color .v-chip,.theme--dark .img_detail_btn_color .v-btn{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-type{position:absolute!important;top:0;right:0px;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}@media screen and (min-width: 768px){.wf-no-fit-screen{max-width:62.5vw;margin:16px auto}}.virtual-waterfall>[data-index]{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f;border-radius:4px}.theme--light .v-app-bar{box-shadow:none!important;background:#f6f8fc!important}.theme--light .v-app-bar,.theme--light .v-app-bar .v-toolbar__content{height:64px!important}.theme--light .v-main{padding-top:64px!important}.theme--light .v-app-bar .v-toolbar__title+input{width:50px!important;background-color:#eaf1fb!important;border-radius:24px!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#5f6368!important}.theme--light .app-bar-tag-input .v-input .v-input__slot:before,.theme--light .app-bar-tag-input .v-input .v-input__slot:after{display:none}.theme--light .app-bar-tag-input .v-input input{padding:5px 44px 5px 10px;background-color:#eaf1fb;min-height:48px;border-radius:24px}.theme--light .app-bar-tag-input:not([style*="none"])+.v-btn{position:relative;left:-50px}.theme--light.v-list,.theme--light.v-navigation-drawer{background:#e9eef6!important}.theme--light .img_detail_btn_color .v-chip,.theme--light .img_detail_btn_color .v-chip .v-icon,.theme--light .img_detail_btn_color .v-btn{background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#001d35!important;color:#1a73e8!important;box-shadow:none!important;font-weight:500}.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text){padding-bottom:2px;border-radius:10px;color:#001d35;background-color:#c2e7ff}.theme--light .blacklist_combobox .v-input__slot{padding-left:8px!important}.theme--light .v-text-field--outlined{border-radius:20px}\n';
   async function prepareApp(callback) {
     if (doNotRun())
       return;
@@ -125,11 +125,16 @@ var __publicField = (obj, key, value) => {
     const wfType = localStorage.getItem("__wfType") || "masonry";
     (_a2 = wfTypeActions[wfType]) == null ? void 0 : _a2.call(wfTypeActions, listEl);
   }
+  const isAutoWf = (() => {
+    const params2 = new URLSearchParams(location.search);
+    if (params2.get("_wf"))
+      return true;
+    return !!localStorage.getItem("__autoWfMode");
+  })();
   function addWfTypeSelect() {
     if (!location.href.includes("yande.re/post"))
       return;
-    const params2 = new URLSearchParams(location.search);
-    if (params2.get("_wf"))
+    if (isAutoWf)
       return;
     const type = localStorage.getItem("__wfType") || "masonry";
     document.body.insertAdjacentHTML("beforeend", `<select id="wf-type-select">${Object.keys(wfTypeActions).map((e) => `<option ${type == e ? "selected" : ""} value="${e}">${e}</option>`).join("")}</select>`);
@@ -164,21 +169,20 @@ var __publicField = (obj, key, value) => {
       return;
     if (document.cookie.includes("locale="))
       return;
-    const url = new URL(location.href);
-    if (url.searchParams.get("_wf"))
+    if (isAutoWf)
       return;
+    const url = new URL(location.href);
     if (url.searchParams.get("locale"))
       return;
     const browserLang = navigator.language;
-    const locale = locales.find((e) => e == browserLang.replace("-", "_") || e == browserLang.split("-")[0]);
-    if (!locale)
+    const locale2 = locales.find((e) => e == browserLang.replace("-", "_") || e == browserLang.split("-")[0]);
+    if (!locale2)
       return;
-    url.searchParams.set("locale", locale);
+    url.searchParams.set("locale", locale2);
     location.assign(url);
   }
   function addMoeLocaleSelect() {
-    const params2 = new URLSearchParams(location.search);
-    if (params2.get("_wf"))
+    if (isAutoWf)
       return;
     document.body.insertAdjacentHTML("beforeend", `<select id="locale-select"><option value="">- lang -</option>${locales.map((e) => `<option value="${e}">${e}</option>`).join("")}</select>`);
     const sel = document.querySelector("#locale-select");
@@ -212,10 +216,10 @@ var __publicField = (obj, key, value) => {
   }
   async function translateTags() {
     var _a2;
-    const locale = (_a2 = document.cookie.match(/locale=(\w+)/)) == null ? void 0 : _a2[1];
-    if (locale && locale !== "zh_CN")
+    const locale2 = (_a2 = document.cookie.match(/locale=(\w+)/)) == null ? void 0 : _a2[1];
+    if (locale2 && locale2 !== "zh_CN")
       return;
-    const response = await fetch("https://raw.githubusercontent.com/asadahimeka/yandere-masonry/main/src/data/tags_cn.json");
+    const response = await fetch("https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/tags_cn.json");
     window.__tagsCN = await response.json();
     const url = new URL(location.href);
     if (url.pathname == "/tag")
@@ -232,7 +236,7 @@ var __publicField = (obj, key, value) => {
     let tagsCache = sessionStorage.getItem("__YM_TAGS_CN_CACHE") || "";
     if (!tagsCache) {
       try {
-        const response = await fetch("https://raw.githubusercontent.com/asadahimeka/danbooru_tags_json/main/json/_tags_translate_cn.json");
+        const response = await fetch("https://cdn.jsdelivr.net/gh/asadahimeka/danbooru_tags_json@main/json/_tags_translate_cn.json");
         tagsCache = await response.text();
         sessionStorage.setItem("__YM_TAGS_CN_CACHE", tagsCache);
       } catch (error) {
@@ -270,8 +274,7 @@ var __publicField = (obj, key, value) => {
     }
   }
   function setMasonryMode(fn) {
-    const params2 = new URLSearchParams(location.search);
-    if (params2.get("_wf"))
+    if (isAutoWf)
       return fn();
     if (location.href.includes("safebooru")) {
       const oldBtn = document.querySelector("#enter-masonry");
@@ -304,8 +307,8 @@ var __publicField = (obj, key, value) => {
     });
   }
   async function loadDeps() {
-    await loadScript("https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.min.js");
-    await loadScript("https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.0/vuetify.min.js");
+    await loadScript("https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.16/vue.min.js");
+    await loadScript("https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.1/vuetify.min.js");
     await loadScript("https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.28.2/vue-i18n.min.js");
     await loadScript("https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.0.11/fxparser.min.js");
   }
@@ -319,8 +322,8 @@ var __publicField = (obj, key, value) => {
     ${location.href.includes("http://behoimi.org") ? "" : '<meta name="referrer" content="no-referrer">'}
     <title>${location.host.toUpperCase()} Masonry</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <link rel="stylesheet" href="https://fonts.loli.net/css?family=Roboto:100,300,400,500,700,900">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.0/vuetify.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.1/vuetify.min.css">
     <style>${customStyle}</style>
   `;
   }
@@ -538,8 +541,8 @@ var __publicField = (obj, key, value) => {
         dark: false,
         themes: {
           light: {
-            primary: "#8E24AA",
-            accent: "#EC407A"
+            primary: "#1a73e8",
+            accent: "#c2e7ff"
           },
           dark: {
             primary: "#BA68C8",
@@ -617,6 +620,10 @@ var __publicField = (obj, key, value) => {
   const ujBgilCWNgFNV8Q2IDMWS$3 = "\u63D0\u793A\uFF1A\u4E3A\u65B9\u4FBF\u4F7F\u7528\uFF0C\u53EF\u4EE5\u5C06\u6D4F\u89C8\u5668\u8BBE\u7F6E\u4E2D\u201C\u4E0B\u8F7D\u524D\u8BE2\u95EE\u6BCF\u4E2A\u6587\u4EF6\u7684\u4FDD\u5B58\u4F4D\u7F6E\u201D\u9009\u9879\u5173\u95ED\u3002";
   const sMkrF8bqCTJZZ1kXTkT_R$3 = "\u67E5\u770B\u7236\u6295\u7A3F";
   const u0K7A_hv1RZSJl6TDR61A$3 = "\u67E5\u770B\u5B50\u9879";
+  const EVPG1YZDtykdz3htyf11u$3 = "\u590D\u5236\u5230\u526A\u8D34\u677F";
+  const kCYFwKpwznYIKRmB1tCww$3 = "\u4ECE\u526A\u8D34\u677F\u8BFB\u53D6";
+  const fbIpwMw2yVoSxP66OJ32z$3 = "\u56FE\u7247\u94FA\u6EE1\u5C4F\u5E55";
+  const tEvQYzSVnggYAcM1uv9Tt$3 = "\u5173\u95ED\u6B64\u529F\u80FD\u7684\u8BDD\u5C4F\u5E55\u4E24\u4FA7\u4F1A\u7559\u767D";
   var zhHans = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$3,
     "ZtQHZx-pEjmu_o3dQD1fc": "\u793E\u56E2",
@@ -717,7 +724,14 @@ var __publicField = (obj, key, value) => {
     OJ8X55GXx5k3peoSXSujf: OJ8X55GXx5k3peoSXSujf$3,
     ujBgilCWNgFNV8Q2IDMWS: ujBgilCWNgFNV8Q2IDMWS$3,
     sMkrF8bqCTJZZ1kXTkT_R: sMkrF8bqCTJZZ1kXTkT_R$3,
-    u0K7A_hv1RZSJl6TDR61A: u0K7A_hv1RZSJl6TDR61A$3
+    u0K7A_hv1RZSJl6TDR61A: u0K7A_hv1RZSJl6TDR61A$3,
+    EVPG1YZDtykdz3htyf11u: EVPG1YZDtykdz3htyf11u$3,
+    kCYFwKpwznYIKRmB1tCww: kCYFwKpwznYIKRmB1tCww$3,
+    fbIpwMw2yVoSxP66OJ32z: fbIpwMw2yVoSxP66OJ32z$3,
+    tEvQYzSVnggYAcM1uv9Tt: tEvQYzSVnggYAcM1uv9Tt$3,
+    "99kLMSzDYJCAf1yK9QYzy": "\u5DF2\u590D\u5236",
+    "si-zDDRFrEwDTCkp53Q44": "\u8BF7\u5141\u8BB8\u526A\u8D34\u677F\u6743\u9650",
+    "eOxsWLzwqrlhBdVMwz-rH": "\u63A8\u8350\u7F51\u7AD9"
   };
   const UxxldE9xRwmQctrvba5Y8$2 = "\u8A2D\u7F6E";
   const A16qoBulYQJLbHe9mqNwm$2 = "\u5305\u542B\u88F8\u9732\u3001\u6027\u611B\u63CF\u5BEB\u5167\u5BB9\u7B49\u904E\u6FC0\u5167\u5BB9";
@@ -780,6 +794,10 @@ var __publicField = (obj, key, value) => {
   const ujBgilCWNgFNV8Q2IDMWS$2 = "\u63D0\u793A\uFF1A\u70BA\u65B9\u4FBF\u4F7F\u7528\uFF0C\u53EF\u4EE5\u5C07\u700F\u89BD\u5668\u8A2D\u7F6E\u4E2D\u201C\u4E0B\u8F09\u524D\u8A62\u554F\u6BCF\u500B\u6587\u4EF6\u7684\u4FDD\u5B58\u4F4D\u7F6E\u201D\u9078\u9805\u95DC\u9589\u3002";
   const sMkrF8bqCTJZZ1kXTkT_R$2 = "\u67E5\u770B\u7236\u6295\u7A3F";
   const u0K7A_hv1RZSJl6TDR61A$2 = "\u67E5\u770B\u5B50\u9805";
+  const EVPG1YZDtykdz3htyf11u$2 = "\u8907\u88FD\u5230\u526A\u8CBC\u7C3F";
+  const fbIpwMw2yVoSxP66OJ32z$2 = "\u5716\u7247\u92EA\u6EFF\u87A2\u5E55";
+  const kCYFwKpwznYIKRmB1tCww$2 = "\u5F9E\u526A\u8CBC\u7C3F\u8B80\u53D6";
+  const tEvQYzSVnggYAcM1uv9Tt$2 = "\u95DC\u9589\u6B64\u529F\u80FD\u7684\u8A71\u87A2\u5E55\u5169\u5074\u6703\u7559\u767D";
   var zhHant = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$2,
     "1F-R4qChHIzZaohu5GJzl": "\u5F62\u5982: &api_key=xx&user_id=1",
@@ -880,7 +898,14 @@ var __publicField = (obj, key, value) => {
     ti3akdSS3iZV9NsGzIo3m: ti3akdSS3iZV9NsGzIo3m$2,
     ujBgilCWNgFNV8Q2IDMWS: ujBgilCWNgFNV8Q2IDMWS$2,
     sMkrF8bqCTJZZ1kXTkT_R: sMkrF8bqCTJZZ1kXTkT_R$2,
-    u0K7A_hv1RZSJl6TDR61A: u0K7A_hv1RZSJl6TDR61A$2
+    u0K7A_hv1RZSJl6TDR61A: u0K7A_hv1RZSJl6TDR61A$2,
+    "99kLMSzDYJCAf1yK9QYzy": "\u5DF2\u8907\u88FD",
+    EVPG1YZDtykdz3htyf11u: EVPG1YZDtykdz3htyf11u$2,
+    fbIpwMw2yVoSxP66OJ32z: fbIpwMw2yVoSxP66OJ32z$2,
+    kCYFwKpwznYIKRmB1tCww: kCYFwKpwznYIKRmB1tCww$2,
+    "si-zDDRFrEwDTCkp53Q44": "\u8ACB\u5141\u8A31\u526A\u8CBC\u7C3F\u6B0A\u9650",
+    tEvQYzSVnggYAcM1uv9Tt: tEvQYzSVnggYAcM1uv9Tt$2,
+    "eOxsWLzwqrlhBdVMwz-rH": "\u63A8\u85A6\u7DB2\u7AD9"
   };
   const UxxldE9xRwmQctrvba5Y8$1 = "Settings";
   const A16qoBulYQJLbHe9mqNwm$1 = "Contains excessive content such as nudity and sexual descriptions";
@@ -944,6 +969,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const ujBgilCWNgFNV8Q2IDMWS$1 = 'Tip: For convenience, you can turn off the "Ask where to save each file before downloading" option in the browser settings.';
   const sMkrF8bqCTJZZ1kXTkT_R$1 = "Parent";
   const u0K7A_hv1RZSJl6TDR61A$1 = "Child";
+  const EVPG1YZDtykdz3htyf11u$1 = "Copy to clipboard";
+  const fbIpwMw2yVoSxP66OJ32z$1 = "Images fill the screen";
+  const kCYFwKpwznYIKRmB1tCww$1 = "Read from clipboard";
+  const tEvQYzSVnggYAcM1uv9Tt$1 = "When this feature is turned off, both sides of the screen will be blank.";
   var en = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$1,
     "1F-R4qChHIzZaohu5GJzl": "e.g: &api_key=xx&user_id=1",
@@ -1009,7 +1038,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "iJ0h220tvMmUhkfIMYI-W": "Check out the changelog",
     "iRt9V9wNQASic3D7-wTZo": "Experimental/not guaranteed",
     "jDjashxA-oBPo19DXI504": "Original image",
-    "jMod2JozzAnwHuD-3KuPb": "Enter the tags below and press Enter to add",
+    "jMod2JozzAnwHuD-3KuPb": "Input the tags below and press Enter to add",
     jerGO2OCuW9TdnEnGYRWd: jerGO2OCuW9TdnEnGYRWd$1,
     juT6gwLOg5r1h2vFpFf6P: juT6gwLOg5r1h2vFpFf6P$1,
     k4YzDnBtd_S2UpAQucGxF: k4YzDnBtd_S2UpAQucGxF$1,
@@ -1044,7 +1073,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     ti3akdSS3iZV9NsGzIo3m: ti3akdSS3iZV9NsGzIo3m$1,
     ujBgilCWNgFNV8Q2IDMWS: ujBgilCWNgFNV8Q2IDMWS$1,
     sMkrF8bqCTJZZ1kXTkT_R: sMkrF8bqCTJZZ1kXTkT_R$1,
-    u0K7A_hv1RZSJl6TDR61A: u0K7A_hv1RZSJl6TDR61A$1
+    u0K7A_hv1RZSJl6TDR61A: u0K7A_hv1RZSJl6TDR61A$1,
+    "99kLMSzDYJCAf1yK9QYzy": "Copied",
+    EVPG1YZDtykdz3htyf11u: EVPG1YZDtykdz3htyf11u$1,
+    fbIpwMw2yVoSxP66OJ32z: fbIpwMw2yVoSxP66OJ32z$1,
+    kCYFwKpwznYIKRmB1tCww: kCYFwKpwznYIKRmB1tCww$1,
+    "si-zDDRFrEwDTCkp53Q44": "Please allow clipboard permission",
+    tEvQYzSVnggYAcM1uv9Tt: tEvQYzSVnggYAcM1uv9Tt$1,
+    "eOxsWLzwqrlhBdVMwz-rH": "Recommended Websites"
   };
   const UxxldE9xRwmQctrvba5Y8 = "\u8A2D\u5B9A";
   const A16qoBulYQJLbHe9mqNwm = "\u30CC\u30FC\u30C9\u3084\u6027\u7684\u63CF\u5199\u306A\u3069\u306E\u904E\u5EA6\u306A\u5185\u5BB9\u304C\u542B\u307E\u308C\u3066\u3044\u308B\u3082\u306E";
@@ -1107,6 +1143,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const ujBgilCWNgFNV8Q2IDMWS = "\u30D2\u30F3\u30C8: \u4FBF\u5B9C\u4E0A\u3001\u30D6\u30E9\u30A6\u30B6\u306E\u8A2D\u5B9A\u3067 [\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u524D\u306B\u5404\u30D5\u30A1\u30A4\u30EB\u306E\u4FDD\u5B58\u5834\u6240\u3092\u78BA\u8A8D\u3059\u308B] \u30AA\u30D7\u30B7\u30E7\u30F3\u3092\u30AA\u30D5\u306B\u3059\u308B\u3053\u3068\u304C\u3067\u304D\u307E\u3059\u3002";
   const sMkrF8bqCTJZZ1kXTkT_R = "Parent";
   const u0K7A_hv1RZSJl6TDR61A = "Child";
+  const EVPG1YZDtykdz3htyf11u = "\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u306B\u30B3\u30D4\u30FC";
+  const fbIpwMw2yVoSxP66OJ32z = "\u5199\u771F\u304C\u753B\u9762\u3044\u3063\u3071\u3044\u306B\u8868\u793A\u3055\u308C\u308B";
+  const kCYFwKpwznYIKRmB1tCww = "\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u304B\u3089\u8AAD\u307F\u53D6\u308B";
+  const tEvQYzSVnggYAcM1uv9Tt = "\u3053\u306E\u6A5F\u80FD\u3092\u30AA\u30D5\u306B\u3059\u308B\u3068\u3001\u753B\u9762\u306E\u4E21\u5074\u304C\u7A7A\u767D\u306B\u306A\u308A\u307E\u3059\u3002";
   var ja = {
     UxxldE9xRwmQctrvba5Y8,
     "1F-R4qChHIzZaohu5GJzl": "\u4F8B\uFF1A&api_key=xx&user_id=1",
@@ -1207,7 +1247,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     ti3akdSS3iZV9NsGzIo3m,
     ujBgilCWNgFNV8Q2IDMWS,
     sMkrF8bqCTJZZ1kXTkT_R,
-    u0K7A_hv1RZSJl6TDR61A
+    u0K7A_hv1RZSJl6TDR61A,
+    "99kLMSzDYJCAf1yK9QYzy": "\u30B3\u30D4\u30FC\u3055\u308C\u307E\u3057\u305F",
+    EVPG1YZDtykdz3htyf11u,
+    fbIpwMw2yVoSxP66OJ32z,
+    kCYFwKpwznYIKRmB1tCww,
+    "si-zDDRFrEwDTCkp53Q44": "\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u306E\u8A31\u53EF\u3092\u8A31\u53EF\u3057\u3066\u304F\u3060\u3055\u3044",
+    tEvQYzSVnggYAcM1uv9Tt,
+    "eOxsWLzwqrlhBdVMwz-rH": "\u304A\u3059\u3059\u3081\u30B5\u30A4\u30C8"
   };
   Vue__default["default"].use(VueI18n__default["default"]);
   const langMap = {
@@ -1327,6 +1374,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       options
     };
   }
+  const notFitScreen = localStorage.getItem("__fitScreen") == "0";
   const _sfc_main$b = {
     data() {
       return {
@@ -1339,11 +1387,18 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       },
       wfClass() {
         return {
-          "wf-grid": this.wfType == "grid"
+          "wf-grid": this.wfType == "grid",
+          "wf-no-fit-screen": notFitScreen
         };
       },
       columnCount() {
-        return store.selectedColumn === "0" ? {
+        return store.selectedColumn === "0" ? notFitScreen ? {
+          300: 1,
+          1050: 2,
+          1500: 3,
+          1920: 4,
+          default: 4
+        } : {
           300: 1,
           600: 2,
           900: 3,
@@ -1360,7 +1415,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   };
   var _sfc_render$b = function render() {
     var _vm = this, _c2 = _vm._self._c;
-    return _c2("div", { class: _vm.wfClass }, [_vm.isMasonry ? _c2("masonry", { attrs: { "cols": _vm.columnCount, "gutter": "8px" } }, [_vm._t("default")], 2) : _c2("div", { staticClass: "justified-container" }, [_vm._t("default")], 2)], 1);
+    return _c2("div", { staticClass: "wf-layout", class: _vm.wfClass }, [_vm.isMasonry ? _c2("masonry", { attrs: { "cols": _vm.columnCount, "gutter": "8px" } }, [_vm._t("default")], 2) : _c2("div", { staticClass: "justified-container" }, [_vm._t("default")], 2)], 1);
   };
   var _sfc_staticRenderFns$b = [];
   var __component__$b = /* @__PURE__ */ normalizeComponent(
@@ -1815,6 +1870,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   );
   var VirtualWaterfall = __component__$a.exports;
   var mdiAccount = "M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z";
+  var mdiBookmarkBoxMultipleOutline = "M4 20H18V22H4C2.9 22 2 21.1 2 20V6H4V20M22 4V16C22 17.1 21.1 18 20 18H8C6.9 18 6 17.1 6 16V4C6 2.9 6.9 2 8 2H20C21.1 2 22 2.9 22 4M20 4H8V16H20V4M18 6H13V13L15.5 11.5L18 13V6Z";
   var mdiBrightness6 = "M12,18V6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z";
   var mdiCalendar = "M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z";
   var mdiCalendarBlank = "M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1";
@@ -1835,6 +1891,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var mdiClose = "M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z";
   var mdiCloseCircle = "M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M15.59,7L12,10.59L8.41,7L7,8.41L10.59,12L7,15.59L8.41,17L12,13.41L15.59,17L17,15.59L13.41,12L17,8.41L15.59,7Z";
   var mdiCog = "M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z";
+  var mdiContentCopy = "M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z";
+  var mdiContentPaste = "M19,20H5V4H7V7H17V4H19M12,2A1,1 0 0,1 13,3A1,1 0 0,1 12,4A1,1 0 0,1 11,3A1,1 0 0,1 12,2M19,2H14.82C14.4,0.84 13.3,0 12,0C10.7,0 9.6,0.84 9.18,2H5A2,2 0 0,0 3,4V20A2,2 0 0,0 5,22H19A2,2 0 0,0 21,20V4A2,2 0 0,0 19,2Z";
   var mdiDelete = "M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z";
   var mdiDownload = "M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z";
   var mdiFileClockOutline = "M4 2A2 2 0 0 0 2 4V20A2 2 0 0 0 4 22H12.41A7 7 0 0 0 16 23A7 7 0 0 0 23 16A7 7 0 0 0 18 9.3V8L12 2H4M4 4H11V9H16A7 7 0 0 0 9 16A7 7 0 0 0 10.26 20H4V4M16 11A5 5 0 0 1 21 16A5 5 0 0 1 16 21A5 5 0 0 1 11 16A5 5 0 0 1 16 11M15 12V17L18.61 19.16L19.36 17.94L16.5 16.25V12H15Z";
@@ -1960,6 +2018,655 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     var msToAdd = secondsToAdd * 1e3;
     var finalDate = new Date(dateWithDays.getTime() + msToAdd);
     return finalDate;
+  }
+  var defaultOptions$1 = {};
+  function getDefaultOptions() {
+    return defaultOptions$1;
+  }
+  function getTimezoneOffsetInMilliseconds(date) {
+    var utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
+    utcDate.setUTCFullYear(date.getFullYear());
+    return date.getTime() - utcDate.getTime();
+  }
+  function compareAsc(dirtyDateLeft, dirtyDateRight) {
+    requiredArgs(2, arguments);
+    var dateLeft = toDate(dirtyDateLeft);
+    var dateRight = toDate(dirtyDateRight);
+    var diff = dateLeft.getTime() - dateRight.getTime();
+    if (diff < 0) {
+      return -1;
+    } else if (diff > 0) {
+      return 1;
+    } else {
+      return diff;
+    }
+  }
+  function differenceInCalendarMonths(dirtyDateLeft, dirtyDateRight) {
+    requiredArgs(2, arguments);
+    var dateLeft = toDate(dirtyDateLeft);
+    var dateRight = toDate(dirtyDateRight);
+    var yearDiff = dateLeft.getFullYear() - dateRight.getFullYear();
+    var monthDiff = dateLeft.getMonth() - dateRight.getMonth();
+    return yearDiff * 12 + monthDiff;
+  }
+  function differenceInMilliseconds(dateLeft, dateRight) {
+    requiredArgs(2, arguments);
+    return toDate(dateLeft).getTime() - toDate(dateRight).getTime();
+  }
+  var roundingMap = {
+    ceil: Math.ceil,
+    round: Math.round,
+    floor: Math.floor,
+    trunc: function trunc(value) {
+      return value < 0 ? Math.ceil(value) : Math.floor(value);
+    }
+  };
+  var defaultRoundingMethod = "trunc";
+  function getRoundingMethod(method) {
+    return method ? roundingMap[method] : roundingMap[defaultRoundingMethod];
+  }
+  function endOfDay(dirtyDate) {
+    requiredArgs(1, arguments);
+    var date = toDate(dirtyDate);
+    date.setHours(23, 59, 59, 999);
+    return date;
+  }
+  function endOfMonth(dirtyDate) {
+    requiredArgs(1, arguments);
+    var date = toDate(dirtyDate);
+    var month = date.getMonth();
+    date.setFullYear(date.getFullYear(), month + 1, 0);
+    date.setHours(23, 59, 59, 999);
+    return date;
+  }
+  function isLastDayOfMonth(dirtyDate) {
+    requiredArgs(1, arguments);
+    var date = toDate(dirtyDate);
+    return endOfDay(date).getTime() === endOfMonth(date).getTime();
+  }
+  function differenceInMonths(dirtyDateLeft, dirtyDateRight) {
+    requiredArgs(2, arguments);
+    var dateLeft = toDate(dirtyDateLeft);
+    var dateRight = toDate(dirtyDateRight);
+    var sign = compareAsc(dateLeft, dateRight);
+    var difference = Math.abs(differenceInCalendarMonths(dateLeft, dateRight));
+    var result;
+    if (difference < 1) {
+      result = 0;
+    } else {
+      if (dateLeft.getMonth() === 1 && dateLeft.getDate() > 27) {
+        dateLeft.setDate(30);
+      }
+      dateLeft.setMonth(dateLeft.getMonth() - sign * difference);
+      var isLastMonthNotFull = compareAsc(dateLeft, dateRight) === -sign;
+      if (isLastDayOfMonth(toDate(dirtyDateLeft)) && difference === 1 && compareAsc(dirtyDateLeft, dateRight) === 1) {
+        isLastMonthNotFull = false;
+      }
+      result = sign * (difference - Number(isLastMonthNotFull));
+    }
+    return result === 0 ? 0 : result;
+  }
+  function differenceInSeconds(dateLeft, dateRight, options) {
+    requiredArgs(2, arguments);
+    var diff = differenceInMilliseconds(dateLeft, dateRight) / 1e3;
+    return getRoundingMethod(options === null || options === void 0 ? void 0 : options.roundingMethod)(diff);
+  }
+  var formatDistanceLocale = {
+    lessThanXSeconds: {
+      one: "less than a second",
+      other: "less than {{count}} seconds"
+    },
+    xSeconds: {
+      one: "1 second",
+      other: "{{count}} seconds"
+    },
+    halfAMinute: "half a minute",
+    lessThanXMinutes: {
+      one: "less than a minute",
+      other: "less than {{count}} minutes"
+    },
+    xMinutes: {
+      one: "1 minute",
+      other: "{{count}} minutes"
+    },
+    aboutXHours: {
+      one: "about 1 hour",
+      other: "about {{count}} hours"
+    },
+    xHours: {
+      one: "1 hour",
+      other: "{{count}} hours"
+    },
+    xDays: {
+      one: "1 day",
+      other: "{{count}} days"
+    },
+    aboutXWeeks: {
+      one: "about 1 week",
+      other: "about {{count}} weeks"
+    },
+    xWeeks: {
+      one: "1 week",
+      other: "{{count}} weeks"
+    },
+    aboutXMonths: {
+      one: "about 1 month",
+      other: "about {{count}} months"
+    },
+    xMonths: {
+      one: "1 month",
+      other: "{{count}} months"
+    },
+    aboutXYears: {
+      one: "about 1 year",
+      other: "about {{count}} years"
+    },
+    xYears: {
+      one: "1 year",
+      other: "{{count}} years"
+    },
+    overXYears: {
+      one: "over 1 year",
+      other: "over {{count}} years"
+    },
+    almostXYears: {
+      one: "almost 1 year",
+      other: "almost {{count}} years"
+    }
+  };
+  var formatDistance$1 = function formatDistance2(token, count, options) {
+    var result;
+    var tokenValue = formatDistanceLocale[token];
+    if (typeof tokenValue === "string") {
+      result = tokenValue;
+    } else if (count === 1) {
+      result = tokenValue.one;
+    } else {
+      result = tokenValue.other.replace("{{count}}", count.toString());
+    }
+    if (options !== null && options !== void 0 && options.addSuffix) {
+      if (options.comparison && options.comparison > 0) {
+        return "in " + result;
+      } else {
+        return result + " ago";
+      }
+    }
+    return result;
+  };
+  var formatDistance$2 = formatDistance$1;
+  function buildFormatLongFn(args) {
+    return function() {
+      var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
+      var width = options.width ? String(options.width) : args.defaultWidth;
+      var format = args.formats[width] || args.formats[args.defaultWidth];
+      return format;
+    };
+  }
+  var dateFormats = {
+    full: "EEEE, MMMM do, y",
+    long: "MMMM do, y",
+    medium: "MMM d, y",
+    short: "MM/dd/yyyy"
+  };
+  var timeFormats = {
+    full: "h:mm:ss a zzzz",
+    long: "h:mm:ss a z",
+    medium: "h:mm:ss a",
+    short: "h:mm a"
+  };
+  var dateTimeFormats = {
+    full: "{{date}} 'at' {{time}}",
+    long: "{{date}} 'at' {{time}}",
+    medium: "{{date}}, {{time}}",
+    short: "{{date}}, {{time}}"
+  };
+  var formatLong = {
+    date: buildFormatLongFn({
+      formats: dateFormats,
+      defaultWidth: "full"
+    }),
+    time: buildFormatLongFn({
+      formats: timeFormats,
+      defaultWidth: "full"
+    }),
+    dateTime: buildFormatLongFn({
+      formats: dateTimeFormats,
+      defaultWidth: "full"
+    })
+  };
+  var formatLong$1 = formatLong;
+  var formatRelativeLocale = {
+    lastWeek: "'last' eeee 'at' p",
+    yesterday: "'yesterday at' p",
+    today: "'today at' p",
+    tomorrow: "'tomorrow at' p",
+    nextWeek: "eeee 'at' p",
+    other: "P"
+  };
+  var formatRelative = function formatRelative2(token, _date, _baseDate, _options) {
+    return formatRelativeLocale[token];
+  };
+  var formatRelative$1 = formatRelative;
+  function buildLocalizeFn(args) {
+    return function(dirtyIndex, options) {
+      var context = options !== null && options !== void 0 && options.context ? String(options.context) : "standalone";
+      var valuesArray;
+      if (context === "formatting" && args.formattingValues) {
+        var defaultWidth = args.defaultFormattingWidth || args.defaultWidth;
+        var width = options !== null && options !== void 0 && options.width ? String(options.width) : defaultWidth;
+        valuesArray = args.formattingValues[width] || args.formattingValues[defaultWidth];
+      } else {
+        var _defaultWidth = args.defaultWidth;
+        var _width = options !== null && options !== void 0 && options.width ? String(options.width) : args.defaultWidth;
+        valuesArray = args.values[_width] || args.values[_defaultWidth];
+      }
+      var index = args.argumentCallback ? args.argumentCallback(dirtyIndex) : dirtyIndex;
+      return valuesArray[index];
+    };
+  }
+  var eraValues = {
+    narrow: ["B", "A"],
+    abbreviated: ["BC", "AD"],
+    wide: ["Before Christ", "Anno Domini"]
+  };
+  var quarterValues = {
+    narrow: ["1", "2", "3", "4"],
+    abbreviated: ["Q1", "Q2", "Q3", "Q4"],
+    wide: ["1st quarter", "2nd quarter", "3rd quarter", "4th quarter"]
+  };
+  var monthValues = {
+    narrow: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
+    abbreviated: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    wide: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  };
+  var dayValues = {
+    narrow: ["S", "M", "T", "W", "T", "F", "S"],
+    short: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+    abbreviated: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    wide: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  };
+  var dayPeriodValues = {
+    narrow: {
+      am: "a",
+      pm: "p",
+      midnight: "mi",
+      noon: "n",
+      morning: "morning",
+      afternoon: "afternoon",
+      evening: "evening",
+      night: "night"
+    },
+    abbreviated: {
+      am: "AM",
+      pm: "PM",
+      midnight: "midnight",
+      noon: "noon",
+      morning: "morning",
+      afternoon: "afternoon",
+      evening: "evening",
+      night: "night"
+    },
+    wide: {
+      am: "a.m.",
+      pm: "p.m.",
+      midnight: "midnight",
+      noon: "noon",
+      morning: "morning",
+      afternoon: "afternoon",
+      evening: "evening",
+      night: "night"
+    }
+  };
+  var formattingDayPeriodValues = {
+    narrow: {
+      am: "a",
+      pm: "p",
+      midnight: "mi",
+      noon: "n",
+      morning: "in the morning",
+      afternoon: "in the afternoon",
+      evening: "in the evening",
+      night: "at night"
+    },
+    abbreviated: {
+      am: "AM",
+      pm: "PM",
+      midnight: "midnight",
+      noon: "noon",
+      morning: "in the morning",
+      afternoon: "in the afternoon",
+      evening: "in the evening",
+      night: "at night"
+    },
+    wide: {
+      am: "a.m.",
+      pm: "p.m.",
+      midnight: "midnight",
+      noon: "noon",
+      morning: "in the morning",
+      afternoon: "in the afternoon",
+      evening: "in the evening",
+      night: "at night"
+    }
+  };
+  var ordinalNumber = function ordinalNumber2(dirtyNumber, _options) {
+    var number = Number(dirtyNumber);
+    var rem100 = number % 100;
+    if (rem100 > 20 || rem100 < 10) {
+      switch (rem100 % 10) {
+        case 1:
+          return number + "st";
+        case 2:
+          return number + "nd";
+        case 3:
+          return number + "rd";
+      }
+    }
+    return number + "th";
+  };
+  var localize = {
+    ordinalNumber,
+    era: buildLocalizeFn({
+      values: eraValues,
+      defaultWidth: "wide"
+    }),
+    quarter: buildLocalizeFn({
+      values: quarterValues,
+      defaultWidth: "wide",
+      argumentCallback: function argumentCallback(quarter) {
+        return quarter - 1;
+      }
+    }),
+    month: buildLocalizeFn({
+      values: monthValues,
+      defaultWidth: "wide"
+    }),
+    day: buildLocalizeFn({
+      values: dayValues,
+      defaultWidth: "wide"
+    }),
+    dayPeriod: buildLocalizeFn({
+      values: dayPeriodValues,
+      defaultWidth: "wide",
+      formattingValues: formattingDayPeriodValues,
+      defaultFormattingWidth: "wide"
+    })
+  };
+  var localize$1 = localize;
+  function buildMatchFn(args) {
+    return function(string) {
+      var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
+      var width = options.width;
+      var matchPattern = width && args.matchPatterns[width] || args.matchPatterns[args.defaultMatchWidth];
+      var matchResult = string.match(matchPattern);
+      if (!matchResult) {
+        return null;
+      }
+      var matchedString = matchResult[0];
+      var parsePatterns = width && args.parsePatterns[width] || args.parsePatterns[args.defaultParseWidth];
+      var key = Array.isArray(parsePatterns) ? findIndex(parsePatterns, function(pattern) {
+        return pattern.test(matchedString);
+      }) : findKey(parsePatterns, function(pattern) {
+        return pattern.test(matchedString);
+      });
+      var value;
+      value = args.valueCallback ? args.valueCallback(key) : key;
+      value = options.valueCallback ? options.valueCallback(value) : value;
+      var rest = string.slice(matchedString.length);
+      return {
+        value,
+        rest
+      };
+    };
+  }
+  function findKey(object, predicate) {
+    for (var key in object) {
+      if (object.hasOwnProperty(key) && predicate(object[key])) {
+        return key;
+      }
+    }
+    return void 0;
+  }
+  function findIndex(array, predicate) {
+    for (var key = 0; key < array.length; key++) {
+      if (predicate(array[key])) {
+        return key;
+      }
+    }
+    return void 0;
+  }
+  function buildMatchPatternFn(args) {
+    return function(string) {
+      var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
+      var matchResult = string.match(args.matchPattern);
+      if (!matchResult)
+        return null;
+      var matchedString = matchResult[0];
+      var parseResult = string.match(args.parsePattern);
+      if (!parseResult)
+        return null;
+      var value = args.valueCallback ? args.valueCallback(parseResult[0]) : parseResult[0];
+      value = options.valueCallback ? options.valueCallback(value) : value;
+      var rest = string.slice(matchedString.length);
+      return {
+        value,
+        rest
+      };
+    };
+  }
+  var matchOrdinalNumberPattern = /^(\d+)(th|st|nd|rd)?/i;
+  var parseOrdinalNumberPattern = /\d+/i;
+  var matchEraPatterns = {
+    narrow: /^(b|a)/i,
+    abbreviated: /^(b\.?\s?c\.?|b\.?\s?c\.?\s?e\.?|a\.?\s?d\.?|c\.?\s?e\.?)/i,
+    wide: /^(before christ|before common era|anno domini|common era)/i
+  };
+  var parseEraPatterns = {
+    any: [/^b/i, /^(a|c)/i]
+  };
+  var matchQuarterPatterns = {
+    narrow: /^[1234]/i,
+    abbreviated: /^q[1234]/i,
+    wide: /^[1234](th|st|nd|rd)? quarter/i
+  };
+  var parseQuarterPatterns = {
+    any: [/1/i, /2/i, /3/i, /4/i]
+  };
+  var matchMonthPatterns = {
+    narrow: /^[jfmasond]/i,
+    abbreviated: /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i,
+    wide: /^(january|february|march|april|may|june|july|august|september|october|november|december)/i
+  };
+  var parseMonthPatterns = {
+    narrow: [/^j/i, /^f/i, /^m/i, /^a/i, /^m/i, /^j/i, /^j/i, /^a/i, /^s/i, /^o/i, /^n/i, /^d/i],
+    any: [/^ja/i, /^f/i, /^mar/i, /^ap/i, /^may/i, /^jun/i, /^jul/i, /^au/i, /^s/i, /^o/i, /^n/i, /^d/i]
+  };
+  var matchDayPatterns = {
+    narrow: /^[smtwf]/i,
+    short: /^(su|mo|tu|we|th|fr|sa)/i,
+    abbreviated: /^(sun|mon|tue|wed|thu|fri|sat)/i,
+    wide: /^(sunday|monday|tuesday|wednesday|thursday|friday|saturday)/i
+  };
+  var parseDayPatterns = {
+    narrow: [/^s/i, /^m/i, /^t/i, /^w/i, /^t/i, /^f/i, /^s/i],
+    any: [/^su/i, /^m/i, /^tu/i, /^w/i, /^th/i, /^f/i, /^sa/i]
+  };
+  var matchDayPeriodPatterns = {
+    narrow: /^(a|p|mi|n|(in the|at) (morning|afternoon|evening|night))/i,
+    any: /^([ap]\.?\s?m\.?|midnight|noon|(in the|at) (morning|afternoon|evening|night))/i
+  };
+  var parseDayPeriodPatterns = {
+    any: {
+      am: /^a/i,
+      pm: /^p/i,
+      midnight: /^mi/i,
+      noon: /^no/i,
+      morning: /morning/i,
+      afternoon: /afternoon/i,
+      evening: /evening/i,
+      night: /night/i
+    }
+  };
+  var match = {
+    ordinalNumber: buildMatchPatternFn({
+      matchPattern: matchOrdinalNumberPattern,
+      parsePattern: parseOrdinalNumberPattern,
+      valueCallback: function valueCallback(value) {
+        return parseInt(value, 10);
+      }
+    }),
+    era: buildMatchFn({
+      matchPatterns: matchEraPatterns,
+      defaultMatchWidth: "wide",
+      parsePatterns: parseEraPatterns,
+      defaultParseWidth: "any"
+    }),
+    quarter: buildMatchFn({
+      matchPatterns: matchQuarterPatterns,
+      defaultMatchWidth: "wide",
+      parsePatterns: parseQuarterPatterns,
+      defaultParseWidth: "any",
+      valueCallback: function valueCallback(index) {
+        return index + 1;
+      }
+    }),
+    month: buildMatchFn({
+      matchPatterns: matchMonthPatterns,
+      defaultMatchWidth: "wide",
+      parsePatterns: parseMonthPatterns,
+      defaultParseWidth: "any"
+    }),
+    day: buildMatchFn({
+      matchPatterns: matchDayPatterns,
+      defaultMatchWidth: "wide",
+      parsePatterns: parseDayPatterns,
+      defaultParseWidth: "any"
+    }),
+    dayPeriod: buildMatchFn({
+      matchPatterns: matchDayPeriodPatterns,
+      defaultMatchWidth: "any",
+      parsePatterns: parseDayPeriodPatterns,
+      defaultParseWidth: "any"
+    })
+  };
+  var match$1 = match;
+  var locale = {
+    code: "en-US",
+    formatDistance: formatDistance$2,
+    formatLong: formatLong$1,
+    formatRelative: formatRelative$1,
+    localize: localize$1,
+    match: match$1,
+    options: {
+      weekStartsOn: 0,
+      firstWeekContainsDate: 1
+    }
+  };
+  var defaultLocale = locale;
+  function assign(target, object) {
+    if (target == null) {
+      throw new TypeError("assign requires that input parameter not be null or undefined");
+    }
+    for (var property in object) {
+      if (Object.prototype.hasOwnProperty.call(object, property)) {
+        target[property] = object[property];
+      }
+    }
+    return target;
+  }
+  function cloneObject(object) {
+    return assign({}, object);
+  }
+  var MINUTES_IN_DAY = 1440;
+  var MINUTES_IN_ALMOST_TWO_DAYS = 2520;
+  var MINUTES_IN_MONTH = 43200;
+  var MINUTES_IN_TWO_MONTHS = 86400;
+  function formatDistance(dirtyDate, dirtyBaseDate, options) {
+    var _ref, _options$locale;
+    requiredArgs(2, arguments);
+    var defaultOptions2 = getDefaultOptions();
+    var locale2 = (_ref = (_options$locale = options === null || options === void 0 ? void 0 : options.locale) !== null && _options$locale !== void 0 ? _options$locale : defaultOptions2.locale) !== null && _ref !== void 0 ? _ref : defaultLocale;
+    if (!locale2.formatDistance) {
+      throw new RangeError("locale must contain formatDistance property");
+    }
+    var comparison = compareAsc(dirtyDate, dirtyBaseDate);
+    if (isNaN(comparison)) {
+      throw new RangeError("Invalid time value");
+    }
+    var localizeOptions = assign(cloneObject(options), {
+      addSuffix: Boolean(options === null || options === void 0 ? void 0 : options.addSuffix),
+      comparison
+    });
+    var dateLeft;
+    var dateRight;
+    if (comparison > 0) {
+      dateLeft = toDate(dirtyBaseDate);
+      dateRight = toDate(dirtyDate);
+    } else {
+      dateLeft = toDate(dirtyDate);
+      dateRight = toDate(dirtyBaseDate);
+    }
+    var seconds = differenceInSeconds(dateRight, dateLeft);
+    var offsetInSeconds = (getTimezoneOffsetInMilliseconds(dateRight) - getTimezoneOffsetInMilliseconds(dateLeft)) / 1e3;
+    var minutes = Math.round((seconds - offsetInSeconds) / 60);
+    var months;
+    if (minutes < 2) {
+      if (options !== null && options !== void 0 && options.includeSeconds) {
+        if (seconds < 5) {
+          return locale2.formatDistance("lessThanXSeconds", 5, localizeOptions);
+        } else if (seconds < 10) {
+          return locale2.formatDistance("lessThanXSeconds", 10, localizeOptions);
+        } else if (seconds < 20) {
+          return locale2.formatDistance("lessThanXSeconds", 20, localizeOptions);
+        } else if (seconds < 40) {
+          return locale2.formatDistance("halfAMinute", 0, localizeOptions);
+        } else if (seconds < 60) {
+          return locale2.formatDistance("lessThanXMinutes", 1, localizeOptions);
+        } else {
+          return locale2.formatDistance("xMinutes", 1, localizeOptions);
+        }
+      } else {
+        if (minutes === 0) {
+          return locale2.formatDistance("lessThanXMinutes", 1, localizeOptions);
+        } else {
+          return locale2.formatDistance("xMinutes", minutes, localizeOptions);
+        }
+      }
+    } else if (minutes < 45) {
+      return locale2.formatDistance("xMinutes", minutes, localizeOptions);
+    } else if (minutes < 90) {
+      return locale2.formatDistance("aboutXHours", 1, localizeOptions);
+    } else if (minutes < MINUTES_IN_DAY) {
+      var hours = Math.round(minutes / 60);
+      return locale2.formatDistance("aboutXHours", hours, localizeOptions);
+    } else if (minutes < MINUTES_IN_ALMOST_TWO_DAYS) {
+      return locale2.formatDistance("xDays", 1, localizeOptions);
+    } else if (minutes < MINUTES_IN_MONTH) {
+      var days = Math.round(minutes / MINUTES_IN_DAY);
+      return locale2.formatDistance("xDays", days, localizeOptions);
+    } else if (minutes < MINUTES_IN_TWO_MONTHS) {
+      months = Math.round(minutes / MINUTES_IN_MONTH);
+      return locale2.formatDistance("aboutXMonths", months, localizeOptions);
+    }
+    months = differenceInMonths(dateRight, dateLeft);
+    if (months < 12) {
+      var nearestMonth = Math.round(minutes / MINUTES_IN_MONTH);
+      return locale2.formatDistance("xMonths", nearestMonth, localizeOptions);
+    } else {
+      var monthsSinceStartOfYear = months % 12;
+      var years = Math.floor(months / 12);
+      if (monthsSinceStartOfYear < 3) {
+        return locale2.formatDistance("aboutXYears", years, localizeOptions);
+      } else if (monthsSinceStartOfYear < 9) {
+        return locale2.formatDistance("overXYears", years, localizeOptions);
+      } else {
+        return locale2.formatDistance("almostXYears", years + 1, localizeOptions);
+      }
+    }
+  }
+  function formatDistanceToNow(dirtyDate, options) {
+    requiredArgs(1, arguments);
+    return formatDistance(dirtyDate, Date.now(), options);
   }
   function subDays(dirtyDate, dirtyAmount) {
     requiredArgs(2, arguments);
@@ -3115,12 +3822,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return search(location.host, tags2, { page: page2, limit: BOORU_PAGE_LIMIT, credentials: { query: store.settings.credentialQuery } });
   }
   function getYandereUserId() {
-    const match = document.cookie.match(/user_id=(\d+)/);
-    return match == null ? void 0 : match[1];
+    const match2 = document.cookie.match(/user_id=(\d+)/);
+    return match2 == null ? void 0 : match2[1];
   }
   function getKonachanUsername() {
-    const match = document.cookie.match(/login=(\w+)/);
-    return match == null ? void 0 : match[1];
+    const match2 = document.cookie.match(/login=(\w+)/);
+    return match2 == null ? void 0 : match2[1];
   }
   let _moebooruUserName;
   async function getUsername() {
@@ -3433,8 +4140,18 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var _sfc_main$9 = /* @__PURE__ */ Vue2.defineComponent({
     __name: "AppBar",
     setup(__props) {
+      const specTitleMap = {
+        "yande.re": "yande.re",
+        "konachan.com": "Koanchan",
+        "konachan.net": "Koanchan(Safe)",
+        "www.sakugabooru.com": "sakugabooru".toUpperCase(),
+        "rule34.paheal.net": "rule34.paheal".toUpperCase(),
+        "booru.allthefallen.moe": "ATFBooru"
+      };
       const title = Vue2.computed(() => {
-        return `${location.host.toUpperCase()} - ${store.imageList.length} Posts - Page `;
+        const host = location.host.toLowerCase();
+        const siteName = specTitleMap[host] || host[0].toUpperCase() + host.slice(1).split(".")[0];
+        return `${siteName} - ${store.imageList.length} Posts - Page `;
       });
       const isNoSelected = Vue2.computed(() => store.selectedImageList.length === 0);
       const isOneOrMoreSelected = Vue2.computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length < store.imageList.length);
@@ -3662,9 +4379,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           showMsg({ msg, type: "error" });
         }
       };
+      const isExportUrlDecode = Vue2.ref(true);
       const exportFileUrls = async () => {
-        const urlText = store.selectedImageList.map((e) => e[downloadUrlKey.value] || e.fileUrl).join("\n");
-        await downloadFile(`data:text/plain;charset=utf-8,${store.isYKSite ? decodeURIComponent(urlText) : urlText}`, "image-urls.txt");
+        let urlText = store.selectedImageList.map((e) => e[downloadUrlKey.value] || e.fileUrl).join("\n");
+        if (store.isYKSite && isExportUrlDecode.value) {
+          urlText = decodeURIComponent(urlText);
+        }
+        await downloadFile(`data:text/plain;charset=utf-8,${urlText}`, "image-urls.txt");
       };
       const vuetify = useVuetify();
       const toggleDarkmode = () => {
@@ -3718,7 +4439,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           store.isFullscreen = !!document.fullscreenElement;
         });
       });
-      return { __sfc: true, title, isNoSelected, isOneOrMoreSelected, isAllSelected, loadingValue, selectAll, removeFromList, tagsQuery, searchState, onSearchTermInput, selectTag, userName, fetchTaggedPosts, showTagsInput, onSearchTermKeydown, showPopAction, periodMap, periodByDateMap, getRecentPeriod, isPopularRecent, getPopTitle, popTitle, isPopSearchByDate, recentPeriod, periodComputedMap, showPopDatePicker, popSearchDate, fetchPopularPosts, selPeriod, loadPrevPeriod, loadNextPeriod, goToPopularPage, showPool, poolQueryTerm, searchPool, download, downloadUrlKey, downloadNameMap, downloadNameKey, isGelbooru, startDownload, exportFileUrls, vuetify, toggleDarkmode, keyActions, goToPage, exitMasonry, toggleFullscreen, currentLang, langList, selectLang, mdiBrightness6, mdiCalendar, mdiCalendarSearch, mdiCheckUnderlineCircle, mdiCheckboxBlankOutline, mdiCheckboxIntermediate, mdiCheckboxMarked, mdiChevronLeft, mdiChevronRight, mdiCog, mdiDelete, mdiDownload, mdiFileClockOutline, mdiFire, mdiFullscreen, mdiFullscreenExit, mdiHome, mdiImageMultiple, mdiLocationExit, mdiMagnify, mdiShuffle, mdiStar, mdiTranslate, store };
+      return { __sfc: true, specTitleMap, title, isNoSelected, isOneOrMoreSelected, isAllSelected, loadingValue, selectAll, removeFromList, tagsQuery, searchState, onSearchTermInput, selectTag, userName, fetchTaggedPosts, showTagsInput, onSearchTermKeydown, showPopAction, periodMap, periodByDateMap, getRecentPeriod, isPopularRecent, getPopTitle, popTitle, isPopSearchByDate, recentPeriod, periodComputedMap, showPopDatePicker, popSearchDate, fetchPopularPosts, selPeriod, loadPrevPeriod, loadNextPeriod, goToPopularPage, showPool, poolQueryTerm, searchPool, download, downloadUrlKey, downloadNameMap, downloadNameKey, isGelbooru, startDownload, isExportUrlDecode, exportFileUrls, vuetify, toggleDarkmode, keyActions, goToPage, exitMasonry, toggleFullscreen, currentLang, langList, selectLang, mdiBrightness6, mdiCalendar, mdiCalendarSearch, mdiCheckUnderlineCircle, mdiCheckboxBlankOutline, mdiCheckboxIntermediate, mdiCheckboxMarked, mdiChevronLeft, mdiChevronRight, mdiCog, mdiDelete, mdiDownload, mdiFileClockOutline, mdiFire, mdiFullscreen, mdiFullscreenExit, mdiHome, mdiImageMultiple, mdiLocationExit, mdiMagnify, mdiShuffle, mdiStar, mdiTranslate, store };
     }
   });
   var _sfc_render$9 = function render() {
@@ -3758,7 +4479,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFire))])], 1), _c2("v-btn", { attrs: { "title": _vm.$t("6acPWiYq2-OdySa2_xqDu"), "icon": "" }, on: { "click": function($event) {
       return _setup.fetchTaggedPosts("order:random");
     } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiShuffle))])], 1)] : _vm._e(), _c2("v-menu", { attrs: { "max-width": 200, "max-height": "80vh", "transition": "slide-y-transition", "nudge-bottom": "5px", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on }) {
-      return [_c2("v-slide-x-transition", [_c2("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.searchState.showInput, expression: "searchState.showInput" }], staticClass: "ml-4", staticStyle: { "width": "200px" } }, [_c2("v-text-field", _vm._g({ attrs: { "hide-details": "" }, on: { "input": _setup.onSearchTermInput, "click": function($event) {
+      return [_c2("v-slide-x-transition", [_c2("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.searchState.showInput, expression: "searchState.showInput" }], staticClass: "app-bar-tag-input ml-4", staticStyle: { "width": "200px" } }, [_c2("v-text-field", _vm._g({ attrs: { "hide-details": "" }, on: { "input": _setup.onSearchTermInput, "click": function($event) {
         _setup.searchState.showMenu = true;
       }, "blur": function($event) {
         _setup.searchState.showMenu = false;
@@ -3783,9 +4504,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return _setup.goToPopularPage();
     } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFire))])], 1)], 1) : _vm._e(), _c2("v-spacer"), _setup.store.showPostList ? [_c2("span", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length, expression: "store.selectedImageList.length" }], staticClass: "hidden-md-and-down ml-1 mr-1", staticStyle: { "margin-top": "2px" } }, [_vm._v(" " + _vm._s(_setup.store.selectedImageList.length) + " ")]), _c2("v-btn", { staticClass: "hidden-md-and-down", attrs: { "icon": "" }, on: { "click": _setup.selectAll } }, [_c2("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isNoSelected, expression: "isNoSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxBlankOutline))]), _c2("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isOneOrMoreSelected, expression: "isOneOrMoreSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxIntermediate))]), _c2("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isAllSelected, expression: "isAllSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxMarked))])], 1), _c2("v-menu", { attrs: { "dense": "", "offset-y": "", "close-on-content-click": false }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c2("v-btn", _vm._g(_vm._b({ attrs: { "title": _vm.$t("OKs1ePekQA4Ona839U114"), "icon": "" } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1)];
-    } }], null, false, 2630575932) }, [_c2("v-list", { staticStyle: { "min-width": "300px", "max-height": "80vh", "overflow": "auto" }, attrs: { "dense": "", "flat": "" } }, [_c2("v-subheader", { staticClass: "ml-2" }, [_c2("span", { staticClass: "mr-4" }, [_vm._v(_vm._s(_vm.$t("OKs1ePekQA4Ona839U114")))]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], attrs: { "small": "" }, on: { "click": _setup.startDownload } }, [_vm._v(" " + _vm._s(_vm.$t("cKn4cfAxzdgh_HD6OFibB")) + " ")]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], staticClass: "ml-2", attrs: { "small": "" }, on: { "click": _setup.exportFileUrls } }, [_vm._v(" " + _vm._s(_vm.$t("J2Ckb_-LITfmww4aEksqk")) + " ")])], 1), _setup.store.isYKSite ? _c2("v-radio-group", { staticClass: "mt-1 ml-3", attrs: { "hide-details": "", "dense": "", "row": "" }, model: { value: _setup.downloadUrlKey, callback: function($$v) {
+    } }], null, false, 2630575932) }, [_c2("v-list", { staticStyle: { "min-width": "300px", "max-height": "80vh", "overflow": "auto" }, attrs: { "dense": "", "flat": "" } }, [_c2("v-subheader", { staticClass: "ml-2" }, [_c2("span", { staticClass: "mr-4" }, [_vm._v(_vm._s(_vm.$t("OKs1ePekQA4Ona839U114")))]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], attrs: { "small": "" }, on: { "click": _setup.startDownload } }, [_vm._v(" " + _vm._s(_vm.$t("cKn4cfAxzdgh_HD6OFibB")) + " ")]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], staticClass: "ml-2", attrs: { "small": "" }, on: { "click": _setup.exportFileUrls } }, [_vm._v(" " + _vm._s(_vm.$t("J2Ckb_-LITfmww4aEksqk")) + " ")])], 1), _setup.store.isYKSite ? _c2("div", { staticClass: "d-flex align-center mt-1 ml-2" }, [_c2("v-radio-group", { staticClass: "mr-1 mt-0", attrs: { "hide-details": "", "dense": "", "row": "" }, model: { value: _setup.downloadUrlKey, callback: function($$v) {
       _setup.downloadUrlKey = $$v;
-    }, expression: "downloadUrlKey" } }, [_c2("v-radio", { attrs: { "label": _vm.$t("aVqN9TBRCbNGsW3Y2D2Nm"), "value": "jpegUrl" } }), _c2("v-radio", { attrs: { "label": _vm.$t("jDjashxA-oBPo19DXI504"), "value": "fileUrl" } })], 1) : _vm._e(), _c2("v-list-item-group", { attrs: { "color": "primary" } }, _vm._l(_setup.store.selectedImageList, function(item) {
+    }, expression: "downloadUrlKey" } }, [_c2("v-radio", { attrs: { "label": _vm.$t("aVqN9TBRCbNGsW3Y2D2Nm"), "value": "jpegUrl" } }), _c2("v-radio", { attrs: { "label": _vm.$t("jDjashxA-oBPo19DXI504"), "value": "fileUrl" } })], 1), _c2("v-switch", { staticClass: "mt-0 mr-1", attrs: { "label": "Decode URL", "hide-details": "", "dense": "" }, model: { value: _setup.isExportUrlDecode, callback: function($$v) {
+      _setup.isExportUrlDecode = $$v;
+    }, expression: "isExportUrlDecode" } })], 1) : _vm._e(), _c2("v-list-item-group", { attrs: { "color": "primary" } }, _vm._l(_setup.store.selectedImageList, function(item) {
       return _c2("v-list-item", { key: item.id, attrs: { "dense": "", "two-line": "" } }, [_c2("v-list-item-avatar", [!item.loading && !item.loaded ? _c2("v-btn", { attrs: { "icon": "" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFileClockOutline))])], 1) : _vm._e(), item.loaded ? _c2("v-btn", { attrs: { "icon": "", "color": "green" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiCheckUnderlineCircle))])], 1) : _vm._e(), item.loading ? _c2("v-progress-circular", { attrs: { "rotate": -90, "size": 28, "value": _setup.loadingValue, "color": "pink" } }) : _vm._e()], 1), _c2("v-list-item-content", { staticStyle: { "max-width": "240px" } }, [_c2("v-list-item-subtitle", { attrs: { "title": item.fileNameWithTags }, domProps: { "textContent": _vm._s(item.fileNameWithTags) } }), _c2("v-list-item-subtitle", { attrs: { "title": item[_setup.downloadUrlKey] }, domProps: { "textContent": _vm._s(item[_setup.downloadUrlKey]) } })], 1), _c2("v-list-item-action", [_c2("v-btn", { attrs: { "icon": "" }, on: { "click": function($event) {
         return _setup.removeFromList(item.id);
       } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDelete))])], 1)], 1)], 1);
@@ -3799,7 +4522,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(lang.label))])], 1);
     }), 1)], 1)], 1), _c2("v-btn", { attrs: { "title": _vm.$t("UxxldE9xRwmQctrvba5Y8"), "icon": "" }, on: { "click": function($event) {
       _setup.store.showSettings = true;
-    } } }, [_c2("v-icon", { attrs: { "size": 22 } }, [_vm._v(_vm._s(_setup.mdiCog))])], 1), _c2("v-btn", { attrs: { "title": _vm.$t("ClZdL9hGweOokP7Mn_Ptq"), "icon": "" }, on: { "click": _setup.exitMasonry } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLocationExit))])], 1), _c2("v-progress-linear", { attrs: { "active": _setup.store.requestState, "height": 6, "color": "deep-purple accent-4", "indeterminate": "", "absolute": "", "bottom": "" } })], 2);
+    } } }, [_c2("v-icon", { attrs: { "size": 22 } }, [_vm._v(_vm._s(_setup.mdiCog))])], 1), _c2("v-btn", { attrs: { "title": _vm.$t("ClZdL9hGweOokP7Mn_Ptq"), "icon": "" }, on: { "click": _setup.exitMasonry } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLocationExit))])], 1), _c2("v-progress-linear", { attrs: { "active": _setup.store.requestState, "height": 6, "indeterminate": "", "absolute": "", "bottom": "" } })], 2);
   };
   var _sfc_staticRenderFns$9 = [];
   var __component__$9 = /* @__PURE__ */ normalizeComponent(
@@ -3850,7 +4573,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
             userName.value = name;
         }
       });
-      return { __sfc: true, siteLinks, userName, version, openLink, dealLink, dealFavicon, actSiteIndex, showSettingDrawer, mdiAccount, mdiFire, mdiGithub, mdiImageMultiple, mdiInformationOutline, mdiMessageAlertOutline, mdiShuffle, mdiStar, mdiWeb, store };
+      return { __sfc: true, siteLinks, userName, version, openLink, dealLink, dealFavicon, actSiteIndex, showSettingDrawer, mdiAccount, mdiBookmarkBoxMultipleOutline, mdiFire, mdiGithub, mdiImageMultiple, mdiInformationOutline, mdiMessageAlertOutline, mdiShuffle, mdiStar, mdiWeb, store };
     }
   });
   var _sfc_render$8 = function render() {
@@ -3876,6 +4599,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiInformationOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("v" + _vm._s(_setup.version))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("iJ0h220tvMmUhkfIMYI-W")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://booru.pixiv.pics");
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiWeb))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("qWcqQRsE9nN43MaZ2BmN9")))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("jerGO2OCuW9TdnEnGYRWd")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+      return _setup.openLink("https://www.pixiv.pics/setting/recommend");
+    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiBookmarkBoxMultipleOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("eOxsWLzwqrlhBdVMwz-rH")))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("jerGO2OCuW9TdnEnGYRWd")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://github.com/asadahimeka/yandere-masonry/issues");
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiMessageAlertOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("23iEYyiQlLVhFIqGbj527")))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("4g1TUy2kwQrdOs-w4JobB")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://github.com/asadahimeka/yandere-masonry");
@@ -3903,6 +4628,20 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         store.blacklist.splice(store.blacklist.indexOf(item), 1);
         localStorage.setItem("__blacklist", store.blacklist.join(","));
       };
+      const exportBlacklist = () => {
+        navigator.clipboard.writeText(store.blacklist.join(",")).then(() => showMsg({ msg: i18n.t("99kLMSzDYJCAf1yK9QYzy") })).catch(() => showMsg({ msg: i18n.t("si-zDDRFrEwDTCkp53Q44"), type: "error" }));
+      };
+      const importBlacklist = () => {
+        navigator.clipboard.readText().then((text) => {
+          if (text) {
+            store.blacklist = [.../* @__PURE__ */ new Set([
+              ...store.blacklist,
+              ...text.split(",").filter(Boolean)
+            ])];
+            localStorage.setItem("__blacklist", store.blacklist.join(","));
+          }
+        }).catch(() => showMsg({ msg: i18n.t("si-zDDRFrEwDTCkp53Q44"), type: "error" }));
+      };
       const nsfwValue = Vue2.ref(store.showNSFWContents);
       const setNSFWShow = (val) => {
         const flag = val !== "0";
@@ -3924,6 +4663,16 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       };
       const onImgPreloadChange = (val) => {
         localStorage.setItem("__fullImgPreload", val ? "1" : "");
+        location.reload();
+      };
+      const isFitScreen = Vue2.ref(localStorage.getItem("__fitScreen") != "0");
+      const onFitScreenChange = (val) => {
+        localStorage.setItem("__fitScreen", val ? "1" : "0");
+        location.reload();
+      };
+      const isAutoWfMode = Vue2.ref(!!localStorage.getItem("__autoWfMode"));
+      const onAutoWfModeChange = (val) => {
+        localStorage.setItem("__autoWfMode", val ? "1" : "");
         location.reload();
       };
       const dlSubLoading = Vue2.ref(false);
@@ -3988,7 +4737,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         store.selectedColumn = val;
         localStorage.setItem("__masonry_col", val);
       };
-      return { __sfc: true, onComboboxChange, removeTagFromBlacklist, nsfwValue, setNSFWShow, onNSFWSwitchChange, onWheelSwitchChange, onKeyupSwitchChange, onImgPreloadChange, dlSubLoading, showDLConfirm, isDLSubpath, setDLSubpathOn, onDLSubpathChange, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onCredentialQueryChange, onPreloadNumBlur, colList, cols, actCol, selColumn, mdiChevronDown, mdiClose, store };
+      return { __sfc: true, onComboboxChange, removeTagFromBlacklist, exportBlacklist, importBlacklist, nsfwValue, setNSFWShow, onNSFWSwitchChange, onWheelSwitchChange, onKeyupSwitchChange, onImgPreloadChange, isFitScreen, onFitScreenChange, isAutoWfMode, onAutoWfModeChange, dlSubLoading, showDLConfirm, isDLSubpath, setDLSubpathOn, onDLSubpathChange, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onCredentialQueryChange, onPreloadNumBlur, colList, cols, actCol, selColumn, mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, store };
     }
   });
   var _sfc_render$7 = function render() {
@@ -3997,7 +4746,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       _vm.$set(_setup.store, "showSettings", $$v);
     }, expression: "store.showSettings" } }, [_c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("UxxldE9xRwmQctrvba5Y8")))])], 1), _c2("v-list-item-icon", { on: { "click": function($event) {
       _setup.store.showSettings = false;
-    } } }, [_c2("v-btn", { attrs: { "icon": "" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiClose))])], 1)], 1)], 1), _c2("v-divider"), _c2("v-list", { attrs: { "dense": "", "nav": "" } }, [_c2("v-list-item", { staticClass: "mb-0" }, [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("_Efl8k8uYQj9iJmj3kwbd")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("jMod2JozzAnwHuD-3KuPb") } }, [_vm._v(_vm._s(_vm.$t("jMod2JozzAnwHuD-3KuPb")))])], 1)], 1), _c2("v-list-item", { staticClass: "pa-0" }, [_c2("v-list-item-content", { staticClass: "pt-0" }, [_c2("v-combobox", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "append-icon": null, "items": [], "hide-details": "", "hide-no-data": "", "multiple": "", "outlined": "", "dense": "", "chips": "" }, on: { "change": _setup.onComboboxChange }, scopedSlots: _vm._u([{ key: "selection", fn: function({ item }) {
+    } } }, [_c2("v-btn", { attrs: { "icon": "" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiClose))])], 1)], 1)], 1), _c2("v-divider"), _c2("v-list", { attrs: { "dense": "", "nav": "" } }, [_c2("v-list-item", { staticClass: "mb-0" }, [_c2("v-list-item-content", [_c2("v-list-item-title", [_c2("div", { staticClass: "d-flex align-center" }, [_c2("span", [_vm._v(_vm._s(_vm.$t("_Efl8k8uYQj9iJmj3kwbd")))]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "ml-2", attrs: { "icon": "" }, on: { "click": function($event) {
+        $event.stopPropagation();
+        return _setup.exportBlacklist.apply(null, arguments);
+      } } }, "v-btn", attrs, false), on), [_c2("v-icon", { attrs: { "size": 18 } }, [_vm._v(_vm._s(_setup.mdiContentCopy))])], 1)];
+    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("EVPG1YZDtykdz3htyf11u")))])]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c2("v-btn", _vm._g(_vm._b({ attrs: { "icon": "" }, on: { "click": function($event) {
+        $event.stopPropagation();
+        return _setup.importBlacklist.apply(null, arguments);
+      } } }, "v-btn", attrs, false), on), [_c2("v-icon", { attrs: { "size": 18 } }, [_vm._v(_vm._s(_setup.mdiContentPaste))])], 1)];
+    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("kCYFwKpwznYIKRmB1tCww")))])])], 1)]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("jMod2JozzAnwHuD-3KuPb") } }, [_vm._v(_vm._s(_vm.$t("jMod2JozzAnwHuD-3KuPb")))])], 1)], 1), _c2("v-list-item", { staticClass: "pa-0" }, [_c2("v-list-item-content", { staticClass: "pt-0" }, [_c2("v-combobox", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "append-icon": null, "items": [], "hide-details": "", "hide-no-data": "", "multiple": "", "outlined": "", "dense": "", "chips": "" }, on: { "change": _setup.onComboboxChange }, scopedSlots: _vm._u([{ key: "selection", fn: function({ item }) {
       return [_c2("v-chip", { attrs: { "label": "", "small": "", "outlined": "", "close": "" }, on: { "click:close": function($event) {
         return _setup.removeTagFromBlacklist(item);
       } } }, [_c2("span", [_vm._v(_vm._s(item))])])];
@@ -4027,7 +4786,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       } } }, [_c2("v-list-item-title", { domProps: { "textContent": _vm._s(val) } })], 1);
     }), 1)], 1)], 1)], 1)], 1) : _vm._e(), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("PBjdNKuj02doUvOf2zZqP")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("z_oL9s5fS164W4_gITOGZ") } }, [_vm._v(_vm._s(_vm.$t("z_oL9s5fS164W4_gITOGZ")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "loading": _setup.dlSubLoading }, on: { "change": _setup.onDLSubpathChange }, model: { value: _setup.isDLSubpath, callback: function($$v) {
       _setup.isDLSubpath = $$v;
-    }, expression: "isDLSubpath" } })], 1)], 1)], 1), _c2("v-dialog", { attrs: { "max-width": "600" }, model: { value: _setup.showDLConfirm, callback: function($$v) {
+    }, expression: "isDLSubpath" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("fbIpwMw2yVoSxP66OJ32z")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("tEvQYzSVnggYAcM1uv9Tt") } }, [_vm._v(_vm._s(_vm.$t("tEvQYzSVnggYAcM1uv9Tt")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { on: { "change": _setup.onFitScreenChange }, model: { value: _setup.isFitScreen, callback: function($$v) {
+      _setup.isFitScreen = $$v;
+    }, expression: "isFitScreen" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u81EA\u52A8\u8FDB\u5165\u7011\u5E03\u6D41\u6A21\u5F0F")]), _c2("v-list-item-subtitle", [_vm._v("\u6253\u5F00\u6E90\u7AD9\u65F6\u76F4\u63A5\u8FDB\u5165\u7011\u5E03\u6D41\u6D4F\u89C8\u6A21\u5F0F")])], 1), _c2("v-list-item-action", [_c2("v-switch", { on: { "change": _setup.onAutoWfModeChange }, model: { value: _setup.isAutoWfMode, callback: function($$v) {
+      _setup.isAutoWfMode = $$v;
+    }, expression: "isAutoWfMode" } })], 1)], 1)], 1), _c2("v-dialog", { attrs: { "max-width": "600" }, model: { value: _setup.showDLConfirm, callback: function($$v) {
       _setup.showDLConfirm = $$v;
     }, expression: "showDLConfirm" } }, [_c2("v-card", [_c2("v-card-title", { staticClass: "text-h5" }, [_vm._v(_vm._s(_vm.$t("ti3akdSS3iZV9NsGzIo3m")))]), _c2("v-card-text", [_vm._v(" " + _vm._s(_vm.$t("LN_Rsic4V50DrXbsv9T9L"))), _c2("br"), _vm._v(" " + _vm._s(_vm.$t("OJ8X55GXx5k3peoSXSujf"))), _c2("br"), _vm._v(" " + _vm._s(_vm.$t("ujBgilCWNgFNV8Q2IDMWS")) + " ")]), _c2("v-card-actions", [_c2("v-spacer"), _c2("v-btn", { attrs: { "text": "" }, on: { "click": function($event) {
       return _setup.setDLSubpathOn("");
@@ -4060,7 +4823,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     },
     async mounted() {
       if (!unsafeWindow.DPlayer) {
-        await loadScript("https://cdn.staticfile.org/dplayer/1.27.1/DPlayer.min.js");
+        await loadScript("https://cdnjs.cloudflare.com/ajax/libs/dplayer/1.27.1/DPlayer.min.js");
       }
       await this.$nextTick();
       this.initPlayer();
@@ -4431,7 +5194,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         store.isListenWheelEvent && window.removeEventListener("wheel", onWheel);
         store.settings.isListenKeyupEvent && window.removeEventListener("keyup", onKeyup);
       });
-      return { __sfc: true, notR34Fav, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, showTagChipGroup, toggleTagsShow, imageSelected, isVideo, imgSrc, imgLasySrc, imageSelectedWidth, notYKSite, toggleToolbar, toTagsPage, toPidPage, toDetailPage, toSourcePage, download, addToList, close, onDtlContClick, postDetail, addFavorite, isCNLang: isCNLang2, setPostDetail, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, showPrevPost, showNextPost, onImageLoadError, scaleImgSrc, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isTriggerEvent, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFileTree, mdiFitToScreenOutline, mdiFolderNetwork, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, DPlayer, store };
+      return { __sfc: true, notR34Fav, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, showTagChipGroup, toggleTagsShow, imageSelected, isVideo, imgSrc, imgLasySrc, imageSelectedWidth, notYKSite, toggleToolbar, toTagsPage, toPidPage, toDetailPage, toSourcePage, download, addToList, close, onDtlContClick, postDetail, addFavorite, isCNLang: isCNLang2, setPostDetail, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, showPrevPost, showNextPost, onImageLoadError, scaleImgSrc, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isTriggerEvent, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFileTree, mdiFitToScreenOutline, mdiFolderNetwork, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, formatDistanceToNow, DPlayer, store };
     }
   });
   var _sfc_render$5 = function render() {
@@ -4447,71 +5210,71 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }, "error": _setup.onImageLoadError } }) : _vm._e(), _setup.scaleOn ? _c2("img", { staticClass: "img_detail_scale", style: _setup.scaleImgStyle, attrs: { "src": _setup.scaleImgSrc, "alt": "", "draggable": "false" }, on: { "load": function($event) {
       _setup.imgLoading = false;
     }, "error": _setup.onScaleImgError } }) : _vm._e()], 1)], 2) : _vm._e(), _c2("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && _setup.scaleOn && !_setup.isVideo, expression: "showImageToolbar && scaleOn && !isVideo" }], staticClass: "img_detail_btn_color", staticStyle: { "position": "absolute", "top": "0", "width": "100%", "z-index": "10" }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c2("v-spacer"), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1 hidden-sm-and-down", attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
+      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1 hidden-sm-and-down", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         _setup.imgScaleState = "FitToPage";
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFitToScreenOutline))])], 1)];
     } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("M-wISnLiQgM_DURMwKZGT")))])]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
+      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         _setup.imgScaleState = "FitToWidth";
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiTableSplitCell))])], 1)];
     } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("ad8lEoWap_nT9U69WBKen")))])]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
+      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         _setup.imgScaleState = "FitToHeight";
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", { staticStyle: { "transform": "rotate(90deg)" } }, [_vm._v(_vm._s(_setup.mdiTableSplitCell))])], 1)];
     } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("GjMNbm97OgVvpIYlkOisE")))])]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
+      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         _setup.imgScaleState = "Original";
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLoupe))])], 1)];
     } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("KkkM-iz8RCVQoTrTfhS5j")))])]), !_setup.store.isFullscreen ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
+      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.reqFullscreen.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFullscreen))])], 1)];
-    } }], null, false, 1192459052) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("XvOYJ5gHo37M1XztPl18z")))])]) : _vm._e(), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
+    } }], null, false, 2753878763) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("XvOYJ5gHo37M1XztPl18z")))])]) : _vm._e(), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.rotateImg.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiRotateRight))])], 1)];
     } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("_bQs7o9oQSo7ao1G0cp3d")))])]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1 hidden-sm-and-down", attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
+      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1 hidden-sm-and-down", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.zoomOutImg();
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiMagnifyMinusOutline))])], 1)];
     } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("lPPsX2CZbXwC-EGN79Rki")))])]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
+      return [_c2("v-btn", _vm._g(_vm._b({ attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.close.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiClose))])], 1)];
-    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c2("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && !_setup.scaleOn, expression: "showImageToolbar && !scaleOn" }], staticClass: "img_detail_btn_color", staticStyle: { "position": "absolute", "top": "0", "width": "100%", "z-index": "10" }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c2("v-chip", { attrs: { "small": "", "color": "primary" }, domProps: { "textContent": _vm._s(`${(_a2 = _setup.imageSelected.rating) == null ? void 0 : _a2.toUpperCase()} ${_setup.imageSelected.id}`) }, on: { "click": function($event) {
+    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c2("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && !_setup.scaleOn, expression: "showImageToolbar && !scaleOn" }], staticClass: "img_detail_btn_color", staticStyle: { "position": "absolute", "top": "0", "width": "100%", "z-index": "10" }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c2("v-chip", { attrs: { "small": "" }, domProps: { "textContent": _vm._s(`${(_a2 = _setup.imageSelected.rating) == null ? void 0 : _a2.toUpperCase()} ${_setup.imageSelected.id}`) }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.toDetailPage.apply(null, arguments);
-    } } }), _c2("v-spacer"), !_setup.notYKSite ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
+    } } }), _c2("v-chip", { staticClass: "ml-1", attrs: { "small": "", "title": _setup.imageSelected.createdTime }, domProps: { "textContent": _vm._s(`${_setup.imageSelected.createdAt && _setup.formatDistanceToNow(_setup.imageSelected.createdAt, { addSuffix: true })}`) } }), _c2("v-spacer"), !_setup.notYKSite ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addFavorite.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.postDetail.voted ? _setup.mdiHeart : _setup.mdiHeartPlusOutline))])], 1)];
-    } }], null, false, 4039738219) }, [_c2("span", [_vm._v(_vm._s(_setup.postDetail.voted ? _vm.$t("pEU9Y9K7DsODkocCDwq_O") : _vm.$t("2ZPEAvLkCbV3mC0iJAw9K")))])]) : _vm._e(), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
+    } }], null, false, 1566492844) }, [_c2("span", [_vm._v(_vm._s(_setup.postDetail.voted ? _vm.$t("pEU9Y9K7DsODkocCDwq_O") : _vm.$t("2ZPEAvLkCbV3mC0iJAw9K")))])]) : _vm._e(), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.toDetailPage.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1)];
     } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("caFFJlrS1wa_F86uKPykd")))])]), _setup.imageSelected.sourceUrl ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
+      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.toSourcePage.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLaunch))])], 1)];
-    } }], null, false, 3970738434) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("qSF4OLshg2EEX4CwtBE6r")) + " " + _vm._s(_setup.imageSelected.sourceUrl))])]) : _vm._e(), !_setup.isVideo ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
+    } }], null, false, 2921050437) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("qSF4OLshg2EEX4CwtBE6r")) + " " + _vm._s(_setup.imageSelected.sourceUrl))])]) : _vm._e(), !_setup.isVideo ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.zoomInImg();
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiMagnifyPlusOutline))])], 1)];
-    } }], null, false, 826778205) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("B_ptN5O-9PhmG5ymGGtc6")))])]) : _vm._e(), _setup.notR34Fav ? _c2("v-menu", { attrs: { "dense": "", "open-on-hover": "", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ directives: [{ name: "show", rawName: "v-show", value: !_setup.downloading, expression: "!downloading" }], staticClass: "mr-1", attrs: { "fab": "", "small": "", "color": "primary" } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1)];
-    } }], null, false, 1113469611) }, [_c2("v-list", { attrs: { "dense": "", "flat": "" } }, [_setup.imageSelected.sampleUrl ? _c2("v-list-item", { attrs: { "two-line": "", "link": "", "dense": "" } }, [_c2("v-list-item-content", { on: { "click": function($event) {
+    } }], null, false, 1673140250) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("B_ptN5O-9PhmG5ymGGtc6")))])]) : _vm._e(), _setup.notR34Fav ? _c2("v-menu", { attrs: { "dense": "", "open-on-hover": "", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c2("v-btn", _vm._g(_vm._b({ directives: [{ name: "show", rawName: "v-show", value: !_setup.downloading, expression: "!downloading" }], staticClass: "mr-1", attrs: { "fab": "", "small": "" } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1)];
+    } }], null, false, 2023776716) }, [_c2("v-list", { attrs: { "dense": "", "flat": "" } }, [_setup.imageSelected.sampleUrl ? _c2("v-list-item", { attrs: { "two-line": "", "link": "", "dense": "" } }, [_c2("v-list-item-content", { on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.download(_setup.imageSelected.sampleUrl, _setup.imageSelected.sampleDownloadName);
     } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("wI4KHHIe3zNRziW4lDZrp")))]), _c2("v-list-item-subtitle", { domProps: { "textContent": _vm._s(_setup.imageSelected.sampleDownloadText) } })], 1)], 1) : _vm._e(), _setup.imageSelected.jpegUrl ? _c2("v-list-item", { attrs: { "two-line": "", "link": "", "dense": "" } }, [_c2("v-list-item-content", { on: { "click": function($event) {
@@ -4521,23 +5284,23 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       $event.stopPropagation();
       return _setup.download(_setup.imageSelected.fileUrl, _setup.imageSelected.fileDownloadName);
     } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("VpuyxZtIoDF9-YyOm0tK_")))]), _c2("v-list-item-subtitle", { domProps: { "textContent": _vm._s(_setup.imageSelected.fileDownloadText) } })], 1)], 1)], 1)], 1) : _vm._e(), _c2("v-progress-circular", { directives: [{ name: "show", rawName: "v-show", value: _setup.downloading, expression: "downloading" }], staticClass: "ml-1 mr-2", attrs: { "indeterminate": "", "color": "primary" } }), _setup.notR34Fav ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
+      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addToList.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiPlaylistPlus))])], 1)];
-    } }], null, false, 285759982) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("hVmfDxXoj8vkgVQabEOSr")))])]) : _vm._e(), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
+    } }], null, false, 3165283113) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("hVmfDxXoj8vkgVQabEOSr")))])]) : _vm._e(), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c2("v-btn", _vm._g(_vm._b({ attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.close.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiClose))])], 1)];
-    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c2("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar, expression: "showImageToolbar" }], staticClass: "img_detail_btn_color hidden-sm-and-down" }, [_c2("div", { directives: [{ name: "show", rawName: "v-show", value: !_setup.isVideo, expression: "!isVideo" }], staticStyle: { "position": "absolute", "z-index": "10", "bottom": "12px", "padding": "0 12px" } }, [_c2("v-chip", { directives: [{ name: "show", rawName: "v-show", value: (_b2 = _setup.postDetail.tags) == null ? void 0 : _b2.length, expression: "postDetail.tags?.length" }], staticClass: "mr-1", attrs: { "small": "", "color": "primary" }, on: { "click": function($event) {
+    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c2("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar, expression: "showImageToolbar" }], staticClass: "img_detail_btn_color hidden-sm-and-down" }, [_c2("div", { directives: [{ name: "show", rawName: "v-show", value: !_setup.isVideo, expression: "!isVideo" }], staticStyle: { "position": "absolute", "z-index": "10", "bottom": "12px", "padding": "0 12px" } }, [_c2("v-chip", { directives: [{ name: "show", rawName: "v-show", value: (_b2 = _setup.postDetail.tags) == null ? void 0 : _b2.length, expression: "postDetail.tags?.length" }], staticClass: "mr-1", attrs: { "small": "" }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.toggleTagsShow();
-    } } }, [_c2("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(_setup.mdiTagMultiple))]), _c2("span", [_vm._v(_vm._s(_setup.showTagChipGroup ? _vm.$t("gM92sLo0Cqfl2rCaXlOhc") : _vm.$t("l5W-EtJ_ar-SY2lF4H5Zm")))])], 1), _setup.store.isYKSite ? [((_d = (_c3 = _setup.imageSelected) == null ? void 0 : _c3.data) == null ? void 0 : _d.parent_id) ? _c2("v-chip", { staticClass: "mr-1", attrs: { "small": "", "color": "primary" }, on: { "click": function($event) {
+    } } }, [_c2("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(_setup.mdiTagMultiple))]), _c2("span", [_vm._v(_vm._s(_setup.showTagChipGroup ? _vm.$t("gM92sLo0Cqfl2rCaXlOhc") : _vm.$t("l5W-EtJ_ar-SY2lF4H5Zm")))])], 1), _setup.store.isYKSite ? [((_d = (_c3 = _setup.imageSelected) == null ? void 0 : _c3.data) == null ? void 0 : _d.parent_id) ? _c2("v-chip", { staticClass: "mr-1", attrs: { "small": "" }, on: { "click": function($event) {
       var _a3, _b3;
       $event.stopPropagation();
       _setup.toPidPage((_b3 = (_a3 = _setup.imageSelected) == null ? void 0 : _a3.data) == null ? void 0 : _b3.parent_id);
-    } } }, [_c2("v-icon", { attrs: { "small": "", "left": "" } }, [_vm._v(_vm._s(_setup.mdiFolderNetwork))]), _c2("span", [_vm._v(_vm._s(_vm.$t("sMkrF8bqCTJZZ1kXTkT_R")))])], 1) : _vm._e(), ((_f = (_e = _setup.imageSelected) == null ? void 0 : _e.data) == null ? void 0 : _f.has_children) ? _c2("v-chip", { staticClass: "mr-1", attrs: { "small": "", "color": "primary" }, on: { "click": function($event) {
+    } } }, [_c2("v-icon", { attrs: { "small": "", "left": "" } }, [_vm._v(_vm._s(_setup.mdiFolderNetwork))]), _c2("span", [_vm._v(_vm._s(_vm.$t("sMkrF8bqCTJZZ1kXTkT_R")))])], 1) : _vm._e(), ((_f = (_e = _setup.imageSelected) == null ? void 0 : _e.data) == null ? void 0 : _f.has_children) ? _c2("v-chip", { staticClass: "mr-1", attrs: { "small": "" }, on: { "click": function($event) {
       var _a3;
       $event.stopPropagation();
       return _setup.toTagsPage(`parent:${(_a3 = _setup.imageSelected) == null ? void 0 : _a3.id}&_wf=1`);
@@ -4546,10 +5309,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         $event.stopPropagation();
         return _setup.toTagsPage(item.tag);
       } } });
-    }), 1)], 2), _c2("v-btn", { staticClass: "poa_left_center", staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
+    }), 1)], 2), _c2("v-btn", { staticClass: "poa_left_center", staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.showPrevPost.apply(null, arguments);
-    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiChevronLeft))])], 1), _c2("v-btn", { staticClass: "poa_right_center", staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "", "color": "primary" }, on: { "click": function($event) {
+    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiChevronLeft))])], 1), _c2("v-btn", { staticClass: "poa_right_center", staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.showNextPost.apply(null, arguments);
     } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiChevronRight))])], 1)], 1)], 1);
@@ -4569,6 +5332,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var _sfc_main$4 = /* @__PURE__ */ Vue2.defineComponent({
     __name: "PostList",
     setup(__props) {
+      const notFitScreen2 = Vue2.ref(localStorage.getItem("__fitScreen") == "0");
       const isR34Fav = Vue2.ref(isRule34FavPage());
       const showImageList = Vue2.ref(true);
       const showFab = Vue2.ref(false);
@@ -4678,14 +5442,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       Vue2.onUnmounted(() => {
         window.removeEventListener("scroll", scrollFn);
       });
-      return { __sfc: true, isR34Fav, showImageList, showFab, showNoMore, showLoadMore, ctxActPost, showMenu, x, y, maxHeightStyle, getImgSrc, onCtxMenu, showImgModal, openDetail, addToSelectedList, addFavorite, downloadCtxPost, onImageLoadError, calcItemHeight, scrollFn, mdiDownload, mdiFileGifBox, mdiFileTree, mdiFolderNetwork, mdiHeartPlusOutline, mdiLinkVariant, mdiPlaylistPlus, mdiRefresh, mdiVideo, PostDetail, refreshPosts, searchPosts, store };
+      return { __sfc: true, notFitScreen: notFitScreen2, isR34Fav, showImageList, showFab, showNoMore, showLoadMore, ctxActPost, showMenu, x, y, maxHeightStyle, getImgSrc, onCtxMenu, showImgModal, openDetail, addToSelectedList, addFavorite, downloadCtxPost, onImageLoadError, calcItemHeight, scrollFn, mdiDownload, mdiFileGifBox, mdiFileTree, mdiFolderNetwork, mdiHeartPlusOutline, mdiLinkVariant, mdiPlaylistPlus, mdiRefresh, mdiVideo, PostDetail, refreshPosts, searchPosts, store };
     }
   });
   var _sfc_render$4 = function render() {
     var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
-    return _setup.showImageList ? _c2("div", [_setup.store.settings.masonryLayout === "virtual" ? _c2("virtual-waterfall", { staticStyle: { "min-height": "99vh" }, attrs: { "items": _setup.store.imageList, "calc-item-height": _setup.calcItemHeight, "gap": 10 }, scopedSlots: _vm._u([{ key: "default", fn: function({ item, index }) {
+    return _setup.showImageList ? _c2("div", [_setup.store.settings.masonryLayout === "virtual" ? _c2("virtual-waterfall", { staticClass: "virtual-waterfall", class: { "wf-no-fit-screen": _setup.notFitScreen }, staticStyle: { "min-height": "99vh" }, attrs: { "items": _setup.store.imageList, "calc-item-height": _setup.calcItemHeight, "gap": 10 }, scopedSlots: _vm._u([{ key: "default", fn: function({ item, index }) {
       var _a2, _b2;
-      return [_c2("v-card", { staticClass: "posts-image-card" }, [_c2("v-img", { staticStyle: { "background": "gainsboro" }, attrs: { "transition": "scroll-y-transition", "src": _setup.getImgSrc(item), "aspect-ratio": item == null ? void 0 : item.aspectRatio }, on: { "click": function($event) {
+      return [_c2("v-card", { staticClass: "posts-image-card" }, [_c2("v-img", { staticStyle: { "background": "gainsboro", "border-radius": "4px" }, attrs: { "transition": "scroll-y-transition", "src": _setup.getImgSrc(item), "aspect-ratio": item == null ? void 0 : item.aspectRatio }, on: { "click": function($event) {
         return _setup.showImgModal(index);
       }, "error": _setup.onImageLoadError } }), _setup.store.isYKSite ? [((_a2 = item == null ? void 0 : item.data) == null ? void 0 : _a2.has_children) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), ((_b2 = item == null ? void 0 : item.data) == null ? void 0 : _b2.parent_id) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), (item == null ? void 0 : item.fileExt.toLowerCase()) === "gif" ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(item == null ? void 0 : item.fileExt.toLowerCase()) ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav ? _c2("div", { staticClass: "posts-image-actions" }, [_c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4") }, on: { "click": function($event) {
         $event.stopPropagation();
@@ -4700,9 +5464,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         $event.stopPropagation();
         return _setup.addFavorite(item.id);
       } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHeartPlusOutline))])], 1) : _vm._e()], 1) : _vm._e()], 2)];
-    } }], null, false, 4066981690) }) : _c2("wf-layout", _vm._l(_setup.store.imageList, function(image, index) {
+    } }], null, false, 2816131209) }) : _c2("wf-layout", _vm._l(_setup.store.imageList, function(image, index) {
       var _a2, _b2;
-      return _c2("v-card", { key: index, staticClass: "mb-2 posts-image-card", style: _setup.store.settings.masonryLayout === "flexbin" ? `width:${image.width * 300 / image.height}px;flex-grow:${image.width * 300 / image.height}` : _setup.maxHeightStyle }, [_setup.store.settings.masonryLayout === "flexbin" ? [_c2("div", { style: `padding-bottom:${image.height / image.width * 100}%` }), _c2("img", { staticClass: "post-image", attrs: { "alt": "", "loading": "lazy", "src": _setup.getImgSrc(image) }, on: { "click": function($event) {
+      return _c2("v-card", { key: index, staticClass: "posts-image-card", style: _setup.store.settings.masonryLayout === "flexbin" ? `--w:${image.width};--h:${image.height}` : _setup.maxHeightStyle }, [_setup.store.settings.masonryLayout === "flexbin" ? [_c2("img", { staticClass: "post-image", attrs: { "alt": "", "loading": "lazy", "src": _setup.getImgSrc(image) }, on: { "click": function($event) {
         return _setup.showImgModal(index);
       }, "contextmenu": function($event) {
         return _setup.onCtxMenu($event, image);
@@ -4729,9 +5493,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHeartPlusOutline))])], 1) : _vm._e()], 1) : _vm._e()], 2);
     }), 1), _c2("div", { staticClass: "d-flex justify-center" }, [_c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.requestState, expression: "store.requestState" }], attrs: { "color": "primary", "text": "" } }, [_vm._v(" " + _vm._s(_vm.$t("RN4dt81l_fZMWODsskZob")) + "... ")]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showLoadMore, expression: "showLoadMore" }], attrs: { "color": "primary", "text": "" }, on: { "click": function($event) {
       return _setup.searchPosts();
-    } } }, [_vm._v(" " + _vm._s(_vm.$t("fC8XNfCl04zK7vgeaRZMQ")) + " ")]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showNoMore, expression: "showNoMore" }], attrs: { "color": "primary", "text": "" } }, [_vm._v(" " + _vm._s(_vm.$t("Z4pa8GhgE63OGGvCqAld0")) + "... ")])], 1), _c2("v-menu", { attrs: { "position-x": _setup.x, "position-y": _setup.y, "absolute": "", "offset-y": "" }, model: { value: _setup.showMenu, callback: function($$v) {
+    } } }, [_vm._v(" " + _vm._s(_vm.$t("fC8XNfCl04zK7vgeaRZMQ")) + " ")]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showNoMore, expression: "showNoMore" }], staticClass: "mt-2", attrs: { "color": "primary", "text": "" } }, [_vm._v(" " + _vm._s(_vm.$t("Z4pa8GhgE63OGGvCqAld0")) + "... ")])], 1), _c2("v-menu", { attrs: { "position-x": _setup.x, "position-y": _setup.y, "absolute": "", "offset-y": "" }, model: { value: _setup.showMenu, callback: function($$v) {
       _setup.showMenu = $$v;
-    }, expression: "showMenu" } }, [_c2("v-list", [_setup.store.isYKSite ? _c2("v-list-item", { on: { "click": _setup.addFavorite } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Dnnio9m9RZA6bkTLytc99")))])], 1) : _vm._e(), _c2("v-list-item", { on: { "click": _setup.downloadCtxPost } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("VpuyxZtIoDF9-YyOm0tK_")))])], 1), _c2("v-list-item", { on: { "click": _setup.openDetail } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("EsiorRgoeHI8h7IHMLDA4")))])], 1), _c2("v-list-item", { on: { "click": _setup.addToSelectedList } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("hVmfDxXoj8vkgVQabEOSr")))])], 1)], 1)], 1), _c2("v-fab-transition", [_c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showFab, expression: "showFab" }], attrs: { "fab": "", "dark": "", "fixed": "", "bottom": "", "right": "", "color": "pink" }, on: { "click": function($event) {
+    }, expression: "showMenu" } }, [_c2("v-list", [_setup.store.isYKSite ? _c2("v-list-item", { on: { "click": function($event) {
+      return _setup.addFavorite();
+    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Dnnio9m9RZA6bkTLytc99")))])], 1) : _vm._e(), _c2("v-list-item", { on: { "click": function($event) {
+      return _setup.downloadCtxPost();
+    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("VpuyxZtIoDF9-YyOm0tK_")))])], 1), _c2("v-list-item", { on: { "click": function($event) {
+      return _setup.openDetail();
+    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("EsiorRgoeHI8h7IHMLDA4")))])], 1), _c2("v-list-item", { on: { "click": function($event) {
+      return _setup.addToSelectedList();
+    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("hVmfDxXoj8vkgVQabEOSr")))])], 1)], 1)], 1), _c2("v-fab-transition", [_c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showFab, expression: "showFab" }], attrs: { "fab": "", "dark": "", "fixed": "", "bottom": "", "right": "", "color": "pink" }, on: { "click": function($event) {
       return _setup.refreshPosts();
     } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiRefresh))])], 1)], 1), _c2(_setup.PostDetail)], 1) : _vm._e();
   };
@@ -4885,7 +5657,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   });
   var _sfc_render$1 = function render() {
     var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
-    return _c2("v-container", { staticClass: "_vcont pa-2", attrs: { "fluid": "" } }, [_setup.store.showPostList ? _c2(_setup.PostList) : _vm._e(), _setup.store.showPoolList ? _c2(_setup.PoolList) : _vm._e(), _c2(_setup.Snackbar)], 1);
+    return _c2("v-container", { staticClass: "_vcont pa-4", attrs: { "fluid": "" } }, [_setup.store.showPostList ? _c2(_setup.PostList) : _vm._e(), _setup.store.showPoolList ? _c2(_setup.PoolList) : _vm._e(), _c2(_setup.Snackbar)], 1);
   };
   var _sfc_staticRenderFns$1 = [];
   var __component__$1 = /* @__PURE__ */ normalizeComponent(

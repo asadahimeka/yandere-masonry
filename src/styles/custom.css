@@ -184,7 +184,7 @@
 
 .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb {
   background: #b0b0b0;
-  border: solid 3px #fff;
+  border: solid 3px #e9eef6;
   border-radius: 7px;
 }
 
@@ -343,8 +343,8 @@
   border-color: #8E24AAB3 !important;
 }
 
-.theme--dark .img_detail_btn_color .v-chip.primary,
-.theme--dark .img_detail_btn_color .v-btn.primary {
+.theme--dark .img_detail_btn_color .v-chip,
+.theme--dark .img_detail_btn_color .v-btn {
   background-color: #BA68C8B3 !important;
   border-color: #BA68C8B3 !important;
 }
@@ -424,4 +424,84 @@
     max-width: 62.5vw;
     margin: 16px auto;
   }
+}
+
+.virtual-waterfall>[data-index] {
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+  border-radius: 4px;
+}
+
+.theme--light .v-app-bar {
+  box-shadow: none !important;
+  background: #f6f8fc !important;
+}
+
+.theme--light .v-app-bar,
+.theme--light .v-app-bar .v-toolbar__content {
+  height: 64px !important;
+}
+
+.theme--light .v-main {
+  padding-top: 64px !important;
+}
+
+.theme--light .v-app-bar .v-toolbar__title+input {
+  width: 50px !important;
+  background-color: #eaf1fb !important;
+  border-radius: 24px !important;
+}
+
+.theme--light .nav_drawer .v-icon,
+.theme--light .nav_drawer .v-btn--icon,
+.theme--light .v-app-bar .v-icon,
+.theme--light .v-app-bar .v-btn--icon {
+  color: #5f6368 !important;
+}
+
+.theme--light .app-bar-tag-input .v-input .v-input__slot::before,
+.theme--light .app-bar-tag-input .v-input .v-input__slot::after {
+  display: none;
+}
+
+.theme--light .app-bar-tag-input .v-input input {
+  padding: 5px 44px 5px 10px;
+  background-color: #eaf1fb;
+  min-height: 48px;
+  border-radius: 24px;
+}
+
+.theme--light .app-bar-tag-input:not([style*="none"]) + .v-btn {
+  position: relative;
+  left: -50px;
+}
+
+.theme--light.v-list,
+.theme--light.v-navigation-drawer {
+  background: #e9eef6 !important;
+}
+
+.theme--light .img_detail_btn_color .v-chip,
+.theme--light .img_detail_btn_color .v-chip .v-icon,
+.theme--light .img_detail_btn_color .v-btn {
+  background-color: #c2e7ff !important;
+  border-color: #c2e7ff !important;
+  color: #001d35 !important;
+  color: #1a73e8 !important;
+  box-shadow: none !important;
+  font-weight: 500;
+}
+
+.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text) {
+  padding-bottom: 2px;
+  border-radius: 10px;
+  color: #001d35;
+  background-color: #c2e7ff;
+}
+
+.theme--light .blacklist_combobox .v-input__slot {
+  padding-left: 8px !important;
+}
+
+.theme--light .v-text-field--outlined {
+  border-radius: 20px;
 }

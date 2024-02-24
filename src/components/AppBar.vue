@@ -89,7 +89,7 @@
       >
         <template #activator="{ on }">
           <v-slide-x-transition>
-            <div v-show="searchState.showInput" class="ml-4" style="width: 200px">
+            <div v-show="searchState.showInput" class="app-bar-tag-input ml-4" style="width: 200px">
               <v-text-field
                 v-model="searchState.searchTerm"
                 hide-details
@@ -157,17 +157,25 @@
               {{ $t('J2Ckb_-LITfmww4aEksqk') }}
             </v-btn>
           </v-subheader>
-          <v-radio-group
-            v-if="store.isYKSite"
-            v-model="downloadUrlKey"
-            class="mt-1 ml-3"
-            hide-details
-            dense
-            row
-          >
-            <v-radio :label="$t('aVqN9TBRCbNGsW3Y2D2Nm')" value="jpegUrl" />
-            <v-radio :label="$t('jDjashxA-oBPo19DXI504')" value="fileUrl" />
-          </v-radio-group>
+          <div v-if="store.isYKSite" class="d-flex align-center mt-1 ml-2">
+            <v-radio-group
+              v-model="downloadUrlKey"
+              class="mr-1 mt-0"
+              hide-details
+              dense
+              row
+            >
+              <v-radio :label="$t('aVqN9TBRCbNGsW3Y2D2Nm')" value="jpegUrl" />
+              <v-radio :label="$t('jDjashxA-oBPo19DXI504')" value="fileUrl" />
+            </v-radio-group>
+            <v-switch
+              v-model="isExportUrlDecode"
+              class="mt-0 mr-1"
+              label="Decode URL"
+              hide-details
+              dense
+            />
+          </div>
           <v-list-item-group color="primary">
             <v-list-item v-for="item in store.selectedImageList" :key="item.id" dense two-line>
               <v-list-item-avatar>
@@ -223,7 +231,6 @@
     <v-progress-linear
       :active="store.requestState"
       :height="6"
-      color="deep-purple accent-4"
       indeterminate
       absolute
       bottom
@@ -269,8 +276,19 @@ import { loadPostsByPage, loadPostsByTags, refreshPosts } from '@/store/actions/
 import { getRecentTags, getUsername, isPopularPage, searchTagsByName } from '@/api/moebooru'
 import i18n from '@/utils/i18n'
 
+const specTitleMap: Record<string, string> = {
+  'yande.re': 'yande.re',
+  'konachan.com': 'Koanchan',
+  'konachan.net': 'Koanchan(Safe)',
+  'www.sakugabooru.com': 'sakugabooru'.toUpperCase(),
+  'rule34.paheal.net': 'rule34.paheal'.toUpperCase(),
+  'booru.allthefallen.moe': 'ATFBooru',
+}
+
 const title = computed(() => {
-  return `${location.host.toUpperCase()} - ${store.imageList.length} Posts - Page `
+  const host = location.host.toLowerCase()
+  const siteName = specTitleMap[host] || (host[0].toUpperCase() + host.slice(1).split('.')[0])
+  return `${siteName} - ${store.imageList.length} Posts - Page `
 })
 
 const isNoSelected = computed(() => store.selectedImageList.length === 0)
@@ -514,9 +532,13 @@ const startDownload = async () => {
   }
 }
 
+const isExportUrlDecode = ref(true)
 const exportFileUrls = async () => {
-  const urlText = store.selectedImageList.map(e => e[downloadUrlKey.value] || e.fileUrl).join('\n')
-  await downloadFile(`data:text/plain;charset=utf-8,${store.isYKSite ? decodeURIComponent(urlText) : urlText}`, 'image-urls.txt')
+  let urlText = store.selectedImageList.map(e => e[downloadUrlKey.value] || e.fileUrl).join('\n')
+  if (store.isYKSite && isExportUrlDecode.value) {
+    urlText = decodeURIComponent(urlText)
+  }
+  await downloadFile(`data:text/plain;charset=utf-8,${urlText}`, 'image-urls.txt')
 }
 
 const vuetify = useVuetify()

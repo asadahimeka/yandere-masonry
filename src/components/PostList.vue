@@ -2,6 +2,7 @@
   <div v-if="showImageList">
     <virtual-waterfall
       v-if="store.settings.masonryLayout === 'virtual'"
+      class="virtual-waterfall"
       :class="{ 'wf-no-fit-screen': notFitScreen }"
       :items="store.imageList"
       :calc-item-height="calcItemHeight"
@@ -151,22 +152,22 @@
       <v-btn v-show="showLoadMore" color="primary" text @click="searchPosts()">
         {{ $t('fC8XNfCl04zK7vgeaRZMQ') }}
       </v-btn>
-      <v-btn v-show="showNoMore" color="primary" text>
+      <v-btn v-show="showNoMore" class="mt-2" color="primary" text>
         {{ $t('Z4pa8GhgE63OGGvCqAld0') }}...
       </v-btn>
     </div>
     <v-menu v-model="showMenu" :position-x="x" :position-y="y" absolute offset-y>
       <v-list>
-        <v-list-item v-if="store.isYKSite" @click="addFavorite">
+        <v-list-item v-if="store.isYKSite" @click="addFavorite()">
           <v-list-item-title>{{ $t('Dnnio9m9RZA6bkTLytc99') }}</v-list-item-title>
         </v-list-item>
-        <v-list-item @click="downloadCtxPost">
+        <v-list-item @click="downloadCtxPost()">
           <v-list-item-title>{{ $t('VpuyxZtIoDF9-YyOm0tK_') }}</v-list-item-title>
         </v-list-item>
-        <v-list-item @click="openDetail">
+        <v-list-item @click="openDetail()">
           <v-list-item-title>{{ $t('EsiorRgoeHI8h7IHMLDA4') }}</v-list-item-title>
         </v-list-item>
-        <v-list-item @click="addToSelectedList">
+        <v-list-item @click="addToSelectedList()">
           <v-list-item-title>{{ $t('hVmfDxXoj8vkgVQabEOSr') }}</v-list-item-title>
         </v-list-item>
       </v-list>

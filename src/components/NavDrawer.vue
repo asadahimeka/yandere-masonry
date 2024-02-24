@@ -128,6 +128,15 @@
             <v-list-item-subtitle>{{ $t('jerGO2OCuW9TdnEnGYRWd') }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item link @click="openLink('https://www.pixiv.pics/setting/recommend')">
+          <v-list-item-icon class="mr-2">
+            <v-icon>{{ mdiBookmarkBoxMultipleOutline }}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>{{ $t('eOxsWLzwqrlhBdVMwz-rH') }}</v-list-item-title>
+            <v-list-item-subtitle>{{ $t('jerGO2OCuW9TdnEnGYRWd') }}</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item link @click="openLink('https://github.com/asadahimeka/yandere-masonry/issues')">
           <v-list-item-icon class="mr-2">
             <v-icon>{{ mdiMessageAlertOutline }}</v-icon>
@@ -154,6 +163,7 @@
 <script setup lang="ts">
 import {
   mdiAccount,
+  mdiBookmarkBoxMultipleOutline,
   mdiFire,
   mdiGithub,
   mdiImageMultiple,
