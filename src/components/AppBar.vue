@@ -281,8 +281,10 @@ const specTitleMap: Record<string, string> = {
   'konachan.com': 'Koanchan',
   'konachan.net': 'Koanchan(Safe)',
   'www.sakugabooru.com': 'sakugabooru'.toUpperCase(),
+  'behoimi.org': '3dbooru',
   'rule34.paheal.net': 'rule34.paheal'.toUpperCase(),
   'booru.allthefallen.moe': 'ATFBooru',
+  'aibooru.online': 'AIBooru',
 }
 
 const title = computed(() => {

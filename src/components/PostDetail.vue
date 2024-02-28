@@ -176,10 +176,11 @@
         v-text="`${imageSelected.rating?.toUpperCase()} ${imageSelected.id}`"
       />
       <v-chip
+        v-if="imgCreateTime"
         class="ml-1"
         small
         :title="imageSelected.createdTime"
-        v-text="`${imageSelected.createdAt && formatDistanceToNow(imageSelected.createdAt, { addSuffix: true })}`"
+        v-text="imgCreateTime"
       />
       <v-spacer />
       <v-tooltip v-if="!notYKSite" bottom>
@@ -381,7 +382,7 @@ import {
   mdiTagMultiple,
 } from '@mdi/js'
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
-import { formatDistanceToNow } from 'date-fns/esm'
+import { formatDistanceToNow, isValid } from 'date-fns/esm'
 import DPlayer from './DPlayer.vue'
 import { debounce, downloadFile, dragElement, isURL, showMsg } from '@/utils'
 import { type PostDetail, addPostToFavorites, getPostDetail } from '@/api/moebooru'
@@ -432,6 +433,11 @@ const imageSelectedWidth = computed(() => {
 
 const notYKSite = computed(() => {
   return ['konachan', 'yande'].every(e => !location.host.includes(e))
+})
+
+const imgCreateTime = computed(() => {
+  if (!isValid(imageSelected.value.createdAt)) return ''
+  return formatDistanceToNow(imageSelected.value.createdAt as Date, { addSuffix: true })
 })
 
 const toggleToolbar = () => {

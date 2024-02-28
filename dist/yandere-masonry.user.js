@@ -2041,6 +2041,18 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return diff;
     }
   }
+  function isDate(value) {
+    requiredArgs(1, arguments);
+    return value instanceof Date || _typeof(value) === "object" && Object.prototype.toString.call(value) === "[object Date]";
+  }
+  function isValid(dirtyDate) {
+    requiredArgs(1, arguments);
+    if (!isDate(dirtyDate) && typeof dirtyDate !== "number") {
+      return false;
+    }
+    var date = toDate(dirtyDate);
+    return !isNaN(Number(date));
+  }
   function differenceInCalendarMonths(dirtyDateLeft, dirtyDateRight) {
     requiredArgs(2, arguments);
     var dateLeft = toDate(dirtyDateLeft);
@@ -3495,7 +3507,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const date = this.createdAt;
       if (!date)
         return "";
-      return `${date.toLocaleDateString()} ${date.toLocaleTimeString("en-DE")}`;
+      return date.toLocaleString();
     }
     get sourceUrl() {
       const source = Array.isArray(this.source) ? this.source[0] : this.source;
@@ -4145,8 +4157,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         "konachan.com": "Koanchan",
         "konachan.net": "Koanchan(Safe)",
         "www.sakugabooru.com": "sakugabooru".toUpperCase(),
+        "behoimi.org": "3dbooru",
         "rule34.paheal.net": "rule34.paheal".toUpperCase(),
-        "booru.allthefallen.moe": "ATFBooru"
+        "booru.allthefallen.moe": "ATFBooru",
+        "aibooru.online": "AIBooru"
       };
       const title = Vue2.computed(() => {
         const host = location.host.toLowerCase();
@@ -4915,6 +4929,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const notYKSite = Vue2.computed(() => {
         return ["konachan", "yande"].every((e) => !location.host.includes(e));
       });
+      const imgCreateTime = Vue2.computed(() => {
+        if (!isValid(imageSelected.value.createdAt))
+          return "";
+        return formatDistanceToNow(imageSelected.value.createdAt, { addSuffix: true });
+      });
       const toggleToolbar = () => {
         if (scaleOn.value)
           return;
@@ -5194,7 +5213,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         store.isListenWheelEvent && window.removeEventListener("wheel", onWheel);
         store.settings.isListenKeyupEvent && window.removeEventListener("keyup", onKeyup);
       });
-      return { __sfc: true, notR34Fav, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, showTagChipGroup, toggleTagsShow, imageSelected, isVideo, imgSrc, imgLasySrc, imageSelectedWidth, notYKSite, toggleToolbar, toTagsPage, toPidPage, toDetailPage, toSourcePage, download, addToList, close, onDtlContClick, postDetail, addFavorite, isCNLang: isCNLang2, setPostDetail, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, showPrevPost, showNextPost, onImageLoadError, scaleImgSrc, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isTriggerEvent, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFileTree, mdiFitToScreenOutline, mdiFolderNetwork, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, formatDistanceToNow, DPlayer, store };
+      return { __sfc: true, notR34Fav, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, showTagChipGroup, toggleTagsShow, imageSelected, isVideo, imgSrc, imgLasySrc, imageSelectedWidth, notYKSite, imgCreateTime, toggleToolbar, toTagsPage, toPidPage, toDetailPage, toSourcePage, download, addToList, close, onDtlContClick, postDetail, addFavorite, isCNLang: isCNLang2, setPostDetail, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, showPrevPost, showNextPost, onImageLoadError, scaleImgSrc, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isTriggerEvent, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFileTree, mdiFitToScreenOutline, mdiFolderNetwork, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, DPlayer, store };
     }
   });
   var _sfc_render$5 = function render() {
@@ -5252,7 +5271,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c2("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && !_setup.scaleOn, expression: "showImageToolbar && !scaleOn" }], staticClass: "img_detail_btn_color", staticStyle: { "position": "absolute", "top": "0", "width": "100%", "z-index": "10" }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c2("v-chip", { attrs: { "small": "" }, domProps: { "textContent": _vm._s(`${(_a2 = _setup.imageSelected.rating) == null ? void 0 : _a2.toUpperCase()} ${_setup.imageSelected.id}`) }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.toDetailPage.apply(null, arguments);
-    } } }), _c2("v-chip", { staticClass: "ml-1", attrs: { "small": "", "title": _setup.imageSelected.createdTime }, domProps: { "textContent": _vm._s(`${_setup.imageSelected.createdAt && _setup.formatDistanceToNow(_setup.imageSelected.createdAt, { addSuffix: true })}`) } }), _c2("v-spacer"), !_setup.notYKSite ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    } } }), _setup.imgCreateTime ? _c2("v-chip", { staticClass: "ml-1", attrs: { "small": "", "title": _setup.imageSelected.createdTime }, domProps: { "textContent": _vm._s(_setup.imgCreateTime) } }) : _vm._e(), _c2("v-spacer"), !_setup.notYKSite ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addFavorite.apply(null, arguments);
