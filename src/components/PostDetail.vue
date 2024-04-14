@@ -305,7 +305,8 @@
       </v-tooltip>
     </v-toolbar>
     <div v-show="showImageToolbar" class="img_detail_btn_color hidden-sm-and-down">
-      <div v-show="!isVideo" style="position: absolute;z-index: 10;bottom: 12px;padding: 0 12px;">
+      <!-- <div v-show="!isVideo" style="position: absolute;z-index: 10;bottom: 12px;padding: 0 12px;"> -->
+      <div style="position: absolute;z-index: 10;bottom: 12px;padding: 0 12px;">
         <v-chip
           v-show="postDetail.tags?.length"
           small

@@ -504,6 +504,11 @@
   color: #001d35;
 }
 
+.theme--light .img_detail_loading .v-progress-circular {
+  color: #1a73e8 !important;
+  caret-color: #1a73e8 !important;
+}
+
 .theme--light .blacklist_combobox .v-input__slot {
   padding-left: 8px !important;
 }

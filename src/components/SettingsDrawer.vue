@@ -96,6 +96,7 @@
         <v-list-item-action>
           <v-switch
             v-model="nsfwValue"
+            inset
             color="deep-orange darken-1"
             @change="onNSFWSwitchChange"
           />
@@ -109,6 +110,7 @@
         <v-list-item-action>
           <v-switch
             v-model="store.isListenWheelEvent"
+            inset
             @change="onWheelSwitchChange"
           />
         </v-list-item-action>
@@ -121,6 +123,7 @@
         <v-list-item-action>
           <v-switch
             v-model="store.settings.isListenKeyupEvent"
+            inset
             @change="onKeyupSwitchChange"
           />
         </v-list-item-action>
@@ -133,6 +136,7 @@
         <v-list-item-action>
           <v-switch
             v-model="store.isFullImgPreload"
+            inset
             @change="onImgPreloadChange"
           />
         </v-list-item-action>
@@ -207,6 +211,7 @@
         <v-list-item-action>
           <v-switch
             v-model="store.settings.isThumbSampleUrl"
+            inset
             @change="onThumbSampleUrlChange"
           />
         </v-list-item-action>
@@ -219,6 +224,7 @@
         <v-list-item-action>
           <v-switch
             v-model="isDLSubpath"
+            inset
             :loading="dlSubLoading"
             @change="onDLSubpathChange"
           />
@@ -232,6 +238,7 @@
         <v-list-item-action>
           <v-switch
             v-model="isFitScreen"
+            inset
             @change="onFitScreenChange"
           />
         </v-list-item-action>
@@ -244,6 +251,7 @@
         <v-list-item-action>
           <v-switch
             v-model="isAutoWfMode"
+            inset
             @change="onAutoWfModeChange"
           />
         </v-list-item-action>

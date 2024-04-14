@@ -235,14 +235,17 @@ const maxHeightStyle = computed(() => {
 })
 
 const getImgSrc = (img?: Post) => {
-  const num = +store.selectedColumn
-  if (store.settings.isThumbSampleUrl || (num != 0 && num < 7)) {
-    return img?.sampleUrl || img?.fileUrl || void 0
+  let src = img?.previewUrl
+  if (!/\.(mp4|webm)$/i.test(img?.fileUrl || '')) {
+    const num = +store.selectedColumn
+    if (store.settings.isThumbSampleUrl || (num != 0 && num < 7)) {
+      src = img?.sampleUrl
+    }
+    if (location.hostname === 'danbooru.donmai.us' && src) {
+      src = src.replace(/(.*)\/180x180\/(.*)jpg/, '$1/720x720/$2webp')
+    }
   }
-  if (location.hostname === 'danbooru.donmai.us' && img?.previewUrl) {
-    img.previewUrl = img.previewUrl.replace(/(.*)\/180x180\/(.*)jpg/, '$1/720x720/$2webp')
-  }
-  return img?.previewUrl || img?.fileUrl || void 0
+  return src || img?.fileUrl || void 0
 }
 
 const onCtxMenu = (ev: MouseEvent, img: Post) => {
