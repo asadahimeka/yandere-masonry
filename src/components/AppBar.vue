@@ -1,9 +1,9 @@
 <template>
   <v-app-bar app dense flat :elevation="2">
     <v-app-bar-nav-icon @click="store.toggleDrawer()" />
-    <div v-if="store.isYKSite && showPopAction" style="display:flex" class="align-center hidden-sm-and-down">
-      <v-toolbar-title class="mr-4" v-text="popTitle" />
-      <v-switch v-model="isPopSearchByDate" hide-details :label="isPopSearchByDate ? $t('nd4UjZy2ILsc-iW9iu7xR') : $t('elkBQ9moOZ-KMcy5bt_Ts')" />
+    <div v-if="store.isYKSite && showPopAction" style="display:flex" class="align-center">
+      <v-toolbar-title class="mr-4 hidden-md-and-down" v-text="popTitle" />
+      <v-switch v-model="isPopSearchByDate" class="hidden-sm-and-down" hide-details :label="isPopSearchByDate ? $t('nd4UjZy2ILsc-iW9iu7xR') : $t('elkBQ9moOZ-KMcy5bt_Ts')" />
       <v-menu transition="slide-y-transition" offset-y>
         <template #activator="{ on, attrs }">
           <v-btn small class="ml-4" v-bind="attrs" v-on="on">
@@ -28,7 +28,7 @@
         min-width="auto"
       >
         <template #activator="{ on, attrs }">
-          <div v-show="isPopSearchByDate" class="ml-1 align-center" style="display: flex;width: 211px;">
+          <div v-show="isPopSearchByDate" class="ml-1 align-center hidden-sm-and-down" style="display: flex;width: 211px;">
             <v-btn icon @click="loadPrevPeriod()">
               <v-icon>{{ mdiChevronLeft }}</v-icon>
             </v-btn>
@@ -53,11 +53,11 @@
           @input="showPopDatePicker = false"
         />
       </v-menu>
-      <v-btn class="ml-3" icon href="/post?_wf=1">
+      <v-btn class="ml-3 hidden-sm-and-down" icon href="/post?_wf=1">
         <v-icon>{{ mdiHome }}</v-icon>
       </v-btn>
     </div>
-    <div v-else-if="store.showPostList" style="display:flex" class="align-center hidden-sm-and-down">
+    <div v-else-if="store.showPostList" style="display:flex" class="align-center">
       <v-toolbar-title class="hidden-md-and-down" v-text="title" />
       <input
         :value="store.currentPage"
@@ -66,16 +66,16 @@
         @keyup="goToPage($event)"
       >
       <template v-if="store.isYKSite">
-        <v-btn v-if="userName" :title="$t('HzMBcS2oNGVIoLiHWprim')" icon @click="fetchTaggedPosts(`vote:3:${userName} order:vote`)">
+        <v-btn v-if="userName" class="hidden-sm-and-down" :title="$t('HzMBcS2oNGVIoLiHWprim')" icon @click="fetchTaggedPosts(`vote:3:${userName} order:vote`)">
           <v-icon>{{ mdiStar }}</v-icon>
         </v-btn>
-        <v-btn :title="$t('DXEhXAQbkiCMU_l252jo_')" icon @click="showPool()">
+        <v-btn class="hidden-sm-and-down" :title="$t('DXEhXAQbkiCMU_l252jo_')" icon @click="showPool()">
           <v-icon :size="20">{{ mdiImageMultiple }}</v-icon>
         </v-btn>
-        <v-btn :title="$t('9juZMc0gPIgvMPKVORpJ1')" icon @click="goToPopularPage()">
+        <v-btn class="hidden-sm-and-down" :title="$t('9juZMc0gPIgvMPKVORpJ1')" icon @click="goToPopularPage()">
           <v-icon>{{ mdiFire }}</v-icon>
         </v-btn>
-        <v-btn :title="$t('6acPWiYq2-OdySa2_xqDu')" icon @click="fetchTaggedPosts('order:random')">
+        <v-btn class="hidden-sm-and-down" :title="$t('6acPWiYq2-OdySa2_xqDu')" icon @click="fetchTaggedPosts('order:random')">
           <v-icon>{{ mdiShuffle }}</v-icon>
         </v-btn>
       </template>
@@ -113,7 +113,7 @@
       </v-btn>
     </div>
     <div v-else-if="store.showPoolList" style="display:flex" class="align-center">
-      <v-toolbar-title v-if="store.showPoolList" class="mr-3">Pools</v-toolbar-title>
+      <v-toolbar-title v-if="store.showPoolList" class="mr-3 hidden-md-and-down">Pools</v-toolbar-title>
       <v-text-field
         v-model="poolQueryTerm"
         hide-details
@@ -123,7 +123,7 @@
       <v-btn class="ml-3" icon href="/post?_wf=1">
         <v-icon>{{ mdiHome }}</v-icon>
       </v-btn>
-      <v-btn :title="$t('9juZMc0gPIgvMPKVORpJ1')" icon @click="goToPopularPage()">
+      <v-btn class="hidden-sm-and-down" :title="$t('9juZMc0gPIgvMPKVORpJ1')" icon @click="goToPopularPage()">
         <v-icon>{{ mdiFire }}</v-icon>
       </v-btn>
     </div>
@@ -143,7 +143,7 @@
       </v-btn>
       <v-menu dense offset-y :close-on-content-click="false">
         <template #activator="{ on, attrs }">
-          <v-btn :title="$t('OKs1ePekQA4Ona839U114')" icon v-bind="attrs" v-on="on">
+          <v-btn class="hidden-md-and-down" :title="$t('OKs1ePekQA4Ona839U114')" icon v-bind="attrs" v-on="on">
             <v-icon>{{ mdiDownload }}</v-icon>
           </v-btn>
         </template>
@@ -205,12 +205,12 @@
     <v-btn :title="$t('u8mEnSo4mxDRUbj7FeAll')" icon @click="toggleDarkmode">
       <v-icon>{{ mdiBrightness6 }}</v-icon>
     </v-btn>
-    <v-btn :title="$t('OrwwNKZ7I70-ecpspE8d_')" icon @click="toggleFullscreen">
+    <v-btn class="hidden-md-and-down" :title="$t('OrwwNKZ7I70-ecpspE8d_')" icon @click="toggleFullscreen">
       <v-icon :size="30">{{ store.isFullscreen ? mdiFullscreenExit : mdiFullscreen }}</v-icon>
     </v-btn>
     <v-menu transition="slide-y-transition" offset-y>
       <template #activator="{ on, attrs }">
-        <v-btn title="Language" icon v-bind="attrs" v-on="on">
+        <v-btn class="hidden-md-and-down" title="Language" icon v-bind="attrs" v-on="on">
           <v-icon>{{ mdiTranslate }}</v-icon>
         </v-btn>
       </template>
@@ -225,7 +225,7 @@
     <v-btn :title="$t('UxxldE9xRwmQctrvba5Y8')" icon @click="store.showSettings = true">
       <v-icon :size="22">{{ mdiCog }}</v-icon>
     </v-btn>
-    <v-btn :title="$t('ClZdL9hGweOokP7Mn_Ptq')" icon @click="exitMasonry">
+    <v-btn class="hidden-md-and-down" :title="$t('ClZdL9hGweOokP7Mn_Ptq')" icon @click="exitMasonry">
       <v-icon>{{ mdiLocationExit }}</v-icon>
     </v-btn>
     <v-progress-linear
@@ -368,7 +368,11 @@ const fetchTaggedPosts = (tags: string) => {
 
 const showTagsInput = () => {
   if (searchState.showInput) {
-    fetchTaggedPosts(searchState.searchTerm)
+    if (!searchState.searchTerm) {
+      searchState.showInput = false
+    } else {
+      fetchTaggedPosts(searchState.searchTerm)
+    }
   } else {
     searchState.showInput = true
   }

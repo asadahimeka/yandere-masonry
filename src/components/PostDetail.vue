@@ -114,7 +114,7 @@
             fab
             small
             v-bind="attrs"
-            class="mr-1"
+            class="mr-1 hidden-sm-and-down"
             v-on="on"
             @click.stop="reqFullscreen"
           >
@@ -143,7 +143,7 @@
           <v-btn
             fab
             small
-            class="mr-1 hidden-sm-and-down"
+            class="mr-1"
             v-bind="attrs"
             v-on="on"
             @click.stop="zoomOutImg()"
@@ -171,6 +171,7 @@
       flat
     >
       <v-chip
+        class="hidden-xs-only"
         small
         role="button"
         tabindex="0"
@@ -179,7 +180,7 @@
       />
       <v-chip
         v-if="imgCreateTime"
-        class="ml-1"
+        class="ml-1 hidden-sm-and-down"
         small
         :title="imageSelected.createdTime"
         v-text="imgCreateTime"
@@ -304,7 +305,8 @@
         <span>{{ $t('t83UAY18UebTg1_-zFGP3') }}</span>
       </v-tooltip>
     </v-toolbar>
-    <div v-show="showImageToolbar" class="img_detail_btn_color hidden-sm-and-down">
+    <!-- <div v-show="showImageToolbar" class="img_detail_btn_color hidden-sm-and-down"> -->
+    <div v-show="showImageToolbar" class="img_detail_btn_color">
       <!-- <div v-show="!isVideo" style="position: absolute;z-index: 10;bottom: 12px;padding: 0 12px;"> -->
       <div style="position: absolute;z-index: 10;bottom: 12px;padding: 0 12px;">
         <v-chip
@@ -345,7 +347,7 @@
             <span>{{ $t('u0K7A_hv1RZSJl6TDR61A') }}</span>
           </v-chip>
         </template>
-        <v-chip-group v-show="showTagChipGroup" column>
+        <v-chip-group v-show="showTagChipGroup" column class="img_detail_tag_list">
           <v-chip
             v-for="(item, i) in postDetail.tags || []"
             :key="i"
@@ -361,10 +363,10 @@
           />
         </v-chip-group>
       </div>
-      <v-btn fab small class="poa_left_center" style="z-index: 10;" @click.stop="showPrevPost">
+      <v-btn fab small class="poa_left_center hidden-sm-and-down" style="z-index: 10;" @click.stop="showPrevPost">
         <v-icon>{{ mdiChevronLeft }}</v-icon>
       </v-btn>
-      <v-btn fab small class="poa_right_center" style="z-index: 10;" @click.stop="showNextPost">
+      <v-btn fab small class="poa_right_center hidden-sm-and-down" style="z-index: 10;" @click.stop="showNextPost">
         <v-icon>{{ mdiChevronRight }}</v-icon>
       </v-btn>
     </div>

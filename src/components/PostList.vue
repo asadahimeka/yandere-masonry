@@ -135,7 +135,7 @@
           <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" @click.stop="openDetail(image)">
             <v-icon>{{ mdiLinkVariant }}</v-icon>
           </v-btn>
-          <v-btn icon color="#fff" :title="$t('hVmfDxXoj8vkgVQabEOSr')" @click.stop="addToSelectedList(image)">
+          <v-btn class="hidden-md-and-down" icon color="#fff" :title="$t('hVmfDxXoj8vkgVQabEOSr')" @click.stop="addToSelectedList(image)">
             <v-icon>{{ mdiPlaylistPlus }}</v-icon>
           </v-btn>
           <v-btn icon color="#fff" :title="$t('VpuyxZtIoDF9-YyOm0tK_')" @click.stop="downloadCtxPost(image)">
@@ -169,7 +169,7 @@
         <v-list-item @click="openDetail()">
           <v-list-item-title>{{ $t('EsiorRgoeHI8h7IHMLDA4') }}</v-list-item-title>
         </v-list-item>
-        <v-list-item @click="addToSelectedList()">
+        <v-list-item class="hidden-md-and-down" @click="addToSelectedList()">
           <v-list-item-title>{{ $t('hVmfDxXoj8vkgVQabEOSr') }}</v-list-item-title>
         </v-list-item>
       </v-list>

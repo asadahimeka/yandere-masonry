@@ -19,6 +19,28 @@
     </v-list-item>
     <v-divider />
     <v-list dense nav>
+      <v-list-item class="hidden-md-and-up">
+        <v-list-item-content>
+          <v-list-item-title>{{ $t('e4_fgvntwNlfxgJUc2dXK') }}</v-list-item-title>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-menu transition="slide-y-transition" offset-y>
+            <template #activator="{ on, attrs }">
+              <v-btn small v-bind="attrs" class="sel_menu_btn" style="max-width: 100px;" v-on="on">
+                {{ currentLanglabel }}
+                <v-icon :size="16">{{ mdiChevronDown }}</v-icon>
+              </v-btn>
+            </template>
+            <v-list dense>
+              <v-list-item-group v-model="currentLang" color="primary">
+                <v-list-item v-for="lang in langList" :key="lang.value" :value="lang.value" dense @click="selectLang(lang.value)">
+                  <v-list-item-title>{{ lang.label }}</v-list-item-title>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+          </v-menu>
+        </v-list-item-action>
+      </v-list-item>
       <v-list-item class="mb-0">
         <v-list-item-content>
           <v-list-item-title>
@@ -427,5 +449,21 @@ const actCol = computed(() => {
 const selColumn = (val: string) => {
   store.selectedColumn = val
   localStorage.setItem('__masonry_col', val)
+}
+
+const currentLang = ref(i18n.locale)
+const langList = [
+  { value: 'zh-Hans', label: '简体中文' },
+  { value: 'zh-Hant', label: '繁體中文' },
+  { value: 'ja', label: '日本語' },
+  { value: 'en', label: 'English' },
+]
+const currentLanglabel = computed(() => {
+  return langList.find(e => e.value === currentLang.value)?.label
+})
+const selectLang = (val: string) => {
+  currentLang.value = val
+  i18n.locale = val
+  localStorage.setItem('__LANG', val)
 }
 </script>
