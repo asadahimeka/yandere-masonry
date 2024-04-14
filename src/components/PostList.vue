@@ -236,7 +236,7 @@ const maxHeightStyle = computed(() => {
 
 const getImgSrc = (img?: Post) => {
   const num = +store.selectedColumn
-  if (num != 0 && num < 7) {
+  if (store.settings.isThumbSampleUrl || (num != 0 && num < 7)) {
     return img?.sampleUrl || img?.fileUrl || void 0
   }
   if (location.hostname === 'danbooru.donmai.us' && img?.previewUrl) {

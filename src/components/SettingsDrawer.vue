@@ -201,6 +201,18 @@
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
+          <v-list-item-title>{{ $t('4yzHPggVky2QKFD2TbBhl') }}</v-list-item-title>
+          <v-list-item-subtitle :title="$t('HSx0XMZFid_lVuwjzrhH0')">{{ $t('HSx0XMZFid_lVuwjzrhH0') }}</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-switch
+            v-model="store.settings.isThumbSampleUrl"
+            @change="onThumbSampleUrlChange"
+          />
+        </v-list-item-action>
+      </v-list-item>
+      <v-list-item>
+        <v-list-item-content>
           <v-list-item-title>{{ $t('PBjdNKuj02doUvOf2zZqP') }}</v-list-item-title>
           <v-list-item-subtitle :title="$t('z_oL9s5fS164W4_gITOGZ')">{{ $t('z_oL9s5fS164W4_gITOGZ') }}</v-list-item-subtitle>
         </v-list-item-content>
@@ -226,8 +238,8 @@
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title>自动进入瀑布流模式</v-list-item-title>
-          <v-list-item-subtitle>打开源站时直接进入瀑布流浏览模式</v-list-item-subtitle>
+          <v-list-item-title>{{ $t('lkCkz1OpNtTCFRfGCEoBp') }}</v-list-item-title>
+          <v-list-item-subtitle :title="$t('EZd1QQdgUDjT3yya5ZYe-')">{{ $t('EZd1QQdgUDjT3yya5ZYe-') }}</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
           <v-switch
@@ -320,6 +332,10 @@ const onKeyupSwitchChange = (val: any) => {
 const onImgPreloadChange = (val: any) => {
   localStorage.setItem('__fullImgPreload', val ? '1' : '')
   location.reload()
+}
+
+const onThumbSampleUrlChange = (val: any) => {
+  localStorage.setItem('__thumbSampleUrl', val ? '1' : '')
 }
 
 const isFitScreen = ref(localStorage.getItem('__fitScreen') != '0')

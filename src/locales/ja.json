@@ -63,7 +63,7 @@
   "iJ0h220tvMmUhkfIMYI-W": "変更履歴",
   "iRt9V9wNQASic3D7-wTZo": "実験的/保証されていません",
   "jDjashxA-oBPo19DXI504": "元の画像",
-  "jMod2JozzAnwHuD-3KuPb": "以下のラベルを入力し、Enter キーを押して追加します",
+  "jMod2JozzAnwHuD-3KuPb": "以下のタグを入力し、Enter キーを押して追加します",
   "jerGO2OCuW9TdnEnGYRWd": "クリックして表示",
   "juT6gwLOg5r1h2vFpFf6P": "著作権",
   "k4YzDnBtd_S2UpAQucGxF": "JPEG画像をダウンロード",
@@ -101,9 +101,13 @@
   "u0K7A_hv1RZSJl6TDR61A": "Child",
   "99kLMSzDYJCAf1yK9QYzy": "コピーされました",
   "EVPG1YZDtykdz3htyf11u": "クリップボードにコピー",
-  "fbIpwMw2yVoSxP66OJ32z": "写真が画面いっぱいに表示される",
+  "fbIpwMw2yVoSxP66OJ32z": "画像が画面いっぱいに表示される",
   "kCYFwKpwznYIKRmB1tCww": "クリップボードから読み取る",
   "si-zDDRFrEwDTCkp53Q44": "クリップボードの許可を許可してください",
   "tEvQYzSVnggYAcM1uv9Tt": "この機能をオフにすると、画面の両側が空白になります。",
-  "eOxsWLzwqrlhBdVMwz-rH": "おすすめサイト"
+  "eOxsWLzwqrlhBdVMwz-rH": "おすすめサイト",
+  "4yzHPggVky2QKFD2TbBhl": "サムネイルには大きな画像を使用する",
+  "HSx0XMZFid_lVuwjzrhH0": "画像一覧のサムネイルは大きな画像リンク(sample_url)を使用しています",
+  "EZd1QQdgUDjT3yya5ZYe-": "ソースサイトを開いたときに直接ウォーターフォールブラウジングモードに入る",
+  "lkCkz1OpNtTCFRfGCEoBp": "自動的にウォーターフォールフローモードに入ります"
 }

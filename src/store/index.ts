@@ -11,6 +11,7 @@ interface AppSettings {
   masonryLayout: string
   isListenKeyupEvent: boolean
   credentialQuery: string
+  isThumbSampleUrl: boolean
 }
 
 interface AppState {
@@ -67,6 +68,7 @@ const store = Vue.observable<AppState>({
     masonryLayout: localStorage.getItem('__masonryLayout') || 'masonry',
     isListenKeyupEvent: localStorage.getItem('__listenKeyup') !== '0',
     credentialQuery: localStorage.getItem('__credentialQuery') || '',
+    isThumbSampleUrl: !!localStorage.getItem('__thumbSampleUrl'),
   },
   toggleDrawer() {
     store.showDrawer = !store.showDrawer
