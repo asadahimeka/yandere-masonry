@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.32.1
+// @version              0.32.2
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -47,7 +47,7 @@ var __publicField = (obj, key, value) => {
   var prepareStyle = "#enter-masonry{position:fixed;z-index:99;right:16px;top:10px;height:30px;padding:6px 10px;font-size:13px;border:0;border-radius:6px;color:#fff;outline:0;background:linear-gradient(to right,#ff758c 0%,#ff7eb3 100%);opacity:1;transform:scale(1);transition:opacity,transform .2s;cursor:pointer}#enter-masonry:hover{opacity:.8;transform:scale(1.05)}#locale-select{position:fixed;z-index:99;right:110px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}#wf-type-select{position:fixed;z-index:99;right:190px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}\n";
   var ydStyle = 'a.thumb{padding-bottom:5px;border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08] "}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743] "}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272] "}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2] "}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:100%;height:auto;margin-top:0;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}.mm-masonry{--gap: 24;--col-width: 240}.mm-masonry{--_col-width: var(--col-width, 280);--_col-width-px: calc(var(--_col-width) * 1px);--_gap: calc(var(--gap, 20) * 1px);display:var(--display, grid)!important;grid-template-columns:repeat(auto-fill,minmax(var(--_col-width-px),1fr));grid-auto-rows:1px;column-gap:var(--_gap)}.mm-masonry__item{--img-proportional-height: calc(var(--h) * var(--_col-width) / (var(--w)));grid-row-end:span var(--img-proportional-height, 240);overflow:hidden}.mm-masonry__item:not(:last-child){margin-bottom:var(--_gap)}#post-list ul#post-list-posts .mm-masonry__item .inner,#post-popular ul#post-list-posts .mm-masonry__item .inner{height:100%!important}.mm-masonry__img{width:100%!important;height:100%!important;object-fit:cover}.justified-container{display:flex!important;flex-wrap:wrap}.justified-container:after{content:"";flex-grow:999999999}.justified-item{position:relative}.justified-item img.preview{position:absolute;top:0;left:0;width:100%;vertical-align:bottom;object-fit:cover}\n';
   var knStyle = "#lsidebar{display:none}#post-popular ul#post-list-posts{display:flex;justify-content:center;flex-wrap:wrap}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
-  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;max-width:100vw;max-height:100vh;margin:0 auto}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}::-webkit-scrollbar{width:0px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e9eef6;border-radius:7px}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.posts-image-card{margin-bottom:8px}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{--jstf-w: 340;--jstf-w-px: 340PX;position:relative;flex-grow:calc(var(--w) * var(--jstf-w) / var(--h));width:calc(var(--w) * var(--jstf-w-px) / var(--h));margin-bottom:0!important;padding-bottom:0!important;background-color:#dcdcdc}@media screen and (max-width: 500px){.justified-container .posts-image-card{--jstf-w: 240;--jstf-w-px: 240PX}}.justified-container .posts-image-card:before{content:"";display:block;padding-bottom:calc(var(--h) / var(--w) * 100%)!important}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .img_detail_btn_color .v-chip.primary,.theme--light .img_detail_btn_color .v-btn.primary{background-color:#8e24aab3!important;border-color:#8e24aab3!important}.theme--dark .img_detail_btn_color .v-chip,.theme--dark .img_detail_btn_color .v-btn{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-type{position:absolute!important;top:0;right:0px;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}@media screen and (min-width: 768px){.wf-no-fit-screen{max-width:62.5vw;margin:16px auto}}.virtual-waterfall>[data-index]{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f;border-radius:4px}.theme--light .v-app-bar{box-shadow:none!important;background:#f6f8fc!important}.theme--light .v-app-bar,.theme--light .v-app-bar .v-toolbar__content{height:64px!important}.theme--light .v-main{padding-top:64px!important}.theme--light .v-app-bar .v-toolbar__title+input{width:50px!important;background-color:#eaf1fb!important;border-radius:24px!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#5f6368!important}.theme--light .app-bar-tag-input .v-input .v-input__slot:before,.theme--light .app-bar-tag-input .v-input .v-input__slot:after{display:none}.theme--light .app-bar-tag-input .v-input input{padding:5px 44px 5px 10px;background-color:#eaf1fb;min-height:48px;border-radius:24px}.theme--light .app-bar-tag-input:not([style*="none"])+.v-btn{position:relative;left:-50px}.theme--light.v-list,.theme--light.v-navigation-drawer{background:#e9eef6!important}.theme--light .img_detail_btn_color .v-chip,.theme--light .img_detail_btn_color .v-chip .v-icon,.theme--light .img_detail_btn_color .v-btn{background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#001d35!important;color:#1a73e8!important;box-shadow:none!important;font-weight:500}.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text){padding-bottom:2px;border-radius:10px;color:#001d35;background-color:#c2e7ff}.theme--light .blacklist_combobox .v-input__slot{padding-left:8px!important}.theme--light .v-text-field--outlined{border-radius:20px}\n';
+  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;max-width:100vw;max-height:100vh;margin:0 auto}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}.img_detail_tag_list .v-slide-group__content{max-height:72vh;overflow-y:auto}::-webkit-scrollbar{width:0px}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e9eef6;border-radius:7px}.theme--dark .img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.posts-image-card{margin-bottom:8px}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{--jstf-w: 340;--jstf-w-px: 340PX;position:relative;flex-grow:calc(var(--w) * var(--jstf-w) / var(--h));width:calc(var(--w) * var(--jstf-w-px) / var(--h));margin-bottom:0!important;padding-bottom:0!important;background-color:#dcdcdc}@media screen and (max-width: 500px){.justified-container .posts-image-card{--jstf-w: 240;--jstf-w-px: 240PX}}.justified-container .posts-image-card:before{content:"";display:block;padding-bottom:calc(var(--h) / var(--w) * 100%)!important}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-type{position:absolute!important;top:0;right:0px;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}@media screen and (min-width: 768px){.wf-no-fit-screen{max-width:62.5vw;margin:16px auto}}.virtual-waterfall>[data-index]{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f;border-radius:4px}.theme--light .v-app-bar{box-shadow:none!important;background:#f6f8fc!important}.theme--light .v-app-bar,.theme--light .v-app-bar .v-toolbar__content{height:64px!important}.theme--light .v-main{padding-top:64px!important}.theme--light .v-app-bar .v-toolbar__title+input{width:50px!important;background-color:#eaf1fb!important;border-radius:24px!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#5f6368!important}.theme--light .app-bar-tag-input .v-input .v-input__slot:before,.theme--light .app-bar-tag-input .v-input .v-input__slot:after{display:none}.theme--light .app-bar-tag-input .v-input input{padding:5px 44px 5px 10px;background-color:#eaf1fb;min-height:48px;border-radius:24px}.theme--light .app-bar-tag-input:not([style*="none"])+.v-btn{position:relative;left:-50px}.theme--light.v-list,.theme--light.v-navigation-drawer{background:#e9eef6!important}.theme--dark .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--dark .img_detail_btn_color .v-chip.tag_type_general,.theme--dark .img_detail_btn_color .v-btn{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag) .v-icon,.theme--light .img_detail_btn_color .v-chip.tag_type_general,.theme--light .img_detail_btn_color .v-btn{background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#1a73e8!important;box-shadow:none!important;font-weight:500}.img_detail_btn_color .v-chip.img_detail_tag{font-weight:500}.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text,.v-date-picker-table__current){padding-bottom:2px;border-radius:10px;color:#001d35;background-color:#c2e7ff}.theme--light .refresh_posts_btn{box-shadow:0 1px 2px #0000,0 1px 3px 1px #0000;background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#001d35}.theme--light .img_detail_loading .v-progress-circular{color:#1a73e8!important;caret-color:#1a73e8!important}.theme--light .blacklist_combobox .v-input__slot{padding-left:8px!important}.theme--light .v-text-field--outlined{border-radius:20px}\n';
   async function prepareApp(callback) {
     if (doNotRun())
       return;
@@ -308,7 +308,7 @@ var __publicField = (obj, key, value) => {
   }
   async function loadDeps() {
     await loadScript("https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.16/vue.min.js");
-    await loadScript("https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.1/vuetify.min.js");
+    await loadScript("https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.js");
     await loadScript("https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.28.2/vue-i18n.min.js");
     await loadScript("https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.0.11/fxparser.min.js");
   }
@@ -323,7 +323,7 @@ var __publicField = (obj, key, value) => {
     <title>${location.host.toUpperCase()} Masonry</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.1/vuetify.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.css">
     <style>${customStyle}</style>
   `;
   }
@@ -624,6 +624,9 @@ var __publicField = (obj, key, value) => {
   const kCYFwKpwznYIKRmB1tCww$3 = "\u4ECE\u526A\u8D34\u677F\u8BFB\u53D6";
   const fbIpwMw2yVoSxP66OJ32z$3 = "\u56FE\u7247\u94FA\u6EE1\u5C4F\u5E55";
   const tEvQYzSVnggYAcM1uv9Tt$3 = "\u5173\u95ED\u6B64\u529F\u80FD\u7684\u8BDD\u5C4F\u5E55\u4E24\u4FA7\u4F1A\u7559\u767D";
+  const HSx0XMZFid_lVuwjzrhH0$3 = "\u56FE\u7247\u5217\u8868\u7684\u7F29\u7565\u56FE\u4F7F\u7528\u5927\u56FE\u94FE\u63A5(sample_url)";
+  const lkCkz1OpNtTCFRfGCEoBp$3 = "\u81EA\u52A8\u8FDB\u5165\u7011\u5E03\u6D41\u6A21\u5F0F";
+  const e4_fgvntwNlfxgJUc2dXK$3 = "\u8BED\u8A00";
   var zhHans = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$3,
     "ZtQHZx-pEjmu_o3dQD1fc": "\u793E\u56E2",
@@ -731,7 +734,12 @@ var __publicField = (obj, key, value) => {
     tEvQYzSVnggYAcM1uv9Tt: tEvQYzSVnggYAcM1uv9Tt$3,
     "99kLMSzDYJCAf1yK9QYzy": "\u5DF2\u590D\u5236",
     "si-zDDRFrEwDTCkp53Q44": "\u8BF7\u5141\u8BB8\u526A\u8D34\u677F\u6743\u9650",
-    "eOxsWLzwqrlhBdVMwz-rH": "\u63A8\u8350\u7F51\u7AD9"
+    "eOxsWLzwqrlhBdVMwz-rH": "\u63A8\u8350\u7F51\u7AD9",
+    "4yzHPggVky2QKFD2TbBhl": "\u7F29\u7565\u56FE\u4F7F\u7528\u5927\u56FE",
+    HSx0XMZFid_lVuwjzrhH0: HSx0XMZFid_lVuwjzrhH0$3,
+    lkCkz1OpNtTCFRfGCEoBp: lkCkz1OpNtTCFRfGCEoBp$3,
+    "EZd1QQdgUDjT3yya5ZYe-": "\u6253\u5F00\u6E90\u7AD9\u65F6\u76F4\u63A5\u8FDB\u5165\u7011\u5E03\u6D41\u6D4F\u89C8\u6A21\u5F0F",
+    e4_fgvntwNlfxgJUc2dXK: e4_fgvntwNlfxgJUc2dXK$3
   };
   const UxxldE9xRwmQctrvba5Y8$2 = "\u8A2D\u7F6E";
   const A16qoBulYQJLbHe9mqNwm$2 = "\u5305\u542B\u88F8\u9732\u3001\u6027\u611B\u63CF\u5BEB\u5167\u5BB9\u7B49\u904E\u6FC0\u5167\u5BB9";
@@ -798,6 +806,9 @@ var __publicField = (obj, key, value) => {
   const fbIpwMw2yVoSxP66OJ32z$2 = "\u5716\u7247\u92EA\u6EFF\u87A2\u5E55";
   const kCYFwKpwznYIKRmB1tCww$2 = "\u5F9E\u526A\u8CBC\u7C3F\u8B80\u53D6";
   const tEvQYzSVnggYAcM1uv9Tt$2 = "\u95DC\u9589\u6B64\u529F\u80FD\u7684\u8A71\u87A2\u5E55\u5169\u5074\u6703\u7559\u767D";
+  const HSx0XMZFid_lVuwjzrhH0$2 = "\u5716\u7247\u6E05\u55AE\u7684\u7E2E\u5716\u4F7F\u7528\u5927\u5716\u9023\u7D50(sample_url)";
+  const lkCkz1OpNtTCFRfGCEoBp$2 = "\u81EA\u52D5\u9032\u5165\u7011\u5E03\u6D41\u6A21\u5F0F";
+  const e4_fgvntwNlfxgJUc2dXK$2 = "\u8A9E\u8A00";
   var zhHant = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$2,
     "1F-R4qChHIzZaohu5GJzl": "\u5F62\u5982: &api_key=xx&user_id=1",
@@ -905,7 +916,12 @@ var __publicField = (obj, key, value) => {
     kCYFwKpwznYIKRmB1tCww: kCYFwKpwznYIKRmB1tCww$2,
     "si-zDDRFrEwDTCkp53Q44": "\u8ACB\u5141\u8A31\u526A\u8CBC\u7C3F\u6B0A\u9650",
     tEvQYzSVnggYAcM1uv9Tt: tEvQYzSVnggYAcM1uv9Tt$2,
-    "eOxsWLzwqrlhBdVMwz-rH": "\u63A8\u85A6\u7DB2\u7AD9"
+    "eOxsWLzwqrlhBdVMwz-rH": "\u63A8\u85A6\u7DB2\u7AD9",
+    "4yzHPggVky2QKFD2TbBhl": "\u7E2E\u5716\u4F7F\u7528\u5927\u5716",
+    HSx0XMZFid_lVuwjzrhH0: HSx0XMZFid_lVuwjzrhH0$2,
+    "EZd1QQdgUDjT3yya5ZYe-": "\u958B\u555F\u4F86\u6E90\u7AD9\u6642\u76F4\u63A5\u9032\u5165\u7011\u5E03\u6D41\u700F\u89BD\u6A21\u5F0F",
+    lkCkz1OpNtTCFRfGCEoBp: lkCkz1OpNtTCFRfGCEoBp$2,
+    e4_fgvntwNlfxgJUc2dXK: e4_fgvntwNlfxgJUc2dXK$2
   };
   const UxxldE9xRwmQctrvba5Y8$1 = "Settings";
   const A16qoBulYQJLbHe9mqNwm$1 = "Contains excessive content such as nudity and sexual descriptions";
@@ -973,6 +989,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const fbIpwMw2yVoSxP66OJ32z$1 = "Images fill the screen";
   const kCYFwKpwznYIKRmB1tCww$1 = "Read from clipboard";
   const tEvQYzSVnggYAcM1uv9Tt$1 = "When this feature is turned off, both sides of the screen will be blank.";
+  const HSx0XMZFid_lVuwjzrhH0$1 = "The thumbnail of the image list uses the large image link (sample_url)";
+  const lkCkz1OpNtTCFRfGCEoBp$1 = "Automatically enter waterfall mode";
+  const e4_fgvntwNlfxgJUc2dXK$1 = "Language";
   var en = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$1,
     "1F-R4qChHIzZaohu5GJzl": "e.g: &api_key=xx&user_id=1",
@@ -1080,7 +1099,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     kCYFwKpwznYIKRmB1tCww: kCYFwKpwznYIKRmB1tCww$1,
     "si-zDDRFrEwDTCkp53Q44": "Please allow clipboard permission",
     tEvQYzSVnggYAcM1uv9Tt: tEvQYzSVnggYAcM1uv9Tt$1,
-    "eOxsWLzwqrlhBdVMwz-rH": "Recommended Websites"
+    "eOxsWLzwqrlhBdVMwz-rH": "Recommended Websites",
+    "4yzHPggVky2QKFD2TbBhl": "Use sample_url for thumbnail",
+    HSx0XMZFid_lVuwjzrhH0: HSx0XMZFid_lVuwjzrhH0$1,
+    "EZd1QQdgUDjT3yya5ZYe-": "Directly enter waterfall browsing mode when opening the source site",
+    lkCkz1OpNtTCFRfGCEoBp: lkCkz1OpNtTCFRfGCEoBp$1,
+    e4_fgvntwNlfxgJUc2dXK: e4_fgvntwNlfxgJUc2dXK$1
   };
   const UxxldE9xRwmQctrvba5Y8 = "\u8A2D\u5B9A";
   const A16qoBulYQJLbHe9mqNwm = "\u30CC\u30FC\u30C9\u3084\u6027\u7684\u63CF\u5199\u306A\u3069\u306E\u904E\u5EA6\u306A\u5185\u5BB9\u304C\u542B\u307E\u308C\u3066\u3044\u308B\u3082\u306E";
@@ -1144,9 +1168,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const sMkrF8bqCTJZZ1kXTkT_R = "Parent";
   const u0K7A_hv1RZSJl6TDR61A = "Child";
   const EVPG1YZDtykdz3htyf11u = "\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u306B\u30B3\u30D4\u30FC";
-  const fbIpwMw2yVoSxP66OJ32z = "\u5199\u771F\u304C\u753B\u9762\u3044\u3063\u3071\u3044\u306B\u8868\u793A\u3055\u308C\u308B";
+  const fbIpwMw2yVoSxP66OJ32z = "\u753B\u50CF\u304C\u753B\u9762\u3044\u3063\u3071\u3044\u306B\u8868\u793A\u3055\u308C\u308B";
   const kCYFwKpwznYIKRmB1tCww = "\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u304B\u3089\u8AAD\u307F\u53D6\u308B";
   const tEvQYzSVnggYAcM1uv9Tt = "\u3053\u306E\u6A5F\u80FD\u3092\u30AA\u30D5\u306B\u3059\u308B\u3068\u3001\u753B\u9762\u306E\u4E21\u5074\u304C\u7A7A\u767D\u306B\u306A\u308A\u307E\u3059\u3002";
+  const HSx0XMZFid_lVuwjzrhH0 = "\u753B\u50CF\u4E00\u89A7\u306E\u30B5\u30E0\u30CD\u30A4\u30EB\u306F\u5927\u304D\u306A\u753B\u50CF\u30EA\u30F3\u30AF(sample_url)\u3092\u4F7F\u7528\u3057\u3066\u3044\u307E\u3059";
+  const lkCkz1OpNtTCFRfGCEoBp = "\u81EA\u52D5\u7684\u306B\u30A6\u30A9\u30FC\u30BF\u30FC\u30D5\u30A9\u30FC\u30EB\u30D5\u30ED\u30FC\u30E2\u30FC\u30C9\u306B\u5165\u308A\u307E\u3059";
+  const e4_fgvntwNlfxgJUc2dXK = "\u8A00\u8A9E";
   var ja = {
     UxxldE9xRwmQctrvba5Y8,
     "1F-R4qChHIzZaohu5GJzl": "\u4F8B\uFF1A&api_key=xx&user_id=1",
@@ -1212,7 +1239,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "iJ0h220tvMmUhkfIMYI-W": "\u5909\u66F4\u5C65\u6B74",
     "iRt9V9wNQASic3D7-wTZo": "\u5B9F\u9A13\u7684/\u4FDD\u8A3C\u3055\u308C\u3066\u3044\u307E\u305B\u3093",
     "jDjashxA-oBPo19DXI504": "\u5143\u306E\u753B\u50CF",
-    "jMod2JozzAnwHuD-3KuPb": "\u4EE5\u4E0B\u306E\u30E9\u30D9\u30EB\u3092\u5165\u529B\u3057\u3001Enter \u30AD\u30FC\u3092\u62BC\u3057\u3066\u8FFD\u52A0\u3057\u307E\u3059",
+    "jMod2JozzAnwHuD-3KuPb": "\u4EE5\u4E0B\u306E\u30BF\u30B0\u3092\u5165\u529B\u3057\u3001Enter \u30AD\u30FC\u3092\u62BC\u3057\u3066\u8FFD\u52A0\u3057\u307E\u3059",
     jerGO2OCuW9TdnEnGYRWd,
     juT6gwLOg5r1h2vFpFf6P,
     k4YzDnBtd_S2UpAQucGxF,
@@ -1254,7 +1281,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     kCYFwKpwznYIKRmB1tCww,
     "si-zDDRFrEwDTCkp53Q44": "\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u306E\u8A31\u53EF\u3092\u8A31\u53EF\u3057\u3066\u304F\u3060\u3055\u3044",
     tEvQYzSVnggYAcM1uv9Tt,
-    "eOxsWLzwqrlhBdVMwz-rH": "\u304A\u3059\u3059\u3081\u30B5\u30A4\u30C8"
+    "eOxsWLzwqrlhBdVMwz-rH": "\u304A\u3059\u3059\u3081\u30B5\u30A4\u30C8",
+    "4yzHPggVky2QKFD2TbBhl": "\u30B5\u30E0\u30CD\u30A4\u30EB\u306B\u306F\u5927\u304D\u306A\u753B\u50CF\u3092\u4F7F\u7528\u3059\u308B",
+    HSx0XMZFid_lVuwjzrhH0,
+    "EZd1QQdgUDjT3yya5ZYe-": "\u30BD\u30FC\u30B9\u30B5\u30A4\u30C8\u3092\u958B\u3044\u305F\u3068\u304D\u306B\u76F4\u63A5\u30A6\u30A9\u30FC\u30BF\u30FC\u30D5\u30A9\u30FC\u30EB\u30D6\u30E9\u30A6\u30B8\u30F3\u30B0\u30E2\u30FC\u30C9\u306B\u5165\u308B",
+    lkCkz1OpNtTCFRfGCEoBp,
+    e4_fgvntwNlfxgJUc2dXK
   };
   Vue__default["default"].use(VueI18n__default["default"]);
   const langMap = {
@@ -1308,7 +1340,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     settings: {
       masonryLayout: localStorage.getItem("__masonryLayout") || "masonry",
       isListenKeyupEvent: localStorage.getItem("__listenKeyup") !== "0",
-      credentialQuery: localStorage.getItem("__credentialQuery") || ""
+      credentialQuery: localStorage.getItem("__credentialQuery") || "",
+      isThumbSampleUrl: !!localStorage.getItem("__thumbSampleUrl")
     },
     toggleDrawer() {
       store.showDrawer = !store.showDrawer;
@@ -3868,13 +3901,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
   }
   const tagInfoMap = {
-    circle: [i18n.t("ZtQHZx-pEjmu_o3dQD1fc"), "#00bbbbcc"],
-    artist: [i18n.t("Ym0HIEu9Q80qXB31LuC6c"), "#FFB11Bf1"],
-    copyright: [i18n.t("juT6gwLOg5r1h2vFpFf6P"), "#C1328Ede"],
-    character: [i18n.t("aonlPAu9kEkkwNvQg0DBk"), "#00aa00cc"],
+    circle: [i18n.t("ZtQHZx-pEjmu_o3dQD1fc"), "#26C6DA"],
+    artist: [i18n.t("Ym0HIEu9Q80qXB31LuC6c"), "#FB8C00"],
+    copyright: [i18n.t("juT6gwLOg5r1h2vFpFf6P"), "#AB47BC"],
+    character: [i18n.t("aonlPAu9kEkkwNvQg0DBk"), "#66BB6A"],
     general: ["", "#E87A90cc"],
     faults: ["", "#AB3B3Ada"]
   };
+  const tagSortOrder = ["circle", "artist", "copyright", "character", "general"];
   const isCNLang = i18n.locale.includes("zh");
   async function getPostDetail(id) {
     try {
@@ -3899,6 +3933,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
             tagText,
             color: ((_c2 = tagInfoMap[type]) == null ? void 0 : _c2[1]) || tagInfoMap.general[1]
           };
+        }).sort((a, b) => {
+          return tagSortOrder.indexOf(a.type) - tagSortOrder.indexOf(b.type);
         })
       };
     } catch (error) {
@@ -4237,7 +4273,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       };
       const showTagsInput = () => {
         if (searchState.showInput) {
-          fetchTaggedPosts(searchState.searchTerm);
+          if (!searchState.searchTerm) {
+            searchState.showInput = false;
+          } else {
+            fetchTaggedPosts(searchState.searchTerm);
+          }
         } else {
           searchState.showInput = true;
         }
@@ -4460,7 +4500,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
     return _c2("v-app-bar", { attrs: { "app": "", "dense": "", "flat": "", "elevation": 2 } }, [_c2("v-app-bar-nav-icon", { on: { "click": function($event) {
       return _setup.store.toggleDrawer();
-    } } }), _setup.store.isYKSite && _setup.showPopAction ? _c2("div", { staticClass: "align-center hidden-sm-and-down", staticStyle: { "display": "flex" } }, [_c2("v-toolbar-title", { staticClass: "mr-4", domProps: { "textContent": _vm._s(_setup.popTitle) } }), _c2("v-switch", { attrs: { "hide-details": "", "label": _setup.isPopSearchByDate ? _vm.$t("nd4UjZy2ILsc-iW9iu7xR") : _vm.$t("elkBQ9moOZ-KMcy5bt_Ts") }, model: { value: _setup.isPopSearchByDate, callback: function($$v) {
+    } } }), _setup.store.isYKSite && _setup.showPopAction ? _c2("div", { staticClass: "align-center", staticStyle: { "display": "flex" } }, [_c2("v-toolbar-title", { staticClass: "mr-4 hidden-md-and-down", domProps: { "textContent": _vm._s(_setup.popTitle) } }), _c2("v-switch", { staticClass: "hidden-sm-and-down", attrs: { "hide-details": "", "label": _setup.isPopSearchByDate ? _vm.$t("nd4UjZy2ILsc-iW9iu7xR") : _vm.$t("elkBQ9moOZ-KMcy5bt_Ts") }, model: { value: _setup.isPopSearchByDate, callback: function($$v) {
       _setup.isPopSearchByDate = $$v;
     }, expression: "isPopSearchByDate" } }), _c2("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "ml-4", attrs: { "small": "" } }, "v-btn", attrs, false), on), [_c2("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(_setup.mdiCalendarSearch))]), _c2("span", { staticStyle: { "margin-bottom": "2px" } }, [_vm._v(_vm._s(_setup.periodComputedMap[_setup.recentPeriod][0]))])], 1)];
@@ -4469,28 +4509,28 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return _setup.selPeriod(key);
       } } }, [_c2("v-list-item-title", [_c2("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(val[1]))]), _c2("span", [_vm._v(_vm._s(val[0]))])], 1)], 1);
     }), 1)], 1), _c2("v-menu", { attrs: { "close-on-content-click": false, "transition": "scale-transition", "offset-y": "", "min-width": "auto" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.isPopSearchByDate, expression: "isPopSearchByDate" }], staticClass: "ml-1 align-center", staticStyle: { "display": "flex", "width": "211px" } }, [_c2("v-btn", { attrs: { "icon": "" }, on: { "click": function($event) {
+      return [_c2("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.isPopSearchByDate, expression: "isPopSearchByDate" }], staticClass: "ml-1 align-center hidden-sm-and-down", staticStyle: { "display": "flex", "width": "211px" } }, [_c2("v-btn", { attrs: { "icon": "" }, on: { "click": function($event) {
         return _setup.loadPrevPeriod();
       } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiChevronLeft))])], 1), _c2("v-text-field", _vm._g(_vm._b({ attrs: { "prepend-icon": _setup.mdiCalendar, "readonly": "", "hide-details": "" }, model: { value: _setup.popSearchDate, callback: function($$v) {
         _setup.popSearchDate = $$v;
       }, expression: "popSearchDate" } }, "v-text-field", attrs, false), on)), _c2("v-btn", { attrs: { "icon": "" }, on: { "click": function($event) {
         return _setup.loadNextPeriod();
       } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiChevronRight))])], 1)], 1)];
-    } }], null, false, 4183596848), model: { value: _setup.showPopDatePicker, callback: function($$v) {
+    } }], null, false, 996853744), model: { value: _setup.showPopDatePicker, callback: function($$v) {
       _setup.showPopDatePicker = $$v;
     }, expression: "showPopDatePicker" } }, [_c2("v-date-picker", { attrs: { "no-title": "", "locale": "zh-cn", "weekday-format": () => "" }, on: { "input": function($event) {
       _setup.showPopDatePicker = false;
     } }, model: { value: _setup.popSearchDate, callback: function($$v) {
       _setup.popSearchDate = $$v;
-    }, expression: "popSearchDate" } })], 1), _c2("v-btn", { staticClass: "ml-3", attrs: { "icon": "", "href": "/post?_wf=1" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHome))])], 1)], 1) : _setup.store.showPostList ? _c2("div", { staticClass: "align-center hidden-sm-and-down", staticStyle: { "display": "flex" } }, [_c2("v-toolbar-title", { staticClass: "hidden-md-and-down", domProps: { "textContent": _vm._s(_setup.title) } }), _c2("input", { staticClass: "ml-1 mr-2 text-center rounded", style: { width: "40px", height: "30px", border: "1px solid #bbb", color: "inherit" }, domProps: { "value": _setup.store.currentPage }, on: { "keyup": function($event) {
+    }, expression: "popSearchDate" } })], 1), _c2("v-btn", { staticClass: "ml-3 hidden-sm-and-down", attrs: { "icon": "", "href": "/post?_wf=1" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHome))])], 1)], 1) : _setup.store.showPostList ? _c2("div", { staticClass: "align-center", staticStyle: { "display": "flex" } }, [_c2("v-toolbar-title", { staticClass: "hidden-md-and-down", domProps: { "textContent": _vm._s(_setup.title) } }), _c2("input", { staticClass: "ml-1 mr-2 text-center rounded", style: { width: "40px", height: "30px", border: "1px solid #bbb", color: "inherit" }, domProps: { "value": _setup.store.currentPage }, on: { "keyup": function($event) {
       return _setup.goToPage($event);
-    } } }), _setup.store.isYKSite ? [_setup.userName ? _c2("v-btn", { attrs: { "title": _vm.$t("HzMBcS2oNGVIoLiHWprim"), "icon": "" }, on: { "click": function($event) {
+    } } }), _setup.store.isYKSite ? [_setup.userName ? _c2("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("HzMBcS2oNGVIoLiHWprim"), "icon": "" }, on: { "click": function($event) {
       return _setup.fetchTaggedPosts(`vote:3:${_setup.userName} order:vote`);
-    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiStar))])], 1) : _vm._e(), _c2("v-btn", { attrs: { "title": _vm.$t("DXEhXAQbkiCMU_l252jo_"), "icon": "" }, on: { "click": function($event) {
+    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiStar))])], 1) : _vm._e(), _c2("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("DXEhXAQbkiCMU_l252jo_"), "icon": "" }, on: { "click": function($event) {
       return _setup.showPool();
-    } } }, [_c2("v-icon", { attrs: { "size": 20 } }, [_vm._v(_vm._s(_setup.mdiImageMultiple))])], 1), _c2("v-btn", { attrs: { "title": _vm.$t("9juZMc0gPIgvMPKVORpJ1"), "icon": "" }, on: { "click": function($event) {
+    } } }, [_c2("v-icon", { attrs: { "size": 20 } }, [_vm._v(_vm._s(_setup.mdiImageMultiple))])], 1), _c2("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("9juZMc0gPIgvMPKVORpJ1"), "icon": "" }, on: { "click": function($event) {
       return _setup.goToPopularPage();
-    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFire))])], 1), _c2("v-btn", { attrs: { "title": _vm.$t("6acPWiYq2-OdySa2_xqDu"), "icon": "" }, on: { "click": function($event) {
+    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFire))])], 1), _c2("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("6acPWiYq2-OdySa2_xqDu"), "icon": "" }, on: { "click": function($event) {
       return _setup.fetchTaggedPosts("order:random");
     } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiShuffle))])], 1)] : _vm._e(), _c2("v-menu", { attrs: { "max-width": 200, "max-height": "80vh", "transition": "slide-y-transition", "nudge-bottom": "5px", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on }) {
       return [_c2("v-slide-x-transition", [_c2("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.searchState.showInput, expression: "searchState.showInput" }], staticClass: "app-bar-tag-input ml-4", staticStyle: { "width": "200px" } }, [_c2("v-text-field", _vm._g({ attrs: { "hide-details": "" }, on: { "input": _setup.onSearchTermInput, "click": function($event) {
@@ -4508,17 +4548,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       } } }, [_c2("v-list-item-title", { domProps: { "textContent": _vm._s(item) } })], 1);
     }), 1)], 1), _c2("v-btn", { attrs: { "title": _vm.$t("ZztrWbSaaaas3v0cHtSmh"), "icon": "" }, on: { "click": function($event) {
       return _setup.showTagsInput();
-    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiMagnify))])], 1)], 2) : _setup.store.showPoolList ? _c2("div", { staticClass: "align-center", staticStyle: { "display": "flex" } }, [_setup.store.showPoolList ? _c2("v-toolbar-title", { staticClass: "mr-3" }, [_vm._v("Pools")]) : _vm._e(), _c2("v-text-field", { attrs: { "hide-details": "", "append-icon": _setup.mdiMagnify }, on: { "keyup": function($event) {
+    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiMagnify))])], 1)], 2) : _setup.store.showPoolList ? _c2("div", { staticClass: "align-center", staticStyle: { "display": "flex" } }, [_setup.store.showPoolList ? _c2("v-toolbar-title", { staticClass: "mr-3 hidden-md-and-down" }, [_vm._v("Pools")]) : _vm._e(), _c2("v-text-field", { attrs: { "hide-details": "", "append-icon": _setup.mdiMagnify }, on: { "keyup": function($event) {
       if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter"))
         return null;
       return _setup.searchPool.apply(null, arguments);
     } }, model: { value: _setup.poolQueryTerm, callback: function($$v) {
       _setup.poolQueryTerm = $$v;
-    }, expression: "poolQueryTerm" } }), _c2("v-btn", { staticClass: "ml-3", attrs: { "icon": "", "href": "/post?_wf=1" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHome))])], 1), _c2("v-btn", { attrs: { "title": _vm.$t("9juZMc0gPIgvMPKVORpJ1"), "icon": "" }, on: { "click": function($event) {
+    }, expression: "poolQueryTerm" } }), _c2("v-btn", { staticClass: "ml-3", attrs: { "icon": "", "href": "/post?_wf=1" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHome))])], 1), _c2("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("9juZMc0gPIgvMPKVORpJ1"), "icon": "" }, on: { "click": function($event) {
       return _setup.goToPopularPage();
     } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFire))])], 1)], 1) : _vm._e(), _c2("v-spacer"), _setup.store.showPostList ? [_c2("span", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length, expression: "store.selectedImageList.length" }], staticClass: "hidden-md-and-down ml-1 mr-1", staticStyle: { "margin-top": "2px" } }, [_vm._v(" " + _vm._s(_setup.store.selectedImageList.length) + " ")]), _c2("v-btn", { staticClass: "hidden-md-and-down", attrs: { "icon": "" }, on: { "click": _setup.selectAll } }, [_c2("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isNoSelected, expression: "isNoSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxBlankOutline))]), _c2("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isOneOrMoreSelected, expression: "isOneOrMoreSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxIntermediate))]), _c2("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isAllSelected, expression: "isAllSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxMarked))])], 1), _c2("v-menu", { attrs: { "dense": "", "offset-y": "", "close-on-content-click": false }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ attrs: { "title": _vm.$t("OKs1ePekQA4Ona839U114"), "icon": "" } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1)];
-    } }], null, false, 2630575932) }, [_c2("v-list", { staticStyle: { "min-width": "300px", "max-height": "80vh", "overflow": "auto" }, attrs: { "dense": "", "flat": "" } }, [_c2("v-subheader", { staticClass: "ml-2" }, [_c2("span", { staticClass: "mr-4" }, [_vm._v(_vm._s(_vm.$t("OKs1ePekQA4Ona839U114")))]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], attrs: { "small": "" }, on: { "click": _setup.startDownload } }, [_vm._v(" " + _vm._s(_vm.$t("cKn4cfAxzdgh_HD6OFibB")) + " ")]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], staticClass: "ml-2", attrs: { "small": "" }, on: { "click": _setup.exportFileUrls } }, [_vm._v(" " + _vm._s(_vm.$t("J2Ckb_-LITfmww4aEksqk")) + " ")])], 1), _setup.store.isYKSite ? _c2("div", { staticClass: "d-flex align-center mt-1 ml-2" }, [_c2("v-radio-group", { staticClass: "mr-1 mt-0", attrs: { "hide-details": "", "dense": "", "row": "" }, model: { value: _setup.downloadUrlKey, callback: function($$v) {
+      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "hidden-md-and-down", attrs: { "title": _vm.$t("OKs1ePekQA4Ona839U114"), "icon": "" } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1)];
+    } }], null, false, 1780380651) }, [_c2("v-list", { staticStyle: { "min-width": "300px", "max-height": "80vh", "overflow": "auto" }, attrs: { "dense": "", "flat": "" } }, [_c2("v-subheader", { staticClass: "ml-2" }, [_c2("span", { staticClass: "mr-4" }, [_vm._v(_vm._s(_vm.$t("OKs1ePekQA4Ona839U114")))]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], attrs: { "small": "" }, on: { "click": _setup.startDownload } }, [_vm._v(" " + _vm._s(_vm.$t("cKn4cfAxzdgh_HD6OFibB")) + " ")]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], staticClass: "ml-2", attrs: { "small": "" }, on: { "click": _setup.exportFileUrls } }, [_vm._v(" " + _vm._s(_vm.$t("J2Ckb_-LITfmww4aEksqk")) + " ")])], 1), _setup.store.isYKSite ? _c2("div", { staticClass: "d-flex align-center mt-1 ml-2" }, [_c2("v-radio-group", { staticClass: "mr-1 mt-0", attrs: { "hide-details": "", "dense": "", "row": "" }, model: { value: _setup.downloadUrlKey, callback: function($$v) {
       _setup.downloadUrlKey = $$v;
     }, expression: "downloadUrlKey" } }, [_c2("v-radio", { attrs: { "label": _vm.$t("aVqN9TBRCbNGsW3Y2D2Nm"), "value": "jpegUrl" } }), _c2("v-radio", { attrs: { "label": _vm.$t("jDjashxA-oBPo19DXI504"), "value": "fileUrl" } })], 1), _c2("v-switch", { staticClass: "mt-0 mr-1", attrs: { "label": "Decode URL", "hide-details": "", "dense": "" }, model: { value: _setup.isExportUrlDecode, callback: function($$v) {
       _setup.isExportUrlDecode = $$v;
@@ -4526,8 +4566,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return _c2("v-list-item", { key: item.id, attrs: { "dense": "", "two-line": "" } }, [_c2("v-list-item-avatar", [!item.loading && !item.loaded ? _c2("v-btn", { attrs: { "icon": "" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFileClockOutline))])], 1) : _vm._e(), item.loaded ? _c2("v-btn", { attrs: { "icon": "", "color": "green" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiCheckUnderlineCircle))])], 1) : _vm._e(), item.loading ? _c2("v-progress-circular", { attrs: { "rotate": -90, "size": 28, "value": _setup.loadingValue, "color": "pink" } }) : _vm._e()], 1), _c2("v-list-item-content", { staticStyle: { "max-width": "240px" } }, [_c2("v-list-item-subtitle", { attrs: { "title": item.fileNameWithTags }, domProps: { "textContent": _vm._s(item.fileNameWithTags) } }), _c2("v-list-item-subtitle", { attrs: { "title": item[_setup.downloadUrlKey] }, domProps: { "textContent": _vm._s(item[_setup.downloadUrlKey]) } })], 1), _c2("v-list-item-action", [_c2("v-btn", { attrs: { "icon": "" }, on: { "click": function($event) {
         return _setup.removeFromList(item.id);
       } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDelete))])], 1)], 1)], 1);
-    }), 1)], 1)], 1)] : _vm._e(), _c2("v-btn", { attrs: { "title": _vm.$t("u8mEnSo4mxDRUbj7FeAll"), "icon": "" }, on: { "click": _setup.toggleDarkmode } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiBrightness6))])], 1), _c2("v-btn", { attrs: { "title": _vm.$t("OrwwNKZ7I70-ecpspE8d_"), "icon": "" }, on: { "click": _setup.toggleFullscreen } }, [_c2("v-icon", { attrs: { "size": 30 } }, [_vm._v(_vm._s(_setup.store.isFullscreen ? _setup.mdiFullscreenExit : _setup.mdiFullscreen))])], 1), _c2("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ attrs: { "title": "Language", "icon": "" } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiTranslate))])], 1)];
+    }), 1)], 1)], 1)] : _vm._e(), _c2("v-btn", { attrs: { "title": _vm.$t("u8mEnSo4mxDRUbj7FeAll"), "icon": "" }, on: { "click": _setup.toggleDarkmode } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiBrightness6))])], 1), _c2("v-btn", { staticClass: "hidden-md-and-down", attrs: { "title": _vm.$t("OrwwNKZ7I70-ecpspE8d_"), "icon": "" }, on: { "click": _setup.toggleFullscreen } }, [_c2("v-icon", { attrs: { "size": 30 } }, [_vm._v(_vm._s(_setup.store.isFullscreen ? _setup.mdiFullscreenExit : _setup.mdiFullscreen))])], 1), _c2("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "hidden-md-and-down", attrs: { "title": "Language", "icon": "" } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiTranslate))])], 1)];
     } }]) }, [_c2("v-list", { attrs: { "dense": "" } }, [_c2("v-list-item-group", { attrs: { "color": "primary" }, model: { value: _setup.currentLang, callback: function($$v) {
       _setup.currentLang = $$v;
     }, expression: "currentLang" } }, _vm._l(_setup.langList, function(lang) {
@@ -4536,7 +4576,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(lang.label))])], 1);
     }), 1)], 1)], 1), _c2("v-btn", { attrs: { "title": _vm.$t("UxxldE9xRwmQctrvba5Y8"), "icon": "" }, on: { "click": function($event) {
       _setup.store.showSettings = true;
-    } } }, [_c2("v-icon", { attrs: { "size": 22 } }, [_vm._v(_vm._s(_setup.mdiCog))])], 1), _c2("v-btn", { attrs: { "title": _vm.$t("ClZdL9hGweOokP7Mn_Ptq"), "icon": "" }, on: { "click": _setup.exitMasonry } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLocationExit))])], 1), _c2("v-progress-linear", { attrs: { "active": _setup.store.requestState, "height": 6, "indeterminate": "", "absolute": "", "bottom": "" } })], 2);
+    } } }, [_c2("v-icon", { attrs: { "size": 22 } }, [_vm._v(_vm._s(_setup.mdiCog))])], 1), _c2("v-btn", { staticClass: "hidden-md-and-down", attrs: { "title": _vm.$t("ClZdL9hGweOokP7Mn_Ptq"), "icon": "" }, on: { "click": _setup.exitMasonry } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLocationExit))])], 1), _c2("v-progress-linear", { attrs: { "active": _setup.store.requestState, "height": 6, "indeterminate": "", "absolute": "", "bottom": "" } })], 2);
   };
   var _sfc_staticRenderFns$9 = [];
   var __component__$9 = /* @__PURE__ */ normalizeComponent(
@@ -4679,6 +4719,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         localStorage.setItem("__fullImgPreload", val ? "1" : "");
         location.reload();
       };
+      const onThumbSampleUrlChange = (val) => {
+        localStorage.setItem("__thumbSampleUrl", val ? "1" : "");
+      };
       const isFitScreen = Vue2.ref(localStorage.getItem("__fitScreen") != "0");
       const onFitScreenChange = (val) => {
         localStorage.setItem("__fitScreen", val ? "1" : "0");
@@ -4751,7 +4794,23 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         store.selectedColumn = val;
         localStorage.setItem("__masonry_col", val);
       };
-      return { __sfc: true, onComboboxChange, removeTagFromBlacklist, exportBlacklist, importBlacklist, nsfwValue, setNSFWShow, onNSFWSwitchChange, onWheelSwitchChange, onKeyupSwitchChange, onImgPreloadChange, isFitScreen, onFitScreenChange, isAutoWfMode, onAutoWfModeChange, dlSubLoading, showDLConfirm, isDLSubpath, setDLSubpathOn, onDLSubpathChange, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onCredentialQueryChange, onPreloadNumBlur, colList, cols, actCol, selColumn, mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, store };
+      const currentLang = Vue2.ref(i18n.locale);
+      const langList = [
+        { value: "zh-Hans", label: "\u7B80\u4F53\u4E2D\u6587" },
+        { value: "zh-Hant", label: "\u7E41\u9AD4\u4E2D\u6587" },
+        { value: "ja", label: "\u65E5\u672C\u8A9E" },
+        { value: "en", label: "English" }
+      ];
+      const currentLanglabel = Vue2.computed(() => {
+        var _a2;
+        return (_a2 = langList.find((e) => e.value === currentLang.value)) == null ? void 0 : _a2.label;
+      });
+      const selectLang = (val) => {
+        currentLang.value = val;
+        i18n.locale = val;
+        localStorage.setItem("__LANG", val);
+      };
+      return { __sfc: true, onComboboxChange, removeTagFromBlacklist, exportBlacklist, importBlacklist, nsfwValue, setNSFWShow, onNSFWSwitchChange, onWheelSwitchChange, onKeyupSwitchChange, onImgPreloadChange, onThumbSampleUrlChange, isFitScreen, onFitScreenChange, isAutoWfMode, onAutoWfModeChange, dlSubLoading, showDLConfirm, isDLSubpath, setDLSubpathOn, onDLSubpathChange, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onCredentialQueryChange, onPreloadNumBlur, colList, cols, actCol, selColumn, currentLang, langList, currentLanglabel, selectLang, mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, store };
     }
   });
   var _sfc_render$7 = function render() {
@@ -4760,7 +4819,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       _vm.$set(_setup.store, "showSettings", $$v);
     }, expression: "store.showSettings" } }, [_c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("UxxldE9xRwmQctrvba5Y8")))])], 1), _c2("v-list-item-icon", { on: { "click": function($event) {
       _setup.store.showSettings = false;
-    } } }, [_c2("v-btn", { attrs: { "icon": "" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiClose))])], 1)], 1)], 1), _c2("v-divider"), _c2("v-list", { attrs: { "dense": "", "nav": "" } }, [_c2("v-list-item", { staticClass: "mb-0" }, [_c2("v-list-item-content", [_c2("v-list-item-title", [_c2("div", { staticClass: "d-flex align-center" }, [_c2("span", [_vm._v(_vm._s(_vm.$t("_Efl8k8uYQj9iJmj3kwbd")))]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    } } }, [_c2("v-btn", { attrs: { "icon": "" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiClose))])], 1)], 1)], 1), _c2("v-divider"), _c2("v-list", { attrs: { "dense": "", "nav": "" } }, [_c2("v-list-item", { staticClass: "hidden-md-and-up" }, [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("e4_fgvntwNlfxgJUc2dXK")))])], 1), _c2("v-list-item-action", [_c2("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "sel_menu_btn", staticStyle: { "max-width": "100px" }, attrs: { "small": "" } }, "v-btn", attrs, false), on), [_vm._v(" " + _vm._s(_setup.currentLanglabel) + " "), _c2("v-icon", { attrs: { "size": 16 } }, [_vm._v(_vm._s(_setup.mdiChevronDown))])], 1)];
+    } }]) }, [_c2("v-list", { attrs: { "dense": "" } }, [_c2("v-list-item-group", { attrs: { "color": "primary" }, model: { value: _setup.currentLang, callback: function($$v) {
+      _setup.currentLang = $$v;
+    }, expression: "currentLang" } }, _vm._l(_setup.langList, function(lang) {
+      return _c2("v-list-item", { key: lang.value, attrs: { "value": lang.value, "dense": "" }, on: { "click": function($event) {
+        return _setup.selectLang(lang.value);
+      } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(lang.label))])], 1);
+    }), 1)], 1)], 1)], 1)], 1), _c2("v-list-item", { staticClass: "mb-0" }, [_c2("v-list-item-content", [_c2("v-list-item-title", [_c2("div", { staticClass: "d-flex align-center" }, [_c2("span", [_vm._v(_vm._s(_vm.$t("_Efl8k8uYQj9iJmj3kwbd")))]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "ml-2", attrs: { "icon": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.exportBlacklist.apply(null, arguments);
@@ -4778,13 +4845,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       _vm.$set(_setup.store, "blacklist", $$v);
     }, expression: "store.blacklist" } })], 1)], 1), _c2("v-list-item", { staticClass: "mb-0" }, [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("RstKmO7YVQMpaDoucxUel")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("1F-R4qChHIzZaohu5GJzl") } }, [_vm._v(_vm._s(_vm.$t("1F-R4qChHIzZaohu5GJzl")))])], 1)], 1), _c2("v-list-item", { staticClass: "pa-0" }, [_c2("v-list-item-content", { staticClass: "pt-0" }, [_c2("v-text-field", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "hide-details": "", "outlined": "", "dense": "" }, on: { "change": _setup.onCredentialQueryChange }, model: { value: _setup.store.settings.credentialQuery, callback: function($$v) {
       _vm.$set(_setup.store.settings, "credentialQuery", $$v);
-    }, expression: "store.settings.credentialQuery" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Lm_HFVHpv4XCjilV3NLKu")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("A16qoBulYQJLbHe9mqNwm") } }, [_vm._v(_vm._s(_vm.$t("A16qoBulYQJLbHe9mqNwm")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "color": "deep-orange darken-1" }, on: { "change": _setup.onNSFWSwitchChange }, model: { value: _setup.nsfwValue, callback: function($$v) {
+    }, expression: "store.settings.credentialQuery" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Lm_HFVHpv4XCjilV3NLKu")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("A16qoBulYQJLbHe9mqNwm") } }, [_vm._v(_vm._s(_vm.$t("A16qoBulYQJLbHe9mqNwm")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "", "color": "deep-orange darken-1" }, on: { "change": _setup.onNSFWSwitchChange }, model: { value: _setup.nsfwValue, callback: function($$v) {
       _setup.nsfwValue = $$v;
-    }, expression: "nsfwValue" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("_nQfaNuwbvPAIFKOY6_7u")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("SIUUZ4wqJTOilEdcX3EOi") } }, [_vm._v(_vm._s(_vm.$t("SIUUZ4wqJTOilEdcX3EOi")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { on: { "change": _setup.onWheelSwitchChange }, model: { value: _setup.store.isListenWheelEvent, callback: function($$v) {
+    }, expression: "nsfwValue" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("_nQfaNuwbvPAIFKOY6_7u")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("SIUUZ4wqJTOilEdcX3EOi") } }, [_vm._v(_vm._s(_vm.$t("SIUUZ4wqJTOilEdcX3EOi")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onWheelSwitchChange }, model: { value: _setup.store.isListenWheelEvent, callback: function($$v) {
       _vm.$set(_setup.store, "isListenWheelEvent", $$v);
-    }, expression: "store.isListenWheelEvent" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("fVE5taO6GDTPbILat4GCt")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("w95XGurDhDfOfw7XH4JFW") } }, [_vm._v(_vm._s(_vm.$t("w95XGurDhDfOfw7XH4JFW")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { on: { "change": _setup.onKeyupSwitchChange }, model: { value: _setup.store.settings.isListenKeyupEvent, callback: function($$v) {
+    }, expression: "store.isListenWheelEvent" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("fVE5taO6GDTPbILat4GCt")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("w95XGurDhDfOfw7XH4JFW") } }, [_vm._v(_vm._s(_vm.$t("w95XGurDhDfOfw7XH4JFW")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onKeyupSwitchChange }, model: { value: _setup.store.settings.isListenKeyupEvent, callback: function($$v) {
       _vm.$set(_setup.store.settings, "isListenKeyupEvent", $$v);
-    }, expression: "store.settings.isListenKeyupEvent" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("kFcteLMfnoezhOwuTlLFC")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("FT1uJs8XG__n5qBvuFsH4") } }, [_vm._v(_vm._s(_vm.$t("FT1uJs8XG__n5qBvuFsH4")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { on: { "change": _setup.onImgPreloadChange }, model: { value: _setup.store.isFullImgPreload, callback: function($$v) {
+    }, expression: "store.settings.isListenKeyupEvent" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("kFcteLMfnoezhOwuTlLFC")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("FT1uJs8XG__n5qBvuFsH4") } }, [_vm._v(_vm._s(_vm.$t("FT1uJs8XG__n5qBvuFsH4")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onImgPreloadChange }, model: { value: _setup.store.isFullImgPreload, callback: function($$v) {
       _vm.$set(_setup.store, "isFullImgPreload", $$v);
     }, expression: "store.isFullImgPreload" } })], 1)], 1), _setup.store.isFullImgPreload ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("G3b7rbyQEj3_rgzVsNJZY")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("iRt9V9wNQASic3D7-wTZo") } }, [_vm._v(_vm._s(_vm.$t("iRt9V9wNQASic3D7-wTZo")))])], 1), _c2("v-list-item-action", { staticClass: "pl-1" }, [_c2("input", { staticClass: "text-center rounded preload_num", attrs: { "type": "number", "min": "0", "max": "5" }, domProps: { "value": _setup.store.imgPreloadNum }, on: { "blur": _setup.onPreloadNumBlur } })])], 1) : _vm._e(), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", { attrs: { "title": _vm.$t("kop_-39vkeg-bz2wztJ9O") } }, [_vm._v(_vm._s(_vm.$t("kop_-39vkeg-bz2wztJ9O")))]), _c2("v-list-item-subtitle", { attrs: { "title": "Masonry/Grid/Justified" } }, [_vm._v("Masonry/Grid/Justified")])], 1), _c2("v-list-item-action", [_c2("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "sel_menu_btn", staticStyle: { "max-width": "100px" }, attrs: { "small": "" } }, "v-btn", attrs, false), on), [_vm._v(" " + _vm._s(_setup.actLayout) + " "), _c2("v-icon", { attrs: { "size": 16 } }, [_vm._v(_vm._s(_setup.mdiChevronDown))])], 1)];
@@ -4798,11 +4865,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return _c2("v-list-item", { key, attrs: { "dense": "" }, on: { "click": function($event) {
         return _setup.selColumn(key);
       } } }, [_c2("v-list-item-title", { domProps: { "textContent": _vm._s(val) } })], 1);
-    }), 1)], 1)], 1)], 1)], 1) : _vm._e(), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("PBjdNKuj02doUvOf2zZqP")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("z_oL9s5fS164W4_gITOGZ") } }, [_vm._v(_vm._s(_vm.$t("z_oL9s5fS164W4_gITOGZ")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "loading": _setup.dlSubLoading }, on: { "change": _setup.onDLSubpathChange }, model: { value: _setup.isDLSubpath, callback: function($$v) {
+    }), 1)], 1)], 1)], 1)], 1) : _vm._e(), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("4yzHPggVky2QKFD2TbBhl")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("HSx0XMZFid_lVuwjzrhH0") } }, [_vm._v(_vm._s(_vm.$t("HSx0XMZFid_lVuwjzrhH0")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onThumbSampleUrlChange }, model: { value: _setup.store.settings.isThumbSampleUrl, callback: function($$v) {
+      _vm.$set(_setup.store.settings, "isThumbSampleUrl", $$v);
+    }, expression: "store.settings.isThumbSampleUrl" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("PBjdNKuj02doUvOf2zZqP")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("z_oL9s5fS164W4_gITOGZ") } }, [_vm._v(_vm._s(_vm.$t("z_oL9s5fS164W4_gITOGZ")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "", "loading": _setup.dlSubLoading }, on: { "change": _setup.onDLSubpathChange }, model: { value: _setup.isDLSubpath, callback: function($$v) {
       _setup.isDLSubpath = $$v;
-    }, expression: "isDLSubpath" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("fbIpwMw2yVoSxP66OJ32z")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("tEvQYzSVnggYAcM1uv9Tt") } }, [_vm._v(_vm._s(_vm.$t("tEvQYzSVnggYAcM1uv9Tt")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { on: { "change": _setup.onFitScreenChange }, model: { value: _setup.isFitScreen, callback: function($$v) {
+    }, expression: "isDLSubpath" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("fbIpwMw2yVoSxP66OJ32z")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("tEvQYzSVnggYAcM1uv9Tt") } }, [_vm._v(_vm._s(_vm.$t("tEvQYzSVnggYAcM1uv9Tt")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onFitScreenChange }, model: { value: _setup.isFitScreen, callback: function($$v) {
       _setup.isFitScreen = $$v;
-    }, expression: "isFitScreen" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("\u81EA\u52A8\u8FDB\u5165\u7011\u5E03\u6D41\u6A21\u5F0F")]), _c2("v-list-item-subtitle", [_vm._v("\u6253\u5F00\u6E90\u7AD9\u65F6\u76F4\u63A5\u8FDB\u5165\u7011\u5E03\u6D41\u6D4F\u89C8\u6A21\u5F0F")])], 1), _c2("v-list-item-action", [_c2("v-switch", { on: { "change": _setup.onAutoWfModeChange }, model: { value: _setup.isAutoWfMode, callback: function($$v) {
+    }, expression: "isFitScreen" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("lkCkz1OpNtTCFRfGCEoBp")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("EZd1QQdgUDjT3yya5ZYe-") } }, [_vm._v(_vm._s(_vm.$t("EZd1QQdgUDjT3yya5ZYe-")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onAutoWfModeChange }, model: { value: _setup.isAutoWfMode, callback: function($$v) {
       _setup.isAutoWfMode = $$v;
     }, expression: "isAutoWfMode" } })], 1)], 1)], 1), _c2("v-dialog", { attrs: { "max-width": "600" }, model: { value: _setup.showDLConfirm, callback: function($$v) {
       _setup.showDLConfirm = $$v;
@@ -5249,17 +5318,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         _setup.imgScaleState = "Original";
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLoupe))])], 1)];
     } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("KkkM-iz8RCVQoTrTfhS5j")))])]), !_setup.store.isFullscreen ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1 hidden-sm-and-down", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.reqFullscreen.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFullscreen))])], 1)];
-    } }], null, false, 2753878763) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("XvOYJ5gHo37M1XztPl18z")))])]) : _vm._e(), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    } }], null, false, 2505938539) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("XvOYJ5gHo37M1XztPl18z")))])]) : _vm._e(), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.rotateImg.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiRotateRight))])], 1)];
     } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("_bQs7o9oQSo7ao1G0cp3d")))])]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1 hidden-sm-and-down", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.zoomOutImg();
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiMagnifyMinusOutline))])], 1)];
@@ -5268,10 +5337,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         $event.stopPropagation();
         return _setup.close.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiClose))])], 1)];
-    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c2("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && !_setup.scaleOn, expression: "showImageToolbar && !scaleOn" }], staticClass: "img_detail_btn_color", staticStyle: { "position": "absolute", "top": "0", "width": "100%", "z-index": "10" }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c2("v-chip", { attrs: { "small": "" }, domProps: { "textContent": _vm._s(`${(_a2 = _setup.imageSelected.rating) == null ? void 0 : _a2.toUpperCase()} ${_setup.imageSelected.id}`) }, on: { "click": function($event) {
+    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c2("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && !_setup.scaleOn, expression: "showImageToolbar && !scaleOn" }], staticClass: "img_detail_btn_color", staticStyle: { "position": "absolute", "top": "0", "width": "100%", "z-index": "10" }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c2("v-chip", { staticClass: "hidden-xs-only", attrs: { "small": "", "role": "button", "tabindex": "0" }, domProps: { "textContent": _vm._s(`${(_a2 = _setup.imageSelected.rating) == null ? void 0 : _a2.toUpperCase()} ${_setup.imageSelected.id}`) }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.toDetailPage.apply(null, arguments);
-    } } }), _setup.imgCreateTime ? _c2("v-chip", { staticClass: "ml-1", attrs: { "small": "", "title": _setup.imageSelected.createdTime }, domProps: { "textContent": _vm._s(_setup.imgCreateTime) } }) : _vm._e(), _c2("v-spacer"), !_setup.notYKSite ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    } } }), _setup.imgCreateTime ? _c2("v-chip", { staticClass: "ml-1 hidden-sm-and-down", attrs: { "small": "", "title": _setup.imageSelected.createdTime }, domProps: { "textContent": _vm._s(_setup.imgCreateTime) } }) : _vm._e(), _c2("v-spacer"), !_setup.notYKSite ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addFavorite.apply(null, arguments);
@@ -5312,26 +5381,26 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         $event.stopPropagation();
         return _setup.close.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiClose))])], 1)];
-    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c2("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar, expression: "showImageToolbar" }], staticClass: "img_detail_btn_color hidden-sm-and-down" }, [_c2("div", { directives: [{ name: "show", rawName: "v-show", value: !_setup.isVideo, expression: "!isVideo" }], staticStyle: { "position": "absolute", "z-index": "10", "bottom": "12px", "padding": "0 12px" } }, [_c2("v-chip", { directives: [{ name: "show", rawName: "v-show", value: (_b2 = _setup.postDetail.tags) == null ? void 0 : _b2.length, expression: "postDetail.tags?.length" }], staticClass: "mr-1", attrs: { "small": "" }, on: { "click": function($event) {
+    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c2("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar, expression: "showImageToolbar" }], staticClass: "img_detail_btn_color" }, [_c2("div", { staticStyle: { "position": "absolute", "z-index": "10", "bottom": "12px", "padding": "0 12px" } }, [_c2("v-chip", { directives: [{ name: "show", rawName: "v-show", value: (_b2 = _setup.postDetail.tags) == null ? void 0 : _b2.length, expression: "postDetail.tags?.length" }], staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.toggleTagsShow();
-    } } }, [_c2("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(_setup.mdiTagMultiple))]), _c2("span", [_vm._v(_vm._s(_setup.showTagChipGroup ? _vm.$t("gM92sLo0Cqfl2rCaXlOhc") : _vm.$t("l5W-EtJ_ar-SY2lF4H5Zm")))])], 1), _setup.store.isYKSite ? [((_d = (_c3 = _setup.imageSelected) == null ? void 0 : _c3.data) == null ? void 0 : _d.parent_id) ? _c2("v-chip", { staticClass: "mr-1", attrs: { "small": "" }, on: { "click": function($event) {
+    } } }, [_c2("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(_setup.mdiTagMultiple))]), _c2("span", [_vm._v(_vm._s(_setup.showTagChipGroup ? _vm.$t("gM92sLo0Cqfl2rCaXlOhc") : _vm.$t("l5W-EtJ_ar-SY2lF4H5Zm")))])], 1), _setup.store.isYKSite ? [((_d = (_c3 = _setup.imageSelected) == null ? void 0 : _c3.data) == null ? void 0 : _d.parent_id) ? _c2("v-chip", { staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
       var _a3, _b3;
       $event.stopPropagation();
       _setup.toPidPage((_b3 = (_a3 = _setup.imageSelected) == null ? void 0 : _a3.data) == null ? void 0 : _b3.parent_id);
-    } } }, [_c2("v-icon", { attrs: { "small": "", "left": "" } }, [_vm._v(_vm._s(_setup.mdiFolderNetwork))]), _c2("span", [_vm._v(_vm._s(_vm.$t("sMkrF8bqCTJZZ1kXTkT_R")))])], 1) : _vm._e(), ((_f = (_e = _setup.imageSelected) == null ? void 0 : _e.data) == null ? void 0 : _f.has_children) ? _c2("v-chip", { staticClass: "mr-1", attrs: { "small": "" }, on: { "click": function($event) {
+    } } }, [_c2("v-icon", { attrs: { "small": "", "left": "" } }, [_vm._v(_vm._s(_setup.mdiFolderNetwork))]), _c2("span", [_vm._v(_vm._s(_vm.$t("sMkrF8bqCTJZZ1kXTkT_R")))])], 1) : _vm._e(), ((_f = (_e = _setup.imageSelected) == null ? void 0 : _e.data) == null ? void 0 : _f.has_children) ? _c2("v-chip", { staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
       var _a3;
       $event.stopPropagation();
       return _setup.toTagsPage(`parent:${(_a3 = _setup.imageSelected) == null ? void 0 : _a3.id}&_wf=1`);
-    } } }, [_c2("v-icon", { attrs: { "small": "", "left": "" } }, [_vm._v(_vm._s(_setup.mdiFileTree))]), _c2("span", [_vm._v(_vm._s(_vm.$t("u0K7A_hv1RZSJl6TDR61A")))])], 1) : _vm._e()] : _vm._e(), _c2("v-chip-group", { directives: [{ name: "show", rawName: "v-show", value: _setup.showTagChipGroup, expression: "showTagChipGroup" }], attrs: { "column": "" } }, _vm._l(_setup.postDetail.tags || [], function(item, i) {
-      return _c2("v-chip", { key: i, staticClass: "mr-1", attrs: { "small": "", "color": item.color, "text-color": "#ffffff" }, domProps: { "textContent": _vm._s(item.tagText) }, on: { "click": function($event) {
+    } } }, [_c2("v-icon", { attrs: { "small": "", "left": "" } }, [_vm._v(_vm._s(_setup.mdiFileTree))]), _c2("span", [_vm._v(_vm._s(_vm.$t("u0K7A_hv1RZSJl6TDR61A")))])], 1) : _vm._e()] : _vm._e(), _c2("v-chip-group", { directives: [{ name: "show", rawName: "v-show", value: _setup.showTagChipGroup, expression: "showTagChipGroup" }], staticClass: "img_detail_tag_list", attrs: { "column": "" } }, _vm._l(_setup.postDetail.tags || [], function(item, i) {
+      return _c2("v-chip", { key: i, staticClass: "img_detail_tag mr-1", class: `tag_type_${item.type}`, attrs: { "small": "", "color": item.color, "text-color": "#ffffff", "role": "button", "tabindex": "0" }, domProps: { "textContent": _vm._s(item.tagText) }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.toTagsPage(item.tag);
       } } });
-    }), 1)], 2), _c2("v-btn", { staticClass: "poa_left_center", staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+    }), 1)], 2), _c2("v-btn", { staticClass: "poa_left_center hidden-sm-and-down", staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.showPrevPost.apply(null, arguments);
-    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiChevronLeft))])], 1), _c2("v-btn", { staticClass: "poa_right_center", staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiChevronLeft))])], 1), _c2("v-btn", { staticClass: "poa_right_center hidden-sm-and-down", staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.showNextPost.apply(null, arguments);
     } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiChevronRight))])], 1)], 1)], 1);
@@ -5377,14 +5446,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return "";
       });
       const getImgSrc = (img) => {
-        const num = +store.selectedColumn;
-        if (num != 0 && num < 7) {
-          return (img == null ? void 0 : img.sampleUrl) || (img == null ? void 0 : img.fileUrl) || void 0;
+        let src = img == null ? void 0 : img.previewUrl;
+        if (!/\.(mp4|webm)$/i.test((img == null ? void 0 : img.fileUrl) || "")) {
+          const num = +store.selectedColumn;
+          if (store.settings.isThumbSampleUrl || num != 0 && num < 7) {
+            src = img == null ? void 0 : img.sampleUrl;
+          }
+          if (location.hostname === "danbooru.donmai.us" && src) {
+            src = src.replace(/(.*)\/180x180\/(.*)jpg/, "$1/720x720/$2webp");
+          }
         }
-        if (location.hostname === "danbooru.donmai.us" && (img == null ? void 0 : img.previewUrl)) {
-          img.previewUrl = img.previewUrl.replace(/(.*)\/180x180\/(.*)jpg/, "$1/720x720/$2webp");
-        }
-        return (img == null ? void 0 : img.previewUrl) || (img == null ? void 0 : img.fileUrl) || void 0;
+        return src || (img == null ? void 0 : img.fileUrl) || void 0;
       };
       const onCtxMenu = (ev, img) => {
         if (isR34Fav.value)
@@ -5485,7 +5557,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHeartPlusOutline))])], 1) : _vm._e()], 1) : _vm._e()], 2)];
     } }], null, false, 2816131209) }) : _c2("wf-layout", _vm._l(_setup.store.imageList, function(image, index) {
       var _a2, _b2;
-      return _c2("v-card", { key: index, staticClass: "posts-image-card", style: _setup.store.settings.masonryLayout === "flexbin" ? `--w:${image.width};--h:${image.height}` : _setup.maxHeightStyle }, [_setup.store.settings.masonryLayout === "flexbin" ? [_c2("img", { staticClass: "post-image", attrs: { "alt": "", "loading": "lazy", "src": _setup.getImgSrc(image) }, on: { "click": function($event) {
+      return _c2("v-card", { key: index, staticClass: "posts-image-card", style: _setup.store.settings.masonryLayout === "flexbin" ? `--w:${image.width};--h:${image.height}` : _setup.maxHeightStyle }, [_setup.store.settings.masonryLayout === "flexbin" ? [_c2("img", { staticClass: "post-image", attrs: { "alt": "", "loading": "lazy", "src": _setup.getImgSrc(image), "role": "button", "tabindex": "0" }, on: { "click": function($event) {
         return _setup.showImgModal(index);
       }, "contextmenu": function($event) {
         return _setup.onCtxMenu($event, image);
@@ -5500,7 +5572,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }, proxy: true }], null, true) }), _setup.store.isYKSite ? [((_a2 = image == null ? void 0 : image.data) == null ? void 0 : _a2.has_children) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), ((_b2 = image == null ? void 0 : image.data) == null ? void 0 : _b2.parent_id) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), (image == null ? void 0 : image.fileExt.toLowerCase()) === "gif" ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(image == null ? void 0 : image.fileExt.toLowerCase()) ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav ? _c2("div", { staticClass: "posts-image-actions" }, [_c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.openDetail(image);
-      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
+      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _c2("v-btn", { staticClass: "hidden-md-and-down", attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addToSelectedList(image);
       } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiPlaylistPlus))])], 1), _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("VpuyxZtIoDF9-YyOm0tK_") }, on: { "click": function($event) {
@@ -5520,9 +5592,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return _setup.downloadCtxPost();
     } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("VpuyxZtIoDF9-YyOm0tK_")))])], 1), _c2("v-list-item", { on: { "click": function($event) {
       return _setup.openDetail();
-    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("EsiorRgoeHI8h7IHMLDA4")))])], 1), _c2("v-list-item", { on: { "click": function($event) {
+    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("EsiorRgoeHI8h7IHMLDA4")))])], 1), _c2("v-list-item", { staticClass: "hidden-md-and-down", on: { "click": function($event) {
       return _setup.addToSelectedList();
-    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("hVmfDxXoj8vkgVQabEOSr")))])], 1)], 1)], 1), _c2("v-fab-transition", [_c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showFab, expression: "showFab" }], attrs: { "fab": "", "dark": "", "fixed": "", "bottom": "", "right": "", "color": "pink" }, on: { "click": function($event) {
+    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("hVmfDxXoj8vkgVQabEOSr")))])], 1)], 1)], 1), _c2("v-fab-transition", [_c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showFab, expression: "showFab" }], staticClass: "refresh_posts_btn", attrs: { "fab": "", "dark": "", "fixed": "", "bottom": "", "right": "", "color": "pink" }, on: { "click": function($event) {
       return _setup.refreshPosts();
     } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiRefresh))])], 1)], 1), _c2(_setup.PostDetail)], 1) : _vm._e();
   };
