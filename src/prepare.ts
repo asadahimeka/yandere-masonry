@@ -249,7 +249,7 @@ export function loadScript(src: string) {
 
 async function loadDeps() {
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.16/vue.min.js')
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.1/vuetify.min.js')
+  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.js')
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.28.2/vue-i18n.min.js')
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.0.11/fxparser.min.js')
 }
@@ -265,7 +265,7 @@ function replaceHead() {
     <title>${location.host.toUpperCase()} Masonry</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.1/vuetify.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.css">
     <style>${customStyle}</style>
   `
 }

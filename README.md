@@ -80,7 +80,6 @@ Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设
 - 加载收藏夹、人气、随机作品（Y 站/K 站）
 - 加载图集（Pool）列表（Y 站/K 站）
 - 按标签搜索作品
-- 瀑布流显示列数切换，列数选择非自动且列数小于 6 时图片会以 sample_url （即点击详情的大小） 展示。
 - 批量选择
 - 查看下载列表
 - 深色模式切换
@@ -94,6 +93,7 @@ Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设
 - 本地标签黑名单
 - 设置站点 API Credentials
 - 切换 NSFW 内容显示
+- 瀑布流显示列数切换，列数选择非自动且列数小于 6 时图片会以 sample_url （即点击详情的大小） 展示。
 - 设置图片信息流布局
   - Masonry (等宽不等高)
   - Grid (等宽等高)
@@ -203,7 +203,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 
 ### Recommended IDE Setup
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+- [VS Code](https://code.visualstudio.com/) + [Volar v1.8.27](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
 
 ### Type Support For `.vue` Imports in TS
 

@@ -79,6 +79,8 @@
             alt=""
             loading="lazy"
             :src="getImgSrc(image)"
+            role="button"
+            tabindex="0"
             @click="showImgModal(index)"
             @contextmenu="onCtxMenu($event, image)"
             @error="onImageLoadError(image.previewUrl || '')"
@@ -181,6 +183,7 @@
         bottom
         right
         color="pink"
+        class="refresh_posts_btn"
         @click="refreshPosts()"
       >
         <v-icon>{{ mdiRefresh }}</v-icon>

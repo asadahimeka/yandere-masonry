@@ -62,14 +62,14 @@ export interface PostDetail {
 }
 
 const tagInfoMap: Record<string, any[]> = {
-  circle: [i18n.t('ZtQHZx-pEjmu_o3dQD1fc'), '#00bbbbcc'],
-  artist: [i18n.t('Ym0HIEu9Q80qXB31LuC6c'), '#FFB11Bf1'],
-  copyright: [i18n.t('juT6gwLOg5r1h2vFpFf6P'), '#C1328Ede'],
-  character: [i18n.t('aonlPAu9kEkkwNvQg0DBk'), '#00aa00cc'],
+  circle: [i18n.t('ZtQHZx-pEjmu_o3dQD1fc'), '#26C6DA'],
+  artist: [i18n.t('Ym0HIEu9Q80qXB31LuC6c'), '#FB8C00'],
+  copyright: [i18n.t('juT6gwLOg5r1h2vFpFf6P'), '#AB47BC'],
+  character: [i18n.t('aonlPAu9kEkkwNvQg0DBk'), '#66BB6A'],
   general: ['', '#E87A90cc'],
   faults: ['', '#AB3B3Ada'],
 }
-// const tagSortOrder = ['circle', 'artist', 'copyright', 'character', 'general']
+const tagSortOrder = ['circle', 'artist', 'copyright', 'character', 'general']
 const isCNLang = i18n.locale.includes('zh')
 export async function getPostDetail(id: string): Promise<PostDetail | false> {
   try {
@@ -92,9 +92,9 @@ export async function getPostDetail(id: string): Promise<PostDetail | false> {
           tagText,
           color: tagInfoMap[type]?.[1] || tagInfoMap.general[1],
         }
-      })/* .sort((a, b) => {
+      }).sort((a, b) => {
         return tagSortOrder.indexOf(a.type) - tagSortOrder.indexOf(b.type)
-      }) */,
+      }),
     }
   } catch (error) {
     console.log('getPostDetail error:', error)

@@ -172,6 +172,8 @@
     >
       <v-chip
         small
+        role="button"
+        tabindex="0"
         @click.stop="toDetailPage"
         v-text="`${imageSelected.rating?.toUpperCase()} ${imageSelected.id}`"
       />
@@ -308,6 +310,8 @@
           v-show="postDetail.tags?.length"
           small
           class="mr-1"
+          role="button"
+          tabindex="0"
           @click.stop="toggleTagsShow()"
         >
           <v-icon left>{{ mdiTagMultiple }}</v-icon>
@@ -319,6 +323,8 @@
               imageSelected?.data?.parent_id"
             small
             class="mr-1"
+            role="button"
+            tabindex="0"
             @click.stop="//@ts-ignore
               toPidPage(imageSelected?.data?.parent_id)"
           >
@@ -330,6 +336,8 @@
               imageSelected?.data?.has_children"
             small
             class="mr-1"
+            role="button"
+            tabindex="0"
             @click.stop="toTagsPage(`parent:${imageSelected?.id}&_wf=1`)"
           >
             <v-icon small left>{{ mdiFileTree }}</v-icon>
@@ -341,9 +349,12 @@
             v-for="(item, i) in postDetail.tags || []"
             :key="i"
             small
-            class="mr-1"
+            class="img_detail_tag mr-1"
+            :class="`tag_type_${item.type}`"
             :color="item.color"
             text-color="#ffffff"
+            role="button"
+            tabindex="0"
             @click.stop="toTagsPage(item.tag)"
             v-text="item.tagText"
           />

@@ -62,7 +62,6 @@ In waterfall mode, you can use the `Output download links` function to save the 
 - Load favorites, popular, random posts (yande.re / Konachan)
 - Load pools (yande.re / Konachan)
 - Search posts by tags
-- Waterfall display column toggle, if the number of columns is selected non-automatically and the number of columns is less than 6, the images will be displayed as sample_url (i.e. the size of the clicked details).
 - Batch selection
 - View download list
 - Toggle dark mode
@@ -76,6 +75,7 @@ In waterfall mode, you can use the `Output download links` function to save the 
 - Local tag blacklist
 - Set site API Credentials
 - Toggle NSFW content display
+- Waterfall display column toggle, if the number of columns is selected non-automatically and the number of columns is less than 6, the images will be displayed as sample_url (i.e. the size of the clicked details).
 - Set image flow layout
   - Masonry (equal width and not equal height)
   - Grid (equal width and height)
@@ -156,7 +156,7 @@ https://aibooru.online
 ## Sponsors
 
 <!-- Sponsors list: https://sponsors.nanoka.top/account -->
-Thanks for [TSUKYU](https://twitter.com/Tsukyui)'s support
+Thanks for TSUKYU's support
 
 ## Developing
 
@@ -171,7 +171,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 
 ### Recommended IDE Setup
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+- [VS Code](https://code.visualstudio.com/) + [Volar v1.8.27](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
 
 ### Type Support For `.vue` Imports in TS
 

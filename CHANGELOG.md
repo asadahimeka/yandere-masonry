@@ -1,3 +1,7 @@
+## v0.32.2
+
+- fix: 优化 a11y，便于使用 Vimium 插件浏览
+
 ## v0.32.1
 
 - fix: 修复 Firefox 下 Gelbooru 无法查看大图的问题
