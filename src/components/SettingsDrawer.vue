@@ -278,6 +278,19 @@
           />
         </v-list-item-action>
       </v-list-item>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>{{ $t('sxhTRqogDRozo9IaTGI7g') }}</v-list-item-title>
+          <v-list-item-subtitle :title="$t('gPt6cpWrkvqRqZnwJo1KV')">{{ $t('gPt6cpWrkvqRqZnwJo1KV') }}</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-switch
+            v-model="store.settings.showPostCheckbox"
+            inset
+            @change="onShowPostCheckboxChange"
+          />
+        </v-list-item-action>
+      </v-list-item>
     </v-list>
     <v-dialog v-model="showDLConfirm" max-width="600">
       <v-card>
@@ -366,6 +379,10 @@ const onImgPreloadChange = (val: any) => {
 
 const onThumbSampleUrlChange = (val: any) => {
   localStorage.setItem('__thumbSampleUrl', val ? '1' : '')
+}
+
+const onShowPostCheckboxChange = (val: any) => {
+  localStorage.setItem('__showPostCheckbox', val ? '1' : '')
 }
 
 const isFitScreen = ref(localStorage.getItem('__fitScreen') != '0')

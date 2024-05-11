@@ -12,6 +12,7 @@ interface AppSettings {
   isListenKeyupEvent: boolean
   credentialQuery: string
   isThumbSampleUrl: boolean
+  showPostCheckbox: boolean
 }
 
 interface AppState {
@@ -38,6 +39,7 @@ interface AppState {
   settings: AppSettings
   toggleDrawer: () => void
   addToSelectedList: (item: Post) => void
+  removeFromSelectedList: (id: string) => void
 }
 
 const ykFlag = ['konachan', 'yande.re'].some(e => location.href.includes(e))
@@ -69,6 +71,7 @@ const store = Vue.observable<AppState>({
     isListenKeyupEvent: localStorage.getItem('__listenKeyup') !== '0',
     credentialQuery: localStorage.getItem('__credentialQuery') || '',
     isThumbSampleUrl: !!localStorage.getItem('__thumbSampleUrl'),
+    showPostCheckbox: !!localStorage.getItem('__showPostCheckbox'),
   },
   toggleDrawer() {
     store.showDrawer = !store.showDrawer
@@ -77,6 +80,12 @@ const store = Vue.observable<AppState>({
     if (store.selectedImageList.some(e => e.id === item.id)) return
     Object.assign(item, { fileNameWithTags: `${location.hostname} ${item.id} ${item.tags.join(' ')}` })
     store.selectedImageList.push(item)
+  },
+  removeFromSelectedList(id: string) {
+    store.selectedImageList = store.selectedImageList.filter(e => {
+      if (e.loading) return true
+      return e.id !== id
+    })
   },
 })
 

@@ -401,6 +401,32 @@
   visibility: visible;
 }
 
+.posts-image-checkbox {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 28px;
+  padding: 2px;
+  height: 28px;
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: .4s;
+}
+
+.posts-image-checkbox:has(input[aria-checked="true"]),
+.posts-image-card:hover .posts-image-checkbox {
+  opacity: 1;
+  visibility: visible;
+}
+
+.posts-image-checkbox .v-input--selection-controls__ripple .primary--text,
+.posts-image-checkbox .v-input--selection-controls__input .v-icon {
+  color: #fff !important;
+}
+
 .posts-image-type {
   position: absolute !important;
   top: 0;

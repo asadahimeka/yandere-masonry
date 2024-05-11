@@ -49,6 +49,9 @@
           >
             {{ mdiVideo }}
           </v-icon>
+          <div v-if="!isR34Fav && store.settings.showPostCheckbox" class="posts-image-checkbox">
+            <v-checkbox class="ma-0 pa-0" :value="store.selectedImageList.some(e => e.id === item.id)" hide-details @change="onPostCheckboxChange($event, item)" />
+          </div>
           <div v-if="!isR34Fav" class="posts-image-actions">
             <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" @click.stop="openDetail(item)">
               <v-icon>{{ mdiLinkVariant }}</v-icon>
@@ -131,6 +134,9 @@
         >
           {{ mdiVideo }}
         </v-icon>
+        <div v-if="!isR34Fav && store.settings.showPostCheckbox" class="posts-image-checkbox">
+          <v-checkbox class="ma-0 pa-0" :value="store.selectedImageList.some(e => e.id === image.id)" hide-details @change="onPostCheckboxChange($event, image)" />
+        </div>
         <div v-if="!isR34Fav" class="posts-image-actions">
           <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" @click.stop="openDetail(image)">
             <v-icon>{{ mdiLinkVariant }}</v-icon>
@@ -296,6 +302,10 @@ const downloadCtxPost = async (post?: Post) => {
   } catch (error) {
     showMsg({ msg: `${i18n.t('FAqj5ONm50QMfIt9Vq2p1')}: ${error}`, type: 'error' })
   }
+}
+
+const onPostCheckboxChange = (e: any, image: Post) => {
+  e ? store.addToSelectedList(image) : store.removeFromSelectedList(image.id)
 }
 
 const onImageLoadError = (url: string) => {
