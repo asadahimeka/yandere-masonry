@@ -186,7 +186,7 @@
         v-text="imgCreateTime"
       />
       <v-spacer />
-      <v-tooltip v-if="!notYKSite" bottom>
+      <v-tooltip v-if="isFavBtnShow" bottom>
         <template #activator="{ on, attrs }">
           <v-btn
             fab
@@ -399,13 +399,15 @@ import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { formatDistanceToNow, isValid } from 'date-fns/esm'
 import DPlayer from './DPlayer.vue'
 import { debounce, downloadFile, dragElement, isURL, showMsg } from '@/utils'
-import { type PostDetail, addPostToFavorites, getPostDetail } from '@/api/moebooru'
+import { type PostDetail, getPostDetail } from '@/api/moebooru'
+import { addPostToFavorites, isFavBtnShow } from '@/api/fav'
 import { isRule34FavPage } from '@/api/rule34'
+import { isGelbooruFavPage } from '@/api/gelbooru'
 import store from '@/store'
 import { searchPosts } from '@/store/actions/post'
 import i18n from '@/utils/i18n'
 
-const notR34Fav = ref(!isRule34FavPage())
+const notR34Fav = ref(!(isRule34FavPage() || isGelbooruFavPage()))
 
 const showImageToolbar = ref(true)
 const imgLoading = ref(true)
@@ -517,7 +519,7 @@ const onDtlContClick = (ev: Event) => {
 const postDetail = ref<PostDetail>({})
 
 const addFavorite = async () => {
-  if (notYKSite.value || postDetail.value.voted) return
+  if (!isFavBtnShow || postDetail.value.voted) return
   const isSuccess = await addPostToFavorites(imageSelected.value.id)
   if (isSuccess) postDetail.value.voted = true
 }
@@ -736,6 +738,10 @@ const onKeyup = debounce((ev: KeyboardEvent) => {
   }
   if (['ArrowRight', 'd', 'D'].includes(ev.key)) {
     showNextPost()
+    return
+  }
+  if (['f', 'F'].includes(ev.key)) {
+    addFavorite()
   }
 }, 500, true)
 

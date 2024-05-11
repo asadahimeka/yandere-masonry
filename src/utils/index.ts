@@ -158,3 +158,16 @@ export function dragElement(sel: string, childSel: string) {
 export function getLastPathsegment(url: string | null) {
   return url?.split('/').pop()
 }
+
+export function getImageSize(url: string) {
+  return new Promise<{ width: number; height: number }>(resolve => {
+    if (!url) {
+      resolve({ width: 0, height: 0 })
+      return
+    }
+    const image = new Image()
+    image.onload = () => { resolve({ width: image.width, height: image.height }) }
+    image.onerror = () => { resolve({ width: 0, height: 0 }) }
+    image.src = url
+  })
+}

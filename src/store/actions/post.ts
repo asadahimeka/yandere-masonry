@@ -3,6 +3,7 @@ import store from '@/store'
 import { BOORU_PAGE_LIMIT, isPidSite, searchBooru } from '@/api/booru'
 import { fetchPostsByPath, isPoolShowPage, isPopularPage } from '@/api/moebooru'
 import { fetchRule34Favorites, isRule34FavPage } from '@/api/rule34'
+import { fetchGelbooruFavorites, isGelbooruFavPage } from '@/api/gelbooru'
 
 function getFirstPageNo(params: URLSearchParams) {
   if (isPidSite) {
@@ -55,6 +56,15 @@ const fetchActions = [
     test: isRule34FavPage,
     action: async () => {
       const results = await fetchRule34Favorites(page)
+      return store.blacklist.length
+        ? results.filter(e => !store.blacklist.some(w => e.tags.includes(w)))
+        : results
+    },
+  },
+  {
+    test: isGelbooruFavPage,
+    action: async () => {
+      const results = await fetchGelbooruFavorites(page)
       return store.blacklist.length
         ? results.filter(e => !store.blacklist.some(w => e.tags.includes(w)))
         : results

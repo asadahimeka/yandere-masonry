@@ -59,7 +59,7 @@
             <v-btn icon color="#fff" :title="$t('VpuyxZtIoDF9-YyOm0tK_')" @click.stop="downloadCtxPost(item)">
               <v-icon>{{ mdiDownload }}</v-icon>
             </v-btn>
-            <v-btn v-if="store.isYKSite" icon color="#fff" :title="$t('Dnnio9m9RZA6bkTLytc99')" @click.stop="addFavorite(item.id)">
+            <v-btn v-if="isFavBtnShow" icon color="#fff" :title="$t('Dnnio9m9RZA6bkTLytc99')" @click.stop="addFavorite(item.id)">
               <v-icon>{{ mdiHeartPlusOutline }}</v-icon>
             </v-btn>
           </div>
@@ -141,7 +141,7 @@
           <v-btn icon color="#fff" :title="$t('VpuyxZtIoDF9-YyOm0tK_')" @click.stop="downloadCtxPost(image)">
             <v-icon>{{ mdiDownload }}</v-icon>
           </v-btn>
-          <v-btn v-if="store.isYKSite" icon color="#fff" :title="$t('Dnnio9m9RZA6bkTLytc99')" @click.stop="addFavorite(image.id)">
+          <v-btn v-if="isFavBtnShow" icon color="#fff" :title="$t('Dnnio9m9RZA6bkTLytc99')" @click.stop="addFavorite(image.id)">
             <v-icon>{{ mdiHeartPlusOutline }}</v-icon>
           </v-btn>
         </div>
@@ -160,7 +160,7 @@
     </div>
     <v-menu v-model="showMenu" :position-x="x" :position-y="y" absolute offset-y>
       <v-list>
-        <v-list-item v-if="store.isYKSite" @click="addFavorite()">
+        <v-list-item v-if="isFavBtnShow" @click="addFavorite()">
           <v-list-item-title>{{ $t('Dnnio9m9RZA6bkTLytc99') }}</v-list-item-title>
         </v-list-item>
         <v-list-item @click="downloadCtxPost()">
@@ -199,14 +199,15 @@ import { computed, nextTick, onMounted, onUnmounted, ref, set, watch } from 'vue
 import type { Post } from '@himeka/booru'
 import PostDetail from './PostDetail.vue'
 import { downloadFile, notReachBottom, showMsg, throttleScroll } from '@/utils'
-import { addPostToFavorites } from '@/api/moebooru'
+import { addPostToFavorites, isFavBtnShow } from '@/api/fav'
 import { isRule34FavPage } from '@/api/rule34'
+import { isGelbooruFavPage } from '@/api/gelbooru'
 import { initPosts, refreshPosts, searchPosts } from '@/store/actions/post'
 import store from '@/store'
 import i18n from '@/utils/i18n'
 
 const notFitScreen = ref(localStorage.getItem('__fitScreen') == '0')
-const isR34Fav = ref(isRule34FavPage())
+const isR34Fav = ref(isRule34FavPage() || isGelbooruFavPage())
 const showImageList = ref(true)
 const showFab = ref(false)
 
@@ -276,6 +277,7 @@ const addToSelectedList = (post?: Post) => {
 }
 
 const addFavorite = (id?: string) => {
+  if (!isFavBtnShow) return
   const imgId = id || ctxActPost.value?.id
   imgId && addPostToFavorites(imgId)
 }
