@@ -176,7 +176,7 @@ export function getImageSize(url: string) {
 }
 
 export async function fancyboxShow(images: Post[], index = 0) {
-  if (!window.Fancybox) {
+  if (!unsafeWindow.Fancybox) {
     if (store.isYKSite) {
       // @ts-expect-error fuck rails global pollution
       delete Array.prototype.entries
@@ -186,7 +186,7 @@ export async function fancyboxShow(images: Post[], index = 0) {
     await loadScript('https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js')
   }
   const isMobile = navigator.userAgent.includes('Mobile')
-  window.Fancybox.show((store.isYKSite ? [images[index]] : images).map(e => ({
+  unsafeWindow.Fancybox.show((store.isYKSite ? [images[index]] : images).map(e => ({
     src: e.jpegUrl || e.fileUrl,
     thumb: e.previewUrl || e.fileUrl,
     downloadSrc: e.fileUrl,
@@ -215,8 +215,8 @@ export async function fancyboxShow(images: Post[], index = 0) {
         left: ['infobar'],
         middle: [],
         right: isMobile
-          ? ['tagsTip', 'toDetailPage', 'download', 'rotateCW', 'flipX', 'flipY', store.isYKSite ? 'customClose' : 'close']
-          : ['tagsTip', 'toDetailPage', 'toggleZoom', 'slideshow', 'thumbs', 'download', 'rotateCW', 'flipX', 'flipY', store.isYKSite ? 'customClose' : 'close'],
+          ? ['tagsTip', !store.isYKSite && 'toDetailPage', 'download', 'rotateCW', 'flipX', 'flipY', store.isYKSite ? 'customClose' : 'close'].filter(Boolean)
+          : ['tagsTip', !store.isYKSite && 'toDetailPage', 'toggleZoom', 'slideshow', 'thumbs', 'download', 'rotateCW', 'flipX', 'flipY', store.isYKSite ? 'customClose' : 'close'].filter(Boolean),
       },
       items: {
         tagsTip: {
