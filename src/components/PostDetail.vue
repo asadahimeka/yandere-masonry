@@ -21,6 +21,7 @@
           v-if="!scaleOn"
           :src="imgSrc"
           :width="imgLoading ? 0 : imageSelectedWidth"
+          :referrerpolicy="refererPolicy"
           class="img_detail_sample"
           alt=""
           @click.stop="toggleToolbar"
@@ -31,6 +32,7 @@
           v-if="scaleOn"
           :src="scaleImgSrc"
           :style="scaleImgStyle"
+          :referrerpolicy="refererPolicy"
           class="img_detail_scale"
           alt=""
           draggable="false"
@@ -281,7 +283,7 @@
         </v-list>
       </v-menu>
       <v-progress-circular v-show="downloading" indeterminate class="ml-1 mr-2" color="primary" />
-      <v-tooltip v-if="notR34Fav" bottom>
+      <v-tooltip v-if="notPartialSupportSite && notR34Fav" bottom>
         <template #activator="{ on, attrs }">
           <v-btn
             fab
@@ -396,18 +398,25 @@ import {
   mdiTagMultiple,
 } from '@mdi/js'
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
-import { formatDistanceToNow, isValid } from 'date-fns/esm'
+import { formatDistanceToNow, isValid } from 'date-fns'
 import DPlayer from './DPlayer.vue'
 import { debounce, downloadFile, dragElement, isURL, showMsg } from '@/utils'
 import { type PostDetail, getPostDetail } from '@/api/moebooru'
 import { addPostToFavorites, isFavBtnShow } from '@/api/fav'
 import { isRule34FavPage } from '@/api/rule34'
 import { isGelbooruFavPage } from '@/api/gelbooru'
+import { notPartialSupportSite } from '@/api/booru'
+import { getZerochanFileUrl, isZerochanPage } from '@/api/zerochan'
+import { getSankakuIdolDetail, isSankakuIdolPage } from '@/api/sankaku-idol'
+import { getAnimePicturesDetail, isAnimePicturesPage } from '@/api/anime-pictures'
+import { getAllGirlDetail, isAllGirlPage } from '@/api/all-girl'
+import { getHentaiBooruDetail, isHentaiBooruPage } from '@/api/hentaibooru'
+import { getKusowankaDetail, isKusowankaPage } from '@/api/kusowanka'
 import store from '@/store'
 import { searchPosts } from '@/store/actions/post'
 import i18n from '@/utils/i18n'
 
-const notR34Fav = ref(!(isRule34FavPage() || isGelbooruFavPage()))
+const notR34Fav = ref(!(isRule34FavPage() || isGelbooruFavPage() || isZerochanPage()))
 
 const showImageToolbar = ref(true)
 const imgLoading = ref(true)
@@ -422,8 +431,19 @@ const toggleTagsShow = () => {
   localStorage.setItem('__showTags', showTagChipGroup.value ? '1' : '')
 }
 
+const refererPolicy = computed(() => /nozomi\.la|behoimi\.org/.test(location.host) ? 'origin' : 'no-referrer')
+
 const imageSelected = computed(() => store.imageList[store.imageSelectedIndex] ?? {})
-const isVideo = computed(() => ['.mp4', '.webm'].some(e => imageSelected.value.fileUrl?.endsWith(e)))
+const isVideo = computed(() => ['.mp4', '.webm'].some(e => {
+  const { fileUrl } = imageSelected.value
+  if (!fileUrl) return false
+  try {
+    const url = new URL(fileUrl)
+    return url.pathname.endsWith(e)
+  } catch (_error) {
+    return false
+  }
+}))
 const imgSrc = computed(() => {
   if (isVideo.value) return void 0
   return imageSelected.value.sampleUrl
@@ -511,7 +531,7 @@ const close = () => {
 
 const onDtlContClick = (ev: Event) => {
   const el = ev.target as HTMLElement
-  if (el.className.includes('img_detail_cont')) {
+  if (el?.className?.includes?.('img_detail_cont')) {
     close()
   }
 }
@@ -533,19 +553,41 @@ const setPostDetail = async () => {
     }
     const result = await getPostDetail(imageSelected.value.id)
     if (result) postDetail.value = result
-  } else {
-    postDetail.value = {
-      voted: false,
-      tags: imageSelected.value.tags.map(tag => {
-        const tagCN = window.__tagsCN?.[tag.replace(/_/g, ' ')]
-        return {
-          tag,
-          tagText: isCNLang && tagCN ? `${tag} [ ${tagCN} ]` : tag,
-          color: '#8F77B5',
-          type: 'general',
-        }
-      }),
-    }
+    return
+  }
+  if (isAnimePicturesPage()) {
+    const { tags } = await getAnimePicturesDetail(imageSelected.value.id)
+    if (tags?.length) imageSelected.value.tags = tags
+  }
+  if (isSankakuIdolPage()) {
+    const { sampleUrl, fileUrl } = await getSankakuIdolDetail(imageSelected.value.id)
+    if (sampleUrl) imageSelected.value.sampleUrl = sampleUrl
+    if (fileUrl) imageSelected.value.fileUrl = fileUrl
+  }
+  if (isAllGirlPage()) {
+    const { fileUrl } = await getAllGirlDetail(imageSelected.value.id)
+    if (fileUrl) imageSelected.value.fileUrl = fileUrl
+  }
+  if (isHentaiBooruPage()) {
+    const { fileUrl } = await getHentaiBooruDetail(imageSelected.value.id)
+    if (fileUrl) imageSelected.value.fileUrl = fileUrl
+  }
+  if (isKusowankaPage()) {
+    const { fileUrl, tags } = await getKusowankaDetail(imageSelected.value.id)
+    if (fileUrl) imageSelected.value.fileUrl = fileUrl
+    if (tags?.length) imageSelected.value.tags = tags
+  }
+  postDetail.value = {
+    voted: false,
+    tags: imageSelected.value.tags.map(tag => {
+      const tagCN = window.__tagsCN?.[tag.replace(/_/g, ' ')]
+      return {
+        tag,
+        tagText: isCNLang && tagCN ? `${tag} [ ${tagCN} ]` : tag,
+        color: '#8F77B5',
+        type: 'general',
+      }
+    }),
   }
 }
 
@@ -609,11 +651,20 @@ const showNextPost = async () => {
 const onImageLoadError = (ev: Event) => {
   imgLoading.value = false
   imageSelected.value.sampleUrl = null
+
   if (notR34Fav.value) {
     return
   }
   const { fileUrl } = imageSelected.value
   const el = ev.target as HTMLImageElement
+
+  if (fileUrl && location.hostname.includes('zerochan')) {
+    getZerochanFileUrl(imageSelected.value.id).then(url => {
+      imageSelected.value.fileUrl = url
+    })
+    return
+  }
+
   if (!el?.src.includes('/images/')) {
     el.src = imageSelected.value.fileUrl || ''
     return
@@ -639,8 +690,18 @@ const onScaleImgError = (ev: Event) => {
     imageSelected.value.data.jpeg_url = null
     return
   }
+
   imgLoading.value = false
   const { fileUrl } = imageSelected.value
+
+  if (fileUrl && location.hostname.includes('zerochan')) {
+    getZerochanFileUrl(imageSelected.value.id).then(url => {
+      imageSelected.value.fileUrl = url
+      ;(ev.target as HTMLImageElement).src = url
+    })
+    return
+  }
+
   if (fileUrl?.includes('.jpeg')) {
     imageSelected.value.fileUrl = fileUrl.replace(/\.jpeg(\?\d+)?$/, '.jpg')
     ;(ev.target as HTMLImageElement).src = imageSelected.value.fileUrl

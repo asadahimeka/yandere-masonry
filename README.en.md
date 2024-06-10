@@ -144,6 +144,29 @@ https://booru.allthefallen.moe
 
 https://aibooru.online
 
+Other supported sites：
+
+https://e-shuushuu.net
+
+https://www.zerochan.net
+
+https://sankaku.app (https://chan.sankakucomplex.com)
+
+https://idol.sankakucomplex.com
+
+https://anime-pictures.net
+
+https://allgirl.booru.org
+
+https://booru.eu
+
+https://kusowanka.com
+
+https://anihonetwallpaper.com
+
+https://nozomi.la
+
+
 ## Screenshots
 
 ![](https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/33dd626bdbfb6409f79770028350a01f_3755474670149737904.png)

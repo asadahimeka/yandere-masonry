@@ -1,6 +1,6 @@
 #enter-masonry {
   position: fixed;
-  z-index: 99;
+  z-index: 99999;
   right: 16px;
   top: 10px;
   height: 30px;

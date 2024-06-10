@@ -68,28 +68,37 @@
           </v-list-item-content>
         </template>
         <v-list-item-group :value="actSiteIndex" color="primary">
-          <v-list-item v-for="link in siteLinks" :key="link" :href="dealLink(link)">
+          <v-list-item v-for="link in siteDomains" :key="link" :href="dealLink(link)">
             <v-list-item-icon class="mr-2">
               <img :src="dealFavicon(link)" loading="lazy" class="site_icon">
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>{{ link.toUpperCase() }}</v-list-item-title>
+              <v-list-item-title>{{ getSiteTitle(link) }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item link @click="openLink('https://www.nanoka.top/illust/pixiv/')">
+          <hr class="my-2">
+          <v-list-item link @click="openLink('https://www.pixiv.pics')">
             <v-list-item-icon class="mr-2">
-              <img src="https://www.nanoka.top/images/favicon.ico" loading="lazy" class="site_icon">
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>Pixiv Ranking</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item link @click="openLink('https://pixiv.pics')">
-            <v-list-item-icon class="mr-2">
-              <img src="https://pixiv.pics/favicon.ico" loading="lazy" class="site_icon">
+              <img src="https://www.pixiv.pics/favicon.ico" loading="lazy" class="site_icon">
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>Pixiv Viewer</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item link @click="openLink('https://booru.io/')">
+            <v-list-item-icon class="mr-2">
+              <img src="https://booru.io/favicon.ico" loading="lazy" class="site_icon">
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>booru.io</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item link @click="openLink('https://r-34.xyz/')">
+            <v-list-item-icon class="mr-2">
+              <img src="https://r-34.xyz/favicon.ico" loading="lazy" class="site_icon">
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>R-34.XYZ</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -174,11 +183,10 @@ import {
   mdiWeb,
 } from '@mdi/js'
 import { computed, onMounted, ref } from 'vue'
-import { siteDomains } from '@/api/booru'
+import { getSiteTitle, siteDomains } from '@/api/booru'
 import { getUsername } from '@/api/moebooru'
 import store from '@/store'
 
-const siteLinks = ref(siteDomains)
 const userName = ref('')
 const version = ref(GM_info.script.version)
 
@@ -195,11 +203,12 @@ const dealLink = (link: string) => {
 const dealFavicon = (link: string) => {
   if (link.includes('konachan')) return 'https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/cbd0b71ead30e0777e5b023170ba415c_4819570566325089051.png'
   if (link.includes('behoimi')) return 'https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/d3b97f45046795c87c12ad5704074f32_1333245617164582614.png'
-  return `https://${link}/favicon.ico`
+  if (link.includes('sankaku')) return 'https://sankaku.app/images/favicon.ico'
+  return `https://${link.split('/')[0]}/favicon.ico`
 }
 
 const actSiteIndex = computed(() => {
-  return siteDomains.findIndex(e => location.host.includes(e))
+  return siteDomains.findIndex(e => location.href.includes(e))
 })
 
 const showSettingDrawer = () => {

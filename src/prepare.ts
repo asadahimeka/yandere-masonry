@@ -235,7 +235,7 @@ const specialSites = ['gelbooru']
 export function loadScript(src: string) {
   return new Promise<void>(resolve => {
     let script: HTMLScriptElement
-    if (specialSites.some(e => location.href.includes(e))) {
+    if (specialSites.some(e => location.hostname.includes(e))) {
       script = GM_addElement('script', { src })
       script.addEventListener('load', () => { resolve() }, false)
     } else {
@@ -251,7 +251,7 @@ async function loadDeps() {
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.16/vue.min.js')
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.js')
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.28.2/vue-i18n.min.js')
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.0.11/fxparser.min.js')
+  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.4.0/fxparser.min.js')
 }
 
 function replaceHead() {

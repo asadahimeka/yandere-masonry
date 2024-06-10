@@ -1,3 +1,23 @@
+## v0.33.0
+
+- feat: 支持 e-shuushuu.net
+- feat: 支持 zerochan.net
+- feat: 支持 sankaku.app(chan.sankakucomplex.com)
+- feat: 支持 idol.sankakucomplex.com
+- feat: 支持 anime-pictures.net
+- feat: 支持 allgirl.booru.org
+- feat: 支持 booru.eu
+- feat: 支持 kusowanka.com
+- feat: 支持 anihonetwallpaper.com
+- feat: 支持 nozomi.la
+- feat: 新增使用 fancybox 查看大图的设置
+- fix: 修复 rule34.paheal 无法加载的问题
+
+## v0.32.3
+
+- feat: 添加 Danbooru/Gelbooru/Rule34 收藏按钮
+- feat: 添加显示列表图片卡片左上角复选框的设置，勾选复选框可加入下载列表
+
 ## v0.32.2
 
 - fix: 优化 a11y，便于使用 Vimium 插件浏览

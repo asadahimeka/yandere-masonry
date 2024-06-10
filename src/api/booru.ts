@@ -1,8 +1,78 @@
 import { search, sites } from '@himeka/booru'
+import { isSankakuSite } from './sankaku'
+import { isAnimePicturesPage } from './anime-pictures'
 import store from '@/store'
 
+const siteKeys = Object.keys(sites)
+export const isBooruSite = () => siteKeys.includes(location.host)
+
 const blackList = new Set(['e621.net', 'e926.net', 'hypnohub.net', 'derpibooru.org'])
-export const siteDomains = Object.keys(sites).filter(e => !blackList.has(e))
+export const siteDomains = [
+  ...siteKeys.filter(e => !blackList.has(e)),
+  'e-shuushuu.net',
+  'zerochan.net',
+  'chan.sankakucomplex.com',
+  'idol.sankakucomplex.com',
+  'sankaku.app/ai-posts',
+  'anime-pictures.net',
+  'allgirl.booru.org',
+  'booru.eu',
+  'kusowanka.com',
+  'anihonetwallpaper.com',
+  'nozomi.la',
+]
+
+export const notPartialSupportSite = !([
+  'e-shuushuu.net',
+  'www.zerochan.net',
+  'idol.sankakucomplex.com',
+  'allgirl.booru.org',
+  'booru.eu',
+  'kusowanka.com',
+  'anihonetwallpaper.com',
+].includes(location.host))
+
+export const defCompTags = (() => {
+  if (store.isYKSite) {
+    return ['rating:s', 'rating:q', 'rating:e', 'order:score', 'order:vote', 'order:mpixels', 'order:landscape', 'order:portrait']
+  }
+  if (isSankakuSite) {
+    return ['order:quality', 'order:popularity', 'order:random', 'order:recently_favorited', 'order:recently_voted', 'rating:s', 'rating:q', 'rating:e', 'threshold:0', 'threshold:1', 'threshold:2', 'threshold:3', 'threshold:4', 'threshold:5']
+  }
+  if (isAnimePicturesPage()) {
+    return ['order_by:date', 'order_by:date_r', 'order_by:rating', 'order_by:views', 'order_by:size', 'order_by:tag_num']
+  }
+  if (location.host.includes('danbooru')) {
+    return ['order:rank', 'order:score', 'order:favcount', 'order:none', 'order:upvotes', 'rating:general', 'rating:questionable', 'rating:explicit', 'rating:sensitive', 'order:landscape', 'order:portrait', 'order:mpixels']
+  }
+  if (/gelbooru\.com|rule34\.xxx/.test(location.host)) {
+    return ['rating:safe', 'rating:questionable', 'rating:explicit', 'sort:score']
+  }
+  return []
+})()
+
+const specTitleMap: Record<string, string> = {
+  'yande.re': 'yande.re',
+  'konachan.com': 'Koanchan',
+  'konachan.net': 'Koanchan(Safe)',
+  'sakugabooru.com': 'sakugabooru'.toUpperCase(),
+  'behoimi.org': '3dbooru',
+  'rule34.paheal.net': 'Rule34.Paheal',
+  'booru.allthefallen.moe': 'ATFBooru',
+  'aibooru.online': 'AIBooru',
+  'sankaku.app': 'Sankaku Complex',
+  'sankaku.app/ai-posts': 'Sankaku AI',
+  'chan.sankakucomplex.com': 'Sankaku Complex',
+  'idol.sankakucomplex.com': 'Idol Complex',
+  'anime-pictures.net': 'Anime Pictures',
+  'allgirl.booru.org': 'All girl',
+  'booru.eu': 'Hentai Booru',
+}
+
+export function getSiteTitle(domain: string = location.host) {
+  const host = domain.toLowerCase().replace('www.', '')
+  return specTitleMap[host] || (host[0].toUpperCase() + host.slice(1).split('.')[0])
+}
 
 const defaultLimitMap: Record<string, number> = {
   'yande.re': 40,

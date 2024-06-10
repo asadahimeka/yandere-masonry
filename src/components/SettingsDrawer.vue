@@ -92,25 +92,27 @@
           </v-combobox>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item class="mb-0">
-        <v-list-item-content>
-          <v-list-item-title>{{ $t('RstKmO7YVQMpaDoucxUel') }}</v-list-item-title>
-          <v-list-item-subtitle :title="$t('1F-R4qChHIzZaohu5GJzl')">{{ $t('1F-R4qChHIzZaohu5GJzl') }}</v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item class="pa-0">
-        <v-list-item-content class="pt-0">
-          <v-text-field
-            v-model="store.settings.credentialQuery"
-            class="blacklist_combobox ma-0 pa-0"
-            hide-details
-            outlined
-            dense
-            @change="onCredentialQueryChange"
-          />
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item>
+      <template v-if="notPartialSupportSite || !isSankakuSite">
+        <v-list-item class="mb-0">
+          <v-list-item-content>
+            <v-list-item-title>{{ $t('RstKmO7YVQMpaDoucxUel') }}</v-list-item-title>
+            <v-list-item-subtitle :title="$t('1F-R4qChHIzZaohu5GJzl')">{{ $t('1F-R4qChHIzZaohu5GJzl') }}</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item class="pa-0">
+          <v-list-item-content class="pt-0">
+            <v-text-field
+              v-model="store.settings.credentialQuery"
+              class="blacklist_combobox ma-0 pa-0"
+              hide-details
+              outlined
+              dense
+              @change="onCredentialQueryChange"
+            />
+          </v-list-item-content>
+        </v-list-item>
+      </template>
+      <v-list-item v-if="notPartialSupportSite">
         <v-list-item-content>
           <v-list-item-title>{{ $t('Lm_HFVHpv4XCjilV3NLKu') }}</v-list-item-title>
           <v-list-item-subtitle :title="$t('A16qoBulYQJLbHe9mqNwm')">{{ $t('A16qoBulYQJLbHe9mqNwm') }}</v-list-item-subtitle>
@@ -150,7 +152,7 @@
           />
         </v-list-item-action>
       </v-list-item>
-      <v-list-item>
+      <v-list-item v-if="notPartialSupportSite">
         <v-list-item-content>
           <v-list-item-title>{{ $t('kFcteLMfnoezhOwuTlLFC') }}</v-list-item-title>
           <v-list-item-subtitle :title="$t('FT1uJs8XG__n5qBvuFsH4')">{{ $t('FT1uJs8XG__n5qBvuFsH4') }}</v-list-item-subtitle>
@@ -163,7 +165,7 @@
           />
         </v-list-item-action>
       </v-list-item>
-      <v-list-item v-if="store.isFullImgPreload">
+      <v-list-item v-if="notPartialSupportSite && store.isFullImgPreload">
         <v-list-item-content>
           <v-list-item-title>{{ $t('G3b7rbyQEj3_rgzVsNJZY') }}</v-list-item-title>
           <v-list-item-subtitle :title="$t('iRt9V9wNQASic3D7-wTZo')">{{ $t('iRt9V9wNQASic3D7-wTZo') }}</v-list-item-subtitle>
@@ -238,7 +240,7 @@
           />
         </v-list-item-action>
       </v-list-item>
-      <v-list-item>
+      <v-list-item v-if="notPartialSupportSite">
         <v-list-item-content>
           <v-list-item-title>{{ $t('PBjdNKuj02doUvOf2zZqP') }}</v-list-item-title>
           <v-list-item-subtitle :title="$t('z_oL9s5fS164W4_gITOGZ')">{{ $t('z_oL9s5fS164W4_gITOGZ') }}</v-list-item-subtitle>
@@ -278,7 +280,7 @@
           />
         </v-list-item-action>
       </v-list-item>
-      <v-list-item>
+      <v-list-item v-if="notPartialSupportSite">
         <v-list-item-content>
           <v-list-item-title>{{ $t('sxhTRqogDRozo9IaTGI7g') }}</v-list-item-title>
           <v-list-item-subtitle :title="$t('gPt6cpWrkvqRqZnwJo1KV')">{{ $t('gPt6cpWrkvqRqZnwJo1KV') }}</v-list-item-subtitle>
@@ -288,6 +290,19 @@
             v-model="store.settings.showPostCheckbox"
             inset
             @change="onShowPostCheckboxChange"
+          />
+        </v-list-item-action>
+      </v-list-item>
+      <v-list-item v-if="notPartialSupportSite">
+        <v-list-item-content>
+          <v-list-item-title>{{ $t('dvs63FvVKWm3uHVfqeq00') }}</v-list-item-title>
+          <v-list-item-subtitle :title="$t('w4uJjpTmSEkm6SIDgEo-0')">{{ $t('Tbq8O5KhwcDHQ_qxNFW09') }}</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-switch
+            v-model="store.settings.useFancybox"
+            inset
+            @change="onUseFancyboxChange"
           />
         </v-list-item-action>
       </v-list-item>
@@ -316,6 +331,8 @@ import { mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste } from '@mdi/
 import store from '@/store'
 import i18n from '@/utils/i18n'
 import { showMsg } from '@/utils'
+import { notPartialSupportSite } from '@/api/booru'
+import { isSankakuSite } from '@/api/sankaku'
 
 const onComboboxChange = (val: string[]) => {
   localStorage.setItem('__blacklist', val.join(','))
@@ -383,6 +400,10 @@ const onThumbSampleUrlChange = (val: any) => {
 
 const onShowPostCheckboxChange = (val: any) => {
   localStorage.setItem('__showPostCheckbox', val ? '1' : '')
+}
+
+const onUseFancyboxChange = (val: any) => {
+  localStorage.setItem('__useFancybox', val ? '1' : '')
 }
 
 const isFitScreen = ref(localStorage.getItem('__fitScreen') != '0')

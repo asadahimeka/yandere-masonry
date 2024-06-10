@@ -15,9 +15,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@himeka/booru": "2.7.6",
-    "@vueuse/core": "10.7.1",
-    "date-fns": "2.30.0",
+    "@himeka/booru": "2.7.7",
+    "@vueuse/core": "10.10.0",
+    "date-fns": "3.6.0",
     "vue": "2.7.16",
     "vue-i18n": "8.28.2",
     "vue-masonry-css": "1.0.3",

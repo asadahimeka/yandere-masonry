@@ -60,6 +60,7 @@
     <div v-else-if="store.showPostList" style="display:flex" class="align-center">
       <v-toolbar-title class="hidden-md-and-down" v-text="title" />
       <input
+        v-if="!isSankakuSite"
         :value="store.currentPage"
         class="ml-1 mr-2 text-center rounded"
         :style="{ width: '40px', height: '30px', border: '1px solid #bbb', color: 'inherit' }"
@@ -79,38 +80,40 @@
           <v-icon>{{ mdiShuffle }}</v-icon>
         </v-btn>
       </template>
-      <v-menu
-        v-model="searchState.showMenu"
-        :max-width="200"
-        max-height="80vh"
-        transition="slide-y-transition"
-        nudge-bottom="5px"
-        offset-y
-      >
-        <template #activator="{ on }">
-          <v-slide-x-transition>
-            <div v-show="searchState.showInput" class="app-bar-tag-input ml-4" style="width: 200px">
-              <v-text-field
-                v-model="searchState.searchTerm"
-                hide-details
-                v-on="on"
-                @input="onSearchTermInput"
-                @click="searchState.showMenu = true"
-                @blur="searchState.showMenu = false"
-                @keydown="onSearchTermKeydown"
-              />
-            </div>
-          </v-slide-x-transition>
-        </template>
-        <v-list v-show="store.isYKSite && searchState.searchItems.length" class="ac_tags_list" dense>
-          <v-list-item v-for="item in searchState.searchItems" :key="item" dense @click="selectTag(item)">
-            <v-list-item-title v-text="item" />
-          </v-list-item>
-        </v-list>
-      </v-menu>
-      <v-btn :title="$t('ZztrWbSaaaas3v0cHtSmh')" icon @click="showTagsInput()">
-        <v-icon>{{ mdiMagnify }}</v-icon>
-      </v-btn>
+      <template v-if="notPartialSupportSite || isSankakuSite">
+        <v-menu
+          v-model="searchState.showMenu"
+          :max-width="200"
+          max-height="80vh"
+          transition="slide-y-transition"
+          nudge-bottom="5px"
+          offset-y
+        >
+          <template #activator="{ on }">
+            <v-slide-x-transition>
+              <div v-show="searchState.showInput" class="app-bar-tag-input ml-4" style="width: 200px">
+                <v-text-field
+                  v-model="searchState.searchTerm"
+                  hide-details
+                  v-on="on"
+                  @input="onSearchTermInput"
+                  @click="searchState.showMenu = true"
+                  @blur="searchState.showMenu = false"
+                  @keydown="onSearchTermKeydown"
+                />
+              </div>
+            </v-slide-x-transition>
+          </template>
+          <v-list v-if="searchState.searchItems.length" class="ac_tags_list" dense>
+            <v-list-item v-for="item in searchState.searchItems" :key="item" dense @click="selectTag(item)">
+              <v-list-item-title v-text="item" />
+            </v-list-item>
+          </v-list>
+        </v-menu>
+        <v-btn :title="$t('ZztrWbSaaaas3v0cHtSmh')" icon @click="showTagsInput()">
+          <v-icon>{{ mdiMagnify }}</v-icon>
+        </v-btn>
+      </template>
     </div>
     <div v-else-if="store.showPoolList" style="display:flex" class="align-center">
       <v-toolbar-title v-if="store.showPoolList" class="mr-3 hidden-md-and-down">Pools</v-toolbar-title>
@@ -128,7 +131,7 @@
       </v-btn>
     </div>
     <v-spacer />
-    <template v-if="store.showPostList">
+    <template v-if="store.showPostList && notPartialSupportSite">
       <span
         v-show="store.selectedImageList.length"
         class="hidden-md-and-down ml-1 mr-1"
@@ -274,24 +277,11 @@ import store from '@/store'
 import { addDate, debounce, downloadFile, eventBus, formatDate, showMsg, subDate } from '@/utils'
 import { loadPostsByPage, loadPostsByTags, refreshPosts } from '@/store/actions/post'
 import { getRecentTags, getUsername, isPopularPage, searchTagsByName } from '@/api/moebooru'
+import { defCompTags, getSiteTitle, notPartialSupportSite } from '@/api/booru'
+import { isSankakuSite } from '@/api/sankaku'
 import i18n from '@/utils/i18n'
 
-const specTitleMap: Record<string, string> = {
-  'yande.re': 'yande.re',
-  'konachan.com': 'Koanchan',
-  'konachan.net': 'Koanchan(Safe)',
-  'www.sakugabooru.com': 'sakugabooru'.toUpperCase(),
-  'behoimi.org': '3dbooru',
-  'rule34.paheal.net': 'rule34.paheal'.toUpperCase(),
-  'booru.allthefallen.moe': 'ATFBooru',
-  'aibooru.online': 'AIBooru',
-}
-
-const title = computed(() => {
-  const host = location.host.toLowerCase()
-  const siteName = specTitleMap[host] || (host[0].toUpperCase() + host.slice(1).split('.')[0])
-  return `${siteName} - ${store.imageList.length} Posts - Page `
-})
+const title = computed(() => `${getSiteTitle()} - ${store.imageList.length} Posts - Page `)
 
 const isNoSelected = computed(() => store.selectedImageList.length === 0)
 const isOneOrMoreSelected = computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length < store.imageList.length)
@@ -327,7 +317,7 @@ const searchState = reactive({
   showInput: !!tagsQuery,
   showMenu: false,
   searchTerm: tagsQuery || '',
-  searchItems: store.isYKSite ? getRecentTags() : [],
+  searchItems: store.isYKSite ? defCompTags.concat(getRecentTags()) : defCompTags,
 })
 
 const onSearchTermInput = debounce(() => {
@@ -336,7 +326,7 @@ const onSearchTermInput = debounce(() => {
   const lastTag = val?.split(/\s+/).slice(-1)[0]
   if (!lastTag) {
     searchState.showMenu = false
-    searchState.searchItems = []
+    searchState.searchItems = defCompTags
     return
   }
   searchState.showMenu = true
@@ -347,7 +337,7 @@ const selectTag = (tag: string) => {
   const termArr = searchState.searchTerm.split(/\s+/)
   searchState.searchTerm = termArr.slice(0, -1).concat(tag).join(' ')
   searchState.showMenu = false
-  searchState.searchItems = []
+  searchState.searchItems = defCompTags
 }
 
 const userName = ref('')
@@ -370,9 +360,8 @@ const showTagsInput = () => {
   if (searchState.showInput) {
     if (!searchState.searchTerm) {
       searchState.showInput = false
-    } else {
-      fetchTaggedPosts(searchState.searchTerm)
     }
+    fetchTaggedPosts(searchState.searchTerm)
   } else {
     searchState.showInput = true
   }
@@ -380,9 +369,14 @@ const showTagsInput = () => {
 
 const onSearchTermKeydown = (ev: KeyboardEvent) => {
   if (ev.key != 'Enter') return
-  if (store.isYKSite && searchState.searchItems.length) {
+  if (searchState.showMenu && searchState.searchItems.length) {
     const item = document.querySelector<HTMLElement>('.ac_tags_list .v-list-item--highlighted')
-    item && selectTag(item.innerText)
+    if (item) {
+      selectTag(item.innerText)
+      return
+    }
+    searchState.showMenu = false
+    fetchTaggedPosts(searchState.searchTerm)
   } else {
     fetchTaggedPosts(searchState.searchTerm)
   }

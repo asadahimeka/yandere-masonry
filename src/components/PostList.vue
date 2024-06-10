@@ -141,10 +141,10 @@
           <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" @click.stop="openDetail(image)">
             <v-icon>{{ mdiLinkVariant }}</v-icon>
           </v-btn>
-          <v-btn class="hidden-md-and-down" icon color="#fff" :title="$t('hVmfDxXoj8vkgVQabEOSr')" @click.stop="addToSelectedList(image)">
+          <v-btn v-if="notPartialSupportSite" class="hidden-md-and-down" icon color="#fff" :title="$t('hVmfDxXoj8vkgVQabEOSr')" @click.stop="addToSelectedList(image)">
             <v-icon>{{ mdiPlaylistPlus }}</v-icon>
           </v-btn>
-          <v-btn icon color="#fff" :title="$t('VpuyxZtIoDF9-YyOm0tK_')" @click.stop="downloadCtxPost(image)">
+          <v-btn v-if="notPartialSupportSite" icon color="#fff" :title="$t('VpuyxZtIoDF9-YyOm0tK_')" @click.stop="downloadCtxPost(image)">
             <v-icon>{{ mdiDownload }}</v-icon>
           </v-btn>
           <v-btn v-if="isFavBtnShow" icon color="#fff" :title="$t('Dnnio9m9RZA6bkTLytc99')" @click.stop="addFavorite(image.id)">
@@ -169,13 +169,13 @@
         <v-list-item v-if="isFavBtnShow" @click="addFavorite()">
           <v-list-item-title>{{ $t('Dnnio9m9RZA6bkTLytc99') }}</v-list-item-title>
         </v-list-item>
-        <v-list-item @click="downloadCtxPost()">
+        <v-list-item v-if="notPartialSupportSite" @click="downloadCtxPost()">
           <v-list-item-title>{{ $t('VpuyxZtIoDF9-YyOm0tK_') }}</v-list-item-title>
         </v-list-item>
         <v-list-item @click="openDetail()">
           <v-list-item-title>{{ $t('EsiorRgoeHI8h7IHMLDA4') }}</v-list-item-title>
         </v-list-item>
-        <v-list-item class="hidden-md-and-down" @click="addToSelectedList()">
+        <v-list-item v-if="notPartialSupportSite" class="hidden-md-and-down" @click="addToSelectedList()">
           <v-list-item-title>{{ $t('hVmfDxXoj8vkgVQabEOSr') }}</v-list-item-title>
         </v-list-item>
       </v-list>
@@ -204,7 +204,8 @@ import { mdiDownload, mdiFileGifBox, mdiFileTree, mdiFolderNetwork, mdiHeartPlus
 import { computed, nextTick, onMounted, onUnmounted, ref, set, watch } from 'vue'
 import type { Post } from '@himeka/booru'
 import PostDetail from './PostDetail.vue'
-import { downloadFile, notReachBottom, showMsg, throttleScroll } from '@/utils'
+import { downloadFile, fancyboxShow, notReachBottom, showMsg, throttleScroll } from '@/utils'
+import { notPartialSupportSite } from '@/api/booru'
 import { addPostToFavorites, isFavBtnShow } from '@/api/fav'
 import { isRule34FavPage } from '@/api/rule34'
 import { isGelbooruFavPage } from '@/api/gelbooru'
@@ -268,6 +269,10 @@ const onCtxMenu = (ev: MouseEvent, img: Post) => {
 }
 
 const showImgModal = (index: number) => {
+  if (store.settings.useFancybox) {
+    fancyboxShow(store.imageList, index)
+    return
+  }
   store.imageSelectedIndex = index
   store.showImageSelected = true
 }

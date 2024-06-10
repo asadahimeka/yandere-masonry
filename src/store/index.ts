@@ -13,6 +13,7 @@ interface AppSettings {
   credentialQuery: string
   isThumbSampleUrl: boolean
   showPostCheckbox: boolean
+  useFancybox: boolean
 }
 
 interface AppState {
@@ -72,6 +73,7 @@ const store = Vue.observable<AppState>({
     credentialQuery: localStorage.getItem('__credentialQuery') || '',
     isThumbSampleUrl: !!localStorage.getItem('__thumbSampleUrl'),
     showPostCheckbox: !!localStorage.getItem('__showPostCheckbox'),
+    useFancybox: !!localStorage.getItem('__useFancybox'),
   },
   toggleDrawer() {
     store.showDrawer = !store.showDrawer
