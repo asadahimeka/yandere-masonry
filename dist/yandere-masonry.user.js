@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.32.3
+// @version              0.33.0
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -25,6 +25,17 @@
 // @match                https://realbooru.com/*
 // @match                https://booru.allthefallen.moe/*
 // @match                https://aibooru.online/*
+// @match                https://e-shuushuu.net/*
+// @match                https://www.zerochan.net/*
+// @match                https://sankaku.app/*
+// @match                https://chan.sankakucomplex.com/*
+// @match                https://idol.sankakucomplex.com/*
+// @match                https://anime-pictures.net/*
+// @match                https://allgirl.booru.org/*
+// @match                https://booru.eu/*
+// @match                https://kusowanka.com/*
+// @match                https://anihonetwallpaper.com/*
+// @match                https://nozomi.la/*
 // @homepage             https://www.nanoka.top
 // @source               https://github.com/asadahimeka/yandere-masonry
 // @icon                 https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/f1f6267537a5aff959ee63ec2c9e4e52_4821140735490026106.jpg
@@ -44,10 +55,10 @@ var __publicField = (obj, key, value) => {
   return value;
 };
 (() => {
-  var prepareStyle = "#enter-masonry{position:fixed;z-index:99;right:16px;top:10px;height:30px;padding:6px 10px;font-size:13px;border:0;border-radius:6px;color:#fff;outline:0;background:linear-gradient(to right,#ff758c 0%,#ff7eb3 100%);opacity:1;transform:scale(1);transition:opacity,transform .2s;cursor:pointer}#enter-masonry:hover{opacity:.8;transform:scale(1.05)}#locale-select{position:fixed;z-index:99;right:110px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}#wf-type-select{position:fixed;z-index:99;right:190px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}\n";
+  var prepareStyle = "#enter-masonry{position:fixed;z-index:99999;right:16px;top:10px;height:30px;padding:6px 10px;font-size:13px;border:0;border-radius:6px;color:#fff;outline:0;background:linear-gradient(to right,#ff758c 0%,#ff7eb3 100%);opacity:1;transform:scale(1);transition:opacity,transform .2s;cursor:pointer}#enter-masonry:hover{opacity:.8;transform:scale(1.05)}#locale-select{position:fixed;z-index:99;right:110px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}#wf-type-select{position:fixed;z-index:99;right:190px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}\n";
   var ydStyle = 'a.thumb{padding-bottom:5px;border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08] "}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743] "}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272] "}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2] "}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:100%;height:auto;margin-top:0;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}.mm-masonry{--gap: 24;--col-width: 240}.mm-masonry{--_col-width: var(--col-width, 280);--_col-width-px: calc(var(--_col-width) * 1px);--_gap: calc(var(--gap, 20) * 1px);display:var(--display, grid)!important;grid-template-columns:repeat(auto-fill,minmax(var(--_col-width-px),1fr));grid-auto-rows:1px;column-gap:var(--_gap)}.mm-masonry__item{--img-proportional-height: calc(var(--h) * var(--_col-width) / (var(--w)));grid-row-end:span var(--img-proportional-height, 240);overflow:hidden}.mm-masonry__item:not(:last-child){margin-bottom:var(--_gap)}#post-list ul#post-list-posts .mm-masonry__item .inner,#post-popular ul#post-list-posts .mm-masonry__item .inner{height:100%!important}.mm-masonry__img{width:100%!important;height:100%!important;object-fit:cover}.justified-container{display:flex!important;flex-wrap:wrap}.justified-container:after{content:"";flex-grow:999999999}.justified-item{position:relative}.justified-item img.preview{position:absolute;top:0;left:0;width:100%;vertical-align:bottom;object-fit:cover}\n';
   var knStyle = "#lsidebar{display:none}#post-popular ul#post-list-posts{display:flex;justify-content:center;flex-wrap:wrap}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
-  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;max-width:100vw;max-height:100vh;margin:0 auto}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}.img_detail_tag_list .v-slide-group__content{max-height:72vh;overflow-y:auto}::-webkit-scrollbar{width:0px}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e9eef6;border-radius:7px}.theme--dark .img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.posts-image-card{margin-bottom:8px}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{--jstf-w: 340;--jstf-w-px: 340PX;position:relative;flex-grow:calc(var(--w) * var(--jstf-w) / var(--h));width:calc(var(--w) * var(--jstf-w-px) / var(--h));margin-bottom:0!important;padding-bottom:0!important;background-color:#dcdcdc}@media screen and (max-width: 500px){.justified-container .posts-image-card{--jstf-w: 240;--jstf-w-px: 240PX}}.justified-container .posts-image-card:before{content:"";display:block;padding-bottom:calc(var(--h) / var(--w) * 100%)!important}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-checkbox{position:absolute;top:5px;left:5px;width:28px;padding:2px;height:28px;border-radius:2px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-checkbox:has(input[aria-checked="true"]),.posts-image-card:hover .posts-image-checkbox{opacity:1;visibility:visible}.posts-image-checkbox .v-input--selection-controls__ripple .primary--text,.posts-image-checkbox .v-input--selection-controls__input .v-icon{color:#fff!important}.posts-image-type{position:absolute!important;top:0;right:0px;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}@media screen and (min-width: 768px){.wf-no-fit-screen{max-width:62.5vw;margin:16px auto}}.virtual-waterfall>[data-index]{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f;border-radius:4px}.theme--light .v-app-bar{box-shadow:none!important;background:#f6f8fc!important}.theme--light .v-app-bar,.theme--light .v-app-bar .v-toolbar__content{height:64px!important}.theme--light .v-main{padding-top:64px!important}.theme--light .v-app-bar .v-toolbar__title+input{width:50px!important;background-color:#eaf1fb!important;border-radius:24px!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#5f6368!important}.theme--light .app-bar-tag-input .v-input .v-input__slot:before,.theme--light .app-bar-tag-input .v-input .v-input__slot:after{display:none}.theme--light .app-bar-tag-input .v-input input{padding:5px 44px 5px 10px;background-color:#eaf1fb;min-height:48px;border-radius:24px}.theme--light .app-bar-tag-input:not([style*="none"])+.v-btn{position:relative;left:-50px}.theme--light.v-list,.theme--light.v-navigation-drawer{background:#e9eef6!important}.theme--dark .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--dark .img_detail_btn_color .v-chip.tag_type_general,.theme--dark .img_detail_btn_color .v-btn{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag) .v-icon,.theme--light .img_detail_btn_color .v-chip.tag_type_general,.theme--light .img_detail_btn_color .v-btn{background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#1a73e8!important;box-shadow:none!important;font-weight:500}.img_detail_btn_color .v-chip.img_detail_tag{font-weight:500}.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text,.v-date-picker-table__current){padding-bottom:2px;border-radius:10px;color:#001d35;background-color:#c2e7ff}.theme--light .refresh_posts_btn{box-shadow:0 1px 2px #0000,0 1px 3px 1px #0000;background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#001d35}.theme--light .img_detail_loading .v-progress-circular{color:#1a73e8!important;caret-color:#1a73e8!important}.theme--light .blacklist_combobox .v-input__slot{padding-left:8px!important}.theme--light .v-text-field--outlined{border-radius:20px}\n';
+  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;max-width:100vw;max-height:100vh;margin:0 auto}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}.img_detail_tag_list .v-slide-group__content{max-height:72vh;overflow-y:auto}::-webkit-scrollbar{width:0px}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e9eef6;border-radius:7px}.theme--dark .img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.posts-image-card{margin-bottom:8px}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{--jstf-w: 340;--jstf-w-px: 340PX;position:relative;flex-grow:calc(var(--w) * var(--jstf-w) / var(--h));width:calc(var(--w) * var(--jstf-w-px) / var(--h));margin-bottom:0!important;padding-bottom:0!important;background-color:#dcdcdc}@media screen and (max-width: 500px){.justified-container .posts-image-card{--jstf-w: 240;--jstf-w-px: 240PX}}.justified-container .posts-image-card:before{content:"";display:block;padding-bottom:calc(var(--h) / var(--w) * 100%)!important}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-checkbox{position:absolute;top:5px;left:5px;width:28px;padding:2px;height:28px;border-radius:2px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-checkbox:has(input[aria-checked="true"]),.posts-image-card:hover .posts-image-checkbox{opacity:1;visibility:visible}.posts-image-checkbox .v-input--selection-controls__ripple .primary--text,.posts-image-checkbox .v-input--selection-controls__input .v-icon{color:#fff!important}.posts-image-type{position:absolute!important;top:0;right:0px;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}@media screen and (min-width: 768px){.wf-no-fit-screen{max-width:62.5vw;margin:16px auto}}.virtual-waterfall>[data-index]{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f;border-radius:4px}.theme--light .v-app-bar{box-shadow:none!important;background:#f6f8fc!important}.theme--light .v-app-bar,.theme--light .v-app-bar .v-toolbar__content{height:64px!important}.theme--light .v-main{padding-top:64px!important}.theme--light .v-app-bar .v-toolbar__title+input{width:50px!important;background-color:#eaf1fb!important;border-radius:24px!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#5f6368!important}.theme--light .app-bar-tag-input .v-input .v-input__slot:before,.theme--light .app-bar-tag-input .v-input .v-input__slot:after{display:none}.theme--light .app-bar-tag-input .v-input input{padding:5px 44px 5px 10px;background-color:#eaf1fb;min-height:48px;border-radius:24px}.theme--light .app-bar-tag-input:not([style*="none"])+.v-btn{position:relative;left:-50px}.theme--light.v-list,.theme--light.v-navigation-drawer{background:#e9eef6!important}.theme--dark .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--dark .img_detail_btn_color .v-chip.tag_type_general,.theme--dark .img_detail_btn_color .v-btn{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag) .v-icon,.theme--light .img_detail_btn_color .v-chip.tag_type_general,.theme--light .img_detail_btn_color .v-btn{background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#1a73e8!important;box-shadow:none!important;font-weight:500}.img_detail_btn_color .v-chip.img_detail_tag{font-weight:500}.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text,.v-date-picker-table__current){padding-bottom:2px;border-radius:10px;color:#001d35;background-color:#c2e7ff}.theme--light .refresh_posts_btn{box-shadow:0 1px 2px #0000,0 1px 3px 1px #0000;background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#001d35}.theme--light .img_detail_loading .v-progress-circular{color:#1a73e8!important;caret-color:#1a73e8!important}.theme--light .blacklist_combobox .v-input__slot{padding-left:8px!important}.theme--light .v-text-field--outlined{border-radius:20px}.fancybox__caption{display:none;padding:12px 24px!important}.v-toolbar.img_detail_btn_color{backdrop-filter:none!important}\n';
   async function prepareApp(callback) {
     if (doNotRun())
       return;
@@ -175,10 +186,10 @@ var __publicField = (obj, key, value) => {
     if (url.searchParams.get("locale"))
       return;
     const browserLang = navigator.language;
-    const locale2 = locales.find((e) => e == browserLang.replace("-", "_") || e == browserLang.split("-")[0]);
-    if (!locale2)
+    const locale = locales.find((e) => e == browserLang.replace("-", "_") || e == browserLang.split("-")[0]);
+    if (!locale)
       return;
-    url.searchParams.set("locale", locale2);
+    url.searchParams.set("locale", locale);
     location.assign(url);
   }
   function addMoeLocaleSelect() {
@@ -216,8 +227,8 @@ var __publicField = (obj, key, value) => {
   }
   async function translateTags() {
     var _a2;
-    const locale2 = (_a2 = document.cookie.match(/locale=(\w+)/)) == null ? void 0 : _a2[1];
-    if (locale2 && locale2 !== "zh_CN")
+    const locale = (_a2 = document.cookie.match(/locale=(\w+)/)) == null ? void 0 : _a2[1];
+    if (locale && locale !== "zh_CN")
       return;
     const response = await fetch("https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/tags_cn.json");
     window.__tagsCN = await response.json();
@@ -291,7 +302,7 @@ var __publicField = (obj, key, value) => {
   function loadScript(src) {
     return new Promise((resolve) => {
       let script;
-      if (specialSites.some((e) => location.href.includes(e))) {
+      if (specialSites.some((e) => location.hostname.includes(e))) {
         script = GM_addElement("script", { src });
         script.addEventListener("load", () => {
           resolve();
@@ -310,7 +321,7 @@ var __publicField = (obj, key, value) => {
     await loadScript("https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.16/vue.min.js");
     await loadScript("https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.js");
     await loadScript("https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.28.2/vue-i18n.min.js");
-    await loadScript("https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.0.11/fxparser.min.js");
+    await loadScript("https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.4.0/fxparser.min.js");
   }
   function replaceHead() {
     const el = document.querySelector('[name="csrf-token"]');
@@ -629,6 +640,8 @@ var __publicField = (obj, key, value) => {
   const e4_fgvntwNlfxgJUc2dXK$3 = "\u8BED\u8A00";
   const sxhTRqogDRozo9IaTGI7g$3 = "\u5217\u8868\u56FE\u7247\u663E\u793A\u590D\u9009\u6846";
   const gPt6cpWrkvqRqZnwJo1KV$3 = "\u5728\u56FE\u7247\u5361\u7247\u5DE6\u4E0A\u89D2\u663E\u793A\u52A0\u5165\u4E0B\u8F7D\u5217\u8868\u7684\u590D\u9009\u6846";
+  const dvs63FvVKWm3uHVfqeq00$3 = "\u4F7F\u7528 Fancybox \u67E5\u770B\u8BE6\u60C5";
+  const Tbq8O5KhwcDHQ_qxNFW09$3 = "\u5B9E\u9A8C\u6027";
   var zhHans = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$3,
     "ZtQHZx-pEjmu_o3dQD1fc": "\u793E\u56E2",
@@ -743,7 +756,10 @@ var __publicField = (obj, key, value) => {
     "EZd1QQdgUDjT3yya5ZYe-": "\u6253\u5F00\u6E90\u7AD9\u65F6\u76F4\u63A5\u8FDB\u5165\u7011\u5E03\u6D41\u6D4F\u89C8\u6A21\u5F0F",
     e4_fgvntwNlfxgJUc2dXK: e4_fgvntwNlfxgJUc2dXK$3,
     sxhTRqogDRozo9IaTGI7g: sxhTRqogDRozo9IaTGI7g$3,
-    gPt6cpWrkvqRqZnwJo1KV: gPt6cpWrkvqRqZnwJo1KV$3
+    gPt6cpWrkvqRqZnwJo1KV: gPt6cpWrkvqRqZnwJo1KV$3,
+    dvs63FvVKWm3uHVfqeq00: dvs63FvVKWm3uHVfqeq00$3,
+    "w4uJjpTmSEkm6SIDgEo-0": "\u56FE\u7247\u8BE6\u60C5\u4F7F\u7528\u652F\u6301\u7F29\u653E\u65CB\u8F6C\u7B49\u64CD\u4F5C\u7684 Fancybox \u7EC4\u4EF6\u67E5\u770B",
+    Tbq8O5KhwcDHQ_qxNFW09: Tbq8O5KhwcDHQ_qxNFW09$3
   };
   const UxxldE9xRwmQctrvba5Y8$2 = "\u8A2D\u7F6E";
   const A16qoBulYQJLbHe9mqNwm$2 = "\u5305\u542B\u88F8\u9732\u3001\u6027\u611B\u63CF\u5BEB\u5167\u5BB9\u7B49\u904E\u6FC0\u5167\u5BB9";
@@ -815,6 +831,8 @@ var __publicField = (obj, key, value) => {
   const e4_fgvntwNlfxgJUc2dXK$2 = "\u8A9E\u8A00";
   const gPt6cpWrkvqRqZnwJo1KV$2 = "\u5728\u5716\u7247\u5361\u7247\u5DE6\u4E0A\u89D2\u986F\u793A\u52A0\u5165\u4E0B\u8F09\u6E05\u55AE\u7684\u8907\u9078\u6846";
   const sxhTRqogDRozo9IaTGI7g$2 = "\u6E05\u55AE\u5716\u7247\u986F\u793A\u8907\u9078\u6846";
+  const dvs63FvVKWm3uHVfqeq00$2 = "\u4F7F\u7528 Fancybox \u67E5\u770B\u8A73\u60C5";
+  const Tbq8O5KhwcDHQ_qxNFW09$2 = "\u5BE6\u9A57\u6027";
   var zhHant = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$2,
     "1F-R4qChHIzZaohu5GJzl": "\u5F62\u5982: &api_key=xx&user_id=1",
@@ -929,7 +947,10 @@ var __publicField = (obj, key, value) => {
     lkCkz1OpNtTCFRfGCEoBp: lkCkz1OpNtTCFRfGCEoBp$2,
     e4_fgvntwNlfxgJUc2dXK: e4_fgvntwNlfxgJUc2dXK$2,
     gPt6cpWrkvqRqZnwJo1KV: gPt6cpWrkvqRqZnwJo1KV$2,
-    sxhTRqogDRozo9IaTGI7g: sxhTRqogDRozo9IaTGI7g$2
+    sxhTRqogDRozo9IaTGI7g: sxhTRqogDRozo9IaTGI7g$2,
+    dvs63FvVKWm3uHVfqeq00: dvs63FvVKWm3uHVfqeq00$2,
+    "w4uJjpTmSEkm6SIDgEo-0": "\u5716\u7247\u8A73\u60C5\u4F7F\u7528\u652F\u63F4\u7E2E\u653E\u65CB\u8F49\u7B49\u64CD\u4F5C\u7684 Fancybox \u7D44\u4EF6\u67E5\u770B",
+    Tbq8O5KhwcDHQ_qxNFW09: Tbq8O5KhwcDHQ_qxNFW09$2
   };
   const UxxldE9xRwmQctrvba5Y8$1 = "Settings";
   const A16qoBulYQJLbHe9mqNwm$1 = "Contains excessive content such as nudity and sexual descriptions";
@@ -1002,6 +1023,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const e4_fgvntwNlfxgJUc2dXK$1 = "Language";
   const gPt6cpWrkvqRqZnwJo1KV$1 = "Display a checkbox to add to the download list in the upper left corner of the image card";
   const sxhTRqogDRozo9IaTGI7g$1 = "Show checkbox in list image card";
+  const dvs63FvVKWm3uHVfqeq00$1 = "Use Fancybox to view details";
+  const Tbq8O5KhwcDHQ_qxNFW09$1 = "Experimental";
   var en = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$1,
     "1F-R4qChHIzZaohu5GJzl": "e.g: &api_key=xx&user_id=1",
@@ -1116,7 +1139,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     lkCkz1OpNtTCFRfGCEoBp: lkCkz1OpNtTCFRfGCEoBp$1,
     e4_fgvntwNlfxgJUc2dXK: e4_fgvntwNlfxgJUc2dXK$1,
     gPt6cpWrkvqRqZnwJo1KV: gPt6cpWrkvqRqZnwJo1KV$1,
-    sxhTRqogDRozo9IaTGI7g: sxhTRqogDRozo9IaTGI7g$1
+    sxhTRqogDRozo9IaTGI7g: sxhTRqogDRozo9IaTGI7g$1,
+    dvs63FvVKWm3uHVfqeq00: dvs63FvVKWm3uHVfqeq00$1,
+    "w4uJjpTmSEkm6SIDgEo-0": "Using Fancybox that supports zooming/rotation/so on to view details.",
+    Tbq8O5KhwcDHQ_qxNFW09: Tbq8O5KhwcDHQ_qxNFW09$1
   };
   const UxxldE9xRwmQctrvba5Y8 = "\u8A2D\u5B9A";
   const A16qoBulYQJLbHe9mqNwm = "\u30CC\u30FC\u30C9\u3084\u6027\u7684\u63CF\u5199\u306A\u3069\u306E\u904E\u5EA6\u306A\u5185\u5BB9\u304C\u542B\u307E\u308C\u3066\u3044\u308B\u3082\u306E";
@@ -1188,6 +1214,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const e4_fgvntwNlfxgJUc2dXK = "\u8A00\u8A9E";
   const gPt6cpWrkvqRqZnwJo1KV = "\u753B\u50CF\u30AB\u30FC\u30C9\u306E\u5DE6\u4E0A\u9685\u306B\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9 \u30EA\u30B9\u30C8\u306B\u8FFD\u52A0\u3059\u308B\u30C1\u30A7\u30C3\u30AF\u30DC\u30C3\u30AF\u30B9\u3092\u8868\u793A\u3057\u307E\u3059\u3002";
   const sxhTRqogDRozo9IaTGI7g = "\u6295\u7A3F\u30EA\u30B9\u30C8\u306B\u753B\u50CF\u30C1\u30A7\u30C3\u30AF\u30DC\u30C3\u30AF\u30B9\u3092\u8868\u793A\u3059\u308B";
+  const dvs63FvVKWm3uHVfqeq00 = "Fancybox \u3092\u4F7F\u7528\u3057\u3066\u8A73\u7D30\u3092\u8868\u793A\u3059\u308B";
+  const Tbq8O5KhwcDHQ_qxNFW09 = "\u5B9F\u9A13\u7684";
   var ja = {
     UxxldE9xRwmQctrvba5Y8,
     "1F-R4qChHIzZaohu5GJzl": "\u4F8B\uFF1A&api_key=xx&user_id=1",
@@ -1302,7 +1330,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     lkCkz1OpNtTCFRfGCEoBp,
     e4_fgvntwNlfxgJUc2dXK,
     gPt6cpWrkvqRqZnwJo1KV,
-    sxhTRqogDRozo9IaTGI7g
+    sxhTRqogDRozo9IaTGI7g,
+    dvs63FvVKWm3uHVfqeq00,
+    "w4uJjpTmSEkm6SIDgEo-0": "\u753B\u50CF\u306E\u8A73\u7D30\u306F\u3001\u30BA\u30FC\u30E0\u3084\u56DE\u8EE2\u306A\u3069\u306E\u64CD\u4F5C\u3092\u30B5\u30DD\u30FC\u30C8\u3059\u308B Fancybox \u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u3092\u4F7F\u7528\u3057\u3066\u8868\u793A\u3067\u304D\u307E\u3059\u3002",
+    Tbq8O5KhwcDHQ_qxNFW09
   };
   Vue__default["default"].use(VueI18n__default["default"]);
   const langMap = {
@@ -1358,7 +1389,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       isListenKeyupEvent: localStorage.getItem("__listenKeyup") !== "0",
       credentialQuery: localStorage.getItem("__credentialQuery") || "",
       isThumbSampleUrl: !!localStorage.getItem("__thumbSampleUrl"),
-      showPostCheckbox: !!localStorage.getItem("__showPostCheckbox")
+      showPostCheckbox: !!localStorage.getItem("__showPostCheckbox"),
+      useFancybox: !!localStorage.getItem("__useFancybox")
     },
     toggleDrawer() {
       store.showDrawer = !store.showDrawer;
@@ -1499,6 +1531,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   }
   const isClient = typeof window !== "undefined" && typeof document !== "undefined";
   typeof WorkerGlobalScope !== "undefined" && globalThis instanceof WorkerGlobalScope;
+  const notNullish = (val) => val != null;
   const toString = Object.prototype.toString;
   const isObject = (val) => toString.call(val) === "[object Object]";
   const noop = () => {
@@ -1574,10 +1607,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   }
   function useMounted() {
     const isMounted = Vue2.ref(false);
-    if (Vue2.getCurrentInstance()) {
+    const instance = Vue2.getCurrentInstance();
+    if (instance) {
       Vue2.onMounted(() => {
         isMounted.value = true;
-      });
+      }, void 0);
     }
     return isMounted;
   }
@@ -1598,16 +1632,21 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         observer = void 0;
       }
     };
+    const targets = Vue2.computed(() => {
+      const value = toValue(target);
+      const items = (Array.isArray(value) ? value : [value]).map(unrefElement).filter(notNullish);
+      return new Set(items);
+    });
     const stopWatch = Vue2.watch(
-      () => unrefElement(target),
-      (el) => {
+      () => targets.value,
+      (targets2) => {
         cleanup();
-        if (isSupported.value && window2 && el) {
+        if (isSupported.value && targets2.size) {
           observer = new MutationObserver(callback);
-          observer.observe(el, mutationOptions);
+          targets2.forEach((el) => observer.observe(el, mutationOptions));
         }
       },
-      { immediate: true }
+      { immediate: true, flush: "post" }
     );
     const takeRecords = () => {
       return observer == null ? void 0 : observer.takeRecords();
@@ -1644,7 +1683,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
             _el && observer.observe(_el, observerOptions);
         }
       },
-      { immediate: true, flush: "post", deep: true }
+      { immediate: true, flush: "post" }
     );
     const stop = () => {
       cleanup();
@@ -1736,9 +1775,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         if (window2 && isSVG.value) {
           const $elem = unrefElement(target);
           if ($elem) {
-            const styles = window2.getComputedStyle($elem);
-            width.value = Number.parseFloat(styles.width);
-            height.value = Number.parseFloat(styles.height);
+            const rect = $elem.getBoundingClientRect();
+            width.value = rect.width;
+            height.value = rect.height;
           }
         } else {
           if (boxSize) {
@@ -1984,112 +2023,144 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var mdiTranslate = "M12.87,15.07L10.33,12.56L10.36,12.53C12.1,10.59 13.34,8.36 14.07,6H17V4H10V2H8V4H1V6H12.17C11.5,7.92 10.44,9.75 9,11.35C8.07,10.32 7.3,9.19 6.69,8H4.69C5.42,9.63 6.42,11.17 7.67,12.56L2.58,17.58L4,19L9,14L12.11,17.11L12.87,15.07M18.5,10H16.5L12,22H14L15.12,19H19.87L21,22H23L18.5,10M15.88,17L17.5,12.67L19.12,17H15.88Z";
   var mdiVideo = "M17,10.5V7A1,1 0 0,0 16,6H4A1,1 0 0,0 3,7V17A1,1 0 0,0 4,18H16A1,1 0 0,0 17,17V13.5L21,17.5V6.5L17,10.5Z";
   var mdiWeb = "M16.36,14C16.44,13.34 16.5,12.68 16.5,12C16.5,11.32 16.44,10.66 16.36,10H19.74C19.9,10.64 20,11.31 20,12C20,12.69 19.9,13.36 19.74,14M14.59,19.56C15.19,18.45 15.65,17.25 15.97,16H18.92C17.96,17.65 16.43,18.93 14.59,19.56M14.34,14H9.66C9.56,13.34 9.5,12.68 9.5,12C9.5,11.32 9.56,10.65 9.66,10H14.34C14.43,10.65 14.5,11.32 14.5,12C14.5,12.68 14.43,13.34 14.34,14M12,19.96C11.17,18.76 10.5,17.43 10.09,16H13.91C13.5,17.43 12.83,18.76 12,19.96M8,8H5.08C6.03,6.34 7.57,5.06 9.4,4.44C8.8,5.55 8.35,6.75 8,8M5.08,16H8C8.35,17.25 8.8,18.45 9.4,19.56C7.57,18.93 6.03,17.65 5.08,16M4.26,14C4.1,13.36 4,12.69 4,12C4,11.31 4.1,10.64 4.26,10H7.64C7.56,10.66 7.5,11.32 7.5,12C7.5,12.68 7.56,13.34 7.64,14M12,4.03C12.83,5.23 13.5,6.57 13.91,8H10.09C10.5,6.57 11.17,5.23 12,4.03M18.92,8H15.97C15.65,6.75 15.19,5.55 14.59,4.44C16.43,5.07 17.96,6.34 18.92,8M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z";
-  function _typeof(obj) {
-    "@babel/helpers - typeof";
-    return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(obj2) {
-      return typeof obj2;
-    } : function(obj2) {
-      return obj2 && "function" == typeof Symbol && obj2.constructor === Symbol && obj2 !== Symbol.prototype ? "symbol" : typeof obj2;
-    }, _typeof(obj);
-  }
-  function toInteger(dirtyNumber) {
-    if (dirtyNumber === null || dirtyNumber === true || dirtyNumber === false) {
-      return NaN;
-    }
-    var number = Number(dirtyNumber);
-    if (isNaN(number)) {
-      return number;
-    }
-    return number < 0 ? Math.ceil(number) : Math.floor(number);
-  }
-  function requiredArgs(required, args) {
-    if (args.length < required) {
-      throw new TypeError(required + " argument" + (required > 1 ? "s" : "") + " required, but only " + args.length + " present");
-    }
-  }
   function toDate(argument) {
-    requiredArgs(1, arguments);
-    var argStr = Object.prototype.toString.call(argument);
-    if (argument instanceof Date || _typeof(argument) === "object" && argStr === "[object Date]") {
-      return new Date(argument.getTime());
-    } else if (typeof argument === "number" || argStr === "[object Number]") {
+    const argStr = Object.prototype.toString.call(argument);
+    if (argument instanceof Date || typeof argument === "object" && argStr === "[object Date]") {
+      return new argument.constructor(+argument);
+    } else if (typeof argument === "number" || argStr === "[object Number]" || typeof argument === "string" || argStr === "[object String]") {
       return new Date(argument);
     } else {
-      if ((typeof argument === "string" || argStr === "[object String]") && typeof console !== "undefined") {
-        console.warn("Starting with v2.0.0-beta.1 date-fns doesn't accept strings as date arguments. Please use `parseISO` to parse strings. See: https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#string-arguments");
-        console.warn(new Error().stack);
-      }
       return new Date(NaN);
     }
   }
-  function addDays(dirtyDate, dirtyAmount) {
-    requiredArgs(2, arguments);
-    var date = toDate(dirtyDate);
-    var amount = toInteger(dirtyAmount);
-    if (isNaN(amount)) {
-      return new Date(NaN);
+  function constructFrom(date, value) {
+    if (date instanceof Date) {
+      return new date.constructor(value);
+    } else {
+      return new Date(value);
     }
-    if (!amount) {
-      return date;
-    }
-    date.setDate(date.getDate() + amount);
-    return date;
   }
-  function addMonths(dirtyDate, dirtyAmount) {
-    requiredArgs(2, arguments);
-    var date = toDate(dirtyDate);
-    var amount = toInteger(dirtyAmount);
-    if (isNaN(amount)) {
-      return new Date(NaN);
-    }
+  function addDays(date, amount) {
+    const _date = toDate(date);
+    if (isNaN(amount))
+      return constructFrom(date, NaN);
     if (!amount) {
-      return date;
+      return _date;
     }
-    var dayOfMonth = date.getDate();
-    var endOfDesiredMonth = new Date(date.getTime());
-    endOfDesiredMonth.setMonth(date.getMonth() + amount + 1, 0);
-    var daysInMonth = endOfDesiredMonth.getDate();
+    _date.setDate(_date.getDate() + amount);
+    return _date;
+  }
+  function addMonths(date, amount) {
+    const _date = toDate(date);
+    if (isNaN(amount))
+      return constructFrom(date, NaN);
+    if (!amount) {
+      return _date;
+    }
+    const dayOfMonth = _date.getDate();
+    const endOfDesiredMonth = constructFrom(date, _date.getTime());
+    endOfDesiredMonth.setMonth(_date.getMonth() + amount + 1, 0);
+    const daysInMonth = endOfDesiredMonth.getDate();
     if (dayOfMonth >= daysInMonth) {
       return endOfDesiredMonth;
     } else {
-      date.setFullYear(endOfDesiredMonth.getFullYear(), endOfDesiredMonth.getMonth(), dayOfMonth);
-      return date;
+      _date.setFullYear(
+        endOfDesiredMonth.getFullYear(),
+        endOfDesiredMonth.getMonth(),
+        dayOfMonth
+      );
+      return _date;
     }
   }
-  function add(dirtyDate, duration) {
-    requiredArgs(2, arguments);
-    if (!duration || _typeof(duration) !== "object")
-      return new Date(NaN);
-    var years = duration.years ? toInteger(duration.years) : 0;
-    var months = duration.months ? toInteger(duration.months) : 0;
-    var weeks = duration.weeks ? toInteger(duration.weeks) : 0;
-    var days = duration.days ? toInteger(duration.days) : 0;
-    var hours = duration.hours ? toInteger(duration.hours) : 0;
-    var minutes = duration.minutes ? toInteger(duration.minutes) : 0;
-    var seconds = duration.seconds ? toInteger(duration.seconds) : 0;
-    var date = toDate(dirtyDate);
-    var dateWithMonths = months || years ? addMonths(date, months + years * 12) : date;
-    var dateWithDays = days || weeks ? addDays(dateWithMonths, days + weeks * 7) : dateWithMonths;
-    var minutesToAdd = minutes + hours * 60;
-    var secondsToAdd = seconds + minutesToAdd * 60;
-    var msToAdd = secondsToAdd * 1e3;
-    var finalDate = new Date(dateWithDays.getTime() + msToAdd);
+  function add(date, duration) {
+    const {
+      years = 0,
+      months = 0,
+      weeks = 0,
+      days = 0,
+      hours = 0,
+      minutes = 0,
+      seconds = 0
+    } = duration;
+    const _date = toDate(date);
+    const dateWithMonths = months || years ? addMonths(_date, months + years * 12) : _date;
+    const dateWithDays = days || weeks ? addDays(dateWithMonths, days + weeks * 7) : dateWithMonths;
+    const minutesToAdd = minutes + hours * 60;
+    const secondsToAdd = seconds + minutesToAdd * 60;
+    const msToAdd = secondsToAdd * 1e3;
+    const finalDate = constructFrom(date, dateWithDays.getTime() + msToAdd);
     return finalDate;
   }
-  var defaultOptions$1 = {};
-  function getDefaultOptions() {
+  const millisecondsInWeek = 6048e5;
+  const millisecondsInMinute = 6e4;
+  const millisecondsInHour = 36e5;
+  const millisecondsInSecond = 1e3;
+  const minutesInMonth = 43200;
+  const minutesInDay = 1440;
+  let defaultOptions$1 = {};
+  function getDefaultOptions$1() {
     return defaultOptions$1;
   }
-  function getTimezoneOffsetInMilliseconds(date) {
-    var utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
-    utcDate.setUTCFullYear(date.getFullYear());
-    return date.getTime() - utcDate.getTime();
+  function startOfWeek(date, options) {
+    var _a2, _b2, _c2, _d, _e, _f, _g, _h;
+    const defaultOptions2 = getDefaultOptions$1();
+    const weekStartsOn = (_h = (_g = (_d = (_c2 = options == null ? void 0 : options.weekStartsOn) != null ? _c2 : (_b2 = (_a2 = options == null ? void 0 : options.locale) == null ? void 0 : _a2.options) == null ? void 0 : _b2.weekStartsOn) != null ? _d : defaultOptions2.weekStartsOn) != null ? _g : (_f = (_e = defaultOptions2.locale) == null ? void 0 : _e.options) == null ? void 0 : _f.weekStartsOn) != null ? _h : 0;
+    const _date = toDate(date);
+    const day = _date.getDay();
+    const diff = (day < weekStartsOn ? 7 : 0) + day - weekStartsOn;
+    _date.setDate(_date.getDate() - diff);
+    _date.setHours(0, 0, 0, 0);
+    return _date;
   }
-  function compareAsc(dirtyDateLeft, dirtyDateRight) {
-    requiredArgs(2, arguments);
-    var dateLeft = toDate(dirtyDateLeft);
-    var dateRight = toDate(dirtyDateRight);
-    var diff = dateLeft.getTime() - dateRight.getTime();
+  function startOfISOWeek(date) {
+    return startOfWeek(date, { weekStartsOn: 1 });
+  }
+  function getISOWeekYear(date) {
+    const _date = toDate(date);
+    const year = _date.getFullYear();
+    const fourthOfJanuaryOfNextYear = constructFrom(date, 0);
+    fourthOfJanuaryOfNextYear.setFullYear(year + 1, 0, 4);
+    fourthOfJanuaryOfNextYear.setHours(0, 0, 0, 0);
+    const startOfNextYear = startOfISOWeek(fourthOfJanuaryOfNextYear);
+    const fourthOfJanuaryOfThisYear = constructFrom(date, 0);
+    fourthOfJanuaryOfThisYear.setFullYear(year, 0, 4);
+    fourthOfJanuaryOfThisYear.setHours(0, 0, 0, 0);
+    const startOfThisYear = startOfISOWeek(fourthOfJanuaryOfThisYear);
+    if (_date.getTime() >= startOfNextYear.getTime()) {
+      return year + 1;
+    } else if (_date.getTime() >= startOfThisYear.getTime()) {
+      return year;
+    } else {
+      return year - 1;
+    }
+  }
+  function getTimezoneOffsetInMilliseconds(date) {
+    const _date = toDate(date);
+    const utcDate = new Date(
+      Date.UTC(
+        _date.getFullYear(),
+        _date.getMonth(),
+        _date.getDate(),
+        _date.getHours(),
+        _date.getMinutes(),
+        _date.getSeconds(),
+        _date.getMilliseconds()
+      )
+    );
+    utcDate.setUTCFullYear(_date.getFullYear());
+    return +date - +utcDate;
+  }
+  function startOfISOWeekYear(date) {
+    const year = getISOWeekYear(date);
+    const fourthOfJanuary = constructFrom(date, 0);
+    fourthOfJanuary.setFullYear(year, 0, 4);
+    fourthOfJanuary.setHours(0, 0, 0, 0);
+    return startOfISOWeek(fourthOfJanuary);
+  }
+  function compareAsc(dateLeft, dateRight) {
+    const _dateLeft = toDate(dateLeft);
+    const _dateRight = toDate(dateRight);
+    const diff = _dateLeft.getTime() - _dateRight.getTime();
     if (diff < 0) {
       return -1;
     } else if (diff > 0) {
@@ -2098,77 +2169,69 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return diff;
     }
   }
-  function isDate(value) {
-    requiredArgs(1, arguments);
-    return value instanceof Date || _typeof(value) === "object" && Object.prototype.toString.call(value) === "[object Date]";
+  function constructNow(date) {
+    return constructFrom(date, Date.now());
   }
-  function isValid(dirtyDate) {
-    requiredArgs(1, arguments);
-    if (!isDate(dirtyDate) && typeof dirtyDate !== "number") {
+  function isDate(value) {
+    return value instanceof Date || typeof value === "object" && Object.prototype.toString.call(value) === "[object Date]";
+  }
+  function isValid(date) {
+    if (!isDate(date) && typeof date !== "number") {
       return false;
     }
-    var date = toDate(dirtyDate);
-    return !isNaN(Number(date));
+    const _date = toDate(date);
+    return !isNaN(Number(_date));
   }
-  function differenceInCalendarMonths(dirtyDateLeft, dirtyDateRight) {
-    requiredArgs(2, arguments);
-    var dateLeft = toDate(dirtyDateLeft);
-    var dateRight = toDate(dirtyDateRight);
-    var yearDiff = dateLeft.getFullYear() - dateRight.getFullYear();
-    var monthDiff = dateLeft.getMonth() - dateRight.getMonth();
+  function differenceInCalendarMonths(dateLeft, dateRight) {
+    const _dateLeft = toDate(dateLeft);
+    const _dateRight = toDate(dateRight);
+    const yearDiff = _dateLeft.getFullYear() - _dateRight.getFullYear();
+    const monthDiff = _dateLeft.getMonth() - _dateRight.getMonth();
     return yearDiff * 12 + monthDiff;
   }
-  function differenceInMilliseconds(dateLeft, dateRight) {
-    requiredArgs(2, arguments);
-    return toDate(dateLeft).getTime() - toDate(dateRight).getTime();
-  }
-  var roundingMap = {
-    ceil: Math.ceil,
-    round: Math.round,
-    floor: Math.floor,
-    trunc: function trunc(value) {
-      return value < 0 ? Math.ceil(value) : Math.floor(value);
-    }
-  };
-  var defaultRoundingMethod = "trunc";
   function getRoundingMethod(method) {
-    return method ? roundingMap[method] : roundingMap[defaultRoundingMethod];
+    return (number) => {
+      const round = method ? Math[method] : Math.trunc;
+      const result = round(number);
+      return result === 0 ? 0 : result;
+    };
   }
-  function endOfDay(dirtyDate) {
-    requiredArgs(1, arguments);
-    var date = toDate(dirtyDate);
-    date.setHours(23, 59, 59, 999);
-    return date;
+  function differenceInMilliseconds(dateLeft, dateRight) {
+    return +toDate(dateLeft) - +toDate(dateRight);
   }
-  function endOfMonth(dirtyDate) {
-    requiredArgs(1, arguments);
-    var date = toDate(dirtyDate);
-    var month = date.getMonth();
-    date.setFullYear(date.getFullYear(), month + 1, 0);
-    date.setHours(23, 59, 59, 999);
-    return date;
+  function endOfDay(date) {
+    const _date = toDate(date);
+    _date.setHours(23, 59, 59, 999);
+    return _date;
   }
-  function isLastDayOfMonth(dirtyDate) {
-    requiredArgs(1, arguments);
-    var date = toDate(dirtyDate);
-    return endOfDay(date).getTime() === endOfMonth(date).getTime();
+  function endOfMonth(date) {
+    const _date = toDate(date);
+    const month = _date.getMonth();
+    _date.setFullYear(_date.getFullYear(), month + 1, 0);
+    _date.setHours(23, 59, 59, 999);
+    return _date;
   }
-  function differenceInMonths(dirtyDateLeft, dirtyDateRight) {
-    requiredArgs(2, arguments);
-    var dateLeft = toDate(dirtyDateLeft);
-    var dateRight = toDate(dirtyDateRight);
-    var sign = compareAsc(dateLeft, dateRight);
-    var difference = Math.abs(differenceInCalendarMonths(dateLeft, dateRight));
-    var result;
+  function isLastDayOfMonth(date) {
+    const _date = toDate(date);
+    return +endOfDay(_date) === +endOfMonth(_date);
+  }
+  function differenceInMonths(dateLeft, dateRight) {
+    const _dateLeft = toDate(dateLeft);
+    const _dateRight = toDate(dateRight);
+    const sign = compareAsc(_dateLeft, _dateRight);
+    const difference = Math.abs(
+      differenceInCalendarMonths(_dateLeft, _dateRight)
+    );
+    let result;
     if (difference < 1) {
       result = 0;
     } else {
-      if (dateLeft.getMonth() === 1 && dateLeft.getDate() > 27) {
-        dateLeft.setDate(30);
+      if (_dateLeft.getMonth() === 1 && _dateLeft.getDate() > 27) {
+        _dateLeft.setDate(30);
       }
-      dateLeft.setMonth(dateLeft.getMonth() - sign * difference);
-      var isLastMonthNotFull = compareAsc(dateLeft, dateRight) === -sign;
-      if (isLastDayOfMonth(toDate(dirtyDateLeft)) && difference === 1 && compareAsc(dirtyDateLeft, dateRight) === 1) {
+      _dateLeft.setMonth(_dateLeft.getMonth() - sign * difference);
+      let isLastMonthNotFull = compareAsc(_dateLeft, _dateRight) === -sign;
+      if (isLastDayOfMonth(toDate(dateLeft)) && difference === 1 && compareAsc(dateLeft, _dateRight) === 1) {
         isLastMonthNotFull = false;
       }
       result = sign * (difference - Number(isLastMonthNotFull));
@@ -2176,11 +2239,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return result === 0 ? 0 : result;
   }
   function differenceInSeconds(dateLeft, dateRight, options) {
-    requiredArgs(2, arguments);
-    var diff = differenceInMilliseconds(dateLeft, dateRight) / 1e3;
-    return getRoundingMethod(options === null || options === void 0 ? void 0 : options.roundingMethod)(diff);
+    const diff = differenceInMilliseconds(dateLeft, dateRight) / 1e3;
+    return getRoundingMethod(options == null ? void 0 : options.roundingMethod)(diff);
   }
-  var formatDistanceLocale = {
+  const formatDistanceLocale = {
     lessThanXSeconds: {
       one: "less than a second",
       other: "less than {{count}} seconds"
@@ -2243,9 +2305,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       other: "almost {{count}} years"
     }
   };
-  var formatDistance$1 = function formatDistance2(token, count, options) {
-    var result;
-    var tokenValue = formatDistanceLocale[token];
+  const formatDistance$1 = (token, count, options) => {
+    let result;
+    const tokenValue = formatDistanceLocale[token];
     if (typeof tokenValue === "string") {
       result = tokenValue;
     } else if (count === 1) {
@@ -2253,7 +2315,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     } else {
       result = tokenValue.other.replace("{{count}}", count.toString());
     }
-    if (options !== null && options !== void 0 && options.addSuffix) {
+    if (options == null ? void 0 : options.addSuffix) {
       if (options.comparison && options.comparison > 0) {
         return "in " + result;
       } else {
@@ -2262,34 +2324,32 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     return result;
   };
-  var formatDistance$2 = formatDistance$1;
   function buildFormatLongFn(args) {
-    return function() {
-      var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-      var width = options.width ? String(options.width) : args.defaultWidth;
-      var format = args.formats[width] || args.formats[args.defaultWidth];
+    return (options = {}) => {
+      const width = options.width ? String(options.width) : args.defaultWidth;
+      const format = args.formats[width] || args.formats[args.defaultWidth];
       return format;
     };
   }
-  var dateFormats = {
+  const dateFormats = {
     full: "EEEE, MMMM do, y",
     long: "MMMM do, y",
     medium: "MMM d, y",
     short: "MM/dd/yyyy"
   };
-  var timeFormats = {
+  const timeFormats = {
     full: "h:mm:ss a zzzz",
     long: "h:mm:ss a z",
     medium: "h:mm:ss a",
     short: "h:mm a"
   };
-  var dateTimeFormats = {
+  const dateTimeFormats = {
     full: "{{date}} 'at' {{time}}",
     long: "{{date}} 'at' {{time}}",
     medium: "{{date}}, {{time}}",
     short: "{{date}}, {{time}}"
   };
-  var formatLong = {
+  const formatLong = {
     date: buildFormatLongFn({
       formats: dateFormats,
       defaultWidth: "full"
@@ -2303,8 +2363,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       defaultWidth: "full"
     })
   };
-  var formatLong$1 = formatLong;
-  var formatRelativeLocale = {
+  const formatRelativeLocale = {
     lastWeek: "'last' eeee 'at' p",
     yesterday: "'yesterday at' p",
     today: "'today at' p",
@@ -2312,49 +2371,80 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     nextWeek: "eeee 'at' p",
     other: "P"
   };
-  var formatRelative = function formatRelative2(token, _date, _baseDate, _options) {
-    return formatRelativeLocale[token];
-  };
-  var formatRelative$1 = formatRelative;
+  const formatRelative = (token, _date, _baseDate, _options) => formatRelativeLocale[token];
   function buildLocalizeFn(args) {
-    return function(dirtyIndex, options) {
-      var context = options !== null && options !== void 0 && options.context ? String(options.context) : "standalone";
-      var valuesArray;
+    return (value, options) => {
+      const context = (options == null ? void 0 : options.context) ? String(options.context) : "standalone";
+      let valuesArray;
       if (context === "formatting" && args.formattingValues) {
-        var defaultWidth = args.defaultFormattingWidth || args.defaultWidth;
-        var width = options !== null && options !== void 0 && options.width ? String(options.width) : defaultWidth;
+        const defaultWidth = args.defaultFormattingWidth || args.defaultWidth;
+        const width = (options == null ? void 0 : options.width) ? String(options.width) : defaultWidth;
         valuesArray = args.formattingValues[width] || args.formattingValues[defaultWidth];
       } else {
-        var _defaultWidth = args.defaultWidth;
-        var _width = options !== null && options !== void 0 && options.width ? String(options.width) : args.defaultWidth;
-        valuesArray = args.values[_width] || args.values[_defaultWidth];
+        const defaultWidth = args.defaultWidth;
+        const width = (options == null ? void 0 : options.width) ? String(options.width) : args.defaultWidth;
+        valuesArray = args.values[width] || args.values[defaultWidth];
       }
-      var index = args.argumentCallback ? args.argumentCallback(dirtyIndex) : dirtyIndex;
+      const index = args.argumentCallback ? args.argumentCallback(value) : value;
       return valuesArray[index];
     };
   }
-  var eraValues = {
+  const eraValues = {
     narrow: ["B", "A"],
     abbreviated: ["BC", "AD"],
     wide: ["Before Christ", "Anno Domini"]
   };
-  var quarterValues = {
+  const quarterValues = {
     narrow: ["1", "2", "3", "4"],
     abbreviated: ["Q1", "Q2", "Q3", "Q4"],
     wide: ["1st quarter", "2nd quarter", "3rd quarter", "4th quarter"]
   };
-  var monthValues = {
+  const monthValues = {
     narrow: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
-    abbreviated: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    wide: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    abbreviated: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    wide: [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ]
   };
-  var dayValues = {
+  const dayValues = {
     narrow: ["S", "M", "T", "W", "T", "F", "S"],
     short: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
     abbreviated: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-    wide: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    wide: [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ]
   };
-  var dayPeriodValues = {
+  const dayPeriodValues = {
     narrow: {
       am: "a",
       pm: "p",
@@ -2386,7 +2476,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       night: "night"
     }
   };
-  var formattingDayPeriodValues = {
+  const formattingDayPeriodValues = {
     narrow: {
       am: "a",
       pm: "p",
@@ -2418,9 +2508,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       night: "at night"
     }
   };
-  var ordinalNumber = function ordinalNumber2(dirtyNumber, _options) {
-    var number = Number(dirtyNumber);
-    var rem100 = number % 100;
+  const ordinalNumber = (dirtyNumber, _options) => {
+    const number = Number(dirtyNumber);
+    const rem100 = number % 100;
     if (rem100 > 20 || rem100 < 10) {
       switch (rem100 % 10) {
         case 1:
@@ -2433,7 +2523,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     return number + "th";
   };
-  var localize = {
+  const localize = {
     ordinalNumber,
     era: buildLocalizeFn({
       values: eraValues,
@@ -2442,9 +2532,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     quarter: buildLocalizeFn({
       values: quarterValues,
       defaultWidth: "wide",
-      argumentCallback: function argumentCallback(quarter) {
-        return quarter - 1;
-      }
+      argumentCallback: (quarter) => quarter - 1
     }),
     month: buildLocalizeFn({
       values: monthValues,
@@ -2461,43 +2549,34 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       defaultFormattingWidth: "wide"
     })
   };
-  var localize$1 = localize;
   function buildMatchFn(args) {
-    return function(string) {
-      var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
-      var width = options.width;
-      var matchPattern = width && args.matchPatterns[width] || args.matchPatterns[args.defaultMatchWidth];
-      var matchResult = string.match(matchPattern);
+    return (string, options = {}) => {
+      const width = options.width;
+      const matchPattern = width && args.matchPatterns[width] || args.matchPatterns[args.defaultMatchWidth];
+      const matchResult = string.match(matchPattern);
       if (!matchResult) {
         return null;
       }
-      var matchedString = matchResult[0];
-      var parsePatterns = width && args.parsePatterns[width] || args.parsePatterns[args.defaultParseWidth];
-      var key = Array.isArray(parsePatterns) ? findIndex(parsePatterns, function(pattern) {
-        return pattern.test(matchedString);
-      }) : findKey(parsePatterns, function(pattern) {
-        return pattern.test(matchedString);
-      });
-      var value;
+      const matchedString = matchResult[0];
+      const parsePatterns = width && args.parsePatterns[width] || args.parsePatterns[args.defaultParseWidth];
+      const key = Array.isArray(parsePatterns) ? findIndex(parsePatterns, (pattern) => pattern.test(matchedString)) : findKey(parsePatterns, (pattern) => pattern.test(matchedString));
+      let value;
       value = args.valueCallback ? args.valueCallback(key) : key;
       value = options.valueCallback ? options.valueCallback(value) : value;
-      var rest = string.slice(matchedString.length);
-      return {
-        value,
-        rest
-      };
+      const rest = string.slice(matchedString.length);
+      return { value, rest };
     };
   }
   function findKey(object, predicate) {
-    for (var key in object) {
-      if (object.hasOwnProperty(key) && predicate(object[key])) {
+    for (const key in object) {
+      if (Object.prototype.hasOwnProperty.call(object, key) && predicate(object[key])) {
         return key;
       }
     }
     return void 0;
   }
   function findIndex(array, predicate) {
-    for (var key = 0; key < array.length; key++) {
+    for (let key = 0; key < array.length; key++) {
       if (predicate(array[key])) {
         return key;
       }
@@ -2505,66 +2584,88 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return void 0;
   }
   function buildMatchPatternFn(args) {
-    return function(string) {
-      var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
-      var matchResult = string.match(args.matchPattern);
+    return (string, options = {}) => {
+      const matchResult = string.match(args.matchPattern);
       if (!matchResult)
         return null;
-      var matchedString = matchResult[0];
-      var parseResult = string.match(args.parsePattern);
+      const matchedString = matchResult[0];
+      const parseResult = string.match(args.parsePattern);
       if (!parseResult)
         return null;
-      var value = args.valueCallback ? args.valueCallback(parseResult[0]) : parseResult[0];
+      let value = args.valueCallback ? args.valueCallback(parseResult[0]) : parseResult[0];
       value = options.valueCallback ? options.valueCallback(value) : value;
-      var rest = string.slice(matchedString.length);
-      return {
-        value,
-        rest
-      };
+      const rest = string.slice(matchedString.length);
+      return { value, rest };
     };
   }
-  var matchOrdinalNumberPattern = /^(\d+)(th|st|nd|rd)?/i;
-  var parseOrdinalNumberPattern = /\d+/i;
-  var matchEraPatterns = {
+  const matchOrdinalNumberPattern = /^(\d+)(th|st|nd|rd)?/i;
+  const parseOrdinalNumberPattern = /\d+/i;
+  const matchEraPatterns = {
     narrow: /^(b|a)/i,
     abbreviated: /^(b\.?\s?c\.?|b\.?\s?c\.?\s?e\.?|a\.?\s?d\.?|c\.?\s?e\.?)/i,
     wide: /^(before christ|before common era|anno domini|common era)/i
   };
-  var parseEraPatterns = {
+  const parseEraPatterns = {
     any: [/^b/i, /^(a|c)/i]
   };
-  var matchQuarterPatterns = {
+  const matchQuarterPatterns = {
     narrow: /^[1234]/i,
     abbreviated: /^q[1234]/i,
     wide: /^[1234](th|st|nd|rd)? quarter/i
   };
-  var parseQuarterPatterns = {
+  const parseQuarterPatterns = {
     any: [/1/i, /2/i, /3/i, /4/i]
   };
-  var matchMonthPatterns = {
+  const matchMonthPatterns = {
     narrow: /^[jfmasond]/i,
     abbreviated: /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i,
     wide: /^(january|february|march|april|may|june|july|august|september|october|november|december)/i
   };
-  var parseMonthPatterns = {
-    narrow: [/^j/i, /^f/i, /^m/i, /^a/i, /^m/i, /^j/i, /^j/i, /^a/i, /^s/i, /^o/i, /^n/i, /^d/i],
-    any: [/^ja/i, /^f/i, /^mar/i, /^ap/i, /^may/i, /^jun/i, /^jul/i, /^au/i, /^s/i, /^o/i, /^n/i, /^d/i]
+  const parseMonthPatterns = {
+    narrow: [
+      /^j/i,
+      /^f/i,
+      /^m/i,
+      /^a/i,
+      /^m/i,
+      /^j/i,
+      /^j/i,
+      /^a/i,
+      /^s/i,
+      /^o/i,
+      /^n/i,
+      /^d/i
+    ],
+    any: [
+      /^ja/i,
+      /^f/i,
+      /^mar/i,
+      /^ap/i,
+      /^may/i,
+      /^jun/i,
+      /^jul/i,
+      /^au/i,
+      /^s/i,
+      /^o/i,
+      /^n/i,
+      /^d/i
+    ]
   };
-  var matchDayPatterns = {
+  const matchDayPatterns = {
     narrow: /^[smtwf]/i,
     short: /^(su|mo|tu|we|th|fr|sa)/i,
     abbreviated: /^(sun|mon|tue|wed|thu|fri|sat)/i,
     wide: /^(sunday|monday|tuesday|wednesday|thursday|friday|saturday)/i
   };
-  var parseDayPatterns = {
+  const parseDayPatterns = {
     narrow: [/^s/i, /^m/i, /^t/i, /^w/i, /^t/i, /^f/i, /^s/i],
     any: [/^su/i, /^m/i, /^tu/i, /^w/i, /^th/i, /^f/i, /^sa/i]
   };
-  var matchDayPeriodPatterns = {
+  const matchDayPeriodPatterns = {
     narrow: /^(a|p|mi|n|(in the|at) (morning|afternoon|evening|night))/i,
     any: /^([ap]\.?\s?m\.?|midnight|noon|(in the|at) (morning|afternoon|evening|night))/i
   };
-  var parseDayPeriodPatterns = {
+  const parseDayPeriodPatterns = {
     any: {
       am: /^a/i,
       pm: /^p/i,
@@ -2576,13 +2677,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       night: /night/i
     }
   };
-  var match = {
+  const match = {
     ordinalNumber: buildMatchPatternFn({
       matchPattern: matchOrdinalNumberPattern,
       parsePattern: parseOrdinalNumberPattern,
-      valueCallback: function valueCallback(value) {
-        return parseInt(value, 10);
-      }
+      valueCallback: (value) => parseInt(value, 10)
     }),
     era: buildMatchFn({
       matchPatterns: matchEraPatterns,
@@ -2595,9 +2694,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       defaultMatchWidth: "wide",
       parsePatterns: parseQuarterPatterns,
       defaultParseWidth: "any",
-      valueCallback: function valueCallback(index) {
-        return index + 1;
-      }
+      valueCallback: (index) => index + 1
     }),
     month: buildMatchFn({
       matchPatterns: matchMonthPatterns,
@@ -2618,152 +2715,1938 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       defaultParseWidth: "any"
     })
   };
-  var match$1 = match;
-  var locale = {
+  const enUS = {
     code: "en-US",
-    formatDistance: formatDistance$2,
-    formatLong: formatLong$1,
-    formatRelative: formatRelative$1,
-    localize: localize$1,
-    match: match$1,
+    formatDistance: formatDistance$1,
+    formatLong,
+    formatRelative,
+    localize,
+    match,
     options: {
       weekStartsOn: 0,
       firstWeekContainsDate: 1
     }
   };
-  var defaultLocale = locale;
-  function assign(target, object) {
-    if (target == null) {
-      throw new TypeError("assign requires that input parameter not be null or undefined");
-    }
-    for (var property in object) {
-      if (Object.prototype.hasOwnProperty.call(object, property)) {
-        target[property] = object[property];
-      }
-    }
-    return target;
+  function getISOWeek(date) {
+    const _date = toDate(date);
+    const diff = +startOfISOWeek(_date) - +startOfISOWeekYear(_date);
+    return Math.round(diff / millisecondsInWeek) + 1;
   }
-  function cloneObject(object) {
-    return assign({}, object);
-  }
-  var MINUTES_IN_DAY = 1440;
-  var MINUTES_IN_ALMOST_TWO_DAYS = 2520;
-  var MINUTES_IN_MONTH = 43200;
-  var MINUTES_IN_TWO_MONTHS = 86400;
-  function formatDistance(dirtyDate, dirtyBaseDate, options) {
-    var _ref, _options$locale;
-    requiredArgs(2, arguments);
-    var defaultOptions2 = getDefaultOptions();
-    var locale2 = (_ref = (_options$locale = options === null || options === void 0 ? void 0 : options.locale) !== null && _options$locale !== void 0 ? _options$locale : defaultOptions2.locale) !== null && _ref !== void 0 ? _ref : defaultLocale;
-    if (!locale2.formatDistance) {
-      throw new RangeError("locale must contain formatDistance property");
+  function getWeekYear(date, options) {
+    var _a2, _b2, _c2, _d, _e, _f, _g, _h;
+    const _date = toDate(date);
+    const year = _date.getFullYear();
+    const defaultOptions2 = getDefaultOptions$1();
+    const firstWeekContainsDate = (_h = (_g = (_d = (_c2 = options == null ? void 0 : options.firstWeekContainsDate) != null ? _c2 : (_b2 = (_a2 = options == null ? void 0 : options.locale) == null ? void 0 : _a2.options) == null ? void 0 : _b2.firstWeekContainsDate) != null ? _d : defaultOptions2.firstWeekContainsDate) != null ? _g : (_f = (_e = defaultOptions2.locale) == null ? void 0 : _e.options) == null ? void 0 : _f.firstWeekContainsDate) != null ? _h : 1;
+    const firstWeekOfNextYear = constructFrom(date, 0);
+    firstWeekOfNextYear.setFullYear(year + 1, 0, firstWeekContainsDate);
+    firstWeekOfNextYear.setHours(0, 0, 0, 0);
+    const startOfNextYear = startOfWeek(firstWeekOfNextYear, options);
+    const firstWeekOfThisYear = constructFrom(date, 0);
+    firstWeekOfThisYear.setFullYear(year, 0, firstWeekContainsDate);
+    firstWeekOfThisYear.setHours(0, 0, 0, 0);
+    const startOfThisYear = startOfWeek(firstWeekOfThisYear, options);
+    if (_date.getTime() >= startOfNextYear.getTime()) {
+      return year + 1;
+    } else if (_date.getTime() >= startOfThisYear.getTime()) {
+      return year;
+    } else {
+      return year - 1;
     }
-    var comparison = compareAsc(dirtyDate, dirtyBaseDate);
+  }
+  function startOfWeekYear(date, options) {
+    var _a2, _b2, _c2, _d, _e, _f, _g, _h;
+    const defaultOptions2 = getDefaultOptions$1();
+    const firstWeekContainsDate = (_h = (_g = (_d = (_c2 = options == null ? void 0 : options.firstWeekContainsDate) != null ? _c2 : (_b2 = (_a2 = options == null ? void 0 : options.locale) == null ? void 0 : _a2.options) == null ? void 0 : _b2.firstWeekContainsDate) != null ? _d : defaultOptions2.firstWeekContainsDate) != null ? _g : (_f = (_e = defaultOptions2.locale) == null ? void 0 : _e.options) == null ? void 0 : _f.firstWeekContainsDate) != null ? _h : 1;
+    const year = getWeekYear(date, options);
+    const firstWeek = constructFrom(date, 0);
+    firstWeek.setFullYear(year, 0, firstWeekContainsDate);
+    firstWeek.setHours(0, 0, 0, 0);
+    const _date = startOfWeek(firstWeek, options);
+    return _date;
+  }
+  function getWeek(date, options) {
+    const _date = toDate(date);
+    const diff = +startOfWeek(_date, options) - +startOfWeekYear(_date, options);
+    return Math.round(diff / millisecondsInWeek) + 1;
+  }
+  const dateLongFormatter = (pattern, formatLong2) => {
+    switch (pattern) {
+      case "P":
+        return formatLong2.date({ width: "short" });
+      case "PP":
+        return formatLong2.date({ width: "medium" });
+      case "PPP":
+        return formatLong2.date({ width: "long" });
+      case "PPPP":
+      default:
+        return formatLong2.date({ width: "full" });
+    }
+  };
+  const timeLongFormatter = (pattern, formatLong2) => {
+    switch (pattern) {
+      case "p":
+        return formatLong2.time({ width: "short" });
+      case "pp":
+        return formatLong2.time({ width: "medium" });
+      case "ppp":
+        return formatLong2.time({ width: "long" });
+      case "pppp":
+      default:
+        return formatLong2.time({ width: "full" });
+    }
+  };
+  const dateTimeLongFormatter = (pattern, formatLong2) => {
+    const matchResult = pattern.match(/(P+)(p+)?/) || [];
+    const datePattern = matchResult[1];
+    const timePattern = matchResult[2];
+    if (!timePattern) {
+      return dateLongFormatter(pattern, formatLong2);
+    }
+    let dateTimeFormat;
+    switch (datePattern) {
+      case "P":
+        dateTimeFormat = formatLong2.dateTime({ width: "short" });
+        break;
+      case "PP":
+        dateTimeFormat = formatLong2.dateTime({ width: "medium" });
+        break;
+      case "PPP":
+        dateTimeFormat = formatLong2.dateTime({ width: "long" });
+        break;
+      case "PPPP":
+      default:
+        dateTimeFormat = formatLong2.dateTime({ width: "full" });
+        break;
+    }
+    return dateTimeFormat.replace("{{date}}", dateLongFormatter(datePattern, formatLong2)).replace("{{time}}", timeLongFormatter(timePattern, formatLong2));
+  };
+  const longFormatters = {
+    p: timeLongFormatter,
+    P: dateTimeLongFormatter
+  };
+  const dayOfYearTokenRE = /^D+$/;
+  const weekYearTokenRE = /^Y+$/;
+  const throwTokens = ["D", "DD", "YY", "YYYY"];
+  function isProtectedDayOfYearToken(token) {
+    return dayOfYearTokenRE.test(token);
+  }
+  function isProtectedWeekYearToken(token) {
+    return weekYearTokenRE.test(token);
+  }
+  function warnOrThrowProtectedError(token, format, input) {
+    const _message = message(token, format, input);
+    console.warn(_message);
+    if (throwTokens.includes(token))
+      throw new RangeError(_message);
+  }
+  function message(token, format, input) {
+    const subject = token[0] === "Y" ? "years" : "days of the month";
+    return `Use \`${token.toLowerCase()}\` instead of \`${token}\` (in \`${format}\`) for formatting ${subject} to the input \`${input}\`; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md`;
+  }
+  function formatDistance(date, baseDate, options) {
+    var _a2, _b2;
+    const defaultOptions2 = getDefaultOptions$1();
+    const locale = (_b2 = (_a2 = options == null ? void 0 : options.locale) != null ? _a2 : defaultOptions2.locale) != null ? _b2 : enUS;
+    const minutesInAlmostTwoDays = 2520;
+    const comparison = compareAsc(date, baseDate);
     if (isNaN(comparison)) {
       throw new RangeError("Invalid time value");
     }
-    var localizeOptions = assign(cloneObject(options), {
-      addSuffix: Boolean(options === null || options === void 0 ? void 0 : options.addSuffix),
+    const localizeOptions = Object.assign({}, options, {
+      addSuffix: options == null ? void 0 : options.addSuffix,
       comparison
     });
-    var dateLeft;
-    var dateRight;
+    let dateLeft;
+    let dateRight;
     if (comparison > 0) {
-      dateLeft = toDate(dirtyBaseDate);
-      dateRight = toDate(dirtyDate);
+      dateLeft = toDate(baseDate);
+      dateRight = toDate(date);
     } else {
-      dateLeft = toDate(dirtyDate);
-      dateRight = toDate(dirtyBaseDate);
+      dateLeft = toDate(date);
+      dateRight = toDate(baseDate);
     }
-    var seconds = differenceInSeconds(dateRight, dateLeft);
-    var offsetInSeconds = (getTimezoneOffsetInMilliseconds(dateRight) - getTimezoneOffsetInMilliseconds(dateLeft)) / 1e3;
-    var minutes = Math.round((seconds - offsetInSeconds) / 60);
-    var months;
+    const seconds = differenceInSeconds(dateRight, dateLeft);
+    const offsetInSeconds = (getTimezoneOffsetInMilliseconds(dateRight) - getTimezoneOffsetInMilliseconds(dateLeft)) / 1e3;
+    const minutes = Math.round((seconds - offsetInSeconds) / 60);
+    let months;
     if (minutes < 2) {
-      if (options !== null && options !== void 0 && options.includeSeconds) {
+      if (options == null ? void 0 : options.includeSeconds) {
         if (seconds < 5) {
-          return locale2.formatDistance("lessThanXSeconds", 5, localizeOptions);
+          return locale.formatDistance("lessThanXSeconds", 5, localizeOptions);
         } else if (seconds < 10) {
-          return locale2.formatDistance("lessThanXSeconds", 10, localizeOptions);
+          return locale.formatDistance("lessThanXSeconds", 10, localizeOptions);
         } else if (seconds < 20) {
-          return locale2.formatDistance("lessThanXSeconds", 20, localizeOptions);
+          return locale.formatDistance("lessThanXSeconds", 20, localizeOptions);
         } else if (seconds < 40) {
-          return locale2.formatDistance("halfAMinute", 0, localizeOptions);
+          return locale.formatDistance("halfAMinute", 0, localizeOptions);
         } else if (seconds < 60) {
-          return locale2.formatDistance("lessThanXMinutes", 1, localizeOptions);
+          return locale.formatDistance("lessThanXMinutes", 1, localizeOptions);
         } else {
-          return locale2.formatDistance("xMinutes", 1, localizeOptions);
+          return locale.formatDistance("xMinutes", 1, localizeOptions);
         }
       } else {
         if (minutes === 0) {
-          return locale2.formatDistance("lessThanXMinutes", 1, localizeOptions);
+          return locale.formatDistance("lessThanXMinutes", 1, localizeOptions);
         } else {
-          return locale2.formatDistance("xMinutes", minutes, localizeOptions);
+          return locale.formatDistance("xMinutes", minutes, localizeOptions);
         }
       }
     } else if (minutes < 45) {
-      return locale2.formatDistance("xMinutes", minutes, localizeOptions);
+      return locale.formatDistance("xMinutes", minutes, localizeOptions);
     } else if (minutes < 90) {
-      return locale2.formatDistance("aboutXHours", 1, localizeOptions);
-    } else if (minutes < MINUTES_IN_DAY) {
-      var hours = Math.round(minutes / 60);
-      return locale2.formatDistance("aboutXHours", hours, localizeOptions);
-    } else if (minutes < MINUTES_IN_ALMOST_TWO_DAYS) {
-      return locale2.formatDistance("xDays", 1, localizeOptions);
-    } else if (minutes < MINUTES_IN_MONTH) {
-      var days = Math.round(minutes / MINUTES_IN_DAY);
-      return locale2.formatDistance("xDays", days, localizeOptions);
-    } else if (minutes < MINUTES_IN_TWO_MONTHS) {
-      months = Math.round(minutes / MINUTES_IN_MONTH);
-      return locale2.formatDistance("aboutXMonths", months, localizeOptions);
+      return locale.formatDistance("aboutXHours", 1, localizeOptions);
+    } else if (minutes < minutesInDay) {
+      const hours = Math.round(minutes / 60);
+      return locale.formatDistance("aboutXHours", hours, localizeOptions);
+    } else if (minutes < minutesInAlmostTwoDays) {
+      return locale.formatDistance("xDays", 1, localizeOptions);
+    } else if (minutes < minutesInMonth) {
+      const days = Math.round(minutes / minutesInDay);
+      return locale.formatDistance("xDays", days, localizeOptions);
+    } else if (minutes < minutesInMonth * 2) {
+      months = Math.round(minutes / minutesInMonth);
+      return locale.formatDistance("aboutXMonths", months, localizeOptions);
     }
     months = differenceInMonths(dateRight, dateLeft);
     if (months < 12) {
-      var nearestMonth = Math.round(minutes / MINUTES_IN_MONTH);
-      return locale2.formatDistance("xMonths", nearestMonth, localizeOptions);
+      const nearestMonth = Math.round(minutes / minutesInMonth);
+      return locale.formatDistance("xMonths", nearestMonth, localizeOptions);
     } else {
-      var monthsSinceStartOfYear = months % 12;
-      var years = Math.floor(months / 12);
+      const monthsSinceStartOfYear = months % 12;
+      const years = Math.trunc(months / 12);
       if (monthsSinceStartOfYear < 3) {
-        return locale2.formatDistance("aboutXYears", years, localizeOptions);
+        return locale.formatDistance("aboutXYears", years, localizeOptions);
       } else if (monthsSinceStartOfYear < 9) {
-        return locale2.formatDistance("overXYears", years, localizeOptions);
+        return locale.formatDistance("overXYears", years, localizeOptions);
       } else {
-        return locale2.formatDistance("almostXYears", years + 1, localizeOptions);
+        return locale.formatDistance("almostXYears", years + 1, localizeOptions);
       }
     }
   }
-  function formatDistanceToNow(dirtyDate, options) {
-    requiredArgs(1, arguments);
-    return formatDistance(dirtyDate, Date.now(), options);
+  function formatDistanceToNow(date, options) {
+    return formatDistance(date, constructNow(date), options);
   }
-  function subDays(dirtyDate, dirtyAmount) {
-    requiredArgs(2, arguments);
-    var amount = toInteger(dirtyAmount);
-    return addDays(dirtyDate, -amount);
+  function getDefaultOptions() {
+    return Object.assign({}, getDefaultOptions$1());
   }
-  function subMonths(dirtyDate, dirtyAmount) {
-    requiredArgs(2, arguments);
-    var amount = toInteger(dirtyAmount);
-    return addMonths(dirtyDate, -amount);
+  function getISODay(date) {
+    const _date = toDate(date);
+    let day = _date.getDay();
+    if (day === 0) {
+      day = 7;
+    }
+    return day;
+  }
+  function transpose(fromDate, constructor) {
+    const date = constructor instanceof Date ? constructFrom(constructor, 0) : new constructor(0);
+    date.setFullYear(
+      fromDate.getFullYear(),
+      fromDate.getMonth(),
+      fromDate.getDate()
+    );
+    date.setHours(
+      fromDate.getHours(),
+      fromDate.getMinutes(),
+      fromDate.getSeconds(),
+      fromDate.getMilliseconds()
+    );
+    return date;
+  }
+  const TIMEZONE_UNIT_PRIORITY = 10;
+  class Setter {
+    constructor() {
+      __publicField(this, "subPriority", 0);
+    }
+    validate(_utcDate, _options) {
+      return true;
+    }
+  }
+  class ValueSetter extends Setter {
+    constructor(value, validateValue, setValue, priority, subPriority) {
+      super();
+      this.value = value;
+      this.validateValue = validateValue;
+      this.setValue = setValue;
+      this.priority = priority;
+      if (subPriority) {
+        this.subPriority = subPriority;
+      }
+    }
+    validate(date, options) {
+      return this.validateValue(date, this.value, options);
+    }
+    set(date, flags, options) {
+      return this.setValue(date, flags, this.value, options);
+    }
+  }
+  class DateToSystemTimezoneSetter extends Setter {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", TIMEZONE_UNIT_PRIORITY);
+      __publicField(this, "subPriority", -1);
+    }
+    set(date, flags) {
+      if (flags.timestampIsSet)
+        return date;
+      return constructFrom(date, transpose(date, Date));
+    }
+  }
+  class Parser {
+    run(dateString, token, match2, options) {
+      const result = this.parse(dateString, token, match2, options);
+      if (!result) {
+        return null;
+      }
+      return {
+        setter: new ValueSetter(
+          result.value,
+          this.validate,
+          this.set,
+          this.priority,
+          this.subPriority
+        ),
+        rest: result.rest
+      };
+    }
+    validate(_utcDate, _value, _options) {
+      return true;
+    }
+  }
+  class EraParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 140);
+      __publicField(this, "incompatibleTokens", ["R", "u", "t", "T"]);
+    }
+    parse(dateString, token, match2) {
+      switch (token) {
+        case "G":
+        case "GG":
+        case "GGG":
+          return match2.era(dateString, { width: "abbreviated" }) || match2.era(dateString, { width: "narrow" });
+        case "GGGGG":
+          return match2.era(dateString, { width: "narrow" });
+        case "GGGG":
+        default:
+          return match2.era(dateString, { width: "wide" }) || match2.era(dateString, { width: "abbreviated" }) || match2.era(dateString, { width: "narrow" });
+      }
+    }
+    set(date, flags, value) {
+      flags.era = value;
+      date.setFullYear(value, 0, 1);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+  }
+  const numericPatterns = {
+    month: /^(1[0-2]|0?\d)/,
+    date: /^(3[0-1]|[0-2]?\d)/,
+    dayOfYear: /^(36[0-6]|3[0-5]\d|[0-2]?\d?\d)/,
+    week: /^(5[0-3]|[0-4]?\d)/,
+    hour23h: /^(2[0-3]|[0-1]?\d)/,
+    hour24h: /^(2[0-4]|[0-1]?\d)/,
+    hour11h: /^(1[0-1]|0?\d)/,
+    hour12h: /^(1[0-2]|0?\d)/,
+    minute: /^[0-5]?\d/,
+    second: /^[0-5]?\d/,
+    singleDigit: /^\d/,
+    twoDigits: /^\d{1,2}/,
+    threeDigits: /^\d{1,3}/,
+    fourDigits: /^\d{1,4}/,
+    anyDigitsSigned: /^-?\d+/,
+    singleDigitSigned: /^-?\d/,
+    twoDigitsSigned: /^-?\d{1,2}/,
+    threeDigitsSigned: /^-?\d{1,3}/,
+    fourDigitsSigned: /^-?\d{1,4}/
+  };
+  const timezonePatterns = {
+    basicOptionalMinutes: /^([+-])(\d{2})(\d{2})?|Z/,
+    basic: /^([+-])(\d{2})(\d{2})|Z/,
+    basicOptionalSeconds: /^([+-])(\d{2})(\d{2})((\d{2}))?|Z/,
+    extended: /^([+-])(\d{2}):(\d{2})|Z/,
+    extendedOptionalSeconds: /^([+-])(\d{2}):(\d{2})(:(\d{2}))?|Z/
+  };
+  function mapValue(parseFnResult, mapFn) {
+    if (!parseFnResult) {
+      return parseFnResult;
+    }
+    return {
+      value: mapFn(parseFnResult.value),
+      rest: parseFnResult.rest
+    };
+  }
+  function parseNumericPattern(pattern, dateString) {
+    const matchResult = dateString.match(pattern);
+    if (!matchResult) {
+      return null;
+    }
+    return {
+      value: parseInt(matchResult[0], 10),
+      rest: dateString.slice(matchResult[0].length)
+    };
+  }
+  function parseTimezonePattern(pattern, dateString) {
+    const matchResult = dateString.match(pattern);
+    if (!matchResult) {
+      return null;
+    }
+    if (matchResult[0] === "Z") {
+      return {
+        value: 0,
+        rest: dateString.slice(1)
+      };
+    }
+    const sign = matchResult[1] === "+" ? 1 : -1;
+    const hours = matchResult[2] ? parseInt(matchResult[2], 10) : 0;
+    const minutes = matchResult[3] ? parseInt(matchResult[3], 10) : 0;
+    const seconds = matchResult[5] ? parseInt(matchResult[5], 10) : 0;
+    return {
+      value: sign * (hours * millisecondsInHour + minutes * millisecondsInMinute + seconds * millisecondsInSecond),
+      rest: dateString.slice(matchResult[0].length)
+    };
+  }
+  function parseAnyDigitsSigned(dateString) {
+    return parseNumericPattern(numericPatterns.anyDigitsSigned, dateString);
+  }
+  function parseNDigits(n, dateString) {
+    switch (n) {
+      case 1:
+        return parseNumericPattern(numericPatterns.singleDigit, dateString);
+      case 2:
+        return parseNumericPattern(numericPatterns.twoDigits, dateString);
+      case 3:
+        return parseNumericPattern(numericPatterns.threeDigits, dateString);
+      case 4:
+        return parseNumericPattern(numericPatterns.fourDigits, dateString);
+      default:
+        return parseNumericPattern(new RegExp("^\\d{1," + n + "}"), dateString);
+    }
+  }
+  function parseNDigitsSigned(n, dateString) {
+    switch (n) {
+      case 1:
+        return parseNumericPattern(numericPatterns.singleDigitSigned, dateString);
+      case 2:
+        return parseNumericPattern(numericPatterns.twoDigitsSigned, dateString);
+      case 3:
+        return parseNumericPattern(numericPatterns.threeDigitsSigned, dateString);
+      case 4:
+        return parseNumericPattern(numericPatterns.fourDigitsSigned, dateString);
+      default:
+        return parseNumericPattern(new RegExp("^-?\\d{1," + n + "}"), dateString);
+    }
+  }
+  function dayPeriodEnumToHours(dayPeriod) {
+    switch (dayPeriod) {
+      case "morning":
+        return 4;
+      case "evening":
+        return 17;
+      case "pm":
+      case "noon":
+      case "afternoon":
+        return 12;
+      case "am":
+      case "midnight":
+      case "night":
+      default:
+        return 0;
+    }
+  }
+  function normalizeTwoDigitYear(twoDigitYear, currentYear) {
+    const isCommonEra = currentYear > 0;
+    const absCurrentYear = isCommonEra ? currentYear : 1 - currentYear;
+    let result;
+    if (absCurrentYear <= 50) {
+      result = twoDigitYear || 100;
+    } else {
+      const rangeEnd = absCurrentYear + 50;
+      const rangeEndCentury = Math.trunc(rangeEnd / 100) * 100;
+      const isPreviousCentury = twoDigitYear >= rangeEnd % 100;
+      result = twoDigitYear + rangeEndCentury - (isPreviousCentury ? 100 : 0);
+    }
+    return isCommonEra ? result : 1 - result;
+  }
+  function isLeapYearIndex(year) {
+    return year % 400 === 0 || year % 4 === 0 && year % 100 !== 0;
+  }
+  class YearParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 130);
+      __publicField(this, "incompatibleTokens", ["Y", "R", "u", "w", "I", "i", "e", "c", "t", "T"]);
+    }
+    parse(dateString, token, match2) {
+      const valueCallback = (year) => ({
+        year,
+        isTwoDigitYear: token === "yy"
+      });
+      switch (token) {
+        case "y":
+          return mapValue(parseNDigits(4, dateString), valueCallback);
+        case "yo":
+          return mapValue(
+            match2.ordinalNumber(dateString, {
+              unit: "year"
+            }),
+            valueCallback
+          );
+        default:
+          return mapValue(parseNDigits(token.length, dateString), valueCallback);
+      }
+    }
+    validate(_date, value) {
+      return value.isTwoDigitYear || value.year > 0;
+    }
+    set(date, flags, value) {
+      const currentYear = date.getFullYear();
+      if (value.isTwoDigitYear) {
+        const normalizedTwoDigitYear = normalizeTwoDigitYear(
+          value.year,
+          currentYear
+        );
+        date.setFullYear(normalizedTwoDigitYear, 0, 1);
+        date.setHours(0, 0, 0, 0);
+        return date;
+      }
+      const year = !("era" in flags) || flags.era === 1 ? value.year : 1 - value.year;
+      date.setFullYear(year, 0, 1);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+  }
+  class LocalWeekYearParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 130);
+      __publicField(this, "incompatibleTokens", [
+        "y",
+        "R",
+        "u",
+        "Q",
+        "q",
+        "M",
+        "L",
+        "I",
+        "d",
+        "D",
+        "i",
+        "t",
+        "T"
+      ]);
+    }
+    parse(dateString, token, match2) {
+      const valueCallback = (year) => ({
+        year,
+        isTwoDigitYear: token === "YY"
+      });
+      switch (token) {
+        case "Y":
+          return mapValue(parseNDigits(4, dateString), valueCallback);
+        case "Yo":
+          return mapValue(
+            match2.ordinalNumber(dateString, {
+              unit: "year"
+            }),
+            valueCallback
+          );
+        default:
+          return mapValue(parseNDigits(token.length, dateString), valueCallback);
+      }
+    }
+    validate(_date, value) {
+      return value.isTwoDigitYear || value.year > 0;
+    }
+    set(date, flags, value, options) {
+      const currentYear = getWeekYear(date, options);
+      if (value.isTwoDigitYear) {
+        const normalizedTwoDigitYear = normalizeTwoDigitYear(
+          value.year,
+          currentYear
+        );
+        date.setFullYear(
+          normalizedTwoDigitYear,
+          0,
+          options.firstWeekContainsDate
+        );
+        date.setHours(0, 0, 0, 0);
+        return startOfWeek(date, options);
+      }
+      const year = !("era" in flags) || flags.era === 1 ? value.year : 1 - value.year;
+      date.setFullYear(year, 0, options.firstWeekContainsDate);
+      date.setHours(0, 0, 0, 0);
+      return startOfWeek(date, options);
+    }
+  }
+  class ISOWeekYearParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 130);
+      __publicField(this, "incompatibleTokens", [
+        "G",
+        "y",
+        "Y",
+        "u",
+        "Q",
+        "q",
+        "M",
+        "L",
+        "w",
+        "d",
+        "D",
+        "e",
+        "c",
+        "t",
+        "T"
+      ]);
+    }
+    parse(dateString, token) {
+      if (token === "R") {
+        return parseNDigitsSigned(4, dateString);
+      }
+      return parseNDigitsSigned(token.length, dateString);
+    }
+    set(date, _flags, value) {
+      const firstWeekOfYear = constructFrom(date, 0);
+      firstWeekOfYear.setFullYear(value, 0, 4);
+      firstWeekOfYear.setHours(0, 0, 0, 0);
+      return startOfISOWeek(firstWeekOfYear);
+    }
+  }
+  class ExtendedYearParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 130);
+      __publicField(this, "incompatibleTokens", ["G", "y", "Y", "R", "w", "I", "i", "e", "c", "t", "T"]);
+    }
+    parse(dateString, token) {
+      if (token === "u") {
+        return parseNDigitsSigned(4, dateString);
+      }
+      return parseNDigitsSigned(token.length, dateString);
+    }
+    set(date, _flags, value) {
+      date.setFullYear(value, 0, 1);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+  }
+  class QuarterParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 120);
+      __publicField(this, "incompatibleTokens", [
+        "Y",
+        "R",
+        "q",
+        "M",
+        "L",
+        "w",
+        "I",
+        "d",
+        "D",
+        "i",
+        "e",
+        "c",
+        "t",
+        "T"
+      ]);
+    }
+    parse(dateString, token, match2) {
+      switch (token) {
+        case "Q":
+        case "QQ":
+          return parseNDigits(token.length, dateString);
+        case "Qo":
+          return match2.ordinalNumber(dateString, { unit: "quarter" });
+        case "QQQ":
+          return match2.quarter(dateString, {
+            width: "abbreviated",
+            context: "formatting"
+          }) || match2.quarter(dateString, {
+            width: "narrow",
+            context: "formatting"
+          });
+        case "QQQQQ":
+          return match2.quarter(dateString, {
+            width: "narrow",
+            context: "formatting"
+          });
+        case "QQQQ":
+        default:
+          return match2.quarter(dateString, {
+            width: "wide",
+            context: "formatting"
+          }) || match2.quarter(dateString, {
+            width: "abbreviated",
+            context: "formatting"
+          }) || match2.quarter(dateString, {
+            width: "narrow",
+            context: "formatting"
+          });
+      }
+    }
+    validate(_date, value) {
+      return value >= 1 && value <= 4;
+    }
+    set(date, _flags, value) {
+      date.setMonth((value - 1) * 3, 1);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+  }
+  class StandAloneQuarterParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 120);
+      __publicField(this, "incompatibleTokens", [
+        "Y",
+        "R",
+        "Q",
+        "M",
+        "L",
+        "w",
+        "I",
+        "d",
+        "D",
+        "i",
+        "e",
+        "c",
+        "t",
+        "T"
+      ]);
+    }
+    parse(dateString, token, match2) {
+      switch (token) {
+        case "q":
+        case "qq":
+          return parseNDigits(token.length, dateString);
+        case "qo":
+          return match2.ordinalNumber(dateString, { unit: "quarter" });
+        case "qqq":
+          return match2.quarter(dateString, {
+            width: "abbreviated",
+            context: "standalone"
+          }) || match2.quarter(dateString, {
+            width: "narrow",
+            context: "standalone"
+          });
+        case "qqqqq":
+          return match2.quarter(dateString, {
+            width: "narrow",
+            context: "standalone"
+          });
+        case "qqqq":
+        default:
+          return match2.quarter(dateString, {
+            width: "wide",
+            context: "standalone"
+          }) || match2.quarter(dateString, {
+            width: "abbreviated",
+            context: "standalone"
+          }) || match2.quarter(dateString, {
+            width: "narrow",
+            context: "standalone"
+          });
+      }
+    }
+    validate(_date, value) {
+      return value >= 1 && value <= 4;
+    }
+    set(date, _flags, value) {
+      date.setMonth((value - 1) * 3, 1);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+  }
+  class MonthParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "incompatibleTokens", [
+        "Y",
+        "R",
+        "q",
+        "Q",
+        "L",
+        "w",
+        "I",
+        "D",
+        "i",
+        "e",
+        "c",
+        "t",
+        "T"
+      ]);
+      __publicField(this, "priority", 110);
+    }
+    parse(dateString, token, match2) {
+      const valueCallback = (value) => value - 1;
+      switch (token) {
+        case "M":
+          return mapValue(
+            parseNumericPattern(numericPatterns.month, dateString),
+            valueCallback
+          );
+        case "MM":
+          return mapValue(parseNDigits(2, dateString), valueCallback);
+        case "Mo":
+          return mapValue(
+            match2.ordinalNumber(dateString, {
+              unit: "month"
+            }),
+            valueCallback
+          );
+        case "MMM":
+          return match2.month(dateString, {
+            width: "abbreviated",
+            context: "formatting"
+          }) || match2.month(dateString, { width: "narrow", context: "formatting" });
+        case "MMMMM":
+          return match2.month(dateString, {
+            width: "narrow",
+            context: "formatting"
+          });
+        case "MMMM":
+        default:
+          return match2.month(dateString, { width: "wide", context: "formatting" }) || match2.month(dateString, {
+            width: "abbreviated",
+            context: "formatting"
+          }) || match2.month(dateString, { width: "narrow", context: "formatting" });
+      }
+    }
+    validate(_date, value) {
+      return value >= 0 && value <= 11;
+    }
+    set(date, _flags, value) {
+      date.setMonth(value, 1);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+  }
+  class StandAloneMonthParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 110);
+      __publicField(this, "incompatibleTokens", [
+        "Y",
+        "R",
+        "q",
+        "Q",
+        "M",
+        "w",
+        "I",
+        "D",
+        "i",
+        "e",
+        "c",
+        "t",
+        "T"
+      ]);
+    }
+    parse(dateString, token, match2) {
+      const valueCallback = (value) => value - 1;
+      switch (token) {
+        case "L":
+          return mapValue(
+            parseNumericPattern(numericPatterns.month, dateString),
+            valueCallback
+          );
+        case "LL":
+          return mapValue(parseNDigits(2, dateString), valueCallback);
+        case "Lo":
+          return mapValue(
+            match2.ordinalNumber(dateString, {
+              unit: "month"
+            }),
+            valueCallback
+          );
+        case "LLL":
+          return match2.month(dateString, {
+            width: "abbreviated",
+            context: "standalone"
+          }) || match2.month(dateString, { width: "narrow", context: "standalone" });
+        case "LLLLL":
+          return match2.month(dateString, {
+            width: "narrow",
+            context: "standalone"
+          });
+        case "LLLL":
+        default:
+          return match2.month(dateString, { width: "wide", context: "standalone" }) || match2.month(dateString, {
+            width: "abbreviated",
+            context: "standalone"
+          }) || match2.month(dateString, { width: "narrow", context: "standalone" });
+      }
+    }
+    validate(_date, value) {
+      return value >= 0 && value <= 11;
+    }
+    set(date, _flags, value) {
+      date.setMonth(value, 1);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+  }
+  function setWeek(date, week, options) {
+    const _date = toDate(date);
+    const diff = getWeek(_date, options) - week;
+    _date.setDate(_date.getDate() - diff * 7);
+    return _date;
+  }
+  class LocalWeekParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 100);
+      __publicField(this, "incompatibleTokens", [
+        "y",
+        "R",
+        "u",
+        "q",
+        "Q",
+        "M",
+        "L",
+        "I",
+        "d",
+        "D",
+        "i",
+        "t",
+        "T"
+      ]);
+    }
+    parse(dateString, token, match2) {
+      switch (token) {
+        case "w":
+          return parseNumericPattern(numericPatterns.week, dateString);
+        case "wo":
+          return match2.ordinalNumber(dateString, { unit: "week" });
+        default:
+          return parseNDigits(token.length, dateString);
+      }
+    }
+    validate(_date, value) {
+      return value >= 1 && value <= 53;
+    }
+    set(date, _flags, value, options) {
+      return startOfWeek(setWeek(date, value, options), options);
+    }
+  }
+  function setISOWeek(date, week) {
+    const _date = toDate(date);
+    const diff = getISOWeek(_date) - week;
+    _date.setDate(_date.getDate() - diff * 7);
+    return _date;
+  }
+  class ISOWeekParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 100);
+      __publicField(this, "incompatibleTokens", [
+        "y",
+        "Y",
+        "u",
+        "q",
+        "Q",
+        "M",
+        "L",
+        "w",
+        "d",
+        "D",
+        "e",
+        "c",
+        "t",
+        "T"
+      ]);
+    }
+    parse(dateString, token, match2) {
+      switch (token) {
+        case "I":
+          return parseNumericPattern(numericPatterns.week, dateString);
+        case "Io":
+          return match2.ordinalNumber(dateString, { unit: "week" });
+        default:
+          return parseNDigits(token.length, dateString);
+      }
+    }
+    validate(_date, value) {
+      return value >= 1 && value <= 53;
+    }
+    set(date, _flags, value) {
+      return startOfISOWeek(setISOWeek(date, value));
+    }
+  }
+  const DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  const DAYS_IN_MONTH_LEAP_YEAR = [
+    31,
+    29,
+    31,
+    30,
+    31,
+    30,
+    31,
+    31,
+    30,
+    31,
+    30,
+    31
+  ];
+  class DateParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 90);
+      __publicField(this, "subPriority", 1);
+      __publicField(this, "incompatibleTokens", [
+        "Y",
+        "R",
+        "q",
+        "Q",
+        "w",
+        "I",
+        "D",
+        "i",
+        "e",
+        "c",
+        "t",
+        "T"
+      ]);
+    }
+    parse(dateString, token, match2) {
+      switch (token) {
+        case "d":
+          return parseNumericPattern(numericPatterns.date, dateString);
+        case "do":
+          return match2.ordinalNumber(dateString, { unit: "date" });
+        default:
+          return parseNDigits(token.length, dateString);
+      }
+    }
+    validate(date, value) {
+      const year = date.getFullYear();
+      const isLeapYear = isLeapYearIndex(year);
+      const month = date.getMonth();
+      if (isLeapYear) {
+        return value >= 1 && value <= DAYS_IN_MONTH_LEAP_YEAR[month];
+      } else {
+        return value >= 1 && value <= DAYS_IN_MONTH[month];
+      }
+    }
+    set(date, _flags, value) {
+      date.setDate(value);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+  }
+  class DayOfYearParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 90);
+      __publicField(this, "subpriority", 1);
+      __publicField(this, "incompatibleTokens", [
+        "Y",
+        "R",
+        "q",
+        "Q",
+        "M",
+        "L",
+        "w",
+        "I",
+        "d",
+        "E",
+        "i",
+        "e",
+        "c",
+        "t",
+        "T"
+      ]);
+    }
+    parse(dateString, token, match2) {
+      switch (token) {
+        case "D":
+        case "DD":
+          return parseNumericPattern(numericPatterns.dayOfYear, dateString);
+        case "Do":
+          return match2.ordinalNumber(dateString, { unit: "date" });
+        default:
+          return parseNDigits(token.length, dateString);
+      }
+    }
+    validate(date, value) {
+      const year = date.getFullYear();
+      const isLeapYear = isLeapYearIndex(year);
+      if (isLeapYear) {
+        return value >= 1 && value <= 366;
+      } else {
+        return value >= 1 && value <= 365;
+      }
+    }
+    set(date, _flags, value) {
+      date.setMonth(0, value);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+  }
+  function setDay(date, day, options) {
+    var _a2, _b2, _c2, _d, _e, _f, _g, _h;
+    const defaultOptions2 = getDefaultOptions$1();
+    const weekStartsOn = (_h = (_g = (_d = (_c2 = options == null ? void 0 : options.weekStartsOn) != null ? _c2 : (_b2 = (_a2 = options == null ? void 0 : options.locale) == null ? void 0 : _a2.options) == null ? void 0 : _b2.weekStartsOn) != null ? _d : defaultOptions2.weekStartsOn) != null ? _g : (_f = (_e = defaultOptions2.locale) == null ? void 0 : _e.options) == null ? void 0 : _f.weekStartsOn) != null ? _h : 0;
+    const _date = toDate(date);
+    const currentDay = _date.getDay();
+    const remainder = day % 7;
+    const dayIndex = (remainder + 7) % 7;
+    const delta = 7 - weekStartsOn;
+    const diff = day < 0 || day > 6 ? day - (currentDay + delta) % 7 : (dayIndex + delta) % 7 - (currentDay + delta) % 7;
+    return addDays(_date, diff);
+  }
+  class DayParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 90);
+      __publicField(this, "incompatibleTokens", ["D", "i", "e", "c", "t", "T"]);
+    }
+    parse(dateString, token, match2) {
+      switch (token) {
+        case "E":
+        case "EE":
+        case "EEE":
+          return match2.day(dateString, {
+            width: "abbreviated",
+            context: "formatting"
+          }) || match2.day(dateString, { width: "short", context: "formatting" }) || match2.day(dateString, { width: "narrow", context: "formatting" });
+        case "EEEEE":
+          return match2.day(dateString, {
+            width: "narrow",
+            context: "formatting"
+          });
+        case "EEEEEE":
+          return match2.day(dateString, { width: "short", context: "formatting" }) || match2.day(dateString, { width: "narrow", context: "formatting" });
+        case "EEEE":
+        default:
+          return match2.day(dateString, { width: "wide", context: "formatting" }) || match2.day(dateString, {
+            width: "abbreviated",
+            context: "formatting"
+          }) || match2.day(dateString, { width: "short", context: "formatting" }) || match2.day(dateString, { width: "narrow", context: "formatting" });
+      }
+    }
+    validate(_date, value) {
+      return value >= 0 && value <= 6;
+    }
+    set(date, _flags, value, options) {
+      date = setDay(date, value, options);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+  }
+  class LocalDayParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 90);
+      __publicField(this, "incompatibleTokens", [
+        "y",
+        "R",
+        "u",
+        "q",
+        "Q",
+        "M",
+        "L",
+        "I",
+        "d",
+        "D",
+        "E",
+        "i",
+        "c",
+        "t",
+        "T"
+      ]);
+    }
+    parse(dateString, token, match2, options) {
+      const valueCallback = (value) => {
+        const wholeWeekDays = Math.floor((value - 1) / 7) * 7;
+        return (value + options.weekStartsOn + 6) % 7 + wholeWeekDays;
+      };
+      switch (token) {
+        case "e":
+        case "ee":
+          return mapValue(parseNDigits(token.length, dateString), valueCallback);
+        case "eo":
+          return mapValue(
+            match2.ordinalNumber(dateString, {
+              unit: "day"
+            }),
+            valueCallback
+          );
+        case "eee":
+          return match2.day(dateString, {
+            width: "abbreviated",
+            context: "formatting"
+          }) || match2.day(dateString, { width: "short", context: "formatting" }) || match2.day(dateString, { width: "narrow", context: "formatting" });
+        case "eeeee":
+          return match2.day(dateString, {
+            width: "narrow",
+            context: "formatting"
+          });
+        case "eeeeee":
+          return match2.day(dateString, { width: "short", context: "formatting" }) || match2.day(dateString, { width: "narrow", context: "formatting" });
+        case "eeee":
+        default:
+          return match2.day(dateString, { width: "wide", context: "formatting" }) || match2.day(dateString, {
+            width: "abbreviated",
+            context: "formatting"
+          }) || match2.day(dateString, { width: "short", context: "formatting" }) || match2.day(dateString, { width: "narrow", context: "formatting" });
+      }
+    }
+    validate(_date, value) {
+      return value >= 0 && value <= 6;
+    }
+    set(date, _flags, value, options) {
+      date = setDay(date, value, options);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+  }
+  class StandAloneLocalDayParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 90);
+      __publicField(this, "incompatibleTokens", [
+        "y",
+        "R",
+        "u",
+        "q",
+        "Q",
+        "M",
+        "L",
+        "I",
+        "d",
+        "D",
+        "E",
+        "i",
+        "e",
+        "t",
+        "T"
+      ]);
+    }
+    parse(dateString, token, match2, options) {
+      const valueCallback = (value) => {
+        const wholeWeekDays = Math.floor((value - 1) / 7) * 7;
+        return (value + options.weekStartsOn + 6) % 7 + wholeWeekDays;
+      };
+      switch (token) {
+        case "c":
+        case "cc":
+          return mapValue(parseNDigits(token.length, dateString), valueCallback);
+        case "co":
+          return mapValue(
+            match2.ordinalNumber(dateString, {
+              unit: "day"
+            }),
+            valueCallback
+          );
+        case "ccc":
+          return match2.day(dateString, {
+            width: "abbreviated",
+            context: "standalone"
+          }) || match2.day(dateString, { width: "short", context: "standalone" }) || match2.day(dateString, { width: "narrow", context: "standalone" });
+        case "ccccc":
+          return match2.day(dateString, {
+            width: "narrow",
+            context: "standalone"
+          });
+        case "cccccc":
+          return match2.day(dateString, { width: "short", context: "standalone" }) || match2.day(dateString, { width: "narrow", context: "standalone" });
+        case "cccc":
+        default:
+          return match2.day(dateString, { width: "wide", context: "standalone" }) || match2.day(dateString, {
+            width: "abbreviated",
+            context: "standalone"
+          }) || match2.day(dateString, { width: "short", context: "standalone" }) || match2.day(dateString, { width: "narrow", context: "standalone" });
+      }
+    }
+    validate(_date, value) {
+      return value >= 0 && value <= 6;
+    }
+    set(date, _flags, value, options) {
+      date = setDay(date, value, options);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+  }
+  function setISODay(date, day) {
+    const _date = toDate(date);
+    const currentDay = getISODay(_date);
+    const diff = day - currentDay;
+    return addDays(_date, diff);
+  }
+  class ISODayParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 90);
+      __publicField(this, "incompatibleTokens", [
+        "y",
+        "Y",
+        "u",
+        "q",
+        "Q",
+        "M",
+        "L",
+        "w",
+        "d",
+        "D",
+        "E",
+        "e",
+        "c",
+        "t",
+        "T"
+      ]);
+    }
+    parse(dateString, token, match2) {
+      const valueCallback = (value) => {
+        if (value === 0) {
+          return 7;
+        }
+        return value;
+      };
+      switch (token) {
+        case "i":
+        case "ii":
+          return parseNDigits(token.length, dateString);
+        case "io":
+          return match2.ordinalNumber(dateString, { unit: "day" });
+        case "iii":
+          return mapValue(
+            match2.day(dateString, {
+              width: "abbreviated",
+              context: "formatting"
+            }) || match2.day(dateString, {
+              width: "short",
+              context: "formatting"
+            }) || match2.day(dateString, {
+              width: "narrow",
+              context: "formatting"
+            }),
+            valueCallback
+          );
+        case "iiiii":
+          return mapValue(
+            match2.day(dateString, {
+              width: "narrow",
+              context: "formatting"
+            }),
+            valueCallback
+          );
+        case "iiiiii":
+          return mapValue(
+            match2.day(dateString, {
+              width: "short",
+              context: "formatting"
+            }) || match2.day(dateString, {
+              width: "narrow",
+              context: "formatting"
+            }),
+            valueCallback
+          );
+        case "iiii":
+        default:
+          return mapValue(
+            match2.day(dateString, {
+              width: "wide",
+              context: "formatting"
+            }) || match2.day(dateString, {
+              width: "abbreviated",
+              context: "formatting"
+            }) || match2.day(dateString, {
+              width: "short",
+              context: "formatting"
+            }) || match2.day(dateString, {
+              width: "narrow",
+              context: "formatting"
+            }),
+            valueCallback
+          );
+      }
+    }
+    validate(_date, value) {
+      return value >= 1 && value <= 7;
+    }
+    set(date, _flags, value) {
+      date = setISODay(date, value);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+  }
+  class AMPMParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 80);
+      __publicField(this, "incompatibleTokens", ["b", "B", "H", "k", "t", "T"]);
+    }
+    parse(dateString, token, match2) {
+      switch (token) {
+        case "a":
+        case "aa":
+        case "aaa":
+          return match2.dayPeriod(dateString, {
+            width: "abbreviated",
+            context: "formatting"
+          }) || match2.dayPeriod(dateString, {
+            width: "narrow",
+            context: "formatting"
+          });
+        case "aaaaa":
+          return match2.dayPeriod(dateString, {
+            width: "narrow",
+            context: "formatting"
+          });
+        case "aaaa":
+        default:
+          return match2.dayPeriod(dateString, {
+            width: "wide",
+            context: "formatting"
+          }) || match2.dayPeriod(dateString, {
+            width: "abbreviated",
+            context: "formatting"
+          }) || match2.dayPeriod(dateString, {
+            width: "narrow",
+            context: "formatting"
+          });
+      }
+    }
+    set(date, _flags, value) {
+      date.setHours(dayPeriodEnumToHours(value), 0, 0, 0);
+      return date;
+    }
+  }
+  class AMPMMidnightParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 80);
+      __publicField(this, "incompatibleTokens", ["a", "B", "H", "k", "t", "T"]);
+    }
+    parse(dateString, token, match2) {
+      switch (token) {
+        case "b":
+        case "bb":
+        case "bbb":
+          return match2.dayPeriod(dateString, {
+            width: "abbreviated",
+            context: "formatting"
+          }) || match2.dayPeriod(dateString, {
+            width: "narrow",
+            context: "formatting"
+          });
+        case "bbbbb":
+          return match2.dayPeriod(dateString, {
+            width: "narrow",
+            context: "formatting"
+          });
+        case "bbbb":
+        default:
+          return match2.dayPeriod(dateString, {
+            width: "wide",
+            context: "formatting"
+          }) || match2.dayPeriod(dateString, {
+            width: "abbreviated",
+            context: "formatting"
+          }) || match2.dayPeriod(dateString, {
+            width: "narrow",
+            context: "formatting"
+          });
+      }
+    }
+    set(date, _flags, value) {
+      date.setHours(dayPeriodEnumToHours(value), 0, 0, 0);
+      return date;
+    }
+  }
+  class DayPeriodParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 80);
+      __publicField(this, "incompatibleTokens", ["a", "b", "t", "T"]);
+    }
+    parse(dateString, token, match2) {
+      switch (token) {
+        case "B":
+        case "BB":
+        case "BBB":
+          return match2.dayPeriod(dateString, {
+            width: "abbreviated",
+            context: "formatting"
+          }) || match2.dayPeriod(dateString, {
+            width: "narrow",
+            context: "formatting"
+          });
+        case "BBBBB":
+          return match2.dayPeriod(dateString, {
+            width: "narrow",
+            context: "formatting"
+          });
+        case "BBBB":
+        default:
+          return match2.dayPeriod(dateString, {
+            width: "wide",
+            context: "formatting"
+          }) || match2.dayPeriod(dateString, {
+            width: "abbreviated",
+            context: "formatting"
+          }) || match2.dayPeriod(dateString, {
+            width: "narrow",
+            context: "formatting"
+          });
+      }
+    }
+    set(date, _flags, value) {
+      date.setHours(dayPeriodEnumToHours(value), 0, 0, 0);
+      return date;
+    }
+  }
+  class Hour1to12Parser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 70);
+      __publicField(this, "incompatibleTokens", ["H", "K", "k", "t", "T"]);
+    }
+    parse(dateString, token, match2) {
+      switch (token) {
+        case "h":
+          return parseNumericPattern(numericPatterns.hour12h, dateString);
+        case "ho":
+          return match2.ordinalNumber(dateString, { unit: "hour" });
+        default:
+          return parseNDigits(token.length, dateString);
+      }
+    }
+    validate(_date, value) {
+      return value >= 1 && value <= 12;
+    }
+    set(date, _flags, value) {
+      const isPM = date.getHours() >= 12;
+      if (isPM && value < 12) {
+        date.setHours(value + 12, 0, 0, 0);
+      } else if (!isPM && value === 12) {
+        date.setHours(0, 0, 0, 0);
+      } else {
+        date.setHours(value, 0, 0, 0);
+      }
+      return date;
+    }
+  }
+  class Hour0to23Parser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 70);
+      __publicField(this, "incompatibleTokens", ["a", "b", "h", "K", "k", "t", "T"]);
+    }
+    parse(dateString, token, match2) {
+      switch (token) {
+        case "H":
+          return parseNumericPattern(numericPatterns.hour23h, dateString);
+        case "Ho":
+          return match2.ordinalNumber(dateString, { unit: "hour" });
+        default:
+          return parseNDigits(token.length, dateString);
+      }
+    }
+    validate(_date, value) {
+      return value >= 0 && value <= 23;
+    }
+    set(date, _flags, value) {
+      date.setHours(value, 0, 0, 0);
+      return date;
+    }
+  }
+  class Hour0To11Parser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 70);
+      __publicField(this, "incompatibleTokens", ["h", "H", "k", "t", "T"]);
+    }
+    parse(dateString, token, match2) {
+      switch (token) {
+        case "K":
+          return parseNumericPattern(numericPatterns.hour11h, dateString);
+        case "Ko":
+          return match2.ordinalNumber(dateString, { unit: "hour" });
+        default:
+          return parseNDigits(token.length, dateString);
+      }
+    }
+    validate(_date, value) {
+      return value >= 0 && value <= 11;
+    }
+    set(date, _flags, value) {
+      const isPM = date.getHours() >= 12;
+      if (isPM && value < 12) {
+        date.setHours(value + 12, 0, 0, 0);
+      } else {
+        date.setHours(value, 0, 0, 0);
+      }
+      return date;
+    }
+  }
+  class Hour1To24Parser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 70);
+      __publicField(this, "incompatibleTokens", ["a", "b", "h", "H", "K", "t", "T"]);
+    }
+    parse(dateString, token, match2) {
+      switch (token) {
+        case "k":
+          return parseNumericPattern(numericPatterns.hour24h, dateString);
+        case "ko":
+          return match2.ordinalNumber(dateString, { unit: "hour" });
+        default:
+          return parseNDigits(token.length, dateString);
+      }
+    }
+    validate(_date, value) {
+      return value >= 1 && value <= 24;
+    }
+    set(date, _flags, value) {
+      const hours = value <= 24 ? value % 24 : value;
+      date.setHours(hours, 0, 0, 0);
+      return date;
+    }
+  }
+  class MinuteParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 60);
+      __publicField(this, "incompatibleTokens", ["t", "T"]);
+    }
+    parse(dateString, token, match2) {
+      switch (token) {
+        case "m":
+          return parseNumericPattern(numericPatterns.minute, dateString);
+        case "mo":
+          return match2.ordinalNumber(dateString, { unit: "minute" });
+        default:
+          return parseNDigits(token.length, dateString);
+      }
+    }
+    validate(_date, value) {
+      return value >= 0 && value <= 59;
+    }
+    set(date, _flags, value) {
+      date.setMinutes(value, 0, 0);
+      return date;
+    }
+  }
+  class SecondParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 50);
+      __publicField(this, "incompatibleTokens", ["t", "T"]);
+    }
+    parse(dateString, token, match2) {
+      switch (token) {
+        case "s":
+          return parseNumericPattern(numericPatterns.second, dateString);
+        case "so":
+          return match2.ordinalNumber(dateString, { unit: "second" });
+        default:
+          return parseNDigits(token.length, dateString);
+      }
+    }
+    validate(_date, value) {
+      return value >= 0 && value <= 59;
+    }
+    set(date, _flags, value) {
+      date.setSeconds(value, 0);
+      return date;
+    }
+  }
+  class FractionOfSecondParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 30);
+      __publicField(this, "incompatibleTokens", ["t", "T"]);
+    }
+    parse(dateString, token) {
+      const valueCallback = (value) => Math.trunc(value * Math.pow(10, -token.length + 3));
+      return mapValue(parseNDigits(token.length, dateString), valueCallback);
+    }
+    set(date, _flags, value) {
+      date.setMilliseconds(value);
+      return date;
+    }
+  }
+  class ISOTimezoneWithZParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 10);
+      __publicField(this, "incompatibleTokens", ["t", "T", "x"]);
+    }
+    parse(dateString, token) {
+      switch (token) {
+        case "X":
+          return parseTimezonePattern(
+            timezonePatterns.basicOptionalMinutes,
+            dateString
+          );
+        case "XX":
+          return parseTimezonePattern(timezonePatterns.basic, dateString);
+        case "XXXX":
+          return parseTimezonePattern(
+            timezonePatterns.basicOptionalSeconds,
+            dateString
+          );
+        case "XXXXX":
+          return parseTimezonePattern(
+            timezonePatterns.extendedOptionalSeconds,
+            dateString
+          );
+        case "XXX":
+        default:
+          return parseTimezonePattern(timezonePatterns.extended, dateString);
+      }
+    }
+    set(date, flags, value) {
+      if (flags.timestampIsSet)
+        return date;
+      return constructFrom(
+        date,
+        date.getTime() - getTimezoneOffsetInMilliseconds(date) - value
+      );
+    }
+  }
+  class ISOTimezoneParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 10);
+      __publicField(this, "incompatibleTokens", ["t", "T", "X"]);
+    }
+    parse(dateString, token) {
+      switch (token) {
+        case "x":
+          return parseTimezonePattern(
+            timezonePatterns.basicOptionalMinutes,
+            dateString
+          );
+        case "xx":
+          return parseTimezonePattern(timezonePatterns.basic, dateString);
+        case "xxxx":
+          return parseTimezonePattern(
+            timezonePatterns.basicOptionalSeconds,
+            dateString
+          );
+        case "xxxxx":
+          return parseTimezonePattern(
+            timezonePatterns.extendedOptionalSeconds,
+            dateString
+          );
+        case "xxx":
+        default:
+          return parseTimezonePattern(timezonePatterns.extended, dateString);
+      }
+    }
+    set(date, flags, value) {
+      if (flags.timestampIsSet)
+        return date;
+      return constructFrom(
+        date,
+        date.getTime() - getTimezoneOffsetInMilliseconds(date) - value
+      );
+    }
+  }
+  class TimestampSecondsParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 40);
+      __publicField(this, "incompatibleTokens", "*");
+    }
+    parse(dateString) {
+      return parseAnyDigitsSigned(dateString);
+    }
+    set(date, _flags, value) {
+      return [constructFrom(date, value * 1e3), { timestampIsSet: true }];
+    }
+  }
+  class TimestampMillisecondsParser extends Parser {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "priority", 20);
+      __publicField(this, "incompatibleTokens", "*");
+    }
+    parse(dateString) {
+      return parseAnyDigitsSigned(dateString);
+    }
+    set(date, _flags, value) {
+      return [constructFrom(date, value), { timestampIsSet: true }];
+    }
+  }
+  const parsers = {
+    G: new EraParser(),
+    y: new YearParser(),
+    Y: new LocalWeekYearParser(),
+    R: new ISOWeekYearParser(),
+    u: new ExtendedYearParser(),
+    Q: new QuarterParser(),
+    q: new StandAloneQuarterParser(),
+    M: new MonthParser(),
+    L: new StandAloneMonthParser(),
+    w: new LocalWeekParser(),
+    I: new ISOWeekParser(),
+    d: new DateParser(),
+    D: new DayOfYearParser(),
+    E: new DayParser(),
+    e: new LocalDayParser(),
+    c: new StandAloneLocalDayParser(),
+    i: new ISODayParser(),
+    a: new AMPMParser(),
+    b: new AMPMMidnightParser(),
+    B: new DayPeriodParser(),
+    h: new Hour1to12Parser(),
+    H: new Hour0to23Parser(),
+    K: new Hour0To11Parser(),
+    k: new Hour1To24Parser(),
+    m: new MinuteParser(),
+    s: new SecondParser(),
+    S: new FractionOfSecondParser(),
+    X: new ISOTimezoneWithZParser(),
+    x: new ISOTimezoneParser(),
+    t: new TimestampSecondsParser(),
+    T: new TimestampMillisecondsParser()
+  };
+  const formattingTokensRegExp = /[yYQqMLwIdDecihHKkms]o|(\w)\1*|''|'(''|[^'])+('|$)|./g;
+  const longFormattingTokensRegExp = /P+p+|P+|p+|''|'(''|[^'])+('|$)|./g;
+  const escapedStringRegExp = /^'([^]*?)'?$/;
+  const doubleQuoteRegExp = /''/g;
+  const notWhitespaceRegExp = /\S/;
+  const unescapedLatinCharacterRegExp = /[a-zA-Z]/;
+  function parse(dateStr, formatStr, referenceDate, options) {
+    var _a2, _b2, _c2, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r;
+    const defaultOptions2 = getDefaultOptions();
+    const locale = (_b2 = (_a2 = options == null ? void 0 : options.locale) != null ? _a2 : defaultOptions2.locale) != null ? _b2 : enUS;
+    const firstWeekContainsDate = (_j = (_i = (_f = (_e = options == null ? void 0 : options.firstWeekContainsDate) != null ? _e : (_d = (_c2 = options == null ? void 0 : options.locale) == null ? void 0 : _c2.options) == null ? void 0 : _d.firstWeekContainsDate) != null ? _f : defaultOptions2.firstWeekContainsDate) != null ? _i : (_h = (_g = defaultOptions2.locale) == null ? void 0 : _g.options) == null ? void 0 : _h.firstWeekContainsDate) != null ? _j : 1;
+    const weekStartsOn = (_r = (_q = (_n = (_m = options == null ? void 0 : options.weekStartsOn) != null ? _m : (_l = (_k = options == null ? void 0 : options.locale) == null ? void 0 : _k.options) == null ? void 0 : _l.weekStartsOn) != null ? _n : defaultOptions2.weekStartsOn) != null ? _q : (_p = (_o = defaultOptions2.locale) == null ? void 0 : _o.options) == null ? void 0 : _p.weekStartsOn) != null ? _r : 0;
+    if (formatStr === "") {
+      if (dateStr === "") {
+        return toDate(referenceDate);
+      } else {
+        return constructFrom(referenceDate, NaN);
+      }
+    }
+    const subFnOptions = {
+      firstWeekContainsDate,
+      weekStartsOn,
+      locale
+    };
+    const setters = [new DateToSystemTimezoneSetter()];
+    const tokens = formatStr.match(longFormattingTokensRegExp).map((substring) => {
+      const firstCharacter = substring[0];
+      if (firstCharacter in longFormatters) {
+        const longFormatter = longFormatters[firstCharacter];
+        return longFormatter(substring, locale.formatLong);
+      }
+      return substring;
+    }).join("").match(formattingTokensRegExp);
+    const usedTokens = [];
+    for (let token of tokens) {
+      if (!(options == null ? void 0 : options.useAdditionalWeekYearTokens) && isProtectedWeekYearToken(token)) {
+        warnOrThrowProtectedError(token, formatStr, dateStr);
+      }
+      if (!(options == null ? void 0 : options.useAdditionalDayOfYearTokens) && isProtectedDayOfYearToken(token)) {
+        warnOrThrowProtectedError(token, formatStr, dateStr);
+      }
+      const firstCharacter = token[0];
+      const parser = parsers[firstCharacter];
+      if (parser) {
+        const { incompatibleTokens } = parser;
+        if (Array.isArray(incompatibleTokens)) {
+          const incompatibleToken = usedTokens.find(
+            (usedToken) => incompatibleTokens.includes(usedToken.token) || usedToken.token === firstCharacter
+          );
+          if (incompatibleToken) {
+            throw new RangeError(
+              `The format string mustn't contain \`${incompatibleToken.fullToken}\` and \`${token}\` at the same time`
+            );
+          }
+        } else if (parser.incompatibleTokens === "*" && usedTokens.length > 0) {
+          throw new RangeError(
+            `The format string mustn't contain \`${token}\` and any other token at the same time`
+          );
+        }
+        usedTokens.push({ token: firstCharacter, fullToken: token });
+        const parseResult = parser.run(
+          dateStr,
+          token,
+          locale.match,
+          subFnOptions
+        );
+        if (!parseResult) {
+          return constructFrom(referenceDate, NaN);
+        }
+        setters.push(parseResult.setter);
+        dateStr = parseResult.rest;
+      } else {
+        if (firstCharacter.match(unescapedLatinCharacterRegExp)) {
+          throw new RangeError(
+            "Format string contains an unescaped latin alphabet character `" + firstCharacter + "`"
+          );
+        }
+        if (token === "''") {
+          token = "'";
+        } else if (firstCharacter === "'") {
+          token = cleanEscapedString(token);
+        }
+        if (dateStr.indexOf(token) === 0) {
+          dateStr = dateStr.slice(token.length);
+        } else {
+          return constructFrom(referenceDate, NaN);
+        }
+      }
+    }
+    if (dateStr.length > 0 && notWhitespaceRegExp.test(dateStr)) {
+      return constructFrom(referenceDate, NaN);
+    }
+    const uniquePrioritySetters = setters.map((setter) => setter.priority).sort((a, b) => b - a).filter((priority, index, array) => array.indexOf(priority) === index).map(
+      (priority) => setters.filter((setter) => setter.priority === priority).sort((a, b) => b.subPriority - a.subPriority)
+    ).map((setterArray) => setterArray[0]);
+    let date = toDate(referenceDate);
+    if (isNaN(date.getTime())) {
+      return constructFrom(referenceDate, NaN);
+    }
+    const flags = {};
+    for (const setter of uniquePrioritySetters) {
+      if (!setter.validate(date, subFnOptions)) {
+        return constructFrom(referenceDate, NaN);
+      }
+      const result = setter.set(date, flags, subFnOptions);
+      if (Array.isArray(result)) {
+        date = result[0];
+        Object.assign(flags, result[1]);
+      } else {
+        date = result;
+      }
+    }
+    return constructFrom(referenceDate, date);
+  }
+  function cleanEscapedString(input) {
+    return input.match(escapedStringRegExp)[1].replace(doubleQuoteRegExp, "'");
+  }
+  function subDays(date, amount) {
+    return addDays(date, -amount);
+  }
+  function subMonths(date, amount) {
+    return addMonths(date, -amount);
   }
   function sub(date, duration) {
-    requiredArgs(2, arguments);
-    if (!duration || _typeof(duration) !== "object")
-      return new Date(NaN);
-    var years = duration.years ? toInteger(duration.years) : 0;
-    var months = duration.months ? toInteger(duration.months) : 0;
-    var weeks = duration.weeks ? toInteger(duration.weeks) : 0;
-    var days = duration.days ? toInteger(duration.days) : 0;
-    var hours = duration.hours ? toInteger(duration.hours) : 0;
-    var minutes = duration.minutes ? toInteger(duration.minutes) : 0;
-    var seconds = duration.seconds ? toInteger(duration.seconds) : 0;
-    var dateWithoutMonths = subMonths(date, months + years * 12);
-    var dateWithoutDays = subDays(dateWithoutMonths, days + weeks * 7);
-    var minutestoSub = minutes + hours * 60;
-    var secondstoSub = seconds + minutestoSub * 60;
-    var mstoSub = secondstoSub * 1e3;
-    var finalDate = new Date(dateWithoutDays.getTime() - mstoSub);
+    const {
+      years = 0,
+      months = 0,
+      weeks = 0,
+      days = 0,
+      hours = 0,
+      minutes = 0,
+      seconds = 0
+    } = duration;
+    const dateWithoutMonths = subMonths(date, months + years * 12);
+    const dateWithoutDays = subDays(dateWithoutMonths, days + weeks * 7);
+    const minutestoSub = minutes + hours * 60;
+    const secondstoSub = seconds + minutestoSub * 60;
+    const mstoSub = secondstoSub * 1e3;
+    const finalDate = constructFrom(date, dateWithoutDays.getTime() - mstoSub);
     return finalDate;
   }
   const eventBus = new Vue__default["default"]();
@@ -2894,6 +4777,74 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         resolve({ width: 0, height: 0 });
       };
       image.src = url;
+    });
+  }
+  async function fancyboxShow(images, index = 0) {
+    if (!window.Fancybox) {
+      if (store.isYKSite) {
+        delete Array.prototype.entries;
+        await loadScript("https://cdnjs.cloudflare.com/ajax/libs/core-js/3.37.1/minified.min.js");
+      }
+      document.head.insertAdjacentHTML("beforeend", '<link href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css" rel="stylesheet">');
+      await loadScript("https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js");
+    }
+    const isMobile = navigator.userAgent.includes("Mobile");
+    window.Fancybox.show((store.isYKSite ? [images[index]] : images).map((e) => ({
+      src: e.jpegUrl || e.fileUrl,
+      thumb: e.previewUrl || e.fileUrl,
+      downloadSrc: e.fileUrl,
+      caption: e.tags.map((e2) => `<span class="v-chip theme--light v-size--small" style="background-color: rgb(143, 119, 181); border-color: rgb(143, 119, 181); color: rgb(255, 255, 255); caret-color: rgb(255, 255, 255);margin: 0 4px 4px 0">${e2}</span>`).join("")
+    })), {
+      compact: isMobile,
+      startIndex: store.isYKSite ? 0 : index,
+      ...store.isYKSite ? {
+        backdropClick: false,
+        contentClick: "toggleZoom",
+        keyboard: {
+          Escape: false,
+          Delete: false,
+          Backspace: false
+        }
+      } : {},
+      placeFocusBack: false,
+      trapFocus: false,
+      Hash: false,
+      Thumbs: { showOnStart: false },
+      Carousel: { infinite: false },
+      Toolbar: {
+        display: {
+          left: ["infobar"],
+          middle: [],
+          right: isMobile ? ["tagsTip", "toDetailPage", "download", "rotateCW", "flipX", "flipY", store.isYKSite ? "customClose" : "close"] : ["tagsTip", "toDetailPage", "toggleZoom", "slideshow", "thumbs", "download", "rotateCW", "flipX", "flipY", store.isYKSite ? "customClose" : "close"]
+        },
+        items: {
+          tagsTip: {
+            tpl: '<button class="f-button"><svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4436" width="32" height="32"><path d="M483.2 790.3L861.4 412c1.7-1.7 2.5-4 2.3-6.3l-25.5-301.4c-0.7-7.8-6.8-13.9-14.6-14.6L522.2 64.3c-2.3-0.2-4.7 0.6-6.3 2.3L137.7 444.8c-3.1 3.1-3.1 8.2 0 11.3l334.2 334.2c3.1 3.2 8.2 3.2 11.3 0z m62.6-651.7l224.6 19 19 224.6L477.5 694 233.9 450.5l311.9-311.9z" p-id="4437" fill="#fff"></path><path d="M605.958852 324.826232a48 48 0 1 0 67.881066-67.883435 48 48 0 1 0-67.881066 67.883435Z" p-id="4438" fill="#fff"></path><path d="M889.7 539.8l-39.6-39.5c-3.1-3.1-8.2-3.1-11.3 0l-362 361.3-237.6-237c-3.1-3.1-8.2-3.1-11.3 0l-39.6 39.5c-3.1 3.1-3.1 8.2 0 11.3l243.2 242.8 39.6 39.5c3.1 3.1 8.2 3.1 11.3 0l407.3-406.6c3.1-3.1 3.1-8.2 0-11.3z" fill="#fff"></path></svg></path></svg></button>',
+            click: () => {
+              document.querySelectorAll(".fancybox__caption ").forEach((e) => {
+                const { display } = e.style;
+                e.style.display = !display || display == "none" ? "block" : "none";
+              });
+            }
+          },
+          toDetailPage: {
+            tpl: '<button class="f-button"><svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5483" width="32" height="32"><path d="M574 665.4c-3.1-3.1-8.2-3.1-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8c-3.1-3.1-8.2-3.1-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zM832.6 191.4c-84.6-84.6-221.5-84.6-306 0L410.3 307.6c-3.1 3.1-3.1 8.2 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6c-3.1 3.1-3.1 8.2 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1z" p-id="5484" fill="#fff"></path><path d="M610.1 372.3c-3.1-3.1-8.2-3.1-11.3 0L372.3 598.7c-3.1 3.1-3.1 8.2 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z" fill="#fff"></path></svg></button>',
+            click: (ev) => {
+              const { page } = ev.instance.carousel;
+              window.open(images[page].postView, "_blank", "noreferrer");
+            }
+          },
+          customClose: {
+            tpl: '<button class="f-button" title="Close"><svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m19.5 4.5-15 15M4.5 4.5l15 15"></path></svg></button>',
+            click: () => {
+              document.querySelectorAll(".fancybox-focus-guard").forEach((e) => e.remove());
+              document.querySelectorAll(".fancybox__container").forEach((e) => e.remove());
+              document.documentElement.classList.remove("with-fancybox");
+              document.body.classList.remove("hide-scrollbar");
+            }
+          }
+        }
+      }
     });
   }
   function getAugmentedNamespace(n) {
@@ -3142,7 +5093,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       ],
       nsfw: true,
       api: {
-        search: "/api/danbooru/find_posts/index.xml?",
+        search: "/api/danbooru/find_posts?",
         postView: "/post/view/"
       },
       random: false
@@ -3240,45 +5191,49 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   };
   var sites = sites_default;
   var BooruError = class extends Error {
-    constructor(message) {
-      super(message instanceof Error ? message.message : message);
-      if (message instanceof Error) {
-        this.stack = message.stack;
+    constructor(message2) {
+      super(message2 instanceof Error ? message2.message : message2);
+      if (message2 instanceof Error) {
+        this.stack = message2.stack;
       } else {
         Error.captureStackTrace(this, BooruError);
       }
       this.name = "BooruError";
     }
   };
-  function expandTags(tags2) {
-    return tags2.map((v) => {
+  function expandTags(tags) {
+    return tags.map((v) => {
       const ex = expandedTags[v.toLowerCase()];
       return encodeURIComponent(ex ? ex : v);
     });
   }
-  function searchURI(site, tags2 = [], limit = 100, page2 = 1, credentials) {
+  function searchURI(site, tags = [], limit = 100, page = 1, credentials) {
     if (site.paginate === "pid")
-      page2 -= 1;
+      page -= 1;
     let credentialsQuery = "";
     if (credentials == null ? void 0 : credentials.query) {
       const q = credentials.query;
       credentialsQuery = q.startsWith("&") ? q : "&" + q;
     }
-    return `http${site.insecure ? "" : "s"}://${site.domain}${site.api.search}${site.tagQuery}=${expandTags(tags2).join(site.tagJoin)}&limit=${limit}&${site.paginate}=${page2}${credentialsQuery}`;
+    let uri = `http${site.insecure ? "" : "s"}://${site.domain}${site.api.search}${site.tagQuery}=${expandTags(tags).join(site.tagJoin)}&limit=${limit}&${site.paginate}=${page}${credentialsQuery}`;
+    if (typeof BOORU_FETCH_PROXY === "function") {
+      uri = BOORU_FETCH_PROXY(uri) || uri;
+    }
+    return uri;
   }
   var defaultOptions = {
     headers: {
       Accept: "application/json, application/xml;q=0.9, */*;q=0.8",
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Edg/106.0.1370.52"
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0"
     }
   };
-  function resolveSite(domain) {
-    if (typeof domain !== "string") {
+  function resolveSite(domain2) {
+    if (typeof domain2 !== "string") {
       return null;
     }
-    domain = domain.toLowerCase();
+    domain2 = domain2.toLowerCase();
     for (const site in sites) {
-      if (site === domain || sites[site].domain === domain || sites[site].aliases.includes(domain)) {
+      if (site === domain2 || sites[site].domain === domain2 || sites[site].aliases.includes(domain2)) {
         return site;
       }
     }
@@ -3294,16 +5249,16 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return xml;
     const data = xmlParser.parse(xml);
     if (data.html || data["!doctype"]) {
-      const page2 = data.html || ((_a2 = data["!doctype"]) == null ? void 0 : _a2.html);
-      const message = [];
-      if (page2.body.h1) {
-        message.push(page2.body.h1);
+      const page = data.html || ((_a2 = data["!doctype"]) == null ? void 0 : _a2.html);
+      const message2 = [];
+      if (page.body.h1) {
+        message2.push(page.body.h1);
       }
-      if (page2.body.p) {
-        message.push(page2.body.p["#text"]);
+      if (page.body.p) {
+        message2.push(page.body.p["#text"]);
       }
       throw new BooruError(
-        `The Booru sent back an error: '${message.join(": ")}'`
+        `The Booru sent back an error: '${message2.join(": ")}'`
       );
     }
     if (data.posts.post) {
@@ -3371,23 +5326,23 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return encodeURI(url);
   }
   function getTags(data) {
-    let tags2 = [];
+    let tags = [];
     if (Array.isArray(data.tags)) {
-      tags2 = data.tags;
+      tags = data.tags;
     } else if (data.tags && data.tags.general) {
-      tags2 = Object.values(data.tags).reduce(
+      tags = Object.values(data.tags).reduce(
         (acc, v) => acc = acc.concat(v),
         []
       );
     } else if (typeof data.tags === "string") {
-      tags2 = fromTagString(data.tags);
+      tags = fromTagString(data.tags);
     } else if (typeof data.tag_string === "string") {
-      tags2 = fromTagString(data.tag_string);
+      tags = fromTagString(data.tag_string);
     }
-    return tags2.filter((v) => v !== "");
+    return tags.filter((v) => v !== "");
   }
-  function fromTagString(tags2) {
-    return tags2.split(" ").map((v) => v.replace(/,/g, ""));
+  function fromTagString(tags) {
+    return tags.split(" ").map((v) => v.replace(/,/g, ""));
   }
   function formatFileSize(size) {
     if (size == null)
@@ -3580,7 +5535,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const date = this.createdAt;
       if (!date)
         return "";
-      return date.toLocaleString();
+      return `${date.toLocaleDateString()} ${date.toLocaleTimeString("en-DE")}`;
     }
     get sourceUrl() {
       const source = Array.isArray(this.source) ? this.source[0] : this.source;
@@ -3597,7 +5552,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
   };
   var SearchResults = class extends Array {
-    constructor(posts, tags2, options, booru) {
+    constructor(posts, tags, options, booru) {
       super(posts.length);
       __publicField(this, "booru");
       __publicField(this, "page");
@@ -3608,7 +5563,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         this[i] = posts[i];
       }
       this.posts = posts;
-      this.tags = tags2;
+      this.tags = tags;
       this.options = options;
       this.booru = booru;
       this.page = options ? options.page || 0 : 0;
@@ -3624,21 +5579,21 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       opts.page = this.page + 1;
       return this.booru.search(this.tags, opts);
     }
-    tagged(tags2, { invert = false } = {}) {
-      if (!Array.isArray(tags2)) {
-        tags2 = [tags2];
+    tagged(tags, { invert = false } = {}) {
+      if (!Array.isArray(tags)) {
+        tags = [tags];
       }
       const posts = [];
       for (const p of this) {
-        const m = compareArrays(tags2, p.tags).length;
+        const m = compareArrays(tags, p.tags).length;
         if (!invert && m > 0 || invert && m === 0) {
           posts.push(p);
         }
       }
       return new SearchResults(posts, this.tags, this.options, this.booru);
     }
-    blacklist(tags2) {
-      return this.tagged(tags2, { invert: true });
+    blacklist(tags) {
+      return this.tagged(tags, { invert: true });
     }
   };
   var Booru = class {
@@ -3646,36 +5601,44 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       __publicField(this, "domain");
       __publicField(this, "site");
       __publicField(this, "credentials");
-      const domain = resolveSite(site.domain);
-      if (domain === null) {
+      const domain2 = resolveSite(site.domain);
+      if (domain2 === null) {
         throw new Error(`Invalid site passed: ${site}`);
       }
-      this.domain = domain;
+      this.domain = domain2;
       this.site = site;
       this.credentials = credentials;
     }
-    async search(tags2, {
+    normalizeTags(tags) {
+      if (!Array.isArray(tags)) {
+        return [tags];
+      } else {
+        return tags.slice();
+      }
+    }
+    async search(tags, {
       limit = 1,
       random = false,
-      page: page2 = 1,
+      page = 1,
       showUnavailable = false,
       credentials
     } = {}) {
       const fakeLimit = random && !this.site.random ? 100 : 0;
+      const tagArray = this.normalizeTags(tags);
       try {
-        const searchResult = await this.doSearchRequest(tags2, {
+        const searchResult = await this.doSearchRequest(tagArray, {
           limit,
           random,
-          page: page2,
+          page,
           showUnavailable,
           credentials: credentials || this.credentials
         });
         return this.parseSearchResult(searchResult, {
           fakeLimit,
-          tags: tags2,
+          tags: tagArray,
           limit,
           random,
-          page: page2,
+          page,
           showUnavailable
         });
       } catch (err) {
@@ -3692,27 +5655,25 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }
       return `http${this.site.insecure ? "" : "s"}://${this.domain}${this.site.api.postView}${id}`;
     }
-    async doSearchRequest(tags2, {
+    async doSearchRequest(tags, {
       uri = null,
       limit = 1,
       random = false,
-      page: page2 = 1,
+      page = 1,
       credentials
     } = {}) {
-      if (!Array.isArray(tags2))
-        tags2 = [tags2];
       let fakeLimit;
       if (random) {
         if (this.site.random) {
-          tags2.push("order:random");
+          tags.push("order:random");
         } else {
           fakeLimit = 100;
         }
       }
       if (this.site.defaultTags) {
-        tags2 = tags2.concat(this.site.defaultTags.filter((v) => !tags2.includes(v)));
+        tags = tags.concat(this.site.defaultTags.filter((v) => !tags.includes(v)));
       }
-      const fetchuri = uri || this.getSearchUrl({ tags: tags2, limit: fakeLimit || limit, page: page2, credentials });
+      const fetchuri = uri || this.getSearchUrl({ tags, limit: fakeLimit || limit, page, credentials });
       const options = defaultOptions;
       const xml = this.site.type === "xml";
       try {
@@ -3741,19 +5702,19 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }
     }
     getSearchUrl({
-      tags: tags2 = [],
+      tags = [],
       limit = 100,
-      page: page2 = 1,
+      page = 1,
       credentials
     }) {
-      return searchURI(this.site, tags2, limit, page2, credentials);
+      return searchURI(this.site, tags, limit, page, credentials);
     }
     parseSearchResult(result, {
       fakeLimit,
-      tags: tags2,
+      tags,
       limit,
       random,
-      page: page2,
+      page,
       showUnavailable
     }) {
       if (result.success === false) {
@@ -3785,17 +5746,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }
       const results = r || result;
       let posts = results.slice(0, limit).map((v) => new Post(v, this));
-      const options = { limit, random, page: page2, showUnavailable };
-      if (tags2 === void 0) {
-        tags2 = [];
-      }
-      if (!Array.isArray(tags2)) {
-        tags2 = [tags2];
+      const options = { limit, random, page, showUnavailable };
+      if (tags === void 0) {
+        tags = [];
       }
       if (!showUnavailable) {
         posts = posts.filter((p) => p.available);
       }
-      return new SearchResults(posts, tags2, options, this);
+      return new SearchResults(posts, tags, options, this);
     }
   };
   var Booru_default = Booru;
@@ -3803,17 +5761,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     constructor(site, credentials) {
       super(site, credentials);
     }
-    search(tags2, { limit = 1, random = false, page: page2 = 0 } = {}) {
-      if (!Array.isArray(tags2)) {
-        tags2 = [tags2];
+    search(tags, { limit = 1, random = false, page = 0 } = {}) {
+      const tagArray = this.normalizeTags(tags);
+      if (tags[0] === void 0) {
+        tagArray[0] = "*";
       }
-      if (tags2[0] === void 0) {
-        tags2[0] = "*";
-      }
-      page2 += 1;
-      const uri = this.getSearchUrl({ tags: tags2, limit, page: page2 }) + (random && this.site.random === "string" ? `&${this.site.random}` : "") + (this.credentials ? `&key=${this.credentials.token}` : "");
-      return super.doSearchRequest(tags2, { limit, random, page: page2, uri }).then(
-        (r) => super.parseSearchResult(r, { fakeLimit: 0, tags: tags2, limit, random, page: page2 })
+      page += 1;
+      const uri = this.getSearchUrl({ tags: tagArray, limit, page }) + (random && this.site.random === "string" ? `&${this.site.random}` : "") + (this.credentials ? `&key=${this.credentials.token}` : "");
+      return super.doSearchRequest(tagArray, { limit, random, page, uri }).then(
+        (r) => super.parseSearchResult(r, { fakeLimit: 0, tags: tagArray, limit, random, page })
       ).catch((e) => Promise.reject(new BooruError(e)));
     }
   };
@@ -3864,7 +5820,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const booruSite = new Site(sites[rSite]);
     return booruFrom(booruSite, credentials);
   }
-  function search(site, tags2 = [], { limit = 1, random = false, page: page2 = 1, credentials } = {}) {
+  function search(site, tags = [], { limit = 1, random = false, page = 1, credentials } = {}) {
     const rSite = resolveSite(site);
     if (typeof limit === "string") {
       limit = parseInt(limit, 10);
@@ -3872,7 +5828,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     if (rSite === null) {
       throw new BooruError("Site not supported");
     }
-    if (!Array.isArray(tags2) && typeof tags2 !== "string") {
+    if (!Array.isArray(tags) && typeof tags !== "string") {
       throw new BooruError("`tags` should be an array or string");
     }
     if (typeof limit !== "number" || Number.isNaN(limit)) {
@@ -3882,10 +5838,163 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     if (!booruCache[rSite]) {
       booruCache[rSite] = booruFrom(booruSite);
     }
-    return booruCache[rSite].search(tags2, { limit, random, page: page2, credentials });
+    return booruCache[rSite].search(tags, { limit, random, page, credentials });
   }
+  const isSankakuSite = location.host.includes("sankaku");
+  function isSankakuPage() {
+    return location.hostname == "sankaku.app" && !location.pathname.includes("/ai-posts") || location.hostname == "chan.sankakucomplex.com";
+  }
+  const pageState = { next: null };
+  async function fetchSankakuPosts(page, tags) {
+    if (page == 1)
+      pageState.next = null;
+    const url = new URL("https://capi-v2.sankakucomplex.com/posts/keyset");
+    url.searchParams.set("lang", navigator.language || "zh-CN");
+    url.searchParams.set("default_threshold", "0");
+    url.searchParams.set("hide_posts_in_books", "in-larger-tags");
+    url.searchParams.set("limit", "40");
+    pageState.next && url.searchParams.set("next", `${pageState.next}`);
+    tags && url.searchParams.set("tags", tags);
+    const resp = await fetch(url.href, {
+      headers: {
+        "api-version": "2",
+        "client-type": "non-premium",
+        "platform": "web-app",
+        "priority": "u=1, i"
+      }
+    });
+    const json = await resp.json();
+    pageState.next = json.meta.next;
+    return json.data.filter((e) => e.preview_url).map((e) => {
+      const fileExt = e.file_type.split("/").pop();
+      return {
+        id: e.id,
+        postView: `https://chan.sankakucomplex.com/posts/${e.id}`,
+        previewUrl: e.preview_url,
+        sampleUrl: e.sample_url,
+        fileUrl: e.file_url,
+        tags: e.tags.map((t) => t.name + (t.name_ja ? `[${t.name_ja}]` : "")),
+        width: e.width,
+        height: e.height,
+        aspectRatio: e.width / e.height,
+        fileExt,
+        fileDownloadName: `sankaku ${e.id} ${e.tags.join(" ")}`,
+        fileDownloadText: `${e.width}\xD7${e.height} [${(e.file_size / 1e3).toFixed(0)} kB] ${fileExt.toUpperCase()}`,
+        rating: e.rating,
+        createdAt: e.created_at.s * 1e3
+      };
+    });
+  }
+  function isAnimePicturesPage() {
+    return location.hostname == "anime-pictures.net";
+  }
+  async function fetchAnimePicturesPosts(page, tags) {
+    const url = new URL("https://api.anime-pictures.net/api/v3/posts");
+    url.searchParams.set("page", `${page - 1}`);
+    url.searchParams.set("lang", "zh_CN");
+    url.searchParams.set("ldate", "0");
+    if (tags) {
+      const { realTags, orders } = tags.split(/\s/).reduce((acc, cur) => {
+        cur.startsWith("order_by:") ? acc.orders.push(cur) : acc.realTags.push(cur);
+        return acc;
+      }, { realTags: [], orders: [] });
+      realTags.length && url.searchParams.set("search_tag", realTags.join(" "));
+      orders.length && url.searchParams.set("order_by", orders[0].split(":")[1]);
+    }
+    const resp = await fetch(url.href);
+    const json = await resp.json();
+    return json.posts.map((e) => {
+      return {
+        id: e.id,
+        postView: `https://anime-pictures.net/posts/${e.id}`,
+        previewUrl: `https://opreviews.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}_cp.jpg.avif`,
+        fileUrl: `https://oimages.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}${e.ext}`,
+        tags: [],
+        width: e.width,
+        height: e.height,
+        aspectRatio: e.width / e.height,
+        fileExt: e.ext.slice(1),
+        fileDownloadName: `anime-pictures_${e.id}_${e.width}\xD7${e.height}`,
+        fileDownloadText: `${e.width}\xD7${e.height} [${(e.size / 1024 / 1024).toFixed(2)} MB] ${e.ext.slice(1).toUpperCase()}`,
+        rating: e.erotics == 0 ? "s" : "q",
+        createdAt: new Date(`${e.pubtime.replace(" ", "T")}Z`)
+      };
+    });
+  }
+  async function getAnimePicturesDetail(id) {
+    try {
+      const resp = await fetch(`https://api.anime-pictures.net/api/v3/posts/${id}`);
+      const json = await resp.json();
+      return { tags: json.tags.map((t) => `${t.tag.tag}${t.tag.tag_jp ? `[${t.tag.tag_jp}]` : ""}`) };
+    } catch (error) {
+      return { tags: [] };
+    }
+  }
+  const siteKeys = Object.keys(sites);
+  const isBooruSite = () => siteKeys.includes(location.host);
   const blackList = /* @__PURE__ */ new Set(["e621.net", "e926.net", "hypnohub.net", "derpibooru.org"]);
-  const siteDomains = Object.keys(sites).filter((e) => !blackList.has(e));
+  const siteDomains = [
+    ...siteKeys.filter((e) => !blackList.has(e)),
+    "e-shuushuu.net",
+    "zerochan.net",
+    "chan.sankakucomplex.com",
+    "idol.sankakucomplex.com",
+    "sankaku.app/ai-posts",
+    "anime-pictures.net",
+    "allgirl.booru.org",
+    "booru.eu",
+    "kusowanka.com",
+    "anihonetwallpaper.com",
+    "nozomi.la"
+  ];
+  const notPartialSupportSite = ![
+    "e-shuushuu.net",
+    "www.zerochan.net",
+    "idol.sankakucomplex.com",
+    "allgirl.booru.org",
+    "booru.eu",
+    "kusowanka.com",
+    "anihonetwallpaper.com"
+  ].includes(location.host);
+  const defCompTags = (() => {
+    if (store.isYKSite) {
+      return ["rating:s", "rating:q", "rating:e", "order:score", "order:vote", "order:mpixels", "order:landscape", "order:portrait"];
+    }
+    if (isSankakuSite) {
+      return ["order:quality", "order:popularity", "order:random", "order:recently_favorited", "order:recently_voted", "rating:s", "rating:q", "rating:e", "threshold:0", "threshold:1", "threshold:2", "threshold:3", "threshold:4", "threshold:5"];
+    }
+    if (isAnimePicturesPage()) {
+      return ["order_by:date", "order_by:date_r", "order_by:rating", "order_by:views", "order_by:size", "order_by:tag_num"];
+    }
+    if (location.host.includes("danbooru")) {
+      return ["order:rank", "order:score", "order:favcount", "order:none", "order:upvotes", "rating:general", "rating:questionable", "rating:explicit", "rating:sensitive", "order:landscape", "order:portrait", "order:mpixels"];
+    }
+    if (/gelbooru\.com|rule34\.xxx/.test(location.host)) {
+      return ["rating:safe", "rating:questionable", "rating:explicit", "sort:score"];
+    }
+    return [];
+  })();
+  const specTitleMap = {
+    "yande.re": "yande.re",
+    "konachan.com": "Koanchan",
+    "konachan.net": "Koanchan(Safe)",
+    "sakugabooru.com": "sakugabooru".toUpperCase(),
+    "behoimi.org": "3dbooru",
+    "rule34.paheal.net": "Rule34.Paheal",
+    "booru.allthefallen.moe": "ATFBooru",
+    "aibooru.online": "AIBooru",
+    "sankaku.app": "Sankaku Complex",
+    "sankaku.app/ai-posts": "Sankaku AI",
+    "chan.sankakucomplex.com": "Sankaku Complex",
+    "idol.sankakucomplex.com": "Idol Complex",
+    "anime-pictures.net": "Anime Pictures",
+    "allgirl.booru.org": "All girl",
+    "booru.eu": "Hentai Booru"
+  };
+  function getSiteTitle(domain2 = location.host) {
+    const host = domain2.toLowerCase().replace("www.", "");
+    return specTitleMap[host] || host[0].toUpperCase() + host.slice(1).split(".")[0];
+  }
   const defaultLimitMap = {
     "yande.re": 40,
     "konachan.com": 21,
@@ -3901,10 +6010,278 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   };
   const BOORU_PAGE_LIMIT = defaultLimitMap[location.host] || 40;
   const isPidSite = ((_c = sites[location.host]) == null ? void 0 : _c.paginate) === "pid";
-  async function searchBooru(page2, tags2) {
-    if (!tags2 || tags2 === "all")
-      tags2 = "";
-    return search(location.host, tags2, { page: page2, limit: BOORU_PAGE_LIMIT, credentials: { query: store.settings.credentialQuery } });
+  async function searchBooru(page, tags) {
+    if (!tags || tags === "all")
+      tags = "";
+    return search(location.host, tags, { page, limit: BOORU_PAGE_LIMIT, credentials: { query: store.settings.credentialQuery } });
+  }
+  function isRule34FavPage() {
+    return /rule34\.xxx\/index\.php\?page\=favorites\&s\=view/.test(location.href);
+  }
+  async function fetchRule34Favorites(page) {
+    const url = new URL(location.href);
+    url.searchParams.set("pid", `${(page - 1) * 50}`);
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const results = [...doc.querySelectorAll("#content .thumb")].map(async (el) => {
+      var _a2, _b2;
+      const img = el.querySelector("img");
+      const imgSrc = (img == null ? void 0 : img.src) || "";
+      const postView = (_a2 = el.querySelector("a")) == null ? void 0 : _a2.href;
+      const { width, height } = await getImageSize(imgSrc);
+      return {
+        id: (_b2 = postView == null ? void 0 : postView.match(/id=(\d+)/)) == null ? void 0 : _b2[1],
+        postView,
+        previewUrl: imgSrc,
+        sampleUrl: imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, "$1samples$2sample_$3"),
+        fileUrl: imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.jpeg"),
+        tags: img == null ? void 0 : img.title.split(/\s+/),
+        width,
+        height,
+        aspectRatio: width / height,
+        fileExt: "jpg",
+        rating: ""
+      };
+    });
+    return Promise.all(results);
+  }
+  async function addFavoriteRule34(id) {
+    const response = await fetch(`https://rule34.xxx/public/addfav.php?id=${id}`);
+    if (!response.ok) {
+      showMsg({ msg: `${i18n.t("MWVfUiW8egLWq7MgV-wzc")}: ${response.status}`, type: "error" });
+      return false;
+    }
+    const result = await response.text();
+    if (result == "3") {
+      showMsg({ msg: i18n.t("ctWGhVvqB2k_1TX2iY0l2").toString() });
+      return true;
+    } else {
+      showMsg({ msg: `${i18n.t("MWVfUiW8egLWq7MgV-wzc")}: ${result}`, type: "error" });
+      return false;
+    }
+  }
+  function isAllGirlPage() {
+    return location.hostname == "allgirl.booru.org";
+  }
+  async function fetchAllGirlPosts(page, tags) {
+    const url = new URL("https://allgirl.booru.org/index.php");
+    url.searchParams.set("page", "post");
+    url.searchParams.set("s", "list");
+    url.searchParams.set("pid", `${(page - 1) * 20}`);
+    tags && url.searchParams.set("tags", tags);
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const results = [...doc.querySelectorAll(".content .thumb")].map(async (el) => {
+      var _a2;
+      const a = el.querySelector("a");
+      const img = el.querySelector("img");
+      const id = (_a2 = a.getAttribute("id")) == null ? void 0 : _a2.slice(1);
+      const previewUrl = img.src;
+      const { width, height } = await getImageSize(previewUrl);
+      const tags2 = img.title.split(/\s/).filter(Boolean);
+      return {
+        id,
+        postView: a.href,
+        previewUrl,
+        fileUrl: "",
+        tags: tags2,
+        width: Number(width),
+        height: Number(height),
+        aspectRatio: Number(width) / Number(height),
+        fileExt: "jpg",
+        fileDownloadName: `allgirl ${id} ${tags2.join(" ")}`,
+        rating: img.title.includes("rating:Safe") ? "s" : "e"
+      };
+    });
+    return Promise.all(results);
+  }
+  async function getAllGirlDetail(id) {
+    var _a2;
+    const resp = await fetch(`https://allgirl.booru.org/index.php?page=post&s=view&id=${id}`);
+    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
+    return {
+      fileUrl: (_a2 = doc.querySelector("#image")) == null ? void 0 : _a2.src
+    };
+  }
+  function isNozomiPage() {
+    return location.hostname == "nozomi.la" && location.pathname == "/";
+  }
+  let resPosts = [];
+  function fetchNozomiPosts(page) {
+    resPosts = [];
+    return new Promise((resolve) => {
+      fetch_nozomi(page);
+      let times = 0;
+      const si = setInterval(() => {
+        times = times + 1;
+        if (times > 10) {
+          clearInterval(si);
+          resolve([]);
+          return;
+        }
+        if (resPosts.length) {
+          clearInterval(si);
+          resolve(resPosts.map((e) => ({
+            id: e.postid,
+            postView: e.postView,
+            previewUrl: e.previewUrl,
+            fileUrl: e.fileUrl,
+            tags: e.tags,
+            width: e.width,
+            height: e.height,
+            aspectRatio: e.width / e.height,
+            fileExt: e.type,
+            fileDownloadName: `NOZOMI ${e.postid} ${e.tags.join(" ")}`,
+            rating: ""
+          })));
+        }
+      }, 1e3);
+    });
+  }
+  const tns_per_page = 64;
+  const nozomiextension = ".nozomi";
+  const postdir = "post";
+  const results_array = {};
+  const outstanding_requests = {};
+  let number_of_outstanding_requests = 0;
+  const nozomi = [];
+  let total_items = 0;
+  const tag = "index";
+  let page_number;
+  let nozomi_address;
+  const domain = "n.nozomi.la";
+  const full_path_from_hash = (hash) => {
+    if (hash.length < 3) {
+      return hash;
+    }
+    return hash.replace(/^.*(..)(.)$/, `$2/$1/${hash}`);
+  };
+  const urlencode = (str) => {
+    return str.replace(/[\;\/\?\:\@\=\&#%\+]/g, (c) => {
+      return `%${c.charCodeAt(0).toString(16)}`;
+    });
+  };
+  const remove_slashes = (input) => {
+    return input.replace(/[\/]/g, "");
+  };
+  function path_from_postid(postid) {
+    if (postid.length < 3)
+      return postid;
+    return postid.replace(/^(.*(..)(.))$/, "$3/$2/$1");
+  }
+  function fetch_nozomi(page) {
+    page_number = page;
+    nozomi_address = `https://${domain}`;
+    nozomi_address += `/${urlencode(remove_slashes(tag))}`;
+    nozomi_address += nozomiextension;
+    const start_byte = (page_number - 1) * tns_per_page * 4;
+    const end_byte = start_byte + tns_per_page * 4 - 1;
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", nozomi_address);
+    xhr.responseType = "arraybuffer";
+    xhr.setRequestHeader("Range", `bytes=${start_byte.toString()}-${end_byte.toString()}`);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200 || xhr.status === 206) {
+          const arrayBuffer = xhr.response;
+          if (arrayBuffer) {
+            const view = new DataView(arrayBuffer);
+            for (let pos = 0; pos < view.byteLength; pos += 4) {
+              nozomi.push(view.getUint32(pos, false));
+            }
+            total_items = parseInt(xhr.getResponseHeader("Content-Range").replace(/^[Bb]ytes \d+-\d+\//, "")) / 4;
+            console.log("total_items: ", total_items);
+            get_jsons();
+          }
+        }
+      }
+    };
+    xhr.send();
+  }
+  function get_jsons() {
+    const datas = [];
+    for (const i in nozomi) {
+      const postid = nozomi[i];
+      if (postid in results_array) {
+        datas.push(results_array[postid]);
+        continue;
+      }
+      if (!outstanding_requests[postid]) {
+        outstanding_requests[postid] = 1;
+        ++number_of_outstanding_requests;
+        get_json(postid);
+      }
+    }
+    if (number_of_outstanding_requests)
+      return;
+    results_to_page(datas);
+  }
+  function get_json(postid) {
+    const url = `https://j.nozomi.la/${postdir}/${path_from_postid(postid.toString())}.json`;
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", url);
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4) {
+        if (this.status == 200) {
+          results_array[postid] = JSON.parse(this.responseText);
+        } else {
+          results_array[postid] = "";
+        }
+        delete outstanding_requests[postid];
+        --number_of_outstanding_requests;
+        get_jsons();
+      }
+    };
+    xmlhttp.send();
+  }
+  function results_to_page(datas) {
+    var _a2, _b2, _c2, _d;
+    for (const d in datas) {
+      const data = datas[d];
+      if (!data)
+        continue;
+      data.tags = [
+        ...((_a2 = data.artist) == null ? void 0 : _a2.map((e) => e.tag)) || [],
+        ...((_b2 = data.copyright) == null ? void 0 : _b2.map((e) => e.tag)) || [],
+        ...((_c2 = data.character) == null ? void 0 : _c2.map((e) => e.tag)) || [],
+        ...((_d = data.general) == null ? void 0 : _d.map((e) => e.tag)) || []
+      ];
+      data.postView = `https://nozomi.la/post/${data.postid}.html`;
+      data.previewUrl = `https://tn.nozomi.la/${full_path_from_hash(data.imageurls[0].dataid)}.${data.imageurls[0].type}.webp`;
+      const url = data.imageurls[0];
+      if (url.is_video) {
+        data.fileUrl = `https://v.nozomi.la/${full_path_from_hash(url.dataid)}.${url.type}`;
+      } else {
+        data.fileUrl = `https://${url.type === "gif" ? "g" : "w"}.nozomi.la/${full_path_from_hash(url.dataid)}.${url.type === "gif" ? "gif" : "webp"}`;
+      }
+    }
+    resPosts = datas;
+  }
+  function getFirstPageNo(params2) {
+    if (isPidSite) {
+      const page = Number(params2.get("pid")) || 0;
+      return Math.trunc(page / BOORU_PAGE_LIMIT) + 1;
+    }
+    return Number(params2.get("page")) || 1;
+  }
+  function pushPageState(pageNo, latePageQuery = false) {
+    if (isRule34FavPage() || isAllGirlPage() || isNozomiPage())
+      return;
+    if (latePageQuery && pageNo > 1)
+      pageNo -= 1;
+    let pageParamName = "page";
+    if (isPidSite) {
+      pageParamName = "pid";
+      pageNo = (pageNo - 1) * BOORU_PAGE_LIMIT;
+    }
+    const url = new URL(location.href);
+    url.searchParams.set(pageParamName, pageNo.toString());
+    history.replaceState("", "", url);
+  }
+  function dealBlacklist(results) {
+    if (!store.blacklist.length)
+      return results;
+    return typeof results.blacklist == "function" ? results.blacklist(store.blacklist) : results.filter((e) => !store.blacklist.some((w) => e.tags.includes(w)));
   }
   function getYandereUserId() {
     const match2 = document.cookie.match(/user_id=(\d+)/);
@@ -3958,17 +6335,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const result = await response.json();
       return {
         voted: result.votes[id] == 3,
-        tags: Object.entries(result.tags).map(([tag, type]) => {
+        tags: Object.entries(result.tags).map(([tag2, type]) => {
           var _a2, _b2, _c2;
-          const tagCN = (_a2 = window.__tagsCN) == null ? void 0 : _a2[tag];
+          const tagCN = (_a2 = window.__tagsCN) == null ? void 0 : _a2[tag2];
           const typeText = (_b2 = tagInfoMap[type]) == null ? void 0 : _b2[0];
           const tagText = [
             typeText && `[ ${typeText} ] `,
-            tag,
+            tag2,
             isCNLang && tagCN && ` [ ${tagCN} ]`
           ].filter(Boolean).join("");
           return {
-            tag,
+            tag: tag2,
             type,
             tagText,
             color: ((_c2 = tagInfoMap[type]) == null ? void 0 : _c2[1]) || tagInfoMap.general[1]
@@ -4011,10 +6388,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function isPoolShowPage() {
     return /(yande.re|konachan).*\/pool\/show/.test(location.href);
   }
-  async function fetchPostsByPath(postsKey, page2) {
+  async function fetchPostsByPath(postsKey, page) {
     const url = new URL(location.href);
     url.pathname += ".json";
-    page2 && url.searchParams.set("page", page2.toString());
+    page && url.searchParams.set("page", page.toString());
     const response = await fetch(url);
     const result = await response.json();
     const site = booruForSite(location.host);
@@ -4042,10 +6419,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function getRecentTags() {
     return splitTags(getTagsString("recent_tags"), 10);
   }
-  async function fetchPools(page2, query) {
+  async function fetchPools(page, query2) {
     const url = new URL("/pool.json", location.origin);
-    url.searchParams.set("page", page2.toString() || "1");
-    query && url.searchParams.set("query", query);
+    url.searchParams.set("page", page.toString() || "1");
+    query2 && url.searchParams.set("query", query2);
     const jsonResp = await fetch(url);
     const results = await jsonResp.json();
     url.pathname = url.pathname.replace(".json", ".atom");
@@ -4066,57 +6443,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     return results;
   }
-  function isRule34FavPage() {
-    return /rule34\.xxx\/index\.php\?page\=favorites\&s\=view/.test(location.href);
-  }
-  async function fetchRule34Favorites(page2) {
-    const url = new URL(location.href);
-    url.searchParams.set("pid", `${(page2 - 1) * 50}`);
-    const htmlResp = await fetch(url.href);
-    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    const results = [...doc.querySelectorAll("#content .thumb")].map(async (el) => {
-      var _a2, _b2;
-      const img = el.querySelector("img");
-      const imgSrc = (img == null ? void 0 : img.src) || "";
-      const postView = (_a2 = el.querySelector("a")) == null ? void 0 : _a2.href;
-      const { width, height } = await getImageSize(imgSrc);
-      return {
-        id: (_b2 = postView == null ? void 0 : postView.match(/id=(\d+)/)) == null ? void 0 : _b2[1],
-        postView,
-        previewUrl: imgSrc,
-        sampleUrl: imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, "$1samples$2sample_$3"),
-        fileUrl: imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.jpeg"),
-        tags: img == null ? void 0 : img.title.split(/\s+/),
-        width,
-        height,
-        aspectRatio: width / height,
-        fileExt: "jpg",
-        rating: ""
-      };
-    });
-    return Promise.all(results);
-  }
-  async function addFavoriteRule34(id) {
-    const response = await fetch(`https://rule34.xxx/public/addfav.php?id=${id}`);
-    if (!response.ok) {
-      showMsg({ msg: `${i18n.t("MWVfUiW8egLWq7MgV-wzc")}: ${response.status}`, type: "error" });
-      return false;
-    }
-    const result = await response.text();
-    if (result == "3") {
-      showMsg({ msg: i18n.t("ctWGhVvqB2k_1TX2iY0l2").toString() });
-      return true;
-    } else {
-      showMsg({ msg: `${i18n.t("MWVfUiW8egLWq7MgV-wzc")}: ${result}`, type: "error" });
-      return false;
-    }
-  }
   function isGelbooruFavPage() {
     return /gelbooru\.com\/index\.php\?page\=favorites\&s\=view/.test(location.href);
   }
-  async function fetchGelbooruFavorites(page2) {
+  async function fetchGelbooruFavorites(page) {
     const url = new URL(location.href);
-    url.searchParams.set("pid", `${(page2 - 1) * 50}`);
+    url.searchParams.set("pid", `${(page - 1) * 50}`);
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const results = [...doc.querySelectorAll(".thumb")].map(async (el) => {
@@ -4156,33 +6488,311 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return false;
     }
   }
-  function getFirstPageNo(params2) {
-    if (isPidSite) {
-      const page2 = Number(params2.get("pid")) || 0;
-      return Math.trunc(page2 / BOORU_PAGE_LIMIT) + 1;
-    }
-    return Number(params2.get("page")) || 1;
+  function isEshuushuuPage() {
+    return location.hostname == "e-shuushuu.net";
   }
-  function pushPageState(pageNo, latePageQuery = false) {
-    if (isRule34FavPage())
-      return;
-    if (latePageQuery && pageNo > 1)
-      pageNo -= 1;
-    let pageParamName = "page";
-    if (isPidSite) {
-      pageParamName = "pid";
-      pageNo = (pageNo - 1) * BOORU_PAGE_LIMIT;
-    }
-    const url = new URL(location.href);
-    url.searchParams.set(pageParamName, pageNo.toString());
-    history.replaceState("", "", url);
+  async function fetchEshuushuuPosts(page) {
+    const url = new URL("https://e-shuushuu.net");
+    url.searchParams.set("page", page.toString());
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const results = [...doc.querySelectorAll("#content .image_thread")].map((el) => {
+      var _a2, _b2, _c2, _d, _e, _f, _g;
+      const id = (_a2 = el.getAttribute("id")) == null ? void 0 : _a2.slice(1);
+      const fileUrl = (_b2 = el.querySelector(".thumb_image")) == null ? void 0 : _b2.href;
+      const fileExt = fileUrl == null ? void 0 : fileUrl.split(".").pop();
+      const tags = [...el.querySelectorAll(".quicktag")].map((e) => e.innerText.replace(/[\t\n]/g, "")).join("").split('"').filter((e) => e.trim()).map((e) => e.replace(/\s/g, "_"));
+      const [_, width, height] = ((_c2 = el.querySelector(".meta dl dd:nth-child(8)")) == null ? void 0 : _c2.innerText.match(/(\d+)x(\d+)/)) || [];
+      const date = (_d = el.querySelector(".meta dl dd:nth-child(4)")) == null ? void 0 : _d.innerText;
+      return {
+        id,
+        postView: (_e = el.querySelector(".title a")) == null ? void 0 : _e.href,
+        previewUrl: (_f = el.querySelector(".thumb_image img")) == null ? void 0 : _f.src,
+        fileUrl,
+        tags,
+        width: Number(width),
+        height: Number(height),
+        aspectRatio: Number(width) / Number(height),
+        fileExt,
+        fileDownloadName: `e-shuushuu ${id} ${tags.join(" ")}`,
+        fileDownloadText: `${width}\xD7${height} [${(_g = el.querySelector(".meta dl dd:nth-child(6)")) == null ? void 0 : _g.innerText.replace(/[\t\n]/g, "")}] ${fileExt == null ? void 0 : fileExt.toUpperCase()}`,
+        rating: "",
+        createdAt: date && parse(date, "MMMM do, yyyy h:mm a", new Date())
+      };
+    });
+    return results;
   }
-  function dealBlacklist(results) {
-    return store.blacklist.length ? results.blacklist(store.blacklist) : results;
+  function isZerochanPage() {
+    return location.hostname == "www.zerochan.net";
+  }
+  async function fetchZerochanPosts(page) {
+    const resp = await fetch(`https://www.zerochan.net/?p=${page}&json`);
+    const json = await resp.json();
+    return json.items.map((e) => {
+      const primary = escape(e.tag.replace(/\s/g, "."));
+      return {
+        id: e.id,
+        postView: `https://www.zerochan.net/${e.id}`,
+        previewUrl: e.thumbnail,
+        sampleUrl: `https://s1.zerochan.net/${primary}.600.${e.id}.jpg`,
+        fileUrl: `https://static.zerochan.net/${primary}.full.${e.id}.png`,
+        tags: e.tags,
+        width: e.width,
+        height: e.height,
+        aspectRatio: e.width / e.height,
+        fileExt: "jpg",
+        fileDownloadName: `zerochan ${e.id} ${e.tags.join(" ")}`,
+        fileDownloadText: `${e.width}\xD7${e.height}`,
+        rating: "",
+        sourceUrl: e.source
+      };
+    });
+  }
+  async function getZerochanFileUrl(id) {
+    const resp = await fetch(`https://www.zerochan.net/${id}?json`);
+    const json = await resp.json();
+    return json.full;
+  }
+  function isSankakuAIPage() {
+    return /sankaku\.app.*\/ai-posts/.test(location.href);
+  }
+  async function fetchSankakuAIPosts(page, tags) {
+    var _a2;
+    const url = new URL("https://capi-v2.sankakucomplex.com/ai_posts");
+    url.searchParams.set("lang", navigator.language || "zh-CN");
+    url.searchParams.set("limit", "40");
+    url.searchParams.set("page", `${page}`);
+    tags && url.searchParams.set("tags", tags);
+    const resp = await fetch(url.href, {
+      headers: {
+        "api-version": "2",
+        "client-type": "non-premium",
+        "platform": "web-app",
+        "priority": "u=1, i"
+      }
+    });
+    const json = await resp.json();
+    return (_a2 = json.data) == null ? void 0 : _a2.map((e) => {
+      const fileExt = e.file_type.split("/").pop();
+      return {
+        id: e.id,
+        postView: "https://sankaku.app/ai-posts",
+        previewUrl: e.preview_url,
+        fileUrl: e.file_url,
+        tags: e.tags.map((t) => t.name + t.name_ja ? `[${t.name_ja}]` : ""),
+        width: e.width,
+        height: e.height,
+        aspectRatio: e.width / e.height,
+        fileExt,
+        fileDownloadName: `sankaku-ai-post ${e.id} ${e.tags.join(" ")}`,
+        fileDownloadText: `${e.width}\xD7${e.height} [${(e.file_size / 1e3).toFixed(0)} kB] ${fileExt.toUpperCase()}`,
+        rating: e.rating,
+        createdAt: e.created_at.s * 1e3
+      };
+    });
+  }
+  function isSankakuIdolPage() {
+    return location.hostname == "idol.sankakucomplex.com";
+  }
+  const state = {
+    base: "https://idol.sankakucomplex.com/cn/posts?auto_page=t",
+    nextUrl: null
+  };
+  const ratingMap = {
+    "G": "s",
+    "R15+": "q",
+    "R18+": "e"
+  };
+  async function fetchSankakuIdolPosts(page, tags) {
+    var _a2;
+    if (page == 1)
+      state.nextUrl = null;
+    const url = new URL(state.nextUrl ? `https://idol.sankakucomplex.com${state.nextUrl}` : state.base);
+    url.searchParams.set("auto_page", "t");
+    !state.nextUrl && tags && url.searchParams.set("tags", tags);
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    state.nextUrl = (_a2 = doc.querySelector("body > div[next-page-url]")) == null ? void 0 : _a2.getAttribute("next-page-url");
+    const results = [...doc.querySelectorAll(".post-gallery .post-preview")].map((el) => {
+      var _a3;
+      const id = el.getAttribute("data-id");
+      const img = el.querySelector("img");
+      const tagsText = (img == null ? void 0 : img.getAttribute("data-auto_page")) || "";
+      const tagsArr = tagsText.split(/\s/) || [];
+      const [_, width, height] = tagsText.match(/Size:(\d+)x(\d+)/) || [];
+      const [__, ratingText] = tagsText.match(/Rating:(\S+)/) || [];
+      return {
+        id,
+        postView: (_a3 = el.querySelector("a")) == null ? void 0 : _a3.href,
+        previewUrl: img == null ? void 0 : img.src,
+        fileUrl: "",
+        tags: tagsArr,
+        width: Number(width),
+        height: Number(height),
+        aspectRatio: Number(width) / Number(height),
+        fileExt: el.querySelector(".animated_details") ? "mp4" : "jpg",
+        fileDownloadName: `sankaku-idol ${id} ${tagsArr.join(" ")}`,
+        fileDownloadText: `${width}\xD7${height}`,
+        rating: ratingMap[ratingText] || ratingText
+      };
+    });
+    return results;
+  }
+  async function getSankakuIdolDetail(id) {
+    var _a2, _b2, _c2;
+    const url = new URL(`https://idol.sankakucomplex.com/cn/posts/${id}`);
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const imgSrc = (_a2 = doc.querySelector("#post-content img")) == null ? void 0 : _a2.src;
+    const fileUrl = (_b2 = doc.querySelector("#post-content a")) == null ? void 0 : _b2.href;
+    const videoSrc = (_c2 = doc.querySelector("#post-content video")) == null ? void 0 : _c2.src;
+    return {
+      sampleUrl: imgSrc,
+      fileUrl: fileUrl || imgSrc || videoSrc
+    };
+  }
+  function isHentaiBooruPage() {
+    return location.hostname == "booru.eu";
+  }
+  async function fetchHentaiBooruPosts(page, tags) {
+    document.onclick = function() {
+    };
+    document.onmouseup = function() {
+    };
+    document.onclick_copy = function() {
+    };
+    unsafeWindow.show_pop = function() {
+    };
+    unsafeWindow.open = function(url2) {
+      const a = document.createElement("a");
+      a.href = url2;
+      a.target = "_blank";
+      a.rel = "noreferrer";
+      a.click();
+    };
+    const url = `https://booru.eu/post/list${tags ? `/${tags}` : ""}/${page}`;
+    const htmlResp = await fetch(url);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const results = [...doc.querySelectorAll(".shm-image-list span.thumb")].map((el) => {
+      var _a2;
+      const a = el.querySelector("a");
+      const img = el.querySelector("img");
+      const id = a == null ? void 0 : a.getAttribute("data-post-id");
+      const previewUrl = img.src;
+      const tags2 = ((_a2 = a == null ? void 0 : a.getAttribute("data-tags")) == null ? void 0 : _a2.split(/\s/).filter(Boolean)) || [];
+      const [_, width, height] = (img == null ? void 0 : img.title.match(/\/\/\s+(\d+)x(\d+)\s+\/\//)) || [];
+      const [__, size] = (img == null ? void 0 : img.title.match(/\/\/\s+\d+x\d+\s+\/\/\s+([\w\.]+)/)) || [];
+      return {
+        id,
+        postView: a == null ? void 0 : a.href,
+        previewUrl,
+        fileUrl: "",
+        tags: tags2,
+        width: Number(width),
+        height: Number(height),
+        aspectRatio: Number(width) / Number(height),
+        fileExt: "jpg",
+        fileDownloadName: `HentaiBooru ${id} ${tags2.join(" ")}`,
+        fileDownloadText: `${width}\xD7${height} [${size}]`,
+        rating: ""
+      };
+    });
+    return results;
+  }
+  async function getHentaiBooruDetail(id) {
+    var _a2;
+    const resp = await fetch(`https://booru.eu/post/view/${id}`);
+    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
+    return {
+      fileUrl: (_a2 = doc.querySelector("#main_image")) == null ? void 0 : _a2.src
+    };
+  }
+  function isKusowankaPage() {
+    return location.hostname == "kusowanka.com";
+  }
+  async function fetchKusowankaPosts(page) {
+    const url = new URL("https://kusowanka.com");
+    url.searchParams.set("page", `${page}`);
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const results = [...doc.querySelectorAll(".box_thumbs .box_thumb")].map(async (el) => {
+      var _a2;
+      const a = el.querySelector("a");
+      const img = el.querySelector("[data-bg]");
+      const id = (_a2 = a.href.match(/(\d+)/)) == null ? void 0 : _a2[1];
+      const previewUrl = img.getAttribute("data-bg");
+      const { width, height } = await getImageSize(previewUrl);
+      return {
+        id,
+        postView: a.href,
+        previewUrl,
+        fileUrl: "",
+        tags: [],
+        width: Number(width),
+        height: Number(height),
+        aspectRatio: Number(width) / Number(height),
+        fileExt: "jpg",
+        fileDownloadName: `kusowanka_${id}`,
+        rating: ""
+      };
+    });
+    return Promise.all(results);
+  }
+  async function getKusowankaDetail(id) {
+    var _a2;
+    const resp = await fetch(`https://kusowanka.com/post/${id}/`);
+    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
+    return {
+      fileUrl: (_a2 = doc.querySelector(".post_image img")) == null ? void 0 : _a2.getAttribute("data-src"),
+      tags: [
+        ...[...doc.querySelectorAll(".parodies_list a")].map((e) => e.innerText),
+        ...[...doc.querySelectorAll(".characters_list a")].map((e) => e.innerText),
+        ...[...doc.querySelectorAll(".artists_list a")].map((e) => e.innerText),
+        ...[...doc.querySelectorAll(".metadatas_list a")].map((e) => e.innerText),
+        ...[...doc.querySelectorAll(".tags_list a")].map((e) => e.innerText)
+      ]
+    };
+  }
+  function isAnihonetwallpaperPage() {
+    return location.hostname == "anihonetwallpaper.com";
+  }
+  async function fetchAnihonetwallpaperPosts(page) {
+    const htmlResp = await fetch(`https://anihonetwallpaper.com/page/${page}`);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const results = [...doc.querySelectorAll("main .post_box ")].map((el) => {
+      var _a2;
+      const a = el.querySelector(".posttitle a");
+      const img = el.querySelector(".thumbnail-image");
+      const id = (_a2 = a == null ? void 0 : a.href.match(/(\d+)/)) == null ? void 0 : _a2[1];
+      const previewUrl = img == null ? void 0 : img.getAttribute("data-src");
+      const width = img == null ? void 0 : img.getAttribute("width");
+      const height = img == null ? void 0 : img.getAttribute("height");
+      const tags = [...el.querySelectorAll(".itiran a[rel*=tag]")].map((e) => e.innerText);
+      const fileUrl = (previewUrl == null ? void 0 : previewUrl.includes("wp.com")) ? previewUrl.replace(/i\d\.wp\.com\//, "").replace(/\?fit\=\d+\,\d+/, "") : previewUrl == null ? void 0 : previewUrl.replace(/\-\d+x\d+\.(jpg|jpeg|png|webp)/, ".$1");
+      return {
+        id,
+        postView: a == null ? void 0 : a.href,
+        previewUrl,
+        fileUrl,
+        tags,
+        width: Number(width),
+        height: Number(height),
+        aspectRatio: Number(width) / Number(height),
+        fileExt: "jpg",
+        fileDownloadName: `Anihonetwallpaper_${id}_${tags.join("_")}`,
+        rating: ""
+      };
+    });
+    return results;
   }
   const params = new URLSearchParams(location.search);
-  let page = getFirstPageNo(params);
-  let tags = params.get("tags");
+  const query = {
+    page: getFirstPageNo(params),
+    tags: params.get("tags")
+  };
+  const getSearchState = () => query;
+  const setPage = (p) => query.page = p;
+  const setTags = (t) => query.tags = t;
   const fetchActions = [
     {
       test: isPopularPage,
@@ -4195,30 +6805,111 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     {
       test: isPoolShowPage,
       action: async () => {
-        const results = await fetchPostsByPath("posts", page);
-        return tags ? results.tagged(tags) : results;
-      }
-    },
-    {
-      test: isRule34FavPage,
-      action: async () => {
-        const results = await fetchRule34Favorites(page);
-        return store.blacklist.length ? results.filter((e) => !store.blacklist.some((w) => e.tags.includes(w))) : results;
+        const results = await fetchPostsByPath("posts", query.page);
+        return query.tags ? results.tagged(query.tags) : results;
       }
     },
     {
       test: isGelbooruFavPage,
       action: async () => {
-        const results = await fetchGelbooruFavorites(page);
-        return store.blacklist.length ? results.filter((e) => !store.blacklist.some((w) => e.tags.includes(w))) : results;
+        const results = await fetchGelbooruFavorites(query.page);
+        return dealBlacklist(results);
+      }
+    },
+    {
+      test: isRule34FavPage,
+      action: async () => {
+        const results = await fetchRule34Favorites(query.page);
+        return dealBlacklist(results);
+      }
+    },
+    {
+      test: isBooruSite,
+      action: async () => {
+        const results = await searchBooru(query.page, query.tags);
+        return dealBlacklist(results);
+      }
+    },
+    {
+      test: isEshuushuuPage,
+      action: async () => {
+        const results = await fetchEshuushuuPosts(query.page);
+        return dealBlacklist(results);
+      }
+    },
+    {
+      test: isZerochanPage,
+      action: async () => {
+        const results = await fetchZerochanPosts(query.page);
+        return dealBlacklist(results);
+      }
+    },
+    {
+      test: isAnimePicturesPage,
+      action: async () => {
+        const results = await fetchAnimePicturesPosts(query.page, query.tags);
+        return dealBlacklist(results);
+      }
+    },
+    {
+      test: isAllGirlPage,
+      action: async () => {
+        const results = await fetchAllGirlPosts(query.page, query.tags);
+        return dealBlacklist(results);
+      }
+    },
+    {
+      test: isHentaiBooruPage,
+      action: async () => {
+        const results = await fetchHentaiBooruPosts(query.page, query.tags);
+        return dealBlacklist(results);
+      }
+    },
+    {
+      test: isKusowankaPage,
+      action: async () => {
+        const results = await fetchKusowankaPosts(query.page);
+        return dealBlacklist(results);
+      }
+    },
+    {
+      test: isAnihonetwallpaperPage,
+      action: async () => {
+        const results = await fetchAnihonetwallpaperPosts(query.page);
+        return dealBlacklist(results);
+      }
+    },
+    {
+      test: isNozomiPage,
+      action: async () => {
+        const results = await fetchNozomiPosts(query.page);
+        return dealBlacklist(results);
+      }
+    },
+    {
+      test: isSankakuIdolPage,
+      action: async () => {
+        const results = await fetchSankakuIdolPosts(query.page, query.tags);
+        return dealBlacklist(results);
+      }
+    },
+    {
+      test: isSankakuPage,
+      action: async () => {
+        const results = await fetchSankakuPosts(query.page, query.tags);
+        return dealBlacklist(results);
+      }
+    },
+    {
+      test: isSankakuAIPage,
+      action: async () => {
+        const results = await fetchSankakuAIPosts(query.page, query.tags);
+        return dealBlacklist(results);
       }
     },
     {
       test: () => true,
-      action: async () => {
-        const results = await searchBooru(page, tags);
-        return dealBlacklist(results);
-      }
+      action: async () => []
     }
   ];
   const searchPosts = async (latePageQuery = false) => {
@@ -4227,13 +6918,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     try {
       const posts = await ((_a2 = fetchActions.find((e) => e.test())) == null ? void 0 : _a2.action());
       if (Array.isArray(posts) && posts.length > 0) {
+        const { page } = getSearchState();
         store.currentPage = page;
         store.imageList = [
           ...store.imageList,
           ...store.showNSFWContents ? posts : posts.filter((e) => ["s", "g"].includes(e.rating))
         ];
         pushPageState(page, latePageQuery);
-        page++;
+        setPage(page + 1);
       } else {
         store.requestStop = true;
       }
@@ -4243,6 +6935,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       store.requestState = false;
     }
   };
+  const calcFetchTimes = () => {
+    const vcont = document.querySelector("._vcont");
+    const cnth = vcont == null ? void 0 : vcont.clientHeight;
+    const doch = document.documentElement.clientHeight;
+    return cnth ? Math.floor(doch / cnth) : 1;
+  };
   const initPosts = async () => {
     await searchPosts(true);
     if (store.settings.masonryLayout === "virtual") {
@@ -4250,25 +6948,30 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     if (store.requestStop)
       return;
-    if (location.href.includes("safebooru"))
+    if (/safebooru|nozomi\.la/.test(location.host))
       return;
-    await searchPosts(true);
+    let times = calcFetchTimes();
+    if (times > 2)
+      times = 2;
+    for (let index = 0; index < times; index++) {
+      await searchPosts(true);
+    }
   };
   const refreshPosts = () => {
-    page = 1;
+    setPage(1);
     store.imageList = [];
     store.selectedImageList = [];
     store.requestStop = false;
     initPosts();
   };
   const loadPostsByPage = (toPage) => {
-    page = Number(toPage) || 1;
+    setPage(Number(toPage) || 1);
     store.imageList = [];
     searchPosts();
   };
   const loadPostsByTags = (searchTerm) => {
-    page = 1;
-    tags = searchTerm;
+    setPage(1);
+    setTags(searchTerm);
     store.imageList = [];
     searchPosts().then(() => {
       if (store.settings.masonryLayout === "virtual") {
@@ -4279,21 +6982,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var _sfc_main$9 = /* @__PURE__ */ Vue2.defineComponent({
     __name: "AppBar",
     setup(__props) {
-      const specTitleMap = {
-        "yande.re": "yande.re",
-        "konachan.com": "Koanchan",
-        "konachan.net": "Koanchan(Safe)",
-        "www.sakugabooru.com": "sakugabooru".toUpperCase(),
-        "behoimi.org": "3dbooru",
-        "rule34.paheal.net": "rule34.paheal".toUpperCase(),
-        "booru.allthefallen.moe": "ATFBooru",
-        "aibooru.online": "AIBooru"
-      };
-      const title = Vue2.computed(() => {
-        const host = location.host.toLowerCase();
-        const siteName = specTitleMap[host] || host[0].toUpperCase() + host.slice(1).split(".")[0];
-        return `${siteName} - ${store.imageList.length} Posts - Page `;
-      });
+      const title = Vue2.computed(() => `${getSiteTitle()} - ${store.imageList.length} Posts - Page `);
       const isNoSelected = Vue2.computed(() => store.selectedImageList.length === 0);
       const isOneOrMoreSelected = Vue2.computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length < store.imageList.length);
       const isAllSelected = Vue2.computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length === store.imageList.length);
@@ -4326,7 +7015,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         showInput: !!tagsQuery,
         showMenu: false,
         searchTerm: tagsQuery || "",
-        searchItems: store.isYKSite ? getRecentTags() : []
+        searchItems: store.isYKSite ? defCompTags.concat(getRecentTags()) : defCompTags
       });
       const onSearchTermInput = debounce(() => {
         if (!store.isYKSite)
@@ -4335,17 +7024,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         const lastTag = val == null ? void 0 : val.split(/\s+/).slice(-1)[0];
         if (!lastTag) {
           searchState.showMenu = false;
-          searchState.searchItems = [];
+          searchState.searchItems = defCompTags;
           return;
         }
         searchState.showMenu = true;
         searchState.searchItems = searchTagsByName(lastTag);
       }, 500);
-      const selectTag = (tag) => {
+      const selectTag = (tag2) => {
         const termArr = searchState.searchTerm.split(/\s+/);
-        searchState.searchTerm = termArr.slice(0, -1).concat(tag).join(" ");
+        searchState.searchTerm = termArr.slice(0, -1).concat(tag2).join(" ");
         searchState.showMenu = false;
-        searchState.searchItems = [];
+        searchState.searchItems = defCompTags;
       };
       const userName = Vue2.ref("");
       Vue2.onMounted(async () => {
@@ -4355,20 +7044,19 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
             userName.value = name;
         }
       });
-      const fetchTaggedPosts = (tags2) => {
+      const fetchTaggedPosts = (tags) => {
         const url = new URL(location.href);
-        url.searchParams.set("tags", tags2);
+        url.searchParams.set("tags", tags);
         history.pushState("", "", url);
-        searchState.searchTerm = tags2;
-        loadPostsByTags(tags2);
+        searchState.searchTerm = tags;
+        loadPostsByTags(tags);
       };
       const showTagsInput = () => {
         if (searchState.showInput) {
           if (!searchState.searchTerm) {
             searchState.showInput = false;
-          } else {
-            fetchTaggedPosts(searchState.searchTerm);
           }
+          fetchTaggedPosts(searchState.searchTerm);
         } else {
           searchState.showInput = true;
         }
@@ -4376,9 +7064,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const onSearchTermKeydown = (ev) => {
         if (ev.key != "Enter")
           return;
-        if (store.isYKSite && searchState.searchItems.length) {
+        if (searchState.showMenu && searchState.searchItems.length) {
           const item = document.querySelector(".ac_tags_list .v-list-item--highlighted");
-          item && selectTag(item.innerText);
+          if (item) {
+            selectTag(item.innerText);
+            return;
+          }
+          searchState.showMenu = false;
+          fetchTaggedPosts(searchState.searchTerm);
         } else {
           fetchTaggedPosts(searchState.searchTerm);
         }
@@ -4584,7 +7277,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           store.isFullscreen = !!document.fullscreenElement;
         });
       });
-      return { __sfc: true, specTitleMap, title, isNoSelected, isOneOrMoreSelected, isAllSelected, loadingValue, selectAll, removeFromList, tagsQuery, searchState, onSearchTermInput, selectTag, userName, fetchTaggedPosts, showTagsInput, onSearchTermKeydown, showPopAction, periodMap, periodByDateMap, getRecentPeriod, isPopularRecent, getPopTitle, popTitle, isPopSearchByDate, recentPeriod, periodComputedMap, showPopDatePicker, popSearchDate, fetchPopularPosts, selPeriod, loadPrevPeriod, loadNextPeriod, goToPopularPage, showPool, poolQueryTerm, searchPool, download, downloadUrlKey, downloadNameMap, downloadNameKey, isGelbooru, startDownload, isExportUrlDecode, exportFileUrls, vuetify, toggleDarkmode, keyActions, goToPage, exitMasonry, toggleFullscreen, currentLang, langList, selectLang, mdiBrightness6, mdiCalendar, mdiCalendarSearch, mdiCheckUnderlineCircle, mdiCheckboxBlankOutline, mdiCheckboxIntermediate, mdiCheckboxMarked, mdiChevronLeft, mdiChevronRight, mdiCog, mdiDelete, mdiDownload, mdiFileClockOutline, mdiFire, mdiFullscreen, mdiFullscreenExit, mdiHome, mdiImageMultiple, mdiLocationExit, mdiMagnify, mdiShuffle, mdiStar, mdiTranslate, store };
+      return { __sfc: true, title, isNoSelected, isOneOrMoreSelected, isAllSelected, loadingValue, selectAll, removeFromList, tagsQuery, searchState, onSearchTermInput, selectTag, userName, fetchTaggedPosts, showTagsInput, onSearchTermKeydown, showPopAction, periodMap, periodByDateMap, getRecentPeriod, isPopularRecent, getPopTitle, popTitle, isPopSearchByDate, recentPeriod, periodComputedMap, showPopDatePicker, popSearchDate, fetchPopularPosts, selPeriod, loadPrevPeriod, loadNextPeriod, goToPopularPage, showPool, poolQueryTerm, searchPool, download, downloadUrlKey, downloadNameMap, downloadNameKey, isGelbooru, startDownload, isExportUrlDecode, exportFileUrls, vuetify, toggleDarkmode, keyActions, goToPage, exitMasonry, toggleFullscreen, currentLang, langList, selectLang, mdiBrightness6, mdiCalendar, mdiCalendarSearch, mdiCheckUnderlineCircle, mdiCheckboxBlankOutline, mdiCheckboxIntermediate, mdiCheckboxMarked, mdiChevronLeft, mdiChevronRight, mdiCog, mdiDelete, mdiDownload, mdiFileClockOutline, mdiFire, mdiFullscreen, mdiFullscreenExit, mdiHome, mdiImageMultiple, mdiLocationExit, mdiMagnify, mdiShuffle, mdiStar, mdiTranslate, store, notPartialSupportSite, isSankakuSite };
     }
   });
   var _sfc_render$9 = function render() {
@@ -4613,9 +7306,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       _setup.showPopDatePicker = false;
     } }, model: { value: _setup.popSearchDate, callback: function($$v) {
       _setup.popSearchDate = $$v;
-    }, expression: "popSearchDate" } })], 1), _c2("v-btn", { staticClass: "ml-3 hidden-sm-and-down", attrs: { "icon": "", "href": "/post?_wf=1" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHome))])], 1)], 1) : _setup.store.showPostList ? _c2("div", { staticClass: "align-center", staticStyle: { "display": "flex" } }, [_c2("v-toolbar-title", { staticClass: "hidden-md-and-down", domProps: { "textContent": _vm._s(_setup.title) } }), _c2("input", { staticClass: "ml-1 mr-2 text-center rounded", style: { width: "40px", height: "30px", border: "1px solid #bbb", color: "inherit" }, domProps: { "value": _setup.store.currentPage }, on: { "keyup": function($event) {
+    }, expression: "popSearchDate" } })], 1), _c2("v-btn", { staticClass: "ml-3 hidden-sm-and-down", attrs: { "icon": "", "href": "/post?_wf=1" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHome))])], 1)], 1) : _setup.store.showPostList ? _c2("div", { staticClass: "align-center", staticStyle: { "display": "flex" } }, [_c2("v-toolbar-title", { staticClass: "hidden-md-and-down", domProps: { "textContent": _vm._s(_setup.title) } }), !_setup.isSankakuSite ? _c2("input", { staticClass: "ml-1 mr-2 text-center rounded", style: { width: "40px", height: "30px", border: "1px solid #bbb", color: "inherit" }, domProps: { "value": _setup.store.currentPage }, on: { "keyup": function($event) {
       return _setup.goToPage($event);
-    } } }), _setup.store.isYKSite ? [_setup.userName ? _c2("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("HzMBcS2oNGVIoLiHWprim"), "icon": "" }, on: { "click": function($event) {
+    } } }) : _vm._e(), _setup.store.isYKSite ? [_setup.userName ? _c2("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("HzMBcS2oNGVIoLiHWprim"), "icon": "" }, on: { "click": function($event) {
       return _setup.fetchTaggedPosts(`vote:3:${_setup.userName} order:vote`);
     } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiStar))])], 1) : _vm._e(), _c2("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("DXEhXAQbkiCMU_l252jo_"), "icon": "" }, on: { "click": function($event) {
       return _setup.showPool();
@@ -4623,7 +7316,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return _setup.goToPopularPage();
     } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFire))])], 1), _c2("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("6acPWiYq2-OdySa2_xqDu"), "icon": "" }, on: { "click": function($event) {
       return _setup.fetchTaggedPosts("order:random");
-    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiShuffle))])], 1)] : _vm._e(), _c2("v-menu", { attrs: { "max-width": 200, "max-height": "80vh", "transition": "slide-y-transition", "nudge-bottom": "5px", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on }) {
+    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiShuffle))])], 1)] : _vm._e(), _setup.notPartialSupportSite || _setup.isSankakuSite ? [_c2("v-menu", { attrs: { "max-width": 200, "max-height": "80vh", "transition": "slide-y-transition", "nudge-bottom": "5px", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on }) {
       return [_c2("v-slide-x-transition", [_c2("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.searchState.showInput, expression: "searchState.showInput" }], staticClass: "app-bar-tag-input ml-4", staticStyle: { "width": "200px" } }, [_c2("v-text-field", _vm._g({ attrs: { "hide-details": "" }, on: { "input": _setup.onSearchTermInput, "click": function($event) {
         _setup.searchState.showMenu = true;
       }, "blur": function($event) {
@@ -4631,15 +7324,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }, "keydown": _setup.onSearchTermKeydown }, model: { value: _setup.searchState.searchTerm, callback: function($$v) {
         _vm.$set(_setup.searchState, "searchTerm", $$v);
       }, expression: "searchState.searchTerm" } }, on))], 1)])];
-    } }]), model: { value: _setup.searchState.showMenu, callback: function($$v) {
+    } }], null, false, 1463821240), model: { value: _setup.searchState.showMenu, callback: function($$v) {
       _vm.$set(_setup.searchState, "showMenu", $$v);
-    }, expression: "searchState.showMenu" } }, [_c2("v-list", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.isYKSite && _setup.searchState.searchItems.length, expression: "store.isYKSite && searchState.searchItems.length" }], staticClass: "ac_tags_list", attrs: { "dense": "" } }, _vm._l(_setup.searchState.searchItems, function(item) {
+    }, expression: "searchState.showMenu" } }, [_setup.searchState.searchItems.length ? _c2("v-list", { staticClass: "ac_tags_list", attrs: { "dense": "" } }, _vm._l(_setup.searchState.searchItems, function(item) {
       return _c2("v-list-item", { key: item, attrs: { "dense": "" }, on: { "click": function($event) {
         return _setup.selectTag(item);
       } } }, [_c2("v-list-item-title", { domProps: { "textContent": _vm._s(item) } })], 1);
-    }), 1)], 1), _c2("v-btn", { attrs: { "title": _vm.$t("ZztrWbSaaaas3v0cHtSmh"), "icon": "" }, on: { "click": function($event) {
+    }), 1) : _vm._e()], 1), _c2("v-btn", { attrs: { "title": _vm.$t("ZztrWbSaaaas3v0cHtSmh"), "icon": "" }, on: { "click": function($event) {
       return _setup.showTagsInput();
-    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiMagnify))])], 1)], 2) : _setup.store.showPoolList ? _c2("div", { staticClass: "align-center", staticStyle: { "display": "flex" } }, [_setup.store.showPoolList ? _c2("v-toolbar-title", { staticClass: "mr-3 hidden-md-and-down" }, [_vm._v("Pools")]) : _vm._e(), _c2("v-text-field", { attrs: { "hide-details": "", "append-icon": _setup.mdiMagnify }, on: { "keyup": function($event) {
+    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiMagnify))])], 1)] : _vm._e()], 2) : _setup.store.showPoolList ? _c2("div", { staticClass: "align-center", staticStyle: { "display": "flex" } }, [_setup.store.showPoolList ? _c2("v-toolbar-title", { staticClass: "mr-3 hidden-md-and-down" }, [_vm._v("Pools")]) : _vm._e(), _c2("v-text-field", { attrs: { "hide-details": "", "append-icon": _setup.mdiMagnify }, on: { "keyup": function($event) {
       if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter"))
         return null;
       return _setup.searchPool.apply(null, arguments);
@@ -4647,7 +7340,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       _setup.poolQueryTerm = $$v;
     }, expression: "poolQueryTerm" } }), _c2("v-btn", { staticClass: "ml-3", attrs: { "icon": "", "href": "/post?_wf=1" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHome))])], 1), _c2("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("9juZMc0gPIgvMPKVORpJ1"), "icon": "" }, on: { "click": function($event) {
       return _setup.goToPopularPage();
-    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFire))])], 1)], 1) : _vm._e(), _c2("v-spacer"), _setup.store.showPostList ? [_c2("span", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length, expression: "store.selectedImageList.length" }], staticClass: "hidden-md-and-down ml-1 mr-1", staticStyle: { "margin-top": "2px" } }, [_vm._v(" " + _vm._s(_setup.store.selectedImageList.length) + " ")]), _c2("v-btn", { staticClass: "hidden-md-and-down", attrs: { "icon": "" }, on: { "click": _setup.selectAll } }, [_c2("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isNoSelected, expression: "isNoSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxBlankOutline))]), _c2("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isOneOrMoreSelected, expression: "isOneOrMoreSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxIntermediate))]), _c2("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isAllSelected, expression: "isAllSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxMarked))])], 1), _c2("v-menu", { attrs: { "dense": "", "offset-y": "", "close-on-content-click": false }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFire))])], 1)], 1) : _vm._e(), _c2("v-spacer"), _setup.store.showPostList && _setup.notPartialSupportSite ? [_c2("span", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length, expression: "store.selectedImageList.length" }], staticClass: "hidden-md-and-down ml-1 mr-1", staticStyle: { "margin-top": "2px" } }, [_vm._v(" " + _vm._s(_setup.store.selectedImageList.length) + " ")]), _c2("v-btn", { staticClass: "hidden-md-and-down", attrs: { "icon": "" }, on: { "click": _setup.selectAll } }, [_c2("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isNoSelected, expression: "isNoSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxBlankOutline))]), _c2("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isOneOrMoreSelected, expression: "isOneOrMoreSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxIntermediate))]), _c2("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isAllSelected, expression: "isAllSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxMarked))])], 1), _c2("v-menu", { attrs: { "dense": "", "offset-y": "", "close-on-content-click": false }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "hidden-md-and-down", attrs: { "title": _vm.$t("OKs1ePekQA4Ona839U114"), "icon": "" } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1)];
     } }], null, false, 1780380651) }, [_c2("v-list", { staticStyle: { "min-width": "300px", "max-height": "80vh", "overflow": "auto" }, attrs: { "dense": "", "flat": "" } }, [_c2("v-subheader", { staticClass: "ml-2" }, [_c2("span", { staticClass: "mr-4" }, [_vm._v(_vm._s(_vm.$t("OKs1ePekQA4Ona839U114")))]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], attrs: { "small": "" }, on: { "click": _setup.startDownload } }, [_vm._v(" " + _vm._s(_vm.$t("cKn4cfAxzdgh_HD6OFibB")) + " ")]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], staticClass: "ml-2", attrs: { "small": "" }, on: { "click": _setup.exportFileUrls } }, [_vm._v(" " + _vm._s(_vm.$t("J2Ckb_-LITfmww4aEksqk")) + " ")])], 1), _setup.store.isYKSite ? _c2("div", { staticClass: "d-flex align-center mt-1 ml-2" }, [_c2("v-radio-group", { staticClass: "mr-1 mt-0", attrs: { "hide-details": "", "dense": "", "row": "" }, model: { value: _setup.downloadUrlKey, callback: function($$v) {
       _setup.downloadUrlKey = $$v;
@@ -4684,7 +7377,6 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var _sfc_main$8 = /* @__PURE__ */ Vue2.defineComponent({
     __name: "NavDrawer",
     setup(__props) {
-      const siteLinks = Vue2.ref(siteDomains);
       const userName = Vue2.ref("");
       const version = Vue2.ref(GM_info.script.version);
       const openLink = (link) => {
@@ -4702,10 +7394,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           return "https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/cbd0b71ead30e0777e5b023170ba415c_4819570566325089051.png";
         if (link.includes("behoimi"))
           return "https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/d3b97f45046795c87c12ad5704074f32_1333245617164582614.png";
-        return `https://${link}/favicon.ico`;
+        if (link.includes("sankaku"))
+          return "https://sankaku.app/images/favicon.ico";
+        return `https://${link.split("/")[0]}/favicon.ico`;
       };
       const actSiteIndex = Vue2.computed(() => {
-        return siteDomains.findIndex((e) => location.host.includes(e));
+        return siteDomains.findIndex((e) => location.href.includes(e));
       });
       const showSettingDrawer = () => {
         store.showDrawer = false;
@@ -4718,7 +7412,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
             userName.value = name;
         }
       });
-      return { __sfc: true, siteLinks, userName, version, openLink, dealLink, dealFavicon, actSiteIndex, showSettingDrawer, mdiAccount, mdiBookmarkBoxMultipleOutline, mdiFire, mdiGithub, mdiImageMultiple, mdiInformationOutline, mdiMessageAlertOutline, mdiShuffle, mdiStar, mdiWeb, store };
+      return { __sfc: true, userName, version, openLink, dealLink, dealFavicon, actSiteIndex, showSettingDrawer, mdiAccount, mdiBookmarkBoxMultipleOutline, mdiFire, mdiGithub, mdiImageMultiple, mdiInformationOutline, mdiMessageAlertOutline, mdiShuffle, mdiStar, mdiWeb, getSiteTitle, siteDomains, store };
     }
   });
   var _sfc_render$8 = function render() {
@@ -4729,13 +7423,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return [_c2("v-list-item-content", [_c2("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("CacM8tispuPNrSxxpt9GX")))])], 1)];
     }, proxy: true }], null, false, 765759728) }, [_setup.userName ? _c2("v-list-item", { attrs: { "link": "", "href": "/user/home" } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiAccount))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_setup.userName))])], 1)], 1) : _vm._e(), _setup.userName ? _c2("v-list-item", { attrs: { "link": "", "href": `/post?tags=vote%3A3%3A${_setup.userName}+order%3Avote&_wf=1` } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiStar))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("zs8YTCc8d8XFUgRnp7m_w")))])], 1)], 1) : _vm._e(), _c2("v-list-item", { attrs: { "link": "", "href": "/pool?page=1" } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiImageMultiple))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("DXEhXAQbkiCMU_l252jo_")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "", "href": "/post/popular_recent?period=1d" } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFire))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("7Cgsr4PUMbezDXNfWdvWH")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "", "href": "/post?tags=order%3Arandom&page=1" } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiShuffle))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("StU1-52QJmNFKQ5soJCyG")))])], 1)], 1)], 1)], 1) : _vm._e(), _c2("v-list", { attrs: { "dense": "", "nav": "" } }, [_c2("v-list-group", { attrs: { "value": true, "no-action": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function() {
       return [_c2("v-list-item-content", [_c2("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("e2_EYvweJsVoIZlIWkPRV")))])], 1)];
-    }, proxy: true }]) }, [_c2("v-list-item-group", { attrs: { "value": _setup.actSiteIndex, "color": "primary" } }, [_vm._l(_setup.siteLinks, function(link) {
-      return _c2("v-list-item", { key: link, attrs: { "href": _setup.dealLink(link) } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": _setup.dealFavicon(link), "loading": "lazy" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(link.toUpperCase()))])], 1)], 1);
-    }), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
-      return _setup.openLink("https://www.nanoka.top/illust/pixiv/");
-    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": "https://www.nanoka.top/images/favicon.ico", "loading": "lazy" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Pixiv Ranking")])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
-      return _setup.openLink("https://pixiv.pics");
-    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": "https://pixiv.pics/favicon.ico", "loading": "lazy" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Pixiv Viewer")])], 1)], 1)], 2)], 1)], 1), _c2("v-list", { attrs: { "dense": "", "nav": "" } }, [_c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+    }, proxy: true }]) }, [_c2("v-list-item-group", { attrs: { "value": _setup.actSiteIndex, "color": "primary" } }, [_vm._l(_setup.siteDomains, function(link) {
+      return _c2("v-list-item", { key: link, attrs: { "href": _setup.dealLink(link) } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": _setup.dealFavicon(link), "loading": "lazy" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_setup.getSiteTitle(link)))])], 1)], 1);
+    }), _c2("hr", { staticClass: "my-2" }), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+      return _setup.openLink("https://www.pixiv.pics");
+    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": "https://www.pixiv.pics/favicon.ico", "loading": "lazy" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Pixiv Viewer")])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+      return _setup.openLink("https://booru.io/");
+    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": "https://booru.io/favicon.ico", "loading": "lazy" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("booru.io")])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+      return _setup.openLink("https://r-34.xyz/");
+    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": "https://r-34.xyz/favicon.ico", "loading": "lazy" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("R-34.XYZ")])], 1)], 1)], 2)], 1)], 1), _c2("v-list", { attrs: { "dense": "", "nav": "" } }, [_c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.showSettingDrawer();
     } } }, [_c2("v-list-item-content", [_c2("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("UxxldE9xRwmQctrvba5Y8")))])], 1)], 1)], 1), _c2("v-list", { attrs: { "dense": "", "nav": "" } }, [_c2("v-list-group", { attrs: { "value": true, "no-action": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function() {
       return [_c2("v-list-item-content", [_c2("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("PT74UDfKA45vTVTst_-hD")))])], 1)];
@@ -4815,6 +7511,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       };
       const onShowPostCheckboxChange = (val) => {
         localStorage.setItem("__showPostCheckbox", val ? "1" : "");
+      };
+      const onUseFancyboxChange = (val) => {
+        localStorage.setItem("__useFancybox", val ? "1" : "");
       };
       const isFitScreen = Vue2.ref(localStorage.getItem("__fitScreen") != "0");
       const onFitScreenChange = (val) => {
@@ -4904,7 +7603,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         i18n.locale = val;
         localStorage.setItem("__LANG", val);
       };
-      return { __sfc: true, onComboboxChange, removeTagFromBlacklist, exportBlacklist, importBlacklist, nsfwValue, setNSFWShow, onNSFWSwitchChange, onWheelSwitchChange, onKeyupSwitchChange, onImgPreloadChange, onThumbSampleUrlChange, onShowPostCheckboxChange, isFitScreen, onFitScreenChange, isAutoWfMode, onAutoWfModeChange, dlSubLoading, showDLConfirm, isDLSubpath, setDLSubpathOn, onDLSubpathChange, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onCredentialQueryChange, onPreloadNumBlur, colList, cols, actCol, selColumn, currentLang, langList, currentLanglabel, selectLang, mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, store };
+      return { __sfc: true, onComboboxChange, removeTagFromBlacklist, exportBlacklist, importBlacklist, nsfwValue, setNSFWShow, onNSFWSwitchChange, onWheelSwitchChange, onKeyupSwitchChange, onImgPreloadChange, onThumbSampleUrlChange, onShowPostCheckboxChange, onUseFancyboxChange, isFitScreen, onFitScreenChange, isAutoWfMode, onAutoWfModeChange, dlSubLoading, showDLConfirm, isDLSubpath, setDLSubpathOn, onDLSubpathChange, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onCredentialQueryChange, onPreloadNumBlur, colList, cols, actCol, selColumn, currentLang, langList, currentLanglabel, selectLang, mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, store, notPartialSupportSite, isSankakuSite };
     }
   });
   var _sfc_render$7 = function render() {
@@ -4937,17 +7636,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       } } }, [_c2("span", [_vm._v(_vm._s(item))])])];
     } }]), model: { value: _setup.store.blacklist, callback: function($$v) {
       _vm.$set(_setup.store, "blacklist", $$v);
-    }, expression: "store.blacklist" } })], 1)], 1), _c2("v-list-item", { staticClass: "mb-0" }, [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("RstKmO7YVQMpaDoucxUel")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("1F-R4qChHIzZaohu5GJzl") } }, [_vm._v(_vm._s(_vm.$t("1F-R4qChHIzZaohu5GJzl")))])], 1)], 1), _c2("v-list-item", { staticClass: "pa-0" }, [_c2("v-list-item-content", { staticClass: "pt-0" }, [_c2("v-text-field", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "hide-details": "", "outlined": "", "dense": "" }, on: { "change": _setup.onCredentialQueryChange }, model: { value: _setup.store.settings.credentialQuery, callback: function($$v) {
+    }, expression: "store.blacklist" } })], 1)], 1), _setup.notPartialSupportSite || !_setup.isSankakuSite ? [_c2("v-list-item", { staticClass: "mb-0" }, [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("RstKmO7YVQMpaDoucxUel")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("1F-R4qChHIzZaohu5GJzl") } }, [_vm._v(_vm._s(_vm.$t("1F-R4qChHIzZaohu5GJzl")))])], 1)], 1), _c2("v-list-item", { staticClass: "pa-0" }, [_c2("v-list-item-content", { staticClass: "pt-0" }, [_c2("v-text-field", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "hide-details": "", "outlined": "", "dense": "" }, on: { "change": _setup.onCredentialQueryChange }, model: { value: _setup.store.settings.credentialQuery, callback: function($$v) {
       _vm.$set(_setup.store.settings, "credentialQuery", $$v);
-    }, expression: "store.settings.credentialQuery" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Lm_HFVHpv4XCjilV3NLKu")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("A16qoBulYQJLbHe9mqNwm") } }, [_vm._v(_vm._s(_vm.$t("A16qoBulYQJLbHe9mqNwm")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "", "color": "deep-orange darken-1" }, on: { "change": _setup.onNSFWSwitchChange }, model: { value: _setup.nsfwValue, callback: function($$v) {
+    }, expression: "store.settings.credentialQuery" } })], 1)], 1)] : _vm._e(), _setup.notPartialSupportSite ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Lm_HFVHpv4XCjilV3NLKu")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("A16qoBulYQJLbHe9mqNwm") } }, [_vm._v(_vm._s(_vm.$t("A16qoBulYQJLbHe9mqNwm")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "", "color": "deep-orange darken-1" }, on: { "change": _setup.onNSFWSwitchChange }, model: { value: _setup.nsfwValue, callback: function($$v) {
       _setup.nsfwValue = $$v;
-    }, expression: "nsfwValue" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("_nQfaNuwbvPAIFKOY6_7u")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("SIUUZ4wqJTOilEdcX3EOi") } }, [_vm._v(_vm._s(_vm.$t("SIUUZ4wqJTOilEdcX3EOi")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onWheelSwitchChange }, model: { value: _setup.store.isListenWheelEvent, callback: function($$v) {
+    }, expression: "nsfwValue" } })], 1)], 1) : _vm._e(), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("_nQfaNuwbvPAIFKOY6_7u")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("SIUUZ4wqJTOilEdcX3EOi") } }, [_vm._v(_vm._s(_vm.$t("SIUUZ4wqJTOilEdcX3EOi")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onWheelSwitchChange }, model: { value: _setup.store.isListenWheelEvent, callback: function($$v) {
       _vm.$set(_setup.store, "isListenWheelEvent", $$v);
     }, expression: "store.isListenWheelEvent" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("fVE5taO6GDTPbILat4GCt")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("w95XGurDhDfOfw7XH4JFW") } }, [_vm._v(_vm._s(_vm.$t("w95XGurDhDfOfw7XH4JFW")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onKeyupSwitchChange }, model: { value: _setup.store.settings.isListenKeyupEvent, callback: function($$v) {
       _vm.$set(_setup.store.settings, "isListenKeyupEvent", $$v);
-    }, expression: "store.settings.isListenKeyupEvent" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("kFcteLMfnoezhOwuTlLFC")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("FT1uJs8XG__n5qBvuFsH4") } }, [_vm._v(_vm._s(_vm.$t("FT1uJs8XG__n5qBvuFsH4")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onImgPreloadChange }, model: { value: _setup.store.isFullImgPreload, callback: function($$v) {
+    }, expression: "store.settings.isListenKeyupEvent" } })], 1)], 1), _setup.notPartialSupportSite ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("kFcteLMfnoezhOwuTlLFC")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("FT1uJs8XG__n5qBvuFsH4") } }, [_vm._v(_vm._s(_vm.$t("FT1uJs8XG__n5qBvuFsH4")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onImgPreloadChange }, model: { value: _setup.store.isFullImgPreload, callback: function($$v) {
       _vm.$set(_setup.store, "isFullImgPreload", $$v);
-    }, expression: "store.isFullImgPreload" } })], 1)], 1), _setup.store.isFullImgPreload ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("G3b7rbyQEj3_rgzVsNJZY")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("iRt9V9wNQASic3D7-wTZo") } }, [_vm._v(_vm._s(_vm.$t("iRt9V9wNQASic3D7-wTZo")))])], 1), _c2("v-list-item-action", { staticClass: "pl-1" }, [_c2("input", { staticClass: "text-center rounded preload_num", attrs: { "type": "number", "min": "0", "max": "5" }, domProps: { "value": _setup.store.imgPreloadNum }, on: { "blur": _setup.onPreloadNumBlur } })])], 1) : _vm._e(), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", { attrs: { "title": _vm.$t("kop_-39vkeg-bz2wztJ9O") } }, [_vm._v(_vm._s(_vm.$t("kop_-39vkeg-bz2wztJ9O")))]), _c2("v-list-item-subtitle", { attrs: { "title": "Masonry/Grid/Justified" } }, [_vm._v("Masonry/Grid/Justified")])], 1), _c2("v-list-item-action", [_c2("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    }, expression: "store.isFullImgPreload" } })], 1)], 1) : _vm._e(), _setup.notPartialSupportSite && _setup.store.isFullImgPreload ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("G3b7rbyQEj3_rgzVsNJZY")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("iRt9V9wNQASic3D7-wTZo") } }, [_vm._v(_vm._s(_vm.$t("iRt9V9wNQASic3D7-wTZo")))])], 1), _c2("v-list-item-action", { staticClass: "pl-1" }, [_c2("input", { staticClass: "text-center rounded preload_num", attrs: { "type": "number", "min": "0", "max": "5" }, domProps: { "value": _setup.store.imgPreloadNum }, on: { "blur": _setup.onPreloadNumBlur } })])], 1) : _vm._e(), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", { attrs: { "title": _vm.$t("kop_-39vkeg-bz2wztJ9O") } }, [_vm._v(_vm._s(_vm.$t("kop_-39vkeg-bz2wztJ9O")))]), _c2("v-list-item-subtitle", { attrs: { "title": "Masonry/Grid/Justified" } }, [_vm._v("Masonry/Grid/Justified")])], 1), _c2("v-list-item-action", [_c2("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "sel_menu_btn", staticStyle: { "max-width": "100px" }, attrs: { "small": "" } }, "v-btn", attrs, false), on), [_vm._v(" " + _vm._s(_setup.actLayout) + " "), _c2("v-icon", { attrs: { "size": 16 } }, [_vm._v(_vm._s(_setup.mdiChevronDown))])], 1)];
     } }]) }, [_c2("v-list", { attrs: { "dense": "" } }, [_c2("v-list-item-group", { attrs: { "value": _setup.actLayoutIndex, "color": "primary" } }, _vm._l(_setup.layoutTypes, function(item) {
       return _c2("v-list-item", { key: item[0], attrs: { "dense": "" }, on: { "click": function($event) {
@@ -4961,15 +7660,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       } } }, [_c2("v-list-item-title", { domProps: { "textContent": _vm._s(val) } })], 1);
     }), 1)], 1)], 1)], 1)], 1) : _vm._e(), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("4yzHPggVky2QKFD2TbBhl")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("HSx0XMZFid_lVuwjzrhH0") } }, [_vm._v(_vm._s(_vm.$t("HSx0XMZFid_lVuwjzrhH0")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onThumbSampleUrlChange }, model: { value: _setup.store.settings.isThumbSampleUrl, callback: function($$v) {
       _vm.$set(_setup.store.settings, "isThumbSampleUrl", $$v);
-    }, expression: "store.settings.isThumbSampleUrl" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("PBjdNKuj02doUvOf2zZqP")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("z_oL9s5fS164W4_gITOGZ") } }, [_vm._v(_vm._s(_vm.$t("z_oL9s5fS164W4_gITOGZ")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "", "loading": _setup.dlSubLoading }, on: { "change": _setup.onDLSubpathChange }, model: { value: _setup.isDLSubpath, callback: function($$v) {
+    }, expression: "store.settings.isThumbSampleUrl" } })], 1)], 1), _setup.notPartialSupportSite ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("PBjdNKuj02doUvOf2zZqP")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("z_oL9s5fS164W4_gITOGZ") } }, [_vm._v(_vm._s(_vm.$t("z_oL9s5fS164W4_gITOGZ")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "", "loading": _setup.dlSubLoading }, on: { "change": _setup.onDLSubpathChange }, model: { value: _setup.isDLSubpath, callback: function($$v) {
       _setup.isDLSubpath = $$v;
-    }, expression: "isDLSubpath" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("fbIpwMw2yVoSxP66OJ32z")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("tEvQYzSVnggYAcM1uv9Tt") } }, [_vm._v(_vm._s(_vm.$t("tEvQYzSVnggYAcM1uv9Tt")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onFitScreenChange }, model: { value: _setup.isFitScreen, callback: function($$v) {
+    }, expression: "isDLSubpath" } })], 1)], 1) : _vm._e(), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("fbIpwMw2yVoSxP66OJ32z")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("tEvQYzSVnggYAcM1uv9Tt") } }, [_vm._v(_vm._s(_vm.$t("tEvQYzSVnggYAcM1uv9Tt")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onFitScreenChange }, model: { value: _setup.isFitScreen, callback: function($$v) {
       _setup.isFitScreen = $$v;
     }, expression: "isFitScreen" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("lkCkz1OpNtTCFRfGCEoBp")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("EZd1QQdgUDjT3yya5ZYe-") } }, [_vm._v(_vm._s(_vm.$t("EZd1QQdgUDjT3yya5ZYe-")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onAutoWfModeChange }, model: { value: _setup.isAutoWfMode, callback: function($$v) {
       _setup.isAutoWfMode = $$v;
-    }, expression: "isAutoWfMode" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("sxhTRqogDRozo9IaTGI7g")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("gPt6cpWrkvqRqZnwJo1KV") } }, [_vm._v(_vm._s(_vm.$t("gPt6cpWrkvqRqZnwJo1KV")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onShowPostCheckboxChange }, model: { value: _setup.store.settings.showPostCheckbox, callback: function($$v) {
+    }, expression: "isAutoWfMode" } })], 1)], 1), _setup.notPartialSupportSite ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("sxhTRqogDRozo9IaTGI7g")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("gPt6cpWrkvqRqZnwJo1KV") } }, [_vm._v(_vm._s(_vm.$t("gPt6cpWrkvqRqZnwJo1KV")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onShowPostCheckboxChange }, model: { value: _setup.store.settings.showPostCheckbox, callback: function($$v) {
       _vm.$set(_setup.store.settings, "showPostCheckbox", $$v);
-    }, expression: "store.settings.showPostCheckbox" } })], 1)], 1)], 1), _c2("v-dialog", { attrs: { "max-width": "600" }, model: { value: _setup.showDLConfirm, callback: function($$v) {
+    }, expression: "store.settings.showPostCheckbox" } })], 1)], 1) : _vm._e(), _setup.notPartialSupportSite ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("dvs63FvVKWm3uHVfqeq00")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("w4uJjpTmSEkm6SIDgEo-0") } }, [_vm._v(_vm._s(_vm.$t("Tbq8O5KhwcDHQ_qxNFW09")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onUseFancyboxChange }, model: { value: _setup.store.settings.useFancybox, callback: function($$v) {
+      _vm.$set(_setup.store.settings, "useFancybox", $$v);
+    }, expression: "store.settings.useFancybox" } })], 1)], 1) : _vm._e()], 2), _c2("v-dialog", { attrs: { "max-width": "600" }, model: { value: _setup.showDLConfirm, callback: function($$v) {
       _setup.showDLConfirm = $$v;
     }, expression: "showDLConfirm" } }, [_c2("v-card", [_c2("v-card-title", { staticClass: "text-h5" }, [_vm._v(_vm._s(_vm.$t("ti3akdSS3iZV9NsGzIo3m")))]), _c2("v-card-text", [_vm._v(" " + _vm._s(_vm.$t("LN_Rsic4V50DrXbsv9T9L"))), _c2("br"), _vm._v(" " + _vm._s(_vm.$t("OJ8X55GXx5k3peoSXSujf"))), _c2("br"), _vm._v(" " + _vm._s(_vm.$t("ujBgilCWNgFNV8Q2IDMWS")) + " ")]), _c2("v-card-actions", [_c2("v-spacer"), _c2("v-btn", { attrs: { "text": "" }, on: { "click": function($event) {
       return _setup.setDLSubpathOn("");
@@ -5078,7 +7779,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var _sfc_main$5 = /* @__PURE__ */ Vue2.defineComponent({
     __name: "PostDetail",
     setup(__props) {
-      const notR34Fav = Vue2.ref(!(isRule34FavPage() || isGelbooruFavPage()));
+      const notR34Fav = Vue2.ref(!(isRule34FavPage() || isGelbooruFavPage() || isZerochanPage()));
       const showImageToolbar = Vue2.ref(true);
       const imgLoading = Vue2.ref(true);
       const innerWidth = Vue2.ref(window.innerWidth);
@@ -5090,13 +7791,21 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         showTagChipGroup.value = !showTagChipGroup.value;
         localStorage.setItem("__showTags", showTagChipGroup.value ? "1" : "");
       };
+      const refererPolicy = Vue2.computed(() => /nozomi\.la|behoimi\.org/.test(location.host) ? "origin" : "no-referrer");
       const imageSelected = Vue2.computed(() => {
         var _a2;
         return (_a2 = store.imageList[store.imageSelectedIndex]) != null ? _a2 : {};
       });
       const isVideo = Vue2.computed(() => [".mp4", ".webm"].some((e) => {
-        var _a2;
-        return (_a2 = imageSelected.value.fileUrl) == null ? void 0 : _a2.endsWith(e);
+        const { fileUrl } = imageSelected.value;
+        if (!fileUrl)
+          return false;
+        try {
+          const url = new URL(fileUrl);
+          return url.pathname.endsWith(e);
+        } catch (_error) {
+          return false;
+        }
       }));
       const imgSrc = Vue2.computed(() => {
         var _a2, _b2;
@@ -5134,10 +7843,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           return;
         showImageToolbar.value = !showImageToolbar.value;
       };
-      const toTagsPage = (tag) => {
+      const toTagsPage = (tag2) => {
         if (notYKSite.value)
           return;
-        window.open(`/post?tags=${tag}`, "_blank", "noreferrer");
+        window.open(`/post?tags=${tag2}`, "_blank", "noreferrer");
       };
       const toPidPage = (pid) => {
         if (notYKSite.value)
@@ -5180,8 +7889,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         store.showImageSelected = false;
       };
       const onDtlContClick = (ev) => {
+        var _a2, _b2;
         const el = ev.target;
-        if (el.className.includes("img_detail_cont")) {
+        if ((_b2 = (_a2 = el == null ? void 0 : el.className) == null ? void 0 : _a2.includes) == null ? void 0 : _b2.call(_a2, "img_detail_cont")) {
           close();
         }
       };
@@ -5203,21 +7913,50 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           const result = await getPostDetail(imageSelected.value.id);
           if (result)
             postDetail.value = result;
-        } else {
-          postDetail.value = {
-            voted: false,
-            tags: imageSelected.value.tags.map((tag) => {
-              var _a2;
-              const tagCN = (_a2 = window.__tagsCN) == null ? void 0 : _a2[tag.replace(/_/g, " ")];
-              return {
-                tag,
-                tagText: isCNLang2 && tagCN ? `${tag} [ ${tagCN} ]` : tag,
-                color: "#8F77B5",
-                type: "general"
-              };
-            })
-          };
+          return;
         }
+        if (isAnimePicturesPage()) {
+          const { tags } = await getAnimePicturesDetail(imageSelected.value.id);
+          if (tags == null ? void 0 : tags.length)
+            imageSelected.value.tags = tags;
+        }
+        if (isSankakuIdolPage()) {
+          const { sampleUrl, fileUrl } = await getSankakuIdolDetail(imageSelected.value.id);
+          if (sampleUrl)
+            imageSelected.value.sampleUrl = sampleUrl;
+          if (fileUrl)
+            imageSelected.value.fileUrl = fileUrl;
+        }
+        if (isAllGirlPage()) {
+          const { fileUrl } = await getAllGirlDetail(imageSelected.value.id);
+          if (fileUrl)
+            imageSelected.value.fileUrl = fileUrl;
+        }
+        if (isHentaiBooruPage()) {
+          const { fileUrl } = await getHentaiBooruDetail(imageSelected.value.id);
+          if (fileUrl)
+            imageSelected.value.fileUrl = fileUrl;
+        }
+        if (isKusowankaPage()) {
+          const { fileUrl, tags } = await getKusowankaDetail(imageSelected.value.id);
+          if (fileUrl)
+            imageSelected.value.fileUrl = fileUrl;
+          if (tags == null ? void 0 : tags.length)
+            imageSelected.value.tags = tags;
+        }
+        postDetail.value = {
+          voted: false,
+          tags: imageSelected.value.tags.map((tag2) => {
+            var _a2;
+            const tagCN = (_a2 = window.__tagsCN) == null ? void 0 : _a2[tag2.replace(/_/g, " ")];
+            return {
+              tag: tag2,
+              tagText: isCNLang2 && tagCN ? `${tag2} [ ${tagCN} ]` : tag2,
+              color: "#8F77B5",
+              type: "general"
+            };
+          })
+        };
       };
       const preloadImgEl = new Image();
       const preloadImg = (src) => {
@@ -5283,6 +8022,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         }
         const { fileUrl } = imageSelected.value;
         const el = ev.target;
+        if (fileUrl && location.hostname.includes("zerochan")) {
+          getZerochanFileUrl(imageSelected.value.id).then((url) => {
+            imageSelected.value.fileUrl = url;
+          });
+          return;
+        }
         if (!(el == null ? void 0 : el.src.includes("/images/"))) {
           el.src = imageSelected.value.fileUrl || "";
           return;
@@ -5305,6 +8050,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         }
         imgLoading.value = false;
         const { fileUrl } = imageSelected.value;
+        if (fileUrl && location.hostname.includes("zerochan")) {
+          getZerochanFileUrl(imageSelected.value.id).then((url) => {
+            imageSelected.value.fileUrl = url;
+            ev.target.src = url;
+          });
+          return;
+        }
         if (fileUrl == null ? void 0 : fileUrl.includes(".jpeg")) {
           imageSelected.value.fileUrl = fileUrl.replace(/\.jpeg(\?\d+)?$/, ".jpg");
           ev.target.src = imageSelected.value.fileUrl;
@@ -5412,7 +8164,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         store.isListenWheelEvent && window.removeEventListener("wheel", onWheel);
         store.settings.isListenKeyupEvent && window.removeEventListener("keyup", onKeyup);
       });
-      return { __sfc: true, notR34Fav, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, showTagChipGroup, toggleTagsShow, imageSelected, isVideo, imgSrc, imgLasySrc, imageSelectedWidth, notYKSite, imgCreateTime, toggleToolbar, toTagsPage, toPidPage, toDetailPage, toSourcePage, download, addToList, close, onDtlContClick, postDetail, addFavorite, isCNLang: isCNLang2, setPostDetail, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, showPrevPost, showNextPost, onImageLoadError, scaleImgSrc, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isTriggerEvent, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFileTree, mdiFitToScreenOutline, mdiFolderNetwork, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, DPlayer, isFavBtnShow, store };
+      return { __sfc: true, notR34Fav, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, showTagChipGroup, toggleTagsShow, refererPolicy, imageSelected, isVideo, imgSrc, imgLasySrc, imageSelectedWidth, notYKSite, imgCreateTime, toggleToolbar, toTagsPage, toPidPage, toDetailPage, toSourcePage, download, addToList, close, onDtlContClick, postDetail, addFavorite, isCNLang: isCNLang2, setPostDetail, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, showPrevPost, showNextPost, onImageLoadError, scaleImgSrc, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isTriggerEvent, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFileTree, mdiFitToScreenOutline, mdiFolderNetwork, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, DPlayer, isFavBtnShow, notPartialSupportSite, store };
     }
   });
   var _sfc_render$5 = function render() {
@@ -5420,12 +8172,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
     return _c2("v-dialog", { attrs: { "fullscreen": "" }, model: { value: _setup.store.showImageSelected, callback: function($$v) {
       _vm.$set(_setup.store, "showImageSelected", $$v);
-    }, expression: "store.showImageSelected" } }, [_setup.store.showImageSelected ? _c2("div", { staticClass: "img_detail_cont", on: { "click": _setup.onDtlContClick } }, [_setup.isVideo ? [_setup.isVideoShow ? _c2(_setup.DPlayer, { style: `width: ${_setup.imageSelectedWidth > _setup.imageSelected.width ? _setup.imageSelected.width : _setup.imageSelectedWidth}px`, attrs: { "options": { theme: "#8E24AA", autoplay: true, loop: true, video: { url: _setup.imageSelected.fileUrl } } } }) : _vm._e()] : _c2("div", { class: { img_scale_scroll: _setup.scaleOn, img_scale_normal: !_setup.scaleOn }, attrs: { "draggable": "false" } }, [_c2("v-row", { directives: [{ name: "show", rawName: "v-show", value: _setup.imgLoading, expression: "imgLoading" }], staticClass: "img_detail_loading" }, [_setup.showPreviewThumb && !_setup.scaleOn ? _c2("img", { attrs: { "src": _setup.imgLasySrc, "width": _setup.imageSelectedWidth, "alt": "" } }) : _vm._e(), _c2("v-progress-circular", { attrs: { "size": 100, "width": 6, "indeterminate": "", "color": "deep-purple" } })], 1), !_setup.scaleOn ? _c2("img", { staticClass: "img_detail_sample", attrs: { "src": _setup.imgSrc, "width": _setup.imgLoading ? 0 : _setup.imageSelectedWidth, "alt": "" }, on: { "click": function($event) {
+    }, expression: "store.showImageSelected" } }, [_setup.store.showImageSelected ? _c2("div", { staticClass: "img_detail_cont", on: { "click": _setup.onDtlContClick } }, [_setup.isVideo ? [_setup.isVideoShow ? _c2(_setup.DPlayer, { style: `width: ${_setup.imageSelectedWidth > _setup.imageSelected.width ? _setup.imageSelected.width : _setup.imageSelectedWidth}px`, attrs: { "options": { theme: "#8E24AA", autoplay: true, loop: true, video: { url: _setup.imageSelected.fileUrl } } } }) : _vm._e()] : _c2("div", { class: { img_scale_scroll: _setup.scaleOn, img_scale_normal: !_setup.scaleOn }, attrs: { "draggable": "false" } }, [_c2("v-row", { directives: [{ name: "show", rawName: "v-show", value: _setup.imgLoading, expression: "imgLoading" }], staticClass: "img_detail_loading" }, [_setup.showPreviewThumb && !_setup.scaleOn ? _c2("img", { attrs: { "src": _setup.imgLasySrc, "width": _setup.imageSelectedWidth, "alt": "" } }) : _vm._e(), _c2("v-progress-circular", { attrs: { "size": 100, "width": 6, "indeterminate": "", "color": "deep-purple" } })], 1), !_setup.scaleOn ? _c2("img", { staticClass: "img_detail_sample", attrs: { "src": _setup.imgSrc, "width": _setup.imgLoading ? 0 : _setup.imageSelectedWidth, "referrerpolicy": _setup.refererPolicy, "alt": "" }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.toggleToolbar.apply(null, arguments);
     }, "load": function($event) {
       _setup.imgLoading = false;
-    }, "error": _setup.onImageLoadError } }) : _vm._e(), _setup.scaleOn ? _c2("img", { staticClass: "img_detail_scale", style: _setup.scaleImgStyle, attrs: { "src": _setup.scaleImgSrc, "alt": "", "draggable": "false" }, on: { "load": function($event) {
+    }, "error": _setup.onImageLoadError } }) : _vm._e(), _setup.scaleOn ? _c2("img", { staticClass: "img_detail_scale", style: _setup.scaleImgStyle, attrs: { "src": _setup.scaleImgSrc, "referrerpolicy": _setup.refererPolicy, "alt": "", "draggable": "false" }, on: { "load": function($event) {
       _setup.imgLoading = false;
     }, "error": _setup.onScaleImgError } }) : _vm._e()], 1)], 2) : _vm._e(), _c2("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && _setup.scaleOn && !_setup.isVideo, expression: "showImageToolbar && scaleOn && !isVideo" }], staticClass: "img_detail_btn_color", staticStyle: { "position": "absolute", "top": "0", "width": "100%", "z-index": "10" }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c2("v-spacer"), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1 hidden-sm-and-down", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
@@ -5501,7 +8253,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("k4YzDnBtd_S2UpAQucGxF")))]), _c2("v-list-item-subtitle", { domProps: { "textContent": _vm._s(_setup.imageSelected.jpegDownloadText) } })], 1)], 1) : _vm._e(), _c2("v-list-item", { attrs: { "two-line": "", "link": "", "dense": "" } }, [_c2("v-list-item-content", { on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.download(_setup.imageSelected.fileUrl, _setup.imageSelected.fileDownloadName);
-    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("VpuyxZtIoDF9-YyOm0tK_")))]), _c2("v-list-item-subtitle", { domProps: { "textContent": _vm._s(_setup.imageSelected.fileDownloadText) } })], 1)], 1)], 1)], 1) : _vm._e(), _c2("v-progress-circular", { directives: [{ name: "show", rawName: "v-show", value: _setup.downloading, expression: "downloading" }], staticClass: "ml-1 mr-2", attrs: { "indeterminate": "", "color": "primary" } }), _setup.notR34Fav ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("VpuyxZtIoDF9-YyOm0tK_")))]), _c2("v-list-item-subtitle", { domProps: { "textContent": _vm._s(_setup.imageSelected.fileDownloadText) } })], 1)], 1)], 1)], 1) : _vm._e(), _c2("v-progress-circular", { directives: [{ name: "show", rawName: "v-show", value: _setup.downloading, expression: "downloading" }], staticClass: "ml-1 mr-2", attrs: { "indeterminate": "", "color": "primary" } }), _setup.notPartialSupportSite && _setup.notR34Fav ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addToList.apply(null, arguments);
@@ -5601,6 +8353,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         });
       };
       const showImgModal = (index) => {
+        if (store.settings.useFancybox) {
+          fancyboxShow(store.imageList, index);
+          return;
+        }
         store.imageSelectedIndex = index;
         store.showImageSelected = true;
       };
@@ -5668,7 +8424,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       Vue2.onUnmounted(() => {
         window.removeEventListener("scroll", scrollFn);
       });
-      return { __sfc: true, notFitScreen: notFitScreen2, isR34Fav, showImageList, showFab, showNoMore, showLoadMore, ctxActPost, showMenu, x, y, maxHeightStyle, getImgSrc, onCtxMenu, showImgModal, openDetail, addToSelectedList, addFavorite, downloadCtxPost, onPostCheckboxChange, onImageLoadError, calcItemHeight, scrollFn, mdiDownload, mdiFileGifBox, mdiFileTree, mdiFolderNetwork, mdiHeartPlusOutline, mdiLinkVariant, mdiPlaylistPlus, mdiRefresh, mdiVideo, PostDetail, isFavBtnShow, refreshPosts, searchPosts, store };
+      return { __sfc: true, notFitScreen: notFitScreen2, isR34Fav, showImageList, showFab, showNoMore, showLoadMore, ctxActPost, showMenu, x, y, maxHeightStyle, getImgSrc, onCtxMenu, showImgModal, openDetail, addToSelectedList, addFavorite, downloadCtxPost, onPostCheckboxChange, onImageLoadError, calcItemHeight, scrollFn, mdiDownload, mdiFileGifBox, mdiFileTree, mdiFolderNetwork, mdiHeartPlusOutline, mdiLinkVariant, mdiPlaylistPlus, mdiRefresh, mdiVideo, PostDetail, notPartialSupportSite, isFavBtnShow, refreshPosts, searchPosts, store };
     }
   });
   var _sfc_render$4 = function render() {
@@ -5711,13 +8467,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       } } })], 1) : _vm._e(), !_setup.isR34Fav ? _c2("div", { staticClass: "posts-image-actions" }, [_c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.openDetail(image);
-      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _c2("v-btn", { staticClass: "hidden-md-and-down", attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
+      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _setup.notPartialSupportSite ? _c2("v-btn", { staticClass: "hidden-md-and-down", attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addToSelectedList(image);
-      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiPlaylistPlus))])], 1), _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("VpuyxZtIoDF9-YyOm0tK_") }, on: { "click": function($event) {
+      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiPlaylistPlus))])], 1) : _vm._e(), _setup.notPartialSupportSite ? _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("VpuyxZtIoDF9-YyOm0tK_") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.downloadCtxPost(image);
-      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1), _setup.isFavBtnShow ? _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("Dnnio9m9RZA6bkTLytc99") }, on: { "click": function($event) {
+      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1) : _vm._e(), _setup.isFavBtnShow ? _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("Dnnio9m9RZA6bkTLytc99") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addFavorite(image.id);
       } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHeartPlusOutline))])], 1) : _vm._e()], 1) : _vm._e()], 2);
@@ -5727,13 +8483,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       _setup.showMenu = $$v;
     }, expression: "showMenu" } }, [_c2("v-list", [_setup.isFavBtnShow ? _c2("v-list-item", { on: { "click": function($event) {
       return _setup.addFavorite();
-    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Dnnio9m9RZA6bkTLytc99")))])], 1) : _vm._e(), _c2("v-list-item", { on: { "click": function($event) {
+    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Dnnio9m9RZA6bkTLytc99")))])], 1) : _vm._e(), _setup.notPartialSupportSite ? _c2("v-list-item", { on: { "click": function($event) {
       return _setup.downloadCtxPost();
-    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("VpuyxZtIoDF9-YyOm0tK_")))])], 1), _c2("v-list-item", { on: { "click": function($event) {
+    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("VpuyxZtIoDF9-YyOm0tK_")))])], 1) : _vm._e(), _c2("v-list-item", { on: { "click": function($event) {
       return _setup.openDetail();
-    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("EsiorRgoeHI8h7IHMLDA4")))])], 1), _c2("v-list-item", { staticClass: "hidden-md-and-down", on: { "click": function($event) {
+    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("EsiorRgoeHI8h7IHMLDA4")))])], 1), _setup.notPartialSupportSite ? _c2("v-list-item", { staticClass: "hidden-md-and-down", on: { "click": function($event) {
       return _setup.addToSelectedList();
-    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("hVmfDxXoj8vkgVQabEOSr")))])], 1)], 1)], 1), _c2("v-fab-transition", [_c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showFab, expression: "showFab" }], staticClass: "refresh_posts_btn", attrs: { "fab": "", "dark": "", "fixed": "", "bottom": "", "right": "", "color": "pink" }, on: { "click": function($event) {
+    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("hVmfDxXoj8vkgVQabEOSr")))])], 1) : _vm._e()], 1)], 1), _c2("v-fab-transition", [_c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showFab, expression: "showFab" }], staticClass: "refresh_posts_btn", attrs: { "fab": "", "dark": "", "fixed": "", "bottom": "", "right": "", "color": "pink" }, on: { "click": function($event) {
       return _setup.refreshPosts();
     } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiRefresh))])], 1)], 1), _c2(_setup.PostDetail)], 1) : _vm._e();
   };
@@ -5767,18 +8523,18 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const noMore = Vue2.ref(false);
       const showNoMore = Vue2.computed(() => !store.requestState && noMore.value);
       const showLoadMore = Vue2.computed(() => !store.requestState && !noMore.value);
-      const page2 = Vue2.ref(Number(new URLSearchParams(location.search).get("page")) || 1);
+      const page = Vue2.ref(Number(new URLSearchParams(location.search).get("page")) || 1);
       const pools = Vue2.ref([]);
-      const loadData = async (query) => {
+      const loadData = async (query2) => {
         store.requestState = true;
         try {
-          const results = await fetchPools(page2.value, query);
+          const results = await fetchPools(page.value, query2);
           if (Array.isArray(results) && results.length > 0) {
             pools.value = [...pools.value, ...results];
             const url = new URL(location.href);
-            url.searchParams.set("page", page2.value.toString());
+            url.searchParams.set("page", page.value.toString());
             history.replaceState("", "", url);
-            page2.value++;
+            page.value++;
           } else {
             noMore.value = true;
           }
@@ -5801,17 +8557,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       Vue2.onMounted(async () => {
         await loadData();
         window.addEventListener("scroll", scrollFn);
-        eventBus.$on("loadPoolsByQuery", (query) => {
-          page2.value = 1;
+        eventBus.$on("loadPoolsByQuery", (query2) => {
+          page.value = 1;
           pools.value = [];
-          loadData(query);
+          loadData(query2);
         });
       });
       Vue2.onUnmounted(() => {
         window.removeEventListener("scroll", scrollFn);
         eventBus.$off("loadPoolsByQuery");
       });
-      return { __sfc: true, columnCount, noMore, showNoMore, showLoadMore, page: page2, pools, loadData, viewPool, scrollFn, mdiCalendarBlank, mdiCalendarEdit, mdiDownload, mdiLaunch, store };
+      return { __sfc: true, columnCount, noMore, showNoMore, showLoadMore, page, pools, loadData, viewPool, scrollFn, mdiCalendarBlank, mdiCalendarEdit, mdiDownload, mdiLaunch, store };
     }
   });
   var _sfc_render$3 = function render() {
@@ -5906,7 +8662,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     setup(__props) {
       const vuetify = useVuetify();
       Vue2.onMounted(() => {
-        const mode = localStorage.getItem("__darkmode") || "dark";
+        const mode = localStorage.getItem("__darkmode") || "light";
         vuetify.theme.dark = mode === "dark";
       });
       return { __sfc: true, vuetify, AppBar, NavDrawer, SettingsDrawer, AppContainer };
