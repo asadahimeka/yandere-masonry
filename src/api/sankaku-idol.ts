@@ -16,13 +16,19 @@ const ratingMap: Record<string, string> = {
 }
 
 export async function fetchSankakuIdolPosts(page: number, tags: string | null) {
-  if (page == 1) state.nextUrl = null
+  const w = unsafeWindow as any
+  w.$.ajax = () => {}
+  w.jQuery.ajax = () => {}
+  if (page == 1) {
+    state.nextUrl = null
+    document.documentElement.scrollTop = 0
+  }
   const url = new URL(state.nextUrl ? `https://idol.sankakucomplex.com${state.nextUrl}` : state.base)
   url.searchParams.set('auto_page', 't')
   !state.nextUrl && tags && url.searchParams.set('tags', tags)
   const htmlResp = await fetch(url.href)
   const doc = new DOMParser().parseFromString(await htmlResp.text(), 'text/html')
-  state.nextUrl = doc.querySelector<HTMLElement>('body > div[next-page-url]')?.getAttribute('next-page-url')
+  state.nextUrl = doc.querySelector<HTMLElement>('body > div[next-page-url]')?.getAttribute('next-page-url')?.replace(/amp;/g, '')
   const results = [...doc.querySelectorAll('.post-gallery .post-preview')].map(el => {
     const id = el.getAttribute('data-id')
     const img = el.querySelector('img')
