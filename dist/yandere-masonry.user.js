@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.33.1
+// @version              0.33.2
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -6604,15 +6604,22 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "R18+": "e"
   };
   async function fetchSankakuIdolPosts(page, tags) {
-    var _a2;
-    if (page == 1)
+    var _a2, _b2;
+    const w = unsafeWindow;
+    w.$.ajax = () => {
+    };
+    w.jQuery.ajax = () => {
+    };
+    if (page == 1) {
       state.nextUrl = null;
+      document.documentElement.scrollTop = 0;
+    }
     const url = new URL(state.nextUrl ? `https://idol.sankakucomplex.com${state.nextUrl}` : state.base);
     url.searchParams.set("auto_page", "t");
     !state.nextUrl && tags && url.searchParams.set("tags", tags);
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    state.nextUrl = (_a2 = doc.querySelector("body > div[next-page-url]")) == null ? void 0 : _a2.getAttribute("next-page-url");
+    state.nextUrl = (_b2 = (_a2 = doc.querySelector("body > div[next-page-url]")) == null ? void 0 : _a2.getAttribute("next-page-url")) == null ? void 0 : _b2.replace(/amp;/g, "");
     const results = [...doc.querySelectorAll(".post-gallery .post-preview")].map((el) => {
       var _a3;
       const id = el.getAttribute("data-id");
