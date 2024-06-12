@@ -80,7 +80,7 @@
           <v-icon>{{ mdiShuffle }}</v-icon>
         </v-btn>
       </template>
-      <template v-if="notPartialSupportSite || isSankakuSite">
+      <template v-if="isSupportTagSearch || isSankakuSite">
         <v-menu
           v-model="searchState.showMenu"
           :max-width="200"
@@ -277,7 +277,7 @@ import store from '@/store'
 import { addDate, debounce, downloadFile, eventBus, formatDate, showMsg, subDate } from '@/utils'
 import { loadPostsByPage, loadPostsByTags, refreshPosts } from '@/store/actions/post'
 import { getRecentTags, getUsername, isPopularPage, searchTagsByName } from '@/api/moebooru'
-import { defCompTags, getSiteTitle, notPartialSupportSite } from '@/api/booru'
+import { defCompTags, getSiteTitle, isSupportTagSearch, notPartialSupportSite } from '@/api/booru'
 import { isSankakuSite } from '@/api/sankaku'
 import i18n from '@/utils/i18n'
 

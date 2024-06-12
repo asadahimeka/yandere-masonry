@@ -2,8 +2,8 @@ export function isZerochanPage() {
   return location.hostname == 'www.zerochan.net'
 }
 
-export async function fetchZerochanPosts(page: number) {
-  const resp = await fetch(`https://www.zerochan.net/?p=${page}&json`)
+export async function fetchZerochanPosts(page: number, tags: string | null) {
+  const resp = await fetch(`https://www.zerochan.net/${tags || ''}?p=${page}&json`)
   const json = await resp.json()
   return json.items.map((e: any) => {
     const primary = escape(e.tag.replace(/\s/g, '.'))

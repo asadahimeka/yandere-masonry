@@ -3,12 +3,13 @@ import { isSankakuSite } from './sankaku'
 import { isAnimePicturesPage } from './anime-pictures'
 import store from '@/store'
 
-const siteKeys = Object.keys(sites)
+const blackList = new Set(['rule34.paheal.net', 'e621.net', 'e926.net', 'hypnohub.net', 'derpibooru.org'])
+const siteKeys = Object.keys(sites).filter(e => !blackList.has(e))
 export const isBooruSite = () => siteKeys.includes(location.host)
 
-const blackList = new Set(['e621.net', 'e926.net', 'hypnohub.net', 'derpibooru.org'])
 export const siteDomains = [
-  ...siteKeys.filter(e => !blackList.has(e)),
+  ...siteKeys,
+  'rule34.paheal.net',
   'e-shuushuu.net',
   'zerochan.net',
   'chan.sankakucomplex.com',
@@ -22,6 +23,7 @@ export const siteDomains = [
   'nozomi.la',
 ]
 
+export const isSupportTagSearch = isBooruSite() || !['e-shuushuu.net', 'nozomi.la'].includes(location.host)
 export const notPartialSupportSite = !([
   'e-shuushuu.net',
   'www.zerochan.net',
@@ -30,6 +32,7 @@ export const notPartialSupportSite = !([
   'booru.eu',
   'kusowanka.com',
   'anihonetwallpaper.com',
+  'nozomi.la',
 ].includes(location.host))
 
 export const defCompTags = (() => {

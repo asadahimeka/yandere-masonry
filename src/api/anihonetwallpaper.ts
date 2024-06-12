@@ -2,8 +2,8 @@ export function isAnihonetwallpaperPage() {
   return location.hostname == 'anihonetwallpaper.com'
 }
 
-export async function fetchAnihonetwallpaperPosts(page: number) {
-  const htmlResp = await fetch(`https://anihonetwallpaper.com/page/${page}`)
+export async function fetchAnihonetwallpaperPosts(page: number, tags: string | null) {
+  const htmlResp = await fetch(`https://anihonetwallpaper.com/page/${page}${tags ? `?s=${tags}` : ''}`)
   const doc = new DOMParser().parseFromString(await htmlResp.text(), 'text/html')
   const results = [...doc.querySelectorAll('main .post_box ')].map(el => {
     const a = el.querySelector<HTMLAnchorElement>('.posttitle a')

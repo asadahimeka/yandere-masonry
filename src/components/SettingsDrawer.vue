@@ -92,7 +92,7 @@
           </v-combobox>
         </v-list-item-content>
       </v-list-item>
-      <template v-if="notPartialSupportSite || !isSankakuSite">
+      <template v-if="isBoorus">
         <v-list-item class="mb-0">
           <v-list-item-content>
             <v-list-item-title>{{ $t('RstKmO7YVQMpaDoucxUel') }}</v-list-item-title>
@@ -293,7 +293,7 @@
           />
         </v-list-item-action>
       </v-list-item>
-      <v-list-item v-if="notPartialSupportSite">
+      <v-list-item v-if="isBoorus">
         <v-list-item-content>
           <v-list-item-title>{{ $t('dvs63FvVKWm3uHVfqeq00') }}</v-list-item-title>
           <v-list-item-subtitle :title="$t('w4uJjpTmSEkm6SIDgEo-0')">{{ $t('Tbq8O5KhwcDHQ_qxNFW09') }}</v-list-item-subtitle>
@@ -331,8 +331,9 @@ import { mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste } from '@mdi/
 import store from '@/store'
 import i18n from '@/utils/i18n'
 import { showMsg } from '@/utils'
-import { notPartialSupportSite } from '@/api/booru'
-import { isSankakuSite } from '@/api/sankaku'
+import { isBooruSite, notPartialSupportSite } from '@/api/booru'
+
+const isBoorus = ref(isBooruSite())
 
 const onComboboxChange = (val: string[]) => {
   localStorage.setItem('__blacklist', val.join(','))

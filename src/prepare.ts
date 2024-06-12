@@ -261,7 +261,7 @@ function replaceHead() {
   document.head.innerHTML = /* html */`
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-    ${location.href.includes('http://behoimi.org') ? '' : '<meta name="referrer" content="no-referrer">'}
+    ${['behoimi.org', 'nozomi.la'].includes(location.host) ? '' : '<meta name="referrer" content="no-referrer">'}
     <title>${location.host.toUpperCase()} Masonry</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">

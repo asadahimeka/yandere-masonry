@@ -4,8 +4,8 @@ export function isKusowankaPage() {
   return location.hostname == 'kusowanka.com'
 }
 
-export async function fetchKusowankaPosts(page: number) {
-  const url = new URL('https://kusowanka.com')
+export async function fetchKusowankaPosts(page: number, tags: string | null) {
+  const url = new URL(`https://kusowanka.com${tags ? `/tag/${tags}/` : ''}`)
   url.searchParams.set('page', `${page}`)
   const htmlResp = await fetch(url.href)
   const doc = new DOMParser().parseFromString(await htmlResp.text(), 'text/html')

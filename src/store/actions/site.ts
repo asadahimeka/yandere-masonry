@@ -15,6 +15,7 @@ import { fetchHentaiBooruPosts, isHentaiBooruPage } from '@/api/hentaibooru'
 import { fetchKusowankaPosts, isKusowankaPage } from '@/api/kusowanka'
 import { fetchAnihonetwallpaperPosts, isAnihonetwallpaperPage } from '@/api/anihonetwallpaper'
 import { fetchNozomiPosts, isNozomiPage } from '@/api/nozomi.js'
+import { fetchR34PahealPosts, isR34PahealPage } from '@/api/r34-paheal'
 
 const params = new URLSearchParams(location.search)
 const query = {
@@ -56,6 +57,13 @@ export const fetchActions = [
     },
   },
   {
+    test: isR34PahealPage,
+    action: async () => {
+      const results = await fetchR34PahealPosts(query.page, query.tags)
+      return dealBlacklist(results as any)
+    },
+  },
+  {
     test: isBooruSite,
     action: async () => {
       const results = await searchBooru(query.page, query.tags)
@@ -72,7 +80,7 @@ export const fetchActions = [
   {
     test: isZerochanPage,
     action: async () => {
-      const results = await fetchZerochanPosts(query.page)
+      const results = await fetchZerochanPosts(query.page, query.tags)
       return dealBlacklist(results as any)
     },
   },
@@ -100,14 +108,14 @@ export const fetchActions = [
   {
     test: isKusowankaPage,
     action: async () => {
-      const results = await fetchKusowankaPosts(query.page)
+      const results = await fetchKusowankaPosts(query.page, query.tags)
       return dealBlacklist(results as any)
     },
   },
   {
     test: isAnihonetwallpaperPage,
     action: async () => {
-      const results = await fetchAnihonetwallpaperPosts(query.page)
+      const results = await fetchAnihonetwallpaperPosts(query.page, query.tags)
       return dealBlacklist(results as any)
     },
   },
