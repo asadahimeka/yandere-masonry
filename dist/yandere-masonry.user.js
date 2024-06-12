@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.33.2
+// @version              0.33.3
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -330,7 +330,7 @@ var __publicField = (obj, key, value) => {
     document.head.innerHTML = `
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-    ${location.href.includes("http://behoimi.org") ? "" : '<meta name="referrer" content="no-referrer">'}
+    ${["behoimi.org", "nozomi.la"].includes(location.host) ? "" : '<meta name="referrer" content="no-referrer">'}
     <title>${location.host.toUpperCase()} Masonry</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
@@ -5930,11 +5930,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return { tags: [] };
     }
   }
-  const siteKeys = Object.keys(sites);
+  const blackList = /* @__PURE__ */ new Set(["rule34.paheal.net", "e621.net", "e926.net", "hypnohub.net", "derpibooru.org"]);
+  const siteKeys = Object.keys(sites).filter((e) => !blackList.has(e));
   const isBooruSite = () => siteKeys.includes(location.host);
-  const blackList = /* @__PURE__ */ new Set(["e621.net", "e926.net", "hypnohub.net", "derpibooru.org"]);
   const siteDomains = [
-    ...siteKeys.filter((e) => !blackList.has(e)),
+    ...siteKeys,
+    "rule34.paheal.net",
     "e-shuushuu.net",
     "zerochan.net",
     "chan.sankakucomplex.com",
@@ -5947,6 +5948,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "anihonetwallpaper.com",
     "nozomi.la"
   ];
+  const isSupportTagSearch = isBooruSite() || !["e-shuushuu.net", "nozomi.la"].includes(location.host);
   const notPartialSupportSite = ![
     "e-shuushuu.net",
     "www.zerochan.net",
@@ -5954,7 +5956,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "allgirl.booru.org",
     "booru.eu",
     "kusowanka.com",
-    "anihonetwallpaper.com"
+    "anihonetwallpaper.com",
+    "nozomi.la"
   ].includes(location.host);
   const defCompTags = (() => {
     if (store.isYKSite) {
@@ -6525,8 +6528,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function isZerochanPage() {
     return location.hostname == "www.zerochan.net";
   }
-  async function fetchZerochanPosts(page) {
-    const resp = await fetch(`https://www.zerochan.net/?p=${page}&json`);
+  async function fetchZerochanPosts(page, tags) {
+    const resp = await fetch(`https://www.zerochan.net/${tags || ""}?p=${page}&json`);
     const json = await resp.json();
     return json.items.map((e) => {
       const primary = escape(e.tag.replace(/\s/g, "."));
@@ -6717,8 +6720,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function isKusowankaPage() {
     return location.hostname == "kusowanka.com";
   }
-  async function fetchKusowankaPosts(page) {
-    const url = new URL("https://kusowanka.com");
+  async function fetchKusowankaPosts(page, tags) {
+    const url = new URL(`https://kusowanka.com${tags ? `/tag/${tags}/` : ""}`);
     url.searchParams.set("page", `${page}`);
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
@@ -6763,8 +6766,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function isAnihonetwallpaperPage() {
     return location.hostname == "anihonetwallpaper.com";
   }
-  async function fetchAnihonetwallpaperPosts(page) {
-    const htmlResp = await fetch(`https://anihonetwallpaper.com/page/${page}`);
+  async function fetchAnihonetwallpaperPosts(page, tags) {
+    const htmlResp = await fetch(`https://anihonetwallpaper.com/page/${page}${tags ? `?s=${tags}` : ""}`);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const results = [...doc.querySelectorAll("main .post_box ")].map((el) => {
       var _a2;
@@ -6774,20 +6777,69 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const previewUrl = img == null ? void 0 : img.getAttribute("data-src");
       const width = img == null ? void 0 : img.getAttribute("width");
       const height = img == null ? void 0 : img.getAttribute("height");
-      const tags = [...el.querySelectorAll(".itiran a[rel*=tag]")].map((e) => e.innerText);
+      const tags2 = [...el.querySelectorAll(".itiran a[rel*=tag]")].map((e) => e.innerText);
       const fileUrl = (previewUrl == null ? void 0 : previewUrl.includes("wp.com")) ? previewUrl.replace(/i\d\.wp\.com\//, "").replace(/\?fit\=\d+\,\d+/, "") : previewUrl == null ? void 0 : previewUrl.replace(/\-\d+x\d+\.(jpg|jpeg|png|webp)/, ".$1");
       return {
         id,
         postView: a == null ? void 0 : a.href,
         previewUrl,
         fileUrl,
-        tags,
+        tags: tags2,
         width: Number(width),
         height: Number(height),
         aspectRatio: Number(width) / Number(height),
         fileExt: "jpg",
-        fileDownloadName: `Anihonetwallpaper_${id}_${tags.join("_")}`,
+        fileDownloadName: `Anihonetwallpaper_${id}_${tags2.join("_")}`,
         rating: ""
+      };
+    });
+    return results;
+  }
+  function isR34PahealPage() {
+    return location.hostname == "rule34.paheal.net" && location.pathname != "/";
+  }
+  async function fetchR34PahealPosts(page, tags) {
+    document.onclick = function() {
+    };
+    document.onmouseup = function() {
+    };
+    document.onclick_copy = function() {
+    };
+    unsafeWindow.show_pop = function() {
+    };
+    unsafeWindow.open = function(url2) {
+      const a = document.createElement("a");
+      a.href = url2;
+      a.target = "_blank";
+      a.rel = "noreferrer";
+      a.click();
+    };
+    const url = `https://rule34.paheal.net/post/list${tags ? `/${tags}` : ""}/${page}`;
+    const htmlResp = await fetch(url);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const results = [...doc.querySelectorAll(".shm-image-list .shm-thumb.thumb")].map((el) => {
+      var _a2, _b2, _c2;
+      const id = el.getAttribute("data-post-id");
+      const fileExt = el.getAttribute("data-ext");
+      const tags2 = ((_a2 = el.getAttribute("data-tags")) == null ? void 0 : _a2.split(/\s/).filter(Boolean)) || [];
+      const img = el.querySelector("img");
+      const [_, width, height] = (img == null ? void 0 : img.title.match(/\s+(\d+)x(\d+)\s+\/\//)) || [];
+      const [__, size] = (img == null ? void 0 : img.title.match(/\s+\d+x\d+\s+\/\/\s+([\w\.]+)/)) || [];
+      const date = img == null ? void 0 : img.title.split("\n").pop();
+      return {
+        id,
+        postView: (_b2 = el.querySelector(".shm-thumb-link")) == null ? void 0 : _b2.href,
+        previewUrl: img == null ? void 0 : img.src,
+        fileUrl: (_c2 = el.querySelector(".shm-thumb-link + br + a")) == null ? void 0 : _c2.href,
+        tags: tags2,
+        width: Number(width),
+        height: Number(height),
+        aspectRatio: Number(width) / Number(height),
+        fileExt,
+        fileDownloadName: `Rule34.Paheal ${id} ${tags2.join(" ")}`,
+        fileDownloadText: `${width}\xD7${height} [${size}] ${fileExt == null ? void 0 : fileExt.toUpperCase()}`,
+        rating: "e",
+        createdAt: date && parse(`${date} +00`, "MMMM do, yyyy; HH:mm x", new Date())
       };
     });
     return results;
@@ -6831,6 +6883,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }
     },
     {
+      test: isR34PahealPage,
+      action: async () => {
+        const results = await fetchR34PahealPosts(query.page, query.tags);
+        return dealBlacklist(results);
+      }
+    },
+    {
       test: isBooruSite,
       action: async () => {
         const results = await searchBooru(query.page, query.tags);
@@ -6847,7 +6906,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     {
       test: isZerochanPage,
       action: async () => {
-        const results = await fetchZerochanPosts(query.page);
+        const results = await fetchZerochanPosts(query.page, query.tags);
         return dealBlacklist(results);
       }
     },
@@ -6875,14 +6934,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     {
       test: isKusowankaPage,
       action: async () => {
-        const results = await fetchKusowankaPosts(query.page);
+        const results = await fetchKusowankaPosts(query.page, query.tags);
         return dealBlacklist(results);
       }
     },
     {
       test: isAnihonetwallpaperPage,
       action: async () => {
-        const results = await fetchAnihonetwallpaperPosts(query.page);
+        const results = await fetchAnihonetwallpaperPosts(query.page, query.tags);
         return dealBlacklist(results);
       }
     },
@@ -7284,7 +7343,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           store.isFullscreen = !!document.fullscreenElement;
         });
       });
-      return { __sfc: true, title, isNoSelected, isOneOrMoreSelected, isAllSelected, loadingValue, selectAll, removeFromList, tagsQuery, searchState, onSearchTermInput, selectTag, userName, fetchTaggedPosts, showTagsInput, onSearchTermKeydown, showPopAction, periodMap, periodByDateMap, getRecentPeriod, isPopularRecent, getPopTitle, popTitle, isPopSearchByDate, recentPeriod, periodComputedMap, showPopDatePicker, popSearchDate, fetchPopularPosts, selPeriod, loadPrevPeriod, loadNextPeriod, goToPopularPage, showPool, poolQueryTerm, searchPool, download, downloadUrlKey, downloadNameMap, downloadNameKey, isGelbooru, startDownload, isExportUrlDecode, exportFileUrls, vuetify, toggleDarkmode, keyActions, goToPage, exitMasonry, toggleFullscreen, currentLang, langList, selectLang, mdiBrightness6, mdiCalendar, mdiCalendarSearch, mdiCheckUnderlineCircle, mdiCheckboxBlankOutline, mdiCheckboxIntermediate, mdiCheckboxMarked, mdiChevronLeft, mdiChevronRight, mdiCog, mdiDelete, mdiDownload, mdiFileClockOutline, mdiFire, mdiFullscreen, mdiFullscreenExit, mdiHome, mdiImageMultiple, mdiLocationExit, mdiMagnify, mdiShuffle, mdiStar, mdiTranslate, store, notPartialSupportSite, isSankakuSite };
+      return { __sfc: true, title, isNoSelected, isOneOrMoreSelected, isAllSelected, loadingValue, selectAll, removeFromList, tagsQuery, searchState, onSearchTermInput, selectTag, userName, fetchTaggedPosts, showTagsInput, onSearchTermKeydown, showPopAction, periodMap, periodByDateMap, getRecentPeriod, isPopularRecent, getPopTitle, popTitle, isPopSearchByDate, recentPeriod, periodComputedMap, showPopDatePicker, popSearchDate, fetchPopularPosts, selPeriod, loadPrevPeriod, loadNextPeriod, goToPopularPage, showPool, poolQueryTerm, searchPool, download, downloadUrlKey, downloadNameMap, downloadNameKey, isGelbooru, startDownload, isExportUrlDecode, exportFileUrls, vuetify, toggleDarkmode, keyActions, goToPage, exitMasonry, toggleFullscreen, currentLang, langList, selectLang, mdiBrightness6, mdiCalendar, mdiCalendarSearch, mdiCheckUnderlineCircle, mdiCheckboxBlankOutline, mdiCheckboxIntermediate, mdiCheckboxMarked, mdiChevronLeft, mdiChevronRight, mdiCog, mdiDelete, mdiDownload, mdiFileClockOutline, mdiFire, mdiFullscreen, mdiFullscreenExit, mdiHome, mdiImageMultiple, mdiLocationExit, mdiMagnify, mdiShuffle, mdiStar, mdiTranslate, store, isSupportTagSearch, notPartialSupportSite, isSankakuSite };
     }
   });
   var _sfc_render$9 = function render() {
@@ -7323,7 +7382,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return _setup.goToPopularPage();
     } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFire))])], 1), _c2("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("6acPWiYq2-OdySa2_xqDu"), "icon": "" }, on: { "click": function($event) {
       return _setup.fetchTaggedPosts("order:random");
-    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiShuffle))])], 1)] : _vm._e(), _setup.notPartialSupportSite || _setup.isSankakuSite ? [_c2("v-menu", { attrs: { "max-width": 200, "max-height": "80vh", "transition": "slide-y-transition", "nudge-bottom": "5px", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on }) {
+    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiShuffle))])], 1)] : _vm._e(), _setup.isSupportTagSearch || _setup.isSankakuSite ? [_c2("v-menu", { attrs: { "max-width": 200, "max-height": "80vh", "transition": "slide-y-transition", "nudge-bottom": "5px", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on }) {
       return [_c2("v-slide-x-transition", [_c2("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.searchState.showInput, expression: "searchState.showInput" }], staticClass: "app-bar-tag-input ml-4", staticStyle: { "width": "200px" } }, [_c2("v-text-field", _vm._g({ attrs: { "hide-details": "" }, on: { "input": _setup.onSearchTermInput, "click": function($event) {
         _setup.searchState.showMenu = true;
       }, "blur": function($event) {
@@ -7469,6 +7528,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var _sfc_main$7 = /* @__PURE__ */ Vue2.defineComponent({
     __name: "SettingsDrawer",
     setup(__props) {
+      const isBoorus = Vue2.ref(isBooruSite());
       const onComboboxChange = (val) => {
         localStorage.setItem("__blacklist", val.join(","));
       };
@@ -7610,7 +7670,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         i18n.locale = val;
         localStorage.setItem("__LANG", val);
       };
-      return { __sfc: true, onComboboxChange, removeTagFromBlacklist, exportBlacklist, importBlacklist, nsfwValue, setNSFWShow, onNSFWSwitchChange, onWheelSwitchChange, onKeyupSwitchChange, onImgPreloadChange, onThumbSampleUrlChange, onShowPostCheckboxChange, onUseFancyboxChange, isFitScreen, onFitScreenChange, isAutoWfMode, onAutoWfModeChange, dlSubLoading, showDLConfirm, isDLSubpath, setDLSubpathOn, onDLSubpathChange, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onCredentialQueryChange, onPreloadNumBlur, colList, cols, actCol, selColumn, currentLang, langList, currentLanglabel, selectLang, mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, store, notPartialSupportSite, isSankakuSite };
+      return { __sfc: true, isBoorus, onComboboxChange, removeTagFromBlacklist, exportBlacklist, importBlacklist, nsfwValue, setNSFWShow, onNSFWSwitchChange, onWheelSwitchChange, onKeyupSwitchChange, onImgPreloadChange, onThumbSampleUrlChange, onShowPostCheckboxChange, onUseFancyboxChange, isFitScreen, onFitScreenChange, isAutoWfMode, onAutoWfModeChange, dlSubLoading, showDLConfirm, isDLSubpath, setDLSubpathOn, onDLSubpathChange, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onCredentialQueryChange, onPreloadNumBlur, colList, cols, actCol, selColumn, currentLang, langList, currentLanglabel, selectLang, mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, store, notPartialSupportSite };
     }
   });
   var _sfc_render$7 = function render() {
@@ -7643,7 +7703,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       } } }, [_c2("span", [_vm._v(_vm._s(item))])])];
     } }]), model: { value: _setup.store.blacklist, callback: function($$v) {
       _vm.$set(_setup.store, "blacklist", $$v);
-    }, expression: "store.blacklist" } })], 1)], 1), _setup.notPartialSupportSite || !_setup.isSankakuSite ? [_c2("v-list-item", { staticClass: "mb-0" }, [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("RstKmO7YVQMpaDoucxUel")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("1F-R4qChHIzZaohu5GJzl") } }, [_vm._v(_vm._s(_vm.$t("1F-R4qChHIzZaohu5GJzl")))])], 1)], 1), _c2("v-list-item", { staticClass: "pa-0" }, [_c2("v-list-item-content", { staticClass: "pt-0" }, [_c2("v-text-field", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "hide-details": "", "outlined": "", "dense": "" }, on: { "change": _setup.onCredentialQueryChange }, model: { value: _setup.store.settings.credentialQuery, callback: function($$v) {
+    }, expression: "store.blacklist" } })], 1)], 1), _setup.isBoorus ? [_c2("v-list-item", { staticClass: "mb-0" }, [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("RstKmO7YVQMpaDoucxUel")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("1F-R4qChHIzZaohu5GJzl") } }, [_vm._v(_vm._s(_vm.$t("1F-R4qChHIzZaohu5GJzl")))])], 1)], 1), _c2("v-list-item", { staticClass: "pa-0" }, [_c2("v-list-item-content", { staticClass: "pt-0" }, [_c2("v-text-field", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "hide-details": "", "outlined": "", "dense": "" }, on: { "change": _setup.onCredentialQueryChange }, model: { value: _setup.store.settings.credentialQuery, callback: function($$v) {
       _vm.$set(_setup.store.settings, "credentialQuery", $$v);
     }, expression: "store.settings.credentialQuery" } })], 1)], 1)] : _vm._e(), _setup.notPartialSupportSite ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Lm_HFVHpv4XCjilV3NLKu")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("A16qoBulYQJLbHe9mqNwm") } }, [_vm._v(_vm._s(_vm.$t("A16qoBulYQJLbHe9mqNwm")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "", "color": "deep-orange darken-1" }, on: { "change": _setup.onNSFWSwitchChange }, model: { value: _setup.nsfwValue, callback: function($$v) {
       _setup.nsfwValue = $$v;
@@ -7675,7 +7735,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       _setup.isAutoWfMode = $$v;
     }, expression: "isAutoWfMode" } })], 1)], 1), _setup.notPartialSupportSite ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("sxhTRqogDRozo9IaTGI7g")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("gPt6cpWrkvqRqZnwJo1KV") } }, [_vm._v(_vm._s(_vm.$t("gPt6cpWrkvqRqZnwJo1KV")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onShowPostCheckboxChange }, model: { value: _setup.store.settings.showPostCheckbox, callback: function($$v) {
       _vm.$set(_setup.store.settings, "showPostCheckbox", $$v);
-    }, expression: "store.settings.showPostCheckbox" } })], 1)], 1) : _vm._e(), _setup.notPartialSupportSite ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("dvs63FvVKWm3uHVfqeq00")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("w4uJjpTmSEkm6SIDgEo-0") } }, [_vm._v(_vm._s(_vm.$t("Tbq8O5KhwcDHQ_qxNFW09")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onUseFancyboxChange }, model: { value: _setup.store.settings.useFancybox, callback: function($$v) {
+    }, expression: "store.settings.showPostCheckbox" } })], 1)], 1) : _vm._e(), _setup.isBoorus ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("dvs63FvVKWm3uHVfqeq00")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("w4uJjpTmSEkm6SIDgEo-0") } }, [_vm._v(_vm._s(_vm.$t("Tbq8O5KhwcDHQ_qxNFW09")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onUseFancyboxChange }, model: { value: _setup.store.settings.useFancybox, callback: function($$v) {
       _vm.$set(_setup.store.settings, "useFancybox", $$v);
     }, expression: "store.settings.useFancybox" } })], 1)], 1) : _vm._e()], 2), _c2("v-dialog", { attrs: { "max-width": "600" }, model: { value: _setup.showDLConfirm, callback: function($$v) {
       _setup.showDLConfirm = $$v;
