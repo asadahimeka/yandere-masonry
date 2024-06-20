@@ -201,7 +201,7 @@ export async function fetchPools(page: number, query?: string): Promise<Pool[]> 
 }
 
 export function isYandereHtml() {
-  return location.hostname == 'yande.re' && store.settings.isYandereFetchByHtml
+  return location.hostname == 'yande.re' && location.pathname == '/post' && store.settings.isYandereFetchByHtml
 }
 
 export async function fetchPostsByHtml(page: number, tags: string | null) {
@@ -212,15 +212,16 @@ export async function fetchPostsByHtml(page: number, tags: string | null) {
   const doc = new DOMParser().parseFromString(await htmlResp.text(), 'text/html')
   const script = doc.querySelector<HTMLScriptElement>('form:has(select[name=locale]) + script')
 
-  let scriptText = script?.innerText.trim().replace(/Post\.register/g, 'Post_.register') || ''
-  const w = unsafeWindow as any
-  w.__Y_PostResults = []
-  scriptText = `globalThis.Post_ = { register_tags: () => {}, register: e => __Y_PostResults.push(e) };${scriptText}`
-  // eslint-disable-next-line no-eval
-  eval(scriptText)
+  const scriptText = script?.innerText.trim() || ''
+  let results: any[] = []
+  try {
+    results = scriptText.split('\n').slice(1).map(e => JSON.parse(e.match(/Post.register\((.*)\)/)?.[1] || '[]'))
+  } catch (err) {
+    console.log('err: ', err)
+  }
 
   const site = forSite(location.host)
-  const posts = w.__Y_PostResults.map((e: any) => new Post(e, site))
+  const posts = results.map((e: any) => new Post(e, site))
   return new SearchResults(posts, [], {}, site)
 }
 

@@ -1,3 +1,21 @@
+## v0.33.4
+
+- fix: yandere 瀑布流模式下与主页图片顺序一致
+- fix: 修复 anime-pictures 大图无法加载
+- fix: 修复 rule34.paheals 图片无法下载
+
+## v0.33.3
+
+- fix: rule34.paheal 通过解析 HTML 获取数据
+
+## v0.33.2
+
+- fix: 修复 sankaku idol 翻页问题
+
+## v0.33.1
+
+- fix: 修复 fancybox 无法使用
+
 ## v0.33.0
 
 - feat: 支持 e-shuushuu.net

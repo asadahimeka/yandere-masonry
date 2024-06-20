@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.33.3
+// @version              0.33.4
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -642,6 +642,9 @@ var __publicField = (obj, key, value) => {
   const gPt6cpWrkvqRqZnwJo1KV$3 = "\u5728\u56FE\u7247\u5361\u7247\u5DE6\u4E0A\u89D2\u663E\u793A\u52A0\u5165\u4E0B\u8F7D\u5217\u8868\u7684\u590D\u9009\u6846";
   const dvs63FvVKWm3uHVfqeq00$3 = "\u4F7F\u7528 Fancybox \u67E5\u770B\u8BE6\u60C5";
   const Tbq8O5KhwcDHQ_qxNFW09$3 = "\u5B9E\u9A8C\u6027";
+  const IxTawC_qs_xjxj5g8_aGx$3 = "yande.re \u9690\u85CF\u6302\u8D77\u7684\u56FE\u7247";
+  const YAUNSVT_pTygaY306DZmU$3 = "yande.re \u4E0D\u4F7F\u7528 API \u83B7\u53D6\u56FE\u7247\u5217\u8868";
+  const HkRzE7fweBSefchs0z0r8$3 = "\u76F4\u63A5\u89E3\u6790 HTML \u83B7\u53D6\u56FE\u7247\u6570\u636E";
   var zhHans = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$3,
     "ZtQHZx-pEjmu_o3dQD1fc": "\u793E\u56E2",
@@ -759,7 +762,11 @@ var __publicField = (obj, key, value) => {
     gPt6cpWrkvqRqZnwJo1KV: gPt6cpWrkvqRqZnwJo1KV$3,
     dvs63FvVKWm3uHVfqeq00: dvs63FvVKWm3uHVfqeq00$3,
     "w4uJjpTmSEkm6SIDgEo-0": "\u56FE\u7247\u8BE6\u60C5\u4F7F\u7528\u652F\u6301\u7F29\u653E\u65CB\u8F6C\u7B49\u64CD\u4F5C\u7684 Fancybox \u7EC4\u4EF6\u67E5\u770B",
-    Tbq8O5KhwcDHQ_qxNFW09: Tbq8O5KhwcDHQ_qxNFW09$3
+    Tbq8O5KhwcDHQ_qxNFW09: Tbq8O5KhwcDHQ_qxNFW09$3,
+    "-x4wjDoHtodaXEgm2SXkg": "\u8C03\u7528 API \u65F6\u4F1A\u9ED8\u8BA4\u4F20\u5165 `holds:false` \u6807\u7B7E",
+    IxTawC_qs_xjxj5g8_aGx: IxTawC_qs_xjxj5g8_aGx$3,
+    YAUNSVT_pTygaY306DZmU: YAUNSVT_pTygaY306DZmU$3,
+    HkRzE7fweBSefchs0z0r8: HkRzE7fweBSefchs0z0r8$3
   };
   const UxxldE9xRwmQctrvba5Y8$2 = "\u8A2D\u7F6E";
   const A16qoBulYQJLbHe9mqNwm$2 = "\u5305\u542B\u88F8\u9732\u3001\u6027\u611B\u63CF\u5BEB\u5167\u5BB9\u7B49\u904E\u6FC0\u5167\u5BB9";
@@ -833,6 +840,9 @@ var __publicField = (obj, key, value) => {
   const sxhTRqogDRozo9IaTGI7g$2 = "\u6E05\u55AE\u5716\u7247\u986F\u793A\u8907\u9078\u6846";
   const dvs63FvVKWm3uHVfqeq00$2 = "\u4F7F\u7528 Fancybox \u67E5\u770B\u8A73\u60C5";
   const Tbq8O5KhwcDHQ_qxNFW09$2 = "\u5BE6\u9A57\u6027";
+  const IxTawC_qs_xjxj5g8_aGx$2 = "yande.re \u96B1\u85CF\u639B\u8D77\u7684\u5716\u7247";
+  const YAUNSVT_pTygaY306DZmU$2 = "yande.re \u4E0D\u4F7F\u7528 API \u53D6\u5F97\u5716\u7247\u5217\u8868";
+  const HkRzE7fweBSefchs0z0r8$2 = "\u76F4\u63A5\u89E3\u6790 HTML \u53D6\u5F97\u5716\u7247\u6578\u64DA";
   var zhHant = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$2,
     "1F-R4qChHIzZaohu5GJzl": "\u5F62\u5982: &api_key=xx&user_id=1",
@@ -950,7 +960,11 @@ var __publicField = (obj, key, value) => {
     sxhTRqogDRozo9IaTGI7g: sxhTRqogDRozo9IaTGI7g$2,
     dvs63FvVKWm3uHVfqeq00: dvs63FvVKWm3uHVfqeq00$2,
     "w4uJjpTmSEkm6SIDgEo-0": "\u5716\u7247\u8A73\u60C5\u4F7F\u7528\u652F\u63F4\u7E2E\u653E\u65CB\u8F49\u7B49\u64CD\u4F5C\u7684 Fancybox \u7D44\u4EF6\u67E5\u770B",
-    Tbq8O5KhwcDHQ_qxNFW09: Tbq8O5KhwcDHQ_qxNFW09$2
+    Tbq8O5KhwcDHQ_qxNFW09: Tbq8O5KhwcDHQ_qxNFW09$2,
+    IxTawC_qs_xjxj5g8_aGx: IxTawC_qs_xjxj5g8_aGx$2,
+    "-x4wjDoHtodaXEgm2SXkg": "\u547C\u53EB API \u6642\u6703\u9810\u8A2D\u50B3\u5165 `holds:false` \u6A19\u7C64",
+    YAUNSVT_pTygaY306DZmU: YAUNSVT_pTygaY306DZmU$2,
+    HkRzE7fweBSefchs0z0r8: HkRzE7fweBSefchs0z0r8$2
   };
   const UxxldE9xRwmQctrvba5Y8$1 = "Settings";
   const A16qoBulYQJLbHe9mqNwm$1 = "Contains excessive content such as nudity and sexual descriptions";
@@ -1025,6 +1039,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const sxhTRqogDRozo9IaTGI7g$1 = "Show checkbox in list image card";
   const dvs63FvVKWm3uHVfqeq00$1 = "Use Fancybox to view details";
   const Tbq8O5KhwcDHQ_qxNFW09$1 = "Experimental";
+  const IxTawC_qs_xjxj5g8_aGx$1 = "yande.re hide held posts";
+  const YAUNSVT_pTygaY306DZmU$1 = "yande.re does not use API to get image list";
+  const HkRzE7fweBSefchs0z0r8$1 = "Directly parsing HTML to obtain image data";
   var en = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$1,
     "1F-R4qChHIzZaohu5GJzl": "e.g: &api_key=xx&user_id=1",
@@ -1142,7 +1159,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     sxhTRqogDRozo9IaTGI7g: sxhTRqogDRozo9IaTGI7g$1,
     dvs63FvVKWm3uHVfqeq00: dvs63FvVKWm3uHVfqeq00$1,
     "w4uJjpTmSEkm6SIDgEo-0": "Using Fancybox that supports zooming/rotation/so on to view details.",
-    Tbq8O5KhwcDHQ_qxNFW09: Tbq8O5KhwcDHQ_qxNFW09$1
+    Tbq8O5KhwcDHQ_qxNFW09: Tbq8O5KhwcDHQ_qxNFW09$1,
+    IxTawC_qs_xjxj5g8_aGx: IxTawC_qs_xjxj5g8_aGx$1,
+    "-x4wjDoHtodaXEgm2SXkg": "When calling the API, the `holds:false` tag will be passed in by default.",
+    YAUNSVT_pTygaY306DZmU: YAUNSVT_pTygaY306DZmU$1,
+    HkRzE7fweBSefchs0z0r8: HkRzE7fweBSefchs0z0r8$1
   };
   const UxxldE9xRwmQctrvba5Y8 = "\u8A2D\u5B9A";
   const A16qoBulYQJLbHe9mqNwm = "\u30CC\u30FC\u30C9\u3084\u6027\u7684\u63CF\u5199\u306A\u3069\u306E\u904E\u5EA6\u306A\u5185\u5BB9\u304C\u542B\u307E\u308C\u3066\u3044\u308B\u3082\u306E";
@@ -1216,6 +1237,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const sxhTRqogDRozo9IaTGI7g = "\u6295\u7A3F\u30EA\u30B9\u30C8\u306B\u753B\u50CF\u30C1\u30A7\u30C3\u30AF\u30DC\u30C3\u30AF\u30B9\u3092\u8868\u793A\u3059\u308B";
   const dvs63FvVKWm3uHVfqeq00 = "Fancybox \u3092\u4F7F\u7528\u3057\u3066\u8A73\u7D30\u3092\u8868\u793A\u3059\u308B";
   const Tbq8O5KhwcDHQ_qxNFW09 = "\u5B9F\u9A13\u7684";
+  const IxTawC_qs_xjxj5g8_aGx = "yande.re \u4FDD\u7559\u4E2D\u306E\u753B\u50CF\u3092\u975E\u8868\u793A\u306B\u3059\u308B";
+  const YAUNSVT_pTygaY306DZmU = "yande.re \u306F\u753B\u50CF\u30EA\u30B9\u30C8\u306E\u53D6\u5F97\u306B API \u3092\u4F7F\u7528\u3057\u307E\u305B\u3093";
+  const HkRzE7fweBSefchs0z0r8 = "HTML \u3092\u76F4\u63A5\u89E3\u6790\u3057\u3066\u753B\u50CF\u30C7\u30FC\u30BF\u3092\u53D6\u5F97\u3059\u308B";
   var ja = {
     UxxldE9xRwmQctrvba5Y8,
     "1F-R4qChHIzZaohu5GJzl": "\u4F8B\uFF1A&api_key=xx&user_id=1",
@@ -1333,7 +1357,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     sxhTRqogDRozo9IaTGI7g,
     dvs63FvVKWm3uHVfqeq00,
     "w4uJjpTmSEkm6SIDgEo-0": "\u753B\u50CF\u306E\u8A73\u7D30\u306F\u3001\u30BA\u30FC\u30E0\u3084\u56DE\u8EE2\u306A\u3069\u306E\u64CD\u4F5C\u3092\u30B5\u30DD\u30FC\u30C8\u3059\u308B Fancybox \u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u3092\u4F7F\u7528\u3057\u3066\u8868\u793A\u3067\u304D\u307E\u3059\u3002",
-    Tbq8O5KhwcDHQ_qxNFW09
+    Tbq8O5KhwcDHQ_qxNFW09,
+    IxTawC_qs_xjxj5g8_aGx,
+    "-x4wjDoHtodaXEgm2SXkg": "API \u3092\u547C\u3073\u51FA\u3059\u3068\u3001\u30C7\u30D5\u30A9\u30EB\u30C8\u3067 `holds:false` \u30BF\u30B0\u304C\u6E21\u3055\u308C\u307E\u3059\u3002",
+    YAUNSVT_pTygaY306DZmU,
+    HkRzE7fweBSefchs0z0r8
   };
   Vue__default["default"].use(VueI18n__default["default"]);
   const langMap = {
@@ -1390,7 +1418,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       credentialQuery: localStorage.getItem("__credentialQuery") || "",
       isThumbSampleUrl: !!localStorage.getItem("__thumbSampleUrl"),
       showPostCheckbox: !!localStorage.getItem("__showPostCheckbox"),
-      useFancybox: !!localStorage.getItem("__useFancybox")
+      useFancybox: !!localStorage.getItem("__useFancybox"),
+      isHoldsFalse: !!localStorage.getItem("__isHoldsFalse"),
+      isYandereFetchByHtml: !!localStorage.getItem("__isYandereFetchByHtml")
     },
     toggleDrawer() {
       store.showDrawer = !store.showDrawer;
@@ -4655,6 +4685,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   }
   const isSubpathDL = Boolean(localStorage.getItem("__dl_subpath_on"));
   function downloadFile(url, name, options) {
+    if (!/\.\w+$/.test(name))
+      name += `.${url.split(".").pop()}`;
     if (isSubpathDL)
       name = `${location.hostname}/${name}`;
     return new Promise((resolve, reject) => {
@@ -4821,7 +4853,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           tagsTip: {
             tpl: '<button class="f-button"><svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4436" width="32" height="32"><path d="M483.2 790.3L861.4 412c1.7-1.7 2.5-4 2.3-6.3l-25.5-301.4c-0.7-7.8-6.8-13.9-14.6-14.6L522.2 64.3c-2.3-0.2-4.7 0.6-6.3 2.3L137.7 444.8c-3.1 3.1-3.1 8.2 0 11.3l334.2 334.2c3.1 3.2 8.2 3.2 11.3 0z m62.6-651.7l224.6 19 19 224.6L477.5 694 233.9 450.5l311.9-311.9z" p-id="4437" fill="#fff"></path><path d="M605.958852 324.826232a48 48 0 1 0 67.881066-67.883435 48 48 0 1 0-67.881066 67.883435Z" p-id="4438" fill="#fff"></path><path d="M889.7 539.8l-39.6-39.5c-3.1-3.1-8.2-3.1-11.3 0l-362 361.3-237.6-237c-3.1-3.1-8.2-3.1-11.3 0l-39.6 39.5c-3.1 3.1-3.1 8.2 0 11.3l243.2 242.8 39.6 39.5c3.1 3.1 8.2 3.1 11.3 0l407.3-406.6c3.1-3.1 3.1-8.2 0-11.3z" fill="#fff"></path></svg></path></svg></button>',
             click: () => {
-              document.querySelectorAll(".fancybox__caption ").forEach((e) => {
+              document.querySelectorAll(".fancybox__caption").forEach((e) => {
                 const { display } = e.style;
                 e.style.display = !display || display == "none" ? "block" : "none";
               });
@@ -5878,7 +5910,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         height: e.height,
         aspectRatio: e.width / e.height,
         fileExt,
-        fileDownloadName: `sankaku ${e.id} ${e.tags.join(" ")}`,
+        fileDownloadName: `sankaku ${e.id} ${e.tags.join(" ")}.${fileExt}`,
         fileDownloadText: `${e.width}\xD7${e.height} [${(e.file_size / 1e3).toFixed(0)} kB] ${fileExt.toUpperCase()}`,
         rating: e.rating,
         createdAt: e.created_at.s * 1e3
@@ -5904,17 +5936,19 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const resp = await fetch(url.href);
     const json = await resp.json();
     return json.posts.map((e) => {
+      const fileExt = e.ext.slice(1);
       return {
         id: e.id,
         postView: `https://anime-pictures.net/posts/${e.id}`,
-        previewUrl: `https://opreviews.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}_cp.jpg.avif`,
-        fileUrl: `https://oimages.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}${e.ext}`,
+        previewUrl: `https://opreviews.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}_cp.${e.have_alpha ? "png" : "jpg"}.avif`,
+        sampleUrl: `https://opreviews.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}_bp.${e.have_alpha ? "png" : "jpg"}.avif`,
+        fileUrl: "",
         tags: [],
         width: e.width,
         height: e.height,
         aspectRatio: e.width / e.height,
-        fileExt: e.ext.slice(1),
-        fileDownloadName: `anime-pictures_${e.id}_${e.width}\xD7${e.height}`,
+        fileExt,
+        fileDownloadName: `anime-pictures_${e.id}_${e.width}\xD7${e.height}.${fileExt}`,
         fileDownloadText: `${e.width}\xD7${e.height} [${(e.size / 1024 / 1024).toFixed(2)} MB] ${e.ext.slice(1).toUpperCase()}`,
         rating: e.erotics == 0 ? "s" : "q",
         createdAt: new Date(`${e.pubtime.replace(" ", "T")}Z`)
@@ -5925,17 +5959,19 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     try {
       const resp = await fetch(`https://api.anime-pictures.net/api/v3/posts/${id}`);
       const json = await resp.json();
-      return { tags: json.tags.map((t) => `${t.tag.tag}${t.tag.tag_jp ? `[${t.tag.tag_jp}]` : ""}`) };
+      return {
+        tags: json.tags.map((t) => `${t.tag.tag}${t.tag.tag_jp ? `[${t.tag.tag_jp}]` : ""}`),
+        fileUrl: `https://api.anime-pictures.net/pictures/get_image/${json.file_url}`
+      };
     } catch (error) {
-      return { tags: [] };
+      return { tags: [], fileUrl: "" };
     }
   }
-  const blackList = /* @__PURE__ */ new Set(["rule34.paheal.net", "e621.net", "e926.net", "hypnohub.net", "derpibooru.org"]);
+  const blackList = /* @__PURE__ */ new Set(["e621.net", "e926.net", "hypnohub.net", "derpibooru.org"]);
   const siteKeys = Object.keys(sites).filter((e) => !blackList.has(e));
   const isBooruSite = () => siteKeys.includes(location.host);
   const siteDomains = [
     ...siteKeys,
-    "rule34.paheal.net",
     "e-shuushuu.net",
     "zerochan.net",
     "chan.sankakucomplex.com",
@@ -6134,7 +6170,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
             height: e.height,
             aspectRatio: e.width / e.height,
             fileExt: e.type,
-            fileDownloadName: `NOZOMI ${e.postid} ${e.tags.join(" ")}`,
+            fileDownloadName: `NOZOMI ${e.postid} ${e.tags.join(" ")}.${e.type}`,
             rating: ""
           })));
         }
@@ -6446,6 +6482,30 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     return results;
   }
+  function isYandereHtml() {
+    return location.hostname == "yande.re" && location.pathname == "/post" && store.settings.isYandereFetchByHtml;
+  }
+  async function fetchPostsByHtml(page, tags) {
+    const url = new URL(location.href);
+    url.searchParams.set("page", `${page}`);
+    tags && url.searchParams.set("tags", tags);
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const script = doc.querySelector("form:has(select[name=locale]) + script");
+    const scriptText = (script == null ? void 0 : script.innerText.trim()) || "";
+    let results = [];
+    try {
+      results = scriptText.split("\n").slice(1).map((e) => {
+        var _a2;
+        return JSON.parse(((_a2 = e.match(/Post.register\((.*)\)/)) == null ? void 0 : _a2[1]) || "[]");
+      });
+    } catch (err) {
+      console.log("err: ", err);
+    }
+    const site = booruForSite(location.host);
+    const posts = results.map((e) => new Post(e, site));
+    return new SearchResults(posts, [], {}, site);
+  }
   function isGelbooruFavPage() {
     return /gelbooru\.com\/index\.php\?page\=favorites\&s\=view/.test(location.href);
   }
@@ -6517,7 +6577,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         height: Number(height),
         aspectRatio: Number(width) / Number(height),
         fileExt,
-        fileDownloadName: `e-shuushuu ${id} ${tags.join(" ")}`,
+        fileDownloadName: `e-shuushuu ${id} ${tags.join(" ")}.${fileExt}`,
         fileDownloadText: `${width}\xD7${height} [${(_g = el.querySelector(".meta dl dd:nth-child(6)")) == null ? void 0 : _g.innerText.replace(/[\t\n]/g, "")}] ${fileExt == null ? void 0 : fileExt.toUpperCase()}`,
         rating: "",
         createdAt: date && parse(date, "MMMM do, yyyy h:mm a", new Date())
@@ -6587,7 +6647,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         height: e.height,
         aspectRatio: e.width / e.height,
         fileExt,
-        fileDownloadName: `sankaku-ai-post ${e.id} ${e.tags.join(" ")}`,
+        fileDownloadName: `sankaku-ai-post ${e.id} ${e.tags.join(" ")}.${fileExt}`,
         fileDownloadText: `${e.width}\xD7${e.height} [${(e.file_size / 1e3).toFixed(0)} kB] ${fileExt.toUpperCase()}`,
         rating: e.rating,
         createdAt: e.created_at.s * 1e3
@@ -6823,7 +6883,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const fileExt = el.getAttribute("data-ext");
       const tags2 = ((_a2 = el.getAttribute("data-tags")) == null ? void 0 : _a2.split(/\s/).filter(Boolean)) || [];
       const img = el.querySelector("img");
-      const [_, width, height] = (img == null ? void 0 : img.title.match(/\s+(\d+)x(\d+)\s+\/\//)) || [];
+      const [_, width, height] = (img == null ? void 0 : img.title.match(/\s+(\d+)x(\d+)[,\s]+/)) || [];
       const [__, size] = (img == null ? void 0 : img.title.match(/\s+\d+x\d+\s+\/\/\s+([\w\.]+)/)) || [];
       const date = img == null ? void 0 : img.title.split("\n").pop();
       return {
@@ -6836,7 +6896,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         height: Number(height),
         aspectRatio: Number(width) / Number(height),
         fileExt,
-        fileDownloadName: `Rule34.Paheal ${id} ${tags2.join(" ")}`,
+        fileDownloadName: `Rule34.Paheal ${id} ${tags2.join(" ")}.${fileExt}`,
         fileDownloadText: `${width}\xD7${height} [${size}] ${fileExt == null ? void 0 : fileExt.toUpperCase()}`,
         rating: "e",
         createdAt: date && parse(`${date} +00`, "MMMM do, yyyy; HH:mm x", new Date())
@@ -6869,6 +6929,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }
     },
     {
+      test: isYandereHtml,
+      action: async () => {
+        const results = await fetchPostsByHtml(query.page, query.tags);
+        return dealBlacklist(results);
+      }
+    },
+    {
       test: isGelbooruFavPage,
       action: async () => {
         const results = await fetchGelbooruFavorites(query.page);
@@ -6892,7 +6959,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     {
       test: isBooruSite,
       action: async () => {
-        const results = await searchBooru(query.page, query.tags);
+        let { tags } = query;
+        if (store.settings.isHoldsFalse)
+          tags = `holds:false ${tags || ""}`.trim();
+        const results = await searchBooru(query.page, tags);
         return dealBlacklist(results);
       }
     },
@@ -7529,6 +7599,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     __name: "SettingsDrawer",
     setup(__props) {
       const isBoorus = Vue2.ref(isBooruSite());
+      const isYandere = Vue2.ref(location.hostname == "yande.re");
       const onComboboxChange = (val) => {
         localStorage.setItem("__blacklist", val.join(","));
       };
@@ -7581,6 +7652,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       };
       const onUseFancyboxChange = (val) => {
         localStorage.setItem("__useFancybox", val ? "1" : "");
+      };
+      const onHoldsFalseChange = (val) => {
+        localStorage.setItem("__isHoldsFalse", val ? "1" : "");
+        location.reload();
+      };
+      const onYandreFetchByHtmlChange = (val) => {
+        localStorage.setItem("__isYandereFetchByHtml", val ? "1" : "");
+        location.reload();
       };
       const isFitScreen = Vue2.ref(localStorage.getItem("__fitScreen") != "0");
       const onFitScreenChange = (val) => {
@@ -7670,7 +7749,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         i18n.locale = val;
         localStorage.setItem("__LANG", val);
       };
-      return { __sfc: true, isBoorus, onComboboxChange, removeTagFromBlacklist, exportBlacklist, importBlacklist, nsfwValue, setNSFWShow, onNSFWSwitchChange, onWheelSwitchChange, onKeyupSwitchChange, onImgPreloadChange, onThumbSampleUrlChange, onShowPostCheckboxChange, onUseFancyboxChange, isFitScreen, onFitScreenChange, isAutoWfMode, onAutoWfModeChange, dlSubLoading, showDLConfirm, isDLSubpath, setDLSubpathOn, onDLSubpathChange, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onCredentialQueryChange, onPreloadNumBlur, colList, cols, actCol, selColumn, currentLang, langList, currentLanglabel, selectLang, mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, store, notPartialSupportSite };
+      return { __sfc: true, isBoorus, isYandere, onComboboxChange, removeTagFromBlacklist, exportBlacklist, importBlacklist, nsfwValue, setNSFWShow, onNSFWSwitchChange, onWheelSwitchChange, onKeyupSwitchChange, onImgPreloadChange, onThumbSampleUrlChange, onShowPostCheckboxChange, onUseFancyboxChange, onHoldsFalseChange, onYandreFetchByHtmlChange, isFitScreen, onFitScreenChange, isAutoWfMode, onAutoWfModeChange, dlSubLoading, showDLConfirm, isDLSubpath, setDLSubpathOn, onDLSubpathChange, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onCredentialQueryChange, onPreloadNumBlur, colList, cols, actCol, selColumn, currentLang, langList, currentLanglabel, selectLang, mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, store, notPartialSupportSite };
     }
   });
   var _sfc_render$7 = function render() {
@@ -7737,7 +7816,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       _vm.$set(_setup.store.settings, "showPostCheckbox", $$v);
     }, expression: "store.settings.showPostCheckbox" } })], 1)], 1) : _vm._e(), _setup.isBoorus ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("dvs63FvVKWm3uHVfqeq00")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("w4uJjpTmSEkm6SIDgEo-0") } }, [_vm._v(_vm._s(_vm.$t("Tbq8O5KhwcDHQ_qxNFW09")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onUseFancyboxChange }, model: { value: _setup.store.settings.useFancybox, callback: function($$v) {
       _vm.$set(_setup.store.settings, "useFancybox", $$v);
-    }, expression: "store.settings.useFancybox" } })], 1)], 1) : _vm._e()], 2), _c2("v-dialog", { attrs: { "max-width": "600" }, model: { value: _setup.showDLConfirm, callback: function($$v) {
+    }, expression: "store.settings.useFancybox" } })], 1)], 1) : _vm._e(), _setup.isYandere ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("IxTawC_qs_xjxj5g8_aGx")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("-x4wjDoHtodaXEgm2SXkg") } }, [_vm._v(_vm._s(_vm.$t("-x4wjDoHtodaXEgm2SXkg")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "", "disabled": _setup.store.settings.isYandereFetchByHtml }, on: { "change": _setup.onHoldsFalseChange }, model: { value: _setup.store.settings.isHoldsFalse, callback: function($$v) {
+      _vm.$set(_setup.store.settings, "isHoldsFalse", $$v);
+    }, expression: "store.settings.isHoldsFalse" } })], 1)], 1) : _vm._e(), _setup.isYandere ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("YAUNSVT_pTygaY306DZmU")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("HkRzE7fweBSefchs0z0r8") } }, [_vm._v(_vm._s(_vm.$t("HkRzE7fweBSefchs0z0r8")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "", "disabled": _setup.store.settings.isHoldsFalse }, on: { "change": _setup.onYandreFetchByHtmlChange }, model: { value: _setup.store.settings.isYandereFetchByHtml, callback: function($$v) {
+      _vm.$set(_setup.store.settings, "isYandereFetchByHtml", $$v);
+    }, expression: "store.settings.isYandereFetchByHtml" } })], 1)], 1) : _vm._e()], 2), _c2("v-dialog", { attrs: { "max-width": "600" }, model: { value: _setup.showDLConfirm, callback: function($$v) {
       _setup.showDLConfirm = $$v;
     }, expression: "showDLConfirm" } }, [_c2("v-card", [_c2("v-card-title", { staticClass: "text-h5" }, [_vm._v(_vm._s(_vm.$t("ti3akdSS3iZV9NsGzIo3m")))]), _c2("v-card-text", [_vm._v(" " + _vm._s(_vm.$t("LN_Rsic4V50DrXbsv9T9L"))), _c2("br"), _vm._v(" " + _vm._s(_vm.$t("OJ8X55GXx5k3peoSXSujf"))), _c2("br"), _vm._v(" " + _vm._s(_vm.$t("ujBgilCWNgFNV8Q2IDMWS")) + " ")]), _c2("v-card-actions", [_c2("v-spacer"), _c2("v-btn", { attrs: { "text": "" }, on: { "click": function($event) {
       return _setup.setDLSubpathOn("");
@@ -7858,16 +7941,19 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         showTagChipGroup.value = !showTagChipGroup.value;
         localStorage.setItem("__showTags", showTagChipGroup.value ? "1" : "");
       };
-      const refererPolicy = Vue2.computed(() => /nozomi\.la|behoimi\.org/.test(location.host) ? "origin" : "no-referrer");
+      const refererPolicy = Vue2.computed(() => /anime-pictures\.net|nozomi\.la|behoimi\.org/.test(location.host) ? "origin" : "no-referrer");
       const imageSelected = Vue2.computed(() => {
         var _a2;
         return (_a2 = store.imageList[store.imageSelectedIndex]) != null ? _a2 : {};
       });
       const isVideo = Vue2.computed(() => [".mp4", ".webm"].some((e) => {
-        const { fileUrl } = imageSelected.value;
+        const { fileUrl, fileExt } = imageSelected.value;
         if (!fileUrl)
           return false;
         try {
+          if (["mp4", "webm"].includes(fileExt)) {
+            return true;
+          }
           const url = new URL(fileUrl);
           return url.pathname.endsWith(e);
         } catch (_error) {
@@ -7942,7 +8028,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         }
         try {
           downloading.value = true;
-          await downloadFile(url, `${name}.${url.split(".").pop()}`);
+          await downloadFile(url, name);
           downloading.value = false;
         } catch (error) {
           downloading.value = false;
@@ -7983,9 +8069,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           return;
         }
         if (isAnimePicturesPage()) {
-          const { tags } = await getAnimePicturesDetail(imageSelected.value.id);
+          const { tags, fileUrl } = await getAnimePicturesDetail(imageSelected.value.id);
           if (tags == null ? void 0 : tags.length)
             imageSelected.value.tags = tags;
+          if (fileUrl)
+            imageSelected.value.fileUrl = fileUrl;
         }
         if (isSankakuIdolPage()) {
           const { sampleUrl, fileUrl } = await getSankakuIdolDetail(imageSelected.value.id);
@@ -8295,10 +8383,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return _setup.addFavorite.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.postDetail.voted ? _setup.mdiHeart : _setup.mdiHeartPlusOutline))])], 1)];
     } }], null, false, 1566492844) }, [_c2("span", [_vm._v(_vm._s(_setup.postDetail.voted ? _vm.$t("pEU9Y9K7DsODkocCDwq_O") : _vm.$t("2ZPEAvLkCbV3mC0iJAw9K")))])]) : _vm._e(), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
-        $event.stopPropagation();
-        return _setup.toDetailPage.apply(null, arguments);
-      } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1)];
+      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "", "href": _setup.imageSelected.postView, "target": "_blank", "rel": "noreferrer" } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1)];
     } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("caFFJlrS1wa_F86uKPykd")))])]), _setup.imageSelected.sourceUrl ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
@@ -8454,7 +8539,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           fileDownloadName = `${location.hostname} ${img.id} ${img.tags.join(" ")}`;
         }
         try {
-          await downloadFile(fileUrl, `${fileDownloadName}.${fileUrl.split(".").pop()}`);
+          await downloadFile(fileUrl, fileDownloadName);
         } catch (error) {
           showMsg({ msg: `${i18n.t("FAqj5ONm50QMfIt9Vq2p1")}: ${error}`, type: "error" });
         }
@@ -8502,10 +8587,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return _setup.showImgModal(index);
       }, "error": _setup.onImageLoadError } }), _setup.store.isYKSite ? [((_a2 = item == null ? void 0 : item.data) == null ? void 0 : _a2.has_children) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), ((_b2 = item == null ? void 0 : item.data) == null ? void 0 : _b2.parent_id) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), (item == null ? void 0 : item.fileExt.toLowerCase()) === "gif" ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(item == null ? void 0 : item.fileExt.toLowerCase()) ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav && _setup.store.settings.showPostCheckbox ? _c2("div", { staticClass: "posts-image-checkbox" }, [_c2("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.store.selectedImageList.some((e) => e.id === item.id), "hide-details": "" }, on: { "change": function($event) {
         return _setup.onPostCheckboxChange($event, item);
-      } } })], 1) : _vm._e(), !_setup.isR34Fav ? _c2("div", { staticClass: "posts-image-actions" }, [_c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4") }, on: { "click": function($event) {
-        $event.stopPropagation();
-        return _setup.openDetail(item);
-      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
+      } } })], 1) : _vm._e(), !_setup.isR34Fav ? _c2("div", { staticClass: "posts-image-actions" }, [_c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4"), "href": item.postView, "target": "_blank", "rel": "noreferrer" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addToSelectedList(item);
       } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiPlaylistPlus))])], 1), _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("VpuyxZtIoDF9-YyOm0tK_") }, on: { "click": function($event) {
@@ -8515,7 +8597,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         $event.stopPropagation();
         return _setup.addFavorite(item.id);
       } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHeartPlusOutline))])], 1) : _vm._e()], 1) : _vm._e()], 2)];
-    } }], null, false, 788633840) }) : _c2("wf-layout", _vm._l(_setup.store.imageList, function(image, index) {
+    } }], null, false, 3218124253) }) : _c2("wf-layout", _vm._l(_setup.store.imageList, function(image, index) {
       var _a2, _b2;
       return _c2("v-card", { key: index, staticClass: "posts-image-card", style: _setup.store.settings.masonryLayout === "flexbin" ? `--w:${image.width};--h:${image.height}` : _setup.maxHeightStyle }, [_setup.store.settings.masonryLayout === "flexbin" ? [_c2("img", { staticClass: "post-image", attrs: { "alt": "", "loading": "lazy", "src": _setup.getImgSrc(image), "role": "button", "tabindex": "0" }, on: { "click": function($event) {
         return _setup.showImgModal(index);
@@ -8531,10 +8613,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return [_c2("v-row", { staticClass: "fill-height ma-0", attrs: { "align": "center", "justify": "center" } }, [_c2("v-progress-circular", { attrs: { "indeterminate": "", "color": "deep-purple" } })], 1)];
       }, proxy: true }], null, true) }), _setup.store.isYKSite ? [((_a2 = image == null ? void 0 : image.data) == null ? void 0 : _a2.has_children) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), ((_b2 = image == null ? void 0 : image.data) == null ? void 0 : _b2.parent_id) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), (image == null ? void 0 : image.fileExt.toLowerCase()) === "gif" ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(image == null ? void 0 : image.fileExt.toLowerCase()) ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav && _setup.store.settings.showPostCheckbox ? _c2("div", { staticClass: "posts-image-checkbox" }, [_c2("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.store.selectedImageList.some((e) => e.id === image.id), "hide-details": "" }, on: { "change": function($event) {
         return _setup.onPostCheckboxChange($event, image);
-      } } })], 1) : _vm._e(), !_setup.isR34Fav ? _c2("div", { staticClass: "posts-image-actions" }, [_c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4") }, on: { "click": function($event) {
-        $event.stopPropagation();
-        return _setup.openDetail(image);
-      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _setup.notPartialSupportSite ? _c2("v-btn", { staticClass: "hidden-md-and-down", attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
+      } } })], 1) : _vm._e(), !_setup.isR34Fav ? _c2("div", { staticClass: "posts-image-actions" }, [_c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4"), "href": image.postView, "target": "_blank", "rel": "noreferrer" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _setup.notPartialSupportSite ? _c2("v-btn", { staticClass: "hidden-md-and-down", attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addToSelectedList(image);
       } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiPlaylistPlus))])], 1) : _vm._e(), _setup.notPartialSupportSite ? _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("VpuyxZtIoDF9-YyOm0tK_") }, on: { "click": function($event) {
