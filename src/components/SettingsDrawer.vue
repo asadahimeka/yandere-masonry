@@ -306,6 +306,34 @@
           />
         </v-list-item-action>
       </v-list-item>
+      <v-list-item v-if="isYandere">
+        <v-list-item-content>
+          <v-list-item-title>{{ $t('IxTawC_qs_xjxj5g8_aGx') }}</v-list-item-title>
+          <v-list-item-subtitle :title="$t('-x4wjDoHtodaXEgm2SXkg')">{{ $t('-x4wjDoHtodaXEgm2SXkg') }}</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-switch
+            v-model="store.settings.isHoldsFalse"
+            inset
+            :disabled="store.settings.isYandereFetchByHtml"
+            @change="onHoldsFalseChange"
+          />
+        </v-list-item-action>
+      </v-list-item>
+      <v-list-item v-if="isYandere">
+        <v-list-item-content>
+          <v-list-item-title>{{ $t('YAUNSVT_pTygaY306DZmU') }}</v-list-item-title>
+          <v-list-item-subtitle :title="$t('HkRzE7fweBSefchs0z0r8')">{{ $t('HkRzE7fweBSefchs0z0r8') }}</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-switch
+            v-model="store.settings.isYandereFetchByHtml"
+            inset
+            :disabled="store.settings.isHoldsFalse"
+            @change="onYandreFetchByHtmlChange"
+          />
+        </v-list-item-action>
+      </v-list-item>
     </v-list>
     <v-dialog v-model="showDLConfirm" max-width="600">
       <v-card>
@@ -334,6 +362,7 @@ import { showMsg } from '@/utils'
 import { isBooruSite, notPartialSupportSite } from '@/api/booru'
 
 const isBoorus = ref(isBooruSite())
+const isYandere = ref(location.hostname == 'yande.re')
 
 const onComboboxChange = (val: string[]) => {
   localStorage.setItem('__blacklist', val.join(','))
@@ -405,6 +434,16 @@ const onShowPostCheckboxChange = (val: any) => {
 
 const onUseFancyboxChange = (val: any) => {
   localStorage.setItem('__useFancybox', val ? '1' : '')
+}
+
+const onHoldsFalseChange = (val: any) => {
+  localStorage.setItem('__isHoldsFalse', val ? '1' : '')
+  location.reload()
+}
+
+const onYandreFetchByHtmlChange = (val: any) => {
+  localStorage.setItem('__isYandereFetchByHtml', val ? '1' : '')
+  location.reload()
 }
 
 const isFitScreen = ref(localStorage.getItem('__fitScreen') != '0')

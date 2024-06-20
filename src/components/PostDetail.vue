@@ -210,8 +210,10 @@
             small
             v-bind="attrs"
             class="mr-1"
+            :href="imageSelected.postView"
+            target="_blank"
+            rel="noreferrer"
             v-on="on"
-            @click.stop="toDetailPage"
           >
             <v-icon>{{ mdiLinkVariant }}</v-icon>
           </v-btn>

@@ -53,7 +53,7 @@
             <v-checkbox class="ma-0 pa-0" :value="store.selectedImageList.some(e => e.id === item.id)" hide-details @change="onPostCheckboxChange($event, item)" />
           </div>
           <div v-if="!isR34Fav" class="posts-image-actions">
-            <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" @click.stop="openDetail(item)">
+            <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" :href="item.postView" target="_blank" rel="noreferrer">
               <v-icon>{{ mdiLinkVariant }}</v-icon>
             </v-btn>
             <v-btn icon color="#fff" :title="$t('hVmfDxXoj8vkgVQabEOSr')" @click.stop="addToSelectedList(item)">
@@ -138,7 +138,7 @@
           <v-checkbox class="ma-0 pa-0" :value="store.selectedImageList.some(e => e.id === image.id)" hide-details @change="onPostCheckboxChange($event, image)" />
         </div>
         <div v-if="!isR34Fav" class="posts-image-actions">
-          <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" @click.stop="openDetail(image)">
+          <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" :href="image.postView" target="_blank" rel="noreferrer">
             <v-icon>{{ mdiLinkVariant }}</v-icon>
           </v-btn>
           <v-btn v-if="notPartialSupportSite" class="hidden-md-and-down" icon color="#fff" :title="$t('hVmfDxXoj8vkgVQabEOSr')" @click.stop="addToSelectedList(image)">

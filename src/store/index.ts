@@ -14,6 +14,8 @@ interface AppSettings {
   isThumbSampleUrl: boolean
   showPostCheckbox: boolean
   useFancybox: boolean
+  isHoldsFalse: boolean
+  isYandereFetchByHtml: boolean
 }
 
 interface AppState {
@@ -74,6 +76,8 @@ const store = Vue.observable<AppState>({
     isThumbSampleUrl: !!localStorage.getItem('__thumbSampleUrl'),
     showPostCheckbox: !!localStorage.getItem('__showPostCheckbox'),
     useFancybox: !!localStorage.getItem('__useFancybox'),
+    isHoldsFalse: !!localStorage.getItem('__isHoldsFalse'),
+    isYandereFetchByHtml: !!localStorage.getItem('__isYandereFetchByHtml'),
   },
   toggleDrawer() {
     store.showDrawer = !store.showDrawer

@@ -115,5 +115,9 @@
   "sxhTRqogDRozo9IaTGI7g": "Show checkbox in list image card",
   "dvs63FvVKWm3uHVfqeq00": "Use Fancybox to view details",
   "w4uJjpTmSEkm6SIDgEo-0": "Using Fancybox that supports zooming/rotation/so on to view details.",
-  "Tbq8O5KhwcDHQ_qxNFW09": "Experimental"
+  "Tbq8O5KhwcDHQ_qxNFW09": "Experimental",
+  "IxTawC_qs_xjxj5g8_aGx": "yande.re hide held posts",
+  "-x4wjDoHtodaXEgm2SXkg": "When calling the API, the `holds:false` tag will be passed in by default.",
+  "YAUNSVT_pTygaY306DZmU": "yande.re does not use API to get image list",
+  "HkRzE7fweBSefchs0z0r8": "Directly parsing HTML to obtain image data"
 }

@@ -115,5 +115,9 @@
   "gPt6cpWrkvqRqZnwJo1KV": "在图片卡片左上角显示加入下载列表的复选框",
   "dvs63FvVKWm3uHVfqeq00": "使用 Fancybox 查看详情",
   "w4uJjpTmSEkm6SIDgEo-0": "图片详情使用支持缩放旋转等操作的 Fancybox 组件查看",
-  "Tbq8O5KhwcDHQ_qxNFW09": "实验性"
+  "Tbq8O5KhwcDHQ_qxNFW09": "实验性",
+  "-x4wjDoHtodaXEgm2SXkg": "调用 API 时会默认传入 `holds:false` 标签",
+  "IxTawC_qs_xjxj5g8_aGx": "yande.re 隐藏挂起的图片",
+  "YAUNSVT_pTygaY306DZmU": "yande.re 不使用 API 获取图片列表",
+  "HkRzE7fweBSefchs0z0r8": "直接解析 HTML 获取图片数据"
 }

@@ -1,6 +1,7 @@
 import { Post, SearchResults, forSite } from '@himeka/booru'
 import { formatDate, showMsg } from '../utils'
 import i18n from '@/utils/i18n'
+import store from '@/store'
 
 function getYandereUserId() {
   const match = document.cookie.match(/user_id=(\d+)/)
@@ -198,3 +199,60 @@ export async function fetchPools(page: number, query?: string): Promise<Pool[]> 
   }
   return results
 }
+
+export function isYandereHtml() {
+  return location.hostname == 'yande.re' && store.settings.isYandereFetchByHtml
+}
+
+export async function fetchPostsByHtml(page: number, tags: string | null) {
+  const url = new URL(location.href)
+  url.searchParams.set('page', `${page}`)
+  tags && url.searchParams.set('tags', tags)
+  const htmlResp = await fetch(url.href)
+  const doc = new DOMParser().parseFromString(await htmlResp.text(), 'text/html')
+  const script = doc.querySelector<HTMLScriptElement>('form:has(select[name=locale]) + script')
+
+  let scriptText = script?.innerText.trim().replace(/Post\.register/g, 'Post_.register') || ''
+  const w = unsafeWindow as any
+  w.__Y_PostResults = []
+  scriptText = `globalThis.Post_ = { register_tags: () => {}, register: e => __Y_PostResults.push(e) };${scriptText}`
+  // eslint-disable-next-line no-eval
+  eval(scriptText)
+
+  const site = forSite(location.host)
+  const posts = w.__Y_PostResults.map((e: any) => new Post(e, site))
+  return new SearchResults(posts, [], {}, site)
+}
+
+// export async function fetchPostsByHtml(page: number, tags: string | null) {
+//   const url = new URL(location.href)
+//   url.searchParams.set('page', `${page}`)
+//   tags && url.searchParams.set('tags', tags)
+//   const htmlResp = await fetch(url.href)
+//   const doc = new DOMParser().parseFromString(await htmlResp.text(), 'text/html')
+//   const results = [...doc.querySelectorAll('#post-list-posts > li')].map(el => {
+//     const id = el.id.slice(1)
+//     const img = el.querySelector<HTMLImageElement>('.thumb img')
+//     const tags = img?.title?.match(/Tags\:\s+([\w\s]+)\s+User\:/)?.[1].split(/\s/).filter(Boolean) || []
+//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//     const [_, width, height] = el.querySelector<HTMLElement>('.directlink-res')?.innerText?.match(/\s*(\d+)\s*x\s*(\d+)\s*/) || []
+//     const fileUrl = el.querySelector<HTMLAnchorElement>('.directlink.largeimg')?.href
+//     const fileExt = fileUrl?.split('.').pop()
+
+//     return {
+//       id,
+//       postView: el.querySelector<HTMLAnchorElement>('.thumb')?.href,
+//       previewUrl: img?.src,
+//       fileUrl,
+//       tags,
+//       width: Number(width),
+//       height: Number(height),
+//       aspectRatio: Number(width) / Number(height),
+//       fileExt,
+//       fileDownloadName: `${location.hostname} ${id} ${tags.join(' ')}.${fileExt}`,
+//       fileDownloadText: `${width}×${height} ${fileExt?.toUpperCase()}`,
+//       rating: img?.title?.match(/Rating\:\s+(\w+)\s+Score\:/)?.[1]?.toLowerCase().slice(0, 1) || '',
+//     } as any
+//   })
+//   return results
+// }

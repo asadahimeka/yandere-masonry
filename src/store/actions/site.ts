@@ -1,7 +1,7 @@
 import { dealBlacklist, getFirstPageNo } from './_util'
 import store from '@/store'
 import { isBooruSite, searchBooru } from '@/api/booru'
-import { fetchPostsByPath, isPoolShowPage, isPopularPage } from '@/api/moebooru'
+import { fetchPostsByHtml, fetchPostsByPath, isPoolShowPage, isPopularPage, isYandereHtml } from '@/api/moebooru'
 import { fetchRule34Favorites, isRule34FavPage } from '@/api/rule34'
 import { fetchGelbooruFavorites, isGelbooruFavPage } from '@/api/gelbooru'
 import { fetchEshuushuuPosts, isEshuushuuPage } from '@/api/e-shuushuu'
@@ -43,6 +43,13 @@ export const fetchActions = [
     },
   },
   {
+    test: isYandereHtml,
+    action: async () => {
+      const results = await fetchPostsByHtml(query.page, query.tags)
+      return dealBlacklist(results as any)
+    },
+  },
+  {
     test: isGelbooruFavPage,
     action: async () => {
       const results = await fetchGelbooruFavorites(query.page)
@@ -66,7 +73,9 @@ export const fetchActions = [
   {
     test: isBooruSite,
     action: async () => {
-      const results = await searchBooru(query.page, query.tags)
+      let { tags } = query
+      if (store.settings.isHoldsFalse) tags = `holds:false ${tags || ''}`.trim()
+      const results = await searchBooru(query.page, tags)
       return dealBlacklist(results)
     },
   },
