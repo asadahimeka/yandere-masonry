@@ -29,7 +29,7 @@ export async function fetchSankakuAIPosts(page: number, tags: string | null) {
       height: e.height,
       aspectRatio: e.width / e.height,
       fileExt,
-      fileDownloadName: `sankaku-ai-post ${e.id} ${e.tags.join(' ')}`,
+      fileDownloadName: `sankaku-ai-post ${e.id} ${e.tags.join(' ')}.${fileExt}`,
       fileDownloadText: `${e.width}×${e.height} [${(e.file_size / 1000).toFixed(0)} kB] ${fileExt.toUpperCase()}`,
       rating: e.rating,
       createdAt: e.created_at.s * 1000,

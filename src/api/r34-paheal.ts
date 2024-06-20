@@ -25,7 +25,7 @@ export async function fetchR34PahealPosts(page: number, tags: string | null) {
     const tags = el.getAttribute('data-tags')?.split(/\s/).filter(Boolean) || []
     const img = el.querySelector('img')
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_, width, height] = img?.title.match(/\s+(\d+)x(\d+)\s+\/\//) || []
+    const [_, width, height] = img?.title.match(/\s+(\d+)x(\d+)[,\s]+/) || []
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [__, size] = img?.title.match(/\s+\d+x\d+\s+\/\/\s+([\w\.]+)/) || []
     const date = img?.title.split('\n').pop()
@@ -40,7 +40,7 @@ export async function fetchR34PahealPosts(page: number, tags: string | null) {
       height: Number(height),
       aspectRatio: Number(width) / Number(height),
       fileExt,
-      fileDownloadName: `Rule34.Paheal ${id} ${tags.join(' ')}`,
+      fileDownloadName: `Rule34.Paheal ${id} ${tags.join(' ')}.${fileExt}`,
       fileDownloadText: `${width}×${height} [${size}] ${fileExt?.toUpperCase()}`,
       rating: 'e',
       createdAt: date && parse(`${date} +00`, 'MMMM do, yyyy; HH:mm x', new Date()),

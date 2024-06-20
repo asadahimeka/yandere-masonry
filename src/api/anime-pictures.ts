@@ -18,6 +18,7 @@ export async function fetchAnimePicturesPosts(page: number, tags: string | null)
   const resp = await fetch(url.href)
   const json = await resp.json()
   return json.posts.map((e: any) => {
+    const fileExt = e.ext.slice(1)
     return {
       id: e.id,
       postView: `https://anime-pictures.net/posts/${e.id}`,
@@ -28,8 +29,8 @@ export async function fetchAnimePicturesPosts(page: number, tags: string | null)
       width: e.width,
       height: e.height,
       aspectRatio: e.width / e.height,
-      fileExt: e.ext.slice(1),
-      fileDownloadName: `anime-pictures_${e.id}_${e.width}×${e.height}`,
+      fileExt,
+      fileDownloadName: `anime-pictures_${e.id}_${e.width}×${e.height}.${fileExt}`,
       fileDownloadText: `${e.width}×${e.height} [${(e.size / 1024 / 1024).toFixed(2)} MB] ${e.ext.slice(1).toUpperCase()}`,
       rating: e.erotics == 0 ? 's' : 'q',
       createdAt: new Date(`${e.pubtime.replace(' ', 'T')}Z`),

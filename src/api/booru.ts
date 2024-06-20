@@ -3,13 +3,12 @@ import { isSankakuSite } from './sankaku'
 import { isAnimePicturesPage } from './anime-pictures'
 import store from '@/store'
 
-const blackList = new Set(['rule34.paheal.net', 'e621.net', 'e926.net', 'hypnohub.net', 'derpibooru.org'])
+const blackList = new Set(['e621.net', 'e926.net', 'hypnohub.net', 'derpibooru.org'])
 const siteKeys = Object.keys(sites).filter(e => !blackList.has(e))
 export const isBooruSite = () => siteKeys.includes(location.host)
 
 export const siteDomains = [
   ...siteKeys,
-  'rule34.paheal.net',
   'e-shuushuu.net',
   'zerochan.net',
   'chan.sankakucomplex.com',

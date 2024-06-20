@@ -28,7 +28,7 @@ export async function fetchEshuushuuPosts(page: number) {
       height: Number(height),
       aspectRatio: Number(width) / Number(height),
       fileExt,
-      fileDownloadName: `e-shuushuu ${id} ${tags.join(' ')}`,
+      fileDownloadName: `e-shuushuu ${id} ${tags.join(' ')}.${fileExt}`,
       fileDownloadText: `${width}×${height} [${el.querySelector<HTMLElement>('.meta dl dd:nth-child(6)')?.innerText.replace(/[\t\n]/g, '')}] ${fileExt?.toUpperCase()}`,
       rating: '',
       createdAt: date && parse(date, 'MMMM do, yyyy h:mm a', new Date()),

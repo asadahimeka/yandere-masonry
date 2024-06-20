@@ -435,9 +435,12 @@ const refererPolicy = computed(() => /anime-pictures\.net|nozomi\.la|behoimi\.or
 
 const imageSelected = computed(() => store.imageList[store.imageSelectedIndex] ?? {})
 const isVideo = computed(() => ['.mp4', '.webm'].some(e => {
-  const { fileUrl } = imageSelected.value
+  const { fileUrl, fileExt } = imageSelected.value
   if (!fileUrl) return false
   try {
+    if (['mp4', 'webm'].includes(fileExt)) {
+      return true
+    }
     const url = new URL(fileUrl)
     return url.pathname.endsWith(e)
   } catch (_error) {
@@ -513,7 +516,7 @@ const download = async (url: string | null, name: string) => {
   }
   try {
     downloading.value = true
-    await downloadFile(url, `${name}.${url.split('.').pop()}`)
+    await downloadFile(url, name)
     downloading.value = false
   } catch (error) {
     downloading.value = false

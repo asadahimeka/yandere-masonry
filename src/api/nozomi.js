@@ -28,7 +28,7 @@ export function fetchNozomiPosts(page) {
           height: e.height,
           aspectRatio: e.width / e.height,
           fileExt: e.type,
-          fileDownloadName: `NOZOMI ${e.postid} ${e.tags.join(' ')}`,
+          fileDownloadName: `NOZOMI ${e.postid} ${e.tags.join(' ')}.${e.type}`,
           rating: '',
         })))
       }
