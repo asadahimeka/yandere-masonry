@@ -431,7 +431,7 @@ const toggleTagsShow = () => {
   localStorage.setItem('__showTags', showTagChipGroup.value ? '1' : '')
 }
 
-const refererPolicy = computed(() => /nozomi\.la|behoimi\.org/.test(location.host) ? 'origin' : 'no-referrer')
+const refererPolicy = computed(() => /anime-pictures\.net|nozomi\.la|behoimi\.org/.test(location.host) ? 'origin' : 'no-referrer')
 
 const imageSelected = computed(() => store.imageList[store.imageSelectedIndex] ?? {})
 const isVideo = computed(() => ['.mp4', '.webm'].some(e => {
@@ -556,8 +556,9 @@ const setPostDetail = async () => {
     return
   }
   if (isAnimePicturesPage()) {
-    const { tags } = await getAnimePicturesDetail(imageSelected.value.id)
+    const { tags, fileUrl } = await getAnimePicturesDetail(imageSelected.value.id)
     if (tags?.length) imageSelected.value.tags = tags
+    if (fileUrl) imageSelected.value.fileUrl = fileUrl
   }
   if (isSankakuIdolPage()) {
     const { sampleUrl, fileUrl } = await getSankakuIdolDetail(imageSelected.value.id)

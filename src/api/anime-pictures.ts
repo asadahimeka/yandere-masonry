@@ -21,8 +21,9 @@ export async function fetchAnimePicturesPosts(page: number, tags: string | null)
     return {
       id: e.id,
       postView: `https://anime-pictures.net/posts/${e.id}`,
-      previewUrl: `https://opreviews.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}_cp.jpg.avif`,
-      fileUrl: `https://oimages.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}${e.ext}`,
+      previewUrl: `https://opreviews.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}_cp.${e.have_alpha ? 'png' : 'jpg'}.avif`,
+      sampleUrl: `https://opreviews.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}_bp.${e.have_alpha ? 'png' : 'jpg'}.avif`,
+      fileUrl: '',
       tags: [],
       width: e.width,
       height: e.height,
@@ -40,8 +41,11 @@ export async function getAnimePicturesDetail(id: string) {
   try {
     const resp = await fetch(`https://api.anime-pictures.net/api/v3/posts/${id}`)
     const json = await resp.json()
-    return { tags: json.tags.map((t: any) => `${t.tag.tag}${t.tag.tag_jp ? `[${t.tag.tag_jp}]` : ''}`) }
+    return {
+      tags: json.tags.map((t: any) => `${t.tag.tag}${t.tag.tag_jp ? `[${t.tag.tag_jp}]` : ''}`),
+      fileUrl: `https://api.anime-pictures.net/pictures/get_image/${json.file_url}`,
+    }
   } catch (error) {
-    return { tags: [] }
+    return { tags: [], fileUrl: '' }
   }
 }
