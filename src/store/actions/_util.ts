@@ -30,5 +30,8 @@ export function dealBlacklist(results: SearchResults) {
   if (!store.blacklist.length) return results
   return typeof results.blacklist == 'function'
     ? results.blacklist(store.blacklist)
-    : results.filter((e: any) => !store.blacklist.some(w => e.tags.includes(w)))
+    : results.filter((e: any) => {
+      const tags = e.tags.map((t: string) => t.toLowerCase())
+      return !store.blacklist.some(w => tags.includes(w.toLowerCase()))
+    })
 }

@@ -279,6 +279,7 @@ import { loadPostsByPage, loadPostsByTags, refreshPosts } from '@/store/actions/
 import { getRecentTags, getUsername, isPopularPage, searchTagsByName } from '@/api/moebooru'
 import { defCompTags, getSiteTitle, isSupportTagSearch, notPartialSupportSite } from '@/api/booru'
 import { isSankakuSite } from '@/api/sankaku'
+import { isR34PahealHome } from '@/api/r34-paheal'
 import i18n from '@/utils/i18n'
 
 const title = computed(() => `${getSiteTitle()} - ${store.imageList.length} Posts - Page `)
@@ -511,18 +512,22 @@ const startDownload = async () => {
         const downloadUrl = item[downloadUrlKey.value] || item.fileUrl
         const downloadName = item[downloadNameKey.value]
         if (!downloadUrl) continue
-        download(downloadUrl, `${downloadName}.${downloadUrl.split('.').pop()}`)
+        download(downloadUrl, `${downloadName}`)
       }
       return
     }
     for (let index = 0; index < len; index++) {
       const item = store.selectedImageList[index]
       const downloadUrl = item[downloadUrlKey.value] || item.fileUrl
-      const downloadName = store.isYKSite ? item.fileNameWithTags : item[downloadNameKey.value]
+      let downloadName = store.isYKSite ? item.fileNameWithTags : item[downloadNameKey.value]
+      if (isR34PahealHome()) {
+        // @ts-expect-error protected prop
+        downloadName = `${downloadName}.${item.data.file_name.split('.').pop()}`
+      }
       if (!downloadUrl) continue
       if (item.loaded) continue
       set(item, 'loading', true)
-      await download(downloadUrl, `${downloadName}.${downloadUrl.split('.').pop()}`)
+      await download(downloadUrl, `${downloadName}`)
       set(item, 'loading', false)
       set(item, 'loaded', true)
     }

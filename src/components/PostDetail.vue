@@ -414,6 +414,7 @@ import { getAnimePicturesDetail, isAnimePicturesPage } from '@/api/anime-picture
 import { getAllGirlDetail, isAllGirlPage } from '@/api/all-girl'
 import { getHentaiBooruDetail, isHentaiBooruPage } from '@/api/hentaibooru'
 import { getKusowankaDetail, isKusowankaPage } from '@/api/kusowanka'
+import { isR34PahealHome } from '@/api/r34-paheal'
 import store from '@/store'
 import { searchPosts } from '@/store/actions/post'
 import i18n from '@/utils/i18n'
@@ -515,6 +516,10 @@ const download = async (url: string | null, name: string) => {
   }
   if (store.isYKSite) {
     name = `${location.hostname} ${imageSelected.value.id} ${imageSelected.value.tags.join(' ')}`
+  }
+  if (isR34PahealHome()) {
+    // @ts-expect-error protected prop
+    name = `${name}.${imageSelected.value.data.file_name.split('.').pop()}`
   }
   try {
     downloading.value = true

@@ -209,6 +209,7 @@ import { notPartialSupportSite } from '@/api/booru'
 import { addPostToFavorites, isFavBtnShow } from '@/api/fav'
 import { isRule34FavPage } from '@/api/rule34'
 import { isGelbooruFavPage } from '@/api/gelbooru'
+import { isR34PahealHome } from '@/api/r34-paheal'
 import { initPosts, refreshPosts, searchPosts } from '@/store/actions/post'
 import store from '@/store'
 import i18n from '@/utils/i18n'
@@ -296,14 +297,17 @@ const addFavorite = (id?: string) => {
 const downloadCtxPost = async (post?: Post) => {
   const img = post || ctxActPost.value
   if (!img) return
-  const { fileUrl } = img
   let { fileDownloadName } = img
-  if (!fileUrl) return
+  if (!img.fileUrl) return
   if (store.isYKSite) {
     fileDownloadName = `${location.hostname} ${img.id} ${img.tags.join(' ')}`
   }
+  if (isR34PahealHome()) {
+    // @ts-expect-error protected prop
+    fileDownloadName = `${fileDownloadName}.${img.data.file_name.split('.').pop()}`
+  }
   try {
-    await downloadFile(fileUrl, fileDownloadName)
+    await downloadFile(img.fileUrl, fileDownloadName)
   } catch (error) {
     showMsg({ msg: `${i18n.t('FAqj5ONm50QMfIt9Vq2p1')}: ${error}`, type: 'error' })
   }

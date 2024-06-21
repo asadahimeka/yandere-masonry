@@ -4,6 +4,10 @@ export function isR34PahealPage() {
   return location.hostname == 'rule34.paheal.net' && location.pathname != '/'
 }
 
+export function isR34PahealHome() {
+  return location.hostname == 'rule34.paheal.net' && location.pathname == '/'
+}
+
 export async function fetchR34PahealPosts(page: number, tags: string | null) {
   document.onclick = function () {}
   document.onmouseup = function () {}

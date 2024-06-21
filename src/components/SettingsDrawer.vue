@@ -306,7 +306,7 @@
           />
         </v-list-item-action>
       </v-list-item>
-      <v-list-item v-if="isYandere">
+      <v-list-item v-if="store.isYKSite">
         <v-list-item-content>
           <v-list-item-title>{{ $t('IxTawC_qs_xjxj5g8_aGx') }}</v-list-item-title>
           <v-list-item-subtitle :title="$t('-x4wjDoHtodaXEgm2SXkg')">{{ $t('-x4wjDoHtodaXEgm2SXkg') }}</v-list-item-subtitle>

@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.33.4
+// @version              0.33.5
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -642,7 +642,7 @@ var __publicField = (obj, key, value) => {
   const gPt6cpWrkvqRqZnwJo1KV$3 = "\u5728\u56FE\u7247\u5361\u7247\u5DE6\u4E0A\u89D2\u663E\u793A\u52A0\u5165\u4E0B\u8F7D\u5217\u8868\u7684\u590D\u9009\u6846";
   const dvs63FvVKWm3uHVfqeq00$3 = "\u4F7F\u7528 Fancybox \u67E5\u770B\u8BE6\u60C5";
   const Tbq8O5KhwcDHQ_qxNFW09$3 = "\u5B9E\u9A8C\u6027";
-  const IxTawC_qs_xjxj5g8_aGx$3 = "yande.re \u9690\u85CF\u6302\u8D77\u7684\u56FE\u7247";
+  const IxTawC_qs_xjxj5g8_aGx$3 = "\u9690\u85CF\u6302\u8D77\u7684\u56FE\u7247";
   const YAUNSVT_pTygaY306DZmU$3 = "yande.re \u4E0D\u4F7F\u7528 API \u83B7\u53D6\u56FE\u7247\u5217\u8868";
   const HkRzE7fweBSefchs0z0r8$3 = "\u76F4\u63A5\u89E3\u6790 HTML \u83B7\u53D6\u56FE\u7247\u6570\u636E";
   var zhHans = {
@@ -840,7 +840,7 @@ var __publicField = (obj, key, value) => {
   const sxhTRqogDRozo9IaTGI7g$2 = "\u6E05\u55AE\u5716\u7247\u986F\u793A\u8907\u9078\u6846";
   const dvs63FvVKWm3uHVfqeq00$2 = "\u4F7F\u7528 Fancybox \u67E5\u770B\u8A73\u60C5";
   const Tbq8O5KhwcDHQ_qxNFW09$2 = "\u5BE6\u9A57\u6027";
-  const IxTawC_qs_xjxj5g8_aGx$2 = "yande.re \u96B1\u85CF\u639B\u8D77\u7684\u5716\u7247";
+  const IxTawC_qs_xjxj5g8_aGx$2 = "\u96B1\u85CF\u639B\u8D77\u7684\u5716\u7247";
   const YAUNSVT_pTygaY306DZmU$2 = "yande.re \u4E0D\u4F7F\u7528 API \u53D6\u5F97\u5716\u7247\u5217\u8868";
   const HkRzE7fweBSefchs0z0r8$2 = "\u76F4\u63A5\u89E3\u6790 HTML \u53D6\u5F97\u5716\u7247\u6578\u64DA";
   var zhHant = {
@@ -1039,7 +1039,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const sxhTRqogDRozo9IaTGI7g$1 = "Show checkbox in list image card";
   const dvs63FvVKWm3uHVfqeq00$1 = "Use Fancybox to view details";
   const Tbq8O5KhwcDHQ_qxNFW09$1 = "Experimental";
-  const IxTawC_qs_xjxj5g8_aGx$1 = "yande.re hide held posts";
+  const IxTawC_qs_xjxj5g8_aGx$1 = "Hide held posts";
   const YAUNSVT_pTygaY306DZmU$1 = "yande.re does not use API to get image list";
   const HkRzE7fweBSefchs0z0r8$1 = "Directly parsing HTML to obtain image data";
   var en = {
@@ -1237,7 +1237,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const sxhTRqogDRozo9IaTGI7g = "\u6295\u7A3F\u30EA\u30B9\u30C8\u306B\u753B\u50CF\u30C1\u30A7\u30C3\u30AF\u30DC\u30C3\u30AF\u30B9\u3092\u8868\u793A\u3059\u308B";
   const dvs63FvVKWm3uHVfqeq00 = "Fancybox \u3092\u4F7F\u7528\u3057\u3066\u8A73\u7D30\u3092\u8868\u793A\u3059\u308B";
   const Tbq8O5KhwcDHQ_qxNFW09 = "\u5B9F\u9A13\u7684";
-  const IxTawC_qs_xjxj5g8_aGx = "yande.re \u4FDD\u7559\u4E2D\u306E\u753B\u50CF\u3092\u975E\u8868\u793A\u306B\u3059\u308B";
+  const IxTawC_qs_xjxj5g8_aGx = "\u4FDD\u7559\u4E2D\u306E\u753B\u50CF\u3092\u975E\u8868\u793A\u306B\u3059\u308B";
   const YAUNSVT_pTygaY306DZmU = "yande.re \u306F\u753B\u50CF\u30EA\u30B9\u30C8\u306E\u53D6\u5F97\u306B API \u3092\u4F7F\u7528\u3057\u307E\u305B\u3093";
   const HkRzE7fweBSefchs0z0r8 = "HTML \u3092\u76F4\u63A5\u89E3\u6790\u3057\u3066\u753B\u50CF\u30C7\u30FC\u30BF\u3092\u53D6\u5F97\u3059\u308B";
   var ja = {
@@ -6320,7 +6320,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function dealBlacklist(results) {
     if (!store.blacklist.length)
       return results;
-    return typeof results.blacklist == "function" ? results.blacklist(store.blacklist) : results.filter((e) => !store.blacklist.some((w) => e.tags.includes(w)));
+    return typeof results.blacklist == "function" ? results.blacklist(store.blacklist) : results.filter((e) => {
+      const tags = e.tags.map((t) => t.toLowerCase());
+      return !store.blacklist.some((w) => tags.includes(w.toLowerCase()));
+    });
   }
   function getYandereUserId() {
     const match2 = document.cookie.match(/user_id=(\d+)/);
@@ -6858,6 +6861,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function isR34PahealPage() {
     return location.hostname == "rule34.paheal.net" && location.pathname != "/";
   }
+  function isR34PahealHome() {
+    return location.hostname == "rule34.paheal.net" && location.pathname == "/";
+  }
   async function fetchR34PahealPosts(page, tags) {
     document.onclick = function() {
     };
@@ -7331,20 +7337,23 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
               const downloadName = item[downloadNameKey.value];
               if (!downloadUrl)
                 continue;
-              download(downloadUrl, `${downloadName}.${downloadUrl.split(".").pop()}`);
+              download(downloadUrl, `${downloadName}`);
             }
             return;
           }
           for (let index = 0; index < len; index++) {
             const item = store.selectedImageList[index];
             const downloadUrl = item[downloadUrlKey.value] || item.fileUrl;
-            const downloadName = store.isYKSite ? item.fileNameWithTags : item[downloadNameKey.value];
+            let downloadName = store.isYKSite ? item.fileNameWithTags : item[downloadNameKey.value];
+            if (isR34PahealHome()) {
+              downloadName = `${downloadName}.${item.data.file_name.split(".").pop()}`;
+            }
             if (!downloadUrl)
               continue;
             if (item.loaded)
               continue;
             Vue2.set(item, "loading", true);
-            await download(downloadUrl, `${downloadName}.${downloadUrl.split(".").pop()}`);
+            await download(downloadUrl, `${downloadName}`);
             Vue2.set(item, "loading", false);
             Vue2.set(item, "loaded", true);
           }
@@ -7523,6 +7532,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           return "https://yande.re/post?_wf=1";
         if (link.includes("behoimi"))
           return "http://behoimi.org?_wf=1";
+        if (link.includes("konachan"))
+          return `https://${link}`;
         return `https://${link}?_wf=1`;
       };
       const dealFavicon = (link) => {
@@ -7816,7 +7827,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       _vm.$set(_setup.store.settings, "showPostCheckbox", $$v);
     }, expression: "store.settings.showPostCheckbox" } })], 1)], 1) : _vm._e(), _setup.isBoorus ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("dvs63FvVKWm3uHVfqeq00")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("w4uJjpTmSEkm6SIDgEo-0") } }, [_vm._v(_vm._s(_vm.$t("Tbq8O5KhwcDHQ_qxNFW09")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onUseFancyboxChange }, model: { value: _setup.store.settings.useFancybox, callback: function($$v) {
       _vm.$set(_setup.store.settings, "useFancybox", $$v);
-    }, expression: "store.settings.useFancybox" } })], 1)], 1) : _vm._e(), _setup.isYandere ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("IxTawC_qs_xjxj5g8_aGx")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("-x4wjDoHtodaXEgm2SXkg") } }, [_vm._v(_vm._s(_vm.$t("-x4wjDoHtodaXEgm2SXkg")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "", "disabled": _setup.store.settings.isYandereFetchByHtml }, on: { "change": _setup.onHoldsFalseChange }, model: { value: _setup.store.settings.isHoldsFalse, callback: function($$v) {
+    }, expression: "store.settings.useFancybox" } })], 1)], 1) : _vm._e(), _setup.store.isYKSite ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("IxTawC_qs_xjxj5g8_aGx")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("-x4wjDoHtodaXEgm2SXkg") } }, [_vm._v(_vm._s(_vm.$t("-x4wjDoHtodaXEgm2SXkg")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "", "disabled": _setup.store.settings.isYandereFetchByHtml }, on: { "change": _setup.onHoldsFalseChange }, model: { value: _setup.store.settings.isHoldsFalse, callback: function($$v) {
       _vm.$set(_setup.store.settings, "isHoldsFalse", $$v);
     }, expression: "store.settings.isHoldsFalse" } })], 1)], 1) : _vm._e(), _setup.isYandere ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("YAUNSVT_pTygaY306DZmU")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("HkRzE7fweBSefchs0z0r8") } }, [_vm._v(_vm._s(_vm.$t("HkRzE7fweBSefchs0z0r8")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "", "disabled": _setup.store.settings.isHoldsFalse }, on: { "change": _setup.onYandreFetchByHtmlChange }, model: { value: _setup.store.settings.isYandereFetchByHtml, callback: function($$v) {
       _vm.$set(_setup.store.settings, "isYandereFetchByHtml", $$v);
@@ -8025,6 +8036,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         }
         if (store.isYKSite) {
           name = `${location.hostname} ${imageSelected.value.id} ${imageSelected.value.tags.join(" ")}`;
+        }
+        if (isR34PahealHome()) {
+          name = `${name}.${imageSelected.value.data.file_name.split(".").pop()}`;
         }
         try {
           downloading.value = true;
@@ -8531,15 +8545,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         const img = post || ctxActPost.value;
         if (!img)
           return;
-        const { fileUrl } = img;
         let { fileDownloadName } = img;
-        if (!fileUrl)
+        if (!img.fileUrl)
           return;
         if (store.isYKSite) {
           fileDownloadName = `${location.hostname} ${img.id} ${img.tags.join(" ")}`;
         }
+        if (isR34PahealHome()) {
+          fileDownloadName = `${fileDownloadName}.${img.data.file_name.split(".").pop()}`;
+        }
         try {
-          await downloadFile(fileUrl, fileDownloadName);
+          await downloadFile(img.fileUrl, fileDownloadName);
         } catch (error) {
           showMsg({ msg: `${i18n.t("FAqj5ONm50QMfIt9Vq2p1")}: ${error}`, type: "error" });
         }
