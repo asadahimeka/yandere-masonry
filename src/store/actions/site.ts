@@ -76,6 +76,14 @@ export const fetchActions = [
       let { tags } = query
       if (store.settings.isHoldsFalse) tags = `holds:false ${tags || ''}`.trim()
       const results = await searchBooru(query.page, tags)
+      if (location.hostname == 'rule34.xxx') {
+        results.forEach(e => {
+          const re = /api-cdn[^.]*\./
+          if (e.previewUrl) e.previewUrl = e.previewUrl.replace(re, '')
+          if (e.sampleUrl) e.sampleUrl = e.sampleUrl.replace(re, '')
+          if (e.fileUrl) e.fileUrl = e.fileUrl.replace(re, '')
+        })
+      }
       return dealBlacklist(results)
     },
   },

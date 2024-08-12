@@ -70,7 +70,7 @@
         <v-list-item-group :value="actSiteIndex" color="primary">
           <v-list-item v-for="link in siteDomains" :key="link" :href="dealLink(link)">
             <v-list-item-icon class="mr-2">
-              <img :src="dealFavicon(link)" loading="lazy" class="site_icon">
+              <img :src="dealFavicon(link)" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>{{ getSiteTitle(link) }}</v-list-item-title>
