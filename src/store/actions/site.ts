@@ -84,6 +84,14 @@ export const fetchActions = [
           if (e.fileUrl) e.fileUrl = e.fileUrl.replace(re, '')
         })
       }
+      if (location.hostname == 'xbooru.com') {
+        results.forEach(e => {
+          const args = [/api-cdn(-mp4)?\.rule34\.xxx/, 'xbooru.com'] as const
+          if (e.previewUrl) e.previewUrl = e.previewUrl.replace(...args)
+          if (e.sampleUrl) e.sampleUrl = e.sampleUrl.replace(...args)
+          if (e.fileUrl) e.fileUrl = e.fileUrl.replace(...args)
+        })
+      }
       return dealBlacklist(results)
     },
   },
