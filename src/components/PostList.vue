@@ -1,24 +1,29 @@
 <template>
-  <div v-if="showImageList">
+  <div v-if="showImageList" :style="store.settings.masonryLayout === 'virtual' ? 'height:93vh' : ''">
     <virtual-waterfall
       v-if="store.settings.masonryLayout === 'virtual'"
       class="virtual-waterfall"
       :class="{ 'wf-no-fit-screen': notFitScreen }"
+      :gap="10"
+      :preload-screen-count="[1, 1]"
+      :item-min-width="300"
       :items="store.imageList"
       :calc-item-height="calcItemHeight"
-      :gap="10"
-      style="min-height: 99vh"
+      style="min-height: 93vh"
     >
       <template #default="{ item, index }">
-        <v-card class="posts-image-card">
-          <v-img
-            transition="scroll-y-transition"
+        <div class="posts-image-card">
+          <img
+            class="post-image-v"
+            alt=""
+            loading="lazy"
             :src="getImgSrc(item)"
-            :aspect-ratio="item?.aspectRatio"
-            style="background: gainsboro;border-radius: 4px;"
+            role="button"
+            tabindex="0"
             @click="showImgModal(index)"
-            @error="onImageLoadError"
-          />
+            @contextmenu="onCtxMenu($event, item)"
+            @error="onImageLoadError(item.previewUrl || '')"
+          >
           <template v-if="store.isYKSite">
             <v-icon
               v-if="//@ts-ignore
@@ -66,7 +71,7 @@
               <v-icon>{{ mdiHeartPlusOutline }}</v-icon>
             </v-btn>
           </div>
-        </v-card>
+        </div>
       </template>
     </virtual-waterfall>
     <wf-layout v-else>

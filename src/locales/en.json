@@ -24,7 +24,7 @@
   "HzMBcS2oNGVIoLiHWprim": "Favorites",
   "J2Ckb_-LITfmww4aEksqk": "Output download links",
   "KkkM-iz8RCVQoTrTfhS5j": "Original size",
-  "LZbI8am7nD-LiemZzroFF": "Appropriate height and different width",
+  "LZbI8am7nD-LiemZzroFF": "Equal height and unequal width",
   "Lm_HFVHpv4XCjilV3NLKu": "Show NSFW content",
   "M-wISnLiQgM_DURMwKZGT": "Fit page",
   "MWVfUiW8egLWq7MgV-wzc": "Add to favorites failed",
@@ -119,5 +119,6 @@
   "IxTawC_qs_xjxj5g8_aGx": "Hide held posts",
   "-x4wjDoHtodaXEgm2SXkg": "When calling the API, the `holds:false` tag will be passed in by default.",
   "YAUNSVT_pTygaY306DZmU": "yande.re does not use API to get image list",
-  "HkRzE7fweBSefchs0z0r8": "Directly parsing HTML to obtain image data"
+  "HkRzE7fweBSefchs0z0r8": "Directly parsing HTML to obtain image data",
+  "yYtssYrCL8VwFrdvvx8v3": "Virtual list (equal width and unequal height)"
 }

@@ -184,7 +184,7 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title :title="$t('kop_-39vkeg-bz2wztJ9O')">{{ $t('kop_-39vkeg-bz2wztJ9O') }}</v-list-item-title>
-          <v-list-item-subtitle title="Masonry/Grid/Justified">Masonry/Grid/Justified</v-list-item-subtitle>
+          <v-list-item-subtitle title="Masonry/Grid/Justified/Virtual">Masonry/Grid/Justified/Virtual</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
           <v-menu transition="slide-y-transition" offset-y>
@@ -481,7 +481,7 @@ const layoutTypes = ref([
   ['masonry', `Masonry/${i18n.t('6jPGehET9TViankl5-SRu')}`],
   ['grid', `Grid/${i18n.t('vfUg8xP6WptIhSL0E9b9D')}`],
   ['flexbin', `Justified/${i18n.t('LZbI8am7nD-LiemZzroFF')}`],
-  ['virtual', 'Virtual/Waterfall(Experimental)'],
+  ['virtual', `Virtual/${i18n.t('yYtssYrCL8VwFrdvvx8v3')}`],
 ])
 
 const actLayout = computed(() => {

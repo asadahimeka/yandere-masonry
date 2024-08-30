@@ -21,7 +21,6 @@
           v-if="!scaleOn"
           :src="imgSrc"
           :width="imgLoading ? 0 : imageSelectedWidth"
-          :referrerpolicy="refererPolicy"
           class="img_detail_sample"
           alt=""
           @click.stop="toggleToolbar"
@@ -32,7 +31,6 @@
           v-if="scaleOn"
           :src="scaleImgSrc"
           :style="scaleImgStyle"
-          :referrerpolicy="refererPolicy"
           class="img_detail_scale"
           alt=""
           draggable="false"
@@ -433,8 +431,6 @@ const toggleTagsShow = () => {
   showTagChipGroup.value = !showTagChipGroup.value
   localStorage.setItem('__showTags', showTagChipGroup.value ? '1' : '')
 }
-
-const refererPolicy = computed(() => /anime-pictures\.net|nozomi\.la|behoimi\.org/.test(location.host) ? 'origin' : 'no-referrer')
 
 const imageSelected = computed(() => store.imageList[store.imageSelectedIndex] ?? {})
 const isVideo = computed(() => ['.mp4', '.webm'].some(e => {

@@ -319,6 +319,8 @@
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
   background-color: gainsboro;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 300px;
 }
 
 @media screen and (max-width: 500px) {
@@ -558,4 +560,28 @@
 
 .v-toolbar.img_detail_btn_color {
   backdrop-filter: none !important;
+}
+
+.virtual-waterfall .posts-image-card {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 0;
+  background: gainsboro;
+  border-radius: 4px !important;
+}
+
+.virtual-waterfall .post-image-v {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px !important;
+}
+
+.virtual-waterfall .posts-image-type {
+  border-top-right-radius: 4px;
+}
+
+.virtual-waterfall .posts-image-actions {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
 }

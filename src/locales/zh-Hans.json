@@ -88,7 +88,7 @@
   "dU7ou5kVM0s9DMju5e2tS": "列",
   "6jPGehET9TViankl5-SRu": "等宽不等高",
   "vfUg8xP6WptIhSL0E9b9D": "等宽等高",
-  "LZbI8am7nD-LiemZzroFF": "适高不等宽",
+  "LZbI8am7nD-LiemZzroFF": "等高不等宽",
   "PBjdNKuj02doUvOf2zZqP": "图片保存到子文件夹",
   "z_oL9s5fS164W4_gITOGZ": "在默认下载目录创建一个以站点为名的文件夹存放图片，需要将 Tampermonkey 的“下载模式”修改为“浏览器 API”",
   "ti3akdSS3iZV9NsGzIo3m": "提示",
@@ -119,5 +119,6 @@
   "-x4wjDoHtodaXEgm2SXkg": "调用 API 时会默认传入 `holds:false` 标签",
   "IxTawC_qs_xjxj5g8_aGx": "隐藏挂起的图片",
   "YAUNSVT_pTygaY306DZmU": "yande.re 不使用 API 获取图片列表",
-  "HkRzE7fweBSefchs0z0r8": "直接解析 HTML 获取图片数据"
+  "HkRzE7fweBSefchs0z0r8": "直接解析 HTML 获取图片数据",
+  "yYtssYrCL8VwFrdvvx8v3": "虚拟列表(等宽不等高)"
 }

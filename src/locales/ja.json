@@ -24,7 +24,7 @@
   "HzMBcS2oNGVIoLiHWprim": "お気に入り",
   "J2Ckb_-LITfmww4aEksqk": "ダウンロードリンクを出力する",
   "KkkM-iz8RCVQoTrTfhS5j": "オリジナルサイズ",
-  "LZbI8am7nD-LiemZzroFF": "適切な高さと異なる幅",
+  "LZbI8am7nD-LiemZzroFF": "高さが同じで幅が不等",
   "Lm_HFVHpv4XCjilV3NLKu": "NSFWコンテンツを表示",
   "M-wISnLiQgM_DURMwKZGT": "ページに合わせる",
   "MWVfUiW8egLWq7MgV-wzc": "お気に入りに追加できませんでした",
@@ -119,5 +119,6 @@
   "IxTawC_qs_xjxj5g8_aGx": "保留中の画像を非表示にする",
   "-x4wjDoHtodaXEgm2SXkg": "API を呼び出すと、デフォルトで `holds:false` タグが渡されます。",
   "YAUNSVT_pTygaY306DZmU": "yande.re は画像リストの取得に API を使用しません",
-  "HkRzE7fweBSefchs0z0r8": "HTML を直接解析して画像データを取得する"
+  "HkRzE7fweBSefchs0z0r8": "HTML を直接解析して画像データを取得する",
+  "yYtssYrCL8VwFrdvvx8v3": "仮想リスト (幅は等しく、高さは等しくない)"
 }

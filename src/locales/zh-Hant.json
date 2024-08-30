@@ -24,7 +24,7 @@
   "HzMBcS2oNGVIoLiHWprim": "收藏夾",
   "J2Ckb_-LITfmww4aEksqk": "輸出下載地址",
   "KkkM-iz8RCVQoTrTfhS5j": "原始大小",
-  "LZbI8am7nD-LiemZzroFF": "適高不等寬",
+  "LZbI8am7nD-LiemZzroFF": "等高不等寬",
   "Lm_HFVHpv4XCjilV3NLKu": "顯示 NSFW 內容",
   "M-wISnLiQgM_DURMwKZGT": "適應頁面",
   "MWVfUiW8egLWq7MgV-wzc": "收藏失敗",
@@ -119,5 +119,6 @@
   "IxTawC_qs_xjxj5g8_aGx": "隱藏掛起的圖片",
   "-x4wjDoHtodaXEgm2SXkg": "呼叫 API 時會預設傳入 `holds:false` 標籤",
   "YAUNSVT_pTygaY306DZmU": "yande.re 不使用 API 取得圖片列表",
-  "HkRzE7fweBSefchs0z0r8": "直接解析 HTML 取得圖片數據"
+  "HkRzE7fweBSefchs0z0r8": "直接解析 HTML 取得圖片數據",
+  "yYtssYrCL8VwFrdvvx8v3": "虛擬列表(等寬不等高)"
 }

@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@himeka/booru": "2.7.7",
-    "@vueuse/core": "10.10.0",
+    "@vueuse/core": "11.0.3",
     "date-fns": "3.6.0",
     "vue": "2.7.16",
     "vue-i18n": "8.28.2",
