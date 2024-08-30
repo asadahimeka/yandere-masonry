@@ -293,6 +293,19 @@
           />
         </v-list-item-action>
       </v-list-item>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>{{ $t('UqbfVZzRyk0iD2NcOii_E') }}</v-list-item-title>
+          <v-list-item-subtitle :title="$t('_4E2zv2NpOG4y8TV5PRL0')">{{ $t('_4E2zv2NpOG4y8TV5PRL0') }}</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-switch
+            v-model="store.settings.showListPostReso"
+            inset
+            @change="onShowListPostResoChange"
+          />
+        </v-list-item-action>
+      </v-list-item>
       <v-list-item v-if="isBoorus">
         <v-list-item-content>
           <v-list-item-title>{{ $t('dvs63FvVKWm3uHVfqeq00') }}</v-list-item-title>
@@ -430,6 +443,10 @@ const onThumbSampleUrlChange = (val: any) => {
 
 const onShowPostCheckboxChange = (val: any) => {
   localStorage.setItem('__showPostCheckbox', val ? '1' : '')
+}
+
+const onShowListPostResoChange = (val: any) => {
+  localStorage.setItem('__showListPostReso', val ? '1' : '')
 }
 
 const onUseFancyboxChange = (val: any) => {

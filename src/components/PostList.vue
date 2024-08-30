@@ -57,6 +57,7 @@
           <div v-if="!isR34Fav && store.settings.showPostCheckbox" class="posts-image-checkbox">
             <v-checkbox class="ma-0 pa-0" :value="store.selectedImageList.some(e => e.id === item.id)" hide-details @change="onPostCheckboxChange($event, item)" />
           </div>
+          <div v-if="store.settings.showListPostReso" class="posts-image-wh">{{ item.width }} × {{ item.height }}</div>
           <div v-if="!isR34Fav" class="posts-image-actions">
             <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" :href="item.postView" target="_blank" rel="noreferrer">
               <v-icon>{{ mdiLinkVariant }}</v-icon>
@@ -142,6 +143,7 @@
         <div v-if="!isR34Fav && store.settings.showPostCheckbox" class="posts-image-checkbox">
           <v-checkbox class="ma-0 pa-0" :value="store.selectedImageList.some(e => e.id === image.id)" hide-details @change="onPostCheckboxChange($event, image)" />
         </div>
+        <div v-if="store.settings.showListPostReso" class="posts-image-wh">{{ image.width }} × {{ image.height }}</div>
         <div v-if="!isR34Fav" class="posts-image-actions">
           <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" :href="image.postView" target="_blank" rel="noreferrer">
             <v-icon>{{ mdiLinkVariant }}</v-icon>

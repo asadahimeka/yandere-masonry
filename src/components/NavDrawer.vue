@@ -79,15 +79,23 @@
           <hr class="my-2">
           <v-list-item link @click="openLink('https://www.pixiv.pics')">
             <v-list-item-icon class="mr-2">
-              <img src="https://www.pixiv.pics/favicon.ico" loading="lazy" class="site_icon">
+              <img src="https://www.pixiv.pics/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>Pixiv Viewer</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item link @click="openLink('https://moeview.cocomi.eu.org')">
+            <v-list-item-icon class="mr-2">
+              <img src="https://moeview.cocomi.eu.org/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Moeview</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
           <v-list-item link @click="openLink('https://booru.io/')">
             <v-list-item-icon class="mr-2">
-              <img src="https://booru.io/favicon.ico" loading="lazy" class="site_icon">
+              <img src="https://booru.io/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>booru.io</v-list-item-title>
@@ -95,7 +103,7 @@
           </v-list-item>
           <v-list-item link @click="openLink('https://r-34.xyz/')">
             <v-list-item-icon class="mr-2">
-              <img src="https://r-34.xyz/favicon.ico" loading="lazy" class="site_icon">
+              <img src="https://r-34.xyz/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>R-34.XYZ</v-list-item-title>
@@ -197,7 +205,7 @@ const openLink = (link: string) => {
 const dealLink = (link: string) => {
   if (link.includes('yande')) return 'https://yande.re/post?_wf=1'
   if (link.includes('behoimi')) return 'http://behoimi.org?_wf=1'
-  if (link.includes('konachan')) return `https://${link}`
+  if (link.includes('konachan') || link.includes('rule34.xxx')) return `https://${link}`
   return `https://${link}?_wf=1`
 }
 

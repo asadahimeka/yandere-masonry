@@ -16,6 +16,7 @@ interface AppSettings {
   useFancybox: boolean
   isHoldsFalse: boolean
   isYandereFetchByHtml: boolean
+  showListPostReso: boolean
 }
 
 interface AppState {
@@ -78,6 +79,7 @@ const store = Vue.observable<AppState>({
     useFancybox: !!localStorage.getItem('__useFancybox'),
     isHoldsFalse: !!localStorage.getItem('__isHoldsFalse'),
     isYandereFetchByHtml: !!localStorage.getItem('__isYandereFetchByHtml'),
+    showListPostReso: !!localStorage.getItem('__showListPostReso'),
   },
   toggleDrawer() {
     store.showDrawer = !store.showDrawer

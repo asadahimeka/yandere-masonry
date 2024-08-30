@@ -384,6 +384,17 @@
   color: rgba(0, 0, 0, .87) !important;
 }
 
+.posts-image-wh {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 0 8px;
+  font-size: 14px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.4);
+  border-top-right-radius: 4px;
+}
+
 .posts-image-actions {
   position: absolute;
   bottom: 0;
