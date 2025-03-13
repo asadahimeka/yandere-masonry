@@ -29,7 +29,7 @@ export async function fetchAnihonetwallpaperPosts(page: number, tags: string | n
       height: Number(height),
       aspectRatio: Number(width) / Number(height),
       fileExt: 'jpg',
-      fileDownloadName: `Anihonetwallpaper_${id}_${tags.join('_')}`,
+      fileDownloadName: `Anihonetwallpaper_${id}`,
       rating: '',
     } as any
   })

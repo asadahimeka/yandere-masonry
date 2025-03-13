@@ -173,8 +173,19 @@
             </v-radio-group>
             <v-switch
               v-model="isExportUrlDecode"
+              :disabled="isExportUrlEncode"
               class="mt-0 mr-1"
               label="Decode URL"
+              hide-details
+              dense
+            />
+          </div>
+          <div v-if="!isZerochanPage()" class="d-flex align-center mt-1 ml-2">
+            <v-switch
+              v-model="isExportUrlEncode"
+              :disabled="isExportUrlDecode"
+              class="mt-0 mr-1"
+              label="Encode URL"
               hide-details
               dense
             />
@@ -280,6 +291,7 @@ import { getRecentTags, getUsername, isPopularPage, searchTagsByName } from '@/a
 import { defCompTags, getSiteTitle, isSupportTagSearch, notPartialSupportSite } from '@/api/booru'
 import { isSankakuSite } from '@/api/sankaku'
 import { isR34PahealHome } from '@/api/r34-paheal'
+import { isZerochanPage } from '@/api/zerochan'
 import i18n from '@/utils/i18n'
 
 const title = computed(() => `${getSiteTitle()} - ${store.imageList.length} Posts - Page `)
@@ -538,10 +550,14 @@ const startDownload = async () => {
 }
 
 const isExportUrlDecode = ref(true)
+const isExportUrlEncode = ref(false)
 const exportFileUrls = async () => {
   let urlText = store.selectedImageList.map(e => e[downloadUrlKey.value] || e.fileUrl).join('\n')
   if (store.isYKSite && isExportUrlDecode.value) {
     urlText = decodeURIComponent(urlText)
+  }
+  if (isExportUrlEncode.value || isZerochanPage()) {
+    urlText = encodeURIComponent(urlText)
   }
   await downloadFile(`data:text/plain;charset=utf-8,${urlText}`, 'image-urls.txt')
 }

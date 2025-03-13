@@ -413,11 +413,12 @@ import { getAllGirlDetail, isAllGirlPage } from '@/api/all-girl'
 import { getHentaiBooruDetail, isHentaiBooruPage } from '@/api/hentaibooru'
 import { getKusowankaDetail, isKusowankaPage } from '@/api/kusowanka'
 import { isR34PahealHome } from '@/api/r34-paheal'
+import { isRealbooruPage } from '@/api/realbooru'
+import i18n from '@/utils/i18n'
 import store from '@/store'
 import { searchPosts } from '@/store/actions/post'
-import i18n from '@/utils/i18n'
 
-const notR34Fav = ref(!(isRule34FavPage() || isGelbooruFavPage() || isZerochanPage()))
+const notR34Fav = ref(!(isRule34FavPage() || isGelbooruFavPage() || isZerochanPage() || isRealbooruPage()))
 
 const showImageToolbar = ref(true)
 const imgLoading = ref(true)

@@ -44,11 +44,11 @@
       "node",
       "tampermonkey",
       "vue",
-      "vuetify",
-    ],
+      "vuetify"
+    ]
   },
   "vueCompilerOptions": {
-    "target": 2.7,
+    "target": 2.7
     // "target": 2, // For Vue version <= 2.6.14
   },
   "include": [
@@ -56,7 +56,7 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "components.d.ts",
+    "components.d.ts"
   ],
   "exclude": [
     "node_modules",

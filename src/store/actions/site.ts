@@ -16,6 +16,7 @@ import { fetchKusowankaPosts, isKusowankaPage } from '@/api/kusowanka'
 import { fetchAnihonetwallpaperPosts, isAnihonetwallpaperPage } from '@/api/anihonetwallpaper'
 import { fetchNozomiPosts, isNozomiPage } from '@/api/nozomi.js'
 import { fetchR34PahealPosts, isR34PahealPage } from '@/api/r34-paheal'
+import { fetchRealbooruPosts, isRealbooruPage } from '@/api/realbooru'
 
 const params = new URLSearchParams(location.search)
 const query = {
@@ -169,6 +170,13 @@ export const fetchActions = [
     test: isSankakuAIPage,
     action: async () => {
       const results = await fetchSankakuAIPosts(query.page, query.tags)
+      return dealBlacklist(results as any)
+    },
+  },
+  {
+    test: isRealbooruPage,
+    action: async () => {
+      const results = await fetchRealbooruPosts(query.page, query.tags)
       return dealBlacklist(results as any)
     },
   },

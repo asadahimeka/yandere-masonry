@@ -5998,7 +5998,44 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return { tags: [], fileUrl: "" };
     }
   }
-  const blackList = /* @__PURE__ */ new Set(["e621.net", "e926.net", "hypnohub.net", "derpibooru.org"]);
+  function isRealbooruPage() {
+    return location.hostname == "realbooru.com";
+  }
+  async function fetchRealbooruPosts(page, tags) {
+    const url = new URL("https://realbooru.com/index.php");
+    url.searchParams.set("page", "post");
+    url.searchParams.set("s", "list");
+    url.searchParams.set("pid", `${(page - 1) * 42}`);
+    tags && url.searchParams.set("tags", tags);
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const results = [...doc.querySelectorAll(".content .thumb")].map(async (el) => {
+      var _a2;
+      const a = el.querySelector("a");
+      const img = el.querySelector("img");
+      const id = (_a2 = a.getAttribute("id")) == null ? void 0 : _a2.slice(1);
+      const previewUrl = img.src;
+      const { width, height } = await getImageSize(previewUrl);
+      const tags2 = img.title.split(/,\s+/).filter(Boolean);
+      const isVideo = (img == null ? void 0 : img.style.border.includes("rgb(0, 0, 255)")) || (img == null ? void 0 : img.style.border.includes("#0000ff"));
+      return {
+        id,
+        postView: a.href,
+        previewUrl,
+        sampleUrl: previewUrl.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg$/i, isVideo ? "$1images$2$3.webm" : "$1samples$2sample_$3.jpg"),
+        fileUrl: previewUrl.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, isVideo ? "$1images$2$3.mp4" : "$1images$2$3.jpeg"),
+        tags: tags2,
+        width: Number(width) * 10,
+        height: Number(height) * 10,
+        aspectRatio: Number(width) / Number(height),
+        fileExt: isVideo ? "mp4" : "jpg",
+        fileDownloadName: `realbooru_${id}`,
+        rating: "e"
+      };
+    });
+    return Promise.all(results);
+  }
+  const blackList = /* @__PURE__ */ new Set(["e621.net", "e926.net", "hypnohub.net", "derpibooru.org", "realbooru.com"]);
   const siteKeys = Object.keys(sites).filter((e) => !blackList.has(e));
   const isBooruSite = () => siteKeys.includes(location.host);
   const siteDomains = [
@@ -6013,7 +6050,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "booru.eu",
     "kusowanka.com",
     "anihonetwallpaper.com",
-    "nozomi.la"
+    "nozomi.la",
+    "realbooru.com"
   ];
   const isSupportTagSearch = isBooruSite() || !["e-shuushuu.net", "nozomi.la"].includes(location.host);
   const notPartialSupportSite = ![
@@ -6024,7 +6062,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "booru.eu",
     "kusowanka.com",
     "anihonetwallpaper.com",
-    "nozomi.la"
+    "nozomi.la",
+    "realbooru.com"
   ].includes(location.host);
   const defCompTags = (() => {
     if (store.isYKSite) {
@@ -6079,7 +6118,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "realbooru.com": 42
   };
   const BOORU_PAGE_LIMIT = defaultLimitMap[location.host] || 40;
-  const isPidSite = ((_c = sites[location.host]) == null ? void 0 : _c.paginate) === "pid";
+  const isPidSite = ((_c = sites[location.host]) == null ? void 0 : _c.paginate) === "pid" || isRealbooruPage();
   async function searchBooru(page, tags) {
     if (!tags || tags === "all")
       tags = "";
@@ -6098,18 +6137,23 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const img = el.querySelector("img");
       const imgSrc = (img == null ? void 0 : img.src) || "";
       const postView = (_a2 = el.querySelector("a")) == null ? void 0 : _a2.href;
+      const id = (_b2 = postView == null ? void 0 : postView.match(/id=(\d+)/)) == null ? void 0 : _b2[1];
       const { width, height } = await getImageSize(imgSrc);
+      const tags = img == null ? void 0 : img.title.split(/\s+/).filter(Boolean);
+      const isVideo = /mp4|animated|video/i.test((img == null ? void 0 : img.title) || "");
+      const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.mp4").replace("https://wimg.", "https://ahri2mp4.");
       return {
-        id: (_b2 = postView == null ? void 0 : postView.match(/id=(\d+)/)) == null ? void 0 : _b2[1],
+        id,
         postView,
         previewUrl: imgSrc,
-        sampleUrl: imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, "$1samples$2sample_$3"),
-        fileUrl: imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.jpeg"),
-        tags: img == null ? void 0 : img.title.split(/\s+/),
-        width,
-        height,
+        sampleUrl: isVideo ? videoUrl : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, "$1samples$2sample_$3"),
+        fileUrl: isVideo ? videoUrl : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.jpeg"),
+        tags,
+        width: width * 10,
+        height: height * 10,
         aspectRatio: width / height,
-        fileExt: "jpg",
+        fileExt: isVideo ? "mp4" : "jpg",
+        fileDownloadName: `rule34_xxx_${id}`,
         rating: ""
       };
     });
@@ -6337,12 +6381,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function pushPageState(pageNo, latePageQuery = false) {
     if (isRule34FavPage() || isAllGirlPage() || isNozomiPage())
       return;
-    if (latePageQuery && pageNo > 1)
-      pageNo -= 1;
     let pageParamName = "page";
     if (isPidSite) {
       pageParamName = "pid";
       pageNo = (pageNo - 1) * BOORU_PAGE_LIMIT;
+    } else if (latePageQuery && pageNo > 1) {
+      pageNo -= 1;
     }
     const url = new URL(location.href);
     url.searchParams.set(pageParamName, pageNo.toString());
@@ -6883,7 +6927,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         height: Number(height),
         aspectRatio: Number(width) / Number(height),
         fileExt: "jpg",
-        fileDownloadName: `Anihonetwallpaper_${id}_${tags2.join("_")}`,
+        fileDownloadName: `Anihonetwallpaper_${id}`,
         rating: ""
       };
     });
@@ -7099,6 +7143,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       test: isSankakuAIPage,
       action: async () => {
         const results = await fetchSankakuAIPosts(query.page, query.tags);
+        return dealBlacklist(results);
+      }
+    },
+    {
+      test: isRealbooruPage,
+      action: async () => {
+        const results = await fetchRealbooruPosts(query.page, query.tags);
         return dealBlacklist(results);
       }
     },
@@ -7416,10 +7467,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         }
       };
       const isExportUrlDecode = Vue2.ref(true);
+      const isExportUrlEncode = Vue2.ref(false);
       const exportFileUrls = async () => {
         let urlText = store.selectedImageList.map((e) => e[downloadUrlKey.value] || e.fileUrl).join("\n");
         if (store.isYKSite && isExportUrlDecode.value) {
           urlText = decodeURIComponent(urlText);
+        }
+        if (isExportUrlEncode.value || isZerochanPage()) {
+          urlText = encodeURIComponent(urlText);
         }
         await downloadFile(`data:text/plain;charset=utf-8,${urlText}`, "image-urls.txt");
       };
@@ -7475,7 +7530,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           store.isFullscreen = !!document.fullscreenElement;
         });
       });
-      return { __sfc: true, title, isNoSelected, isOneOrMoreSelected, isAllSelected, loadingValue, selectAll, removeFromList, tagsQuery, searchState, onSearchTermInput, selectTag, userName, fetchTaggedPosts, showTagsInput, onSearchTermKeydown, showPopAction, periodMap, periodByDateMap, getRecentPeriod, isPopularRecent, getPopTitle, popTitle, isPopSearchByDate, recentPeriod, periodComputedMap, showPopDatePicker, popSearchDate, fetchPopularPosts, selPeriod, loadPrevPeriod, loadNextPeriod, goToPopularPage, showPool, poolQueryTerm, searchPool, download, downloadUrlKey, downloadNameMap, downloadNameKey, isGelbooru, startDownload, isExportUrlDecode, exportFileUrls, vuetify, toggleDarkmode, keyActions, goToPage, exitMasonry, toggleFullscreen, currentLang, langList, selectLang, mdiBrightness6, mdiCalendar, mdiCalendarSearch, mdiCheckUnderlineCircle, mdiCheckboxBlankOutline, mdiCheckboxIntermediate, mdiCheckboxMarked, mdiChevronLeft, mdiChevronRight, mdiCog, mdiDelete, mdiDownload, mdiFileClockOutline, mdiFire, mdiFullscreen, mdiFullscreenExit, mdiHome, mdiImageMultiple, mdiLocationExit, mdiMagnify, mdiShuffle, mdiStar, mdiTranslate, store, isSupportTagSearch, notPartialSupportSite, isSankakuSite };
+      return { __sfc: true, title, isNoSelected, isOneOrMoreSelected, isAllSelected, loadingValue, selectAll, removeFromList, tagsQuery, searchState, onSearchTermInput, selectTag, userName, fetchTaggedPosts, showTagsInput, onSearchTermKeydown, showPopAction, periodMap, periodByDateMap, getRecentPeriod, isPopularRecent, getPopTitle, popTitle, isPopSearchByDate, recentPeriod, periodComputedMap, showPopDatePicker, popSearchDate, fetchPopularPosts, selPeriod, loadPrevPeriod, loadNextPeriod, goToPopularPage, showPool, poolQueryTerm, searchPool, download, downloadUrlKey, downloadNameMap, downloadNameKey, isGelbooru, startDownload, isExportUrlDecode, isExportUrlEncode, exportFileUrls, vuetify, toggleDarkmode, keyActions, goToPage, exitMasonry, toggleFullscreen, currentLang, langList, selectLang, mdiBrightness6, mdiCalendar, mdiCalendarSearch, mdiCheckUnderlineCircle, mdiCheckboxBlankOutline, mdiCheckboxIntermediate, mdiCheckboxMarked, mdiChevronLeft, mdiChevronRight, mdiCog, mdiDelete, mdiDownload, mdiFileClockOutline, mdiFire, mdiFullscreen, mdiFullscreenExit, mdiHome, mdiImageMultiple, mdiLocationExit, mdiMagnify, mdiShuffle, mdiStar, mdiTranslate, store, isSupportTagSearch, notPartialSupportSite, isSankakuSite, isZerochanPage };
     }
   });
   var _sfc_render$9 = function render() {
@@ -7542,9 +7597,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "hidden-md-and-down", attrs: { "title": _vm.$t("OKs1ePekQA4Ona839U114"), "icon": "" } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1)];
     } }], null, false, 1780380651) }, [_c2("v-list", { staticStyle: { "min-width": "300px", "max-height": "80vh", "overflow": "auto" }, attrs: { "dense": "", "flat": "" } }, [_c2("v-subheader", { staticClass: "ml-2" }, [_c2("span", { staticClass: "mr-4" }, [_vm._v(_vm._s(_vm.$t("OKs1ePekQA4Ona839U114")))]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], attrs: { "small": "" }, on: { "click": _setup.startDownload } }, [_vm._v(" " + _vm._s(_vm.$t("cKn4cfAxzdgh_HD6OFibB")) + " ")]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], staticClass: "ml-2", attrs: { "small": "" }, on: { "click": _setup.exportFileUrls } }, [_vm._v(" " + _vm._s(_vm.$t("J2Ckb_-LITfmww4aEksqk")) + " ")])], 1), _setup.store.isYKSite ? _c2("div", { staticClass: "d-flex align-center mt-1 ml-2" }, [_c2("v-radio-group", { staticClass: "mr-1 mt-0", attrs: { "hide-details": "", "dense": "", "row": "" }, model: { value: _setup.downloadUrlKey, callback: function($$v) {
       _setup.downloadUrlKey = $$v;
-    }, expression: "downloadUrlKey" } }, [_c2("v-radio", { attrs: { "label": _vm.$t("aVqN9TBRCbNGsW3Y2D2Nm"), "value": "jpegUrl" } }), _c2("v-radio", { attrs: { "label": _vm.$t("jDjashxA-oBPo19DXI504"), "value": "fileUrl" } })], 1), _c2("v-switch", { staticClass: "mt-0 mr-1", attrs: { "label": "Decode URL", "hide-details": "", "dense": "" }, model: { value: _setup.isExportUrlDecode, callback: function($$v) {
+    }, expression: "downloadUrlKey" } }, [_c2("v-radio", { attrs: { "label": _vm.$t("aVqN9TBRCbNGsW3Y2D2Nm"), "value": "jpegUrl" } }), _c2("v-radio", { attrs: { "label": _vm.$t("jDjashxA-oBPo19DXI504"), "value": "fileUrl" } })], 1), _c2("v-switch", { staticClass: "mt-0 mr-1", attrs: { "disabled": _setup.isExportUrlEncode, "label": "Decode URL", "hide-details": "", "dense": "" }, model: { value: _setup.isExportUrlDecode, callback: function($$v) {
       _setup.isExportUrlDecode = $$v;
-    }, expression: "isExportUrlDecode" } })], 1) : _vm._e(), _c2("v-list-item-group", { attrs: { "color": "primary" } }, _vm._l(_setup.store.selectedImageList, function(item) {
+    }, expression: "isExportUrlDecode" } })], 1) : _vm._e(), !_setup.isZerochanPage() ? _c2("div", { staticClass: "d-flex align-center mt-1 ml-2" }, [_c2("v-switch", { staticClass: "mt-0 mr-1", attrs: { "disabled": _setup.isExportUrlDecode, "label": "Encode URL", "hide-details": "", "dense": "" }, model: { value: _setup.isExportUrlEncode, callback: function($$v) {
+      _setup.isExportUrlEncode = $$v;
+    }, expression: "isExportUrlEncode" } })], 1) : _vm._e(), _c2("v-list-item-group", { attrs: { "color": "primary" } }, _vm._l(_setup.store.selectedImageList, function(item) {
       return _c2("v-list-item", { key: item.id, attrs: { "dense": "", "two-line": "" } }, [_c2("v-list-item-avatar", [!item.loading && !item.loaded ? _c2("v-btn", { attrs: { "icon": "" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFileClockOutline))])], 1) : _vm._e(), item.loaded ? _c2("v-btn", { attrs: { "icon": "", "color": "green" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiCheckUnderlineCircle))])], 1) : _vm._e(), item.loading ? _c2("v-progress-circular", { attrs: { "rotate": -90, "size": 28, "value": _setup.loadingValue, "color": "pink" } }) : _vm._e()], 1), _c2("v-list-item-content", { staticStyle: { "max-width": "240px" } }, [_c2("v-list-item-subtitle", { attrs: { "title": item.fileNameWithTags }, domProps: { "textContent": _vm._s(item.fileNameWithTags) } }), _c2("v-list-item-subtitle", { attrs: { "title": item[_setup.downloadUrlKey] }, domProps: { "textContent": _vm._s(item[_setup.downloadUrlKey]) } })], 1), _c2("v-list-item-action", [_c2("v-btn", { attrs: { "icon": "" }, on: { "click": function($event) {
         return _setup.removeFromList(item.id);
       } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDelete))])], 1)], 1)], 1);
@@ -7585,9 +7642,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           return "https://yande.re/post?_wf=1";
         if (link.includes("behoimi"))
           return "http://behoimi.org?_wf=1";
-        if (link.includes("konachan") || link.includes("rule34.xxx"))
-          return `https://${link}`;
-        return `https://${link}?_wf=1`;
+        return `https://${link}`;
       };
       const dealFavicon = (link) => {
         if (link.includes("konachan"))
@@ -7595,8 +7650,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         if (link.includes("behoimi"))
           return "https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/d3b97f45046795c87c12ad5704074f32_1333245617164582614.png";
         if (link.includes("sankaku"))
-          return "https://sankaku.app/images/favicon.ico";
-        return `https://${link.split("/")[0]}/favicon.ico`;
+          return "https://kwc.cocomi.eu.org/https://sankaku.app/images/favicon.ico";
+        return `https://kwc.cocomi.eu.org/https://${link.split("/")[0]}/favicon.ico`;
       };
       const actSiteIndex = Vue2.computed(() => {
         return siteDomains.findIndex((e) => location.href.includes(e));
@@ -7626,12 +7681,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }, proxy: true }]) }, [_c2("v-list-item-group", { attrs: { "value": _setup.actSiteIndex, "color": "primary" } }, [_vm._l(_setup.siteDomains, function(link) {
       return _c2("v-list-item", { key: link, attrs: { "href": _setup.dealLink(link) } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": _setup.dealFavicon(link), "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_setup.getSiteTitle(link)))])], 1)], 1);
     }), _c2("hr", { staticClass: "my-2" }), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
-      return _setup.openLink("https://www.pixiv.pics");
-    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": "https://www.pixiv.pics/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Pixiv Viewer")])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+      return _setup.openLink("https://pixiv.pictures");
+    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": "https://pixiv.pictures/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Pixiv Viewer")])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://moeview.cocomi.eu.org");
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": "https://moeview.cocomi.eu.org/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Moeview")])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
-      return _setup.openLink("https://booru.io/");
-    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": "https://booru.io/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("booru.io")])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://r-34.xyz/");
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": "https://r-34.xyz/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("R-34.XYZ")])], 1)], 1)], 2)], 1)], 1), _c2("v-list", { attrs: { "dense": "", "nav": "" } }, [_c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.showSettingDrawer();
@@ -7642,7 +7695,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiInformationOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("v" + _vm._s(_setup.version))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("iJ0h220tvMmUhkfIMYI-W")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://booru.pixiv.pics");
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiWeb))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("qWcqQRsE9nN43MaZ2BmN9")))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("jerGO2OCuW9TdnEnGYRWd")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
-      return _setup.openLink("https://www.pixiv.pics/setting/recommend");
+      return _setup.openLink("https://pixiv.pictures/setting/recommend");
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiBookmarkBoxMultipleOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("eOxsWLzwqrlhBdVMwz-rH")))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("jerGO2OCuW9TdnEnGYRWd")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://github.com/asadahimeka/yandere-masonry/issues");
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiMessageAlertOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("23iEYyiQlLVhFIqGbj527")))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("4g1TUy2kwQrdOs-w4JobB")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
@@ -8000,7 +8053,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var _sfc_main$5 = /* @__PURE__ */ Vue2.defineComponent({
     __name: "PostDetail",
     setup(__props) {
-      const notR34Fav = Vue2.ref(!(isRule34FavPage() || isGelbooruFavPage() || isZerochanPage()));
+      const notR34Fav = Vue2.ref(!(isRule34FavPage() || isGelbooruFavPage() || isZerochanPage() || isRealbooruPage()));
       const showImageToolbar = Vue2.ref(true);
       const imgLoading = Vue2.ref(true);
       const innerWidth = Vue2.ref(window.innerWidth);
@@ -8666,17 +8719,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return _setup.onImageLoadError(item.previewUrl || "");
       } } }), _setup.store.isYKSite ? [((_a2 = item == null ? void 0 : item.data) == null ? void 0 : _a2.has_children) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), ((_b2 = item == null ? void 0 : item.data) == null ? void 0 : _b2.parent_id) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), (item == null ? void 0 : item.fileExt.toLowerCase()) === "gif" ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(item == null ? void 0 : item.fileExt.toLowerCase()) ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav && _setup.store.settings.showPostCheckbox ? _c2("div", { staticClass: "posts-image-checkbox" }, [_c2("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.store.selectedImageList.some((e) => e.id === item.id), "hide-details": "" }, on: { "change": function($event) {
         return _setup.onPostCheckboxChange($event, item);
-      } } })], 1) : _vm._e(), _setup.store.settings.showListPostReso ? _c2("div", { staticClass: "posts-image-wh" }, [_vm._v(_vm._s(item.width) + " \xD7 " + _vm._s(item.height))]) : _vm._e(), !_setup.isR34Fav ? _c2("div", { staticClass: "posts-image-actions" }, [_c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4"), "href": item.postView, "target": "_blank", "rel": "noreferrer" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
+      } } })], 1) : _vm._e(), _setup.store.settings.showListPostReso ? _c2("div", { staticClass: "posts-image-wh" }, [_vm._v(_vm._s(item.width) + " \xD7 " + _vm._s(item.height))]) : _vm._e(), !_setup.isR34Fav ? _c2("div", { staticClass: "posts-image-actions" }, [_c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4"), "href": item.postView, "target": "_blank", "rel": "noreferrer" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _setup.notPartialSupportSite ? _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addToSelectedList(item);
-      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiPlaylistPlus))])], 1), _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("VpuyxZtIoDF9-YyOm0tK_") }, on: { "click": function($event) {
+      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiPlaylistPlus))])], 1) : _vm._e(), _setup.notPartialSupportSite ? _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("VpuyxZtIoDF9-YyOm0tK_") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.downloadCtxPost(item);
-      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1), _setup.isFavBtnShow ? _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("Dnnio9m9RZA6bkTLytc99") }, on: { "click": function($event) {
+      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1) : _vm._e(), _setup.isFavBtnShow ? _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("Dnnio9m9RZA6bkTLytc99") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addFavorite(item.id);
       } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHeartPlusOutline))])], 1) : _vm._e()], 1) : _vm._e()], 2)];
-    } }], null, false, 3729911678) }) : _c2("wf-layout", _vm._l(_setup.store.imageList, function(image, index) {
+    } }], null, false, 351880766) }) : _c2("wf-layout", _vm._l(_setup.store.imageList, function(image, index) {
       var _a2, _b2;
       return _c2("v-card", { key: index, staticClass: "posts-image-card", style: _setup.store.settings.masonryLayout === "flexbin" ? `--w:${image.width};--h:${image.height}` : _setup.maxHeightStyle }, [_setup.store.settings.masonryLayout === "flexbin" ? [_c2("img", { staticClass: "post-image", attrs: { "alt": "", "loading": "lazy", "src": _setup.getImgSrc(image), "role": "button", "tabindex": "0" }, on: { "click": function($event) {
         return _setup.showImgModal(index);

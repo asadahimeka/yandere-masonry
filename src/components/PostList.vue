@@ -62,10 +62,10 @@
             <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" :href="item.postView" target="_blank" rel="noreferrer">
               <v-icon>{{ mdiLinkVariant }}</v-icon>
             </v-btn>
-            <v-btn icon color="#fff" :title="$t('hVmfDxXoj8vkgVQabEOSr')" @click.stop="addToSelectedList(item)">
+            <v-btn v-if="notPartialSupportSite" icon color="#fff" :title="$t('hVmfDxXoj8vkgVQabEOSr')" @click.stop="addToSelectedList(item)">
               <v-icon>{{ mdiPlaylistPlus }}</v-icon>
             </v-btn>
-            <v-btn icon color="#fff" :title="$t('VpuyxZtIoDF9-YyOm0tK_')" @click.stop="downloadCtxPost(item)">
+            <v-btn v-if="notPartialSupportSite" icon color="#fff" :title="$t('VpuyxZtIoDF9-YyOm0tK_')" @click.stop="downloadCtxPost(item)">
               <v-icon>{{ mdiDownload }}</v-icon>
             </v-btn>
             <v-btn v-if="isFavBtnShow" icon color="#fff" :title="$t('Dnnio9m9RZA6bkTLytc99')" @click.stop="addFavorite(item.id)">

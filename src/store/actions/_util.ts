@@ -15,11 +15,12 @@ export function getFirstPageNo(params: URLSearchParams) {
 
 export function pushPageState(pageNo: number, latePageQuery = false) {
   if (isRule34FavPage() || isAllGirlPage() || isNozomiPage()) return
-  if (latePageQuery && pageNo > 1) pageNo -= 1
   let pageParamName = 'page'
   if (isPidSite) {
     pageParamName = 'pid'
     pageNo = (pageNo - 1) * BOORU_PAGE_LIMIT
+  } else if (latePageQuery && pageNo > 1) {
+    pageNo -= 1
   }
   const url = new URL(location.href)
   url.searchParams.set(pageParamName, pageNo.toString())

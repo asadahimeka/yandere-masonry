@@ -77,9 +77,9 @@
             </v-list-item-content>
           </v-list-item>
           <hr class="my-2">
-          <v-list-item link @click="openLink('https://www.pixiv.pics')">
+          <v-list-item link @click="openLink('https://pixiv.pictures')">
             <v-list-item-icon class="mr-2">
-              <img src="https://www.pixiv.pics/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
+              <img src="https://pixiv.pictures/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>Pixiv Viewer</v-list-item-title>
@@ -93,14 +93,14 @@
               <v-list-item-title>Moeview</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item link @click="openLink('https://booru.io/')">
+          <!-- <v-list-item link @click="openLink('https://booru.io/')">
             <v-list-item-icon class="mr-2">
               <img src="https://booru.io/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>booru.io</v-list-item-title>
             </v-list-item-content>
-          </v-list-item>
+          </v-list-item> -->
           <v-list-item link @click="openLink('https://r-34.xyz/')">
             <v-list-item-icon class="mr-2">
               <img src="https://r-34.xyz/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
@@ -145,7 +145,7 @@
             <v-list-item-subtitle>{{ $t('jerGO2OCuW9TdnEnGYRWd') }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link @click="openLink('https://www.pixiv.pics/setting/recommend')">
+        <v-list-item link @click="openLink('https://pixiv.pictures/setting/recommend')">
           <v-list-item-icon class="mr-2">
             <v-icon>{{ mdiBookmarkBoxMultipleOutline }}</v-icon>
           </v-list-item-icon>
@@ -205,15 +205,14 @@ const openLink = (link: string) => {
 const dealLink = (link: string) => {
   if (link.includes('yande')) return 'https://yande.re/post?_wf=1'
   if (link.includes('behoimi')) return 'http://behoimi.org?_wf=1'
-  if (link.includes('konachan') || link.includes('rule34.xxx')) return `https://${link}`
-  return `https://${link}?_wf=1`
+  return `https://${link}`
 }
 
 const dealFavicon = (link: string) => {
   if (link.includes('konachan')) return 'https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/cbd0b71ead30e0777e5b023170ba415c_4819570566325089051.png'
   if (link.includes('behoimi')) return 'https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/d3b97f45046795c87c12ad5704074f32_1333245617164582614.png'
-  if (link.includes('sankaku')) return 'https://sankaku.app/images/favicon.ico'
-  return `https://${link.split('/')[0]}/favicon.ico`
+  if (link.includes('sankaku')) return 'https://kwc.cocomi.eu.org/https://sankaku.app/images/favicon.ico'
+  return `https://kwc.cocomi.eu.org/https://${link.split('/')[0]}/favicon.ico`
 }
 
 const actSiteIndex = computed(() => {

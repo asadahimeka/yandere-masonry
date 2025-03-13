@@ -1,9 +1,10 @@
 import { search, sites } from '@himeka/booru'
 import { isSankakuSite } from './sankaku'
 import { isAnimePicturesPage } from './anime-pictures'
+import { isRealbooruPage } from './realbooru'
 import store from '@/store'
 
-const blackList = new Set(['e621.net', 'e926.net', 'hypnohub.net', 'derpibooru.org'])
+const blackList = new Set(['e621.net', 'e926.net', 'hypnohub.net', 'derpibooru.org', 'realbooru.com'])
 const siteKeys = Object.keys(sites).filter(e => !blackList.has(e))
 export const isBooruSite = () => siteKeys.includes(location.host)
 
@@ -20,6 +21,7 @@ export const siteDomains = [
   'kusowanka.com',
   'anihonetwallpaper.com',
   'nozomi.la',
+  'realbooru.com',
 ]
 
 export const isSupportTagSearch = isBooruSite() || !['e-shuushuu.net', 'nozomi.la'].includes(location.host)
@@ -32,6 +34,7 @@ export const notPartialSupportSite = !([
   'kusowanka.com',
   'anihonetwallpaper.com',
   'nozomi.la',
+  'realbooru.com',
 ].includes(location.host))
 
 export const defCompTags = (() => {
@@ -92,7 +95,7 @@ const defaultLimitMap: Record<string, number> = {
 
 export const BOORU_PAGE_LIMIT = defaultLimitMap[location.host] || 40
 
-export const isPidSite = sites[location.host]?.paginate === 'pid'
+export const isPidSite = sites[location.host]?.paginate === 'pid' || isRealbooruPage()
 
 export async function searchBooru(page: number, tags: string | null) {
   if (!tags || tags === 'all') tags = ''

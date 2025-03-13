@@ -14,18 +14,24 @@ export async function fetchRule34Favorites(page: number) {
     const img = el.querySelector('img')
     const imgSrc = img?.src || ''
     const postView = el.querySelector('a')?.href
+    const id = postView?.match(/id=(\d+)/)?.[1]
     const { width, height } = await getImageSize(imgSrc)
+    const tags = img?.title.split(/\s+/).filter(Boolean)
+    const isVideo = /mp4|animated|video/i.test(img?.title || '')
+    const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, '$1images$2$3.mp4').replace('https://wimg.', 'https://ahri2mp4.')
+
     return {
-      id: postView?.match(/id=(\d+)/)?.[1],
+      id,
       postView,
       previewUrl: imgSrc,
-      sampleUrl: imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, '$1samples$2sample_$3'),
-      fileUrl: imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, '$1images$2$3.jpeg'),
-      tags: img?.title.split(/\s+/),
-      width,
-      height,
+      sampleUrl: isVideo ? videoUrl : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, '$1samples$2sample_$3'),
+      fileUrl: isVideo ? videoUrl : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, '$1images$2$3.jpeg'),
+      tags,
+      width: width * 10,
+      height: height * 10,
       aspectRatio: width / height,
-      fileExt: 'jpg',
+      fileExt: isVideo ? 'mp4' : 'jpg',
+      fileDownloadName: `rule34_xxx_${id}`,
       rating: '',
     } as any
   })
