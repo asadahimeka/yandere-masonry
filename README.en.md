@@ -217,4 +217,4 @@ Licensed under the [MIT](https://github.com/asadahimeka/yandere-masonry/blob/mai
 
 Copyright © 2022 Yumine Sakura
 
-<p><img src="https://api.moedog.org/count/@asadahimeka-yandere-masonry-github-en" alt="yandere-masonry"></p>
+<p><img src="https://api.moedog.org/count/@himekayanderemasonryghen" alt="yandere-masonry"></p>
