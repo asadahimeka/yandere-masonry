@@ -6993,7 +6993,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const getSearchState = () => query;
   const setPage = (p) => query.page = p;
   const setTags = (t) => query.tags = t;
-  const fetchActions = [
+  const fetchActions$1 = [
     {
       test: isPopularPage,
       action: async () => {
@@ -7162,7 +7162,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     var _a2;
     store.requestState = true;
     try {
-      const posts = await ((_a2 = fetchActions.find((e) => e.test())) == null ? void 0 : _a2.action());
+      const posts = await ((_a2 = fetchActions$1.find((e) => e.test())) == null ? void 0 : _a2.action());
       if (Array.isArray(posts) && posts.length > 0) {
         const { page } = getSearchState();
         store.currentPage = page;
@@ -7225,6 +7225,41 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }
     });
   };
+  async function fetchDanbooruAutocomplete(term) {
+    const response = await fetch(`https://danbooru.donmai.us/autocomplete.json?search[query]=${term}&search[type]=tag_query&version=1&limit=20`);
+    if (!response.ok) {
+      return [];
+    }
+    const result = await response.json();
+    return result.map((e) => e.value);
+  }
+  async function fetchGelbooruAutocomplete(term) {
+    const response = await fetch(`https://gelbooru.com/index.php?page=autocomplete2&term=${term}&type=tag_query&limit=10`);
+    if (!response.ok) {
+      return [];
+    }
+    const result = await response.json();
+    return result.map((e) => e.value);
+  }
+  async function fetchRule34Autocomplete(term) {
+    const response = await fetch(`https://ac.rule34.xxx/autocomplete.php?q=${term}`);
+    if (!response.ok) {
+      return [];
+    }
+    const result = await response.json();
+    return result.map((e) => e.value);
+  }
+  const fetchActions = {
+    "yande.re": async (term) => searchTagsByName(term),
+    "konachan.com": async (term) => searchTagsByName(term),
+    "konachan.net": async (term) => searchTagsByName(term),
+    "danbooru.donmai.us": fetchDanbooruAutocomplete,
+    "gelbooru.com": fetchGelbooruAutocomplete,
+    "rule34.xxx": fetchRule34Autocomplete
+  };
+  const isAutocompleteAct = Object.keys(fetchActions).includes(location.hostname);
+  const fetchAutocomplete = fetchActions[location.hostname] || (() => {
+  });
   var _sfc_main$9 = /* @__PURE__ */ Vue2.defineComponent({
     __name: "AppBar",
     setup(__props) {
@@ -7261,10 +7296,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         showInput: !!tagsQuery,
         showMenu: false,
         searchTerm: tagsQuery || "",
-        searchItems: store.isYKSite ? defCompTags.concat(getRecentTags()) : defCompTags
+        searchItems: store.isYKSite ? defCompTags.concat(getRecentTags()) : defCompTags,
+        loading: false
       });
-      const onSearchTermInput = debounce(() => {
-        if (!store.isYKSite)
+      const onSearchTermInput = debounce(async () => {
+        if (!isAutocompleteAct)
           return;
         const val = searchState.searchTerm;
         const lastTag = val == null ? void 0 : val.split(/\s+/).slice(-1)[0];
@@ -7273,8 +7309,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           searchState.searchItems = defCompTags;
           return;
         }
+        searchState.loading = true;
         searchState.showMenu = true;
-        searchState.searchItems = searchTagsByName(lastTag);
+        searchState.searchItems = await fetchAutocomplete(lastTag);
+        searchState.loading = false;
       }, 500);
       const selectTag = (tag2) => {
         const termArr = searchState.searchTerm.split(/\s+/);
@@ -7579,11 +7617,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }, expression: "searchState.searchTerm" } }, on))], 1)])];
     } }], null, false, 1463821240), model: { value: _setup.searchState.showMenu, callback: function($$v) {
       _vm.$set(_setup.searchState, "showMenu", $$v);
-    }, expression: "searchState.showMenu" } }, [_setup.searchState.searchItems.length ? _c2("v-list", { staticClass: "ac_tags_list", attrs: { "dense": "" } }, _vm._l(_setup.searchState.searchItems, function(item) {
+    }, expression: "searchState.showMenu" } }, [_setup.searchState.searchItems.length ? _c2("v-list", { staticClass: "ac_tags_list", attrs: { "dense": "" } }, [_c2("v-progress-linear", { attrs: { "active": _setup.searchState.loading, "height": 4, "indeterminate": "", "absolute": "", "top": "" } }), _vm._l(_setup.searchState.searchItems, function(item) {
       return _c2("v-list-item", { key: item, attrs: { "dense": "" }, on: { "click": function($event) {
         return _setup.selectTag(item);
       } } }, [_c2("v-list-item-title", { domProps: { "textContent": _vm._s(item) } })], 1);
-    }), 1) : _vm._e()], 1), _c2("v-btn", { attrs: { "title": _vm.$t("ZztrWbSaaaas3v0cHtSmh"), "icon": "" }, on: { "click": function($event) {
+    })], 2) : _vm._e()], 1), _c2("v-btn", { attrs: { "title": _vm.$t("ZztrWbSaaaas3v0cHtSmh"), "icon": "" }, on: { "click": function($event) {
       return _setup.showTagsInput();
     } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiMagnify))])], 1)] : _vm._e()], 2) : _setup.store.showPoolList ? _c2("div", { staticClass: "align-center", staticStyle: { "display": "flex" } }, [_setup.store.showPoolList ? _c2("v-toolbar-title", { staticClass: "mr-3 hidden-md-and-down" }, [_vm._v("Pools")]) : _vm._e(), _c2("v-text-field", { attrs: { "hide-details": "", "append-icon": _setup.mdiMagnify }, on: { "keyup": function($event) {
       if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter"))
@@ -7597,9 +7635,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "hidden-md-and-down", attrs: { "title": _vm.$t("OKs1ePekQA4Ona839U114"), "icon": "" } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1)];
     } }], null, false, 1780380651) }, [_c2("v-list", { staticStyle: { "min-width": "300px", "max-height": "80vh", "overflow": "auto" }, attrs: { "dense": "", "flat": "" } }, [_c2("v-subheader", { staticClass: "ml-2" }, [_c2("span", { staticClass: "mr-4" }, [_vm._v(_vm._s(_vm.$t("OKs1ePekQA4Ona839U114")))]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], attrs: { "small": "" }, on: { "click": _setup.startDownload } }, [_vm._v(" " + _vm._s(_vm.$t("cKn4cfAxzdgh_HD6OFibB")) + " ")]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], staticClass: "ml-2", attrs: { "small": "" }, on: { "click": _setup.exportFileUrls } }, [_vm._v(" " + _vm._s(_vm.$t("J2Ckb_-LITfmww4aEksqk")) + " ")])], 1), _setup.store.isYKSite ? _c2("div", { staticClass: "d-flex align-center mt-1 ml-2" }, [_c2("v-radio-group", { staticClass: "mr-1 mt-0", attrs: { "hide-details": "", "dense": "", "row": "" }, model: { value: _setup.downloadUrlKey, callback: function($$v) {
       _setup.downloadUrlKey = $$v;
-    }, expression: "downloadUrlKey" } }, [_c2("v-radio", { attrs: { "label": _vm.$t("aVqN9TBRCbNGsW3Y2D2Nm"), "value": "jpegUrl" } }), _c2("v-radio", { attrs: { "label": _vm.$t("jDjashxA-oBPo19DXI504"), "value": "fileUrl" } })], 1), _c2("v-switch", { staticClass: "mt-0 mr-1", attrs: { "disabled": _setup.isExportUrlEncode, "label": "Decode URL", "hide-details": "", "dense": "" }, model: { value: _setup.isExportUrlDecode, callback: function($$v) {
+    }, expression: "downloadUrlKey" } }, [_c2("v-radio", { attrs: { "label": _vm.$t("aVqN9TBRCbNGsW3Y2D2Nm"), "value": "jpegUrl" } }), _c2("v-radio", { attrs: { "label": _vm.$t("jDjashxA-oBPo19DXI504"), "value": "fileUrl" } })], 1), _c2("v-switch", { staticClass: "mt-0 mr-1", attrs: { "label": "Decode URL", "hide-details": "", "dense": "" }, model: { value: _setup.isExportUrlDecode, callback: function($$v) {
       _setup.isExportUrlDecode = $$v;
-    }, expression: "isExportUrlDecode" } })], 1) : _vm._e(), !_setup.isZerochanPage() ? _c2("div", { staticClass: "d-flex align-center mt-1 ml-2" }, [_c2("v-switch", { staticClass: "mt-0 mr-1", attrs: { "disabled": _setup.isExportUrlDecode, "label": "Encode URL", "hide-details": "", "dense": "" }, model: { value: _setup.isExportUrlEncode, callback: function($$v) {
+    }, expression: "isExportUrlDecode" } })], 1) : _vm._e(), !_setup.isZerochanPage() ? _c2("div", { staticClass: "d-flex align-center mt-1 ml-2" }, [_c2("v-switch", { staticClass: "mt-0 mr-1", attrs: { "label": "Encode URL", "hide-details": "", "dense": "" }, model: { value: _setup.isExportUrlEncode, callback: function($$v) {
       _setup.isExportUrlEncode = $$v;
     }, expression: "isExportUrlEncode" } })], 1) : _vm._e(), _c2("v-list-item-group", { attrs: { "color": "primary" } }, _vm._l(_setup.store.selectedImageList, function(item) {
       return _c2("v-list-item", { key: item.id, attrs: { "dense": "", "two-line": "" } }, [_c2("v-list-item-avatar", [!item.loading && !item.loaded ? _c2("v-btn", { attrs: { "icon": "" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFileClockOutline))])], 1) : _vm._e(), item.loaded ? _c2("v-btn", { attrs: { "icon": "", "color": "green" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiCheckUnderlineCircle))])], 1) : _vm._e(), item.loading ? _c2("v-progress-circular", { attrs: { "rotate": -90, "size": 28, "value": _setup.loadingValue, "color": "pink" } }) : _vm._e()], 1), _c2("v-list-item-content", { staticStyle: { "max-width": "240px" } }, [_c2("v-list-item-subtitle", { attrs: { "title": item.fileNameWithTags }, domProps: { "textContent": _vm._s(item.fileNameWithTags) } }), _c2("v-list-item-subtitle", { attrs: { "title": item[_setup.downloadUrlKey] }, domProps: { "textContent": _vm._s(item[_setup.downloadUrlKey]) } })], 1), _c2("v-list-item-action", [_c2("v-btn", { attrs: { "icon": "" }, on: { "click": function($event) {

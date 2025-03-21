@@ -1,3 +1,7 @@
+## v0.35.0
+
+- feat: 新增 danbooru/gelbooru/rule34.xxx 的搜索标签自动补全
+
 ## v0.34.1
 
 - fix: 修复 realbooru.com 无法加载

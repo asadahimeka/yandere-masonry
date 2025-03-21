@@ -105,6 +105,7 @@
             </v-slide-x-transition>
           </template>
           <v-list v-if="searchState.searchItems.length" class="ac_tags_list" dense>
+            <v-progress-linear :active="searchState.loading" :height="4" indeterminate absolute top />
             <v-list-item v-for="item in searchState.searchItems" :key="item" dense @click="selectTag(item)">
               <v-list-item-title v-text="item" />
             </v-list-item>
@@ -173,7 +174,6 @@
             </v-radio-group>
             <v-switch
               v-model="isExportUrlDecode"
-              :disabled="isExportUrlEncode"
               class="mt-0 mr-1"
               label="Decode URL"
               hide-details
@@ -183,7 +183,6 @@
           <div v-if="!isZerochanPage()" class="d-flex align-center mt-1 ml-2">
             <v-switch
               v-model="isExportUrlEncode"
-              :disabled="isExportUrlDecode"
               class="mt-0 mr-1"
               label="Encode URL"
               hide-details
@@ -287,8 +286,9 @@ import { useVuetify } from '@/plugins/vuetify'
 import store from '@/store'
 import { addDate, debounce, downloadFile, eventBus, formatDate, showMsg, subDate } from '@/utils'
 import { loadPostsByPage, loadPostsByTags, refreshPosts } from '@/store/actions/post'
-import { getRecentTags, getUsername, isPopularPage, searchTagsByName } from '@/api/moebooru'
+import { getRecentTags, getUsername, isPopularPage } from '@/api/moebooru'
 import { defCompTags, getSiteTitle, isSupportTagSearch, notPartialSupportSite } from '@/api/booru'
+import { fetchAutocomplete, isAutocompleteAct } from '@/api/autocomplete'
 import { isSankakuSite } from '@/api/sankaku'
 import { isR34PahealHome } from '@/api/r34-paheal'
 import { isZerochanPage } from '@/api/zerochan'
@@ -331,10 +331,11 @@ const searchState = reactive({
   showMenu: false,
   searchTerm: tagsQuery || '',
   searchItems: store.isYKSite ? defCompTags.concat(getRecentTags()) : defCompTags,
+  loading: false,
 })
 
-const onSearchTermInput = debounce(() => {
-  if (!store.isYKSite) return
+const onSearchTermInput = debounce(async () => {
+  if (!isAutocompleteAct) return
   const val = searchState.searchTerm
   const lastTag = val?.split(/\s+/).slice(-1)[0]
   if (!lastTag) {
@@ -342,8 +343,10 @@ const onSearchTermInput = debounce(() => {
     searchState.searchItems = defCompTags
     return
   }
+  searchState.loading = true
   searchState.showMenu = true
-  searchState.searchItems = searchTagsByName(lastTag)
+  searchState.searchItems = await fetchAutocomplete(lastTag)
+  searchState.loading = false
 }, 500)
 
 const selectTag = (tag: string) => {
