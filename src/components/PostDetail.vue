@@ -19,21 +19,21 @@
         </v-row>
         <img
           v-if="!scaleOn"
-          :src="imgSrc"
-          :width="imgLoading ? 0 : imageSelectedWidth"
           class="img_detail_sample"
           alt=""
+          :src="imgSrc"
+          :width="imgLoading ? 0 : imageSelectedWidth"
           @click.stop="toggleToolbar"
           @load="imgLoading = false"
           @error="onImageLoadError"
         >
         <img
           v-if="scaleOn"
+          class="img_detail_scale"
+          draggable="false"
+          alt=""
           :src="scaleImgSrc"
           :style="scaleImgStyle"
-          class="img_detail_scale"
-          alt=""
-          draggable="false"
           @load="imgLoading = false"
           @error="onScaleImgError"
         >
@@ -657,7 +657,7 @@ const showNextPost = async () => {
 }
 
 const onImageLoadError = (ev: Event) => {
-  imgLoading.value = false
+  // imgLoading.value = false
   imageSelected.value.sampleUrl = null
 
   if (notR34Fav.value) {
@@ -683,6 +683,10 @@ const onImageLoadError = (ev: Event) => {
   }
   if (fileUrl?.includes('.jpg')) {
     imageSelected.value.fileUrl = fileUrl.replace(/\.jpg(\?\d+)?$/, '.png')
+    return
+  }
+  if (fileUrl && isRealbooruPage()) {
+    imageSelected.value.fileUrl = fileUrl.replace(/\.png(\?\d+)?$/, '.gif')
   }
 }
 
@@ -699,7 +703,7 @@ const onScaleImgError = (ev: Event) => {
     return
   }
 
-  imgLoading.value = false
+  // imgLoading.value = false
   const { fileUrl } = imageSelected.value
 
   if (fileUrl && location.hostname.includes('zerochan')) {
@@ -717,6 +721,11 @@ const onScaleImgError = (ev: Event) => {
   }
   if (fileUrl?.includes('.jpg')) {
     imageSelected.value.fileUrl = fileUrl.replace(/\.jpg(\?\d+)?$/, '.png')
+    ;(ev.target as HTMLImageElement).src = imageSelected.value.fileUrl
+    return
+  }
+  if (fileUrl && isRealbooruPage()) {
+    imageSelected.value.fileUrl = fileUrl.replace(/\.png(\?\d+)?$/, '.gif')
     ;(ev.target as HTMLImageElement).src = imageSelected.value.fileUrl
   }
 }

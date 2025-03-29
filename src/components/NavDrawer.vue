@@ -136,7 +136,7 @@
             <v-list-item-subtitle>{{ $t('iJ0h220tvMmUhkfIMYI-W') }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link @click="openLink('https://booru.pixiv.pics')">
+        <v-list-item link @click="openLink('https://booru.cocomi.eu.org')">
           <v-list-item-icon class="mr-2">
             <v-icon>{{ mdiWeb }}</v-icon>
           </v-list-item-icon>
@@ -211,7 +211,8 @@ const dealLink = (link: string) => {
 const dealFavicon = (link: string) => {
   if (link.includes('konachan')) return 'https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/cbd0b71ead30e0777e5b023170ba415c_4819570566325089051.png'
   if (link.includes('behoimi')) return 'https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/d3b97f45046795c87c12ad5704074f32_1333245617164582614.png'
-  if (link.includes('sankaku')) return 'https://kwc.cocomi.eu.org/https://sankaku.app/images/favicon.ico'
+  if (link.includes('sankaku')) return 'https://upload-bbs.miyoushe.com/upload/2025/03/29/190122060/4fa56922d173d28ac8e687caaa487f27_1885629069482225420.png'
+  if (link.includes('rule34.xxx')) return 'https://upload-bbs.miyoushe.com/upload/2025/03/29/190122060/76ba90d4350a1455f899d2a1500fca69_8344852329496206545.png'
   return `https://kwc.cocomi.eu.org/https://${link.split('/')[0]}/favicon.ico`
 }
 

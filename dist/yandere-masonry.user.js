@@ -587,7 +587,7 @@ var __publicField = (obj, key, value) => {
   const CacM8tispuPNrSxxpt9GX$3 = "\u5FEB\u6377\u65B9\u5F0F";
   const zs8YTCc8d8XFUgRnp7m_w$3 = "\u6211\u7684\u6536\u85CF\u5939";
   const e2_EYvweJsVoIZlIWkPRV$3 = "\u7AD9\u70B9\u5217\u8868";
-  const qWcqQRsE9nN43MaZ2BmN9$3 = "Web \u9884\u89C8\u7248";
+  const qWcqQRsE9nN43MaZ2BmN9$3 = "Web \u7248\u672C";
   const jerGO2OCuW9TdnEnGYRWd$3 = "\u70B9\u51FB\u67E5\u770B";
   const tGi6xYfvStBmR8qduEmKX$3 = "\u67E5\u770B";
   const RN4dt81l_fZMWODsskZob$3 = "\u52A0\u8F7D\u4E2D";
@@ -816,7 +816,7 @@ var __publicField = (obj, key, value) => {
   const l8CbIALt_VWUnzBl_Rmgf$2 = "Booru \u5716\u7AD9\u7011\u5E03\u6D41\u700F\u89BD";
   const pEU9Y9K7DsODkocCDwq_O$2 = "\u5DF2\u6536\u85CF";
   const qSF4OLshg2EEX4CwtBE6r$2 = "\u4F86\u6E90";
-  const qWcqQRsE9nN43MaZ2BmN9$2 = "Web \u9810\u89BD\u7248";
+  const qWcqQRsE9nN43MaZ2BmN9$2 = "Web \u7248\u672C";
   const rXjhc8VuGloy1wZ09noNB$2 = "\u5C0F\u65BC7\u5217\u6642\u5217\u8868\u6703\u52A0\u8F09\u5927\u5716";
   const tGi6xYfvStBmR8qduEmKX$2 = "\u67E5\u770B";
   const u8mEnSo4mxDRUbj7FeAll$2 = "\u5207\u63DB\u6DF1\u8272\u6A21\u5F0F";
@@ -1020,7 +1020,7 @@ var __publicField = (obj, key, value) => {
   const l8CbIALt_VWUnzBl_Rmgf$1 = "Booru sites waterfall browsing";
   const pEU9Y9K7DsODkocCDwq_O$1 = "Bookmarked";
   const qSF4OLshg2EEX4CwtBE6r$1 = "Source";
-  const qWcqQRsE9nN43MaZ2BmN9$1 = "Web Preview";
+  const qWcqQRsE9nN43MaZ2BmN9$1 = "Web version";
   const rXjhc8VuGloy1wZ09noNB$1 = "When the list is less than 7 columns, the list will load a large image";
   const tGi6xYfvStBmR8qduEmKX$1 = "View";
   const u8mEnSo4mxDRUbj7FeAll$1 = "Toggle dark mode";
@@ -1225,7 +1225,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const l8CbIALt_VWUnzBl_Rmgf = "Booru \u30B5\u30A4\u30C8\u306E\u30A6\u30A9\u30FC\u30BF\u30FC\u30D5\u30A9\u30FC\u30EB \u30D6\u30E9\u30A6\u30B8\u30F3\u30B0";
   const pEU9Y9K7DsODkocCDwq_O = "\u30D6\u30C3\u30AF\u30DE\u30FC\u30AF\u6E08\u307F";
   const qSF4OLshg2EEX4CwtBE6r = "\u30BD\u30FC\u30B9";
-  const qWcqQRsE9nN43MaZ2BmN9 = "\u30A6\u30A7\u30D6\u30D7\u30EC\u30D3\u30E5\u30FC";
+  const qWcqQRsE9nN43MaZ2BmN9 = "Web\u30D0\u30FC\u30B8\u30E7\u30F3";
   const rXjhc8VuGloy1wZ09noNB = "\u30EA\u30B9\u30C8\u304C 7 \u5217\u672A\u6E80\u306E\u5834\u5408\u3001\u30EA\u30B9\u30C8\u306B\u306F\u5927\u304D\u306A\u753B\u50CF\u304C\u30ED\u30FC\u30C9\u3055\u308C\u307E\u3059\u3002";
   const tGi6xYfvStBmR8qduEmKX = "\u898B\u308B";
   const u8mEnSo4mxDRUbj7FeAll = "\u30C0\u30FC\u30AF\u30E2\u30FC\u30C9\u3092\u5207\u308A\u66FF\u3048\u308B";
@@ -6017,18 +6017,21 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const previewUrl = img.src;
       const { width, height } = await getImageSize(previewUrl);
       const tags2 = img.title.split(/,\s+/).filter(Boolean);
+      const isGif = tags2.includes("gif");
       const isVideo = (img == null ? void 0 : img.style.border.includes("rgb(0, 0, 255)")) || (img == null ? void 0 : img.style.border.includes("#0000ff"));
+      const replaceSampleExt = isGif ? "$1images$2$3.gif" : isVideo ? "$1images$2$3.webm" : "$1samples$2sample_$3.jpg";
+      const replaceFileExt = isGif ? "$1images$2$3.gif" : isVideo ? "$1images$2$3.mp4" : "$1images$2$3.jpeg";
       return {
         id,
         postView: a.href,
         previewUrl,
-        sampleUrl: previewUrl.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg$/i, isVideo ? "$1images$2$3.webm" : "$1samples$2sample_$3.jpg"),
-        fileUrl: previewUrl.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, isVideo ? "$1images$2$3.mp4" : "$1images$2$3.jpeg"),
+        sampleUrl: previewUrl.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg$/i, replaceSampleExt),
+        fileUrl: previewUrl.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, replaceFileExt),
         tags: tags2,
         width: Number(width) * 10,
         height: Number(height) * 10,
         aspectRatio: Number(width) / Number(height),
-        fileExt: isVideo ? "mp4" : "jpg",
+        fileExt: isGif ? "gif" : isVideo ? "mp4" : "jpg",
         fileDownloadName: `realbooru_${id}`,
         rating: "e"
       };
@@ -7688,7 +7691,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         if (link.includes("behoimi"))
           return "https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/d3b97f45046795c87c12ad5704074f32_1333245617164582614.png";
         if (link.includes("sankaku"))
-          return "https://kwc.cocomi.eu.org/https://sankaku.app/images/favicon.ico";
+          return "https://upload-bbs.miyoushe.com/upload/2025/03/29/190122060/4fa56922d173d28ac8e687caaa487f27_1885629069482225420.png";
+        if (link.includes("rule34.xxx"))
+          return "https://upload-bbs.miyoushe.com/upload/2025/03/29/190122060/76ba90d4350a1455f899d2a1500fca69_8344852329496206545.png";
         return `https://kwc.cocomi.eu.org/https://${link.split("/")[0]}/favicon.ico`;
       };
       const actSiteIndex = Vue2.computed(() => {
@@ -7731,7 +7736,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }, proxy: true }]) }, [_c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://github.com/asadahimeka/yandere-masonry/blob/main/CHANGELOG.md");
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiInformationOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("v" + _vm._s(_setup.version))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("iJ0h220tvMmUhkfIMYI-W")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
-      return _setup.openLink("https://booru.pixiv.pics");
+      return _setup.openLink("https://booru.cocomi.eu.org");
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiWeb))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("qWcqQRsE9nN43MaZ2BmN9")))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("jerGO2OCuW9TdnEnGYRWd")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://pixiv.pictures/setting/recommend");
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiBookmarkBoxMultipleOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("eOxsWLzwqrlhBdVMwz-rH")))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("jerGO2OCuW9TdnEnGYRWd")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
@@ -8334,7 +8339,6 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         preloadNextImg();
       };
       const onImageLoadError = (ev) => {
-        imgLoading.value = false;
         imageSelected.value.sampleUrl = null;
         if (notR34Fav.value) {
           return;
@@ -8357,6 +8361,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         }
         if (fileUrl == null ? void 0 : fileUrl.includes(".jpg")) {
           imageSelected.value.fileUrl = fileUrl.replace(/\.jpg(\?\d+)?$/, ".png");
+          return;
+        }
+        if (fileUrl && isRealbooruPage()) {
+          imageSelected.value.fileUrl = fileUrl.replace(/\.png(\?\d+)?$/, ".gif");
         }
       };
       const scaleImgSrc = Vue2.computed(() => {
@@ -8367,7 +8375,6 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           imageSelected.value.data.jpeg_url = null;
           return;
         }
-        imgLoading.value = false;
         const { fileUrl } = imageSelected.value;
         if (fileUrl && location.hostname.includes("zerochan")) {
           getZerochanFileUrl(imageSelected.value.id).then((url) => {
@@ -8383,6 +8390,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         }
         if (fileUrl == null ? void 0 : fileUrl.includes(".jpg")) {
           imageSelected.value.fileUrl = fileUrl.replace(/\.jpg(\?\d+)?$/, ".png");
+          ev.target.src = imageSelected.value.fileUrl;
+          return;
+        }
+        if (fileUrl && isRealbooruPage()) {
+          imageSelected.value.fileUrl = fileUrl.replace(/\.png(\?\d+)?$/, ".gif");
           ev.target.src = imageSelected.value.fileUrl;
         }
       };
@@ -8491,12 +8503,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
     return _c2("v-dialog", { attrs: { "fullscreen": "" }, model: { value: _setup.store.showImageSelected, callback: function($$v) {
       _vm.$set(_setup.store, "showImageSelected", $$v);
-    }, expression: "store.showImageSelected" } }, [_setup.store.showImageSelected ? _c2("div", { staticClass: "img_detail_cont", on: { "click": _setup.onDtlContClick } }, [_setup.isVideo ? [_setup.isVideoShow ? _c2(_setup.DPlayer, { style: `width: ${_setup.imageSelectedWidth > _setup.imageSelected.width ? _setup.imageSelected.width : _setup.imageSelectedWidth}px`, attrs: { "options": { theme: "#8E24AA", autoplay: true, loop: true, video: { url: _setup.imageSelected.fileUrl } } } }) : _vm._e()] : _c2("div", { class: { img_scale_scroll: _setup.scaleOn, img_scale_normal: !_setup.scaleOn }, attrs: { "draggable": "false" } }, [_c2("v-row", { directives: [{ name: "show", rawName: "v-show", value: _setup.imgLoading, expression: "imgLoading" }], staticClass: "img_detail_loading" }, [_setup.showPreviewThumb && !_setup.scaleOn ? _c2("img", { attrs: { "src": _setup.imgLasySrc, "width": _setup.imageSelectedWidth, "alt": "" } }) : _vm._e(), _c2("v-progress-circular", { attrs: { "size": 100, "width": 6, "indeterminate": "", "color": "deep-purple" } })], 1), !_setup.scaleOn ? _c2("img", { staticClass: "img_detail_sample", attrs: { "src": _setup.imgSrc, "width": _setup.imgLoading ? 0 : _setup.imageSelectedWidth, "alt": "" }, on: { "click": function($event) {
+    }, expression: "store.showImageSelected" } }, [_setup.store.showImageSelected ? _c2("div", { staticClass: "img_detail_cont", on: { "click": _setup.onDtlContClick } }, [_setup.isVideo ? [_setup.isVideoShow ? _c2(_setup.DPlayer, { style: `width: ${_setup.imageSelectedWidth > _setup.imageSelected.width ? _setup.imageSelected.width : _setup.imageSelectedWidth}px`, attrs: { "options": { theme: "#8E24AA", autoplay: true, loop: true, video: { url: _setup.imageSelected.fileUrl } } } }) : _vm._e()] : _c2("div", { class: { img_scale_scroll: _setup.scaleOn, img_scale_normal: !_setup.scaleOn }, attrs: { "draggable": "false" } }, [_c2("v-row", { directives: [{ name: "show", rawName: "v-show", value: _setup.imgLoading, expression: "imgLoading" }], staticClass: "img_detail_loading" }, [_setup.showPreviewThumb && !_setup.scaleOn ? _c2("img", { attrs: { "src": _setup.imgLasySrc, "width": _setup.imageSelectedWidth, "alt": "" } }) : _vm._e(), _c2("v-progress-circular", { attrs: { "size": 100, "width": 6, "indeterminate": "", "color": "deep-purple" } })], 1), !_setup.scaleOn ? _c2("img", { staticClass: "img_detail_sample", attrs: { "alt": "", "src": _setup.imgSrc, "width": _setup.imgLoading ? 0 : _setup.imageSelectedWidth }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.toggleToolbar.apply(null, arguments);
     }, "load": function($event) {
       _setup.imgLoading = false;
-    }, "error": _setup.onImageLoadError } }) : _vm._e(), _setup.scaleOn ? _c2("img", { staticClass: "img_detail_scale", style: _setup.scaleImgStyle, attrs: { "src": _setup.scaleImgSrc, "alt": "", "draggable": "false" }, on: { "load": function($event) {
+    }, "error": _setup.onImageLoadError } }) : _vm._e(), _setup.scaleOn ? _c2("img", { staticClass: "img_detail_scale", style: _setup.scaleImgStyle, attrs: { "draggable": "false", "alt": "", "src": _setup.scaleImgSrc }, on: { "load": function($event) {
       _setup.imgLoading = false;
     }, "error": _setup.onScaleImgError } }) : _vm._e()], 1)], 2) : _vm._e(), _c2("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && _setup.scaleOn && !_setup.isVideo, expression: "showImageToolbar && scaleOn && !isVideo" }], staticClass: "img_detail_btn_color", staticStyle: { "position": "absolute", "top": "0", "width": "100%", "z-index": "10" }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c2("v-spacer"), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1 hidden-sm-and-down", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {

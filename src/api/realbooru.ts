@@ -20,19 +20,22 @@ export async function fetchRealbooruPosts(page: number, tags: string | null) {
     const previewUrl = img!.src
     const { width, height } = await getImageSize(previewUrl)
     const tags = img!.title.split(/,\s+/).filter(Boolean)
+    const isGif = tags.includes('gif')
     const isVideo = img?.style.border.includes('rgb(0, 0, 255)') || img?.style.border.includes('#0000ff')
+    const replaceSampleExt = isGif ? '$1images$2$3.gif' : isVideo ? '$1images$2$3.webm' : '$1samples$2sample_$3.jpg'
+    const replaceFileExt = isGif ? '$1images$2$3.gif' : isVideo ? '$1images$2$3.mp4' : '$1images$2$3.jpeg'
 
     return {
       id,
       postView: a!.href,
       previewUrl,
-      sampleUrl: previewUrl.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg$/i, isVideo ? '$1images$2$3.webm' : '$1samples$2sample_$3.jpg'),
-      fileUrl: previewUrl.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, isVideo ? '$1images$2$3.mp4' : '$1images$2$3.jpeg'),
+      sampleUrl: previewUrl.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg$/i, replaceSampleExt),
+      fileUrl: previewUrl.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, replaceFileExt),
       tags,
       width: Number(width) * 10,
       height: Number(height) * 10,
       aspectRatio: Number(width) / Number(height),
-      fileExt: isVideo ? 'mp4' : 'jpg',
+      fileExt: isGif ? 'gif' : isVideo ? 'mp4' : 'jpg',
       fileDownloadName: `realbooru_${id}`,
       rating: 'e',
     } as any
