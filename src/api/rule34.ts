@@ -17,7 +17,7 @@ export async function fetchRule34Favorites(page: number) {
     const id = postView?.match(/id=(\d+)/)?.[1]
     const { width, height } = await getImageSize(imgSrc)
     const tags = img?.title.split(/\s+/).filter(Boolean)
-    const isVideo = /mp4|animated|video/i.test(img?.title || '')
+    const isVideo = ['mp4', 'animated', 'video'].some(e => tags?.includes(e))
     const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, '$1images$2$3.mp4').replace('https://wimg.', 'https://ahri2mp4.')
 
     return {

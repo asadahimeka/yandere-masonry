@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config-vue": "0.27.0",
-    "@mdi/js": "^7.4.47",
+    "@mdi/js": "7.4.47",
     "@types/node": "20.10.6",
     "@types/tampermonkey": "5.0.2",
     "@vitejs/plugin-vue2": "1.1.2",

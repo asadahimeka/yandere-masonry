@@ -14,7 +14,7 @@ export const siteDomains = [
   'zerochan.net',
   'chan.sankakucomplex.com',
   'idol.sankakucomplex.com',
-  'sankaku.app/ai-posts',
+  'sankaku.app',
   'anime-pictures.net',
   'allgirl.booru.org',
   'booru.eu',
@@ -42,7 +42,7 @@ export const defCompTags = (() => {
     return ['rating:s', 'rating:q', 'rating:e', 'order:score', 'order:vote', 'order:mpixels', 'order:landscape', 'order:portrait']
   }
   if (isSankakuSite) {
-    return ['order:quality', 'order:popularity', 'order:random', 'order:recently_favorited', 'order:recently_voted', 'rating:s', 'rating:q', 'rating:e', 'threshold:0', 'threshold:1', 'threshold:2', 'threshold:3', 'threshold:4', 'threshold:5']
+    return ['order:quality', 'order:popularity', 'order:random', 'order:recently_favorited', 'order:recently_voted', 'rating:s', 'rating:q', 'rating:e', 'threshold:0', 'threshold:1', 'threshold:2', 'threshold:3', 'threshold:4', 'threshold:5', 'sankaku_ai order:popular']
   }
   if (isAnimePicturesPage()) {
     return ['order_by:date', 'order_by:date_r', 'order_by:rating', 'order_by:views', 'order_by:size', 'order_by:tag_num']
@@ -65,8 +65,7 @@ const specTitleMap: Record<string, string> = {
   'rule34.paheal.net': 'Rule34.Paheal',
   'booru.allthefallen.moe': 'ATFBooru',
   'aibooru.online': 'AIBooru',
-  'sankaku.app': 'Sankaku Complex',
-  'sankaku.app/ai-posts': 'Sankaku AI',
+  'sankaku.app': 'Sankaku APP',
   'chan.sankakucomplex.com': 'Sankaku Complex',
   'idol.sankakucomplex.com': 'Idol Complex',
   'anime-pictures.net': 'Anime Pictures',

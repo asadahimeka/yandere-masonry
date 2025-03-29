@@ -407,7 +407,9 @@ import { isRule34FavPage } from '@/api/rule34'
 import { isGelbooruFavPage } from '@/api/gelbooru'
 import { notPartialSupportSite } from '@/api/booru'
 import { getZerochanFileUrl, isZerochanPage } from '@/api/zerochan'
+import { getSankakuDetail, isSankakuPage } from '@/api/sankaku'
 import { getSankakuIdolDetail, isSankakuIdolPage } from '@/api/sankaku-idol'
+import { getSankakuComplexDetail, isSankakuComplexPage } from '@/api/sankaku-complex'
 import { getAnimePicturesDetail, isAnimePicturesPage } from '@/api/anime-pictures'
 import { getAllGirlDetail, isAllGirlPage } from '@/api/all-girl'
 import { getHentaiBooruDetail, isHentaiBooruPage } from '@/api/hentaibooru'
@@ -569,6 +571,16 @@ const setPostDetail = async () => {
   }
   if (isSankakuIdolPage()) {
     const { sampleUrl, fileUrl } = await getSankakuIdolDetail(imageSelected.value.id)
+    if (sampleUrl) imageSelected.value.sampleUrl = sampleUrl
+    if (fileUrl) imageSelected.value.fileUrl = fileUrl
+  }
+  if (isSankakuPage()) {
+    const { sampleUrl, fileUrl } = await getSankakuDetail(imageSelected.value.id)
+    if (sampleUrl) imageSelected.value.sampleUrl = sampleUrl
+    if (fileUrl) imageSelected.value.fileUrl = fileUrl
+  }
+  if (isSankakuComplexPage()) {
+    const { sampleUrl, fileUrl } = await getSankakuComplexDetail(imageSelected.value.id)
     if (sampleUrl) imageSelected.value.sampleUrl = sampleUrl
     if (fileUrl) imageSelected.value.fileUrl = fileUrl
   }

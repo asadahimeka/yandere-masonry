@@ -1,17 +1,18 @@
 export const isSankakuSite = location.host.includes('sankaku')
 
 export function isSankakuPage() {
-  return (location.hostname == 'sankaku.app' && !location.pathname.includes('/ai-posts')) || location.hostname == 'chan.sankakucomplex.com'
+  return location.hostname == 'sankaku.app'
 }
 
 const pageState: { next: string | null } = { next: null }
 export async function fetchSankakuPosts(page: number, tags: string | null) {
   if (page == 1) pageState.next = null
-  const url = new URL('https://capi-v2.sankakucomplex.com/posts/keyset')
+  const url = new URL('https://sankakuapi.com/v2/posts/keyset')
   url.searchParams.set('lang', navigator.language || 'zh-CN')
-  url.searchParams.set('default_threshold', '0')
+  url.searchParams.set('default_threshold', '5')
   url.searchParams.set('hide_posts_in_books', 'in-larger-tags')
   url.searchParams.set('limit', '40')
+  url.searchParams.set('page', `${page}`)
   pageState.next && url.searchParams.set('next', `${pageState.next}`)
   tags && url.searchParams.set('tags', tags)
   const resp = await fetch(url.href, {
@@ -28,10 +29,9 @@ export async function fetchSankakuPosts(page: number, tags: string | null) {
     const fileExt = e.file_type.split('/').pop()
     return {
       id: e.id,
-      postView: `https://chan.sankakucomplex.com/posts/${e.id}`,
+      postView: `https://sankaku.app/zh-CN/posts/${e.id}`,
       previewUrl: e.preview_url,
-      sampleUrl: e.sample_url,
-      fileUrl: e.file_url,
+      fileUrl: '',
       tags: e.tags.map((t: any) => t.name + (t.name_ja ? `[${t.name_ja}]` : '')),
       width: e.width,
       height: e.height,
@@ -43,4 +43,20 @@ export async function fetchSankakuPosts(page: number, tags: string | null) {
       createdAt: e.created_at.s * 1000,
     } as any
   })
+}
+
+export async function getSankakuDetail(id: string) {
+  const resp = await fetch(`https://sankakuapi.com/posts/${id}/fu?lang=${navigator.language || 'zh-CN'}`, {
+    headers: {
+      'api-version': '2',
+      'client-type': 'non-premium',
+      'platform': 'web-app',
+      'priority': 'u=1, i',
+    },
+  })
+  const json = await resp.json()
+  return {
+    sampleUrl: json.data.sample_url,
+    fileUrl: json.data.file_url,
+  }
 }

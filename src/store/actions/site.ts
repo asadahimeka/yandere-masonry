@@ -7,8 +7,8 @@ import { fetchGelbooruFavorites, isGelbooruFavPage } from '@/api/gelbooru'
 import { fetchEshuushuuPosts, isEshuushuuPage } from '@/api/e-shuushuu'
 import { fetchZerochanPosts, isZerochanPage } from '@/api/zerochan'
 import { fetchSankakuPosts, isSankakuPage } from '@/api/sankaku'
-import { fetchSankakuAIPosts, isSankakuAIPage } from '@/api/sankaku-ai'
 import { fetchSankakuIdolPosts, isSankakuIdolPage } from '@/api/sankaku-idol'
+import { fetchSankakuComplexPosts, isSankakuComplexPage } from '@/api/sankaku-complex'
 import { fetchAnimePicturesPosts, isAnimePicturesPage } from '@/api/anime-pictures'
 import { fetchAllGirlPosts, isAllGirlPage } from '@/api/all-girl'
 import { fetchHentaiBooruPosts, isHentaiBooruPage } from '@/api/hentaibooru'
@@ -167,9 +167,9 @@ export const fetchActions = [
     },
   },
   {
-    test: isSankakuAIPage,
+    test: isSankakuComplexPage,
     action: async () => {
-      const results = await fetchSankakuAIPosts(query.page, query.tags)
+      const results = await fetchSankakuComplexPosts(query.page, query.tags)
       return dealBlacklist(results as any)
     },
   },

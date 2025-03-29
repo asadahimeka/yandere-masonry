@@ -5905,17 +5905,18 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   }
   const isSankakuSite = location.host.includes("sankaku");
   function isSankakuPage() {
-    return location.hostname == "sankaku.app" && !location.pathname.includes("/ai-posts") || location.hostname == "chan.sankakucomplex.com";
+    return location.hostname == "sankaku.app";
   }
   const pageState = { next: null };
   async function fetchSankakuPosts(page, tags) {
     if (page == 1)
       pageState.next = null;
-    const url = new URL("https://capi-v2.sankakucomplex.com/posts/keyset");
+    const url = new URL("https://sankakuapi.com/v2/posts/keyset");
     url.searchParams.set("lang", navigator.language || "zh-CN");
-    url.searchParams.set("default_threshold", "0");
+    url.searchParams.set("default_threshold", "5");
     url.searchParams.set("hide_posts_in_books", "in-larger-tags");
     url.searchParams.set("limit", "40");
+    url.searchParams.set("page", `${page}`);
     pageState.next && url.searchParams.set("next", `${pageState.next}`);
     tags && url.searchParams.set("tags", tags);
     const resp = await fetch(url.href, {
@@ -5932,10 +5933,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const fileExt = e.file_type.split("/").pop();
       return {
         id: e.id,
-        postView: `https://chan.sankakucomplex.com/posts/${e.id}`,
+        postView: `https://sankaku.app/zh-CN/posts/${e.id}`,
         previewUrl: e.preview_url,
-        sampleUrl: e.sample_url,
-        fileUrl: e.file_url,
+        fileUrl: "",
         tags: e.tags.map((t) => t.name + (t.name_ja ? `[${t.name_ja}]` : "")),
         width: e.width,
         height: e.height,
@@ -5947,6 +5947,21 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         createdAt: e.created_at.s * 1e3
       };
     });
+  }
+  async function getSankakuDetail(id) {
+    const resp = await fetch(`https://sankakuapi.com/posts/${id}/fu?lang=${navigator.language || "zh-CN"}`, {
+      headers: {
+        "api-version": "2",
+        "client-type": "non-premium",
+        "platform": "web-app",
+        "priority": "u=1, i"
+      }
+    });
+    const json = await resp.json();
+    return {
+      sampleUrl: json.data.sample_url,
+      fileUrl: json.data.file_url
+    };
   }
   function isAnimePicturesPage() {
     return location.hostname == "anime-pictures.net";
@@ -6047,7 +6062,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "zerochan.net",
     "chan.sankakucomplex.com",
     "idol.sankakucomplex.com",
-    "sankaku.app/ai-posts",
+    "sankaku.app",
     "anime-pictures.net",
     "allgirl.booru.org",
     "booru.eu",
@@ -6073,7 +6088,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return ["rating:s", "rating:q", "rating:e", "order:score", "order:vote", "order:mpixels", "order:landscape", "order:portrait"];
     }
     if (isSankakuSite) {
-      return ["order:quality", "order:popularity", "order:random", "order:recently_favorited", "order:recently_voted", "rating:s", "rating:q", "rating:e", "threshold:0", "threshold:1", "threshold:2", "threshold:3", "threshold:4", "threshold:5"];
+      return ["order:quality", "order:popularity", "order:random", "order:recently_favorited", "order:recently_voted", "rating:s", "rating:q", "rating:e", "threshold:0", "threshold:1", "threshold:2", "threshold:3", "threshold:4", "threshold:5", "sankaku_ai order:popular"];
     }
     if (isAnimePicturesPage()) {
       return ["order_by:date", "order_by:date_r", "order_by:rating", "order_by:views", "order_by:size", "order_by:tag_num"];
@@ -6095,8 +6110,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "rule34.paheal.net": "Rule34.Paheal",
     "booru.allthefallen.moe": "ATFBooru",
     "aibooru.online": "AIBooru",
-    "sankaku.app": "Sankaku Complex",
-    "sankaku.app/ai-posts": "Sankaku AI",
+    "sankaku.app": "Sankaku APP",
     "chan.sankakucomplex.com": "Sankaku Complex",
     "idol.sankakucomplex.com": "Idol Complex",
     "anime-pictures.net": "Anime Pictures",
@@ -6143,7 +6157,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const id = (_b2 = postView == null ? void 0 : postView.match(/id=(\d+)/)) == null ? void 0 : _b2[1];
       const { width, height } = await getImageSize(imgSrc);
       const tags = img == null ? void 0 : img.title.split(/\s+/).filter(Boolean);
-      const isVideo = /mp4|animated|video/i.test((img == null ? void 0 : img.title) || "");
+      const isVideo = ["mp4", "animated", "video"].some((e) => tags == null ? void 0 : tags.includes(e));
       const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.mp4").replace("https://wimg.", "https://ahri2mp4.");
       return {
         id,
@@ -6697,52 +6711,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const json = await resp.json();
     return json.full;
   }
-  function isSankakuAIPage() {
-    return /sankaku\.app.*\/ai-posts/.test(location.href);
-  }
-  async function fetchSankakuAIPosts(page, tags) {
-    var _a2;
-    const url = new URL("https://capi-v2.sankakucomplex.com/ai_posts");
-    url.searchParams.set("lang", navigator.language || "zh-CN");
-    url.searchParams.set("limit", "40");
-    url.searchParams.set("page", `${page}`);
-    tags && url.searchParams.set("tags", tags);
-    const resp = await fetch(url.href, {
-      headers: {
-        "api-version": "2",
-        "client-type": "non-premium",
-        "platform": "web-app",
-        "priority": "u=1, i"
-      }
-    });
-    const json = await resp.json();
-    return (_a2 = json.data) == null ? void 0 : _a2.map((e) => {
-      const fileExt = e.file_type.split("/").pop();
-      return {
-        id: e.id,
-        postView: "https://sankaku.app/ai-posts",
-        previewUrl: e.preview_url,
-        fileUrl: e.file_url,
-        tags: e.tags.map((t) => t.name + t.name_ja ? `[${t.name_ja}]` : ""),
-        width: e.width,
-        height: e.height,
-        aspectRatio: e.width / e.height,
-        fileExt,
-        fileDownloadName: `sankaku-ai-post ${e.id} ${e.tags.join(" ")}.${fileExt}`,
-        fileDownloadText: `${e.width}\xD7${e.height} [${(e.file_size / 1e3).toFixed(0)} kB] ${fileExt.toUpperCase()}`,
-        rating: e.rating,
-        createdAt: e.created_at.s * 1e3
-      };
-    });
-  }
   function isSankakuIdolPage() {
     return location.hostname == "idol.sankakucomplex.com";
   }
-  const state = {
+  const state$1 = {
     base: "https://idol.sankakucomplex.com/cn/posts?auto_page=t",
     nextUrl: null
   };
-  const ratingMap = {
+  const ratingMap$1 = {
     "G": "s",
     "R15+": "q",
     "R18+": "e"
@@ -6755,11 +6731,79 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     w.jQuery.ajax = () => {
     };
     if (page == 1) {
+      state$1.nextUrl = null;
+      document.documentElement.scrollTop = 0;
+    }
+    const url = new URL(state$1.nextUrl ? `https://idol.sankakucomplex.com${state$1.nextUrl}` : state$1.base);
+    url.searchParams.set("auto_page", "t");
+    !state$1.nextUrl && tags && url.searchParams.set("tags", tags);
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    state$1.nextUrl = (_b2 = (_a2 = doc.querySelector("body > div[next-page-url]")) == null ? void 0 : _a2.getAttribute("next-page-url")) == null ? void 0 : _b2.replace(/amp;/g, "");
+    const results = [...doc.querySelectorAll(".post-gallery .post-preview")].map((el) => {
+      var _a3;
+      const id = el.getAttribute("data-id");
+      const img = el.querySelector("img");
+      const tagsText = (img == null ? void 0 : img.getAttribute("data-auto_page")) || "";
+      const tagsArr = tagsText.split(/\s/) || [];
+      const [_, width, height] = tagsText.match(/Size:(\d+)x(\d+)/) || [];
+      const [__, ratingText] = tagsText.match(/Rating:(\S+)/) || [];
+      return {
+        id,
+        postView: (_a3 = el.querySelector("a")) == null ? void 0 : _a3.href,
+        previewUrl: img == null ? void 0 : img.src,
+        fileUrl: "",
+        tags: tagsArr,
+        width: Number(width),
+        height: Number(height),
+        aspectRatio: Number(width) / Number(height),
+        fileExt: el.querySelector(".animated_details") ? "mp4" : "jpg",
+        fileDownloadName: `sankaku-idol ${id} ${tagsArr.join(" ")}`,
+        fileDownloadText: `${width}\xD7${height}`,
+        rating: ratingMap$1[ratingText] || ratingText
+      };
+    });
+    return results;
+  }
+  async function getSankakuIdolDetail(id) {
+    var _a2, _b2, _c2;
+    const url = new URL(`https://idol.sankakucomplex.com/cn/posts/${id}`);
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const imgSrc = (_a2 = doc.querySelector("#post-content img")) == null ? void 0 : _a2.src;
+    const fileUrl = (_b2 = doc.querySelector("#post-content a")) == null ? void 0 : _b2.href;
+    const videoSrc = (_c2 = doc.querySelector("#post-content video")) == null ? void 0 : _c2.src;
+    return {
+      sampleUrl: imgSrc,
+      fileUrl: fileUrl || imgSrc || videoSrc
+    };
+  }
+  function isSankakuComplexPage() {
+    return location.hostname == "chan.sankakucomplex.com";
+  }
+  const state = {
+    base: "https://chan.sankakucomplex.com/cn/posts?auto_page=t",
+    nextUrl: null
+  };
+  const ratingMap = {
+    "G": "s",
+    "R15+": "q",
+    "R18+": "e"
+  };
+  async function fetchSankakuComplexPosts(page, tags) {
+    var _a2, _b2;
+    const w = unsafeWindow;
+    w.$.ajax = () => {
+    };
+    w.jQuery.ajax = () => {
+    };
+    if (page == 1) {
       state.nextUrl = null;
       document.documentElement.scrollTop = 0;
     }
-    const url = new URL(state.nextUrl ? `https://idol.sankakucomplex.com${state.nextUrl}` : state.base);
+    const url = new URL(state.nextUrl ? `https://chan.sankakucomplex.com${state.nextUrl}` : state.base);
     url.searchParams.set("auto_page", "t");
+    url.searchParams.set("page", `${page}`);
     !state.nextUrl && tags && url.searchParams.set("tags", tags);
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
@@ -6782,16 +6826,16 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         height: Number(height),
         aspectRatio: Number(width) / Number(height),
         fileExt: el.querySelector(".animated_details") ? "mp4" : "jpg",
-        fileDownloadName: `sankaku-idol ${id} ${tagsArr.join(" ")}`,
+        fileDownloadName: `sankaku-complex ${id} ${tagsArr.join(" ")}`,
         fileDownloadText: `${width}\xD7${height}`,
         rating: ratingMap[ratingText] || ratingText
       };
     });
     return results;
   }
-  async function getSankakuIdolDetail(id) {
+  async function getSankakuComplexDetail(id) {
     var _a2, _b2, _c2;
-    const url = new URL(`https://idol.sankakucomplex.com/cn/posts/${id}`);
+    const url = new URL(`https://chan.sankakucomplex.com/cn/posts/${id}`);
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const imgSrc = (_a2 = doc.querySelector("#post-content img")) == null ? void 0 : _a2.src;
@@ -7143,9 +7187,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }
     },
     {
-      test: isSankakuAIPage,
+      test: isSankakuComplexPage,
       action: async () => {
-        const results = await fetchSankakuAIPosts(query.page, query.tags);
+        const results = await fetchSankakuComplexPosts(query.page, query.tags);
         return dealBlacklist(results);
       }
     },
@@ -8246,6 +8290,20 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         }
         if (isSankakuIdolPage()) {
           const { sampleUrl, fileUrl } = await getSankakuIdolDetail(imageSelected.value.id);
+          if (sampleUrl)
+            imageSelected.value.sampleUrl = sampleUrl;
+          if (fileUrl)
+            imageSelected.value.fileUrl = fileUrl;
+        }
+        if (isSankakuPage()) {
+          const { sampleUrl, fileUrl } = await getSankakuDetail(imageSelected.value.id);
+          if (sampleUrl)
+            imageSelected.value.sampleUrl = sampleUrl;
+          if (fileUrl)
+            imageSelected.value.fileUrl = fileUrl;
+        }
+        if (isSankakuComplexPage()) {
+          const { sampleUrl, fileUrl } = await getSankakuComplexDetail(imageSelected.value.id);
           if (sampleUrl)
             imageSelected.value.sampleUrl = sampleUrl;
           if (fileUrl)
