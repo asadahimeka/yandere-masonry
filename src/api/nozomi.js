@@ -137,7 +137,7 @@ function get_jsons() {
 }
 
 function get_json(postid) {
-  const url = `https://j.nozomi.la/${postdir}/${path_from_postid(postid.toString())}.json`
+  const url = `https://j.gold-usergeneratedcontent.net/${postdir}/${path_from_postid(postid.toString())}.json`
 
   const xmlhttp = new XMLHttpRequest()
   xmlhttp.open('GET', url)
@@ -167,12 +167,12 @@ function results_to_page(datas) {
       ...(data.general?.map(e => e.tag) || []),
     ]
     data.postView = `https://nozomi.la/post/${data.postid}.html`
-    data.previewUrl = `https://tn.nozomi.la/${full_path_from_hash(data.imageurls[0].dataid)}.${data.imageurls[0].type}.webp`
+    data.previewUrl = `https://qtn.gold-usergeneratedcontent.net/${full_path_from_hash(data.imageurls[0].dataid)}.${data.imageurls[0].type}.webp`
     const url = data.imageurls[0]
     if (url.is_video) {
-      data.fileUrl = `https://v.nozomi.la/${full_path_from_hash(url.dataid)}.${url.type}`
+      data.fileUrl = `https://v.gold-usergeneratedcontent.net/${full_path_from_hash(url.dataid)}.${url.type}`
     } else {
-      data.fileUrl = `https://${url.type === 'gif' ? 'g' : 'w'}.nozomi.la/${full_path_from_hash(url.dataid)}.${url.type === 'gif' ? 'gif' : 'webp'}`
+      data.fileUrl = `https://${url.type === 'gif' ? 'g' : 'w'}.gold-usergeneratedcontent.net/${full_path_from_hash(url.dataid)}.${url.type === 'gif' ? 'gif' : 'webp'}`
     }
   }
   resPosts = datas

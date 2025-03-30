@@ -1,3 +1,7 @@
+## v0.35.2
+
+- fix: 修复 sankaku 无法加载
+
 ## v0.35.1
 
 - fix: 修复 realbooru.com 详情 GIF 无法加载
