@@ -8,6 +8,7 @@
       :preload-screen-count="[1, 1]"
       :item-min-width="300"
       :items="store.imageList"
+      :max-column-count="virtualMaxCol"
       :calc-item-height="calcItemHeight"
       style="min-height: 93vh"
     >
@@ -331,6 +332,10 @@ const onImageLoadError = (url: string) => {
   set(item, 'sampleUrl', null)
 }
 
+const virtualMaxCol = computed(() => {
+  const num = Number(store.selectedColumn)
+  return num > 0 ? num : undefined
+})
 const calcItemHeight = (item: any, itemWidth: number) => {
   return item.height * (itemWidth / item.width)
 }

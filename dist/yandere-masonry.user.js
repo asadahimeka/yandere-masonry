@@ -1716,6 +1716,40 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       takeRecords
     };
   }
+  function useMediaQuery(query2, options = {}) {
+    const { window: window2 = defaultWindow } = options;
+    const isSupported = useSupported(() => window2 && "matchMedia" in window2 && typeof window2.matchMedia === "function");
+    let mediaQuery;
+    const matches = Vue2.ref(false);
+    const handler = (event) => {
+      matches.value = event.matches;
+    };
+    const cleanup = () => {
+      if (!mediaQuery)
+        return;
+      if ("removeEventListener" in mediaQuery)
+        mediaQuery.removeEventListener("change", handler);
+      else
+        mediaQuery.removeListener(handler);
+    };
+    const stopWatch = Vue2.watchEffect(() => {
+      if (!isSupported.value)
+        return;
+      cleanup();
+      mediaQuery = window2.matchMedia(toValue(query2));
+      if ("addEventListener" in mediaQuery)
+        mediaQuery.addEventListener("change", handler);
+      else
+        mediaQuery.addListener(handler);
+      matches.value = mediaQuery.matches;
+    });
+    tryOnScopeDispose(() => {
+      stopWatch();
+      cleanup();
+      mediaQuery = void 0;
+    });
+    return matches;
+  }
   function useResizeObserver(target, callback, options = {}) {
     const { window: window2 = defaultWindow, ...observerOptions } = options;
     let observer;
@@ -1881,6 +1915,40 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       height,
       stop
     };
+  }
+  function useWindowSize(options = {}) {
+    const {
+      window: window2 = defaultWindow,
+      initialWidth = Number.POSITIVE_INFINITY,
+      initialHeight = Number.POSITIVE_INFINITY,
+      listenOrientation = true,
+      includeScrollbar = true,
+      type = "inner"
+    } = options;
+    const width = Vue2.ref(initialWidth);
+    const height = Vue2.ref(initialHeight);
+    const update = () => {
+      if (window2) {
+        if (type === "outer") {
+          width.value = window2.outerWidth;
+          height.value = window2.outerHeight;
+        } else if (includeScrollbar) {
+          width.value = window2.innerWidth;
+          height.value = window2.innerHeight;
+        } else {
+          width.value = window2.document.documentElement.clientWidth;
+          height.value = window2.document.documentElement.clientHeight;
+        }
+      }
+    };
+    update();
+    tryOnMounted(update);
+    useEventListener("resize", update, { passive: true });
+    if (listenOrientation) {
+      const matches = useMediaQuery("(orientation: portrait)");
+      Vue2.watch(matches, () => update());
+    }
+    return { width, height };
   }
   var _sfc_main$a = /* @__PURE__ */ Vue2.defineComponent({
     __name: "VirtualWaterfall",
@@ -6348,7 +6416,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     results_to_page(datas);
   }
   function get_json(postid) {
-    const url = `https://j.nozomi.la/${postdir}/${path_from_postid(postid.toString())}.json`;
+    const url = `https://j.gold-usergeneratedcontent.net/${postdir}/${path_from_postid(postid.toString())}.json`;
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", url);
     xmlhttp.onreadystatechange = function() {
@@ -6378,12 +6446,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         ...((_d = data.general) == null ? void 0 : _d.map((e) => e.tag)) || []
       ];
       data.postView = `https://nozomi.la/post/${data.postid}.html`;
-      data.previewUrl = `https://tn.nozomi.la/${full_path_from_hash(data.imageurls[0].dataid)}.${data.imageurls[0].type}.webp`;
+      data.previewUrl = `https://qtn.gold-usergeneratedcontent.net/${full_path_from_hash(data.imageurls[0].dataid)}.${data.imageurls[0].type}.webp`;
       const url = data.imageurls[0];
       if (url.is_video) {
-        data.fileUrl = `https://v.nozomi.la/${full_path_from_hash(url.dataid)}.${url.type}`;
+        data.fileUrl = `https://v.gold-usergeneratedcontent.net/${full_path_from_hash(url.dataid)}.${url.type}`;
       } else {
-        data.fileUrl = `https://${url.type === "gif" ? "g" : "w"}.nozomi.la/${full_path_from_hash(url.dataid)}.${url.type === "gif" ? "gif" : "webp"}`;
+        data.fileUrl = `https://${url.type === "gif" ? "g" : "w"}.gold-usergeneratedcontent.net/${full_path_from_hash(url.dataid)}.${url.type === "gif" ? "gif" : "webp"}`;
       }
     }
     resPosts = datas;
@@ -7898,6 +7966,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           setDLSubpathOn("");
         }
       };
+      const { width: windowWidth } = useWindowSize();
+      const allColList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20];
+      const colList = Vue2.computed(() => store.settings.masonryLayout == "virtual" ? allColList.filter((e) => e < (windowWidth.value - 32) / 300) : allColList);
+      const cols = Vue2.computed(() => colList.value.map((e) => [`${e}`, e === 0 ? i18n.t("uxIs3XkeVzkrEX985zHk3").toString() : `${e} ${i18n.t("dU7ou5kVM0s9DMju5e2tS")}`]));
+      const actCol = Vue2.computed(() => {
+        return colList.value.findIndex((e) => e.toString() === store.selectedColumn);
+      });
+      const selColumn = (val) => {
+        store.selectedColumn = val;
+        localStorage.setItem("__masonry_col", val);
+      };
       const layoutTypes = Vue2.ref([
         ["masonry", `Masonry/${i18n.t("6jPGehET9TViankl5-SRu")}`],
         ["grid", `Grid/${i18n.t("vfUg8xP6WptIhSL0E9b9D")}`],
@@ -7912,6 +7991,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return layoutTypes.value.findIndex((e) => e[0] === store.settings.masonryLayout);
       });
       const onMasonryLayoutChange = (val) => {
+        selColumn("0");
         localStorage.setItem("__masonryLayout", val);
         location.reload();
       };
@@ -7930,18 +8010,6 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           localStorage.setItem("__imgPreloadNum", num.toString());
         }
       };
-      const colList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20];
-      const cols = Vue2.ref(colList.reduce((acc, cur) => {
-        acc[cur] = cur === 0 ? i18n.t("uxIs3XkeVzkrEX985zHk3").toString() : `${cur} ${i18n.t("dU7ou5kVM0s9DMju5e2tS")}`;
-        return acc;
-      }, {}));
-      const actCol = Vue2.computed(() => {
-        return colList.findIndex((e) => e.toString() === store.selectedColumn);
-      });
-      const selColumn = (val) => {
-        store.selectedColumn = val;
-        localStorage.setItem("__masonry_col", val);
-      };
       const currentLang = Vue2.ref(i18n.locale);
       const langList = [
         { value: "zh-Hans", label: "\u7B80\u4F53\u4E2D\u6587" },
@@ -7958,7 +8026,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         i18n.locale = val;
         localStorage.setItem("__LANG", val);
       };
-      return { __sfc: true, isBoorus, isYandere, onComboboxChange, removeTagFromBlacklist, exportBlacklist, importBlacklist, nsfwValue, setNSFWShow, onNSFWSwitchChange, onWheelSwitchChange, onKeyupSwitchChange, onImgPreloadChange, onThumbSampleUrlChange, onShowPostCheckboxChange, onShowListPostResoChange, onUseFancyboxChange, onHoldsFalseChange, onYandreFetchByHtmlChange, isFitScreen, onFitScreenChange, isAutoWfMode, onAutoWfModeChange, dlSubLoading, showDLConfirm, isDLSubpath, setDLSubpathOn, onDLSubpathChange, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onCredentialQueryChange, onPreloadNumBlur, colList, cols, actCol, selColumn, currentLang, langList, currentLanglabel, selectLang, mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, store, notPartialSupportSite };
+      return { __sfc: true, isBoorus, isYandere, onComboboxChange, removeTagFromBlacklist, exportBlacklist, importBlacklist, nsfwValue, setNSFWShow, onNSFWSwitchChange, onWheelSwitchChange, onKeyupSwitchChange, onImgPreloadChange, onThumbSampleUrlChange, onShowPostCheckboxChange, onShowListPostResoChange, onUseFancyboxChange, onHoldsFalseChange, onYandreFetchByHtmlChange, isFitScreen, onFitScreenChange, isAutoWfMode, onAutoWfModeChange, dlSubLoading, showDLConfirm, isDLSubpath, setDLSubpathOn, onDLSubpathChange, windowWidth, allColList, colList, cols, actCol, selColumn, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onCredentialQueryChange, onPreloadNumBlur, currentLang, langList, currentLanglabel, selectLang, mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, store, notPartialSupportSite };
     }
   });
   var _sfc_render$7 = function render() {
@@ -8007,12 +8075,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return _c2("v-list-item", { key: item[0], attrs: { "dense": "" }, on: { "click": function($event) {
         return _setup.onMasonryLayoutChange(item[0]);
       } } }, [_c2("v-list-item-title", { domProps: { "textContent": _vm._s(item[1]) } })], 1);
-    }), 1)], 1)], 1)], 1)], 1), ["masonry", "grid"].includes(_setup.store.settings.masonryLayout) ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("tt_YdgKCA_5m-aSTSMPQ_")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("rXjhc8VuGloy1wZ09noNB") } }, [_vm._v(_vm._s(_vm.$t("rXjhc8VuGloy1wZ09noNB")))])], 1), _c2("v-list-item-action", [_c2("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    }), 1)], 1)], 1)], 1)], 1), ["masonry", "grid", "virtual"].includes(_setup.store.settings.masonryLayout) ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("tt_YdgKCA_5m-aSTSMPQ_")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("rXjhc8VuGloy1wZ09noNB") } }, [_vm._v(_vm._s(_vm.$t("rXjhc8VuGloy1wZ09noNB")))])], 1), _c2("v-list-item-action", [_c2("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "sel_menu_btn", attrs: { "small": "" } }, "v-btn", attrs, false), on), [_c2("span", { staticStyle: { "margin-bottom": "2px" } }, [_vm._v(_vm._s(_setup.store.selectedColumn === "0" ? _vm.$t("uxIs3XkeVzkrEX985zHk3") : _setup.store.selectedColumn + _vm.$t("dU7ou5kVM0s9DMju5e2tS")))]), _c2("v-icon", { attrs: { "size": 16 } }, [_vm._v(_vm._s(_setup.mdiChevronDown))])], 1)];
-    } }], null, false, 2104038103) }, [_c2("v-list", { attrs: { "dense": "" } }, [_c2("v-list-item-group", { attrs: { "value": _setup.actCol, "color": "primary" } }, _vm._l(_setup.cols, function(val, key) {
-      return _c2("v-list-item", { key, attrs: { "dense": "" }, on: { "click": function($event) {
-        return _setup.selColumn(key);
-      } } }, [_c2("v-list-item-title", { domProps: { "textContent": _vm._s(val) } })], 1);
+    } }], null, false, 2104038103) }, [_c2("v-list", { attrs: { "dense": "" } }, [_c2("v-list-item-group", { attrs: { "value": _setup.actCol, "color": "primary" } }, _vm._l(_setup.cols, function(col) {
+      return _c2("v-list-item", { key: col[0], attrs: { "dense": "" }, on: { "click": function($event) {
+        return _setup.selColumn(col[0]);
+      } } }, [_c2("v-list-item-title", { domProps: { "textContent": _vm._s(col[1]) } })], 1);
     }), 1)], 1)], 1)], 1)], 1) : _vm._e(), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("4yzHPggVky2QKFD2TbBhl")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("HSx0XMZFid_lVuwjzrhH0") } }, [_vm._v(_vm._s(_vm.$t("HSx0XMZFid_lVuwjzrhH0")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onThumbSampleUrlChange }, model: { value: _setup.store.settings.isThumbSampleUrl, callback: function($$v) {
       _vm.$set(_setup.store.settings, "isThumbSampleUrl", $$v);
     }, expression: "store.settings.isThumbSampleUrl" } })], 1)], 1), _setup.notPartialSupportSite ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("PBjdNKuj02doUvOf2zZqP")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("z_oL9s5fS164W4_gITOGZ") } }, [_vm._v(_vm._s(_vm.$t("z_oL9s5fS164W4_gITOGZ")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "", "loading": _setup.dlSubLoading }, on: { "change": _setup.onDLSubpathChange }, model: { value: _setup.isDLSubpath, callback: function($$v) {
@@ -8790,6 +8858,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         Vue2.set(item, "previewUrl", null);
         Vue2.set(item, "sampleUrl", null);
       };
+      const virtualMaxCol = Vue2.computed(() => {
+        const num = Number(store.selectedColumn);
+        return num > 0 ? num : void 0;
+      });
       const calcItemHeight = (item, itemWidth) => {
         return item.height * (itemWidth / item.width);
       };
@@ -8812,12 +8884,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       Vue2.onUnmounted(() => {
         window.removeEventListener("scroll", scrollFn);
       });
-      return { __sfc: true, notFitScreen: notFitScreen2, isR34Fav, showImageList, showFab, showNoMore, showLoadMore, ctxActPost, showMenu, x, y, maxHeightStyle, getImgSrc, onCtxMenu, showImgModal, openDetail, addToSelectedList, addFavorite, downloadCtxPost, onPostCheckboxChange, onImageLoadError, calcItemHeight, scrollFn, mdiDownload, mdiFileGifBox, mdiFileTree, mdiFolderNetwork, mdiHeartPlusOutline, mdiLinkVariant, mdiPlaylistPlus, mdiRefresh, mdiVideo, PostDetail, notPartialSupportSite, isFavBtnShow, refreshPosts, searchPosts, store };
+      return { __sfc: true, notFitScreen: notFitScreen2, isR34Fav, showImageList, showFab, showNoMore, showLoadMore, ctxActPost, showMenu, x, y, maxHeightStyle, getImgSrc, onCtxMenu, showImgModal, openDetail, addToSelectedList, addFavorite, downloadCtxPost, onPostCheckboxChange, onImageLoadError, virtualMaxCol, calcItemHeight, scrollFn, mdiDownload, mdiFileGifBox, mdiFileTree, mdiFolderNetwork, mdiHeartPlusOutline, mdiLinkVariant, mdiPlaylistPlus, mdiRefresh, mdiVideo, PostDetail, notPartialSupportSite, isFavBtnShow, refreshPosts, searchPosts, store };
     }
   });
   var _sfc_render$4 = function render() {
     var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
-    return _setup.showImageList ? _c2("div", { style: _setup.store.settings.masonryLayout === "virtual" ? "height:93vh" : "" }, [_setup.store.settings.masonryLayout === "virtual" ? _c2("virtual-waterfall", { staticClass: "virtual-waterfall", class: { "wf-no-fit-screen": _setup.notFitScreen }, staticStyle: { "min-height": "93vh" }, attrs: { "gap": 10, "preload-screen-count": [1, 1], "item-min-width": 300, "items": _setup.store.imageList, "calc-item-height": _setup.calcItemHeight }, scopedSlots: _vm._u([{ key: "default", fn: function({ item, index }) {
+    return _setup.showImageList ? _c2("div", { style: _setup.store.settings.masonryLayout === "virtual" ? "height:93vh" : "" }, [_setup.store.settings.masonryLayout === "virtual" ? _c2("virtual-waterfall", { staticClass: "virtual-waterfall", class: { "wf-no-fit-screen": _setup.notFitScreen }, staticStyle: { "min-height": "93vh" }, attrs: { "gap": 10, "preload-screen-count": [1, 1], "item-min-width": 300, "items": _setup.store.imageList, "max-column-count": _setup.virtualMaxCol, "calc-item-height": _setup.calcItemHeight }, scopedSlots: _vm._u([{ key: "default", fn: function({ item, index }) {
       var _a2, _b2;
       return [_c2("div", { staticClass: "posts-image-card" }, [_c2("img", { staticClass: "post-image-v", attrs: { "alt": "", "loading": "lazy", "src": _setup.getImgSrc(item), "role": "button", "tabindex": "0" }, on: { "click": function($event) {
         return _setup.showImgModal(index);

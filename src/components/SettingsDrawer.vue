@@ -204,7 +204,7 @@
           </v-menu>
         </v-list-item-action>
       </v-list-item>
-      <v-list-item v-if="['masonry', 'grid'].includes(store.settings.masonryLayout)">
+      <v-list-item v-if="['masonry', 'grid', 'virtual'].includes(store.settings.masonryLayout)">
         <v-list-item-content>
           <v-list-item-title>{{ $t('tt_YdgKCA_5m-aSTSMPQ_') }}</v-list-item-title>
           <v-list-item-subtitle :title="$t('rXjhc8VuGloy1wZ09noNB')">{{ $t('rXjhc8VuGloy1wZ09noNB') }}</v-list-item-subtitle>
@@ -219,8 +219,8 @@
             </template>
             <v-list dense>
               <v-list-item-group :value="actCol" color="primary">
-                <v-list-item v-for="(val, key) in cols" :key="key" dense @click="selColumn(key)">
-                  <v-list-item-title v-text="val" />
+                <v-list-item v-for="col in cols" :key="col[0]" dense @click="selColumn(col[0])">
+                  <v-list-item-title v-text="col[1]" />
                 </v-list-item>
               </v-list-item-group>
             </v-list>
@@ -368,6 +368,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { useWindowSize } from '@vueuse/core'
 import { mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste } from '@mdi/js'
 import store from '@/store'
 import i18n from '@/utils/i18n'
@@ -494,22 +495,32 @@ const onDLSubpathChange = (val: any) => {
   }
 }
 
+const { width: windowWidth } = useWindowSize()
+const allColList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20]
+const colList = computed(() => store.settings.masonryLayout == 'virtual' ? allColList.filter(e => e < (windowWidth.value - 32) / 300) : allColList)
+const cols = computed(() => colList.value.map(e => [`${e}`, e === 0 ? i18n.t('uxIs3XkeVzkrEX985zHk3').toString() : `${e} ${i18n.t('dU7ou5kVM0s9DMju5e2tS')}`] as const))
+const actCol = computed(() => {
+  return colList.value.findIndex(e => e.toString() === store.selectedColumn)
+})
+const selColumn = (val: string) => {
+  store.selectedColumn = val
+  localStorage.setItem('__masonry_col', val)
+}
+
 const layoutTypes = ref([
   ['masonry', `Masonry/${i18n.t('6jPGehET9TViankl5-SRu')}`],
   ['grid', `Grid/${i18n.t('vfUg8xP6WptIhSL0E9b9D')}`],
   ['flexbin', `Justified/${i18n.t('LZbI8am7nD-LiemZzroFF')}`],
   ['virtual', `Virtual/${i18n.t('yYtssYrCL8VwFrdvvx8v3')}`],
 ])
-
 const actLayout = computed(() => {
   return layoutTypes.value.find(e => e[0] === store.settings.masonryLayout)?.[1]?.split('/')?.[0]
 })
-
 const actLayoutIndex = computed(() => {
   return layoutTypes.value.findIndex(e => e[0] === store.settings.masonryLayout)
 })
-
 const onMasonryLayoutChange = (val: any) => {
+  selColumn('0')
   localStorage.setItem('__masonryLayout', val)
   location.reload()
 }
@@ -529,21 +540,6 @@ const onPreloadNumBlur = (ev: Event) => {
     store.imgPreloadNum = num
     localStorage.setItem('__imgPreloadNum', num.toString())
   }
-}
-
-const colList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20]
-const cols = ref(colList.reduce<Record<string, string>>((acc, cur) => {
-  acc[cur] = cur === 0 ? i18n.t('uxIs3XkeVzkrEX985zHk3').toString() : `${cur} ${i18n.t('dU7ou5kVM0s9DMju5e2tS')}`
-  return acc
-}, {}))
-
-const actCol = computed(() => {
-  return colList.findIndex(e => e.toString() === store.selectedColumn)
-})
-
-const selColumn = (val: string) => {
-  store.selectedColumn = val
-  localStorage.setItem('__masonry_col', val)
 }
 
 const currentLang = ref(i18n.locale)
