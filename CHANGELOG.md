@@ -1,3 +1,8 @@
+## v0.35.3
+
+- fix: virtual 布局可选择列数
+- fix: 替换 nozomi 链接
+
 ## v0.35.2
 
 - fix: 修复 sankaku 无法加载
