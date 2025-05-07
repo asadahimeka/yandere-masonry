@@ -7,7 +7,7 @@
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/dev/vite-plugin-tm-userscript)
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/@himeka/booru)
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vue)
-![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vuetify)
+<!-- ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vuetify) -->
 
 中文 | [English](https://github.com/asadahimeka/yandere-masonry/blob/main/README.en.md)
 
