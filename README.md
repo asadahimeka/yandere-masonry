@@ -2,6 +2,7 @@
 
 ![](https://img.shields.io/github/package-json/v/asadahimeka/yandere-masonry)
 ![](https://img.shields.io/badge/license-MIT-green)
+![](https://img.shields.io/greasyfork/dt/444885?logo=greasyfork)
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/dev/vite)
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/dev/vite-plugin-tm-userscript)
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/@himeka/booru)
