@@ -2,11 +2,12 @@
 
 ![](https://img.shields.io/github/package-json/v/asadahimeka/yandere-masonry)
 ![](https://img.shields.io/badge/license-MIT-green)
+![](https://img.shields.io/greasyfork/dt/444885?logo=greasyfork)
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/dev/vite)
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/dev/vite-plugin-tm-userscript)
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/@himeka/booru)
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vue)
-![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vuetify)
+<!-- ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vuetify) -->
 
 [中文](https://github.com/asadahimeka/yandere-masonry/blob/main/README.md) | English
 
@@ -31,7 +32,7 @@ Sleazy Fork: [Click to install](https://sleazyfork.org/scripts/444885)
 
 GitHub Raw：[Click to install](https://github.com/asadahimeka/yandere-masonry/raw/main/dist/yandere-masonry.user.js)
 
-Web Preview：[Click to view](https://booru.vercel.app)
+Web Version: [Click to view](https://booru.vercel.app)
 
 ## Features
 
@@ -181,6 +182,10 @@ https://nozomi.la
 <!-- Sponsors list: https://sponsors.nanoka.top/account -->
 Thanks for TSUKYU's support
 
+If you find this project helpful, feel free to buy me a coffee via the following link:
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/sakurayumine)
+
 ## Developing
 
 1. `git clone https://github.com/asadahimeka/yandere-masonry.git`
@@ -217,4 +222,4 @@ Licensed under the [MIT](https://github.com/asadahimeka/yandere-masonry/blob/mai
 
 Copyright © 2022 Yumine Sakura
 
-<p><img src="https://api.moedog.org/count/@himekayanderemasonryghen" alt="yandere-masonry"></p>
+<p><img src="https://count.nanoka.top/@himekaydmsghen" alt="yandere-masonry"></p>

@@ -212,6 +212,10 @@ https://nozomi.la
 
 感谢 TSUKYU 的支持
 
+如果你觉得这个项目对你有帮助，欢迎通过以下方式请我喝杯咖啡：
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/sakurayumine)
+
 ## Developing
 
 ```bash
@@ -250,4 +254,4 @@ Licensed under the [MIT](https://github.com/asadahimeka/yandere-masonry/blob/mai
 
 Copyright © 2022 Yumine Sakura
 
-<p><img src="https://api.moedog.org/count/@himekayanderemasonrygh" alt="yandere-masonry"></p>
+<p><img src="https://count.nanoka.top/@himekayanderemasonrygh" alt="yandere-masonry"></p>
