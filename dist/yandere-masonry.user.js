@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.35.3
+// @version              0.35.4
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -230,7 +230,7 @@ var __publicField = (obj, key, value) => {
     const locale = (_a2 = document.cookie.match(/locale=(\w+)/)) == null ? void 0 : _a2[1];
     if (locale && locale !== "zh_CN")
       return;
-    const response = await fetch("https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/tags_cn.json");
+    const response = await fetch("https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/moebooru_tags_cn.json");
     window.__tagsCN = await response.json();
     const url = new URL(location.href);
     if (url.pathname == "/tag")
@@ -247,7 +247,7 @@ var __publicField = (obj, key, value) => {
     let tagsCache = sessionStorage.getItem("__YM_TAGS_CN_CACHE") || "";
     if (!tagsCache) {
       try {
-        const response = await fetch("https://cdn.jsdelivr.net/gh/asadahimeka/danbooru_tags_json@main/json/_tags_translate_cn.json");
+        const response = await fetch("https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/danbooru_tags_cn.json");
         tagsCache = await response.text();
         sessionStorage.setItem("__YM_TAGS_CN_CACHE", tagsCache);
       } catch (error) {
@@ -6212,6 +6212,44 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function isRule34FavPage() {
     return /rule34\.xxx\/index\.php\?page\=favorites\&s\=view/.test(location.href);
   }
+  function isRule34Firefox() {
+    return location.hostname == "rule34.xxx" && navigator.userAgent.includes("Firefox");
+  }
+  async function fetchRule34Posts(page, tags) {
+    const url = new URL("https://rule34.xxx/index.php");
+    url.searchParams.set("page", "post");
+    url.searchParams.set("s", "list");
+    url.searchParams.set("pid", `${(page - 1) * 42}`);
+    tags && url.searchParams.set("tags", tags);
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const results = [...doc.querySelectorAll("#content .image-list .thumb")].map(async (el) => {
+      var _a2;
+      const id = el.id;
+      const img = el.querySelector("img");
+      const imgSrc = (img == null ? void 0 : img.src) || "";
+      const postView = (_a2 = el.querySelector("a")) == null ? void 0 : _a2.href;
+      const { width, height } = await getImageSize(imgSrc);
+      const tags2 = img == null ? void 0 : img.title.split(/\s+/).filter(Boolean);
+      const isVideo = ["mp4", "video"].some((e) => tags2 == null ? void 0 : tags2.includes(e));
+      const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.mp4").replace("https://wimg.", "https://ahri2mp4.");
+      return {
+        id,
+        postView,
+        previewUrl: imgSrc,
+        sampleUrl: isVideo ? videoUrl : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, "$1samples$2sample_$3"),
+        fileUrl: isVideo ? videoUrl : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.jpeg"),
+        tags: tags2,
+        width: width * 10,
+        height: height * 10,
+        aspectRatio: width / height,
+        fileExt: isVideo ? "mp4" : "jpg",
+        fileDownloadName: `rule34_xxx_${id}`,
+        rating: ""
+      };
+    });
+    return Promise.all(results);
+  }
   async function fetchRule34Favorites(page) {
     const url = new URL(location.href);
     url.searchParams.set("pid", `${(page - 1) * 50}`);
@@ -7106,8 +7144,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     tags: params.get("tags")
   };
   const getSearchState = () => query;
-  const setPage = (p) => query.page = p;
-  const setTags = (t) => query.tags = t;
+  const setPage = (page) => query.page = page;
+  const setTags = (tags) => query.tags = tags;
   const fetchActions = [
     {
       test: isPopularPage,
@@ -7142,6 +7180,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       test: isRule34FavPage,
       action: async () => {
         const results = await fetchRule34Favorites(query.page);
+        return dealBlacklist(results);
+      }
+    },
+    {
+      test: isRule34Firefox,
+      action: async () => {
+        const results = await fetchRule34Posts(query.page, query.tags);
         return dealBlacklist(results);
       }
     },
@@ -8208,7 +8253,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var _sfc_main$5 = /* @__PURE__ */ Vue2.defineComponent({
     __name: "PostDetail",
     setup(__props) {
-      const notR34Fav = Vue2.ref(!(isRule34FavPage() || isGelbooruFavPage() || isZerochanPage() || isRealbooruPage()));
+      const notR34Fav = Vue2.ref(!(isRule34FavPage() || isRule34Firefox() || isGelbooruFavPage() || isZerochanPage() || isRealbooruPage()));
       const showImageToolbar = Vue2.ref(true);
       const imgLoading = Vue2.ref(true);
       const innerWidth = Vue2.ref(window.innerWidth);

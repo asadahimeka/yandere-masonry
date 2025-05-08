@@ -1,3 +1,7 @@
+## v0.35.4
+
+- fix: 修复 Firefox 下 rule34.xxx 无法加载
+
 ## v0.35.3
 
 - fix: virtual 布局可选择列数
