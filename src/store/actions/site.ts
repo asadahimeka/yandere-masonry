@@ -2,7 +2,7 @@ import { dealBlacklist, getFirstPageNo } from './_util'
 import store from '@/store'
 import { isBooruSite, searchBooru } from '@/api/booru'
 import { fetchPostsByHtml, fetchPostsByPath, isPoolShowPage, isPopularPage, isYandereHtml } from '@/api/moebooru'
-import { fetchRule34Favorites, isRule34FavPage } from '@/api/rule34'
+import { fetchRule34Favorites, fetchRule34Posts, isRule34FavPage, isRule34Firefox } from '@/api/rule34'
 import { fetchGelbooruFavorites, isGelbooruFavPage } from '@/api/gelbooru'
 import { fetchEshuushuuPosts, isEshuushuuPage } from '@/api/e-shuushuu'
 import { fetchZerochanPosts, isZerochanPage } from '@/api/zerochan'
@@ -24,8 +24,8 @@ const query = {
   tags: params.get('tags'),
 }
 export const getSearchState = () => query
-export const setPage = (p: number) => query.page = p
-export const setTags = (t: string) => query.tags = t
+export const setPage = (page: number) => query.page = page
+export const setTags = (tags: string) => query.tags = tags
 
 export const fetchActions = [
   {
@@ -61,6 +61,13 @@ export const fetchActions = [
     test: isRule34FavPage,
     action: async () => {
       const results = await fetchRule34Favorites(query.page)
+      return dealBlacklist(results as any)
+    },
+  },
+  {
+    test: isRule34Firefox,
+    action: async () => {
+      const results = await fetchRule34Posts(query.page, query.tags)
       return dealBlacklist(results as any)
     },
   },

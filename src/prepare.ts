@@ -169,7 +169,7 @@ function setTagText(seletcor: string, textEn?: (el: HTMLElement) => string, disp
 async function translateTags() {
   const locale = document.cookie.match(/locale=(\w+)/)?.[1]
   if (locale && locale !== 'zh_CN') return
-  const response = await fetch('https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/tags_cn.json')
+  const response = await fetch('https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/moebooru_tags_cn.json')
   window.__tagsCN = await response.json()
   const url = new URL(location.href)
   if (url.pathname == '/tag') return setTagText('td[class^=tag-type] a:last-child')
@@ -184,7 +184,7 @@ async function translateDanbooruTags() {
   let tagsCache = sessionStorage.getItem('__YM_TAGS_CN_CACHE') || ''
   if (!tagsCache) {
     try {
-      const response = await fetch('https://cdn.jsdelivr.net/gh/asadahimeka/danbooru_tags_json@main/json/_tags_translate_cn.json')
+      const response = await fetch('https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/danbooru_tags_cn.json')
       tagsCache = await response.text()
       sessionStorage.setItem('__YM_TAGS_CN_CACHE', tagsCache)
     } catch (error) {}

@@ -5,6 +5,46 @@ export function isRule34FavPage() {
   return /rule34\.xxx\/index\.php\?page\=favorites\&s\=view/.test(location.href)
 }
 
+export function isRule34Firefox() {
+  return location.hostname == 'rule34.xxx' && navigator.userAgent.includes('Firefox')
+}
+
+export async function fetchRule34Posts(page: number, tags: string | null) {
+  const url = new URL('https://rule34.xxx/index.php')
+  url.searchParams.set('page', 'post')
+  url.searchParams.set('s', 'list')
+  url.searchParams.set('pid', `${(page - 1) * 42}`)
+  tags && url.searchParams.set('tags', tags)
+  const htmlResp = await fetch(url.href)
+  const doc = new DOMParser().parseFromString(await htmlResp.text(), 'text/html')
+  const results = [...doc.querySelectorAll('#content .image-list .thumb')].map(async el => {
+    const id = el.id
+    const img = el.querySelector('img')
+    const imgSrc = img?.src || ''
+    const postView = el.querySelector('a')?.href
+    const { width, height } = await getImageSize(imgSrc)
+    const tags = img?.title.split(/\s+/).filter(Boolean)
+    const isVideo = ['mp4', 'video'].some(e => tags?.includes(e))
+    const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, '$1images$2$3.mp4').replace('https://wimg.', 'https://ahri2mp4.')
+
+    return {
+      id,
+      postView,
+      previewUrl: imgSrc,
+      sampleUrl: isVideo ? videoUrl : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, '$1samples$2sample_$3'),
+      fileUrl: isVideo ? videoUrl : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, '$1images$2$3.jpeg'),
+      tags,
+      width: width * 10,
+      height: height * 10,
+      aspectRatio: width / height,
+      fileExt: isVideo ? 'mp4' : 'jpg',
+      fileDownloadName: `rule34_xxx_${id}`,
+      rating: '',
+    } as any
+  })
+  return Promise.all(results)
+}
+
 export async function fetchRule34Favorites(page: number) {
   const url = new URL(location.href)
   url.searchParams.set('pid', `${(page - 1) * 50}`)
