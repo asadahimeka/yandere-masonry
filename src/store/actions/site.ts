@@ -17,6 +17,7 @@ import { fetchAnihonetwallpaperPosts, isAnihonetwallpaperPage } from '@/api/anih
 import { fetchNozomiPosts, isNozomiPage } from '@/api/nozomi.js'
 import { fetchR34PahealPosts, isR34PahealPage } from '@/api/r34-paheal'
 import { fetchRealbooruPosts, isRealbooruPage } from '@/api/realbooru'
+import { getCookie } from '@/utils'
 
 const params = new URLSearchParams(location.search)
 const query = {
@@ -83,8 +84,15 @@ export const fetchActions = [
     action: async () => {
       let { tags } = query
       if (store.settings.isHoldsFalse) tags = `holds:false ${tags || ''}`.trim()
-      const results = await searchBooru(query.page, tags)
+      let results = await searchBooru(query.page, tags)
       if (location.hostname == 'rule34.xxx') {
+        if (getCookie('filter_ai') == '1') {
+          results = results.filter(e => !e.tags.includes('ai_assisted') && !e.tags.includes('ai_generated')) as any
+        }
+        const threshold = +getCookie('post_threshold')
+        if (threshold > 0) {
+          results = results.filter(e => e.score >= threshold) as any
+        }
         results.forEach(e => {
           const re = /api-cdn[^.]*\./
           if (e.previewUrl) e.previewUrl = e.previewUrl.replace(re, '')

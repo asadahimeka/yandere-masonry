@@ -2095,7 +2095,6 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   );
   var VirtualWaterfall = __component__$a.exports;
   var mdiAccount = "M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z";
-  var mdiBookmarkBoxMultipleOutline = "M4 20H18V22H4C2.9 22 2 21.1 2 20V6H4V20M22 4V16C22 17.1 21.1 18 20 18H8C6.9 18 6 17.1 6 16V4C6 2.9 6.9 2 8 2H20C21.1 2 22 2.9 22 4M20 4H8V16H20V4M18 6H13V13L15.5 11.5L18 13V6Z";
   var mdiBrightness6 = "M12,18V6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z";
   var mdiCalendar = "M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z";
   var mdiCalendarBlank = "M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1";
@@ -4978,6 +4977,20 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }
     });
   }
+  function getCookie(cname) {
+    const name = `${cname}=`;
+    const ca = document.cookie.split(";");
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == " ") {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
   function getAugmentedNamespace(n) {
     if (n.__esModule)
       return n;
@@ -6221,7 +6234,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     url.searchParams.set("s", "list");
     url.searchParams.set("pid", `${(page - 1) * 42}`);
     tags && url.searchParams.set("tags", tags);
-    const htmlResp = await fetch(url.href);
+    const htmlResp = await fetch(url.href, { credentials: "include" });
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const results = [...doc.querySelectorAll("#content .image-list .thumb")].map(async (el) => {
       var _a2;
@@ -6233,6 +6246,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const tags2 = img == null ? void 0 : img.title.split(/\s+/).filter(Boolean);
       const isVideo = ["mp4", "video"].some((e) => tags2 == null ? void 0 : tags2.includes(e));
       const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.mp4").replace("https://wimg.", "https://ahri2mp4.");
+      if (el.querySelector(".blacklist-img")) {
+        return null;
+      }
       return {
         id,
         postView,
@@ -6248,7 +6264,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         rating: ""
       };
     });
-    return Promise.all(results);
+    const posts = await Promise.all(results);
+    return posts.filter(Boolean);
   }
   async function fetchRule34Favorites(page) {
     const url = new URL(location.href);
@@ -7203,8 +7220,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         let { tags } = query;
         if (store.settings.isHoldsFalse)
           tags = `holds:false ${tags || ""}`.trim();
-        const results = await searchBooru(query.page, tags);
+        let results = await searchBooru(query.page, tags);
         if (location.hostname == "rule34.xxx") {
+          if (getCookie("filter_ai") == "1") {
+            results = results.filter((e) => !e.tags.includes("ai_assisted") && !e.tags.includes("ai_generated"));
+          }
+          const threshold = +getCookie("post_threshold");
+          if (threshold > 0) {
+            results = results.filter((e) => e.score >= threshold);
+          }
           results.forEach((e) => {
             const re = /api-cdn[^.]*\./;
             if (e.previewUrl)
@@ -7867,7 +7891,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
             userName.value = name;
         }
       });
-      return { __sfc: true, userName, version, openLink, dealLink, dealFavicon, actSiteIndex, showSettingDrawer, mdiAccount, mdiBookmarkBoxMultipleOutline, mdiFire, mdiGithub, mdiImageMultiple, mdiInformationOutline, mdiMessageAlertOutline, mdiShuffle, mdiStar, mdiWeb, getSiteTitle, siteDomains, store };
+      return { __sfc: true, userName, version, openLink, dealLink, dealFavicon, actSiteIndex, showSettingDrawer, mdiAccount, mdiFire, mdiGithub, mdiImageMultiple, mdiInformationOutline, mdiMessageAlertOutline, mdiShuffle, mdiStar, mdiWeb, getSiteTitle, siteDomains, store };
     }
   });
   var _sfc_render$8 = function render() {
@@ -7886,7 +7910,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return _setup.openLink("https://moeview.cocomi.eu.org");
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": "https://moeview.cocomi.eu.org/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Moeview")])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://r-34.xyz/");
-    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": "https://r-34.xyz/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("R-34.XYZ")])], 1)], 1)], 2)], 1)], 1), _c2("v-list", { attrs: { "dense": "", "nav": "" } }, [_c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": "https://r-34.xyz/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("R-34.XYZ")])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+      return _setup.openLink("https://nekon.app/");
+    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": "https://nekon.app/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Nekon")])], 1)], 1)], 2)], 1)], 1), _c2("v-list", { attrs: { "dense": "", "nav": "" } }, [_c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.showSettingDrawer();
     } } }, [_c2("v-list-item-content", [_c2("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("UxxldE9xRwmQctrvba5Y8")))])], 1)], 1)], 1), _c2("v-list", { attrs: { "dense": "", "nav": "" } }, [_c2("v-list-group", { attrs: { "value": true, "no-action": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function() {
       return [_c2("v-list-item-content", [_c2("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("PT74UDfKA45vTVTst_-hD")))])], 1)];
@@ -7895,8 +7921,6 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiInformationOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("v" + _vm._s(_setup.version))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("iJ0h220tvMmUhkfIMYI-W")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://booru.cocomi.eu.org");
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiWeb))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("qWcqQRsE9nN43MaZ2BmN9")))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("jerGO2OCuW9TdnEnGYRWd")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
-      return _setup.openLink("https://pixiv.pictures/setting/recommend");
-    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiBookmarkBoxMultipleOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("eOxsWLzwqrlhBdVMwz-rH")))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("jerGO2OCuW9TdnEnGYRWd")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://github.com/asadahimeka/yandere-masonry/issues");
     } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiMessageAlertOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("23iEYyiQlLVhFIqGbj527")))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("4g1TUy2kwQrdOs-w4JobB")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://github.com/asadahimeka/yandere-masonry");

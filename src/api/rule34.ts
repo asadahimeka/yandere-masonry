@@ -15,7 +15,7 @@ export async function fetchRule34Posts(page: number, tags: string | null) {
   url.searchParams.set('s', 'list')
   url.searchParams.set('pid', `${(page - 1) * 42}`)
   tags && url.searchParams.set('tags', tags)
-  const htmlResp = await fetch(url.href)
+  const htmlResp = await fetch(url.href, { credentials: 'include' })
   const doc = new DOMParser().parseFromString(await htmlResp.text(), 'text/html')
   const results = [...doc.querySelectorAll('#content .image-list .thumb')].map(async el => {
     const id = el.id
@@ -26,6 +26,10 @@ export async function fetchRule34Posts(page: number, tags: string | null) {
     const tags = img?.title.split(/\s+/).filter(Boolean)
     const isVideo = ['mp4', 'video'].some(e => tags?.includes(e))
     const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, '$1images$2$3.mp4').replace('https://wimg.', 'https://ahri2mp4.')
+
+    if (el.querySelector('.blacklist-img')) {
+      return null
+    }
 
     return {
       id,
@@ -42,7 +46,8 @@ export async function fetchRule34Posts(page: number, tags: string | null) {
       rating: '',
     } as any
   })
-  return Promise.all(results)
+  const posts = await Promise.all(results)
+  return posts.filter(Boolean)
 }
 
 export async function fetchRule34Favorites(page: number) {

@@ -212,7 +212,7 @@ https://nozomi.la
 
 感谢 TSUKYU 的支持
 
-如果你觉得这个项目对你有帮助，欢迎通过以下方式请我喝杯咖啡：
+如果你觉得这个项目对你有帮助，欢迎请我喝杯咖啡：
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/sakurayumine)
 
