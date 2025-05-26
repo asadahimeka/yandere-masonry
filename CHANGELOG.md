@@ -1,3 +1,7 @@
+## v0.35.5
+
+- fix: 尝试修复 rule34.xxx 评分阈值与 AI 开关不生效的问题
+
 ## v0.35.4
 
 - fix: 修复 Firefox 下 rule34.xxx 无法加载
