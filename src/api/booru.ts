@@ -98,5 +98,11 @@ export const isPidSite = sites[location.host]?.paginate === 'pid' || isRealbooru
 
 export async function searchBooru(page: number, tags: string | null) {
   if (!tags || tags === 'all') tags = ''
-  return search(location.host, tags, { page, limit: BOORU_PAGE_LIMIT, credentials: { query: store.settings.credentialQuery } })
+  return search(location.host, tags, {
+    page,
+    limit: BOORU_PAGE_LIMIT,
+    credentials: {
+      query: store.settings.credentialQuery,
+    },
+  })
 }

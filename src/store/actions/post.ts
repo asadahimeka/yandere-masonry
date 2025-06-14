@@ -1,12 +1,13 @@
 import { fetchActions, getSearchState, setPage, setTags } from './site'
-import { pushPageState } from './_util'
+import { dealBlacklist, pushPageState } from './_util'
 import store from '@/store'
 
 export const searchPosts = async (latePageQuery = false) => {
   store.requestState = true
   try {
-    const posts = await fetchActions.find(e => e.test())?.action()
+    let posts = await fetchActions.find(e => e.test())?.action()
     if (Array.isArray(posts) && posts.length > 0) {
+      posts = dealBlacklist(posts as any)
       const { page } = getSearchState()
       store.currentPage = page
       store.imageList = [

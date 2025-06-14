@@ -1,4 +1,5 @@
-import { dealBlacklist, getFirstPageNo } from './_util'
+import type { Post } from '@himeka/booru'
+import { getFirstPageNo } from './_util'
 import store from '@/store'
 import { isBooruSite, searchBooru } from '@/api/booru'
 import { fetchPostsByHtml, fetchPostsByPath, isPoolShowPage, isPopularPage, isYandereHtml } from '@/api/moebooru'
@@ -17,7 +18,6 @@ import { fetchAnihonetwallpaperPosts, isAnihonetwallpaperPage } from '@/api/anih
 import { fetchNozomiPosts, isNozomiPage } from '@/api/nozomi.js'
 import { fetchR34PahealPosts, isR34PahealPage } from '@/api/r34-paheal'
 import { fetchRealbooruPosts, isRealbooruPage } from '@/api/realbooru'
-import { getCookie } from '@/utils'
 
 const params = new URLSearchParams(location.search)
 const query = {
@@ -28,13 +28,18 @@ export const getSearchState = () => query
 export const setPage = (page: number) => query.page = page
 export const setTags = (tags: string) => query.tags = tags
 
-export const fetchActions = [
+interface FetchActionItem {
+  test: () => boolean
+  action: () => Promise<Post[]>
+}
+
+export const fetchActions: FetchActionItem[] = [
   {
     test: isPopularPage,
     action: async () => {
       const results = await fetchPostsByPath()
       store.requestStop = true
-      return dealBlacklist(results)
+      return results
     },
   },
   {
@@ -48,35 +53,35 @@ export const fetchActions = [
     test: isYandereHtml,
     action: async () => {
       const results = await fetchPostsByHtml(query.page, query.tags)
-      return dealBlacklist(results as any)
+      return results
     },
   },
   {
     test: isGelbooruFavPage,
     action: async () => {
       const results = await fetchGelbooruFavorites(query.page)
-      return dealBlacklist(results as any)
+      return results
     },
   },
   {
     test: isRule34FavPage,
     action: async () => {
       const results = await fetchRule34Favorites(query.page)
-      return dealBlacklist(results as any)
+      return results
     },
   },
   {
     test: isRule34Firefox,
     action: async () => {
       const results = await fetchRule34Posts(query.page, query.tags)
-      return dealBlacklist(results as any)
+      return results
     },
   },
   {
     test: isR34PahealPage,
     action: async () => {
       const results = await fetchR34PahealPosts(query.page, query.tags)
-      return dealBlacklist(results as any)
+      return results
     },
   },
   {
@@ -84,15 +89,8 @@ export const fetchActions = [
     action: async () => {
       let { tags } = query
       if (store.settings.isHoldsFalse) tags = `holds:false ${tags || ''}`.trim()
-      let results = await searchBooru(query.page, tags)
+      const results = await searchBooru(query.page, tags)
       if (location.hostname == 'rule34.xxx') {
-        if (getCookie('filter_ai') == '1') {
-          results = results.filter(e => !e.tags.includes('ai_assisted') && !e.tags.includes('ai_generated')) as any
-        }
-        const threshold = +getCookie('post_threshold')
-        if (threshold > 0) {
-          results = results.filter(e => e.score >= threshold) as any
-        }
         results.forEach(e => {
           const re = /api-cdn[^.]*\./
           if (e.previewUrl) e.previewUrl = e.previewUrl.replace(re, '')
@@ -108,91 +106,91 @@ export const fetchActions = [
           if (e.fileUrl) e.fileUrl = e.fileUrl.replace(...args)
         })
       }
-      return dealBlacklist(results)
+      return results
     },
   },
   {
     test: isEshuushuuPage,
     action: async () => {
       const results = await fetchEshuushuuPosts(query.page)
-      return dealBlacklist(results as any)
+      return results
     },
   },
   {
     test: isZerochanPage,
     action: async () => {
       const results = await fetchZerochanPosts(query.page, query.tags)
-      return dealBlacklist(results as any)
+      return results
     },
   },
   {
     test: isAnimePicturesPage,
     action: async () => {
       const results = await fetchAnimePicturesPosts(query.page, query.tags)
-      return dealBlacklist(results as any)
+      return results
     },
   },
   {
     test: isAllGirlPage,
     action: async () => {
       const results = await fetchAllGirlPosts(query.page, query.tags)
-      return dealBlacklist(results as any)
+      return results
     },
   },
   {
     test: isHentaiBooruPage,
     action: async () => {
       const results = await fetchHentaiBooruPosts(query.page, query.tags)
-      return dealBlacklist(results as any)
+      return results
     },
   },
   {
     test: isKusowankaPage,
     action: async () => {
       const results = await fetchKusowankaPosts(query.page, query.tags)
-      return dealBlacklist(results as any)
+      return results
     },
   },
   {
     test: isAnihonetwallpaperPage,
     action: async () => {
       const results = await fetchAnihonetwallpaperPosts(query.page, query.tags)
-      return dealBlacklist(results as any)
+      return results
     },
   },
   {
     test: isNozomiPage,
     action: async () => {
       const results = await fetchNozomiPosts(query.page)
-      return dealBlacklist(results as any)
+      return results
     },
   },
   {
     test: isSankakuIdolPage,
     action: async () => {
       const results = await fetchSankakuIdolPosts(query.page, query.tags)
-      return dealBlacklist(results as any)
+      return results
     },
   },
   {
     test: isSankakuPage,
     action: async () => {
       const results = await fetchSankakuPosts(query.page, query.tags)
-      return dealBlacklist(results as any)
+      return results
     },
   },
   {
     test: isSankakuComplexPage,
     action: async () => {
       const results = await fetchSankakuComplexPosts(query.page, query.tags)
-      return dealBlacklist(results as any)
+      return results
     },
   },
   {
     test: isRealbooruPage,
     action: async () => {
       const results = await fetchRealbooruPosts(query.page, query.tags)
-      return dealBlacklist(results as any)
+      return results
     },
   },
   {

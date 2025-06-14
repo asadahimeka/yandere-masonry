@@ -4,6 +4,7 @@ import { BOORU_PAGE_LIMIT, isPidSite } from '@/api/booru'
 import { isRule34FavPage } from '@/api/rule34'
 import { isAllGirlPage } from '@/api/all-girl'
 import { isNozomiPage } from '@/api/nozomi'
+import { getCookie } from '@/utils'
 
 export function getFirstPageNo(params: URLSearchParams) {
   if (isPidSite) {
@@ -28,11 +29,20 @@ export function pushPageState(pageNo: number, latePageQuery = false) {
 }
 
 export function dealBlacklist(results: SearchResults) {
+  if (location.hostname == 'rule34.xxx') {
+    if (getCookie('filter_ai') == '1') {
+      results = results.filter(e => !e.tags.includes('ai_assisted') && !e.tags.includes('ai_generated')) as any
+    }
+    const threshold = +getCookie('post_threshold')
+    if (threshold > 0) {
+      results = results.filter(e => e.score >= threshold) as any
+    }
+  }
   if (!store.blacklist.length) return results
   return typeof results.blacklist == 'function'
     ? results.blacklist(store.blacklist)
-    : results.filter((e: any) => {
-      const tags = e.tags.map((t: string) => t.toLowerCase())
+    : results.filter(e => {
+      const tags = e.tags.map(t => t.toLowerCase())
       return !store.blacklist.some(w => tags.includes(w.toLowerCase()))
     })
 }
