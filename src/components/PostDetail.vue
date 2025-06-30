@@ -404,7 +404,7 @@ import { debounce, downloadFile, dragElement, isURL, showMsg } from '@/utils'
 import { type PostDetail, getPostDetail } from '@/api/moebooru'
 import { addPostToFavorites, isFavBtnShow } from '@/api/fav'
 import { isRule34FavPage, isRule34Firefox } from '@/api/rule34'
-import { isGelbooruFavPage } from '@/api/gelbooru'
+import { isGelbooruFavPage, isGelbooruPage } from '@/api/gelbooru'
 import { notPartialSupportSite } from '@/api/booru'
 import { getZerochanFileUrl, isZerochanPage } from '@/api/zerochan'
 import { getSankakuDetail, isSankakuPage } from '@/api/sankaku'
@@ -420,7 +420,13 @@ import i18n from '@/utils/i18n'
 import store from '@/store'
 import { searchPosts } from '@/store/actions/post'
 
-const notR34Fav = ref(!(isRule34FavPage() || isRule34Firefox() || isGelbooruFavPage() || isZerochanPage() || isRealbooruPage()))
+const notR34Fav = ref(!(
+  isRule34FavPage()
+  || isRule34Firefox()
+  || isGelbooruFavPage()
+  || isGelbooruPage()
+  || isZerochanPage()
+  || isRealbooruPage()))
 
 const showImageToolbar = ref(true)
 const imgLoading = ref(true)

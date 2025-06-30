@@ -212,7 +212,7 @@ const openLink = (link: string) => {
 
 const dealLink = (link: string) => {
   if (link.includes('yande')) return 'https://yande.re/post?_wf=1'
-  if (link.includes('behoimi')) return 'http://behoimi.org?_wf=1'
+  if (link.includes('behoimi')) return 'http://behoimi.org'
   return `https://${link}`
 }
 

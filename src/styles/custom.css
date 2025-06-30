@@ -597,6 +597,6 @@
   border-bottom-right-radius: 4px;
 }
 
-html:has(.theme--dark) {
+html:has(#app.theme--dark) {
   background: #121212;
 }

@@ -41,7 +41,7 @@ export const initPosts = async () => {
   if (store.requestStop) return
   if (/safebooru|nozomi\.la/.test(location.host)) return
   let times = calcFetchTimes()
-  if (times > 2) times = 2
+  if (times > 3) times = 3
   for (let index = 0; index < times; index++) {
     await searchPosts(true)
   }

@@ -4,7 +4,7 @@ import store from '@/store'
 import { isBooruSite, searchBooru } from '@/api/booru'
 import { fetchPostsByHtml, fetchPostsByPath, isPoolShowPage, isPopularPage, isYandereHtml } from '@/api/moebooru'
 import { fetchRule34Favorites, fetchRule34Posts, isRule34FavPage, isRule34Firefox } from '@/api/rule34'
-import { fetchGelbooruFavorites, isGelbooruFavPage } from '@/api/gelbooru'
+import { fetchGelbooruFavorites, fetchGelbooruPosts, isGelbooruFavPage, isGelbooruPage } from '@/api/gelbooru'
 import { fetchEshuushuuPosts, isEshuushuuPage } from '@/api/e-shuushuu'
 import { fetchZerochanPosts, isZerochanPage } from '@/api/zerochan'
 import { fetchSankakuPosts, isSankakuPage } from '@/api/sankaku'
@@ -60,6 +60,13 @@ export const fetchActions: FetchActionItem[] = [
     test: isGelbooruFavPage,
     action: async () => {
       const results = await fetchGelbooruFavorites(query.page)
+      return results
+    },
+  },
+  {
+    test: isGelbooruPage,
+    action: async () => {
+      const results = await fetchGelbooruPosts(query.page)
       return results
     },
   },
