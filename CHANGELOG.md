@@ -1,3 +1,7 @@
+## v0.35.8
+
+- feat: yande.re/konachan/danbooru 支持在详情弹窗左上角显示 Artist/Character/Copyright 标签
+
 ## v0.35.7
 
 - fix: 修复 gelbooru 无法加载
