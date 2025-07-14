@@ -23,7 +23,7 @@
             tabindex="0"
             @click="showImgModal(index)"
             @contextmenu="onCtxMenu($event, item)"
-            @error="onImageLoadError(item.previewUrl || '')"
+            @error="onImageLoadError(item?.previewUrl || '')"
           >
           <template v-if="store.isYKSite">
             <v-icon
@@ -56,11 +56,11 @@
             {{ mdiVideo }}
           </v-icon>
           <div v-if="!isR34Fav && store.settings.showPostCheckbox" class="posts-image-checkbox">
-            <v-checkbox class="ma-0 pa-0" :value="store.selectedImageList.some(e => e.id === item.id)" hide-details @change="onPostCheckboxChange($event, item)" />
+            <v-checkbox class="ma-0 pa-0" :value="store.selectedImageList.some(e => e.id === item?.id)" hide-details @change="onPostCheckboxChange($event, item)" />
           </div>
-          <div v-if="store.settings.showListPostReso" class="posts-image-wh">{{ item.width }} × {{ item.height }}</div>
+          <div v-if="store.settings.showListPostReso" class="posts-image-wh">{{ item?.width }} × {{ item?.height }}</div>
           <div v-if="!isR34Fav" class="posts-image-actions">
-            <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" :href="item.postView" target="_blank" rel="noreferrer">
+            <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" :href="item?.postView" target="_blank" rel="noreferrer">
               <v-icon>{{ mdiLinkVariant }}</v-icon>
             </v-btn>
             <v-btn v-if="notPartialSupportSite" icon color="#fff" :title="$t('hVmfDxXoj8vkgVQabEOSr')" @click.stop="addToSelectedList(item)">
@@ -69,7 +69,7 @@
             <v-btn v-if="notPartialSupportSite" icon color="#fff" :title="$t('VpuyxZtIoDF9-YyOm0tK_')" @click.stop="downloadCtxPost(item)">
               <v-icon>{{ mdiDownload }}</v-icon>
             </v-btn>
-            <v-btn v-if="isFavBtnShow" icon color="#fff" :title="$t('Dnnio9m9RZA6bkTLytc99')" @click.stop="addFavorite(item.id)">
+            <v-btn v-if="isFavBtnShow" icon color="#fff" :title="$t('Dnnio9m9RZA6bkTLytc99')" @click.stop="addFavorite(item?.id)">
               <v-icon>{{ mdiHeartPlusOutline }}</v-icon>
             </v-btn>
           </div>
@@ -81,7 +81,7 @@
         v-for="(image, index) in store.imageList"
         :key="index"
         class="posts-image-card"
-        :style="store.settings.masonryLayout === 'flexbin' ? `--w:${image.width};--h:${image.height}` : maxHeightStyle"
+        :style="store.settings.masonryLayout === 'flexbin' ? `--w:${image?.width};--h:${image?.height}` : maxHeightStyle"
       >
         <template v-if="store.settings.masonryLayout === 'flexbin'">
           <img
@@ -93,7 +93,7 @@
             tabindex="0"
             @click="showImgModal(index)"
             @contextmenu="onCtxMenu($event, image)"
-            @error="onImageLoadError(image.previewUrl || '')"
+            @error="onImageLoadError(image?.previewUrl || '')"
           >
         </template>
         <v-img
@@ -142,11 +142,11 @@
           {{ mdiVideo }}
         </v-icon>
         <div v-if="!isR34Fav && store.settings.showPostCheckbox" class="posts-image-checkbox">
-          <v-checkbox class="ma-0 pa-0" :value="store.selectedImageList.some(e => e.id === image.id)" hide-details @change="onPostCheckboxChange($event, image)" />
+          <v-checkbox class="ma-0 pa-0" :value="store.selectedImageList.some(e => e.id === image?.id)" hide-details @change="onPostCheckboxChange($event, image)" />
         </div>
-        <div v-if="store.settings.showListPostReso" class="posts-image-wh">{{ image.width }} × {{ image.height }}</div>
+        <div v-if="store.settings.showListPostReso" class="posts-image-wh">{{ image?.width }} × {{ image?.height }}</div>
         <div v-if="!isR34Fav" class="posts-image-actions">
-          <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" :href="image.postView" target="_blank" rel="noreferrer">
+          <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" :href="image?.postView" target="_blank" rel="noreferrer">
             <v-icon>{{ mdiLinkVariant }}</v-icon>
           </v-btn>
           <v-btn v-if="notPartialSupportSite" class="hidden-md-and-down" icon color="#fff" :title="$t('hVmfDxXoj8vkgVQabEOSr')" @click.stop="addToSelectedList(image)">
@@ -155,7 +155,7 @@
           <v-btn v-if="notPartialSupportSite" icon color="#fff" :title="$t('VpuyxZtIoDF9-YyOm0tK_')" @click.stop="downloadCtxPost(image)">
             <v-icon>{{ mdiDownload }}</v-icon>
           </v-btn>
-          <v-btn v-if="isFavBtnShow" icon color="#fff" :title="$t('Dnnio9m9RZA6bkTLytc99')" @click.stop="addFavorite(image.id)">
+          <v-btn v-if="isFavBtnShow" icon color="#fff" :title="$t('Dnnio9m9RZA6bkTLytc99')" @click.stop="addFavorite(image?.id)">
             <v-icon>{{ mdiHeartPlusOutline }}</v-icon>
           </v-btn>
         </div>

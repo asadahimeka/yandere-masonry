@@ -600,3 +600,27 @@
 html:has(#app.theme--dark) {
   background: #121212;
 }
+
+.nav_drawer .v-navigation-drawer__content {
+  padding-bottom: 60px;
+}
+.img_meta_tag_list {
+  position: absolute;
+  top: 35px;
+  width: 200px;
+}
+.img_meta_tag_list .img_detail_tag.tag_type_artist {
+  color: rgb(201, 112, 0) !important;
+  background-color: rgb(255, 220, 176) !important;
+  border-color: rgb(255, 220, 176) !important;
+}
+.img_meta_tag_list .img_detail_tag.tag_type_copyright {
+  color: rgb(174, 63, 193) !important;
+  background-color: rgb(249, 213, 255) !important;
+  border-color: rgb(249, 213, 255) !important;
+}
+.img_meta_tag_list .img_detail_tag.tag_type_character {
+  color: rgb(12, 147, 18) !important;
+  background-color: rgb(196, 255, 199) !important;
+  border-color: rgb(196, 255, 199) !important;
+}

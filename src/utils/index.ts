@@ -1,6 +1,7 @@
 import Vue from 'vue'
-import { add, sub } from 'date-fns'
+import { add, formatDistanceToNow, isValid, sub } from 'date-fns'
 import type { Post } from '@himeka/booru'
+import i18n from './i18n'
 import { loadScript } from '@/prepare'
 import store from '@/store'
 
@@ -262,5 +263,34 @@ export function getCookie(cname: string) {
       return c.substring(name.length, c.length)
     }
   }
+  return ''
+}
+
+export function formatRelativeTime(dateInput?: Date | null): string {
+  if (!dateInput || !isValid(dateInput)) return ''
+  if (!Intl || !Intl.RelativeTimeFormat) {
+    return formatDistanceToNow(dateInput, { addSuffix: true })
+  }
+
+  const rtf = new Intl.RelativeTimeFormat(i18n.locale, { numeric: 'auto' })
+  const diffMs = dateInput.valueOf() - new Date().valueOf()
+  const seconds = diffMs / 1000
+
+  const units: { limit: number; value: number; unit: Intl.RelativeTimeFormatUnit }[] = [
+    { limit: 60, value: seconds, unit: 'second' },
+    { limit: 60 * 60, value: seconds / 60, unit: 'minute' },
+    { limit: 60 * 60 * 24, value: seconds / 3600, unit: 'hour' },
+    { limit: 60 * 60 * 24 * 7, value: seconds / (3600 * 24), unit: 'day' },
+    { limit: 60 * 60 * 24 * 30, value: seconds / (3600 * 24 * 7), unit: 'week' },
+    { limit: 60 * 60 * 24 * 365, value: seconds / (3600 * 24 * 30), unit: 'month' },
+    { limit: Infinity, value: seconds / (3600 * 24 * 365), unit: 'year' },
+  ]
+
+  for (const { limit, value, unit } of units) {
+    if (Math.abs(seconds) < limit) {
+      return rtf.format(Math.round(value), unit)
+    }
+  }
+
   return ''
 }

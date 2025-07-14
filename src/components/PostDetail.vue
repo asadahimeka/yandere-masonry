@@ -185,6 +185,22 @@
         :title="imageSelected.createdTime"
         v-text="imgCreateTime"
       />
+      <v-chip-group v-show="metaTags.length" column class="hidden-sm-and-down img_detail_tag_list img_meta_tag_list">
+        <v-chip
+          v-for="(item, i) in metaTags"
+          :key="i"
+          class="img_detail_tag"
+          :class="`tag_type_${item.type}`"
+          :color="item.color"
+          :title="item.tagText"
+          small
+          text-color="#ffffff"
+          role="button"
+          tabindex="0"
+          @click.stop="toTagsPage(item.tag)"
+          v-text="item.tagText"
+        />
+      </v-chip-group>
       <v-spacer />
       <v-tooltip v-if="isFavBtnShow" bottom>
         <template #activator="{ on, attrs }">
@@ -398,9 +414,8 @@ import {
   mdiTagMultiple,
 } from '@mdi/js'
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
-import { formatDistanceToNow, isValid } from 'date-fns'
 import DPlayer from './DPlayer.vue'
-import { debounce, downloadFile, dragElement, isURL, showMsg } from '@/utils'
+import { debounce, downloadFile, dragElement, formatRelativeTime, isURL, showMsg } from '@/utils'
 import { type PostDetail, getPostDetail } from '@/api/moebooru'
 import { addPostToFavorites, isFavBtnShow } from '@/api/fav'
 import { isRule34FavPage, isRule34Firefox } from '@/api/rule34'
@@ -419,6 +434,7 @@ import { isRealbooruPage } from '@/api/realbooru'
 import i18n from '@/utils/i18n'
 import store from '@/store'
 import { searchPosts } from '@/store/actions/post'
+import { getDanbooruTagDetail, isDanbooruPage } from '@/api/danbooru'
 
 const notR34Fav = ref(!(
   isRule34FavPage()
@@ -483,8 +499,7 @@ const notYKSite = computed(() => {
 })
 
 const imgCreateTime = computed(() => {
-  if (!isValid(imageSelected.value.createdAt)) return ''
-  return formatDistanceToNow(imageSelected.value.createdAt as Date, { addSuffix: true })
+  return formatRelativeTime(imageSelected.value.createdAt)
 })
 
 const toggleToolbar = () => {
@@ -493,8 +508,12 @@ const toggleToolbar = () => {
 }
 
 const toTagsPage = (tag: string) => {
-  if (notYKSite.value) return
-  window.open(`/post?tags=${tag}`, '_blank', 'noreferrer')
+  if (store.isYKSite) {
+    window.open(`/post?tags=${tag}`, '_blank', 'noreferrer')
+  }
+  if (isDanbooruPage()) {
+    window.open(`/posts?tags=${tag}`, '_blank', 'noreferrer')
+  }
 }
 
 const toPidPage = (pid: string) => {
@@ -552,6 +571,7 @@ const onDtlContClick = (ev: Event) => {
 }
 
 const postDetail = ref<PostDetail>({})
+const metaTags = computed(() => postDetail.value.tags?.filter(e => e.type != 'general') || [])
 
 const addFavorite = async () => {
   if (!isFavBtnShow || postDetail.value.voted) return
@@ -568,6 +588,10 @@ const setPostDetail = async () => {
     }
     const result = await getPostDetail(imageSelected.value.id)
     if (result) postDetail.value = result
+    return
+  }
+  if (isDanbooruPage()) {
+    postDetail.value = getDanbooruTagDetail(imageSelected.value)
     return
   }
   if (isAnimePicturesPage()) {
