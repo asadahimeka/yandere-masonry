@@ -19,7 +19,7 @@
     </v-list-item>
     <v-divider />
     <v-list dense nav>
-      <v-list-item class="hidden-md-and-up">
+      <v-list-item class="hidden-lg-and-up">
         <v-list-item-content>
           <v-list-item-title>{{ $t('e4_fgvntwNlfxgJUc2dXK') }}</v-list-item-title>
         </v-list-item-content>
@@ -512,6 +512,7 @@ const layoutTypes = ref([
   ['grid', `Grid/${i18n.t('vfUg8xP6WptIhSL0E9b9D')}`],
   ['flexbin', `Justified/${i18n.t('LZbI8am7nD-LiemZzroFF')}`],
   ['virtual', `Virtual/${i18n.t('yYtssYrCL8VwFrdvvx8v3')}`],
+  ['masonry2', `Masonry2/${i18n.t('6jPGehET9TViankl5-SRu')}`],
 ])
 const actLayout = computed(() => {
   return layoutTypes.value.find(e => e[0] === store.settings.masonryLayout)?.[1]?.split('/')?.[0]

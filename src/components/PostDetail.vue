@@ -727,7 +727,7 @@ const onImageLoadError = (ev: Event) => {
     imageSelected.value.fileUrl = fileUrl.replace(/\.jpg(\?\d+)?$/, '.png')
     return
   }
-  if (fileUrl && isRealbooruPage()) {
+  if (fileUrl && (isRealbooruPage() || isRule34Firefox())) {
     imageSelected.value.fileUrl = fileUrl.replace(/\.png(\?\d+)?$/, '.gif')
   }
 }
@@ -766,7 +766,7 @@ const onScaleImgError = (ev: Event) => {
     ;(ev.target as HTMLImageElement).src = imageSelected.value.fileUrl
     return
   }
-  if (fileUrl && isRealbooruPage()) {
+  if (fileUrl && (isRealbooruPage() || isRule34Firefox())) {
     imageSelected.value.fileUrl = fileUrl.replace(/\.png(\?\d+)?$/, '.gif')
     ;(ev.target as HTMLImageElement).src = imageSelected.value.fileUrl
   }

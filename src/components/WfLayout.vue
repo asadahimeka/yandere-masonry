@@ -1,6 +1,14 @@
 <template>
   <div class="wf-layout" :class="wfClass">
-    <masonry v-if="isMasonry" :cols="columnCount" gutter="8px">
+    <TrueMasonry
+      v-if="wfType === 'masonry2'"
+      class="true-masonry"
+      :gap="{ default: 8 }"
+      :cols="columnCount2"
+    >
+      <slot></slot>
+    </TrueMasonry>
+    <masonry v-else-if="isMasonry" :cols="columnCount" gutter="8px">
       <slot></slot>
     </masonry>
     <div v-else class="justified-container">
@@ -10,11 +18,15 @@
 </template>
 
 <script>
+import TrueMasonry from './TrueMasonry.js'
 import store from '@/store'
 
 const notFitScreen = localStorage.getItem('__fitScreen') == '0'
 
 export default {
+  components: {
+    TrueMasonry,
+  },
   data() {
     return {
       wfType: store.settings.masonryLayout || 'masonry',
@@ -29,6 +41,10 @@ export default {
         'wf-grid': this.wfType == 'grid',
         'wf-no-fit-screen': notFitScreen,
       }
+    },
+    columnCount2() {
+      if (typeof this.columnCount == 'number') return { default: this.columnCount }
+      return this.columnCount
     },
     columnCount() {
       return store.selectedColumn === '0'

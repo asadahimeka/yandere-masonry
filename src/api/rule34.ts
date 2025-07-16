@@ -84,7 +84,8 @@ export async function fetchRule34Favorites(page: number) {
 }
 
 export async function addFavoriteRule34(id: string) {
-  const response = await fetch(`https://rule34.xxx/public/addfav.php?id=${id}`)
+  const _id = isRule34Firefox() ? id.match(/(\d+)/)?.[1] : id
+  const response = await fetch(`https://rule34.xxx/public/addfav.php?id=${_id}`)
   if (!response.ok) {
     showMsg({ msg: `${i18n.t('MWVfUiW8egLWq7MgV-wzc')}: ${response.status}`, type: 'error' })
     return false

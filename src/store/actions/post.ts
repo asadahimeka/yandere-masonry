@@ -42,7 +42,7 @@ export const initPosts = async () => {
   if (/safebooru|nozomi\.la/.test(location.host)) return
   let times = calcFetchTimes()
   if (times > 3) times = 3
-  for (let index = 0; index < times; index++) {
+  for (let index = 1; index < times; index++) {
     await searchPosts(true)
   }
 }
