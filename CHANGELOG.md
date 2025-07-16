@@ -1,3 +1,8 @@
+## v0.35.9
+
+- fix: 修复 Firefox rule34.xxx 无法添加收藏
+- feat: 添加一种瀑布流布局，使用 CSS Grid 实现
+
 ## v0.35.8
 
 - feat: yande.re/konachan/danbooru 支持在详情弹窗左上角显示 Artist/Character/Copyright 标签
