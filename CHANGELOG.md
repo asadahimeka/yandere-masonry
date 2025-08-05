@@ -1,3 +1,7 @@
+## v0.36.0
+
+- feat: danbooru 添加标签导出功能
+
 ## v0.35.9
 
 - fix: 修复 Firefox rule34.xxx 无法添加收藏
