@@ -640,3 +640,40 @@ html:has(#app.theme--dark) {
   max-height: unset !important;
   margin-bottom: 0 !important;
 }
+
+.d-flex-y {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.d-flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.export-tags-setting {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.export-tags-setting .v-messages  {
+  display: none;
+}
+
+.export-tags-setting > .v-input {
+  margin-top: 0;
+}
+
+.export-tags-wght-inp {
+  width: 45px;
+  height: 24px;
+  margin-left: 4px;
+  background-color: #eaf1fb;
+  border-radius: 4px;
+  border: 1px solid rgb(187, 187, 187);
+  color: inherit;
+  text-align: center;
+}

@@ -338,6 +338,17 @@
           <v-icon left>{{ mdiTagMultiple }}</v-icon>
           <span>{{ showTagChipGroup ? $t('gM92sLo0Cqfl2rCaXlOhc') : $t('l5W-EtJ_ar-SY2lF4H5Zm') }}</span>
         </v-chip>
+        <v-chip
+          v-if="isExportTagsEnable && postDetail.tags?.length"
+          small
+          class="mr-1"
+          role="button"
+          tabindex="0"
+          @click.stop="openExportTags()"
+        >
+          <v-icon left>{{ mdiTagMultiple }}</v-icon>
+          <span>Export</span>
+        </v-chip>
         <template v-if="store.isYKSite">
           <v-chip
             v-if="//@ts-ignore
@@ -388,6 +399,13 @@
         <v-icon>{{ mdiChevronRight }}</v-icon>
       </v-btn>
     </div>
+    <PostExportTags
+      v-if="isExportTagsEnable && store.showImageSelected"
+      :show-dialog="isExportTagsShow"
+      :update-show-dialog="//@ts-ignore
+        val => isExportTagsShow = val"
+      :tags="postDetail?.tags || []"
+    />
   </v-dialog>
 </template>
 
@@ -415,6 +433,7 @@ import {
 } from '@mdi/js'
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import DPlayer from './DPlayer.vue'
+import PostExportTags from './PostExportTags.vue'
 import { debounce, downloadFile, dragElement, formatRelativeTime, isURL, showMsg } from '@/utils'
 import { type PostDetail, getPostDetail } from '@/api/moebooru'
 import { addPostToFavorites, isFavBtnShow } from '@/api/fav'
@@ -443,7 +462,6 @@ const notR34Fav = ref(!(
   || isGelbooruPage()
   || isZerochanPage()
   || isRealbooruPage()))
-
 const showImageToolbar = ref(true)
 const imgLoading = ref(true)
 const innerWidth = ref(window.innerWidth)
@@ -639,6 +657,13 @@ const setPostDetail = async () => {
       }
     }),
   }
+}
+
+const isExportTagsEnable = ref(location.hostname == 'danbooru.donmai.us')
+const isExportTagsShow = ref(false)
+const openExportTags = () => {
+  if (location.hostname != 'danbooru.donmai.us') return
+  isExportTagsShow.value = true
 }
 
 const preloadImgEl = new Image()
@@ -841,6 +866,7 @@ const isTriggerEvent = computed(() => {
   if (!store.showImageSelected) return false
   if (isVideo.value) return false
   if (scaleOn.value && imgScaleState.value !== 'FitToPage') return false
+  if (isExportTagsShow.value) return false
   return true
 })
 
