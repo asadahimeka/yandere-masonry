@@ -677,3 +677,9 @@ html:has(#app.theme--dark) {
   color: inherit;
   text-align: center;
 }
+
+.d-flex-col .v-chip--active:before,
+.d-flex-col .v-chip--active:hover:before,
+.d-flex-col .v-chip:focus:before {
+  display: none;
+}

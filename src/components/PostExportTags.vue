@@ -2,7 +2,7 @@
   <v-dialog :value="showDialog" max-width="800px" @input="handleVisible">
     <v-card>
       <v-card-title>
-        <h4>Export Tags</h4>
+        <h4>{{ $t('FMi4atPbKn-B1HiAZ2ZP2') }}</h4>
         <v-spacer />
         <v-tooltip bottom>
           <template #activator="{ on, attrs }">
@@ -14,14 +14,14 @@
         </v-tooltip>
       </v-card-title>
       <v-card-text style="max-height: 72vh;overflow-y: auto;">
-        <div class="subtitle-1">Tags Export Settings</div>
+        <div class="subtitle-1">{{ $t('Cu6n0Apv5xVlo4DnQbVbT') }}</div>
         <div class="export-tags-setting mb-4">
           <v-checkbox v-model="isEscapeParens">
             <template #label>
               <code>( ) -> \( \)</code>
             </template>
           </v-checkbox>
-          <v-checkbox v-model="isSettingWght" label="Setting weights" />
+          <v-checkbox v-model="isSettingWght" :label="$t('BB4C5taWpmw06X0Kz_Gtk')" />
           <v-radio-group v-model="bracketType" row>
             <v-radio value="use_parens">
               <template #label>
@@ -35,13 +35,15 @@
             </v-radio>
           </v-radio-group>
         </div>
-        <div v-for="type in tagTypes" :key="type[0]">
+        <div v-for="type in tagTypes" v-show="postTags[type[0]].length" :key="type[0]">
           <div class="d-flex-y">
             <div class="subtitle-2" style="min-width: 72px;">{{ type[1] }}</div>
-            <v-btn color="light-blue accent-4" small text @click="selAll(type[0])">All</v-btn>
-            <v-btn color="light-blue accent-4" small text @click="selNone(type[0])">None</v-btn>
-            <v-btn color="light-blue accent-4" small text @click="selInvert(type[0])">Invert</v-btn>
-            <v-btn color="light-blue accent-4" small text @click="exportTags(type[0])">Export</v-btn>
+            <template v-if="showSubActions">
+              <v-btn color="light-blue accent-4" small text @click="selAll(type[0])">{{ $t('zg2GRF6zmMXCkT9Uz2Bni') }}</v-btn>
+              <v-btn color="light-blue accent-4" small text @click="selNone(type[0])">{{ $t('xSC1vpAOTLQ3RBipKrNpD') }}</v-btn>
+              <v-btn color="light-blue accent-4" small text @click="selInvert(type[0])">{{ $t('cKXET1CCnAXq4H60qr8uc') }}</v-btn>
+              <v-btn color="light-blue accent-4" small text @click="exportTags(type[0])">{{ $t('QH_xm27zhgs5E1077asf1') }}</v-btn>
+            </template>
           </div>
           <v-chip-group v-model="selTags[type[0]]" column multiple>
             <div v-for="tag in postTags[type[0]]" :key="tag" class="d-flex-col">
@@ -52,17 +54,17 @@
         </div>
       </v-card-text>
       <v-card-actions>
-        <v-btn color="blue accent-2" text @click="selAll()">All</v-btn>
-        <v-btn color="blue accent-2" text @click="selNone()">None</v-btn>
-        <v-btn color="blue accent-2" text @click="selInvert()">Invert</v-btn>
-        <v-btn color="blue accent-2" text @click="exportTags()">Export</v-btn>
+        <v-btn color="blue accent-2" text @click="selAll()">{{ $t('zg2GRF6zmMXCkT9Uz2Bni') }}</v-btn>
+        <v-btn color="blue accent-2" text @click="selNone()">{{ $t('xSC1vpAOTLQ3RBipKrNpD') }}</v-btn>
+        <v-btn color="blue accent-2" text @click="selInvert()">{{ $t('cKXET1CCnAXq4H60qr8uc') }}</v-btn>
+        <v-btn color="blue accent-2" text @click="exportTags()">{{ $t('QH_xm27zhgs5E1077asf1') }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script setup lang="ts">
-import { type PropType, ref, watch } from 'vue'
+import { type PropType, computed, ref, watch } from 'vue'
 import { mdiClose } from '@mdi/js'
 import type { PostDetail } from '@/api/moebooru'
 import { showMsg } from '@/utils'
@@ -84,7 +86,7 @@ const tagColorMap = {
   artist: 'orange lighten-4',
   copyright: 'purple lighten-4',
   character: 'green lighten-4',
-  general: 'deep-purple lighten-4',
+  general: 'blue lighten-4',
 }
 
 const isEscapeParens = ref(true)
@@ -94,13 +96,13 @@ const postTags = ref(initTags())
 const selTags = ref(initTags())
 const tagTypes = ref(Object.keys(initTags()).map(k => [k, `${k[0].toUpperCase()}${k.slice(1)}`]))
 const wghtMap = ref<Record<string, number>>({})
+const showSubActions = computed(() => postTags.value.artist.length && postTags.value.copyright.length && postTags.value.character.length)
 
 watch(() => props.showDialog, val => {
   if (!val) return
   Object.keys(postTags.value).forEach(type => {
     postTags.value[type] = props.tags!.filter(e => e.type == type).map(e => e.tag.replaceAll('_', ' '))
   })
-  console.log('postTags.value: ', postTags.value)
 })
 
 function handleVisible(val: boolean) {

@@ -347,7 +347,7 @@
           @click.stop="openExportTags()"
         >
           <v-icon left>{{ mdiTagMultiple }}</v-icon>
-          <span>Export</span>
+          <span>{{ $t('QH_xm27zhgs5E1077asf1') }}</span>
         </v-chip>
         <template v-if="store.isYKSite">
           <v-chip
@@ -659,10 +659,11 @@ const setPostDetail = async () => {
   }
 }
 
-const isExportTagsEnable = ref(location.hostname == 'danbooru.donmai.us')
+// const isExportTagsEnable = ref(location.hostname == 'danbooru.donmai.us')
+const isExportTagsEnable = ref(true)
 const isExportTagsShow = ref(false)
 const openExportTags = () => {
-  if (location.hostname != 'danbooru.donmai.us') return
+  // if (location.hostname != 'danbooru.donmai.us') return
   isExportTagsShow.value = true
 }
 
