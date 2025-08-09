@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.36.1
+// @version              0.36.2
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -36,6 +36,7 @@
 // @match                https://kusowanka.com/*
 // @match                https://anihonetwallpaper.com/*
 // @match                https://nozomi.la/*
+// @match                https://rule34hentai.net/*
 // @homepage             https://www.nanoka.top
 // @source               https://github.com/asadahimeka/yandere-masonry
 // @icon                 https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/f1f6267537a5aff959ee63ec2c9e4e52_4821140735490026106.jpg
@@ -173,6 +174,11 @@ var __publicField = (obj, key, value) => {
     if (location.host.includes("konachan")) {
       GM_addStyle(ydStyle + knStyle);
     }
+    fetch("https://pixiv.pictures/robots.txt").then((resp) => {
+      if (resp.status == 403) {
+        GM_addStyle("#enter-masonry{display:none}");
+      }
+    });
   }
   const locales = ["de", "en", "es", "ja", "ru", "zh_CN", "zh_TW"];
   function setMoebooruLocale() {
@@ -6427,7 +6433,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "kusowanka.com",
     "anihonetwallpaper.com",
     "nozomi.la",
-    "realbooru.com"
+    "realbooru.com",
+    "rule34hentai.net"
   ];
   const isSupportTagSearch = isBooruSite() || !["e-shuushuu.net", "nozomi.la"].includes(location.host);
   const notPartialSupportSite = ![
@@ -6439,7 +6446,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "kusowanka.com",
     "anihonetwallpaper.com",
     "nozomi.la",
-    "realbooru.com"
+    "realbooru.com",
+    "rule34hentai.net"
   ].includes(location.host);
   const defCompTags = (() => {
     if (store.isYKSite) {
@@ -6473,7 +6481,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "idol.sankakucomplex.com": "Idol Complex",
     "anime-pictures.net": "Anime Pictures",
     "allgirl.booru.org": "All girl",
-    "booru.eu": "Hentai Booru"
+    "booru.eu": "Hentai Booru",
+    "rule34hentai.net": "Rule34Hentai"
   };
   function getSiteTitle(domain2 = location.host) {
     const host = domain2.toLowerCase().replace("www.", "");
@@ -7495,6 +7504,51 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     });
     return results;
   }
+  function isRule34HentaiPage() {
+    return location.hostname == "rule34hentai.net";
+  }
+  async function fetchRule34HentaiPosts(page, tags) {
+    var _a2;
+    if (!tags) {
+      tags = ((_a2 = location.pathname.match(/post\/list\/(.+)\/\d+/)) == null ? void 0 : _a2[1]) || "";
+    }
+    const url = `https://rule34hentai.net/post/list/${tags ? `${tags}/` : ""}${page}`;
+    const htmlResp = await fetch(url);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const results = [...doc.querySelectorAll("#image-list .thumb")].map((el) => {
+      var _a3;
+      const img = el.querySelector("img");
+      const id = el.getAttribute("data-post-id");
+      const previewUrl = (img == null ? void 0 : img.src) || "";
+      const previewWidth = Number(img == null ? void 0 : img.getAttribute("width"));
+      const previewHeight = Number(img == null ? void 0 : img.getAttribute("height"));
+      const width = Number(el.getAttribute("data-width"));
+      const height = Number(el.getAttribute("data-height"));
+      const postTags = ((_a3 = el.getAttribute("data-tags")) == null ? void 0 : _a3.split(/\s+/).filter(Boolean)) || [];
+      const m = (img == null ? void 0 : img.title.split("//").map((e) => e.trim())) || [];
+      const fileExt = m[3] || "";
+      const fileSizeText = m[2] || "";
+      const fileUrl = previewUrl.replace(/(.*)\/_thumbs\/(.*)\/thumb\..*/, `$1/_images/$2/${id}.${fileExt}`);
+      return {
+        id,
+        postView: el.getAttribute("href"),
+        previewUrl,
+        previewWidth,
+        previewHeight,
+        fileUrl,
+        fileSizeText,
+        tags: postTags,
+        width,
+        height,
+        aspectRatio: width / height,
+        fileExt,
+        fileDownloadName: `rule34hentai_${id}`,
+        fileDownloadText: `${width}\xD7${height} [${fileSizeText}] ${fileExt.toUpperCase()}`,
+        rating: "e"
+      };
+    });
+    return results;
+  }
   const params = new URLSearchParams(location.search);
   const query = {
     page: getFirstPageNo(params),
@@ -7674,6 +7728,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       test: isRealbooruPage,
       action: async () => {
         const results = await fetchRealbooruPosts(query.page, query.tags);
+        return results;
+      }
+    },
+    {
+      test: isRule34HentaiPage,
+      action: async () => {
+        const results = await fetchRule34HentaiPosts(query.page, query.tags);
         return results;
       }
     },
