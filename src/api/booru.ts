@@ -22,6 +22,7 @@ export const siteDomains = [
   'anihonetwallpaper.com',
   'nozomi.la',
   'realbooru.com',
+  'rule34hentai.net',
 ]
 
 export const isSupportTagSearch = isBooruSite() || !['e-shuushuu.net', 'nozomi.la'].includes(location.host)
@@ -35,6 +36,7 @@ export const notPartialSupportSite = !([
   'anihonetwallpaper.com',
   'nozomi.la',
   'realbooru.com',
+  'rule34hentai.net',
 ].includes(location.host))
 
 export const defCompTags = (() => {
@@ -71,6 +73,7 @@ const specTitleMap: Record<string, string> = {
   'anime-pictures.net': 'Anime Pictures',
   'allgirl.booru.org': 'All girl',
   'booru.eu': 'Hentai Booru',
+  'rule34hentai.net': 'Rule34Hentai',
 }
 
 export function getSiteTitle(domain: string = location.host) {

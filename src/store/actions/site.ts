@@ -18,6 +18,7 @@ import { fetchAnihonetwallpaperPosts, isAnihonetwallpaperPage } from '@/api/anih
 import { fetchNozomiPosts, isNozomiPage } from '@/api/nozomi.js'
 import { fetchR34PahealPosts, isR34PahealPage } from '@/api/r34-paheal'
 import { fetchRealbooruPosts, isRealbooruPage } from '@/api/realbooru'
+import { fetchRule34HentaiPosts, isRule34HentaiPage } from '@/api/rule34hentai'
 
 const params = new URLSearchParams(location.search)
 const query = {
@@ -197,6 +198,13 @@ export const fetchActions: FetchActionItem[] = [
     test: isRealbooruPage,
     action: async () => {
       const results = await fetchRealbooruPosts(query.page, query.tags)
+      return results
+    },
+  },
+  {
+    test: isRule34HentaiPage,
+    action: async () => {
+      const results = await fetchRule34HentaiPosts(query.page, query.tags)
       return results
     },
   },
