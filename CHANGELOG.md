@@ -1,3 +1,7 @@
+## v0.36.3
+
+- fix: 更新标签翻译
+
 ## v0.36.2
 
 - feat: 支持 rule34hentai.net
