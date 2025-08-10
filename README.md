@@ -66,6 +66,8 @@ Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设
 
   欢迎 [PR](https://github.com/asadahimeka/danbooru_tags_json/blob/main/yaml/_add_extra.yaml) 补充或校正翻译
 
+- 其他标签翻译来自 https://github.com/Yellow-Rush/zh_CN-Tags
+
 ### 瀑布流模式
 
 点击右上角按钮进入瀑布流模式

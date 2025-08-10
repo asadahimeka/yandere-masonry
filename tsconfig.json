@@ -48,7 +48,7 @@
     ]
   },
   "vueCompilerOptions": {
-    "target": 2.7
+    "target": "auto"
     // "target": 2, // For Vue version <= 2.6.14
   },
   "include": [
