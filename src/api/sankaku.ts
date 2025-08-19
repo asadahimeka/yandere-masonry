@@ -1,4 +1,4 @@
-export const isSankakuSite = location.host.includes('sankaku')
+export const isSankakuSite = location.host.includes('sankaku') || location.host.includes('idolcomplex')
 
 export function isSankakuPage() {
   return location.hostname == 'sankaku.app'
@@ -9,7 +9,7 @@ export async function fetchSankakuPosts(page: number, tags: string | null) {
   if (page == 1) pageState.next = null
   const url = new URL('https://sankakuapi.com/v2/posts/keyset')
   url.searchParams.set('lang', navigator.language || 'zh-CN')
-  url.searchParams.set('default_threshold', '5')
+  url.searchParams.set('default_threshold', '1')
   url.searchParams.set('hide_posts_in_books', 'in-larger-tags')
   url.searchParams.set('limit', '40')
   url.searchParams.set('page', `${page}`)
@@ -26,10 +26,10 @@ export async function fetchSankakuPosts(page: number, tags: string | null) {
   const json = await resp.json()
   pageState.next = json.meta.next
   return json.data.filter((e: any) => e.preview_url).map((e: any) => {
-    const fileExt = e.file_type.split('/').pop()
+    const fileExt = e.file_ext
     return {
       id: e.id,
-      postView: `https://sankaku.app/zh-CN/posts/${e.id}`,
+      postView: `https://sankaku.app/posts/${e.id}`,
       previewUrl: e.preview_url,
       fileUrl: '',
       tags: e.tags.map((t: any) => t.name + (t.name_ja ? `[${t.name_ja}]` : '')),

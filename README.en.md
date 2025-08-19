@@ -153,7 +153,7 @@ https://www.zerochan.net
 
 https://sankaku.app (https://chan.sankakucomplex.com)
 
-https://idol.sankakucomplex.com
+https://idol.sankakucomplex.com (https://www.idolcomplex.com)
 
 https://anime-pictures.net
 
