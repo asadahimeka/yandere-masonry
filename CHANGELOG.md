@@ -1,3 +1,7 @@
+## v0.36.4
+
+- fix: https://idol.sankakucomplex.com 切换为 https://wwww.idolcomplex.com
+
 ## v0.36.3
 
 - fix: 更新标签翻译

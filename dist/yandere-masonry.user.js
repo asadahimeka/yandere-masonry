@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.36.3
+// @version              0.36.4
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -29,7 +29,7 @@
 // @match                https://www.zerochan.net/*
 // @match                https://sankaku.app/*
 // @match                https://chan.sankakucomplex.com/*
-// @match                https://idol.sankakucomplex.com/*
+// @match                https://www.idolcomplex.com/*
 // @match                https://anime-pictures.net/*
 // @match                https://allgirl.booru.org/*
 // @match                https://booru.eu/*
@@ -6267,21 +6267,21 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     return booruCache[rSite].search(tags, { limit, random, page, credentials });
   }
-  const isSankakuSite = location.host.includes("sankaku");
+  const isSankakuSite = location.host.includes("sankaku") || location.host.includes("idolcomplex");
   function isSankakuPage() {
     return location.hostname == "sankaku.app";
   }
-  const pageState = { next: null };
+  const pageState$1 = { next: null };
   async function fetchSankakuPosts(page, tags) {
     if (page == 1)
-      pageState.next = null;
+      pageState$1.next = null;
     const url = new URL("https://sankakuapi.com/v2/posts/keyset");
     url.searchParams.set("lang", navigator.language || "zh-CN");
-    url.searchParams.set("default_threshold", "5");
+    url.searchParams.set("default_threshold", "1");
     url.searchParams.set("hide_posts_in_books", "in-larger-tags");
     url.searchParams.set("limit", "40");
     url.searchParams.set("page", `${page}`);
-    pageState.next && url.searchParams.set("next", `${pageState.next}`);
+    pageState$1.next && url.searchParams.set("next", `${pageState$1.next}`);
     tags && url.searchParams.set("tags", tags);
     const resp = await fetch(url.href, {
       headers: {
@@ -6292,12 +6292,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }
     });
     const json = await resp.json();
-    pageState.next = json.meta.next;
+    pageState$1.next = json.meta.next;
     return json.data.filter((e) => e.preview_url).map((e) => {
-      const fileExt = e.file_type.split("/").pop();
+      const fileExt = e.file_ext;
       return {
         id: e.id,
-        postView: `https://sankaku.app/zh-CN/posts/${e.id}`,
+        postView: `https://sankaku.app/posts/${e.id}`,
         previewUrl: e.preview_url,
         fileUrl: "",
         tags: e.tags.map((t) => t.name + (t.name_ja ? `[${t.name_ja}]` : "")),
@@ -6425,7 +6425,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "e-shuushuu.net",
     "zerochan.net",
     "chan.sankakucomplex.com",
-    "idol.sankakucomplex.com",
+    "www.idolcomplex.com",
     "sankaku.app",
     "anime-pictures.net",
     "allgirl.booru.org",
@@ -6440,7 +6440,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const notPartialSupportSite = ![
     "e-shuushuu.net",
     "www.zerochan.net",
-    "idol.sankakucomplex.com",
+    "www.idolcomplex.com",
     "allgirl.booru.org",
     "booru.eu",
     "kusowanka.com",
@@ -6478,7 +6478,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "aibooru.online": "AIBooru",
     "sankaku.app": "Sankaku APP",
     "chan.sankakucomplex.com": "Sankaku Complex",
-    "idol.sankakucomplex.com": "Idol Complex",
+    "www.idolcomplex.com": "Idol Complex",
     "anime-pictures.net": "Anime Pictures",
     "allgirl.booru.org": "All girl",
     "booru.eu": "Hentai Booru",
@@ -7184,70 +7184,62 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return json.full;
   }
   function isSankakuIdolPage() {
-    return location.hostname == "idol.sankakucomplex.com";
+    return location.hostname == "www.idolcomplex.com";
   }
-  const state$1 = {
-    base: "https://idol.sankakucomplex.com/cn/posts?auto_page=t",
-    nextUrl: null
-  };
-  const ratingMap$1 = {
-    "G": "s",
-    "R15+": "q",
-    "R18+": "e"
-  };
+  const pageState = { next: null };
   async function fetchSankakuIdolPosts(page, tags) {
-    var _a2, _b2;
-    const w = unsafeWindow;
-    w.$.ajax = () => {
-    };
-    w.jQuery.ajax = () => {
-    };
-    if (page == 1) {
-      state$1.nextUrl = null;
-      document.documentElement.scrollTop = 0;
-    }
-    const url = new URL(state$1.nextUrl ? `https://idol.sankakucomplex.com${state$1.nextUrl}` : state$1.base);
-    url.searchParams.set("auto_page", "t");
-    !state$1.nextUrl && tags && url.searchParams.set("tags", tags);
-    const htmlResp = await fetch(url.href);
-    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    state$1.nextUrl = (_b2 = (_a2 = doc.querySelector("body > div[next-page-url]")) == null ? void 0 : _a2.getAttribute("next-page-url")) == null ? void 0 : _b2.replace(/amp;/g, "");
-    const results = [...doc.querySelectorAll(".post-gallery .post-preview")].map((el) => {
-      var _a3;
-      const id = el.getAttribute("data-id");
-      const img = el.querySelector("img");
-      const tagsText = (img == null ? void 0 : img.getAttribute("data-auto_page")) || "";
-      const tagsArr = tagsText.split(/\s/) || [];
-      const [_, width, height] = tagsText.match(/Size:(\d+)x(\d+)/) || [];
-      const [__, ratingText] = tagsText.match(/Rating:(\S+)/) || [];
+    if (page == 1)
+      pageState.next = null;
+    const url = new URL("https://i.sankakuapi.com/v2/posts/keyset");
+    url.searchParams.set("lang", navigator.language || "zh-CN");
+    url.searchParams.set("default_threshold", "1");
+    url.searchParams.set("hide_posts_in_books", "in-larger-tags");
+    url.searchParams.set("limit", "40");
+    url.searchParams.set("page", `${page}`);
+    pageState.next && url.searchParams.set("next", `${pageState.next}`);
+    tags && url.searchParams.set("tags", tags);
+    const resp = await fetch(url.href, {
+      headers: {
+        "api-version": "2",
+        "client-type": "non-premium",
+        "platform": "web-app",
+        "priority": "u=1, i"
+      }
+    });
+    const json = await resp.json();
+    pageState.next = json.meta.next;
+    return json.data.filter((e) => e.preview_url).map((e) => {
+      const fileExt = e.file_ext;
       return {
-        id,
-        postView: (_a3 = el.querySelector("a")) == null ? void 0 : _a3.href,
-        previewUrl: img == null ? void 0 : img.src,
+        id: e.id,
+        postView: `https://www.idolcomplex.com/posts/${e.id}`,
+        previewUrl: e.preview_url,
         fileUrl: "",
-        tags: tagsArr,
-        width: Number(width),
-        height: Number(height),
-        aspectRatio: Number(width) / Number(height),
-        fileExt: el.querySelector(".animated_details") ? "mp4" : "jpg",
-        fileDownloadName: `sankaku-idol ${id} ${tagsArr.join(" ")}`,
-        fileDownloadText: `${width}\xD7${height}`,
-        rating: ratingMap$1[ratingText] || ratingText
+        tags: e.tags.map((t) => t.name + (t.name_ja ? `[${t.name_ja}]` : "")),
+        width: e.width,
+        height: e.height,
+        aspectRatio: e.width / e.height,
+        fileExt,
+        fileDownloadName: `sankaku ${e.id} ${e.tags.join(" ")}.${fileExt}`,
+        fileDownloadText: `${e.width}\xD7${e.height} [${(e.file_size / 1e3).toFixed(0)} kB] ${fileExt.toUpperCase()}`,
+        rating: e.rating,
+        createdAt: e.created_at.s * 1e3
       };
     });
-    return results;
   }
   async function getSankakuIdolDetail(id) {
-    var _a2, _b2, _c2;
-    const url = new URL(`https://idol.sankakucomplex.com/cn/posts/${id}`);
-    const htmlResp = await fetch(url.href);
-    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    const imgSrc = (_a2 = doc.querySelector("#post-content img")) == null ? void 0 : _a2.src;
-    const fileUrl = (_b2 = doc.querySelector("#post-content a")) == null ? void 0 : _b2.href;
-    const videoSrc = (_c2 = doc.querySelector("#post-content video")) == null ? void 0 : _c2.src;
+    const resp = await fetch(`https://i.sankakuapi.com/posts/${id}/fu?lang=${navigator.language || "zh-CN"}`, {
+      headers: {
+        "api-version": "2",
+        "client-type": "non-premium",
+        "platform": "web-app",
+        "priority": "u=1, i"
+      }
+    });
+    const json = await resp.json();
     return {
-      sampleUrl: imgSrc,
-      fileUrl: fileUrl || imgSrc || videoSrc
+      sampleUrl: json.data.sample_url,
+      fileUrl: json.data.file_url
     };
   }
   function isSankakuComplexPage() {
