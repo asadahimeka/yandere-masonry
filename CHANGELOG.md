@@ -1,3 +1,7 @@
+## v0.36.5
+
+- fix: 修复 rule34.xxx 无法加载
+
 ## v0.36.4
 
 - fix: https://idol.sankakucomplex.com 切换为 https://wwww.idolcomplex.com

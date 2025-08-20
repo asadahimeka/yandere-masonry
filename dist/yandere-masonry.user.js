@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.36.4
+// @version              0.36.5
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -6518,7 +6518,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return /rule34\.xxx\/index\.php\?page\=favorites\&s\=view/.test(location.href);
   }
   function isRule34Firefox() {
-    return location.hostname == "rule34.xxx" && navigator.userAgent.includes("Firefox");
+    return location.hostname == "rule34.xxx" && (navigator.userAgent.includes("Firefox") || !store.settings.credentialQuery);
   }
   async function fetchRule34Posts(page, tags) {
     const url = new URL("https://rule34.xxx/index.php");
@@ -6564,7 +6564,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     url.searchParams.set("pid", `${(page - 1) * 50}`);
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    const results = [...doc.querySelectorAll("#content .thumb")].map(async (el) => {
+    const results = [...doc.querySelectorAll("#content .image-list .thumb")].map(async (el) => {
       var _a2, _b2;
       const img = el.querySelector("img");
       const imgSrc = (img == null ? void 0 : img.src) || "";
@@ -6589,11 +6589,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         rating: ""
       };
     });
-    return Promise.all(results);
+    const list = await Promise.all(results);
+    list.__isR34Fav = true;
+    return list;
   }
   async function addFavoriteRule34(id) {
     var _a2;
-    const _id = isRule34Firefox() ? (_a2 = id.match(/(\d+)/)) == null ? void 0 : _a2[1] : id;
+    const _id = ((_a2 = id.match(/(\d+)/)) == null ? void 0 : _a2[1]) || id;
     const response = await fetch(`https://rule34.xxx/public/addfav.php?id=${_id}`);
     if (!response.ok) {
       showMsg({ msg: `${i18n.t("MWVfUiW8egLWq7MgV-wzc")}: ${response.status}`, type: "error" });
@@ -6827,13 +6829,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     history.replaceState("", "", url);
   }
   function dealBlacklist(results) {
-    if (location.hostname == "rule34.xxx") {
+    if (location.hostname == "rule34.xxx" && !results.__isR34Fav) {
       if (getCookie("filter_ai") == "1") {
         results = results.filter((e) => !e.tags.includes("ai_assisted") && !e.tags.includes("ai_generated"));
       }
       const threshold = +getCookie("post_threshold");
       if (threshold > 0) {
-        results = results.filter((e) => e.score >= threshold);
+        results = results.filter((e) => e.score && e.score >= threshold);
       }
     }
     if (!store.blacklist.length)
