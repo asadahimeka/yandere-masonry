@@ -1,3 +1,4 @@
+import store from '@/store'
 import { getImageSize, showMsg } from '@/utils'
 import i18n from '@/utils/i18n'
 
@@ -6,7 +7,7 @@ export function isRule34FavPage() {
 }
 
 export function isRule34Firefox() {
-  return location.hostname == 'rule34.xxx' && navigator.userAgent.includes('Firefox')
+  return location.hostname == 'rule34.xxx' && (navigator.userAgent.includes('Firefox') || !store.settings.credentialQuery)
 }
 
 export async function fetchRule34Posts(page: number, tags: string | null) {
@@ -55,7 +56,7 @@ export async function fetchRule34Favorites(page: number) {
   url.searchParams.set('pid', `${(page - 1) * 50}`)
   const htmlResp = await fetch(url.href)
   const doc = new DOMParser().parseFromString(await htmlResp.text(), 'text/html')
-  const results = [...doc.querySelectorAll('#content .thumb')].map(async el => {
+  const results = [...doc.querySelectorAll('#content .image-list .thumb')].map(async el => {
     const img = el.querySelector('img')
     const imgSrc = img?.src || ''
     const postView = el.querySelector('a')?.href
@@ -80,11 +81,14 @@ export async function fetchRule34Favorites(page: number) {
       rating: '',
     } as any
   })
-  return Promise.all(results)
+  const list = await Promise.all(results)
+  // @ts-expect-error __isR34Fav
+  list.__isR34Fav = true
+  return list
 }
 
 export async function addFavoriteRule34(id: string) {
-  const _id = isRule34Firefox() ? id.match(/(\d+)/)?.[1] : id
+  const _id = id.match(/(\d+)/)?.[1] || id
   const response = await fetch(`https://rule34.xxx/public/addfav.php?id=${_id}`)
   if (!response.ok) {
     showMsg({ msg: `${i18n.t('MWVfUiW8egLWq7MgV-wzc')}: ${response.status}`, type: 'error' })

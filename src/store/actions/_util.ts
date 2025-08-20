@@ -28,14 +28,14 @@ export function pushPageState(pageNo: number, latePageQuery = false) {
   history.replaceState('', '', url)
 }
 
-export function dealBlacklist(results: SearchResults) {
-  if (location.hostname == 'rule34.xxx') {
+export function dealBlacklist(results: SearchResults & { __isR34Fav?: boolean }) {
+  if (location.hostname == 'rule34.xxx' && !results.__isR34Fav) {
     if (getCookie('filter_ai') == '1') {
       results = results.filter(e => !e.tags.includes('ai_assisted') && !e.tags.includes('ai_generated')) as any
     }
     const threshold = +getCookie('post_threshold')
     if (threshold > 0) {
-      results = results.filter(e => e.score >= threshold) as any
+      results = results.filter(e => e.score && e.score >= threshold) as any
     }
   }
   if (!store.blacklist.length) return results
