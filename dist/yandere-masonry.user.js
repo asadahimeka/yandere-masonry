@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.36.5
+// @version              0.36.6
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -2212,7 +2212,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     __name: "VirtualWaterfall",
     props: {
       virtual: { type: Boolean, default: true },
-      rowKey: { default: "_id" },
+      rowKey: { default: "id" },
       gap: { default: 15 },
       preloadScreenCount: { default: () => [0, 0] },
       itemMinWidth: { default: 220 },
@@ -2221,7 +2221,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       items: { default: () => [] },
       calcItemHeight: { type: Function, default: () => 250 }
     },
-    setup(__props) {
+    setup(__props, { expose }) {
       const props2 = __props;
       const content = Vue2.ref();
       const { width: contentWidth } = useElementSize(content);
@@ -2254,15 +2254,21 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return Math.ceil((contentWidth.value - gap) / columnCount.value);
       });
       const itemSpaces = Vue2.shallowRef([]);
+      const withItemSpaces = (cb) => {
+        cb(Vue2.readonly(itemSpaces).value);
+      };
+      expose({
+        withItemSpaces
+      });
       const getColumnIndex = () => {
         return columnsTop.value.indexOf(Math.min(...columnsTop.value));
       };
       Vue2.watchEffect(() => {
-        if (!columnCount.value) {
+        const length = props2.items.length;
+        if (!columnCount.value || !length) {
           itemSpaces.value = [];
           return;
         }
-        const length = props2.items.length;
         const spaces = new Array(length);
         let start = 0;
         const cache = itemSpaces.value.length && length > itemSpaces.value.length;
@@ -2319,7 +2325,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         }
         return items;
       });
-      return { __sfc: true, props: props2, content, contentWidth, contentTop, columnCount, columnsTop, itemWidth, itemSpaces, getColumnIndex, itemRenderList };
+      return { __sfc: true, props: props2, content, contentWidth, contentTop, columnCount, columnsTop, itemWidth, itemSpaces, withItemSpaces, getColumnIndex, itemRenderList };
     }
   });
   var _sfc_render$b = function render() {
@@ -2329,8 +2335,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       willChange: "height",
       height: `${Math.max(..._setup.columnsTop)}px`
     } }, _vm._l(_setup.itemRenderList, function(data) {
-      var _a2;
-      return _c2("div", { key: (_a2 = data.item[_vm.rowKey]) != null ? _a2 : data.index, style: {
+      return _c2("div", { key: data.item[_vm.rowKey] || data.index, style: {
         position: "absolute",
         contentVisibility: "auto",
         width: `${_setup.itemWidth}px`,
@@ -5274,6 +5279,18 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     return "";
   }
+  function uniqBy(array, iteratee) {
+    const seen = /* @__PURE__ */ new Set();
+    const result = [];
+    for (const item of array) {
+      const key = typeof iteratee === "function" ? iteratee(item) : item[iteratee];
+      if (!seen.has(key)) {
+        seen.add(key);
+        result.push(item);
+      }
+    }
+    return result;
+  }
   function getAugmentedNamespace(n) {
     if (n.__esModule)
       return n;
@@ -6529,7 +6546,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const htmlResp = await fetch(url.href, { credentials: "include" });
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const results = [...doc.querySelectorAll("#content .image-list .thumb")].map(async (el) => {
-      var _a2;
+      var _a2, _b2, _c2;
       const id = el.id;
       const img = el.querySelector("img");
       const imgSrc = (img == null ? void 0 : img.src) || "";
@@ -6538,6 +6555,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const tags2 = img == null ? void 0 : img.title.split(/\s+/).filter(Boolean);
       const isVideo = ["mp4", "video"].some((e) => tags2 == null ? void 0 : tags2.includes(e));
       const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.mp4").replace("https://wimg.", "https://ahri2mp4.");
+      const rating = (_b2 = img == null ? void 0 : img.title.match(/rating\:(\w)/)) == null ? void 0 : _b2[1];
+      const score = (_c2 = img == null ? void 0 : img.title.match(/score\:(\d+)/)) == null ? void 0 : _c2[1];
       if (el.querySelector(".blacklist-img")) {
         return null;
       }
@@ -6546,14 +6565,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         postView,
         previewUrl: imgSrc,
         sampleUrl: isVideo ? videoUrl : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, "$1samples$2sample_$3"),
-        fileUrl: isVideo ? videoUrl : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.jpeg"),
+        fileUrl: isVideo ? videoUrl.replace(/\?\d+$/, "") : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.jpeg").replace(/\?\d+$/, ""),
         tags: tags2,
         width: width * 10,
         height: height * 10,
         aspectRatio: width / height,
         fileExt: isVideo ? "mp4" : "jpg",
         fileDownloadName: `rule34_xxx_${id}`,
-        rating: ""
+        rating,
+        score
       };
     });
     const posts = await Promise.all(results);
@@ -6835,7 +6855,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }
       const threshold = +getCookie("post_threshold");
       if (threshold > 0) {
-        results = results.filter((e) => e.score && e.score >= threshold);
+        results = results.filter((e) => e.score ? e.score >= threshold : true);
       }
     }
     if (!store.blacklist.length)
@@ -7746,10 +7766,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         posts = dealBlacklist(posts);
         const { page } = getSearchState();
         store.currentPage = page;
-        store.imageList = [
+        store.imageList = uniqBy([
           ...store.imageList,
           ...store.showNSFWContents ? posts : posts.filter((e) => ["s", "g"].includes(e.rating))
-        ];
+        ], "id");
         pushPageState(page, latePageQuery);
         setPage(page + 1);
       } else {
