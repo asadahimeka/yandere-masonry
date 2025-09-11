@@ -9,7 +9,7 @@
   >
     <div
       v-for="data in itemRenderList"
-      :key="data.item[rowKey] ?? data.index"
+      :key="data.item[rowKey] || data.index"
       :style="{
         position: 'absolute',
         contentVisibility: 'auto',
@@ -31,7 +31,7 @@
 <script setup lang="ts">
 // https://github.com/lhlyu/vue-virtual-waterfall
 
-import { computed, onMounted, ref, shallowRef, watchEffect } from 'vue'
+import { computed, onMounted, readonly, ref, shallowRef, watchEffect } from 'vue'
 import { useElementBounding, useElementSize } from '@vueuse/core'
 
 interface VirtualWaterfallOption {
@@ -56,7 +56,7 @@ interface VirtualWaterfallOption {
 
 const props = withDefaults(defineProps<VirtualWaterfallOption>(), {
   virtual: true,
-  rowKey: '_id',
+  rowKey: 'id',
   gap: 15,
   preloadScreenCount: () => [0, 0],
   itemMinWidth: 220,
@@ -109,18 +109,35 @@ const itemWidth = computed<number>(() => {
   return Math.ceil((contentWidth.value - gap) / columnCount.value)
 })
 
+// 元素空间信息
 interface SpaceOption {
+  // 索引
   index: number
+  // 原始数据
   item: any
+  // 元素所属列
   column: number
+  // 元素左上角绝对定位top位置
   top: number
+  // 元素左上角绝对定位left位置
   left: number
+  // 元素左下角绝对定位bottom位置
   bottom: number
+  // 元素真实高度
   height: number
 }
 
-// 计算每个item占据的空间
+// 每个item占据的空间
 const itemSpaces = shallowRef<SpaceOption[]>([])
+
+// 暴露一个方法，让外部可以访问itemSpaces
+const withItemSpaces = (cb: (spaces: readonly SpaceOption[]) => Promise<void> | void) => {
+  cb(readonly(itemSpaces).value)
+}
+
+defineExpose({
+  withItemSpaces,
+})
 
 // 获取当前元素应该处于哪一列
 const getColumnIndex = (): number => {
@@ -128,12 +145,13 @@ const getColumnIndex = (): number => {
 }
 
 watchEffect(() => {
-  if (!columnCount.value) {
+  const length = props.items.length
+
+  if (!columnCount.value || !length) {
     itemSpaces.value = []
     return
   }
 
-  const length = props.items.length
   const spaces = new Array(length)
 
   let start = 0

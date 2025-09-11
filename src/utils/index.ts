@@ -294,3 +294,16 @@ export function formatRelativeTime(dateInput?: Date | null): string {
 
   return ''
 }
+
+export function uniqBy<T>(array: T[], iteratee: ((item: T) => any) | keyof T): T[] {
+  const seen = new Set<any>()
+  const result: T[] = []
+  for (const item of array) {
+    const key = typeof iteratee === 'function' ? iteratee(item) : item[iteratee]
+    if (!seen.has(key)) {
+      seen.add(key)
+      result.push(item)
+    }
+  }
+  return result
+}

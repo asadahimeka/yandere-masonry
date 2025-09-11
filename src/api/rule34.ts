@@ -27,6 +27,8 @@ export async function fetchRule34Posts(page: number, tags: string | null) {
     const tags = img?.title.split(/\s+/).filter(Boolean)
     const isVideo = ['mp4', 'video'].some(e => tags?.includes(e))
     const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, '$1images$2$3.mp4').replace('https://wimg.', 'https://ahri2mp4.')
+    const rating = img?.title.match(/rating\:(\w)/)?.[1]
+    const score = img?.title.match(/score\:(\d+)/)?.[1]
 
     if (el.querySelector('.blacklist-img')) {
       return null
@@ -37,14 +39,15 @@ export async function fetchRule34Posts(page: number, tags: string | null) {
       postView,
       previewUrl: imgSrc,
       sampleUrl: isVideo ? videoUrl : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, '$1samples$2sample_$3'),
-      fileUrl: isVideo ? videoUrl : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, '$1images$2$3.jpeg'),
+      fileUrl: isVideo ? videoUrl.replace(/\?\d+$/, '') : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, '$1images$2$3.jpeg').replace(/\?\d+$/, ''),
       tags,
       width: width * 10,
       height: height * 10,
       aspectRatio: width / height,
       fileExt: isVideo ? 'mp4' : 'jpg',
       fileDownloadName: `rule34_xxx_${id}`,
-      rating: '',
+      rating,
+      score,
     } as any
   })
   const posts = await Promise.all(results)

@@ -1,6 +1,7 @@
 import { fetchActions, getSearchState, setPage, setTags } from './site'
 import { dealBlacklist, pushPageState } from './_util'
 import store from '@/store'
+import { uniqBy } from '@/utils'
 
 export const searchPosts = async (latePageQuery = false) => {
   store.requestState = true
@@ -10,10 +11,10 @@ export const searchPosts = async (latePageQuery = false) => {
       posts = dealBlacklist(posts as any)
       const { page } = getSearchState()
       store.currentPage = page
-      store.imageList = [
+      store.imageList = uniqBy([
         ...store.imageList,
         ...(store.showNSFWContents ? posts : posts.filter(e => ['s', 'g'].includes(e.rating))),
-      ]
+      ], 'id')
       pushPageState(page, latePageQuery)
       setPage(page + 1)
     } else {
