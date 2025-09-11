@@ -74,7 +74,7 @@ export async function fetchRule34Favorites(page: number) {
       postView,
       previewUrl: imgSrc,
       sampleUrl: isVideo ? videoUrl : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, '$1samples$2sample_$3'),
-      fileUrl: isVideo ? videoUrl : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, '$1images$2$3.jpeg'),
+      fileUrl: isVideo ? videoUrl.replace(/\?\d+$/, '') : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, '$1images$2$3.jpeg').replace(/\?\d+$/, ''),
       tags,
       width: width * 10,
       height: height * 10,

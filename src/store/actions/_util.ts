@@ -35,7 +35,7 @@ export function dealBlacklist(results: SearchResults & { __isR34Fav?: boolean })
     }
     const threshold = +getCookie('post_threshold')
     if (threshold > 0) {
-      results = results.filter(e => e.score ? e.score >= threshold : true) as any
+      results = results.filter(e => e.score ? +e.score >= threshold : true) as any
     }
   }
   if (!store.blacklist.length) return results

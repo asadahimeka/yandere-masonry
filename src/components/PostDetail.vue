@@ -476,7 +476,7 @@ const toggleTagsShow = () => {
 }
 
 const imageSelected = computed(() => store.imageList[store.imageSelectedIndex] ?? {})
-const isVideo = computed(() => ['.mp4', '.webm'].some(e => {
+const isVideo = computed(() => {
   const { fileUrl, fileExt } = imageSelected.value
   if (!fileUrl) return false
   try {
@@ -484,11 +484,11 @@ const isVideo = computed(() => ['.mp4', '.webm'].some(e => {
       return true
     }
     const url = new URL(fileUrl)
-    return url.pathname.endsWith(e)
+    return url.pathname.endsWith('.mp4') || url.pathname.endsWith('.webm')
   } catch (_error) {
     return false
   }
-}))
+})
 const imgSrc = computed(() => {
   if (isVideo.value) return void 0
   return imageSelected.value.sampleUrl

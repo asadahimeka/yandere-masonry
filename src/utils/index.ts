@@ -180,9 +180,30 @@ export function getImageSize(url: string) {
 export async function fancyboxShow(images: Post[], index = 0) {
   if (!unsafeWindow.Fancybox) {
     if (store.isYKSite) {
+      // // @ts-expect-error fuck rails global pollution
+      // delete Array.prototype.entries
+      // await loadScript('https://cdnjs.cloudflare.com/ajax/libs/core-js/3.37.1/minified.min.js')
+
       // @ts-expect-error fuck rails global pollution
-      delete Array.prototype.entries
-      await loadScript('https://cdnjs.cloudflare.com/ajax/libs/core-js/3.37.1/minified.min.js')
+      // eslint-disable-next-line no-extend-native
+      Array.prototype.entries = function () {
+        let index = 0
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
+        const arr = this
+        return {
+          next() {
+            if (index < arr.length) {
+              return { value: [index, arr[index++]], done: false }
+            } else {
+              return { value: undefined, done: true }
+            }
+          },
+          // eslint-disable-next-line no-mixed-operators
+          [typeof Symbol !== 'undefined' && Symbol.iterator || '@@iterator']() {
+            return this
+          },
+        }
+      }
     }
     document.head.insertAdjacentHTML('beforeend', '<link href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css" rel="stylesheet">')
     await loadScript('https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js')

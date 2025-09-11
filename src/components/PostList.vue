@@ -56,7 +56,7 @@
             {{ mdiVideo }}
           </v-icon>
           <div v-if="!isR34Fav && store.settings.showPostCheckbox" class="posts-image-checkbox">
-            <v-checkbox class="ma-0 pa-0" :value="store.selectedImageList.some(e => e.id === item?.id)" hide-details @change="onPostCheckboxChange($event, item)" />
+            <v-checkbox class="ma-0 pa-0" :value="isPostChecked(item?.id)" hide-details @change="onPostCheckboxChange($event, item)" />
           </div>
           <div v-if="store.settings.showListPostReso" class="posts-image-wh">{{ item?.width }} × {{ item?.height }}</div>
           <div v-if="!isR34Fav" class="posts-image-actions">
@@ -142,7 +142,7 @@
           {{ mdiVideo }}
         </v-icon>
         <div v-if="!isR34Fav && store.settings.showPostCheckbox" class="posts-image-checkbox">
-          <v-checkbox class="ma-0 pa-0" :value="store.selectedImageList.some(e => e.id === image?.id)" hide-details @change="onPostCheckboxChange($event, image)" />
+          <v-checkbox class="ma-0 pa-0" :value="isPostChecked(image?.id)" hide-details @change="onPostCheckboxChange($event, image)" />
         </div>
         <div v-if="store.settings.showListPostReso" class="posts-image-wh">{{ image?.width }} × {{ image?.height }}</div>
         <div v-if="!isR34Fav" class="posts-image-actions">
@@ -321,6 +321,7 @@ const downloadCtxPost = async (post?: Post) => {
   }
 }
 
+const isPostChecked = (id?: string) => store.selectedImageList.some(e => e.id === id)
 const onPostCheckboxChange = (e: any, image: Post) => {
   e ? store.addToSelectedList(image) : store.removeFromSelectedList(image.id)
 }
