@@ -23,7 +23,7 @@
             tabindex="0"
             @click="showImgModal(index)"
             @contextmenu="onCtxMenu($event, item)"
-            @error="onImageLoadError(item?.previewUrl || '')"
+            @error="onImageLoadError(item?.id || '')"
           >
           <template v-if="store.isYKSite">
             <v-icon
@@ -93,7 +93,7 @@
             tabindex="0"
             @click="showImgModal(index)"
             @contextmenu="onCtxMenu($event, image)"
-            @error="onImageLoadError(image?.previewUrl || '')"
+            @error="onImageLoadError(image?.id || '')"
           >
         </template>
         <v-img
@@ -103,7 +103,7 @@
           :aspect-ratio="image?.aspectRatio"
           @click="showImgModal(index)"
           @contextmenu="onCtxMenu($event, image)"
-          @error="onImageLoadError"
+          @error="onImageLoadError(image?.id)"
         >
           <template #placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
@@ -326,11 +326,24 @@ const onPostCheckboxChange = (e: any, image: Post) => {
   e ? store.addToSelectedList(image) : store.removeFromSelectedList(image.id)
 }
 
-const onImageLoadError = (url: string) => {
-  const item = store.imageList.find(e => e.previewUrl == url)
+const onImageLoadError = (id: string) => {
+  const item = store.imageList.find(e => e.id == id)
   if (!item) return
-  set(item, 'previewUrl', null)
-  set(item, 'sampleUrl', null)
+  if (item.previewUrl) {
+    set(item, 'previewUrl', null)
+    set(item, 'sampleUrl', null)
+    return
+  }
+  if (location.hostname != 'rule34.xxx') return
+  const { fileUrl } = item
+  if (!fileUrl) return
+  if (fileUrl.includes('.jpeg')) {
+    set(item, 'fileUrl', fileUrl.replace(/\.jpeg(\?\d+)?$/, '.jpg'))
+  } else if (fileUrl.includes('.jpg')) {
+    set(item, 'fileUrl', fileUrl.replace(/\.jpg(\?\d+)?$/, '.png'))
+  } else {
+    set(item, 'fileUrl', fileUrl.replace(/\.png(\?\d+)?$/, '.gif'))
+  }
 }
 
 const virtualMaxCol = computed(() => {
