@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.36.7
+// @version              0.36.8
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -9580,12 +9580,27 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const onPostCheckboxChange = (e, image) => {
         e ? store.addToSelectedList(image) : store.removeFromSelectedList(image.id);
       };
-      const onImageLoadError = (url) => {
-        const item = store.imageList.find((e) => e.previewUrl == url);
+      const onImageLoadError = (id) => {
+        const item = store.imageList.find((e) => e.id == id);
         if (!item)
           return;
-        Vue2.set(item, "previewUrl", null);
-        Vue2.set(item, "sampleUrl", null);
+        if (item.previewUrl) {
+          Vue2.set(item, "previewUrl", null);
+          Vue2.set(item, "sampleUrl", null);
+          return;
+        }
+        if (location.hostname != "rule34.xxx")
+          return;
+        const { fileUrl } = item;
+        if (!fileUrl)
+          return;
+        if (fileUrl.includes(".jpeg")) {
+          Vue2.set(item, "fileUrl", fileUrl.replace(/\.jpeg(\?\d+)?$/, ".jpg"));
+        } else if (fileUrl.includes(".jpg")) {
+          Vue2.set(item, "fileUrl", fileUrl.replace(/\.jpg(\?\d+)?$/, ".png"));
+        } else {
+          Vue2.set(item, "fileUrl", fileUrl.replace(/\.png(\?\d+)?$/, ".gif"));
+        }
       };
       const virtualMaxCol = Vue2.computed(() => {
         const num = Number(store.selectedColumn);
@@ -9625,7 +9640,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }, "contextmenu": function($event) {
         return _setup.onCtxMenu($event, item);
       }, "error": function($event) {
-        return _setup.onImageLoadError((item == null ? void 0 : item.previewUrl) || "");
+        return _setup.onImageLoadError((item == null ? void 0 : item.id) || "");
       } } }), _setup.store.isYKSite ? [((_a2 = item == null ? void 0 : item.data) == null ? void 0 : _a2.has_children) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), ((_b2 = item == null ? void 0 : item.data) == null ? void 0 : _b2.parent_id) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), (item == null ? void 0 : item.fileExt.toLowerCase()) === "gif" ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(item == null ? void 0 : item.fileExt.toLowerCase()) ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav && _setup.store.settings.showPostCheckbox ? _c2("div", { staticClass: "posts-image-checkbox" }, [_c2("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.isPostChecked(item == null ? void 0 : item.id), "hide-details": "" }, on: { "change": function($event) {
         return _setup.onPostCheckboxChange($event, item);
       } } })], 1) : _vm._e(), _setup.store.settings.showListPostReso ? _c2("div", { staticClass: "posts-image-wh" }, [_vm._v(_vm._s(item == null ? void 0 : item.width) + " \xD7 " + _vm._s(item == null ? void 0 : item.height))]) : _vm._e(), !_setup.isR34Fav ? _c2("div", { staticClass: "posts-image-actions" }, [_c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4"), "href": item == null ? void 0 : item.postView, "target": "_blank", "rel": "noreferrer" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _setup.notPartialSupportSite ? _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
@@ -9638,19 +9653,21 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         $event.stopPropagation();
         return _setup.addFavorite(item == null ? void 0 : item.id);
       } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHeartPlusOutline))])], 1) : _vm._e()], 1) : _vm._e()], 2)];
-    } }], null, false, 2278620257) }) : _c2("wf-layout", _vm._l(_setup.store.imageList, function(image, index) {
+    } }], null, false, 524262093) }) : _c2("wf-layout", _vm._l(_setup.store.imageList, function(image, index) {
       var _a2, _b2;
       return _c2("v-card", { key: index, staticClass: "posts-image-card", style: _setup.store.settings.masonryLayout === "flexbin" ? `--w:${image == null ? void 0 : image.width};--h:${image == null ? void 0 : image.height}` : _setup.maxHeightStyle }, [_setup.store.settings.masonryLayout === "flexbin" ? [_c2("img", { staticClass: "post-image", attrs: { "alt": "", "loading": "lazy", "src": _setup.getImgSrc(image), "role": "button", "tabindex": "0" }, on: { "click": function($event) {
         return _setup.showImgModal(index);
       }, "contextmenu": function($event) {
         return _setup.onCtxMenu($event, image);
       }, "error": function($event) {
-        return _setup.onImageLoadError((image == null ? void 0 : image.previewUrl) || "");
+        return _setup.onImageLoadError((image == null ? void 0 : image.id) || "");
       } } })] : _c2("v-img", { attrs: { "transition": "scroll-y-transition", "src": _setup.getImgSrc(image), "aspect-ratio": image == null ? void 0 : image.aspectRatio }, on: { "click": function($event) {
         return _setup.showImgModal(index);
       }, "contextmenu": function($event) {
         return _setup.onCtxMenu($event, image);
-      }, "error": _setup.onImageLoadError }, scopedSlots: _vm._u([{ key: "placeholder", fn: function() {
+      }, "error": function($event) {
+        return _setup.onImageLoadError(image == null ? void 0 : image.id);
+      } }, scopedSlots: _vm._u([{ key: "placeholder", fn: function() {
         return [_c2("v-row", { staticClass: "fill-height ma-0", attrs: { "align": "center", "justify": "center" } }, [_c2("v-progress-circular", { attrs: { "indeterminate": "", "color": "deep-purple" } })], 1)];
       }, proxy: true }], null, true) }), _setup.store.isYKSite ? [((_a2 = image == null ? void 0 : image.data) == null ? void 0 : _a2.has_children) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), ((_b2 = image == null ? void 0 : image.data) == null ? void 0 : _b2.parent_id) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), (image == null ? void 0 : image.fileExt.toLowerCase()) === "gif" ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(image == null ? void 0 : image.fileExt.toLowerCase()) ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav && _setup.store.settings.showPostCheckbox ? _c2("div", { staticClass: "posts-image-checkbox" }, [_c2("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.isPostChecked(image == null ? void 0 : image.id), "hide-details": "" }, on: { "change": function($event) {
         return _setup.onPostCheckboxChange($event, image);
