@@ -6381,8 +6381,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return {
         id: e.id,
         postView: `https://anime-pictures.net/posts/${e.id}`,
-        previewUrl: `https://opreviews.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}_cp.${e.have_alpha ? "png" : "jpg"}.avif`,
-        sampleUrl: `https://opreviews.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}_bp.${e.have_alpha ? "png" : "jpg"}.avif`,
+        previewUrl: `https://opreviews.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}_cp.avif`,
+        sampleUrl: `https://opreviews.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}_bp.avif`,
         fileUrl: "",
         tags: [],
         width: e.width,
@@ -8890,7 +8890,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return false;
     }
     const result = await response.text();
-    if (result.includes("You have favorited this post")) {
+    if (result.includes('toggleClass("fav-buttons-true")')) {
       showMsg({ msg: i18n.t("ctWGhVvqB2k_1TX2iY0l2").toString() });
       return true;
     } else {

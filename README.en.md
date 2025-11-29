@@ -181,10 +181,9 @@ https://rule34hentai.net
 
 ## Sponsors
 
-<!-- Sponsors list: https://sponsors.nanoka.top/account -->
 Thanks for TSUKYU's support
 
-If you find this project helpful, feel free to buy me a coffee via the following link:
+If you find this project helpful, feel free to [buy me a coffee](https://sponsors-yumine.netlify.app):
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/sakurayumine)
 

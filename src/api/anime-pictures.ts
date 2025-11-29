@@ -22,8 +22,8 @@ export async function fetchAnimePicturesPosts(page: number, tags: string | null)
     return {
       id: e.id,
       postView: `https://anime-pictures.net/posts/${e.id}`,
-      previewUrl: `https://opreviews.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}_cp.${e.have_alpha ? 'png' : 'jpg'}.avif`,
-      sampleUrl: `https://opreviews.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}_bp.${e.have_alpha ? 'png' : 'jpg'}.avif`,
+      previewUrl: `https://opreviews.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}_cp.avif`,
+      sampleUrl: `https://opreviews.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}_bp.avif`,
       fileUrl: '',
       tags: [],
       width: e.width,

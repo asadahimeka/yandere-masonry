@@ -56,7 +56,7 @@ export async function addFavoriteDanbooru(id: string) {
     return false
   }
   const result = await response.text()
-  if (result.includes('You have favorited this post')) {
+  if (result.includes('toggleClass("fav-buttons-true")')) {
     showMsg({ msg: i18n.t('ctWGhVvqB2k_1TX2iY0l2').toString() })
     return true
   } else {
