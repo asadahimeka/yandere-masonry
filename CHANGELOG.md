@@ -4,7 +4,7 @@
 
 ## v0.36.4
 
-- fix: https://idol.sankakucomplex.com 切换为 https://wwww.idolcomplex.com
+- fix: https://idol.sankakucomplex.com 切换为 https://www.idolcomplex.com
 
 ## v0.36.3
 
