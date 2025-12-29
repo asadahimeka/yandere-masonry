@@ -174,11 +174,6 @@ var __publicField = (obj, key, value) => {
     if (location.host.includes("konachan")) {
       GM_addStyle(ydStyle + knStyle);
     }
-    fetch("https://pixiv.pictures/robots.txt").then((resp) => {
-      if (resp.status == 403) {
-        GM_addStyle("#enter-masonry{display:none}");
-      }
-    });
   }
   const locales = ["de", "en", "es", "ja", "ru", "zh_CN", "zh_TW"];
   function setMoebooruLocale() {
@@ -6568,7 +6563,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const { width, height } = await getImageSize(imgSrc);
       const tags2 = img == null ? void 0 : img.title.split(/\s+/).filter(Boolean);
       const isVideo = ["mp4", "video"].some((e) => tags2 == null ? void 0 : tags2.includes(e));
-      const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.mp4").replace("https://wimg.", "https://ahri2mp4.");
+      const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.mp4").replace("https://wimg.", "https://api-cdn-mp4.");
       const rating = (_b2 = img == null ? void 0 : img.title.match(/rating\:(\w)/)) == null ? void 0 : _b2[1];
       const score = (_c2 = img == null ? void 0 : img.title.match(/score\:(\d+)/)) == null ? void 0 : _c2[1];
       if (el.querySelector(".blacklist-img")) {
@@ -6607,7 +6602,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const { width, height } = await getImageSize(imgSrc);
       const tags = img == null ? void 0 : img.title.split(/\s+/).filter(Boolean);
       const isVideo = ["mp4", "animated", "video"].some((e) => tags == null ? void 0 : tags.includes(e));
-      const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.mp4").replace("https://wimg.", "https://ahri2mp4.");
+      const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.mp4").replace("https://wimg.", "https://api-cdn-mp4.");
       return {
         id,
         postView,

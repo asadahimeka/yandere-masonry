@@ -216,7 +216,7 @@ https://rule34hentai.net
 
 感谢 TSUKYU 的支持
 
-如果你觉得这个项目对你有帮助，欢迎请我喝杯咖啡：
+如果你觉得这个项目对你有帮助，欢迎请我[喝杯咖啡](https://sponsors-yumine.netlify.app)：
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/sakurayumine)
 

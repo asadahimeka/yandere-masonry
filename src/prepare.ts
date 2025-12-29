@@ -117,11 +117,11 @@ function addSiteStyle() {
   if (location.host.includes('konachan')) {
     GM_addStyle(ydStyle + knStyle)
   }
-  fetch('https://pixiv.pictures/robots.txt').then(resp => {
-    if (resp.status == 403) {
-      GM_addStyle('#enter-masonry{display:none}')
-    }
-  })
+  // fetch('https://pixiv.pictures/robots.txt').then(resp => {
+  //   if (resp.status == 403) {
+  //     GM_addStyle('#enter-masonry{display:none}')
+  //   }
+  // })
 }
 
 const locales = ['de', 'en', 'es', 'ja', 'ru', 'zh_CN', 'zh_TW']
