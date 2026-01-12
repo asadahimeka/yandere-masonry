@@ -26,6 +26,16 @@ export function downloadFile(url: string, name: string, options?: Partial<Tamper
   })
 }
 
+export function downloadText(text: string, filename = 'file.txt') {
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  a.click()
+  URL.revokeObjectURL(url)
+}
+
 type MsgType = 'success' | 'error'
 interface MessageOptions {
   msg: string

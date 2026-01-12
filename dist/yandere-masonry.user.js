@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.36.10
+// @version              0.36.11
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -5055,6 +5055,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       });
     });
   }
+  function downloadText(text, filename = "file.txt") {
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
   function showMsg({ msg = "", type = "success" }) {
     eventBus.$emit("showSnackbar", msg, type);
   }
@@ -8116,14 +8125,20 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const isExportUrlDecode = Vue2.ref(true);
       const isExportUrlEncode = Vue2.ref(false);
       const exportFileUrls = async () => {
-        let urlText = store.selectedImageList.map((e) => e[downloadUrlKey.value] || e.fileUrl).join("\n");
-        if (store.isYKSite && isExportUrlDecode.value) {
-          urlText = decodeURIComponent(urlText);
-        }
-        if (isExportUrlEncode.value || isZerochanPage()) {
-          urlText = encodeURIComponent(urlText);
-        }
-        await downloadFile(`data:text/plain;charset=utf-8,${urlText}`, "image-urls.txt");
+        const urlText = store.selectedImageList.map((e) => {
+          let url = e[downloadUrlKey.value] || e.fileUrl || "";
+          if (store.isYKSite && isExportUrlDecode.value) {
+            try {
+              url = decodeURIComponent(url);
+            } catch (e2) {
+            }
+          }
+          if (isExportUrlEncode.value || isZerochanPage()) {
+            url = encodeURIComponent(url);
+          }
+          return url;
+        }).join("\r\n");
+        downloadText(urlText, "image-urls.txt");
       };
       const vuetify = useVuetify();
       const toggleDarkmode = () => {

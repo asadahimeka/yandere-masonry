@@ -284,7 +284,7 @@ import {
 import { computed, onMounted, reactive, ref, set, watch } from 'vue'
 import { useVuetify } from '@/plugins/vuetify'
 import store from '@/store'
-import { addDate, debounce, downloadFile, eventBus, formatDate, showMsg, subDate } from '@/utils'
+import { addDate, debounce, downloadFile, downloadText, eventBus, formatDate, showMsg, subDate } from '@/utils'
 import { loadPostsByPage, loadPostsByTags, refreshPosts } from '@/store/actions/post'
 import { getRecentTags, getUsername, isPopularPage } from '@/api/moebooru'
 import { defCompTags, getSiteTitle, isSupportTagSearch, notPartialSupportSite } from '@/api/booru'
@@ -555,14 +555,19 @@ const startDownload = async () => {
 const isExportUrlDecode = ref(true)
 const isExportUrlEncode = ref(false)
 const exportFileUrls = async () => {
-  let urlText = store.selectedImageList.map(e => e[downloadUrlKey.value] || e.fileUrl).join('\n')
-  if (store.isYKSite && isExportUrlDecode.value) {
-    urlText = decodeURIComponent(urlText)
-  }
-  if (isExportUrlEncode.value || isZerochanPage()) {
-    urlText = encodeURIComponent(urlText)
-  }
-  await downloadFile(`data:text/plain;charset=utf-8,${urlText}`, 'image-urls.txt')
+  const urlText = store.selectedImageList.map(e => {
+    let url = e[downloadUrlKey.value] || e.fileUrl || ''
+    if (store.isYKSite && isExportUrlDecode.value) {
+      try {
+        url = decodeURIComponent(url)
+      } catch (e) {}
+    }
+    if (isExportUrlEncode.value || isZerochanPage()) {
+      url = encodeURIComponent(url)
+    }
+    return url
+  }).join('\r\n')
+  downloadText(urlText, 'image-urls.txt')
 }
 
 const vuetify = useVuetify()
