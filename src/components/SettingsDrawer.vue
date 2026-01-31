@@ -120,7 +120,7 @@
           <v-switch v-model="settings.showNSFWContents" inset color="deep-orange darken-1" />
         </v-list-item-action>
       </v-list-item>
-      <v-list-item>
+      <v-list-item v-if="!settings.useFancybox">
         <v-list-item-content>
           <v-list-item-title>{{ $t('_nQfaNuwbvPAIFKOY6_7u') }}</v-list-item-title>
           <v-list-item-subtitle :title="$t('SIUUZ4wqJTOilEdcX3EOi')">{{ $t('SIUUZ4wqJTOilEdcX3EOi') }}</v-list-item-subtitle>
@@ -129,7 +129,7 @@
           <v-switch v-model="settings.isListenWheelEvent" inset />
         </v-list-item-action>
       </v-list-item>
-      <v-list-item>
+      <v-list-item v-if="!settings.useFancybox">
         <v-list-item-content>
           <v-list-item-title>{{ $t('fVE5taO6GDTPbILat4GCt') }}</v-list-item-title>
           <v-list-item-subtitle :title="$t('w95XGurDhDfOfw7XH4JFW')">{{ $t('w95XGurDhDfOfw7XH4JFW') }}</v-list-item-subtitle>
@@ -138,7 +138,7 @@
           <v-switch v-model="settings.isListenKeyupEvent" inset />
         </v-list-item-action>
       </v-list-item>
-      <v-list-item v-if="notPartialSupportSite">
+      <v-list-item v-if="notPartialSupportSite && !settings.useFancybox">
         <v-list-item-content>
           <v-list-item-title>{{ $t('kFcteLMfnoezhOwuTlLFC') }}</v-list-item-title>
           <v-list-item-subtitle :title="$t('FT1uJs8XG__n5qBvuFsH4')">{{ $t('FT1uJs8XG__n5qBvuFsH4') }}</v-list-item-subtitle>
@@ -271,16 +271,7 @@
           <v-switch v-model="settings.showListPostReso" inset />
         </v-list-item-action>
       </v-list-item>
-      <v-list-item v-if="isBoorus">
-        <v-list-item-content>
-          <v-list-item-title>{{ $t('dvs63FvVKWm3uHVfqeq00') }}</v-list-item-title>
-          <v-list-item-subtitle :title="$t('w4uJjpTmSEkm6SIDgEo-0')">{{ $t('w4uJjpTmSEkm6SIDgEo-0') }}</v-list-item-subtitle>
-        </v-list-item-content>
-        <v-list-item-action>
-          <v-switch v-model="settings.useFancybox" inset />
-        </v-list-item-action>
-      </v-list-item>
-      <v-list-item>
+      <v-list-item v-if="!settings.useFancybox">
         <v-list-item-content>
           <v-list-item-title>{{ $t('ECpLfRMsS0zpJPTw0qqNs') }}</v-list-item-title>
           <v-list-item-subtitle :title="$t('vJobIibroyz2wkpmONSnR')">{{ $t('vJobIibroyz2wkpmONSnR') }}</v-list-item-subtitle>
@@ -289,13 +280,22 @@
           <v-switch v-model="settings.detailButtonsBottom" inset />
         </v-list-item-action>
       </v-list-item>
-      <v-list-item>
+      <v-list-item v-if="!settings.useFancybox">
         <v-list-item-content>
           <v-list-item-title>{{ $t('HPukB-OKzIuRxMmO4Rx2U') }}</v-list-item-title>
           <v-list-item-subtitle :title="$t('I_MKXUxaNXp3D35GFULn4')">{{ $t('I_MKXUxaNXp3D35GFULn4') }}</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
           <v-switch v-model="settings.closePopupOnImgClick" inset />
+        </v-list-item-action>
+      </v-list-item>
+      <v-list-item v-if="isBoorus">
+        <v-list-item-content>
+          <v-list-item-title>{{ $t('dvs63FvVKWm3uHVfqeq00') }}</v-list-item-title>
+          <v-list-item-subtitle :title="$t('w4uJjpTmSEkm6SIDgEo-0')">{{ $t('w4uJjpTmSEkm6SIDgEo-0') }}</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-switch v-model="settings.useFancybox" inset />
         </v-list-item-action>
       </v-list-item>
       <v-list-item v-if="store.isYKSite">

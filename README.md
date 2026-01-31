@@ -1,261 +1,616 @@
 # Yande.re Masonry
 
-![](https://img.shields.io/github/package-json/v/asadahimeka/yandere-masonry)
-![](https://img.shields.io/badge/license-MIT-green)
-![](https://img.shields.io/greasyfork/dt/444885?logo=greasyfork)
-![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/dev/vite)
-![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/dev/vite-plugin-tm-userscript)
-![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/@himeka/booru)
-![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vue)
-<!-- ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vuetify) -->
+![Version](https://img.shields.io/github/package-json/v/asadahimeka/yandere-masonry)
+[![Changelog](https://img.shields.io/badge/CHANGELOG-blue)](https://github.com/asadahimeka/yandere-masonry/blob/main/CHANGELOG.md)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Downloads](https://img.shields.io/greasyfork/dt/444885?logo=greasyfork)
+![Vite](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/dev/vite)
+![Userscript Plugin](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/dev/vite-plugin-tm-userscript)
+![Boour Search](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/@himeka/booru)
+![Vue](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vue)
+![Vuetify](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vuetify)
 
 中文 | [English](https://github.com/asadahimeka/yandere-masonry/blob/main/README.en.md)
 
-Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览
+## 📖 项目简介
 
-> Modified from [zhzwz/yande-re-chinese-patch](https://github.com/zhzwz/yande-re-chinese-patch)
+**Yande.re Masonry** 是一款专为二次元图片浏览网站打造的用户脚本（Userscript），旨在大幅提升浏览体验。它为 Yande.re、Konachan 及超过 20 个 Booru 站点带来了瀑布流布局、中文标签翻译、缩略图放大、双击翻页等实用功能。
 
-*有问题或建议请到 GitHub [反馈](https://github.com/asadahimeka/yandere-masonry/issues)*
+本项目最初基于 [zhzwz/yande-re-chinese-patch](https://github.com/zhzwz/yande-re-chinese-patch) 改进而来，现已发展为功能完善的现代化用户脚本。
 
-更新日志见 [CHANGELOG.md](https://github.com/asadahimeka/yandere-masonry/blob/main/CHANGELOG.md)
+- 🎨 **沉浸式浏览** - 瀑布流布局让浏览更加流畅高效
+- 🌏 **本地化支持** - 完整的中文标签翻译，消除语言障碍
+- ⚡ **性能优化** - 虚拟滚动、懒加载等技术保证流畅体验
+- 🔧 **高度可定制** - 丰富的设置选项满足不同用户需求
+- 🌐 **多站支持** - 一次安装，支持 20+ 站点
 
-Build with [vite](https://vitejs.dev) & [vite-plugin-tm-userscript](https://github.com/asadahimeka/vite-plugin-tm-userscript)
+---
 
+## ✨ 功能特性
 
-## Install
+### 🖼️ 瀑布流浏览模式
 
-如何安装用户脚本管理器插件不再赘述，可以参照 [Greasy Fork 首页](https://greasyfork.org/zh-CN) 提示安装浏览器插件
+核心功能，彻底改变浏览体验：
 
-Greasy Fork: [点击安装](https://greasyfork.org/zh-CN/scripts/444885)
+- **多种布局方式**：
+  - Masonry（等宽不等高）- 经典瀑布流
+  - Grid（等宽等高）- 规整网格
+  - Justified（适高不等宽）- 紧凑布局
+  - Virtual（虚拟滚动）- 大量图片时的最佳选择
 
-Sleazy Fork: [点击安装](https://sleazyfork.org/scripts/444885)
+- **智能加载**：
+  - 滚动到底部自动加载更多
+  - 支持无限滚动
+  - 虚拟滚动优化性能
 
-GitHub 仓库文件：[点击安装](https://github.com/asadahimeka/yandere-masonry/raw/main/dist/yandere-masonry.user.js)
+- **列数自定义**：
+  - 自动模式（根据屏幕宽度）
+  - 手动选择 1-20 列
+  - 小于 7 列时自动切换到高清预览
 
-Web 版本：[点击查看](https://booru.vercel.app/)
+### 🏷️ 标签中文翻译
 
-## Tips
+消除英语标签的浏览障碍：
 
-Moebooru 站点（Y 站、K 站）可通过设置查询参数 `locale` 或者设置 cookie 里的 `locale` 项来指定界面语言
+- **完整翻译覆盖**：
+  - Yande.re/Konachan 标签翻译（来源：[yande-re-chinese-patch](https://github.com/zhzwz/yande-re-chinese-patch)）
+  - Danbooru 系站点翻译（来源：[danbooru-diffusion-prompt-builder](https://github.com/wfjsw/danbooru-diffusion-prompt-builder)）
+  - 其他站点标签（来源：[Yellow-Rush/zh_CN-Tags](https://github.com/Yellow-Rush/zh_CN-Tags)）
 
-如： https://yande.re/post?locale=zh_CN
+- **智能补全**：输入标签时实时提示和翻译
 
-本脚本在访问 Y 站或 K 站时已默认指定语言为 `zh_CN`
+- **持续更新**：欢迎通过 PR 补充或校正翻译
 
-## Features
+### 🔍 搜索与筛选
 
-### 缩略图放大
+强大的搜索功能（基于原站点搜索语法）：
 
-对列表页的缩略图进行放大 [Y 站 / K 站]
+- **标签搜索**：支持标签自动补全
+- **高级搜索**：支持 rating（评分）、order（排序）等元标签
+- **黑名单过滤**：本地标签黑名单，屏蔽不感兴趣的内容
+- **NSFW 控制**：一键切换显示/隐藏 NSFW 内容
 
-### 双击翻页
+- **排序方式**：
+  - 按分数、收藏数、分辨率
+  - 按时间、热度
+  - 随机、质量排序
 
-双击页面左侧任意区域进入上一页，双击页面右侧任意区域进入下一页 [Y 站 / K 站]
+### ➡️ 快捷浏览
 
-### 访问标记
+提升浏览效率的细节功能：
 
-会在点击过详情页面的图片下方标注一条横线，利用的是 a 标签 :visited 特性，清除缓存后失效 [Y 站 / K 站]
+非瀑布流模式下（Y 站/K 站）：
 
-### 标签中文翻译
+- **缩略图放大**：更大的预览图，一眼看细节
+- **双击翻页**：双击左侧上一页，右侧下一页
+- **访问标记**：已查看的图片下方显示横线
 
-- 添加 Y 站与 K 站标签的中文翻译，翻译文件来自 [yande-re-chinese-patch](https://github.com/zhzwz/yande-re-chinese-patch)
+瀑布流模式：
 
-  欢迎 [PR](https://github.com/asadahimeka/yandere-masonry/blob/main/src/data/tags_cn.json) 补充或校正翻译
+- **键盘导航**：图片详情支持A/D/←/→键翻页
+- **滚轮导航**：图片详情支持鼠标滚轮翻页
+- **高清预览**：图片列表缩略图可使用高清图片链接
+- **图片预加载**：图片详情支持预加载下一张样品图/原图
+- **自动进入**：可设置自动进入瀑布流模式
+- **图片铺满屏幕**：支持全宽显示模式，兼顾沉浸感与阅读留白
 
-- 添加 danbooru 系站点标签翻译, 翻译文件来自 [danbooru-diffusion-prompt-builder](https://github.com/wfjsw/danbooru-diffusion-prompt-builder)
+### 📥 批量下载
 
-  欢迎 [PR](https://github.com/asadahimeka/danbooru_tags_json/blob/main/yaml/_add_extra.yaml) 补充或校正翻译
+便捷的图片管理功能：
 
-- 其他标签翻译来自 https://github.com/Yellow-Rush/zh_CN-Tags
+- **批量选择**：快速勾选多张图片
+- **下载列表**：管理待下载的图片队列
+- **导出链接**：导出图片地址为 TXT，支持迅雷/IDM/wget 等工具
+- **文件名处理**：域名前缀 + 作品标签
+- **下载来源选择**：原始文件（fileUrl）/ JPG 压缩图（jpegUrl）
 
-### 瀑布流模式
+### ⭐ 收藏与互动（Y 站/K 站）
 
-点击右上角按钮进入瀑布流模式
+- **一键收藏**：快速收藏到个人收藏夹
+- **图集浏览**（Pool）：浏览相关作品合集
+- **人气榜单**：查看热门、排名、近期收藏等
 
-#### 输出下载地址
+### 🎛️ 界面定制
 
-瀑布流模式下可使用 `输出下载地址` 功能保存图片地址 TXT 后使用迅雷、IDM、wget 等批量下载，见 [FoXZilla/Pxer#8](https://github.com/FoXZilla/Pxer/issues/8)
+- **深色模式**：护眼的夜间浏览体验
+- **全屏模式**：沉浸式浏览，无干扰
+- **列数切换**：根据喜好调整显示密度
+- **图片分辨率显示**：直观了解图片尺寸
+- **类型标识**：GIF、视频、子图、父图等图标标识
+
+---
+
+## 🎯 技术相关
+
+### 前端技术栈
+
+- **Vue 2.7 + Composition API**：
+  - 使用 Vue 2.7 Composition API 特性
+  - `<script setup>` 语法，代码更简洁
+  - 响应式状态管理，性能优秀
+
+- **TypeScript 严格模式**：
+  - 类型安全保障
+  - 智能提示和自动补全
+  - 减少运行时错误
+
+- **Vite 构建工具**：
+  - 极快的开发体验
+  - HMR（热模块替换）
+  - 生产构建优化
 
-#### 顶部操作
+### 核心技术实现
 
-- 打开侧栏
-- 加载指定页数
-- 加载收藏夹、人气、随机作品（Y 站/K 站）
-- 加载图集（Pool）列表（Y 站/K 站）
-- 按标签搜索作品
-- 批量选择
-- 查看下载列表
-- 深色模式切换
-- 退出瀑布流模式
+- **瀑布流布局算法**：
+  - 自适应列数计算
+  - 最小化空隙
+  - 支持多种布局策略
 
-#### 侧栏操作
+- **智能预加载**：
+  - 预加载下一屏图片
+  - 可配置预加载数量
 
-- 站点切换，支持站点见下方所述
-- 进入收藏夹、人气、随机作品页面（Y 站/K 站）
-- 进入图集（Pool）页面（Y 站/K 站）
-- 本地标签黑名单
-- 设置站点 API Credentials
-- 切换 NSFW 内容显示
-- 瀑布流显示列数切换，列数选择非自动且列数小于 6 时图片会以 sample_url （即点击详情的大小） 展示。
-- 设置图片信息流布局
-  - Masonry (等宽不等高)
-  - Grid (等宽等高)
-  - Justified (适高不等宽)
+- **虚拟滚动**：
+  - 仅渲染可视区域元素
+  - 支持大量图片流畅滚动
+  - 内存占用低
 
-#### 详情查看
+### 多站点架构
 
-点击缩略图可查看详情，可进行以下操作
+- **统一 API 抽象**：
+  - `@himeka/booru` 库提供大部分接口
+  - 自动适配不同站点的 API 差异
+  - 易于扩展新站点
 
-- 收藏（Y 站/K 站）
-- 打开详情页面
-- 打开来源地址
-- 查看原图
-- 下载/加入下载列表
-- 打开标签页面
-- 点击图片控制按钮与标签显示
-- 查看原图时可使用鼠标拖拽图片本身移动
+- **动态站点检测**：
+  - 自动识别当前站点
+  - 加载对应的适配器
+  - 智能处理特殊情况
 
-### 站点支持
+---
 
-> ⚠ Notice
->
-> 主要支持站点为 Yande.re 和 Konachan，其他站点为基本支持。
->
-> 存在站点页面图片列表与 API 返回列表不一致的情况，请悉知。
+## 🌐 支持站点
 
-缩略图放大与双击翻页支持的站点如下：
+### 完整支持（标签翻译 + 双击翻页 + 瀑布流）
 
-https://yande.re
+| 站点 | 地址 | 特性 |
+|------|------|------|
+| Yande.re | https://yande.re | 完整支持，主要测试站点 |
+| Konachan | https://konachan.com | 完整支持 |
+| Konachan(Safe) | https://konachan.net | 完整支持 |
+| Sakugabooru | https://www.sakugabooru.com | 几乎完整支持 |
 
-https://konachan.com
+### 基本支持（瀑布流）
 
-https://konachan.net
+| 站点 | 地址 | 特性 |
+|------|------|------|
+| Danbooru | https://danbooru.donmai.us | 基本支持 |
+| Gelbooru | https://gelbooru.com | 基本支持（需要 API Key） |
+| Rule34 | https://rule34.xxx | 基本支持（需要 API Key） |
+| Safebooru | https://safebooru.org | 基本支持 |
+| AIBooru | https://aibooru.online | 基本支持 |
+| Realbooru | https://realbooru.com | 基本支持 |
+| Xbooru | https://xbooru.com | 基本支持 |
+| ATFBooru | https://booru.allthefallen.moe | 基本支持 |
+| TBIB | https://tbib.org | 基本支持 |
+| Rule34 Paheal | https://rule34.paheal.net | 基本支持 |
+| Lolibooru | https://lolibooru.moe | 基本支持（站点目前无法访问） |
+| 3dbooru | http://behoimi.org | 基本支持（站点目前无法访问） |
 
-瀑布流支持的 Booru 站如下：
+### 有限支持（瀑布流、部分功能限制）
 
-https://yande.re
+| 站点 | 地址 | 说明 |
+|------|------|------|
+| Anime Pictures | https://anime-pictures.net | 部分功能限制 |
+| Anihone Wallpaper | https://anihonetwallpaper.com | 部分功能限制 |
+| All Girl | https://allgirl.booru.org | 部分功能限制 |
+| e-shuushuu | https://e-shuushuu.net | 部分功能限制 |
+| Zerochan | https://www.zerochan.net | 部分功能限制 |
+| Idol Complex | https://www.idolcomplex.com | 部分功能限制（不稳定） |
+| Sankaku App | https://sankaku.app | 部分功能限制（不稳定） |
+| Sankaku Complex | https://chan.sankakucomplex.com | 部分功能限制（不稳定） |
+| Hentai Booru | https://booru.eu | 部分功能限制 |
+| Kusowanka | https://kusowanka.com | 部分功能限制 |
+| Nozomi.la | https://nozomi.la | 部分功能限制 |
+| Rule34 Hentai | https://rule34hentai.net | 部分功能限制 |
 
-https://konachan.com
+> ⚠️ **注意**：
+> - 主要支持的站点是 Yande.re 和 Konachan，其他站点为基本支持
+> - 部分站点可能存在页面列表与 API 返回不一致的情况
+> - 有些站点需要设置 API Key 后才能正常使用
 
-https://konachan.net
+---
 
-https://danbooru.donmai.us
+## 📸 截图展示
 
-https://gelbooru.com
+![瀑布流浏览](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/a542077b61a2dcb85838baa41bf96c8c_7747043650649306795.png)
 
-https://rule34.xxx
+![标签翻译](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/14b7a0249234a79acac2d950db710b28_2747662949275143079.png)
 
-https://lolibooru.moe
+![瀑布流浏览](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/3886bf873b766f93e3cd103c0346705f_8954181707521812180.png)
 
-https://www.sakugabooru.com
+![图片详情](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/f18495ec74cf7895da6a583b6eef5815_2183319892513327746.png)
 
-http://behoimi.org (3dbooru)
+![图集浏览](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/59a35c4b527ec44904a6114a45033caf_7008024359546939405.png)
 
-https://safebooru.org
+![站点切换](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/c7c1ff0b187292ebc010fd40987ad52a_6882591913629167774.png)
 
-https://tbib.org
+![热门浏览](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/c0e70eea28e684bdb35e7ee77123235a_5045513856955976275.png)
 
-https://xbooru.com
+![视频详情](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/1fbb7f92ecba4a515b3a6781bd38610a_8247048012698921815.png)
 
-https://rule34.paheal.net
+![右键菜单](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/7eec96d7c629bc30ff4b1942838d9ea2_7197279808091047211.png)
 
-https://realbooru.com
+![下载面板](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/8dccc28bf99106aaab984feb383d4c1f_939382269553345713.png)
+---
 
-https://booru.allthefallen.moe
+## 🚀 安装指南
 
-https://aibooru.online
+### 方法一：通过 Greasy Fork 安装（推荐）
 
-其他支持站点：
+1. **安装用户脚本管理器**（如果尚未安装）：
+   - Chrome/Edge: [Tampermonkey](https://www.tampermonkey.net/) 或 [Violentmonkey](https://violentmonkey.github.io/)
+   - Firefox: [Tampermonkey](https://www.tampermonkey.net/) 或 [Greasemonkey](https://www.greasespot.net/)
+   - Safari: [Userscripts](https://apps.apple.com/app/userscripts/id1463298887) 或 [Stay for Safari](https://apps.apple.com/app/stay-for-safari/id1591620171)
 
-https://e-shuushuu.net
+2. **安装脚本**：
+   - 点击 Greasy Fork: [点击安装](https://greasyfork.org/zh-CN/scripts/444885)
+   - 或 Sleazy Fork: [点击安装](https://sleazyfork.org/scripts/444885)
+   - 在弹出的确认页面点击"安装"
 
-https://www.zerochan.net
+3. **验证安装**：
+   - 访问任意支持的站点（如 yande.re）
+   - 页面右上角应出现"进入瀑布流"按钮
 
-https://sankaku.app (https://chan.sankakucomplex.com)
+### 方法二：从 GitHub 直接安装
 
-https://idol.sankakucomplex.com (https://www.idolcomplex.com)
+1. 下载脚本文件：
+   - [点击下载](https://github.com/asadahimeka/yandere-masonry/raw/main/dist/yandere-masonry.user.js)
+2. 打开用户脚本管理器
+3. 点击"新建脚本"或拖入文件安装
 
-https://anime-pictures.net
+### 方法三：Web 版本试用
 
-https://allgirl.booru.org
+无需安装，直接在浏览器中体验：
+- [在线预览版本](https://booru.vercel.app/)
 
-https://booru.eu
+### 更新脚本
 
-https://kusowanka.com
+脚本会自动检查更新，或手动更新：
+- 在 Tampermonkey 管理面板点击"检查更新"
+- 或重新安装最新版本
 
-https://anihonetwallpaper.com
+---
 
-https://nozomi.la
+## 📖 使用指南
 
-https://rule34hentai.net
+### 快速开始
 
+1. 访问任意支持的站点（如 yande.re/post）
+2. 点击右上角"进入瀑布流"按钮
+3. 享受全新的浏览体验！
 
-## Screenshots
+### 瀑布流模式操作
 
-![](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/a542077b61a2dcb85838baa41bf96c8c_7747043650649306795.png)
+#### 顶部工具栏
 
-![](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/14b7a0249234a79acac2d950db710b28_2747662949275143079.png)
+| 图标 | 功能 |
+|------|------|
+| ⚙️ | 打开设置 |
+| 1️⃣ | 页码切换 |
+| ⭐ | 浏览我的收藏 |
+| 🔥 | 浏览人气作品 |
+| 🔀 | 随机浏览 |
+| 🔍 | 标签搜索 |
+| ☑️ | 批量选择 |
+| ⬇️ | 下载管理 |
+| ☀️ | 深色模式切换 |
+| ⛶ | 全屏模式 |
+| 🌐 | 语言切换 |
+| ⏏️ | 退出瀑布流 |
 
-![](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/3886bf873b766f93e3cd103c0346705f_8954181707521812180.png)
+#### 侧边栏
 
-![](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/f18495ec74cf7895da6a583b6eef5815_2183319892513327746.png)
+- **站点切换**：在不同站点间快速切换
+- **黑名单管理**：添加不想看到的标签
+- **API 凭证**：设置需要登录站点的凭证
+- **NSFW 控制**：显示/隐藏敏感内容
+- **布局模式**：Masonry/Grid/Justified/Virtual
+- **列数设置**：自动或 1-20 列
+- **键盘滚轮**：控制详情图片切换
+- **图片预加载**：控制详情图片预加载与数量
+- **缩略大图**：控制列表图片缩略图使用大图链接
+- **容器定宽**：控制图片列表两侧是否留白
+- **自动进入**：控制是否自动进入瀑布流模式
+- **信息展示**：控制图片列表是否展示图片分辨率
+- **按钮位置**：控制图片详情里操作按钮栏的位置
+- **关闭行为**：控制图片详情里关闭弹窗的触发行为
+- **查看工具**：可使用 Fancybox 插件来查看图片详情
 
-![](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/59a35c4b527ec44904a6114a45033caf_7008024359546939405.png)
+#### 图片操作
 
-![](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/c7c1ff0b187292ebc010fd40987ad52a_6882591913629167774.png)
+列表：
 
-![](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/c0e70eea28e684bdb35e7ee77123235a_5045513856955976275.png)
+- **单击**：打开图片详情
+- **右键**：快捷菜单（收藏、下载、打开详情等）
+- **中键**：鼠标中键点击详情链接按钮在新标签页打开
 
-![](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/1fbb7f92ecba4a515b3a6781bd38610a_8247048012698921815.png)
+详情：
 
-![](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/7eec96d7c629bc30ff4b1942838d9ea2_7197279808091047211.png)
+- 详情链接
+- 来源地址
+- 画师链接
+- 标签链接
+- 标签展示
+- 标签导出
+- 收藏作品
+- 放大图片
+- 下载作品
 
-![](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/8dccc28bf99106aaab984feb383d4c1f_939382269553345713.png)
+#### 快捷键
 
-## Sponsors
+| 按键 | 功能 |
+|------|------|
+| <kbd>←</kbd> / <kbd>→</kbd>| 上一张/下一张图片 |
+| <kbd>A</kbd> / <kbd>D</kbd> | 上一张/下一张图片 |
+| <kbd>Enter</kbd> | 搜索标签 |
+| 鼠标滚轮 | 上一张/下一张图片 |
+| 鼠标中键 | 新标签页打开链接 |
+
+### 标签搜索
+
+1. 点击 🔍 搜索按钮
+2. 输入标签（仅支持英文）
+3. 实时显示补全建议
+4. 按回车执行搜索
+
+### 批量下载
+
+1. 勾选想要下载的图片
+2. 点击 ⬇️ 下载按钮
+3. 选择：
+   - 直接下载：使用浏览器下载管理器
+   - 导出链接：保存为 TXT 文件，用其他工具下载
+4. 配置选下载源（Y 站/ K 站）：原图/JPG 压缩图
+
+### 收藏功能
+
+支持以下站点：
+
+- yande.re
+- konachan.com
+- konachan.net
+- danbooru.donmai.us
+- gelbooru.com
+- rule34.xxx
+
+---
+
+## 💻 开发指南
+
+本项目代码 **非** AI 生成，仅 Readme 文件由 AI 优化
+
+### 技术栈
+
+- **框架**: Vue 2.7 (Composition API)
+- **语言**: TypeScript
+- **构建**: Vite 2.9
+- **UI 组件**: Vuetify 2
+- **状态管理**: Vue.observable
+- **布局**: vue-masonry-css, @lhlyu/vue-virtual-waterfall
+- **国际化**: vue-i18n
+- **工具库**: @vueuse/core, date-fns
+- **API**: @himeka/booru
+
+### 环境要求
+
+- Node.js >= 16
+- npm 或 yarn
+- Git
+
+### 开发步骤
+
+```bash
+# 1. 克隆仓库
+git clone https://github.com/asadahimeka/yandere-masonry.git
+cd yandere-masonry
+
+# 2. 安装依赖
+npm install
+# 或
+yarn install
+
+# 3. 启动开发服务器
+npm run dev
+# 或
+yarn dev
+
+# 4. 在浏览器中打开
+# - 访问 http://127.0.0.1:3000/_development.user.js 安装开发脚本
+# - 在支持的站点加载开发版本
+```
 
-感谢 TSUKYU 的支持
+### 可用命令
 
-如果你觉得这个项目对你有帮助，欢迎请我[喝杯咖啡](https://sponsors-yumine.netlify.app)：
+```bash
+npm run dev          # 启动开发服务器
+npm run build        # 构建生产版本
+npm run release      # 发布流程（版本号管理）
+npm run lint         # 代码检查
+```
+
+### 项目结构
+
+```
+yandere-masonry/
+├── src/
+│   ├── api/              # 各站点 API 适配器
+│   │   ├── danbooru.ts   # Danbooru API
+│   │   ├── moebooru.ts   # Y/K 站 API
+│   │   ├── gelbooru.ts   # Gelbooru API
+│   │   └── ...
+│   ├── components/        # Vue 组件
+│   │   ├── AppBar.vue     # 顶部工具栏
+│   │   ├── PostList.vue   # 图片列表
+│   │   ├── PostDetail.vue # 图片详情
+│   │   └── ...
+│   ├── store/            # 状态管理
+│   │   ├── index.ts      # 主 store
+│   │   └── actions/      # 状态操作
+│   ├── utils/            # 工具函数
+│   │   ├── index.ts      # 通用工具
+│   │   └── i18n.ts       # 国际化配置
+│   ├── data/             # 静态数据
+│   │   └── tags_cn.json  # 中文翻译
+│   ├── plugins/          # Vue 插件
+│   │   ├── vuetify.ts       # Vuetify 配置
+│   │   └── webfontloader.ts # 字体加载
+│   ├── App.vue          # 根组件
+│   ├── main.ts          # 入口文件
+│   └── prepare.ts       # 脚本初始化
+├── scripts/             # 构建脚本
+│   ├── postbuild.mjs    # 后处理
+│   └── release.mjs      # 发布流程
+├── package.json
+├── vite.config.ts       # Vite 配置
+├── tsconfig.json        # TypeScript 配置
+└── .eslintrc.json       # ESLint 配置
+```
+
+### 代码规范
+
+- **格式化**：2 空格缩进，无分号，单引号
+- **命名**：camelCase 变量/函数，PascalCase 组件，UPPER_SNAKE_CASE 常量
+- **类型**：严格 TypeScript，明确的类型注解
+- **组件**：使用 Composition API + `<script setup>`
+- **导入**：使用 `@/` 别名引用本地模块
+
+### 添加新站点支持
+
+1. 在 `src/api/` 创建新的适配器文件
+2. 实现站点特定的 API 调用
+3. 注册站点
+4. 测试功能是否正常
+5. 提交 PR
+
+### 贡献翻译
+
+1. Fork 仓库
+2. 编辑对应翻译文件：
+   - Y/K 站：`src/data/tags_cn.json`
+   - Danbooru：[danbooru_tags_json](https://github.com/asadahimeka/danbooru_tags_json)
+3. 提交 PR
+
+---
+
+## ❓ 常见问题
+
+### Q: 为什么有些站点功能不完整？
+
+A: 项目主要针对 Yande.re 和 Konachan 优化，其他站点为基本支持。部分站点 API 限制或结构差异导致功能受限。
+
+### Q: 瀑布流模式下的图片与原站列表不一致？
+
+A: 瀑布流使用站点 API 获取数据，可能与页面渲染逻辑不同。这是正常现象。
+
+### Q: 标签翻译不完整怎么办？
+
+A: 欢迎通过 PR 补充翻译！具体步骤见"贡献翻译"部分。
+
+### Q: 如何禁用某个功能？
+
+A: 在设置侧边栏中可以关闭大部分功能，如缩略图放大、NSFW 显示等。
+
+### Q: 脚本是否支持移动端？
+
+A: 部分支持。主要针对桌面端优化，移动端体验可能不完善。
+
+### Q: 为什么有些站点无法使用？
+
+A: 需要登录账号并设置 API 凭证。在侧边栏中设置凭据后即可。
+
+### Q: 下载功能很慢？
+
+A: 浏览器下载有并发限制。建议使用"导出链接"功能，配合专业下载工具（如 IDM、wget、aria2 等等）。
+
+### Q: 如何反馈问题或建议？
+
+A: 请到 [GitHub Issues](https://github.com/asadahimeka/yandere-masonry/issues) 提交反馈。
+
+---
+
+## 📝 更新日志
+
+查看完整的版本历史和更新内容：
+[CHANGELOG.md](https://github.com/asadahimeka/yandere-masonry/blob/main/CHANGELOG.md)
+
+---
+
+## 🤝 贡献指南
+
+欢迎任何形式的贡献！
+
+### 如何贡献
+
+1. Fork 本仓库
+2. 创建特性分支：`git checkout -b feature/AmazingFeature`
+3. 提交更改：`git commit -m 'Add some AmazingFeature'`
+4. 推送到分支：`git push origin feature/AmazingFeature`
+5. 提交 Pull Request
+
+### 贡献类型
+
+- 🐛 Bug 修复
+- ✨ 新功能
+- 📝 文档改进
+- 🎨 样式优化
+- ⚡ 性能优化
+- 🌍 国际化翻译
+- ✅ 测试用例
+
+---
+
+## 🙏 致谢
+
+本项目离不开以下开源项目：
+
+- [zhzwz/yande-re-chinese-patch](https://github.com/zhzwz/yande-re-chinese-patch) - 基础项目
+- [@himeka/booru](https://github.com/asadahimeka/booru) - 统一的 Booru API 库
+- [AtoraSuunva/booru](https://github.com/AtoraSuunva/booru) - @himeka/booru 项目基础
+- [vue-masonry-css](https://github.com/paulcollett/vue-masonry-css) - 瀑布流布局组件
+- [@lhlyu/vue-virtual-waterfall](https://github.com/lhlyu/vue-virtual-waterfall) - 虚拟瀑布流组件
+- [vite-plugin-tm-userscript](https://github.com/asadahimeka/vite-plugin-tm-userscript) - 用户脚本打包插件
+- [Vuetify](https://vuetifyjs.com/) - UI 组件库
+- [Vite](https://vite.dev/) - 打包工具
+
+特别感谢：
+
+- **TSUKYU** 的慷慨支持
+
+---
+
+## 📄 许可证
+
+本项目采用 [MIT License](https://github.com/asadahimeka/yandere-masonry/blob/main/LICENSE) 开源。
+
+Copyright © 2022 Yumine Sakura
+
+---
+
+## 💖 赞助
+
+如果这个项目对你有帮助，欢迎请我[喝杯咖啡](https://sponsors-yumine.netlify.app)：
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/sakurayumine)
 
-## Developing
+您的支持是我持续更新的动力！
 
-```bash
-$ git clone https://github.com/asadahimeka/yandere-masonry.git
-$ cd yandere-masonry
-$ yarn install
-$ yarn dev
-```
+---
 
-### Vue 3 + TypeScript + Vite
+## 📊 统计
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
-
-### Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Volar v1.8.27](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
-
-### Type Support For `.vue` Imports in TS
-
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
-
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
-
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
-
-## Credits
-
-[zhzwz/yande-re-chinese-patch](https://github.com/zhzwz/yande-re-chinese-patch)
-
-[Booru Search](https://github.com/asadahimeka/booru-search) modified from [AtoraSuunva/booru](https://github.com/AtoraSuunva/booru)
-
-## License
-
-Licensed under the [MIT](https://github.com/asadahimeka/yandere-masonry/blob/main/LICENSE) license
-
-Copyright © 2022 Yumine Sakura
+![GitHub stars](https://img.shields.io/github/stars/asadahimeka/yandere-masonry?style=social)
+![GitHub forks](https://img.shields.io/github/forks/asadahimeka/yandere-masonry?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/asadahimeka/yandere-masonry?style=social)
 
 <p><img src="https://count.nanoka.top/@himekayanderemasonrygh" alt="yandere-masonry"></p>
