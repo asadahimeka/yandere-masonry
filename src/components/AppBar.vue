@@ -577,7 +577,7 @@ async function exportFileUrls() {
 const vuetify = useVuetify()
 function toggleDarkmode() {
   vuetify.theme.dark = !vuetify.theme.dark
-  localStorage.setItem('__darkmode', vuetify.theme.dark ? 'dark' : 'light')
+  settings.darkMode = vuetify.theme.dark ? 'dark' : 'light'
 }
 
 const keyActions: Record<string, Function> = {
