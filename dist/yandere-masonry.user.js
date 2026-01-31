@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.36.11
+// @version              0.37.0
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -29,6 +29,7 @@
 // @match                https://www.zerochan.net/*
 // @match                https://sankaku.app/*
 // @match                https://chan.sankakucomplex.com/*
+// @match                https://www.sankakucomplex.com/*
 // @match                https://www.idolcomplex.com/*
 // @match                https://anime-pictures.net/*
 // @match                https://allgirl.booru.org/*
@@ -56,10 +57,77 @@ var __publicField = (obj, key, value) => {
   return value;
 };
 (() => {
-  var prepareStyle = "#enter-masonry{position:fixed;z-index:99999;right:16px;top:10px;height:30px;padding:6px 10px;font-size:13px;border:0;border-radius:6px;color:#fff;outline:0;background:linear-gradient(to right,#ff758c 0%,#ff7eb3 100%);opacity:1;transform:scale(1);transition:opacity,transform .2s;cursor:pointer}#enter-masonry:hover{opacity:.8;transform:scale(1.05)}#locale-select{position:fixed;z-index:99;right:110px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}#wf-type-select{position:fixed;z-index:99;right:190px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}\n";
+  var prepareStyle = "#enter-masonry{position:fixed;z-index:99999;right:16px;top:10px;height:30px;padding:6px 10px;font-size:13px;border:0;border-radius:6px;color:#fff;outline:0;background:linear-gradient(to right,#ff758c 0%,#ff7eb3 100%);opacity:1;transform:scale(1);transition:opacity,transform .2s;cursor:pointer}#enter-masonry:hover{opacity:.8;transform:scale(1.05)}#enter-masonry.enter-button-bottom{top:unset;bottom:15px}#locale-select{position:fixed;z-index:99;right:110px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}#wf-type-select{position:fixed;z-index:99;right:190px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}\n";
   var ydStyle = 'a.thumb{padding-bottom:5px;border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08] "}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743] "}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272] "}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2] "}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:100%;height:auto;margin-top:0;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}.mm-masonry{--gap: 24;--col-width: 240}.mm-masonry{--_col-width: var(--col-width, 280);--_col-width-px: calc(var(--_col-width) * 1px);--_gap: calc(var(--gap, 20) * 1px);display:var(--display, grid)!important;grid-template-columns:repeat(auto-fill,minmax(var(--_col-width-px),1fr));grid-auto-rows:1px;column-gap:var(--_gap)}.mm-masonry__item{--img-proportional-height: calc(var(--h) * var(--_col-width) / (var(--w)));grid-row-end:span var(--img-proportional-height, 240);overflow:hidden}.mm-masonry__item:not(:last-child){margin-bottom:var(--_gap)}#post-list ul#post-list-posts .mm-masonry__item .inner,#post-popular ul#post-list-posts .mm-masonry__item .inner{height:100%!important}.mm-masonry__img{width:100%!important;height:100%!important;object-fit:cover}.justified-container{display:flex!important;flex-wrap:wrap}.justified-container:after{content:"";flex-grow:999999999}.justified-item{position:relative}.justified-item img.preview{position:absolute;top:0;left:0;width:100%;vertical-align:bottom;object-fit:cover}\n';
   var knStyle = "#lsidebar{display:none}#post-popular ul#post-list-posts{display:flex;justify-content:center;flex-wrap:wrap}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
-  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;max-width:100vw;max-height:100vh;margin:0 auto}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}.img_detail_tag_list .v-slide-group__content{max-height:72vh;overflow-y:auto}::-webkit-scrollbar{width:0px}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e9eef6;border-radius:7px}.theme--dark .img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.posts-image-card{margin-bottom:8px}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{--jstf-w: 340;--jstf-w-px: 340PX;position:relative;flex-grow:calc(var(--w) * var(--jstf-w) / var(--h));width:calc(var(--w) * var(--jstf-w-px) / var(--h));margin-bottom:0!important;padding-bottom:0!important;background-color:#dcdcdc;content-visibility:auto;contain-intrinsic-size:auto 300px}@media screen and (max-width: 500px){.justified-container .posts-image-card{--jstf-w: 240;--jstf-w-px: 240PX}}.justified-container .posts-image-card:before{content:"";display:block;padding-bottom:calc(var(--h) / var(--w) * 100%)!important}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-wh{position:absolute;bottom:0;left:0;padding:0 8px;font-size:14px;color:#fff;background:rgba(0,0,0,.4);border-top-right-radius:4px}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-checkbox{position:absolute;top:5px;left:5px;width:28px;padding:2px;height:28px;border-radius:2px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-checkbox:has(input[aria-checked="true"]),.posts-image-card:hover .posts-image-checkbox{opacity:1;visibility:visible}.posts-image-checkbox .v-input--selection-controls__ripple .primary--text,.posts-image-checkbox .v-input--selection-controls__input .v-icon{color:#fff!important}.posts-image-type{position:absolute!important;top:0;right:0px;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}@media screen and (min-width: 768px){.wf-no-fit-screen{max-width:62.5vw;margin:16px auto}}.virtual-waterfall>[data-index]{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f;border-radius:4px}.theme--light .v-app-bar{box-shadow:none!important;background:#f6f8fc!important}.theme--light .v-app-bar,.theme--light .v-app-bar .v-toolbar__content{height:64px!important}.theme--light .v-main{padding-top:64px!important}.theme--light .v-app-bar .v-toolbar__title+input{width:50px!important;background-color:#eaf1fb!important;border-radius:24px!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#5f6368!important}.theme--light .app-bar-tag-input .v-input .v-input__slot:before,.theme--light .app-bar-tag-input .v-input .v-input__slot:after{display:none}.theme--light .app-bar-tag-input .v-input input{padding:5px 44px 5px 10px;background-color:#eaf1fb;min-height:48px;border-radius:24px}.theme--light .app-bar-tag-input:not([style*="none"])+.v-btn{position:relative;left:-50px}.theme--light.v-list,.theme--light.v-navigation-drawer{background:#e9eef6!important}.theme--dark .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--dark .img_detail_btn_color .v-chip.tag_type_general,.theme--dark .img_detail_btn_color .v-btn{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag) .v-icon,.theme--light .img_detail_btn_color .v-chip.tag_type_general,.theme--light .img_detail_btn_color .v-btn{background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#1a73e8!important;box-shadow:none!important;font-weight:500}.img_detail_btn_color .v-chip.img_detail_tag{font-weight:500}.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text,.v-date-picker-table__current){padding-bottom:2px;border-radius:10px;color:#001d35;background-color:#c2e7ff}.theme--light .refresh_posts_btn{box-shadow:0 1px 2px #0000,0 1px 3px 1px #0000;background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#001d35}.theme--light .img_detail_loading .v-progress-circular{color:#1a73e8!important;caret-color:#1a73e8!important}.theme--light .blacklist_combobox .v-input__slot{padding-left:8px!important}.theme--light .v-text-field--outlined{border-radius:20px}.fancybox__caption{display:none;padding:12px 24px!important}.v-toolbar.img_detail_btn_color{backdrop-filter:none!important}.virtual-waterfall .posts-image-card{width:100%;height:100%;margin-bottom:0;background:gainsboro;border-radius:4px!important}.virtual-waterfall .post-image-v{width:100%;height:100%;object-fit:cover;border-radius:4px!important}.virtual-waterfall .posts-image-type{border-top-right-radius:4px}.virtual-waterfall .posts-image-actions{border-bottom-left-radius:4px;border-bottom-right-radius:4px}html:has(#app.theme--dark){background:#121212}@media screen and (max-width: 1200px){.nav_drawer{height:100dvh!important}.nav_drawer .v-navigation-drawer__content{padding-bottom:9vh}}.img_meta_tag_list{position:absolute;top:35px;width:200px}.img_meta_tag_list .img_detail_tag.tag_type_artist{color:#c97000!important;background-color:#ffdcb0!important;border-color:#ffdcb0!important}.img_meta_tag_list .img_detail_tag.tag_type_copyright{color:#ae3fc1!important;background-color:#f9d5ff!important;border-color:#f9d5ff!important}.img_meta_tag_list .img_detail_tag.tag_type_character{color:#0c9312!important;background-color:#c4ffc7!important;border-color:#c4ffc7!important}.true-masonry .posts-image-card{height:fit-content;max-height:unset!important;margin-bottom:0!important}.d-flex-y{display:flex;align-items:center;flex-wrap:wrap}.d-flex-col{display:flex;flex-direction:column}.export-tags-setting{display:flex;align-items:center;flex-wrap:wrap;gap:20px}.export-tags-setting .v-messages{display:none}.export-tags-setting>.v-input{margin-top:0}.export-tags-wght-inp{width:45px;height:24px;margin-left:4px;background-color:#eaf1fb;border-radius:4px;border:1px solid rgb(187,187,187);color:inherit;text-align:center}.d-flex-col .v-chip--active:before,.d-flex-col .v-chip--active:hover:before,.d-flex-col .v-chip:focus:before{display:none}\n';
+  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;max-width:100vw;max-height:100vh;margin:0 auto}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}.img_detail_tag_list .v-slide-group__content{max-height:72vh;overflow-y:auto}::-webkit-scrollbar{width:0px}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e9eef6;border-radius:7px}.theme--dark .img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.posts-image-card{margin-bottom:8px}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{--jstf-w: 340;position:relative;flex-grow:calc(var(--w) * var(--jstf-w) / var(--h));width:calc(1px * var(--w) * var(--jstf-w) / var(--h));margin-bottom:0!important;padding-bottom:0!important;background-color:#dcdcdc;content-visibility:auto;contain-intrinsic-size:auto 300px}@media screen and (max-width: 500px){.justified-container .posts-image-card{--jstf-w: 240}}.justified-container .posts-image-card:before{content:"";display:block;padding-bottom:calc(var(--h) / var(--w) * 100%)!important}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-wh{position:absolute;bottom:0;left:0;padding:0 8px;font-size:14px;color:#fff;background:rgba(0,0,0,.4);border-top-right-radius:4px}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-checkbox{position:absolute;top:5px;left:5px;width:28px;padding:2px;height:28px;border-radius:2px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-checkbox:has(input[aria-checked="true"]),.posts-image-card:hover .posts-image-checkbox{opacity:1;visibility:visible}.posts-image-checkbox .v-input--selection-controls__ripple .primary--text,.posts-image-checkbox .v-input--selection-controls__input .v-icon{color:#fff!important}.posts-image-type{position:absolute!important;top:0;right:0px;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}@media screen and (min-width: 768px){.wf-no-fit-screen{max-width:62.5vw;margin:16px auto}}.virtual-waterfall>[data-index]{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f;border-radius:4px}.theme--light .v-app-bar{box-shadow:none!important;background:#f6f8fc!important}.theme--light .v-app-bar,.theme--light .v-app-bar .v-toolbar__content{height:64px!important}.theme--light .v-main{padding-top:64px!important}.theme--light .v-app-bar .v-toolbar__title+input{width:50px!important;background-color:#eaf1fb!important;border-radius:24px!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#5f6368!important}.theme--light .app-bar-tag-input .v-input .v-input__slot:before,.theme--light .app-bar-tag-input .v-input .v-input__slot:after{display:none}.theme--light .app-bar-tag-input .v-input input{padding:5px 44px 5px 10px;background-color:#eaf1fb;min-height:48px;border-radius:24px}.theme--light .app-bar-tag-input:not([style*="none"])+.v-btn{position:relative;left:-50px}.theme--light.v-list,.theme--light.v-navigation-drawer{background:#e9eef6!important}.theme--dark .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--dark .img_detail_btn_color .v-chip.tag_type_general,.theme--dark .img_detail_btn_color .v-btn{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag) .v-icon,.theme--light .img_detail_btn_color .v-chip.tag_type_general,.theme--light .img_detail_btn_color .v-btn{background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#1a73e8!important;box-shadow:none!important;font-weight:500}.img_detail_btn_color .v-chip.img_detail_tag{font-weight:500}.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text,.v-date-picker-table__current){padding-bottom:2px;border-radius:10px;color:#001d35;background-color:#c2e7ff}.theme--light .refresh_posts_btn{box-shadow:0 1px 2px #0000,0 1px 3px 1px #0000;background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#001d35}.theme--light .img_detail_loading .v-progress-circular{color:#1a73e8!important;caret-color:#1a73e8!important}.theme--light .blacklist_combobox .v-input__slot{padding-left:8px!important}.theme--light .v-text-field--outlined{border-radius:20px}.fancybox__caption{display:none;padding:12px 24px!important}.v-toolbar.img_detail_btn_color{backdrop-filter:none!important}.virtual-waterfall .posts-image-card{width:100%;height:100%;margin-bottom:0;background:gainsboro;border-radius:4px!important}.virtual-waterfall .post-image-v{width:100%;height:100%;object-fit:cover;border-radius:4px!important}.virtual-waterfall .posts-image-type{border-top-right-radius:4px}.virtual-waterfall .posts-image-actions{border-bottom-left-radius:4px;border-bottom-right-radius:4px}html:has(#app.theme--dark){background:#121212}@media screen and (max-width: 1200px){.nav_drawer{height:100dvh!important}.nav_drawer .v-navigation-drawer__content{padding-bottom:9vh}}.img_meta_tag_list{position:absolute;top:35px;width:200px}.img_meta_tag_list .img_detail_tag.tag_type_artist{color:#c97000!important;background-color:#ffdcb0!important;border-color:#ffdcb0!important}.img_meta_tag_list .img_detail_tag.tag_type_copyright{color:#ae3fc1!important;background-color:#f9d5ff!important;border-color:#f9d5ff!important}.img_meta_tag_list .img_detail_tag.tag_type_character{color:#0c9312!important;background-color:#c4ffc7!important;border-color:#c4ffc7!important}.true-masonry .posts-image-card{height:fit-content;max-height:unset!important;margin-bottom:0!important}.d-flex-y{display:flex;align-items:center;flex-wrap:wrap}.d-flex-col{display:flex;flex-direction:column}.export-tags-setting{display:flex;align-items:center;flex-wrap:wrap;gap:20px}.export-tags-setting .v-messages{display:none}.export-tags-setting>.v-input{margin-top:0}.export-tags-wght-inp{width:45px;height:24px;margin-left:4px;background-color:#eaf1fb;border-radius:4px;border:1px solid rgb(187,187,187);color:inherit;text-align:center}.d-flex-col .v-chip--active:before,.d-flex-col .v-chip--active:hover:before,.d-flex-col .v-chip:focus:before{display:none}.img-detail-toolbar{position:absolute;top:0;width:100%;z-index:10}.img-detail-toolbar.detail-buttons-bottom{top:unset;bottom:12px}.img-detail-tags{position:absolute;z-index:10;bottom:12px;padding:0 12px}.img-detail-tags.detail-buttons-bottom{top:12px;bottom:unset}.img-detail-toolbar.detail-buttons-bottom .img_meta_tag_list{top:0;transform:translateY(-95%)}.settings_drawer .v-list-item__subtitle{white-space:normal}\n';
+  const langList = [
+    { value: "zh-Hans", label: "\u7B80\u4F53\u4E2D\u6587" },
+    { value: "zh-Hant", label: "\u7E41\u9AD4\u4E2D\u6587" },
+    { value: "ja", label: "\u65E5\u672C\u8A9E" },
+    { value: "en", label: "English" }
+  ];
+  const langMap = {
+    "zh": "zh-Hans",
+    "zh-CN": "zh-Hans",
+    "zh-TW": "zh-Hant",
+    "zh-HK": "zh-Hant",
+    "zh-MO": "zh-Hant",
+    "zh-SG": "zh-Hans",
+    "ja": "ja",
+    "ja-JP": "ja",
+    "en": "en",
+    "en-US": "en",
+    "en-GB": "en"
+  };
+  const isMobile = navigator.userAgent.includes("Mobile");
+  const defaultSettings = {
+    lang: langMap[navigator.language] || "en",
+    darkMode: "light",
+    blacklist: ((_a = localStorage.getItem("__blacklist")) == null ? void 0 : _a.split(",").filter(Boolean)) || [],
+    selectedColumn: "0",
+    showNSFWContents: true,
+    isListenWheelEvent: true,
+    isFullImgPreload: false,
+    imgPreloadNum: 1,
+    masonryLayout: "masonry",
+    isListenKeyupEvent: true,
+    credentialQuery: "",
+    isThumbSampleUrl: false,
+    showPostCheckbox: false,
+    useFancybox: false,
+    isHoldsFalse: false,
+    isYandereFetchByHtml: false,
+    showListPostReso: false,
+    isFitScreen: true,
+    isDLSubpath: false,
+    autoWaterfall: false,
+    showTagChipGroup: false,
+    justifiedBaseWidth: isMobile ? 240 : 340,
+    detailButtonsBottom: isMobile,
+    closePopupOnImgClick: isMobile
+  };
+  const initialSettings = {
+    ...defaultSettings,
+    ...(() => {
+      try {
+        return JSON.parse(localStorage.getItem("YM_APP_SETTINGS") || "{}");
+      } catch (err) {
+        return {};
+      }
+    })()
+  };
+  console.log("initialSettings: ", initialSettings);
+  function doNotRun() {
+    const mimeTypes = ["jpg", "jpeg", "png", "gif", "mp4", "webm", "json", "xml"];
+    return mimeTypes.some((e) => location.pathname.endsWith(`.${e}`));
+  }
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+  function isMoebooru() {
+    return ["yande.re", "konachan", "lolibooru", "sakugabooru"].some((e) => location.host.includes(e));
+  }
   async function prepareApp(callback) {
     if (doNotRun())
       return;
@@ -80,16 +148,6 @@ var __publicField = (obj, key, value) => {
       await initMasonry();
       callback == null ? void 0 : callback();
     });
-  }
-  function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-  function doNotRun() {
-    const mimeTypes = ["jpg", "jpeg", "png", "gif", "mp4", "webm", "json", "xml"];
-    return mimeTypes.some((e) => location.pathname.endsWith(`.${e}`));
-  }
-  function isMoebooru() {
-    return ["yande.re", "konachan", "lolibooru", "sakugabooru"].some((e) => location.host.includes(e));
   }
   const wfTypeActions = {
     masonry: (list) => {
@@ -134,36 +192,36 @@ var __publicField = (obj, key, value) => {
     const listEl = document.querySelector("#post-list-posts");
     if (!listEl)
       return;
-    const wfType = localStorage.getItem("__wfType") || "masonry";
+    const wfType = initialSettings.masonryLayout || "masonry";
     (_a2 = wfTypeActions[wfType]) == null ? void 0 : _a2.call(wfTypeActions, listEl);
   }
   const isAutoWf = (() => {
     const params2 = new URLSearchParams(location.search);
     if (params2.get("_wf"))
       return true;
-    return !!localStorage.getItem("__autoWfMode");
+    return initialSettings.autoWaterfall;
   })();
   function addWfTypeSelect() {
     if (!location.href.includes("yande.re/post"))
       return;
     if (isAutoWf)
       return;
-    const type = localStorage.getItem("__wfType") || "masonry";
+    const type = initialSettings.masonryLayout || "masonry";
     document.body.insertAdjacentHTML("beforeend", `<select id="wf-type-select">${Object.keys(wfTypeActions).map((e) => `<option ${type == e ? "selected" : ""} value="${e}">${e}</option>`).join("")}</select>`);
     const sel = document.querySelector("#wf-type-select");
     sel == null ? void 0 : sel.addEventListener("change", function() {
       const { value } = this;
       if (!value)
         return;
-      localStorage.setItem("__wfType", value);
+      initialSettings.masonryLayout = value;
+      localStorage.setItem("YM_APP_SETTINGS", JSON.stringify(initialSettings));
       setTimeout(() => {
         location.reload();
       }, 200);
     });
   }
   async function initMasonry() {
-    replaceHead();
-    replaceBody();
+    replaceDocument();
     await loadDeps();
   }
   function addSiteStyle() {
@@ -293,13 +351,13 @@ var __publicField = (obj, key, value) => {
       oldBtn == null ? void 0 : oldBtn.remove();
     }
     const btnText = navigator.language.includes("zh") ? "\u7011\u5E03\u6D41\u6A21\u5F0F" : "Browsing";
-    document.body.insertAdjacentHTML("beforeend", `<button id="enter-masonry">${btnText}</button>`);
+    document.body.insertAdjacentHTML("beforeend", `<button id="enter-masonry" class="${initialSettings.detailButtonsBottom ? "enter-button-bottom" : ""}">${btnText}</button>`);
     const btn = document.querySelector("#enter-masonry");
     btn == null ? void 0 : btn.addEventListener("click", () => {
       fn();
     });
   }
-  const specialSites = ["gelbooru"];
+  const specialSites = ["gelbooru.com"];
   function loadScript(src) {
     return new Promise((resolve) => {
       let script;
@@ -324,7 +382,7 @@ var __publicField = (obj, key, value) => {
     await loadScript("https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.28.2/vue-i18n.min.js");
     await loadScript("https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.4.0/fxparser.min.js");
   }
-  function replaceHead() {
+  function replaceDocument() {
     const el = document.querySelector('[name="csrf-token"]');
     const token = el == null ? void 0 : el.getAttribute("content");
     token && sessionStorage.setItem("csrf-token", token);
@@ -337,8 +395,6 @@ var __publicField = (obj, key, value) => {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.css">
     <style>${customStyle}</style>
   `;
-  }
-  function replaceBody() {
     document.body.innerHTML = `
     <div id="app">
       <div id="loading">
@@ -355,7 +411,7 @@ var __publicField = (obj, key, value) => {
   `;
   }
   prepareApp(() => {(function(Vue2, Vuetify2, VueI18n2, fastXmlParser) {
-  var _a, _b, _c;
+  var _a;
   "use strict";
   ;
   function _interopDefaultLegacy(e) {
@@ -654,6 +710,11 @@ var __publicField = (obj, key, value) => {
   const xSC1vpAOTLQ3RBipKrNpD$3 = "\u4E0D\u9009";
   const cKXET1CCnAXq4H60qr8uc$3 = "\u53CD\u9009";
   const QH_xm27zhgs5E1077asf1$3 = "\u5BFC\u51FA";
+  const Uw9QwD1SaR2VjZEqDYRdb$3 = "\u90E8\u5206\u8BBE\u7F6E\u9700\u8981\u5237\u65B0\u9875\u9762\u540E\u751F\u6548";
+  const ECpLfRMsS0zpJPTw0qqNs$3 = "\u8BE6\u60C5\u64CD\u4F5C\u680F\u6309\u94AE\u7F6E\u4E8E\u4E0B\u65B9";
+  const vJobIibroyz2wkpmONSnR$3 = "\u56FE\u7247\u8BE6\u60C5\u5F39\u7A97\u7684\u64CD\u4F5C\u6309\u94AE\u680F\u4E0E\u6807\u7B7E\u680F\u4F4D\u7F6E\u4E92\u6362";
+  const I_MKXUxaNXp3D35GFULn4$3 = "\u6B64\u9009\u9879\u5173\u95ED\u65F6\uFF0C\u70B9\u51FB\u8BE6\u60C5\u56FE\u7247\u4F1A\u5207\u6362\u6309\u94AE\u4E0E\u6807\u7B7E\u7684\u663E\u793A\u9690\u85CF";
+  const dm7zGAYbP2sbGXO_ekDDl$3 = "Justified \u5E03\u5C40\u5BBD\u5EA6\u7CFB\u6570";
   var zhHans = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$3,
     "ZtQHZx-pEjmu_o3dQD1fc": "\u793E\u56E2",
@@ -785,7 +846,13 @@ var __publicField = (obj, key, value) => {
     zg2GRF6zmMXCkT9Uz2Bni: zg2GRF6zmMXCkT9Uz2Bni$3,
     xSC1vpAOTLQ3RBipKrNpD: xSC1vpAOTLQ3RBipKrNpD$3,
     cKXET1CCnAXq4H60qr8uc: cKXET1CCnAXq4H60qr8uc$3,
-    QH_xm27zhgs5E1077asf1: QH_xm27zhgs5E1077asf1$3
+    QH_xm27zhgs5E1077asf1: QH_xm27zhgs5E1077asf1$3,
+    Uw9QwD1SaR2VjZEqDYRdb: Uw9QwD1SaR2VjZEqDYRdb$3,
+    ECpLfRMsS0zpJPTw0qqNs: ECpLfRMsS0zpJPTw0qqNs$3,
+    vJobIibroyz2wkpmONSnR: vJobIibroyz2wkpmONSnR$3,
+    "HPukB-OKzIuRxMmO4Rx2U": "\u70B9\u51FB\u8BE6\u60C5\u56FE\u7247\u5173\u95ED\u5F39\u7A97",
+    I_MKXUxaNXp3D35GFULn4: I_MKXUxaNXp3D35GFULn4$3,
+    dm7zGAYbP2sbGXO_ekDDl: dm7zGAYbP2sbGXO_ekDDl$3
   };
   const UxxldE9xRwmQctrvba5Y8$2 = "\u8A2D\u7F6E";
   const A16qoBulYQJLbHe9mqNwm$2 = "\u5305\u542B\u88F8\u9732\u3001\u6027\u611B\u63CF\u5BEB\u5167\u5BB9\u7B49\u904E\u6FC0\u5167\u5BB9";
@@ -871,6 +938,11 @@ var __publicField = (obj, key, value) => {
   const xSC1vpAOTLQ3RBipKrNpD$2 = "\u53D6\u6D88\u5168\u9078";
   const cKXET1CCnAXq4H60qr8uc$2 = "\u53CD\u9078";
   const QH_xm27zhgs5E1077asf1$2 = "\u532F\u51FA";
+  const Uw9QwD1SaR2VjZEqDYRdb$2 = "\u90E8\u5206\u8A2D\u7F6E\u9700\u8981\u5237\u65B0\u9801\u9762\u5F8C\u751F\u6548";
+  const ECpLfRMsS0zpJPTw0qqNs$2 = "\u8A73\u60C5\u64CD\u4F5C\u6B04\u6309\u9215\u7F6E\u65BC\u4E0B\u65B9";
+  const vJobIibroyz2wkpmONSnR$2 = "\u5716\u7247\u8A73\u60C5\u5F48\u7A97\u7684\u64CD\u4F5C\u6309\u9215\u6B04\u8207\u6A19\u7C64\u6B04\u4F4D\u7F6E\u4E92\u63DB";
+  const I_MKXUxaNXp3D35GFULn4$2 = "\u6B64\u9078\u9805\u95DC\u9589\u6642\uFF0C\u9EDE\u64CA\u8A73\u60C5\u5716\u7247\u6703\u5207\u63DB\u6309\u9215\u8207\u6A19\u7C64\u7684\u986F\u793A\u96B1\u85CF";
+  const dm7zGAYbP2sbGXO_ekDDl$2 = "Justified \u4F48\u5C40\u5BEC\u5EA6\u4FC2\u6578";
   var zhHant = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$2,
     "1F-R4qChHIzZaohu5GJzl": "\u5F62\u5982: &api_key=xx&user_id=1",
@@ -1002,7 +1074,13 @@ var __publicField = (obj, key, value) => {
     zg2GRF6zmMXCkT9Uz2Bni: zg2GRF6zmMXCkT9Uz2Bni$2,
     xSC1vpAOTLQ3RBipKrNpD: xSC1vpAOTLQ3RBipKrNpD$2,
     cKXET1CCnAXq4H60qr8uc: cKXET1CCnAXq4H60qr8uc$2,
-    QH_xm27zhgs5E1077asf1: QH_xm27zhgs5E1077asf1$2
+    QH_xm27zhgs5E1077asf1: QH_xm27zhgs5E1077asf1$2,
+    Uw9QwD1SaR2VjZEqDYRdb: Uw9QwD1SaR2VjZEqDYRdb$2,
+    ECpLfRMsS0zpJPTw0qqNs: ECpLfRMsS0zpJPTw0qqNs$2,
+    vJobIibroyz2wkpmONSnR: vJobIibroyz2wkpmONSnR$2,
+    "HPukB-OKzIuRxMmO4Rx2U": "\u9EDE\u64CA\u8A73\u60C5\u5716\u7247\u95DC\u9589\u5F48\u7A97",
+    I_MKXUxaNXp3D35GFULn4: I_MKXUxaNXp3D35GFULn4$2,
+    dm7zGAYbP2sbGXO_ekDDl: dm7zGAYbP2sbGXO_ekDDl$2
   };
   const UxxldE9xRwmQctrvba5Y8$1 = "Settings";
   const A16qoBulYQJLbHe9mqNwm$1 = "Contains excessive content such as nudity and sexual descriptions";
@@ -1089,6 +1167,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const xSC1vpAOTLQ3RBipKrNpD$1 = "None";
   const cKXET1CCnAXq4H60qr8uc$1 = "Invert";
   const QH_xm27zhgs5E1077asf1$1 = "Export";
+  const Uw9QwD1SaR2VjZEqDYRdb$1 = "Some settings need to refresh the page to take effect.";
+  const ECpLfRMsS0zpJPTw0qqNs$1 = "Place the action button below the details pop-up window";
+  const vJobIibroyz2wkpmONSnR$1 = "Swap the positions of the action button bar and the label bar of the image details pop-up window";
+  const I_MKXUxaNXp3D35GFULn4$1 = "When this option is turned off, clicking the detail image will toggle the display and hiding of buttons and tags.";
+  const dm7zGAYbP2sbGXO_ekDDl$1 = "Justified layout width factor";
   var en = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$1,
     "1F-R4qChHIzZaohu5GJzl": "e.g: &api_key=xx&user_id=1",
@@ -1220,7 +1303,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     zg2GRF6zmMXCkT9Uz2Bni: zg2GRF6zmMXCkT9Uz2Bni$1,
     xSC1vpAOTLQ3RBipKrNpD: xSC1vpAOTLQ3RBipKrNpD$1,
     cKXET1CCnAXq4H60qr8uc: cKXET1CCnAXq4H60qr8uc$1,
-    QH_xm27zhgs5E1077asf1: QH_xm27zhgs5E1077asf1$1
+    QH_xm27zhgs5E1077asf1: QH_xm27zhgs5E1077asf1$1,
+    Uw9QwD1SaR2VjZEqDYRdb: Uw9QwD1SaR2VjZEqDYRdb$1,
+    ECpLfRMsS0zpJPTw0qqNs: ECpLfRMsS0zpJPTw0qqNs$1,
+    vJobIibroyz2wkpmONSnR: vJobIibroyz2wkpmONSnR$1,
+    "HPukB-OKzIuRxMmO4Rx2U": "Close the pop-up window when you click on the detailed image",
+    I_MKXUxaNXp3D35GFULn4: I_MKXUxaNXp3D35GFULn4$1,
+    dm7zGAYbP2sbGXO_ekDDl: dm7zGAYbP2sbGXO_ekDDl$1
   };
   const UxxldE9xRwmQctrvba5Y8 = "\u8A2D\u5B9A";
   const A16qoBulYQJLbHe9mqNwm = "\u30CC\u30FC\u30C9\u3084\u6027\u7684\u63CF\u5199\u306A\u3069\u306E\u904E\u5EA6\u306A\u5185\u5BB9\u304C\u542B\u307E\u308C\u3066\u3044\u308B\u3082\u306E";
@@ -1306,6 +1395,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const xSC1vpAOTLQ3RBipKrNpD = "\u9078\u629E\u3057\u306A\u3044";
   const cKXET1CCnAXq4H60qr8uc = "\u9006\u9078\u629E";
   const QH_xm27zhgs5E1077asf1 = "\u8F38\u51FA";
+  const Uw9QwD1SaR2VjZEqDYRdb = "\u4E00\u90E8\u306E\u8A2D\u5B9A\u3092\u6709\u52B9\u306B\u3059\u308B\u306B\u306F\u3001\u30DA\u30FC\u30B8\u3092\u66F4\u65B0\u3059\u308B\u5FC5\u8981\u304C\u3042\u308A\u307E\u3059\u3002";
+  const ECpLfRMsS0zpJPTw0qqNs = "\u8A73\u7D30\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7 \u30A6\u30A3\u30F3\u30C9\u30A6\u306E\u4E0B\u306B\u30A2\u30AF\u30B7\u30E7\u30F3 \u30DC\u30BF\u30F3\u3092\u914D\u7F6E\u3057\u307E\u3059\u3002";
+  const vJobIibroyz2wkpmONSnR = "\u753B\u50CF\u8A73\u7D30\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7\u30A6\u30A3\u30F3\u30C9\u30A6\u306E\u30A2\u30AF\u30B7\u30E7\u30F3\u30DC\u30BF\u30F3\u30D0\u30FC\u3068\u30E9\u30D9\u30EB\u30D0\u30FC\u306E\u4F4D\u7F6E\u3092\u5165\u308C\u66FF\u3048\u307E\u3059\u3002";
+  const I_MKXUxaNXp3D35GFULn4 = "\u30AA\u30D5\u306B\u3059\u308B\u3068\u3001\u8A73\u7D30\u753B\u50CF\u3092\u30AF\u30EA\u30C3\u30AF\u3059\u308B\u3068\u30DC\u30BF\u30F3\u3084\u30BF\u30B0\u306E\u8868\u793A\u30FB\u975E\u8868\u793A\u304C\u5207\u308A\u66FF\u308F\u308A\u307E\u3059\u3002";
+  const dm7zGAYbP2sbGXO_ekDDl = "\u4E21\u7AEF\u63C3\u3048\u30EC\u30A4\u30A2\u30A6\u30C8\u5E45\u4FC2\u6570";
   var ja = {
     UxxldE9xRwmQctrvba5Y8,
     "1F-R4qChHIzZaohu5GJzl": "\u4F8B\uFF1A&api_key=xx&user_id=1",
@@ -1437,26 +1531,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     zg2GRF6zmMXCkT9Uz2Bni,
     xSC1vpAOTLQ3RBipKrNpD,
     cKXET1CCnAXq4H60qr8uc,
-    QH_xm27zhgs5E1077asf1
+    QH_xm27zhgs5E1077asf1,
+    Uw9QwD1SaR2VjZEqDYRdb,
+    ECpLfRMsS0zpJPTw0qqNs,
+    vJobIibroyz2wkpmONSnR,
+    "HPukB-OKzIuRxMmO4Rx2U": "\u8A73\u7D30\u753B\u50CF\u3092\u30AF\u30EA\u30C3\u30AF\u3059\u308B\u3068\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7\u30A6\u30A3\u30F3\u30C9\u30A6\u3092\u9589\u3058\u307E\u3059",
+    I_MKXUxaNXp3D35GFULn4,
+    dm7zGAYbP2sbGXO_ekDDl
   };
   Vue__default["default"].use(VueI18n__default["default"]);
-  const langMap = {
-    "zh": "zh-Hans",
-    "zh-CN": "zh-Hans",
-    "zh-TW": "zh-Hant",
-    "zh-HK": "zh-Hant",
-    "zh-MO": "zh-Hant",
-    "zh-SG": "zh-Hans",
-    "ja": "ja",
-    "ja-JP": "ja",
-    "en": "en",
-    "en-US": "en",
-    "en-GB": "en"
-  };
-  const language = localStorage.getItem("__LANG") || langMap[navigator.language];
-  console.log("language: ", language);
   const i18n = new VueI18n__default["default"]({
-    locale: language || "en",
+    locale: initialSettings.lang || "en",
     fallbackLocale: "en",
     messages: {
       "zh-Hans": zhHans,
@@ -1537,7 +1622,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return isValid2 && num;
   };
   const getWindowWidth = () => window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-  const TrueMasonry = {
+  const TrueMasonry = Vue2.defineComponent({
     props,
     data() {
       return {
@@ -1652,15 +1737,16 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       };
       return h(
         this.tag,
-        this.css ? { style: containerStyle } : null,
+        this.css ? { style: containerStyle } : void 0,
         this.$slots.default
       );
     }
-  };
+  });
+  const settings = Vue__default["default"].observable(initialSettings);
   const ykFlag = ["konachan", "yande.re"].some((e) => location.href.includes(e));
   const poolFlag = location.pathname == "/pool";
   const store = Vue__default["default"].observable({
-    requestState: false,
+    requestLoading: false,
     requestStop: false,
     showImageSelected: false,
     imageSelectedIndex: 0,
@@ -1669,45 +1755,28 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     showFab: false,
     currentPage: 1,
     imageList: [],
-    blacklist: ((_a = localStorage.getItem("__blacklist")) == null ? void 0 : _a.split(",").filter(Boolean)) || [],
     selectedImageList: [],
-    selectedColumn: (_b = localStorage.getItem("__masonry_col")) != null ? _b : "0",
     isYKSite: ykFlag,
     showPostList: !poolFlag,
     showPoolList: ykFlag && poolFlag,
-    showNSFWContents: localStorage.getItem("__showNSFW") !== "0",
-    isListenWheelEvent: localStorage.getItem("__listenWheel") !== "0",
-    isFullImgPreload: !!localStorage.getItem("__fullImgPreload"),
-    imgPreloadNum: Number(localStorage.getItem("__imgPreloadNum")) || 1,
-    isFullscreen: false,
-    settings: {
-      masonryLayout: localStorage.getItem("__masonryLayout") || "masonry",
-      isListenKeyupEvent: localStorage.getItem("__listenKeyup") !== "0",
-      credentialQuery: localStorage.getItem("__credentialQuery") || "",
-      isThumbSampleUrl: !!localStorage.getItem("__thumbSampleUrl"),
-      showPostCheckbox: !!localStorage.getItem("__showPostCheckbox"),
-      useFancybox: !!localStorage.getItem("__useFancybox"),
-      isHoldsFalse: !!localStorage.getItem("__isHoldsFalse"),
-      isYandereFetchByHtml: !!localStorage.getItem("__isYandereFetchByHtml"),
-      showListPostReso: !!localStorage.getItem("__showListPostReso")
-    },
-    toggleDrawer() {
-      store.showDrawer = !store.showDrawer;
-    },
-    addToSelectedList(item) {
-      if (store.selectedImageList.some((e) => e.id === item.id))
-        return;
-      Object.assign(item, { fileNameWithTags: `${location.hostname} ${item.id} ${item.tags.join(" ")}` });
-      store.selectedImageList.push(item);
-    },
-    removeFromSelectedList(id) {
-      store.selectedImageList = store.selectedImageList.filter((e) => {
-        if (e.loading)
-          return true;
-        return e.id !== id;
-      });
-    }
+    isFullscreen: false
   });
+  function toggleDrawer() {
+    store.showDrawer = !store.showDrawer;
+  }
+  function addToSelectedList(item) {
+    if (store.selectedImageList.some((e) => e.id === item.id))
+      return;
+    Object.assign(item, { fileNameWithTags: `${location.hostname} ${item.id} ${item.tags.join(" ")}` });
+    store.selectedImageList.push(item);
+  }
+  function removeFromSelectedList(id) {
+    store.selectedImageList = store.selectedImageList.filter((e) => {
+      if (e.loading)
+        return true;
+      return e.id !== id;
+    });
+  }
   function normalizeComponent(scriptExports, render, staticRenderFns, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
     var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
     if (render) {
@@ -1762,24 +1831,21 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       options
     };
   }
-  const notFitScreen = localStorage.getItem("__fitScreen") == "0";
   const _sfc_main$c = {
     components: {
       TrueMasonry
     },
-    data() {
-      return {
-        wfType: store.settings.masonryLayout || "masonry"
-      };
-    },
     computed: {
+      wfType() {
+        return settings.masonryLayout || "masonry";
+      },
       isMasonry() {
-        return ["masonry", "grid", "1"].includes(this.wfType);
+        return ["masonry", "grid"].includes(this.wfType);
       },
       wfClass() {
         return {
           "wf-grid": this.wfType == "grid",
-          "wf-no-fit-screen": notFitScreen
+          "wf-no-fit-screen": !settings.isFitScreen
         };
       },
       columnCount2() {
@@ -1788,13 +1854,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return this.columnCount;
       },
       columnCount() {
-        return store.selectedColumn === "0" ? notFitScreen ? {
-          300: 1,
-          1050: 2,
-          1500: 3,
-          1920: 4,
-          default: 4
-        } : {
+        return settings.selectedColumn === "0" ? settings.isFitScreen ? {
           300: 1,
           600: 2,
           900: 3,
@@ -1805,13 +1865,19 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           2700: 9,
           3e3: 10,
           default: 6
-        } : +store.selectedColumn;
+        } : {
+          300: 1,
+          1050: 2,
+          1500: 3,
+          1920: 4,
+          default: 4
+        } : +settings.selectedColumn;
       }
     }
   };
   var _sfc_render$c = function render() {
-    var _vm = this, _c2 = _vm._self._c;
-    return _c2("div", { staticClass: "wf-layout", class: _vm.wfClass }, [_vm.wfType === "masonry2" ? _c2("TrueMasonry", { staticClass: "true-masonry", attrs: { "gap": { default: 8 }, "cols": _vm.columnCount2 } }, [_vm._t("default")], 2) : _vm.isMasonry ? _c2("masonry", { attrs: { "cols": _vm.columnCount, "gutter": "8px" } }, [_vm._t("default")], 2) : _c2("div", { staticClass: "justified-container" }, [_vm._t("default")], 2)], 1);
+    var _vm = this, _c = _vm._self._c;
+    return _c("div", { staticClass: "wf-layout", class: _vm.wfClass }, [_vm.wfType === "masonry2" ? _c("TrueMasonry", { staticClass: "true-masonry", attrs: { "gap": { default: 8 }, "cols": _vm.columnCount2 } }, [_vm._t("default")], 2) : _vm.isMasonry ? _c("masonry", { attrs: { "cols": _vm.columnCount, "gutter": "8px" } }, [_vm._t("default")], 2) : _c("div", { staticClass: "justified-container" }, [_vm._t("default")], 2)], 1);
   };
   var _sfc_staticRenderFns$c = [];
   var __component__$c = /* @__PURE__ */ normalizeComponent(
@@ -2116,8 +2182,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function useElementSize(target, initialSize = { width: 0, height: 0 }, options = {}) {
     const { window: window2 = defaultWindow, box = "content-box" } = options;
     const isSVG = Vue2.computed(() => {
-      var _a2, _b2;
-      return (_b2 = (_a2 = unrefElement(target)) == null ? void 0 : _a2.namespaceURI) == null ? void 0 : _b2.includes("svg");
+      var _a2, _b;
+      return (_b = (_a2 = unrefElement(target)) == null ? void 0 : _a2.namespaceURI) == null ? void 0 : _b.includes("svg");
     });
     const width = Vue2.ref(initialSize.width);
     const height = Vue2.ref(initialSize.height);
@@ -2324,13 +2390,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
   });
   var _sfc_render$b = function render() {
-    var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
-    return _c2("div", { ref: "content", style: {
+    var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
+    return _c("div", { ref: "content", style: {
       position: "relative",
       willChange: "height",
       height: `${Math.max(..._setup.columnsTop)}px`
     } }, _vm._l(_setup.itemRenderList, function(data) {
-      return _c2("div", { key: data.item[_vm.rowKey] || data.index, style: {
+      return _c("div", { key: data.item[_vm.rowKey] || data.index, style: {
         position: "absolute",
         contentVisibility: "auto",
         width: `${_setup.itemWidth}px`,
@@ -2488,9 +2554,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return defaultOptions$1;
   }
   function startOfWeek(date, options) {
-    var _a2, _b2, _c2, _d, _e, _f, _g, _h;
+    var _a2, _b, _c, _d, _e, _f, _g, _h;
     const defaultOptions2 = getDefaultOptions$1();
-    const weekStartsOn = (_h = (_g = (_d = (_c2 = options == null ? void 0 : options.weekStartsOn) != null ? _c2 : (_b2 = (_a2 = options == null ? void 0 : options.locale) == null ? void 0 : _a2.options) == null ? void 0 : _b2.weekStartsOn) != null ? _d : defaultOptions2.weekStartsOn) != null ? _g : (_f = (_e = defaultOptions2.locale) == null ? void 0 : _e.options) == null ? void 0 : _f.weekStartsOn) != null ? _h : 0;
+    const weekStartsOn = (_h = (_g = (_d = (_c = options == null ? void 0 : options.weekStartsOn) != null ? _c : (_b = (_a2 = options == null ? void 0 : options.locale) == null ? void 0 : _a2.options) == null ? void 0 : _b.weekStartsOn) != null ? _d : defaultOptions2.weekStartsOn) != null ? _g : (_f = (_e = defaultOptions2.locale) == null ? void 0 : _e.options) == null ? void 0 : _f.weekStartsOn) != null ? _h : 0;
     const _date = toDate(date);
     const day = _date.getDay();
     const diff = (day < weekStartsOn ? 7 : 0) + day - weekStartsOn;
@@ -3119,11 +3185,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return Math.round(diff / millisecondsInWeek) + 1;
   }
   function getWeekYear(date, options) {
-    var _a2, _b2, _c2, _d, _e, _f, _g, _h;
+    var _a2, _b, _c, _d, _e, _f, _g, _h;
     const _date = toDate(date);
     const year = _date.getFullYear();
     const defaultOptions2 = getDefaultOptions$1();
-    const firstWeekContainsDate = (_h = (_g = (_d = (_c2 = options == null ? void 0 : options.firstWeekContainsDate) != null ? _c2 : (_b2 = (_a2 = options == null ? void 0 : options.locale) == null ? void 0 : _a2.options) == null ? void 0 : _b2.firstWeekContainsDate) != null ? _d : defaultOptions2.firstWeekContainsDate) != null ? _g : (_f = (_e = defaultOptions2.locale) == null ? void 0 : _e.options) == null ? void 0 : _f.firstWeekContainsDate) != null ? _h : 1;
+    const firstWeekContainsDate = (_h = (_g = (_d = (_c = options == null ? void 0 : options.firstWeekContainsDate) != null ? _c : (_b = (_a2 = options == null ? void 0 : options.locale) == null ? void 0 : _a2.options) == null ? void 0 : _b.firstWeekContainsDate) != null ? _d : defaultOptions2.firstWeekContainsDate) != null ? _g : (_f = (_e = defaultOptions2.locale) == null ? void 0 : _e.options) == null ? void 0 : _f.firstWeekContainsDate) != null ? _h : 1;
     const firstWeekOfNextYear = constructFrom(date, 0);
     firstWeekOfNextYear.setFullYear(year + 1, 0, firstWeekContainsDate);
     firstWeekOfNextYear.setHours(0, 0, 0, 0);
@@ -3141,9 +3207,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
   }
   function startOfWeekYear(date, options) {
-    var _a2, _b2, _c2, _d, _e, _f, _g, _h;
+    var _a2, _b, _c, _d, _e, _f, _g, _h;
     const defaultOptions2 = getDefaultOptions$1();
-    const firstWeekContainsDate = (_h = (_g = (_d = (_c2 = options == null ? void 0 : options.firstWeekContainsDate) != null ? _c2 : (_b2 = (_a2 = options == null ? void 0 : options.locale) == null ? void 0 : _a2.options) == null ? void 0 : _b2.firstWeekContainsDate) != null ? _d : defaultOptions2.firstWeekContainsDate) != null ? _g : (_f = (_e = defaultOptions2.locale) == null ? void 0 : _e.options) == null ? void 0 : _f.firstWeekContainsDate) != null ? _h : 1;
+    const firstWeekContainsDate = (_h = (_g = (_d = (_c = options == null ? void 0 : options.firstWeekContainsDate) != null ? _c : (_b = (_a2 = options == null ? void 0 : options.locale) == null ? void 0 : _a2.options) == null ? void 0 : _b.firstWeekContainsDate) != null ? _d : defaultOptions2.firstWeekContainsDate) != null ? _g : (_f = (_e = defaultOptions2.locale) == null ? void 0 : _e.options) == null ? void 0 : _f.firstWeekContainsDate) != null ? _h : 1;
     const year = getWeekYear(date, options);
     const firstWeek = constructFrom(date, 0);
     firstWeek.setFullYear(year, 0, firstWeekContainsDate);
@@ -3231,9 +3297,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return `Use \`${token.toLowerCase()}\` instead of \`${token}\` (in \`${format}\`) for formatting ${subject} to the input \`${input}\`; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md`;
   }
   function formatDistance(date, baseDate, options) {
-    var _a2, _b2;
+    var _a2, _b;
     const defaultOptions2 = getDefaultOptions$1();
-    const locale = (_b2 = (_a2 = options == null ? void 0 : options.locale) != null ? _a2 : defaultOptions2.locale) != null ? _b2 : enUS;
+    const locale = (_b = (_a2 = options == null ? void 0 : options.locale) != null ? _a2 : defaultOptions2.locale) != null ? _b : enUS;
     const minutesInAlmostTwoDays = 2520;
     const comparison = compareAsc(date, baseDate);
     if (isNaN(comparison)) {
@@ -4172,9 +4238,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
   }
   function setDay(date, day, options) {
-    var _a2, _b2, _c2, _d, _e, _f, _g, _h;
+    var _a2, _b, _c, _d, _e, _f, _g, _h;
     const defaultOptions2 = getDefaultOptions$1();
-    const weekStartsOn = (_h = (_g = (_d = (_c2 = options == null ? void 0 : options.weekStartsOn) != null ? _c2 : (_b2 = (_a2 = options == null ? void 0 : options.locale) == null ? void 0 : _a2.options) == null ? void 0 : _b2.weekStartsOn) != null ? _d : defaultOptions2.weekStartsOn) != null ? _g : (_f = (_e = defaultOptions2.locale) == null ? void 0 : _e.options) == null ? void 0 : _f.weekStartsOn) != null ? _h : 0;
+    const weekStartsOn = (_h = (_g = (_d = (_c = options == null ? void 0 : options.weekStartsOn) != null ? _c : (_b = (_a2 = options == null ? void 0 : options.locale) == null ? void 0 : _a2.options) == null ? void 0 : _b.weekStartsOn) != null ? _d : defaultOptions2.weekStartsOn) != null ? _g : (_f = (_e = defaultOptions2.locale) == null ? void 0 : _e.options) == null ? void 0 : _f.weekStartsOn) != null ? _h : 0;
     const _date = toDate(date);
     const currentDay = _date.getDay();
     const remainder = day % 7;
@@ -4901,10 +4967,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const notWhitespaceRegExp = /\S/;
   const unescapedLatinCharacterRegExp = /[a-zA-Z]/;
   function parse(dateStr, formatStr, referenceDate, options) {
-    var _a2, _b2, _c2, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r;
+    var _a2, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r;
     const defaultOptions2 = getDefaultOptions();
-    const locale = (_b2 = (_a2 = options == null ? void 0 : options.locale) != null ? _a2 : defaultOptions2.locale) != null ? _b2 : enUS;
-    const firstWeekContainsDate = (_j = (_i = (_f = (_e = options == null ? void 0 : options.firstWeekContainsDate) != null ? _e : (_d = (_c2 = options == null ? void 0 : options.locale) == null ? void 0 : _c2.options) == null ? void 0 : _d.firstWeekContainsDate) != null ? _f : defaultOptions2.firstWeekContainsDate) != null ? _i : (_h = (_g = defaultOptions2.locale) == null ? void 0 : _g.options) == null ? void 0 : _h.firstWeekContainsDate) != null ? _j : 1;
+    const locale = (_b = (_a2 = options == null ? void 0 : options.locale) != null ? _a2 : defaultOptions2.locale) != null ? _b : enUS;
+    const firstWeekContainsDate = (_j = (_i = (_f = (_e = options == null ? void 0 : options.firstWeekContainsDate) != null ? _e : (_d = (_c = options == null ? void 0 : options.locale) == null ? void 0 : _c.options) == null ? void 0 : _d.firstWeekContainsDate) != null ? _f : defaultOptions2.firstWeekContainsDate) != null ? _i : (_h = (_g = defaultOptions2.locale) == null ? void 0 : _g.options) == null ? void 0 : _h.firstWeekContainsDate) != null ? _j : 1;
     const weekStartsOn = (_r = (_q = (_n = (_m = options == null ? void 0 : options.weekStartsOn) != null ? _m : (_l = (_k = options == null ? void 0 : options.locale) == null ? void 0 : _k.options) == null ? void 0 : _l.weekStartsOn) != null ? _n : defaultOptions2.weekStartsOn) != null ? _q : (_p = (_o = defaultOptions2.locale) == null ? void 0 : _o.options) == null ? void 0 : _p.weekStartsOn) != null ? _r : 0;
     if (formatStr === "") {
       if (dateStr === "") {
@@ -5199,14 +5265,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       document.head.insertAdjacentHTML("beforeend", '<link href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css" rel="stylesheet">');
       await loadScript("https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js");
     }
-    const isMobile = navigator.userAgent.includes("Mobile");
+    const isMobile2 = navigator.userAgent.includes("Mobile");
     unsafeWindow.Fancybox.show((store.isYKSite ? [images[index]] : images).map((e) => ({
       src: e.jpegUrl || e.fileUrl,
       thumb: e.previewUrl || e.fileUrl,
       downloadSrc: e.fileUrl,
       caption: e.tags.map((e2) => `<span class="v-chip theme--light v-size--small" style="background-color: rgb(143, 119, 181); border-color: rgb(143, 119, 181); color: rgb(255, 255, 255); caret-color: rgb(255, 255, 255);margin: 0 4px 4px 0">${e2}</span>`).join("")
     })), {
-      compact: isMobile,
+      compact: isMobile2,
       startIndex: store.isYKSite ? 0 : index,
       ...store.isYKSite ? {
         backdropClick: false,
@@ -5226,7 +5292,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         display: {
           left: ["infobar"],
           middle: [],
-          right: isMobile ? ["tagsTip", !store.isYKSite && "toDetailPage", "download", "rotateCW", "flipX", "flipY", store.isYKSite ? "customClose" : "close"].filter(Boolean) : ["tagsTip", !store.isYKSite && "toDetailPage", "toggleZoom", "slideshow", "thumbs", "download", "rotateCW", "flipX", "flipY", store.isYKSite ? "customClose" : "close"].filter(Boolean)
+          right: isMobile2 ? ["tagsTip", !store.isYKSite && "toDetailPage", "download", "rotateCW", "flipX", "flipY", store.isYKSite ? "customClose" : "close"].filter(Boolean) : ["tagsTip", !store.isYKSite && "toDetailPage", "toggleZoom", "slideshow", "thumbs", "download", "rotateCW", "flipX", "flipY", store.isYKSite ? "customClose" : "close"].filter(Boolean)
         },
         items: {
           tagsTip: {
@@ -5309,6 +5375,145 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     return result;
   }
+  function isAllGirlPage() {
+    return location.hostname == "allgirl.booru.org";
+  }
+  async function fetchAllGirlPosts(page, tags) {
+    const url = new URL("https://allgirl.booru.org/index.php");
+    url.searchParams.set("page", "post");
+    url.searchParams.set("s", "list");
+    url.searchParams.set("pid", `${(page - 1) * 20}`);
+    tags && url.searchParams.set("tags", tags);
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const results = [...doc.querySelectorAll(".content .thumb")].map(async (el) => {
+      var _a2;
+      const a = el.querySelector("a");
+      const img = el.querySelector("img");
+      const id = (_a2 = a.getAttribute("id")) == null ? void 0 : _a2.slice(1);
+      const previewUrl = img.src;
+      const { width, height } = await getImageSize(previewUrl);
+      const tags2 = img.title.split(/\s/).filter(Boolean);
+      return {
+        id,
+        postView: a.href,
+        previewUrl,
+        fileUrl: "",
+        tags: tags2,
+        width: Number(width),
+        height: Number(height),
+        aspectRatio: Number(width) / Number(height),
+        fileExt: "jpg",
+        fileDownloadName: `allgirl ${id} ${tags2.join(" ")}`,
+        rating: img.title.includes("rating:Safe") ? "s" : "e"
+      };
+    });
+    return Promise.all(results);
+  }
+  async function getAllGirlDetail(id) {
+    var _a2;
+    const resp = await fetch(`https://allgirl.booru.org/index.php?page=post&s=view&id=${id}`);
+    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
+    return {
+      fileUrl: (_a2 = doc.querySelector("#image")) == null ? void 0 : _a2.src
+    };
+  }
+  const allgirl = {
+    is: isAllGirlPage,
+    posts: fetchAllGirlPosts,
+    detail: getAllGirlDetail
+  };
+  function isAnihonetwallpaperPage() {
+    return location.hostname == "anihonetwallpaper.com";
+  }
+  async function fetchAnihonetwallpaperPosts(page, tags) {
+    const htmlResp = await fetch(`https://anihonetwallpaper.com/page/${page}${tags ? `?s=${tags}` : ""}`);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const results = [...doc.querySelectorAll("main .post_box ")].map((el) => {
+      var _a2;
+      const a = el.querySelector(".posttitle a");
+      const img = el.querySelector(".thumbnail-image");
+      const id = (_a2 = a == null ? void 0 : a.href.match(/(\d+)/)) == null ? void 0 : _a2[1];
+      const previewUrl = img == null ? void 0 : img.getAttribute("data-src");
+      const width = img == null ? void 0 : img.getAttribute("width");
+      const height = img == null ? void 0 : img.getAttribute("height");
+      const tags2 = [...el.querySelectorAll(".itiran a[rel*=tag]")].map((e) => e.innerText);
+      const fileUrl = (previewUrl == null ? void 0 : previewUrl.includes("wp.com")) ? previewUrl.replace(/i\d\.wp\.com\//, "").replace(/\?fit\=\d+\,\d+/, "") : previewUrl == null ? void 0 : previewUrl.replace(/\-\d+x\d+\.(jpg|jpeg|png|webp)/, ".$1");
+      return {
+        id,
+        postView: a == null ? void 0 : a.href,
+        previewUrl,
+        fileUrl,
+        tags: tags2,
+        width: Number(width),
+        height: Number(height),
+        aspectRatio: Number(width) / Number(height),
+        fileExt: "jpg",
+        fileDownloadName: `Anihonetwallpaper_${id}`,
+        rating: ""
+      };
+    });
+    return results;
+  }
+  const anihonetwallpaper = {
+    is: isAnihonetwallpaperPage,
+    posts: fetchAnihonetwallpaperPosts
+  };
+  function isAnimePicturesPage() {
+    return location.hostname == "anime-pictures.net";
+  }
+  async function fetchAnimePicturesPosts(page, tags) {
+    const url = new URL("https://api.anime-pictures.net/api/v3/posts");
+    url.searchParams.set("page", `${page - 1}`);
+    url.searchParams.set("lang", "zh_CN");
+    url.searchParams.set("ldate", "0");
+    if (tags) {
+      const { realTags, orders } = tags.split(/\s/).reduce((acc, cur) => {
+        cur.startsWith("order_by:") ? acc.orders.push(cur) : acc.realTags.push(cur);
+        return acc;
+      }, { realTags: [], orders: [] });
+      realTags.length && url.searchParams.set("search_tag", realTags.join(" "));
+      orders.length && url.searchParams.set("order_by", orders[0].split(":")[1]);
+    }
+    const resp = await fetch(url.href);
+    const json = await resp.json();
+    return json.posts.map((e) => {
+      const fileExt = e.ext.slice(1);
+      return {
+        id: e.id,
+        postView: `https://anime-pictures.net/posts/${e.id}`,
+        previewUrl: `https://opreviews.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}_cp.avif`,
+        sampleUrl: `https://opreviews.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}_bp.avif`,
+        fileUrl: "",
+        tags: [],
+        width: e.width,
+        height: e.height,
+        aspectRatio: e.width / e.height,
+        fileExt,
+        fileDownloadName: `anime-pictures_${e.id}_${e.width}\xD7${e.height}.${fileExt}`,
+        fileDownloadText: `${e.width}\xD7${e.height} [${(e.size / 1024 / 1024).toFixed(2)} MB] ${e.ext.slice(1).toUpperCase()}`,
+        rating: e.erotics == 0 ? "s" : "q",
+        createdAt: new Date(`${e.pubtime.replace(" ", "T")}Z`)
+      };
+    });
+  }
+  async function getAnimePicturesDetail(id) {
+    try {
+      const resp = await fetch(`https://api.anime-pictures.net/api/v3/posts/${id}`);
+      const json = await resp.json();
+      return {
+        tags: json.tags.map((t) => `${t.tag.tag}${t.tag.tag_jp ? `[${t.tag.tag_jp}]` : ""}`),
+        fileUrl: `https://api.anime-pictures.net/pictures/get_image/${json.file_url}`
+      };
+    } catch (error) {
+      return { tags: [], fileUrl: "" };
+    }
+  }
+  const animepictures = {
+    is: isAnimePicturesPage,
+    posts: fetchAnimePicturesPosts,
+    detail: getAnimePicturesDetail
+  };
   function getAugmentedNamespace(n) {
     if (n.__esModule)
       return n;
@@ -6253,12 +6458,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       __publicField(this, "tagJoin");
       __publicField(this, "insecure");
       __publicField(this, "defaultTags");
-      var _a2, _b2, _c2, _d, _e, _f, _g, _h, _i;
+      var _a2, _b, _c, _d, _e, _f, _g, _h, _i;
       this.domain = data.domain;
       this.type = (_a2 = data.type) != null ? _a2 : "json";
-      this.aliases = (_b2 = data.aliases) != null ? _b2 : [];
+      this.aliases = (_b = data.aliases) != null ? _b : [];
       this.nsfw = data.nsfw;
-      this.api = (_c2 = data.api) != null ? _c2 : {};
+      this.api = (_c = data.api) != null ? _c : {};
       this.paginate = (_d = data.paginate) != null ? _d : "page";
       this.random = (_e = data.random) != null ? _e : false;
       this.tagQuery = (_f = data.tagQuery) != null ? _f : "tags";
@@ -6302,15 +6507,82 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     return booruCache[rSite].search(tags, { limit, random, page, credentials });
   }
-  const isSankakuSite = location.host.includes("sankaku") || location.host.includes("idolcomplex");
-  function isSankakuPage() {
-    return location.hostname == "sankaku.app";
+  function isSankakuComplexPage() {
+    return location.hostname == "chan.sankakucomplex.com";
+  }
+  const state = {
+    base: "https://chan.sankakucomplex.com/cn/posts?auto_page=t",
+    nextUrl: null
+  };
+  const ratingMap = {
+    "G": "s",
+    "R15+": "q",
+    "R18+": "e"
+  };
+  async function fetchSankakuComplexPosts(page, tags) {
+    var _a2, _b;
+    const w = unsafeWindow;
+    w.$.ajax = () => {
+    };
+    w.jQuery.ajax = () => {
+    };
+    if (page == 1) {
+      state.nextUrl = null;
+      document.documentElement.scrollTop = 0;
+    }
+    const url = new URL(state.nextUrl ? `https://chan.sankakucomplex.com${state.nextUrl}` : state.base);
+    url.searchParams.set("auto_page", "t");
+    url.searchParams.set("page", `${page}`);
+    !state.nextUrl && tags && url.searchParams.set("tags", tags);
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    state.nextUrl = (_b = (_a2 = doc.querySelector("body > div[next-page-url]")) == null ? void 0 : _a2.getAttribute("next-page-url")) == null ? void 0 : _b.replace(/amp;/g, "");
+    const results = [...doc.querySelectorAll(".post-gallery .post-preview")].map((el) => {
+      var _a3;
+      const id = el.getAttribute("data-id");
+      const img = el.querySelector("img");
+      const tagsText = (img == null ? void 0 : img.getAttribute("data-auto_page")) || "";
+      const tagsArr = tagsText.split(/\s/) || [];
+      const [_, width, height] = tagsText.match(/Size:(\d+)x(\d+)/) || [];
+      const [__, ratingText] = tagsText.match(/Rating:(\S+)/) || [];
+      return {
+        id,
+        postView: (_a3 = el.querySelector("a")) == null ? void 0 : _a3.href,
+        previewUrl: img == null ? void 0 : img.src,
+        fileUrl: "",
+        tags: tagsArr,
+        width: Number(width),
+        height: Number(height),
+        aspectRatio: Number(width) / Number(height),
+        fileExt: el.querySelector(".animated_details") ? "mp4" : "jpg",
+        fileDownloadName: `sankaku-complex ${id} ${tagsArr.join(" ")}`,
+        fileDownloadText: `${width}\xD7${height}`,
+        rating: ratingMap[ratingText] || ratingText
+      };
+    });
+    return results;
+  }
+  async function getSankakuComplexDetail(id) {
+    var _a2, _b, _c;
+    const url = new URL(`https://chan.sankakucomplex.com/cn/posts/${id}`);
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const imgSrc = (_a2 = doc.querySelector("#post-content img")) == null ? void 0 : _a2.src;
+    const fileUrl = (_b = doc.querySelector("#post-content a")) == null ? void 0 : _b.href;
+    const videoSrc = (_c = doc.querySelector("#post-content video")) == null ? void 0 : _c.src;
+    return {
+      sampleUrl: imgSrc,
+      fileUrl: fileUrl || imgSrc || videoSrc
+    };
+  }
+  function isSankakuIdolPage() {
+    return location.hostname == "www.idolcomplex.com";
   }
   const pageState$1 = { next: null };
-  async function fetchSankakuPosts(page, tags) {
+  async function fetchSankakuIdolPosts(page, tags) {
     if (page == 1)
       pageState$1.next = null;
-    const url = new URL("https://sankakuapi.com/v2/posts/keyset");
+    const url = new URL("https://i.sankakuapi.com/v2/posts/keyset");
     url.searchParams.set("lang", navigator.language || "zh-CN");
     url.searchParams.set("default_threshold", "1");
     url.searchParams.set("hide_posts_in_books", "in-larger-tags");
@@ -6328,6 +6600,66 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     });
     const json = await resp.json();
     pageState$1.next = json.meta.next;
+    return json.data.filter((e) => e.preview_url).map((e) => {
+      const fileExt = e.file_ext;
+      return {
+        id: e.id,
+        postView: `https://www.idolcomplex.com/posts/${e.id}`,
+        previewUrl: e.preview_url,
+        fileUrl: "",
+        tags: e.tags.map((t) => t.name + (t.name_ja ? `[${t.name_ja}]` : "")),
+        width: e.width,
+        height: e.height,
+        aspectRatio: e.width / e.height,
+        fileExt,
+        fileDownloadName: `sankaku ${e.id} ${e.tags.join(" ")}.${fileExt}`,
+        fileDownloadText: `${e.width}\xD7${e.height} [${(e.file_size / 1e3).toFixed(0)} kB] ${fileExt.toUpperCase()}`,
+        rating: e.rating,
+        createdAt: e.created_at.s * 1e3
+      };
+    });
+  }
+  async function getSankakuIdolDetail(id) {
+    const resp = await fetch(`https://i.sankakuapi.com/posts/${id}/fu?lang=${navigator.language || "zh-CN"}`, {
+      headers: {
+        "api-version": "2",
+        "client-type": "non-premium",
+        "platform": "web-app",
+        "priority": "u=1, i"
+      }
+    });
+    const json = await resp.json();
+    return {
+      sampleUrl: json.data.sample_url,
+      fileUrl: json.data.file_url
+    };
+  }
+  const isSankakuSite = location.host.includes("sankaku") || location.host.includes("idolcomplex");
+  function isSankakuPage() {
+    return location.hostname == "sankaku.app" || location.hostname == "www.sankakucomplex.com";
+  }
+  const pageState = { next: null };
+  async function fetchSankakuPosts(page, tags) {
+    if (page == 1)
+      pageState.next = null;
+    const url = new URL("https://sankakuapi.com/v2/posts/keyset");
+    url.searchParams.set("lang", navigator.language || "zh-CN");
+    url.searchParams.set("default_threshold", "1");
+    url.searchParams.set("hide_posts_in_books", "in-larger-tags");
+    url.searchParams.set("limit", "40");
+    url.searchParams.set("page", `${page}`);
+    pageState.next && url.searchParams.set("next", `${pageState.next}`);
+    tags && url.searchParams.set("tags", tags);
+    const resp = await fetch(url.href, {
+      headers: {
+        "api-version": "2",
+        "client-type": "non-premium",
+        "platform": "web-app",
+        "priority": "u=1, i"
+      }
+    });
+    const json = await resp.json();
+    pageState.next = json.meta.next;
     return json.data.filter((e) => e.preview_url).map((e) => {
       const fileExt = e.file_ext;
       return {
@@ -6362,96 +6694,21 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       fileUrl: json.data.file_url
     };
   }
-  function isAnimePicturesPage() {
-    return location.hostname == "anime-pictures.net";
-  }
-  async function fetchAnimePicturesPosts(page, tags) {
-    const url = new URL("https://api.anime-pictures.net/api/v3/posts");
-    url.searchParams.set("page", `${page - 1}`);
-    url.searchParams.set("lang", "zh_CN");
-    url.searchParams.set("ldate", "0");
-    if (tags) {
-      const { realTags, orders } = tags.split(/\s/).reduce((acc, cur) => {
-        cur.startsWith("order_by:") ? acc.orders.push(cur) : acc.realTags.push(cur);
-        return acc;
-      }, { realTags: [], orders: [] });
-      realTags.length && url.searchParams.set("search_tag", realTags.join(" "));
-      orders.length && url.searchParams.set("order_by", orders[0].split(":")[1]);
+  const sankaku = {
+    is: isSankakuPage,
+    posts: fetchSankakuPosts,
+    detail: getSankakuDetail,
+    idol: {
+      is: isSankakuIdolPage,
+      posts: fetchSankakuIdolPosts,
+      detail: getSankakuIdolDetail
+    },
+    complex: {
+      is: isSankakuComplexPage,
+      posts: fetchSankakuComplexPosts,
+      detail: getSankakuComplexDetail
     }
-    const resp = await fetch(url.href);
-    const json = await resp.json();
-    return json.posts.map((e) => {
-      const fileExt = e.ext.slice(1);
-      return {
-        id: e.id,
-        postView: `https://anime-pictures.net/posts/${e.id}`,
-        previewUrl: `https://opreviews.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}_cp.avif`,
-        sampleUrl: `https://opreviews.anime-pictures.net/${e.md5.slice(0, 3)}/${e.md5}_bp.avif`,
-        fileUrl: "",
-        tags: [],
-        width: e.width,
-        height: e.height,
-        aspectRatio: e.width / e.height,
-        fileExt,
-        fileDownloadName: `anime-pictures_${e.id}_${e.width}\xD7${e.height}.${fileExt}`,
-        fileDownloadText: `${e.width}\xD7${e.height} [${(e.size / 1024 / 1024).toFixed(2)} MB] ${e.ext.slice(1).toUpperCase()}`,
-        rating: e.erotics == 0 ? "s" : "q",
-        createdAt: new Date(`${e.pubtime.replace(" ", "T")}Z`)
-      };
-    });
-  }
-  async function getAnimePicturesDetail(id) {
-    try {
-      const resp = await fetch(`https://api.anime-pictures.net/api/v3/posts/${id}`);
-      const json = await resp.json();
-      return {
-        tags: json.tags.map((t) => `${t.tag.tag}${t.tag.tag_jp ? `[${t.tag.tag_jp}]` : ""}`),
-        fileUrl: `https://api.anime-pictures.net/pictures/get_image/${json.file_url}`
-      };
-    } catch (error) {
-      return { tags: [], fileUrl: "" };
-    }
-  }
-  function isRealbooruPage() {
-    return location.hostname == "realbooru.com";
-  }
-  async function fetchRealbooruPosts(page, tags) {
-    const url = new URL("https://realbooru.com/index.php");
-    url.searchParams.set("page", "post");
-    url.searchParams.set("s", "list");
-    url.searchParams.set("pid", `${(page - 1) * 42}`);
-    tags && url.searchParams.set("tags", tags);
-    const htmlResp = await fetch(url.href);
-    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    const results = [...doc.querySelectorAll(".content .thumb")].map(async (el) => {
-      var _a2;
-      const a = el.querySelector("a");
-      const img = el.querySelector("img");
-      const id = (_a2 = a.getAttribute("id")) == null ? void 0 : _a2.slice(1);
-      const previewUrl = img.src;
-      const { width, height } = await getImageSize(previewUrl);
-      const tags2 = img.title.split(/,\s+/).filter(Boolean);
-      const isGif = tags2.includes("gif");
-      const isVideo = (img == null ? void 0 : img.style.border.includes("rgb(0, 0, 255)")) || (img == null ? void 0 : img.style.border.includes("#0000ff"));
-      const replaceSampleExt = isGif ? "$1images$2$3.gif" : isVideo ? "$1images$2$3.webm" : "$1samples$2sample_$3.jpg";
-      const replaceFileExt = isGif ? "$1images$2$3.gif" : isVideo ? "$1images$2$3.mp4" : "$1images$2$3.jpeg";
-      return {
-        id,
-        postView: a.href,
-        previewUrl,
-        sampleUrl: previewUrl.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg$/i, replaceSampleExt),
-        fileUrl: previewUrl.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, replaceFileExt),
-        tags: tags2,
-        width: Number(width) * 10,
-        height: Number(height) * 10,
-        aspectRatio: Number(width) / Number(height),
-        fileExt: isGif ? "gif" : isVideo ? "mp4" : "jpg",
-        fileDownloadName: `realbooru_${id}`,
-        rating: "e"
-      };
-    });
-    return Promise.all(results);
-  }
+  };
   const blackList = /* @__PURE__ */ new Set(["e621.net", "e926.net", "hypnohub.net", "derpibooru.org", "realbooru.com"]);
   const siteKeys = Object.keys(sites).filter((e) => !blackList.has(e));
   const isBooruSite = () => siteKeys.includes(location.host);
@@ -6491,7 +6748,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     if (isSankakuSite) {
       return ["order:quality", "order:popularity", "order:random", "order:recently_favorited", "order:recently_voted", "rating:s", "rating:q", "rating:e", "threshold:0", "threshold:1", "threshold:2", "threshold:3", "threshold:4", "threshold:5", "sankaku_ai order:popular"];
     }
-    if (isAnimePicturesPage()) {
+    if (animepictures.is()) {
       return ["order_by:date", "order_by:date_r", "order_by:rating", "order_by:views", "order_by:size", "order_by:tag_num"];
     }
     if (location.host.includes("danbooru")) {
@@ -6512,6 +6769,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "booru.allthefallen.moe": "ATFBooru",
     "aibooru.online": "AIBooru",
     "sankaku.app": "Sankaku APP",
+    "www.sankakucomplex.com": "Sankaku Complex",
     "chan.sankakucomplex.com": "Sankaku Complex",
     "www.idolcomplex.com": "Idol Complex",
     "anime-pictures.net": "Anime Pictures",
@@ -6537,7 +6795,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "realbooru.com": 42
   };
   const BOORU_PAGE_LIMIT = defaultLimitMap[location.host] || 40;
-  const isPidSite = ((_c = sites[location.host]) == null ? void 0 : _c.paginate) === "pid" || isRealbooruPage();
+  const isPidSite = () => {
+    var _a2;
+    return ((_a2 = sites[location.host]) == null ? void 0 : _a2.paginate) === "pid" || realbooru.is();
+  };
   async function searchBooru(page, tags) {
     if (!tags || tags === "all")
       tags = "";
@@ -6545,96 +6806,157 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       page,
       limit: BOORU_PAGE_LIMIT,
       credentials: {
-        query: store.settings.credentialQuery
+        query: settings.credentialQuery
       }
     });
   }
-  function isRule34FavPage() {
-    return /rule34\.xxx\/index\.php\?page\=favorites\&s\=view/.test(location.href);
-  }
-  function isRule34Firefox() {
-    return location.hostname == "rule34.xxx" && (navigator.userAgent.includes("Firefox") || !store.settings.credentialQuery);
-  }
-  async function fetchRule34Posts(page, tags) {
-    const url = new URL("https://rule34.xxx/index.php");
-    url.searchParams.set("page", "post");
-    url.searchParams.set("s", "list");
-    url.searchParams.set("pid", `${(page - 1) * 42}`);
-    tags && url.searchParams.set("tags", tags);
-    const htmlResp = await fetch(url.href, { credentials: "include" });
-    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    const results = [...doc.querySelectorAll("#content .image-list .thumb")].map(async (el) => {
-      var _a2, _b2, _c2;
-      const id = el.id;
-      const img = el.querySelector("img");
-      const imgSrc = (img == null ? void 0 : img.src) || "";
-      const postView = (_a2 = el.querySelector("a")) == null ? void 0 : _a2.href;
-      const { width, height } = await getImageSize(imgSrc);
-      const tags2 = img == null ? void 0 : img.title.split(/\s+/).filter(Boolean);
-      const isVideo = ["mp4", "video"].some((e) => tags2 == null ? void 0 : tags2.includes(e));
-      const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.mp4").replace("https://wimg.", "https://api-cdn-mp4.");
-      const rating = (_b2 = img == null ? void 0 : img.title.match(/rating\:(\w)/)) == null ? void 0 : _b2[1];
-      const score = (_c2 = img == null ? void 0 : img.title.match(/score\:(\d+)/)) == null ? void 0 : _c2[1];
-      if (el.querySelector(".blacklist-img")) {
-        return null;
+  const booruAction = {
+    is: isBooruSite,
+    posts: async (page, tags) => {
+      if (settings.isHoldsFalse)
+        tags = `holds:false ${tags || ""}`.trim();
+      const results = await searchBooru(page, tags);
+      if (rule34.is()) {
+        results.forEach((e) => {
+          const re = /api-cdn[^.]*\./;
+          if (e.previewUrl)
+            e.previewUrl = e.previewUrl.replace(re, "");
+          if (e.sampleUrl)
+            e.sampleUrl = e.sampleUrl.replace(re, "");
+          if (e.fileUrl)
+            e.fileUrl = e.fileUrl.replace(re, "");
+        });
       }
-      return {
-        id,
-        postView,
-        previewUrl: imgSrc,
-        sampleUrl: isVideo ? videoUrl : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, "$1samples$2sample_$3"),
-        fileUrl: isVideo ? videoUrl.replace(/\?\d+$/, "") : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.jpeg").replace(/\?\d+$/, ""),
-        tags: tags2,
-        width: width * 10,
-        height: height * 10,
-        aspectRatio: width / height,
-        fileExt: isVideo ? "mp4" : "jpg",
-        fileDownloadName: `rule34_xxx_${id}`,
-        rating,
-        score
-      };
-    });
-    const posts = await Promise.all(results);
-    return posts.filter(Boolean);
+      if (location.hostname == "xbooru.com") {
+        results.forEach((e) => {
+          const args = [/api-cdn(-mp4)?\.rule34\.xxx/, "xbooru.com"];
+          if (e.previewUrl)
+            e.previewUrl = e.previewUrl.replace(...args);
+          if (e.sampleUrl)
+            e.sampleUrl = e.sampleUrl.replace(...args);
+          if (e.fileUrl)
+            e.fileUrl = e.fileUrl.replace(...args);
+        });
+      }
+      return results;
+    }
+  };
+  function isEshuushuuPage() {
+    return location.hostname == "e-shuushuu.net";
   }
-  async function fetchRule34Favorites(page) {
-    const url = new URL(location.href);
-    url.searchParams.set("pid", `${(page - 1) * 50}`);
+  async function fetchEshuushuuPosts(page) {
+    const url = new URL("https://e-shuushuu.net");
+    url.searchParams.set("page", page.toString());
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    const results = [...doc.querySelectorAll("#content .image-list .thumb")].map(async (el) => {
-      var _a2, _b2;
+    const results = [...doc.querySelectorAll("#content .image_thread")].map((el) => {
+      var _a2, _b, _c, _d, _e, _f, _g;
+      const id = (_a2 = el.getAttribute("id")) == null ? void 0 : _a2.slice(1);
+      const fileUrl = (_b = el.querySelector(".thumb_image")) == null ? void 0 : _b.href;
+      const fileExt = fileUrl == null ? void 0 : fileUrl.split(".").pop();
+      const tags = [...el.querySelectorAll(".quicktag")].map((e) => e.innerText.replace(/[\t\n]/g, "")).join("").split('"').filter((e) => e.trim()).map((e) => e.replace(/\s/g, "_"));
+      const [_, width, height] = ((_c = el.querySelector(".meta dl dd:nth-child(8)")) == null ? void 0 : _c.innerText.match(/(\d+)x(\d+)/)) || [];
+      const date = (_d = el.querySelector(".meta dl dd:nth-child(4)")) == null ? void 0 : _d.innerText;
+      return {
+        id,
+        postView: (_e = el.querySelector(".title a")) == null ? void 0 : _e.href,
+        previewUrl: (_f = el.querySelector(".thumb_image img")) == null ? void 0 : _f.src,
+        fileUrl,
+        tags,
+        width: Number(width),
+        height: Number(height),
+        aspectRatio: Number(width) / Number(height),
+        fileExt,
+        fileDownloadName: `e-shuushuu ${id} ${tags.join(" ")}.${fileExt}`,
+        fileDownloadText: `${width}\xD7${height} [${(_g = el.querySelector(".meta dl dd:nth-child(6)")) == null ? void 0 : _g.innerText.replace(/[\t\n]/g, "")}] ${fileExt == null ? void 0 : fileExt.toUpperCase()}`,
+        rating: "",
+        createdAt: date && parse(date, "MMMM do, yyyy h:mm a", new Date())
+      };
+    });
+    return results;
+  }
+  const eshuushuu = {
+    is: isEshuushuuPage,
+    posts: fetchEshuushuuPosts
+  };
+  function isGelbooruFavPage() {
+    return /gelbooru\.com\/index\.php\?page\=favorites\&s\=view/.test(location.href);
+  }
+  function isGelbooruPage() {
+    return /gelbooru\.com\/index\.php\?page\=post\&s\=list/.test(location.href) && !settings.credentialQuery;
+  }
+  async function fetchGelbooruPosts(page) {
+    const url = new URL(location.href);
+    url.searchParams.set("pid", `${(page - 1) * 42}`);
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const results = [...doc.querySelectorAll(".thumbnail-container .thumbnail-preview")].map(async (el) => {
+      var _a2, _b, _c, _d;
       const img = el.querySelector("img");
       const imgSrc = (img == null ? void 0 : img.src) || "";
       const postView = (_a2 = el.querySelector("a")) == null ? void 0 : _a2.href;
-      const id = (_b2 = postView == null ? void 0 : postView.match(/id=(\d+)/)) == null ? void 0 : _b2[1];
+      const id = (_b = postView == null ? void 0 : postView.match(/id=(\d+)/)) == null ? void 0 : _b[1];
       const { width, height } = await getImageSize(imgSrc);
       const tags = img == null ? void 0 : img.title.split(/\s+/).filter(Boolean);
-      const isVideo = ["mp4", "animated", "video"].some((e) => tags == null ? void 0 : tags.includes(e));
-      const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.mp4").replace("https://wimg.", "https://api-cdn-mp4.");
+      const isGif = ["animated_gif", "gif"].some((e) => tags == null ? void 0 : tags.includes(e));
+      const isVideo = ["mp4", "video"].some((e) => tags == null ? void 0 : tags.includes(e));
+      let rating = (_d = (_c = img == null ? void 0 : img.title) == null ? void 0 : _c.match(/rating:(\w)\w+/)) == null ? void 0 : _d[1];
+      if (rating == "g")
+        rating = "s";
       return {
         id,
         postView,
         previewUrl: imgSrc,
-        sampleUrl: isVideo ? videoUrl : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, "$1samples$2sample_$3"),
-        fileUrl: isVideo ? videoUrl.replace(/\?\d+$/, "") : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.jpeg").replace(/\?\d+$/, ""),
+        sampleUrl: isVideo ? imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.mp4") : isGif ? imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.gif") : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, "$1samples$2sample_$3"),
+        fileUrl: isVideo ? imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.webm") : isGif ? imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.gif") : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.jpg"),
         tags,
         width: width * 10,
         height: height * 10,
         aspectRatio: width / height,
-        fileExt: isVideo ? "mp4" : "jpg",
-        fileDownloadName: `rule34_xxx_${id}`,
-        rating: ""
+        fileExt: isVideo ? "webm" : isGif ? "gif" : "jpg",
+        fileDownloadName: `gelbooru_${id}`,
+        rating: rating || ""
       };
     });
-    const list = await Promise.all(results);
-    list.__isR34Fav = true;
-    return list;
+    return Promise.all(results);
   }
-  async function addFavoriteRule34(id) {
-    var _a2;
-    const _id = ((_a2 = id.match(/(\d+)/)) == null ? void 0 : _a2[1]) || id;
-    const response = await fetch(`https://rule34.xxx/public/addfav.php?id=${_id}`);
+  async function fetchGelbooruFavorites(page) {
+    const url = new URL(location.href);
+    url.searchParams.set("pid", `${(page - 1) * 50}`);
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const results = [...doc.querySelectorAll(".thumb")].map(async (el) => {
+      var _a2, _b, _c, _d;
+      const img = el.querySelector("img");
+      const imgSrc = (img == null ? void 0 : img.src) || "";
+      const postView = (_a2 = el.querySelector("a")) == null ? void 0 : _a2.href;
+      const id = (_b = postView == null ? void 0 : postView.match(/id=(\d+)/)) == null ? void 0 : _b[1];
+      const { width, height } = await getImageSize(imgSrc);
+      const tags = img == null ? void 0 : img.title.split(/\s+/).filter(Boolean);
+      const isGif = ["animated_gif", "gif"].some((e) => tags == null ? void 0 : tags.includes(e));
+      const isVideo = ["mp4", "video"].some((e) => tags == null ? void 0 : tags.includes(e));
+      let rating = (_d = (_c = img == null ? void 0 : img.title) == null ? void 0 : _c.match(/rating:(\w)\w+/)) == null ? void 0 : _d[1];
+      if (rating == "g")
+        rating = "s";
+      return {
+        id,
+        postView,
+        previewUrl: imgSrc,
+        sampleUrl: isVideo ? imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.mp4") : isGif ? imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.gif") : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, "$1samples$2sample_$3"),
+        fileUrl: isVideo ? imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.webm") : isGif ? imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.gif") : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.jpg"),
+        tags,
+        width: width * 10,
+        height: height * 10,
+        aspectRatio: width / height,
+        fileExt: isVideo ? "webm" : isGif ? "gif" : "jpg",
+        fileDownloadName: `gelbooru_${id}`,
+        rating: rating || ""
+      };
+    });
+    return Promise.all(results);
+  }
+  async function addFavoriteGelbooru(id) {
+    const response = await fetch(`https://gelbooru.com/public/addfav.php?id=${id}`);
     if (!response.ok) {
       showMsg({ msg: `${i18n.t("MWVfUiW8egLWq7MgV-wzc")}: ${response.status}`, type: "error" });
       return false;
@@ -6648,28 +6970,48 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return false;
     }
   }
-  function isAllGirlPage() {
-    return location.hostname == "allgirl.booru.org";
+  const gelbooru = {
+    is: isGelbooruPage,
+    posts: fetchGelbooruPosts,
+    fav: {
+      is: isGelbooruFavPage,
+      posts: fetchGelbooruFavorites
+    }
+  };
+  function isHentaiBooruPage() {
+    return location.hostname == "booru.eu";
   }
-  async function fetchAllGirlPosts(page, tags) {
-    const url = new URL("https://allgirl.booru.org/index.php");
-    url.searchParams.set("page", "post");
-    url.searchParams.set("s", "list");
-    url.searchParams.set("pid", `${(page - 1) * 20}`);
-    tags && url.searchParams.set("tags", tags);
-    const htmlResp = await fetch(url.href);
+  async function fetchHentaiBooruPosts(page, tags) {
+    document.onclick = function() {
+    };
+    document.onmouseup = function() {
+    };
+    document.onclick_copy = function() {
+    };
+    unsafeWindow.show_pop = function() {
+    };
+    unsafeWindow.open = function(url2) {
+      const a = document.createElement("a");
+      a.href = url2;
+      a.target = "_blank";
+      a.rel = "noreferrer";
+      a.click();
+    };
+    const url = `https://booru.eu/post/list${tags ? `/${tags}` : ""}/${page}`;
+    const htmlResp = await fetch(url);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    const results = [...doc.querySelectorAll(".content .thumb")].map(async (el) => {
+    const results = [...doc.querySelectorAll(".shm-image-list span.thumb")].map((el) => {
       var _a2;
       const a = el.querySelector("a");
       const img = el.querySelector("img");
-      const id = (_a2 = a.getAttribute("id")) == null ? void 0 : _a2.slice(1);
+      const id = a == null ? void 0 : a.getAttribute("data-post-id");
       const previewUrl = img.src;
-      const { width, height } = await getImageSize(previewUrl);
-      const tags2 = img.title.split(/\s/).filter(Boolean);
+      const tags2 = ((_a2 = a == null ? void 0 : a.getAttribute("data-tags")) == null ? void 0 : _a2.split(/\s/).filter(Boolean)) || [];
+      const [_, width, height] = (img == null ? void 0 : img.title.match(/\/\/\s+(\d+)x(\d+)\s+\/\//)) || [];
+      const [__, size] = (img == null ? void 0 : img.title.match(/\/\/\s+\d+x\d+\s+\/\/\s+([\w\.]+)/)) || [];
       return {
         id,
-        postView: a.href,
+        postView: a == null ? void 0 : a.href,
         previewUrl,
         fileUrl: "",
         tags: tags2,
@@ -6677,20 +7019,283 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         height: Number(height),
         aspectRatio: Number(width) / Number(height),
         fileExt: "jpg",
-        fileDownloadName: `allgirl ${id} ${tags2.join(" ")}`,
-        rating: img.title.includes("rating:Safe") ? "s" : "e"
+        fileDownloadName: `HentaiBooru ${id} ${tags2.join(" ")}`,
+        fileDownloadText: `${width}\xD7${height} [${size}]`,
+        rating: ""
+      };
+    });
+    return results;
+  }
+  async function getHentaiBooruDetail(id) {
+    var _a2;
+    const resp = await fetch(`https://booru.eu/post/view/${id}`);
+    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
+    return {
+      fileUrl: (_a2 = doc.querySelector("#main_image")) == null ? void 0 : _a2.src
+    };
+  }
+  const hentaibooru = {
+    is: isHentaiBooruPage,
+    posts: fetchHentaiBooruPosts,
+    detail: getHentaiBooruDetail
+  };
+  function isKusowankaPage() {
+    return location.hostname == "kusowanka.com";
+  }
+  async function fetchKusowankaPosts(page, tags) {
+    const url = new URL(`https://kusowanka.com${tags ? `/tag/${tags}/` : ""}`);
+    url.searchParams.set("page", `${page}`);
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const results = [...doc.querySelectorAll(".box_thumbs .box_thumb")].map(async (el) => {
+      var _a2;
+      const a = el.querySelector("a");
+      const img = el.querySelector("[data-bg]");
+      const id = (_a2 = a.href.match(/(\d+)/)) == null ? void 0 : _a2[1];
+      const previewUrl = img.getAttribute("data-bg");
+      const { width, height } = await getImageSize(previewUrl);
+      return {
+        id,
+        postView: a.href,
+        previewUrl,
+        fileUrl: "",
+        tags: [],
+        width: Number(width),
+        height: Number(height),
+        aspectRatio: Number(width) / Number(height),
+        fileExt: "jpg",
+        fileDownloadName: `kusowanka_${id}`,
+        rating: ""
       };
     });
     return Promise.all(results);
   }
-  async function getAllGirlDetail(id) {
+  async function getKusowankaDetail(id) {
     var _a2;
-    const resp = await fetch(`https://allgirl.booru.org/index.php?page=post&s=view&id=${id}`);
+    const resp = await fetch(`https://kusowanka.com/post/${id}/`);
     const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
     return {
-      fileUrl: (_a2 = doc.querySelector("#image")) == null ? void 0 : _a2.src
+      fileUrl: (_a2 = doc.querySelector(".post_image img")) == null ? void 0 : _a2.getAttribute("data-src"),
+      tags: [
+        ...[...doc.querySelectorAll(".parodies_list a")].map((e) => e.innerText),
+        ...[...doc.querySelectorAll(".characters_list a")].map((e) => e.innerText),
+        ...[...doc.querySelectorAll(".artists_list a")].map((e) => e.innerText),
+        ...[...doc.querySelectorAll(".metadatas_list a")].map((e) => e.innerText),
+        ...[...doc.querySelectorAll(".tags_list a")].map((e) => e.innerText)
+      ]
     };
   }
+  const kusowanka = {
+    is: isKusowankaPage,
+    posts: fetchKusowankaPosts,
+    detail: getKusowankaDetail
+  };
+  function getYandereUserId() {
+    const match2 = document.cookie.match(/user_id=(\d+)/);
+    return match2 == null ? void 0 : match2[1];
+  }
+  function getKonachanUsername() {
+    const match2 = document.cookie.match(/login=(\w+)/);
+    return match2 == null ? void 0 : match2[1];
+  }
+  let _moebooruUserName;
+  async function getUsername() {
+    try {
+      if (_moebooruUserName)
+        return _moebooruUserName;
+      if (location.href.includes("konachan")) {
+        _moebooruUserName = getKonachanUsername();
+        return _moebooruUserName;
+      }
+      const key = "YM_moebooru_username";
+      const username = localStorage.getItem(key);
+      _moebooruUserName = username;
+      if (username)
+        return username;
+      const id = getYandereUserId();
+      if (!id)
+        return "";
+      const response = await fetch(`/user.json?id=${id}`);
+      const result = await response.json();
+      const { name } = result[0];
+      localStorage.setItem(key, name);
+      return name;
+    } catch (error) {
+      console.log("getUsername error:", error);
+      return "";
+    }
+  }
+  const tagInfoMap = {
+    circle: [i18n.t("ZtQHZx-pEjmu_o3dQD1fc"), "#26C6DA"],
+    artist: [i18n.t("Ym0HIEu9Q80qXB31LuC6c"), "#FB8C00"],
+    copyright: [i18n.t("juT6gwLOg5r1h2vFpFf6P"), "#AB47BC"],
+    character: [i18n.t("aonlPAu9kEkkwNvQg0DBk"), "#66BB6A"],
+    general: ["", "#E87A90cc"],
+    faults: ["", "#AB3B3Ada"]
+  };
+  const tagSortOrder$1 = ["circle", "artist", "copyright", "character", "general"];
+  const isCNLang$2 = i18n.locale.includes("zh");
+  async function getPostDetail(id) {
+    try {
+      if (!id)
+        return false;
+      const response = await fetch(`/post.json?api_version=2&tags=id:${id}&include_tags=1&include_votes=1`);
+      const result = await response.json();
+      return {
+        voted: result.votes[id] == 3,
+        tags: Object.entries(result.tags).map(([tag2, type]) => {
+          var _a2, _b, _c;
+          const tagCN = (_a2 = window.__tagsCN) == null ? void 0 : _a2[tag2];
+          const typeText = (_b = tagInfoMap[type]) == null ? void 0 : _b[0];
+          const tagText = [
+            typeText && `[ ${typeText} ] `,
+            tag2,
+            isCNLang$2 && tagCN && ` [ ${tagCN} ]`
+          ].filter(Boolean).join("");
+          return {
+            tag: tag2,
+            type,
+            tagText,
+            color: ((_c = tagInfoMap[type]) == null ? void 0 : _c[1]) || tagInfoMap.general[1]
+          };
+        }).sort((a, b) => {
+          return tagSortOrder$1.indexOf(a.type) - tagSortOrder$1.indexOf(b.type);
+        })
+      };
+    } catch (error) {
+      console.log("getPostDetail error:", error);
+      return false;
+    }
+  }
+  async function addPostToFavorites$1(id) {
+    var _a2;
+    const form = new FormData();
+    form.append("id", id);
+    form.append("score", "3");
+    const response = await fetch("/post/vote.json", {
+      method: "POST",
+      headers: { "x-csrf-token": (_a2 = sessionStorage.getItem("csrf-token")) != null ? _a2 : "" },
+      body: form
+    });
+    if (!response.ok) {
+      showMsg({ msg: `${i18n.t("MWVfUiW8egLWq7MgV-wzc")}: ${response.status}`, type: "error" });
+      return false;
+    }
+    const result = await response.json();
+    if (result.success) {
+      showMsg({ msg: i18n.t("ctWGhVvqB2k_1TX2iY0l2").toString() });
+      return true;
+    } else {
+      showMsg({ msg: `${i18n.t("MWVfUiW8egLWq7MgV-wzc")}: ${result.reason}`, type: "error" });
+      return false;
+    }
+  }
+  function isPopularPage() {
+    return /(yande.re|konachan).*\/post\/popular_/.test(location.href);
+  }
+  function isPoolShowPage() {
+    return /(yande.re|konachan).*\/pool\/show/.test(location.href);
+  }
+  async function fetchPostsByPath(postsKey, page) {
+    const url = new URL(location.href);
+    url.pathname += ".json";
+    page && url.searchParams.set("page", page.toString());
+    const response = await fetch(url);
+    const result = await response.json();
+    const site = booruForSite(location.host);
+    const results = postsKey ? result[postsKey] : result;
+    const posts = results.map((e) => new Post(e, site));
+    return new SearchResults(posts, [], {}, site);
+  }
+  function splitTags(tagsData, limit, searchTerm) {
+    let results = tagsData == null ? void 0 : tagsData.split(/\s+/);
+    if (searchTerm)
+      results = results.filter((e) => e.includes(searchTerm));
+    if (!Array.isArray(results))
+      return [];
+    return results.slice(0, limit).map((e) => e.split("`")[1]).filter(Boolean);
+  }
+  function getTagsString(key) {
+    var _a2;
+    return ((_a2 = window.TagCompletion) == null ? void 0 : _a2[key]) || localStorage.getItem(key) || "";
+  }
+  function searchTagsByName(searchTerm) {
+    if (!searchTerm)
+      return [];
+    return splitTags(getTagsString("tag_data"), 40, searchTerm);
+  }
+  function getRecentTags() {
+    return splitTags(getTagsString("recent_tags"), 10);
+  }
+  async function fetchPools(page, query2) {
+    const url = new URL("/pool.json", location.origin);
+    url.searchParams.set("page", page.toString() || "1");
+    query2 && url.searchParams.set("query", query2);
+    const jsonResp = await fetch(url);
+    const results = await jsonResp.json();
+    url.pathname = url.pathname.replace(".json", ".atom");
+    const xmlResp = await fetch(url);
+    const doc = new DOMParser().parseFromString(await xmlResp.text(), "text/xml");
+    const thumbMap = [...doc.querySelectorAll("entry")].reduce((acc, cur) => {
+      var _a2, _b, _c, _d;
+      const id = (_c = (_b = (_a2 = cur.querySelector("id")) == null ? void 0 : _a2.textContent) == null ? void 0 : _b.match(/Pool\/(\d+)/)) == null ? void 0 : _c[1];
+      const url2 = (_d = cur.querySelector("link[rel=enclosure]")) == null ? void 0 : _d.getAttribute("href");
+      if (id && url2)
+        acc[id] = url2;
+      return acc;
+    }, {});
+    for (const item of results) {
+      item.thumb = thumbMap[item.id];
+      item.created_at = formatDate(new Date(item.created_at));
+      item.updated_at = formatDate(new Date(item.updated_at));
+    }
+    return results;
+  }
+  function isYandereHtml() {
+    return location.hostname == "yande.re" && location.pathname == "/post" && settings.isYandereFetchByHtml;
+  }
+  async function fetchPostsByHtml(page, tags) {
+    const url = new URL(location.href);
+    url.searchParams.set("page", `${page}`);
+    tags && url.searchParams.set("tags", tags);
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const script = doc.querySelector("form:has(select[name=locale]) + script");
+    const scriptText = (script == null ? void 0 : script.innerText.trim()) || "";
+    let results = [];
+    try {
+      results = scriptText.split("\n").slice(1).map((e) => {
+        var _a2;
+        return JSON.parse(((_a2 = e.match(/Post.register\((.*)\)/)) == null ? void 0 : _a2[1]) || "[]");
+      });
+    } catch (err) {
+      console.log("err: ", err);
+    }
+    const site = booruForSite(location.host);
+    const posts = results.map((e) => new Post(e, site));
+    return new SearchResults(posts, [], {}, site);
+  }
+  const moebooru = {
+    yanderehtml: {
+      is: isYandereHtml,
+      posts: fetchPostsByHtml
+    },
+    popular: {
+      is: isPopularPage,
+      posts: async () => {
+        const results = await fetchPostsByPath();
+        store.requestStop = true;
+        return results;
+      }
+    },
+    pool: {
+      is: isPoolShowPage,
+      posts: async (page, tags) => {
+        const results = await fetchPostsByPath("posts", page);
+        return tags ? results.tagged(tags) : results;
+      }
+    }
+  };
   function isNozomiPage() {
     return location.hostname == "nozomi.la" && location.pathname == "/";
   }
@@ -6726,6 +7331,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }, 1e3);
     });
   }
+  const nozomila = {
+    is: isNozomiPage,
+    posts: fetchNozomiPosts
+  };
   const tns_per_page = 64;
   const nozomiextension = ".nozomi";
   const postdir = "post";
@@ -6823,15 +7432,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     xmlhttp.send();
   }
   function results_to_page(datas) {
-    var _a2, _b2, _c2, _d;
+    var _a2, _b, _c, _d;
     for (const d in datas) {
       const data = datas[d];
       if (!data)
         continue;
       data.tags = [
         ...((_a2 = data.artist) == null ? void 0 : _a2.map((e) => e.tag)) || [],
-        ...((_b2 = data.copyright) == null ? void 0 : _b2.map((e) => e.tag)) || [],
-        ...((_c2 = data.character) == null ? void 0 : _c2.map((e) => e.tag)) || [],
+        ...((_b = data.copyright) == null ? void 0 : _b.map((e) => e.tag)) || [],
+        ...((_c = data.character) == null ? void 0 : _c.map((e) => e.tag)) || [],
         ...((_d = data.general) == null ? void 0 : _d.map((e) => e.tag)) || []
       ];
       data.postView = `https://nozomi.la/post/${data.postid}.html`;
@@ -6845,306 +7454,95 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     resPosts = datas;
   }
-  function getFirstPageNo(params2) {
-    if (isPidSite) {
-      const page = Number(params2.get("pid")) || 0;
-      return Math.trunc(page / BOORU_PAGE_LIMIT) + 1;
-    }
-    return Number(params2.get("page")) || 1;
+  function isRule34Page() {
+    return location.hostname == "rule34.xxx";
   }
-  function pushPageState(pageNo, latePageQuery = false) {
-    if (isRule34FavPage() || isAllGirlPage() || isNozomiPage())
-      return;
-    let pageParamName = "page";
-    if (isPidSite) {
-      pageParamName = "pid";
-      pageNo = (pageNo - 1) * BOORU_PAGE_LIMIT;
-    } else if (latePageQuery && pageNo > 1) {
-      pageNo -= 1;
-    }
-    const url = new URL(location.href);
-    url.searchParams.set(pageParamName, pageNo.toString());
-    history.replaceState("", "", url);
+  function isRule34FavPage() {
+    return /rule34\.xxx\/index\.php\?page\=favorites\&s\=view/.test(location.href);
   }
-  function dealBlacklist(results) {
-    if (location.hostname == "rule34.xxx" && !results.__isR34Fav) {
-      if (getCookie("filter_ai") == "1") {
-        results = results.filter((e) => !e.tags.includes("ai_assisted") && !e.tags.includes("ai_generated"));
-      }
-      const threshold = +getCookie("post_threshold");
-      if (threshold > 0) {
-        results = results.filter((e) => e.score ? +e.score >= threshold : true);
-      }
-    }
-    if (!store.blacklist.length)
-      return results;
-    return typeof results.blacklist == "function" ? results.blacklist(store.blacklist) : results.filter((e) => {
-      const tags = e.tags.map((t) => t.toLowerCase());
-      return !store.blacklist.some((w) => tags.includes(w.toLowerCase()));
-    });
+  function isRule34Firefox() {
+    return location.hostname == "rule34.xxx" && (navigator.userAgent.includes("Firefox") || !settings.credentialQuery);
   }
-  function getYandereUserId() {
-    const match2 = document.cookie.match(/user_id=(\d+)/);
-    return match2 == null ? void 0 : match2[1];
-  }
-  function getKonachanUsername() {
-    const match2 = document.cookie.match(/login=(\w+)/);
-    return match2 == null ? void 0 : match2[1];
-  }
-  let _moebooruUserName;
-  async function getUsername() {
-    try {
-      if (_moebooruUserName)
-        return _moebooruUserName;
-      if (location.href.includes("konachan")) {
-        _moebooruUserName = getKonachanUsername();
-        return _moebooruUserName;
-      }
-      const username = localStorage.getItem("__username");
-      _moebooruUserName = username;
-      if (username)
-        return username;
-      const id = getYandereUserId();
-      if (!id)
-        return "";
-      const response = await fetch(`/user.json?id=${id}`);
-      const result = await response.json();
-      const { name } = result[0];
-      localStorage.setItem("__username", name);
-      return name;
-    } catch (error) {
-      console.log("getUsername error:", error);
-      return "";
-    }
-  }
-  const tagInfoMap = {
-    circle: [i18n.t("ZtQHZx-pEjmu_o3dQD1fc"), "#26C6DA"],
-    artist: [i18n.t("Ym0HIEu9Q80qXB31LuC6c"), "#FB8C00"],
-    copyright: [i18n.t("juT6gwLOg5r1h2vFpFf6P"), "#AB47BC"],
-    character: [i18n.t("aonlPAu9kEkkwNvQg0DBk"), "#66BB6A"],
-    general: ["", "#E87A90cc"],
-    faults: ["", "#AB3B3Ada"]
-  };
-  const tagSortOrder$1 = ["circle", "artist", "copyright", "character", "general"];
-  const isCNLang$1 = i18n.locale.includes("zh");
-  async function getPostDetail(id) {
-    try {
-      if (!id)
-        return false;
-      const response = await fetch(`/post.json?api_version=2&tags=id:${id}&include_tags=1&include_votes=1`);
-      const result = await response.json();
-      return {
-        voted: result.votes[id] == 3,
-        tags: Object.entries(result.tags).map(([tag2, type]) => {
-          var _a2, _b2, _c2;
-          const tagCN = (_a2 = window.__tagsCN) == null ? void 0 : _a2[tag2];
-          const typeText = (_b2 = tagInfoMap[type]) == null ? void 0 : _b2[0];
-          const tagText = [
-            typeText && `[ ${typeText} ] `,
-            tag2,
-            isCNLang$1 && tagCN && ` [ ${tagCN} ]`
-          ].filter(Boolean).join("");
-          return {
-            tag: tag2,
-            type,
-            tagText,
-            color: ((_c2 = tagInfoMap[type]) == null ? void 0 : _c2[1]) || tagInfoMap.general[1]
-          };
-        }).sort((a, b) => {
-          return tagSortOrder$1.indexOf(a.type) - tagSortOrder$1.indexOf(b.type);
-        })
-      };
-    } catch (error) {
-      console.log("getPostDetail error:", error);
-      return false;
-    }
-  }
-  async function addPostToFavorites$1(id) {
-    var _a2;
-    const form = new FormData();
-    form.append("id", id);
-    form.append("score", "3");
-    const response = await fetch("/post/vote.json", {
-      method: "POST",
-      headers: { "x-csrf-token": (_a2 = sessionStorage.getItem("csrf-token")) != null ? _a2 : "" },
-      body: form
-    });
-    if (!response.ok) {
-      showMsg({ msg: `${i18n.t("MWVfUiW8egLWq7MgV-wzc")}: ${response.status}`, type: "error" });
-      return false;
-    }
-    const result = await response.json();
-    if (result.success) {
-      showMsg({ msg: i18n.t("ctWGhVvqB2k_1TX2iY0l2").toString() });
-      return true;
-    } else {
-      showMsg({ msg: `${i18n.t("MWVfUiW8egLWq7MgV-wzc")}: ${result.reason}`, type: "error" });
-      return false;
-    }
-  }
-  function isPopularPage() {
-    return /(yande.re|konachan).*\/post\/popular_/.test(location.href);
-  }
-  function isPoolShowPage() {
-    return /(yande.re|konachan).*\/pool\/show/.test(location.href);
-  }
-  async function fetchPostsByPath(postsKey, page) {
-    const url = new URL(location.href);
-    url.pathname += ".json";
-    page && url.searchParams.set("page", page.toString());
-    const response = await fetch(url);
-    const result = await response.json();
-    const site = booruForSite(location.host);
-    const results = postsKey ? result[postsKey] : result;
-    const posts = results.map((e) => new Post(e, site));
-    return new SearchResults(posts, [], {}, site);
-  }
-  function splitTags(tagsData, limit, searchTerm) {
-    let results = tagsData == null ? void 0 : tagsData.split(/\s+/);
-    if (searchTerm)
-      results = results.filter((e) => e.includes(searchTerm));
-    if (!Array.isArray(results))
-      return [];
-    return results.slice(0, limit).map((e) => e.split("`")[1]).filter(Boolean);
-  }
-  function getTagsString(key) {
-    var _a2;
-    return ((_a2 = window.TagCompletion) == null ? void 0 : _a2[key]) || localStorage.getItem(key) || "";
-  }
-  function searchTagsByName(searchTerm) {
-    if (!searchTerm)
-      return [];
-    return splitTags(getTagsString("tag_data"), 40, searchTerm);
-  }
-  function getRecentTags() {
-    return splitTags(getTagsString("recent_tags"), 10);
-  }
-  async function fetchPools(page, query2) {
-    const url = new URL("/pool.json", location.origin);
-    url.searchParams.set("page", page.toString() || "1");
-    query2 && url.searchParams.set("query", query2);
-    const jsonResp = await fetch(url);
-    const results = await jsonResp.json();
-    url.pathname = url.pathname.replace(".json", ".atom");
-    const xmlResp = await fetch(url);
-    const doc = new DOMParser().parseFromString(await xmlResp.text(), "text/xml");
-    const thumbMap = [...doc.querySelectorAll("entry")].reduce((acc, cur) => {
-      var _a2, _b2, _c2, _d;
-      const id = (_c2 = (_b2 = (_a2 = cur.querySelector("id")) == null ? void 0 : _a2.textContent) == null ? void 0 : _b2.match(/Pool\/(\d+)/)) == null ? void 0 : _c2[1];
-      const url2 = (_d = cur.querySelector("link[rel=enclosure]")) == null ? void 0 : _d.getAttribute("href");
-      if (id && url2)
-        acc[id] = url2;
-      return acc;
-    }, {});
-    for (const item of results) {
-      item.thumb = thumbMap[item.id];
-      item.created_at = formatDate(new Date(item.created_at));
-      item.updated_at = formatDate(new Date(item.updated_at));
-    }
-    return results;
-  }
-  function isYandereHtml() {
-    return location.hostname == "yande.re" && location.pathname == "/post" && store.settings.isYandereFetchByHtml;
-  }
-  async function fetchPostsByHtml(page, tags) {
-    const url = new URL(location.href);
-    url.searchParams.set("page", `${page}`);
-    tags && url.searchParams.set("tags", tags);
-    const htmlResp = await fetch(url.href);
-    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    const script = doc.querySelector("form:has(select[name=locale]) + script");
-    const scriptText = (script == null ? void 0 : script.innerText.trim()) || "";
-    let results = [];
-    try {
-      results = scriptText.split("\n").slice(1).map((e) => {
-        var _a2;
-        return JSON.parse(((_a2 = e.match(/Post.register\((.*)\)/)) == null ? void 0 : _a2[1]) || "[]");
-      });
-    } catch (err) {
-      console.log("err: ", err);
-    }
-    const site = booruForSite(location.host);
-    const posts = results.map((e) => new Post(e, site));
-    return new SearchResults(posts, [], {}, site);
-  }
-  function isGelbooruFavPage() {
-    return /gelbooru\.com\/index\.php\?page\=favorites\&s\=view/.test(location.href);
-  }
-  function isGelbooruPage() {
-    return /gelbooru\.com\/index\.php\?page\=post\&s\=list/.test(location.href) && !store.settings.credentialQuery;
-  }
-  async function fetchGelbooruPosts(page) {
-    const url = new URL(location.href);
+  async function fetchRule34Posts(page, tags) {
+    const url = new URL("https://rule34.xxx/index.php");
+    url.searchParams.set("page", "post");
+    url.searchParams.set("s", "list");
     url.searchParams.set("pid", `${(page - 1) * 42}`);
-    const htmlResp = await fetch(url.href);
+    tags && url.searchParams.set("tags", tags);
+    const htmlResp = await fetch(url.href, { credentials: "include" });
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    const results = [...doc.querySelectorAll(".thumbnail-container .thumbnail-preview")].map(async (el) => {
-      var _a2, _b2, _c2, _d;
+    const results = [...doc.querySelectorAll("#content .image-list .thumb")].map(async (el) => {
+      var _a2, _b, _c;
+      const id = el.id;
       const img = el.querySelector("img");
       const imgSrc = (img == null ? void 0 : img.src) || "";
       const postView = (_a2 = el.querySelector("a")) == null ? void 0 : _a2.href;
-      const id = (_b2 = postView == null ? void 0 : postView.match(/id=(\d+)/)) == null ? void 0 : _b2[1];
       const { width, height } = await getImageSize(imgSrc);
-      const tags = img == null ? void 0 : img.title.split(/\s+/).filter(Boolean);
-      const isGif = ["animated_gif", "gif"].some((e) => tags == null ? void 0 : tags.includes(e));
-      const isVideo = ["mp4", "video"].some((e) => tags == null ? void 0 : tags.includes(e));
-      let rating = (_d = (_c2 = img == null ? void 0 : img.title) == null ? void 0 : _c2.match(/rating:(\w)\w+/)) == null ? void 0 : _d[1];
-      if (rating == "g")
-        rating = "s";
+      const tags2 = img == null ? void 0 : img.title.split(/\s+/).filter(Boolean);
+      const isVideo = ["mp4", "video"].some((e) => tags2 == null ? void 0 : tags2.includes(e));
+      const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.mp4").replace("https://wimg.", "https://api-cdn-mp4.");
+      const rating = (_b = img == null ? void 0 : img.title.match(/rating\:(\w)/)) == null ? void 0 : _b[1];
+      const score = (_c = img == null ? void 0 : img.title.match(/score\:(\d+)/)) == null ? void 0 : _c[1];
+      if (el.querySelector(".blacklist-img")) {
+        return null;
+      }
       return {
         id,
         postView,
         previewUrl: imgSrc,
-        sampleUrl: isVideo ? imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.mp4") : isGif ? imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.gif") : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, "$1samples$2sample_$3"),
-        fileUrl: isVideo ? imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.webm") : isGif ? imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.gif") : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.jpg"),
-        tags,
+        sampleUrl: isVideo ? videoUrl : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, "$1samples$2sample_$3"),
+        fileUrl: isVideo ? videoUrl.replace(/\?\d+$/, "") : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.jpeg").replace(/\?\d+$/, ""),
+        tags: tags2,
         width: width * 10,
         height: height * 10,
         aspectRatio: width / height,
-        fileExt: isVideo ? "webm" : isGif ? "gif" : "jpg",
-        fileDownloadName: `gelbooru_${id}`,
-        rating: rating || ""
+        fileExt: isVideo ? "mp4" : "jpg",
+        fileDownloadName: `rule34_xxx_${id}`,
+        rating,
+        score
       };
     });
-    return Promise.all(results);
+    const posts = await Promise.all(results);
+    return posts.filter(Boolean);
   }
-  async function fetchGelbooruFavorites(page) {
+  async function fetchRule34Favorites(page) {
     const url = new URL(location.href);
     url.searchParams.set("pid", `${(page - 1) * 50}`);
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    const results = [...doc.querySelectorAll(".thumb")].map(async (el) => {
-      var _a2, _b2, _c2, _d;
+    const results = [...doc.querySelectorAll("#content .image-list .thumb")].map(async (el) => {
+      var _a2, _b;
       const img = el.querySelector("img");
       const imgSrc = (img == null ? void 0 : img.src) || "";
       const postView = (_a2 = el.querySelector("a")) == null ? void 0 : _a2.href;
-      const id = (_b2 = postView == null ? void 0 : postView.match(/id=(\d+)/)) == null ? void 0 : _b2[1];
+      const id = (_b = postView == null ? void 0 : postView.match(/id=(\d+)/)) == null ? void 0 : _b[1];
       const { width, height } = await getImageSize(imgSrc);
       const tags = img == null ? void 0 : img.title.split(/\s+/).filter(Boolean);
-      const isGif = ["animated_gif", "gif"].some((e) => tags == null ? void 0 : tags.includes(e));
-      const isVideo = ["mp4", "video"].some((e) => tags == null ? void 0 : tags.includes(e));
-      let rating = (_d = (_c2 = img == null ? void 0 : img.title) == null ? void 0 : _c2.match(/rating:(\w)\w+/)) == null ? void 0 : _d[1];
-      if (rating == "g")
-        rating = "s";
+      const isVideo = ["mp4", "animated", "video"].some((e) => tags == null ? void 0 : tags.includes(e));
+      const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.mp4").replace("https://wimg.", "https://api-cdn-mp4.");
       return {
         id,
         postView,
         previewUrl: imgSrc,
-        sampleUrl: isVideo ? imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.mp4") : isGif ? imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.gif") : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, "$1samples$2sample_$3"),
-        fileUrl: isVideo ? imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.webm") : isGif ? imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.gif") : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.jpg"),
+        sampleUrl: isVideo ? videoUrl : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)/i, "$1samples$2sample_$3"),
+        fileUrl: isVideo ? videoUrl.replace(/\?\d+$/, "") : imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.jpeg").replace(/\?\d+$/, ""),
         tags,
         width: width * 10,
         height: height * 10,
         aspectRatio: width / height,
-        fileExt: isVideo ? "webm" : isGif ? "gif" : "jpg",
-        fileDownloadName: `gelbooru_${id}`,
-        rating: rating || ""
+        fileExt: isVideo ? "mp4" : "jpg",
+        fileDownloadName: `rule34_xxx_${id}`,
+        rating: ""
       };
     });
-    return Promise.all(results);
+    const list = await Promise.all(results);
+    list.__isR34Fav = true;
+    return list;
   }
-  async function addFavoriteGelbooru(id) {
-    const response = await fetch(`https://gelbooru.com/public/addfav.php?id=${id}`);
+  async function addFavoriteRule34(id) {
+    var _a2;
+    const _id = ((_a2 = id.match(/(\d+)/)) == null ? void 0 : _a2[1]) || id;
+    const response = await fetch(`https://rule34.xxx/public/addfav.php?id=${_id}`);
     if (!response.ok) {
       showMsg({ msg: `${i18n.t("MWVfUiW8egLWq7MgV-wzc")}: ${response.status}`, type: "error" });
       return false;
@@ -7158,332 +7556,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return false;
     }
   }
-  function isEshuushuuPage() {
-    return location.hostname == "e-shuushuu.net";
-  }
-  async function fetchEshuushuuPosts(page) {
-    const url = new URL("https://e-shuushuu.net");
-    url.searchParams.set("page", page.toString());
-    const htmlResp = await fetch(url.href);
-    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    const results = [...doc.querySelectorAll("#content .image_thread")].map((el) => {
-      var _a2, _b2, _c2, _d, _e, _f, _g;
-      const id = (_a2 = el.getAttribute("id")) == null ? void 0 : _a2.slice(1);
-      const fileUrl = (_b2 = el.querySelector(".thumb_image")) == null ? void 0 : _b2.href;
-      const fileExt = fileUrl == null ? void 0 : fileUrl.split(".").pop();
-      const tags = [...el.querySelectorAll(".quicktag")].map((e) => e.innerText.replace(/[\t\n]/g, "")).join("").split('"').filter((e) => e.trim()).map((e) => e.replace(/\s/g, "_"));
-      const [_, width, height] = ((_c2 = el.querySelector(".meta dl dd:nth-child(8)")) == null ? void 0 : _c2.innerText.match(/(\d+)x(\d+)/)) || [];
-      const date = (_d = el.querySelector(".meta dl dd:nth-child(4)")) == null ? void 0 : _d.innerText;
-      return {
-        id,
-        postView: (_e = el.querySelector(".title a")) == null ? void 0 : _e.href,
-        previewUrl: (_f = el.querySelector(".thumb_image img")) == null ? void 0 : _f.src,
-        fileUrl,
-        tags,
-        width: Number(width),
-        height: Number(height),
-        aspectRatio: Number(width) / Number(height),
-        fileExt,
-        fileDownloadName: `e-shuushuu ${id} ${tags.join(" ")}.${fileExt}`,
-        fileDownloadText: `${width}\xD7${height} [${(_g = el.querySelector(".meta dl dd:nth-child(6)")) == null ? void 0 : _g.innerText.replace(/[\t\n]/g, "")}] ${fileExt == null ? void 0 : fileExt.toUpperCase()}`,
-        rating: "",
-        createdAt: date && parse(date, "MMMM do, yyyy h:mm a", new Date())
-      };
-    });
-    return results;
-  }
-  function isZerochanPage() {
-    return location.hostname == "www.zerochan.net";
-  }
-  async function fetchZerochanPosts(page, tags) {
-    const resp = await fetch(`https://www.zerochan.net/${tags || ""}?p=${page}&json`);
-    const json = await resp.json();
-    return json.items.map((e) => {
-      const primary = escape(e.tag.replace(/\s/g, "."));
-      return {
-        id: e.id,
-        postView: `https://www.zerochan.net/${e.id}`,
-        previewUrl: e.thumbnail,
-        sampleUrl: `https://s1.zerochan.net/${primary}.600.${e.id}.jpg`,
-        fileUrl: `https://static.zerochan.net/${primary}.full.${e.id}.png`,
-        tags: e.tags,
-        width: e.width,
-        height: e.height,
-        aspectRatio: e.width / e.height,
-        fileExt: "jpg",
-        fileDownloadName: `zerochan ${e.id} ${e.tags.join(" ")}`,
-        fileDownloadText: `${e.width}\xD7${e.height}`,
-        rating: "",
-        sourceUrl: e.source
-      };
-    });
-  }
-  async function getZerochanFileUrl(id) {
-    const resp = await fetch(`https://www.zerochan.net/${id}?json`);
-    const json = await resp.json();
-    return json.full;
-  }
-  function isSankakuIdolPage() {
-    return location.hostname == "www.idolcomplex.com";
-  }
-  const pageState = { next: null };
-  async function fetchSankakuIdolPosts(page, tags) {
-    if (page == 1)
-      pageState.next = null;
-    const url = new URL("https://i.sankakuapi.com/v2/posts/keyset");
-    url.searchParams.set("lang", navigator.language || "zh-CN");
-    url.searchParams.set("default_threshold", "1");
-    url.searchParams.set("hide_posts_in_books", "in-larger-tags");
-    url.searchParams.set("limit", "40");
-    url.searchParams.set("page", `${page}`);
-    pageState.next && url.searchParams.set("next", `${pageState.next}`);
-    tags && url.searchParams.set("tags", tags);
-    const resp = await fetch(url.href, {
-      headers: {
-        "api-version": "2",
-        "client-type": "non-premium",
-        "platform": "web-app",
-        "priority": "u=1, i"
-      }
-    });
-    const json = await resp.json();
-    pageState.next = json.meta.next;
-    return json.data.filter((e) => e.preview_url).map((e) => {
-      const fileExt = e.file_ext;
-      return {
-        id: e.id,
-        postView: `https://www.idolcomplex.com/posts/${e.id}`,
-        previewUrl: e.preview_url,
-        fileUrl: "",
-        tags: e.tags.map((t) => t.name + (t.name_ja ? `[${t.name_ja}]` : "")),
-        width: e.width,
-        height: e.height,
-        aspectRatio: e.width / e.height,
-        fileExt,
-        fileDownloadName: `sankaku ${e.id} ${e.tags.join(" ")}.${fileExt}`,
-        fileDownloadText: `${e.width}\xD7${e.height} [${(e.file_size / 1e3).toFixed(0)} kB] ${fileExt.toUpperCase()}`,
-        rating: e.rating,
-        createdAt: e.created_at.s * 1e3
-      };
-    });
-  }
-  async function getSankakuIdolDetail(id) {
-    const resp = await fetch(`https://i.sankakuapi.com/posts/${id}/fu?lang=${navigator.language || "zh-CN"}`, {
-      headers: {
-        "api-version": "2",
-        "client-type": "non-premium",
-        "platform": "web-app",
-        "priority": "u=1, i"
-      }
-    });
-    const json = await resp.json();
-    return {
-      sampleUrl: json.data.sample_url,
-      fileUrl: json.data.file_url
-    };
-  }
-  function isSankakuComplexPage() {
-    return location.hostname == "chan.sankakucomplex.com";
-  }
-  const state = {
-    base: "https://chan.sankakucomplex.com/cn/posts?auto_page=t",
-    nextUrl: null
-  };
-  const ratingMap = {
-    "G": "s",
-    "R15+": "q",
-    "R18+": "e"
-  };
-  async function fetchSankakuComplexPosts(page, tags) {
-    var _a2, _b2;
-    const w = unsafeWindow;
-    w.$.ajax = () => {
-    };
-    w.jQuery.ajax = () => {
-    };
-    if (page == 1) {
-      state.nextUrl = null;
-      document.documentElement.scrollTop = 0;
+  const rule34 = {
+    is: isRule34Page,
+    fav: {
+      is: isRule34FavPage,
+      posts: fetchRule34Favorites
+    },
+    firefox: {
+      is: isRule34Firefox,
+      posts: fetchRule34Posts
     }
-    const url = new URL(state.nextUrl ? `https://chan.sankakucomplex.com${state.nextUrl}` : state.base);
-    url.searchParams.set("auto_page", "t");
-    url.searchParams.set("page", `${page}`);
-    !state.nextUrl && tags && url.searchParams.set("tags", tags);
-    const htmlResp = await fetch(url.href);
-    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    state.nextUrl = (_b2 = (_a2 = doc.querySelector("body > div[next-page-url]")) == null ? void 0 : _a2.getAttribute("next-page-url")) == null ? void 0 : _b2.replace(/amp;/g, "");
-    const results = [...doc.querySelectorAll(".post-gallery .post-preview")].map((el) => {
-      var _a3;
-      const id = el.getAttribute("data-id");
-      const img = el.querySelector("img");
-      const tagsText = (img == null ? void 0 : img.getAttribute("data-auto_page")) || "";
-      const tagsArr = tagsText.split(/\s/) || [];
-      const [_, width, height] = tagsText.match(/Size:(\d+)x(\d+)/) || [];
-      const [__, ratingText] = tagsText.match(/Rating:(\S+)/) || [];
-      return {
-        id,
-        postView: (_a3 = el.querySelector("a")) == null ? void 0 : _a3.href,
-        previewUrl: img == null ? void 0 : img.src,
-        fileUrl: "",
-        tags: tagsArr,
-        width: Number(width),
-        height: Number(height),
-        aspectRatio: Number(width) / Number(height),
-        fileExt: el.querySelector(".animated_details") ? "mp4" : "jpg",
-        fileDownloadName: `sankaku-complex ${id} ${tagsArr.join(" ")}`,
-        fileDownloadText: `${width}\xD7${height}`,
-        rating: ratingMap[ratingText] || ratingText
-      };
-    });
-    return results;
-  }
-  async function getSankakuComplexDetail(id) {
-    var _a2, _b2, _c2;
-    const url = new URL(`https://chan.sankakucomplex.com/cn/posts/${id}`);
-    const htmlResp = await fetch(url.href);
-    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    const imgSrc = (_a2 = doc.querySelector("#post-content img")) == null ? void 0 : _a2.src;
-    const fileUrl = (_b2 = doc.querySelector("#post-content a")) == null ? void 0 : _b2.href;
-    const videoSrc = (_c2 = doc.querySelector("#post-content video")) == null ? void 0 : _c2.src;
-    return {
-      sampleUrl: imgSrc,
-      fileUrl: fileUrl || imgSrc || videoSrc
-    };
-  }
-  function isHentaiBooruPage() {
-    return location.hostname == "booru.eu";
-  }
-  async function fetchHentaiBooruPosts(page, tags) {
-    document.onclick = function() {
-    };
-    document.onmouseup = function() {
-    };
-    document.onclick_copy = function() {
-    };
-    unsafeWindow.show_pop = function() {
-    };
-    unsafeWindow.open = function(url2) {
-      const a = document.createElement("a");
-      a.href = url2;
-      a.target = "_blank";
-      a.rel = "noreferrer";
-      a.click();
-    };
-    const url = `https://booru.eu/post/list${tags ? `/${tags}` : ""}/${page}`;
-    const htmlResp = await fetch(url);
-    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    const results = [...doc.querySelectorAll(".shm-image-list span.thumb")].map((el) => {
-      var _a2;
-      const a = el.querySelector("a");
-      const img = el.querySelector("img");
-      const id = a == null ? void 0 : a.getAttribute("data-post-id");
-      const previewUrl = img.src;
-      const tags2 = ((_a2 = a == null ? void 0 : a.getAttribute("data-tags")) == null ? void 0 : _a2.split(/\s/).filter(Boolean)) || [];
-      const [_, width, height] = (img == null ? void 0 : img.title.match(/\/\/\s+(\d+)x(\d+)\s+\/\//)) || [];
-      const [__, size] = (img == null ? void 0 : img.title.match(/\/\/\s+\d+x\d+\s+\/\/\s+([\w\.]+)/)) || [];
-      return {
-        id,
-        postView: a == null ? void 0 : a.href,
-        previewUrl,
-        fileUrl: "",
-        tags: tags2,
-        width: Number(width),
-        height: Number(height),
-        aspectRatio: Number(width) / Number(height),
-        fileExt: "jpg",
-        fileDownloadName: `HentaiBooru ${id} ${tags2.join(" ")}`,
-        fileDownloadText: `${width}\xD7${height} [${size}]`,
-        rating: ""
-      };
-    });
-    return results;
-  }
-  async function getHentaiBooruDetail(id) {
-    var _a2;
-    const resp = await fetch(`https://booru.eu/post/view/${id}`);
-    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
-    return {
-      fileUrl: (_a2 = doc.querySelector("#main_image")) == null ? void 0 : _a2.src
-    };
-  }
-  function isKusowankaPage() {
-    return location.hostname == "kusowanka.com";
-  }
-  async function fetchKusowankaPosts(page, tags) {
-    const url = new URL(`https://kusowanka.com${tags ? `/tag/${tags}/` : ""}`);
-    url.searchParams.set("page", `${page}`);
-    const htmlResp = await fetch(url.href);
-    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    const results = [...doc.querySelectorAll(".box_thumbs .box_thumb")].map(async (el) => {
-      var _a2;
-      const a = el.querySelector("a");
-      const img = el.querySelector("[data-bg]");
-      const id = (_a2 = a.href.match(/(\d+)/)) == null ? void 0 : _a2[1];
-      const previewUrl = img.getAttribute("data-bg");
-      const { width, height } = await getImageSize(previewUrl);
-      return {
-        id,
-        postView: a.href,
-        previewUrl,
-        fileUrl: "",
-        tags: [],
-        width: Number(width),
-        height: Number(height),
-        aspectRatio: Number(width) / Number(height),
-        fileExt: "jpg",
-        fileDownloadName: `kusowanka_${id}`,
-        rating: ""
-      };
-    });
-    return Promise.all(results);
-  }
-  async function getKusowankaDetail(id) {
-    var _a2;
-    const resp = await fetch(`https://kusowanka.com/post/${id}/`);
-    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
-    return {
-      fileUrl: (_a2 = doc.querySelector(".post_image img")) == null ? void 0 : _a2.getAttribute("data-src"),
-      tags: [
-        ...[...doc.querySelectorAll(".parodies_list a")].map((e) => e.innerText),
-        ...[...doc.querySelectorAll(".characters_list a")].map((e) => e.innerText),
-        ...[...doc.querySelectorAll(".artists_list a")].map((e) => e.innerText),
-        ...[...doc.querySelectorAll(".metadatas_list a")].map((e) => e.innerText),
-        ...[...doc.querySelectorAll(".tags_list a")].map((e) => e.innerText)
-      ]
-    };
-  }
-  function isAnihonetwallpaperPage() {
-    return location.hostname == "anihonetwallpaper.com";
-  }
-  async function fetchAnihonetwallpaperPosts(page, tags) {
-    const htmlResp = await fetch(`https://anihonetwallpaper.com/page/${page}${tags ? `?s=${tags}` : ""}`);
-    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    const results = [...doc.querySelectorAll("main .post_box ")].map((el) => {
-      var _a2;
-      const a = el.querySelector(".posttitle a");
-      const img = el.querySelector(".thumbnail-image");
-      const id = (_a2 = a == null ? void 0 : a.href.match(/(\d+)/)) == null ? void 0 : _a2[1];
-      const previewUrl = img == null ? void 0 : img.getAttribute("data-src");
-      const width = img == null ? void 0 : img.getAttribute("width");
-      const height = img == null ? void 0 : img.getAttribute("height");
-      const tags2 = [...el.querySelectorAll(".itiran a[rel*=tag]")].map((e) => e.innerText);
-      const fileUrl = (previewUrl == null ? void 0 : previewUrl.includes("wp.com")) ? previewUrl.replace(/i\d\.wp\.com\//, "").replace(/\?fit\=\d+\,\d+/, "") : previewUrl == null ? void 0 : previewUrl.replace(/\-\d+x\d+\.(jpg|jpeg|png|webp)/, ".$1");
-      return {
-        id,
-        postView: a == null ? void 0 : a.href,
-        previewUrl,
-        fileUrl,
-        tags: tags2,
-        width: Number(width),
-        height: Number(height),
-        aspectRatio: Number(width) / Number(height),
-        fileExt: "jpg",
-        fileDownloadName: `Anihonetwallpaper_${id}`,
-        rating: ""
-      };
-    });
-    return results;
-  }
+  };
   function isR34PahealPage() {
     return location.hostname == "rule34.paheal.net" && location.pathname != "/";
   }
@@ -7510,7 +7593,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const htmlResp = await fetch(url);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const results = [...doc.querySelectorAll(".shm-image-list .shm-thumb.thumb")].map((el) => {
-      var _a2, _b2, _c2;
+      var _a2, _b, _c;
       const id = el.getAttribute("data-post-id");
       const fileExt = el.getAttribute("data-ext");
       const tags2 = ((_a2 = el.getAttribute("data-tags")) == null ? void 0 : _a2.split(/\s/).filter(Boolean)) || [];
@@ -7520,9 +7603,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const date = img == null ? void 0 : img.title.split("\n").pop();
       return {
         id,
-        postView: (_b2 = el.querySelector(".shm-thumb-link")) == null ? void 0 : _b2.href,
+        postView: (_b = el.querySelector(".shm-thumb-link")) == null ? void 0 : _b.href,
         previewUrl: img == null ? void 0 : img.src,
-        fileUrl: (_c2 = el.querySelector(".shm-thumb-link + br + a")) == null ? void 0 : _c2.href,
+        fileUrl: (_c = el.querySelector(".shm-thumb-link + br + a")) == null ? void 0 : _c.href,
         tags: tags2,
         width: Number(width),
         height: Number(height),
@@ -7536,6 +7619,54 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     });
     return results;
   }
+  const r34paheal = {
+    is: isR34PahealPage,
+    posts: fetchR34PahealPosts
+  };
+  function isRealbooruPage() {
+    return location.hostname == "realbooru.com";
+  }
+  async function fetchRealbooruPosts(page, tags) {
+    const url = new URL("https://realbooru.com/index.php");
+    url.searchParams.set("page", "post");
+    url.searchParams.set("s", "list");
+    url.searchParams.set("pid", `${(page - 1) * 42}`);
+    tags && url.searchParams.set("tags", tags);
+    const htmlResp = await fetch(url.href);
+    const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
+    const results = [...doc.querySelectorAll(".content .thumb")].map(async (el) => {
+      var _a2;
+      const a = el.querySelector("a");
+      const img = el.querySelector("img");
+      const id = (_a2 = a.getAttribute("id")) == null ? void 0 : _a2.slice(1);
+      const previewUrl = img.src;
+      const { width, height } = await getImageSize(previewUrl);
+      const tags2 = img.title.split(/,\s+/).filter(Boolean);
+      const isGif = tags2.includes("gif");
+      const isVideo = (img == null ? void 0 : img.style.border.includes("rgb(0, 0, 255)")) || (img == null ? void 0 : img.style.border.includes("#0000ff"));
+      const replaceSampleExt = isGif ? "$1images$2$3.gif" : isVideo ? "$1images$2$3.webm" : "$1samples$2sample_$3.jpg";
+      const replaceFileExt = isGif ? "$1images$2$3.gif" : isVideo ? "$1images$2$3.mp4" : "$1images$2$3.jpeg";
+      return {
+        id,
+        postView: a.href,
+        previewUrl,
+        sampleUrl: previewUrl.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg$/i, replaceSampleExt),
+        fileUrl: previewUrl.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, replaceFileExt),
+        tags: tags2,
+        width: Number(width) * 10,
+        height: Number(height) * 10,
+        aspectRatio: Number(width) / Number(height),
+        fileExt: isGif ? "gif" : isVideo ? "mp4" : "jpg",
+        fileDownloadName: `realbooru_${id}`,
+        rating: "e"
+      };
+    });
+    return Promise.all(results);
+  }
+  const realbooru = {
+    is: isRealbooruPage,
+    posts: fetchRealbooruPosts
+  };
   function isRule34HentaiPage() {
     return location.hostname == "rule34hentai.net";
   }
@@ -7581,6 +7712,137 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     });
     return results;
   }
+  const rule34hentai = {
+    is: isRule34HentaiPage,
+    posts: fetchRule34HentaiPosts
+  };
+  function isZerochanPage() {
+    return location.hostname == "www.zerochan.net";
+  }
+  let isChallengePass = false;
+  function openApiWindow() {
+    return new Promise((resolve) => {
+      const win = window.open("https://www.zerochan.net/?p=1&json", "", "width=500,height=500");
+      win == null ? void 0 : win.addEventListener("load", () => {
+        isChallengePass = true;
+        win.close();
+        resolve();
+      });
+      setTimeout(() => {
+        if (!isChallengePass) {
+          win == null ? void 0 : win.close();
+          resolve();
+        }
+      }, 5e3);
+    });
+  }
+  async function fetchZerochanPosts(page, tags) {
+    if (!isChallengePass) {
+      await openApiWindow();
+    }
+    const resp = await fetch(`https://www.zerochan.net/${tags || ""}?p=${page}&json`);
+    const json = await resp.json();
+    return json.items.map((e) => {
+      const primary = escape(e.tag.replace(/\s/g, "."));
+      return {
+        id: e.id,
+        postView: `https://www.zerochan.net/${e.id}`,
+        previewUrl: e.thumbnail,
+        sampleUrl: `https://s1.zerochan.net/${primary}.600.${e.id}.jpg`,
+        fileUrl: `https://static.zerochan.net/${primary}.full.${e.id}.png`,
+        tags: e.tags,
+        width: e.width,
+        height: e.height,
+        aspectRatio: e.width / e.height,
+        fileExt: "jpg",
+        fileDownloadName: `zerochan ${e.id} ${e.tags.join(" ")}`,
+        fileDownloadText: `${e.width}\xD7${e.height}`,
+        rating: "",
+        sourceUrl: e.source
+      };
+    });
+  }
+  async function getZerochanFileUrl(id) {
+    const resp = await fetch(`https://www.zerochan.net/${id}?json`);
+    const json = await resp.json();
+    return json.full;
+  }
+  const zerochan = {
+    is: isZerochanPage,
+    posts: fetchZerochanPosts
+  };
+  const fetchPostsActions = [
+    moebooru.popular,
+    moebooru.pool,
+    moebooru.yanderehtml,
+    gelbooru,
+    gelbooru.fav,
+    rule34.fav,
+    rule34.firefox,
+    r34paheal,
+    booruAction,
+    eshuushuu,
+    zerochan,
+    animepictures,
+    allgirl,
+    hentaibooru,
+    kusowanka,
+    anihonetwallpaper,
+    nozomila,
+    sankaku.idol,
+    sankaku,
+    sankaku.complex,
+    realbooru,
+    rule34hentai,
+    { is: () => true, posts: async () => [] }
+  ];
+  const fetchDetailActions = [
+    animepictures,
+    sankaku.idol,
+    sankaku,
+    sankaku.complex,
+    allgirl,
+    hentaibooru,
+    kusowanka
+  ];
+  function getFirstPageNo(params2) {
+    if (isPidSite()) {
+      const page = Number(params2.get("pid")) || 0;
+      return Math.trunc(page / BOORU_PAGE_LIMIT) + 1;
+    }
+    return Number(params2.get("page")) || 1;
+  }
+  function pushPageState(pageNo, latePageQuery = false) {
+    if (rule34.fav.is() || allgirl.is() || nozomila.is())
+      return;
+    let pageParamName = "page";
+    if (isPidSite()) {
+      pageParamName = "pid";
+      pageNo = (pageNo - 1) * BOORU_PAGE_LIMIT;
+    } else if (latePageQuery && pageNo > 1) {
+      pageNo -= 1;
+    }
+    const url = new URL(location.href);
+    url.searchParams.set(pageParamName, pageNo.toString());
+    history.replaceState("", "", url);
+  }
+  function handleBlacklist(results) {
+    if (rule34.is() && !results.__isR34Fav) {
+      if (getCookie("filter_ai") == "1") {
+        results = results.filter((e) => !e.tags.includes("ai_assisted") && !e.tags.includes("ai_generated"));
+      }
+      const threshold = +getCookie("post_threshold");
+      if (threshold > 0) {
+        results = results.filter((e) => e.score ? +e.score >= threshold : true);
+      }
+    }
+    if (!settings.blacklist.length)
+      return results;
+    return typeof results.blacklist == "function" ? results.blacklist(settings.blacklist) : results.filter((e) => {
+      const tags = e.tags.map((t) => t.toLowerCase());
+      return !settings.blacklist.some((w) => tags.includes(w.toLowerCase()));
+    });
+  }
   const params = new URLSearchParams(location.search);
   const query = {
     page: getFirstPageNo(params),
@@ -7589,204 +7851,18 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const getSearchState = () => query;
   const setPage = (page) => query.page = page;
   const setTags = (tags) => query.tags = tags;
-  const fetchActions = [
-    {
-      test: isPopularPage,
-      action: async () => {
-        const results = await fetchPostsByPath();
-        store.requestStop = true;
-        return results;
-      }
-    },
-    {
-      test: isPoolShowPage,
-      action: async () => {
-        const results = await fetchPostsByPath("posts", query.page);
-        return query.tags ? results.tagged(query.tags) : results;
-      }
-    },
-    {
-      test: isYandereHtml,
-      action: async () => {
-        const results = await fetchPostsByHtml(query.page, query.tags);
-        return results;
-      }
-    },
-    {
-      test: isGelbooruFavPage,
-      action: async () => {
-        const results = await fetchGelbooruFavorites(query.page);
-        return results;
-      }
-    },
-    {
-      test: isGelbooruPage,
-      action: async () => {
-        const results = await fetchGelbooruPosts(query.page);
-        return results;
-      }
-    },
-    {
-      test: isRule34FavPage,
-      action: async () => {
-        const results = await fetchRule34Favorites(query.page);
-        return results;
-      }
-    },
-    {
-      test: isRule34Firefox,
-      action: async () => {
-        const results = await fetchRule34Posts(query.page, query.tags);
-        return results;
-      }
-    },
-    {
-      test: isR34PahealPage,
-      action: async () => {
-        const results = await fetchR34PahealPosts(query.page, query.tags);
-        return results;
-      }
-    },
-    {
-      test: isBooruSite,
-      action: async () => {
-        let { tags } = query;
-        if (store.settings.isHoldsFalse)
-          tags = `holds:false ${tags || ""}`.trim();
-        const results = await searchBooru(query.page, tags);
-        if (location.hostname == "rule34.xxx") {
-          results.forEach((e) => {
-            const re = /api-cdn[^.]*\./;
-            if (e.previewUrl)
-              e.previewUrl = e.previewUrl.replace(re, "");
-            if (e.sampleUrl)
-              e.sampleUrl = e.sampleUrl.replace(re, "");
-            if (e.fileUrl)
-              e.fileUrl = e.fileUrl.replace(re, "");
-          });
-        }
-        if (location.hostname == "xbooru.com") {
-          results.forEach((e) => {
-            const args = [/api-cdn(-mp4)?\.rule34\.xxx/, "xbooru.com"];
-            if (e.previewUrl)
-              e.previewUrl = e.previewUrl.replace(...args);
-            if (e.sampleUrl)
-              e.sampleUrl = e.sampleUrl.replace(...args);
-            if (e.fileUrl)
-              e.fileUrl = e.fileUrl.replace(...args);
-          });
-        }
-        return results;
-      }
-    },
-    {
-      test: isEshuushuuPage,
-      action: async () => {
-        const results = await fetchEshuushuuPosts(query.page);
-        return results;
-      }
-    },
-    {
-      test: isZerochanPage,
-      action: async () => {
-        const results = await fetchZerochanPosts(query.page, query.tags);
-        return results;
-      }
-    },
-    {
-      test: isAnimePicturesPage,
-      action: async () => {
-        const results = await fetchAnimePicturesPosts(query.page, query.tags);
-        return results;
-      }
-    },
-    {
-      test: isAllGirlPage,
-      action: async () => {
-        const results = await fetchAllGirlPosts(query.page, query.tags);
-        return results;
-      }
-    },
-    {
-      test: isHentaiBooruPage,
-      action: async () => {
-        const results = await fetchHentaiBooruPosts(query.page, query.tags);
-        return results;
-      }
-    },
-    {
-      test: isKusowankaPage,
-      action: async () => {
-        const results = await fetchKusowankaPosts(query.page, query.tags);
-        return results;
-      }
-    },
-    {
-      test: isAnihonetwallpaperPage,
-      action: async () => {
-        const results = await fetchAnihonetwallpaperPosts(query.page, query.tags);
-        return results;
-      }
-    },
-    {
-      test: isNozomiPage,
-      action: async () => {
-        const results = await fetchNozomiPosts(query.page);
-        return results;
-      }
-    },
-    {
-      test: isSankakuIdolPage,
-      action: async () => {
-        const results = await fetchSankakuIdolPosts(query.page, query.tags);
-        return results;
-      }
-    },
-    {
-      test: isSankakuPage,
-      action: async () => {
-        const results = await fetchSankakuPosts(query.page, query.tags);
-        return results;
-      }
-    },
-    {
-      test: isSankakuComplexPage,
-      action: async () => {
-        const results = await fetchSankakuComplexPosts(query.page, query.tags);
-        return results;
-      }
-    },
-    {
-      test: isRealbooruPage,
-      action: async () => {
-        const results = await fetchRealbooruPosts(query.page, query.tags);
-        return results;
-      }
-    },
-    {
-      test: isRule34HentaiPage,
-      action: async () => {
-        const results = await fetchRule34HentaiPosts(query.page, query.tags);
-        return results;
-      }
-    },
-    {
-      test: () => true,
-      action: async () => []
-    }
-  ];
   const searchPosts = async (latePageQuery = false) => {
     var _a2;
-    store.requestState = true;
+    store.requestLoading = true;
     try {
-      let posts = await ((_a2 = fetchActions.find((e) => e.test())) == null ? void 0 : _a2.action());
+      const { page, tags } = getSearchState();
+      let posts = await ((_a2 = fetchPostsActions.find((e) => e.is())) == null ? void 0 : _a2.posts(page, tags));
       if (Array.isArray(posts) && posts.length > 0) {
-        posts = dealBlacklist(posts);
-        const { page } = getSearchState();
+        posts = handleBlacklist(posts);
         store.currentPage = page;
         store.imageList = uniqBy([
           ...store.imageList,
-          ...store.showNSFWContents ? posts : posts.filter((e) => ["s", "g"].includes(e.rating))
+          ...settings.showNSFWContents ? posts : posts.filter((e) => ["s", "g"].includes(e.rating))
         ], "id");
         pushPageState(page, latePageQuery);
         setPage(page + 1);
@@ -7796,7 +7872,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     } catch (error) {
       console.log(`fetch error: ${error}`);
     } finally {
-      store.requestState = false;
+      store.requestLoading = false;
     }
   };
   const calcFetchTimes = () => {
@@ -7807,7 +7883,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   };
   const initPosts = async () => {
     await searchPosts(true);
-    if (store.settings.masonryLayout === "virtual") {
+    if (settings.masonryLayout === "virtual") {
       document.documentElement.scrollTop = 1;
     }
     if (store.requestStop)
@@ -7838,7 +7914,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     setTags(searchTerm);
     store.imageList = [];
     searchPosts().then(() => {
-      if (store.settings.masonryLayout === "virtual") {
+      if (settings.masonryLayout === "virtual") {
         document.documentElement.scrollTop = 1;
       }
     });
@@ -7886,7 +7962,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const isOneOrMoreSelected = Vue2.computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length < store.imageList.length);
       const isAllSelected = Vue2.computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length === store.imageList.length);
       const loadingValue = Vue2.ref(0);
-      const selectAll = () => {
+      function selectAll() {
         if (isNoSelected.value || isOneOrMoreSelected.value) {
           setTimeout(() => {
             const arr = [...store.imageList];
@@ -7901,14 +7977,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
             store.selectedImageList = [];
           });
         }
-      };
-      const removeFromList = (id) => {
+      }
+      function removeFromList(id) {
         store.selectedImageList = store.selectedImageList.filter((e) => {
           if (e.loading)
             return true;
           return e.id !== id;
         });
-      };
+      }
       const tagsQuery = new URLSearchParams(location.search).get("tags");
       const searchState = Vue2.reactive({
         showInput: !!tagsQuery,
@@ -7932,12 +8008,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         searchState.searchItems = await fetchAutocomplete(lastTag);
         searchState.loading = false;
       }, 500);
-      const selectTag = (tag2) => {
+      function selectTag(tag2) {
         const termArr = searchState.searchTerm.split(/\s+/);
         searchState.searchTerm = termArr.slice(0, -1).concat(tag2).join(" ");
         searchState.showMenu = false;
         searchState.searchItems = defCompTags;
-      };
+      }
       const userName = Vue2.ref("");
       Vue2.onMounted(async () => {
         if (store.isYKSite) {
@@ -7946,14 +8022,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
             userName.value = name;
         }
       });
-      const fetchTaggedPosts = (tags) => {
+      function fetchTaggedPosts(tags) {
         const url = new URL(location.href);
         url.searchParams.set("tags", tags);
         history.pushState("", "", url);
         searchState.searchTerm = tags;
         loadPostsByTags(tags);
-      };
-      const showTagsInput = () => {
+      }
+      function showTagsInput() {
         if (searchState.showInput) {
           if (!searchState.searchTerm) {
             searchState.showInput = false;
@@ -7962,8 +8038,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         } else {
           searchState.showInput = true;
         }
-      };
-      const onSearchTermKeydown = (ev) => {
+      }
+      function onSearchTermKeydown(ev) {
         if (ev.key != "Enter")
           return;
         if (searchState.showMenu && searchState.searchItems.length) {
@@ -7977,7 +8053,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         } else {
           fetchTaggedPosts(searchState.searchTerm);
         }
-      };
+      }
       const showPopAction = Vue2.ref(isPopularPage());
       const periodMap = {
         "1d": [i18n.t("Mt3-hyoH7f_pW2gnfxyur").toString(), mdiCalendarToday, "day"],
@@ -7990,7 +8066,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         delete map["1y"];
         return map;
       })();
-      const getRecentPeriod = () => {
+      function getRecentPeriod() {
         var _a2;
         const params2 = new URLSearchParams(location.search);
         let period = params2.get("period");
@@ -7999,15 +8075,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           period = Object.keys(periodByDateMap).find((e) => periodByDateMap[e][2] == period);
         }
         return period || "1d";
-      };
-      const isPopularRecent = () => location.pathname.includes("popular_recent");
-      const getPopTitle = () => {
+      }
+      function isPopularRecent() {
+        return location.pathname.includes("popular_recent");
+      }
+      function getPopTitle() {
         var _a2;
         if (isPopularRecent()) {
           return `Popular Recent ${getRecentPeriod()}`;
         }
         return (_a2 = location.pathname.split("/").pop()) == null ? void 0 : _a2.replace(/_/g, " ").toUpperCase();
-      };
+      }
       const popTitle = Vue2.ref(getPopTitle());
       const isPopSearchByDate = Vue2.ref(!isPopularRecent());
       const recentPeriod = Vue2.ref(getRecentPeriod());
@@ -8024,7 +8102,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           return formatDate(new Date(`${y}-${m}-${d}`));
         return subDate(1, "days");
       })());
-      const fetchPopularPosts = (type) => {
+      function fetchPopularPosts(type) {
         let url = `/post/popular_recent?period=${type}`;
         if (isPopSearchByDate.value) {
           const [year, month, day] = popSearchDate.value.split("-");
@@ -8033,11 +8111,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         history.pushState("", "", url);
         popTitle.value = getPopTitle();
         refreshPosts();
-      };
-      const selPeriod = (key) => {
+      }
+      function selPeriod(key) {
         recentPeriod.value = key;
         fetchPopularPosts(key);
-      };
+      }
       Vue2.watch(popSearchDate, (val) => {
         if (!val)
           return;
@@ -8049,27 +8127,27 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           popSearchDate.value = subDate(1, "days");
         fetchPopularPosts("1d");
       });
-      const loadPrevPeriod = () => {
+      function loadPrevPeriod() {
         const duration = periodMap[recentPeriod.value][2];
         popSearchDate.value = subDate(1, `${duration}s`, new Date(popSearchDate.value));
-      };
-      const loadNextPeriod = () => {
+      }
+      function loadNextPeriod() {
         const duration = periodMap[recentPeriod.value][2];
         popSearchDate.value = addDate(1, `${duration}s`, new Date(popSearchDate.value));
-      };
-      const goToPopularPage = () => {
+      }
+      function goToPopularPage() {
         location.href = "/post/popular_recent?period=1d&_wf=1";
-      };
-      const showPool = () => {
+      }
+      function showPool() {
         store.showPostList = false;
         store.showPoolList = true;
         history.pushState("", "", "/pool");
-      };
+      }
       const poolQueryTerm = Vue2.ref("");
-      const searchPool = () => {
+      function searchPool() {
         eventBus.$emit("loadPoolsByQuery", poolQueryTerm.value);
-      };
-      const download = (url, name) => {
+      }
+      function download(url, name) {
         loadingValue.value = 0;
         return downloadFile(url, name, {
           saveAs: false,
@@ -8077,7 +8155,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
             loadingValue.value = d.loaded / d.total * 100;
           }
         });
-      };
+      }
       const downloadUrlKey = Vue2.ref("fileUrl");
       const downloadNameMap = {
         fileUrl: "fileDownloadName",
@@ -8087,7 +8165,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return downloadNameMap[downloadUrlKey.value] || "fileDownloadName";
       });
       const isGelbooru = location.host.includes("gelbooru");
-      const startDownload = async () => {
+      async function startDownload() {
         try {
           const len = store.selectedImageList.length;
           if (isGelbooru) {
@@ -8121,30 +8199,31 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           const msg = error;
           showMsg({ msg, type: "error" });
         }
-      };
+      }
       const isExportUrlDecode = Vue2.ref(true);
       const isExportUrlEncode = Vue2.ref(false);
-      const exportFileUrls = async () => {
+      async function exportFileUrls() {
         const urlText = store.selectedImageList.map((e) => {
           let url = e[downloadUrlKey.value] || e.fileUrl || "";
           if (store.isYKSite && isExportUrlDecode.value) {
             try {
               url = decodeURIComponent(url);
+              url = decodeURI(url);
             } catch (e2) {
             }
           }
           if (isExportUrlEncode.value || isZerochanPage()) {
-            url = encodeURIComponent(url);
+            url = encodeURI(url);
           }
           return url;
         }).join("\r\n");
         downloadText(urlText, "image-urls.txt");
-      };
+      }
       const vuetify = useVuetify();
-      const toggleDarkmode = () => {
+      function toggleDarkmode() {
         vuetify.theme.dark = !vuetify.theme.dark;
         localStorage.setItem("__darkmode", vuetify.theme.dark ? "dark" : "light");
-      };
+      }
       const keyActions = {
         Enter: (cur) => loadPostsByPage(cur.toString()),
         ArrowUp: (cur) => cur > 1 && keyActions.Enter(--cur),
@@ -8152,19 +8231,19 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         ArrowLeft: (cur) => keyActions.ArrowUp(cur),
         ArrowRight: (cur) => keyActions.ArrowDown(cur)
       };
-      const goToPage = (ev) => {
+      function goToPage(ev) {
         const action = keyActions[ev.key];
         if (!action)
           return;
         const input = ev.target;
         action((input == null ? void 0 : input.value) || 0);
-      };
-      const exitMasonry = () => {
+      }
+      function exitMasonry() {
         const url = new URL(location.href);
         url.searchParams.delete("_wf");
         location.assign(url);
-      };
-      const toggleFullscreen = async () => {
+      }
+      async function toggleFullscreen() {
         try {
           if (document.fullscreenElement) {
             await document.exitFullscreen();
@@ -8174,65 +8253,57 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         } catch (error) {
           console.log("toggleFullscreen error: ", error);
         }
-      };
-      const currentLang = Vue2.ref(i18n.locale);
-      const langList = [
-        { value: "zh-Hans", label: "\u7B80\u4F53\u4E2D\u6587" },
-        { value: "zh-Hant", label: "\u7E41\u9AD4\u4E2D\u6587" },
-        { value: "ja", label: "\u65E5\u672C\u8A9E" },
-        { value: "en", label: "English" }
-      ];
-      const selectLang = (val) => {
-        currentLang.value = val;
+      }
+      function selectLang(val) {
+        settings.lang = val;
         i18n.locale = val;
-        localStorage.setItem("__LANG", val);
-      };
+      }
       Vue2.onMounted(() => {
         document.addEventListener("fullscreenchange", () => {
           store.isFullscreen = !!document.fullscreenElement;
         });
       });
-      return { __sfc: true, title, isNoSelected, isOneOrMoreSelected, isAllSelected, loadingValue, selectAll, removeFromList, tagsQuery, searchState, onSearchTermInput, selectTag, userName, fetchTaggedPosts, showTagsInput, onSearchTermKeydown, showPopAction, periodMap, periodByDateMap, getRecentPeriod, isPopularRecent, getPopTitle, popTitle, isPopSearchByDate, recentPeriod, periodComputedMap, showPopDatePicker, popSearchDate, fetchPopularPosts, selPeriod, loadPrevPeriod, loadNextPeriod, goToPopularPage, showPool, poolQueryTerm, searchPool, download, downloadUrlKey, downloadNameMap, downloadNameKey, isGelbooru, startDownload, isExportUrlDecode, isExportUrlEncode, exportFileUrls, vuetify, toggleDarkmode, keyActions, goToPage, exitMasonry, toggleFullscreen, currentLang, langList, selectLang, mdiBrightness6, mdiCalendar, mdiCalendarSearch, mdiCheckUnderlineCircle, mdiCheckboxBlankOutline, mdiCheckboxIntermediate, mdiCheckboxMarked, mdiChevronLeft, mdiChevronRight, mdiCog, mdiDelete, mdiDownload, mdiFileClockOutline, mdiFire, mdiFullscreen, mdiFullscreenExit, mdiHome, mdiImageMultiple, mdiLocationExit, mdiMagnify, mdiShuffle, mdiStar, mdiTranslate, store, isSupportTagSearch, notPartialSupportSite, isSankakuSite, isZerochanPage };
+      return { __sfc: true, title, isNoSelected, isOneOrMoreSelected, isAllSelected, loadingValue, selectAll, removeFromList, tagsQuery, searchState, onSearchTermInput, selectTag, userName, fetchTaggedPosts, showTagsInput, onSearchTermKeydown, showPopAction, periodMap, periodByDateMap, getRecentPeriod, isPopularRecent, getPopTitle, popTitle, isPopSearchByDate, recentPeriod, periodComputedMap, showPopDatePicker, popSearchDate, fetchPopularPosts, selPeriod, loadPrevPeriod, loadNextPeriod, goToPopularPage, showPool, poolQueryTerm, searchPool, download, downloadUrlKey, downloadNameMap, downloadNameKey, isGelbooru, startDownload, isExportUrlDecode, isExportUrlEncode, exportFileUrls, vuetify, toggleDarkmode, keyActions, goToPage, exitMasonry, toggleFullscreen, selectLang, mdiBrightness6, mdiCalendar, mdiCalendarSearch, mdiCheckUnderlineCircle, mdiCheckboxBlankOutline, mdiCheckboxIntermediate, mdiCheckboxMarked, mdiChevronLeft, mdiChevronRight, mdiCog, mdiDelete, mdiDownload, mdiFileClockOutline, mdiFire, mdiFullscreen, mdiFullscreenExit, mdiHome, mdiImageMultiple, mdiLocationExit, mdiMagnify, mdiShuffle, mdiStar, mdiTranslate, settings, store, toggleDrawer, langList, isSupportTagSearch, notPartialSupportSite, isSankakuSite, isZerochanPage };
     }
   });
   var _sfc_render$a = function render() {
-    var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
-    return _c2("v-app-bar", { attrs: { "app": "", "dense": "", "flat": "", "elevation": 2 } }, [_c2("v-app-bar-nav-icon", { on: { "click": function($event) {
-      return _setup.store.toggleDrawer();
-    } } }), _setup.store.isYKSite && _setup.showPopAction ? _c2("div", { staticClass: "align-center", staticStyle: { "display": "flex" } }, [_c2("v-toolbar-title", { staticClass: "mr-4 hidden-md-and-down", domProps: { "textContent": _vm._s(_setup.popTitle) } }), _c2("v-switch", { staticClass: "hidden-sm-and-down", attrs: { "hide-details": "", "label": _setup.isPopSearchByDate ? _vm.$t("nd4UjZy2ILsc-iW9iu7xR") : _vm.$t("elkBQ9moOZ-KMcy5bt_Ts") }, model: { value: _setup.isPopSearchByDate, callback: function($$v) {
+    var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
+    return _c("v-app-bar", { attrs: { "app": "", "dense": "", "flat": "", "elevation": 2 } }, [_c("v-app-bar-nav-icon", { on: { "click": function($event) {
+      return _setup.toggleDrawer();
+    } } }), _setup.store.isYKSite && _setup.showPopAction ? _c("div", { staticClass: "align-center", staticStyle: { "display": "flex" } }, [_c("v-toolbar-title", { staticClass: "mr-4 hidden-md-and-down", domProps: { "textContent": _vm._s(_setup.popTitle) } }), _c("v-switch", { staticClass: "hidden-sm-and-down", attrs: { "hide-details": "", "label": _setup.isPopSearchByDate ? _vm.$t("nd4UjZy2ILsc-iW9iu7xR") : _vm.$t("elkBQ9moOZ-KMcy5bt_Ts") }, model: { value: _setup.isPopSearchByDate, callback: function($$v) {
       _setup.isPopSearchByDate = $$v;
-    }, expression: "isPopSearchByDate" } }), _c2("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "ml-4", attrs: { "small": "" } }, "v-btn", attrs, false), on), [_c2("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(_setup.mdiCalendarSearch))]), _c2("span", { staticStyle: { "margin-bottom": "2px" } }, [_vm._v(_vm._s(_setup.periodComputedMap[_setup.recentPeriod][0]))])], 1)];
-    } }], null, false, 638520899) }, [_c2("v-list", { attrs: { "dense": "" } }, _vm._l(_setup.periodComputedMap, function(val, key) {
-      return _c2("v-list-item", { key, attrs: { "dense": "" }, on: { "click": function($event) {
+    }, expression: "isPopSearchByDate" } }), _c("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "ml-4", attrs: { "small": "" } }, "v-btn", attrs, false), on), [_c("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(_setup.mdiCalendarSearch))]), _c("span", { staticStyle: { "margin-bottom": "2px" } }, [_vm._v(_vm._s(_setup.periodComputedMap[_setup.recentPeriod][0]))])], 1)];
+    } }], null, false, 638520899) }, [_c("v-list", { attrs: { "dense": "" } }, _vm._l(_setup.periodComputedMap, function(val, key) {
+      return _c("v-list-item", { key, attrs: { "dense": "" }, on: { "click": function($event) {
         return _setup.selPeriod(key);
-      } } }, [_c2("v-list-item-title", [_c2("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(val[1]))]), _c2("span", [_vm._v(_vm._s(val[0]))])], 1)], 1);
-    }), 1)], 1), _c2("v-menu", { attrs: { "close-on-content-click": false, "transition": "scale-transition", "offset-y": "", "min-width": "auto" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.isPopSearchByDate, expression: "isPopSearchByDate" }], staticClass: "ml-1 align-center hidden-sm-and-down", staticStyle: { "display": "flex", "width": "211px" } }, [_c2("v-btn", { attrs: { "icon": "" }, on: { "click": function($event) {
+      } } }, [_c("v-list-item-title", [_c("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(val[1]))]), _c("span", [_vm._v(_vm._s(val[0]))])], 1)], 1);
+    }), 1)], 1), _c("v-menu", { attrs: { "close-on-content-click": false, "transition": "scale-transition", "offset-y": "", "min-width": "auto" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.isPopSearchByDate, expression: "isPopSearchByDate" }], staticClass: "ml-1 align-center hidden-sm-and-down", staticStyle: { "display": "flex", "width": "211px" } }, [_c("v-btn", { attrs: { "icon": "" }, on: { "click": function($event) {
         return _setup.loadPrevPeriod();
-      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiChevronLeft))])], 1), _c2("v-text-field", _vm._g(_vm._b({ attrs: { "prepend-icon": _setup.mdiCalendar, "readonly": "", "hide-details": "" }, model: { value: _setup.popSearchDate, callback: function($$v) {
+      } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiChevronLeft))])], 1), _c("v-text-field", _vm._g(_vm._b({ attrs: { "prepend-icon": _setup.mdiCalendar, "readonly": "", "hide-details": "" }, model: { value: _setup.popSearchDate, callback: function($$v) {
         _setup.popSearchDate = $$v;
-      }, expression: "popSearchDate" } }, "v-text-field", attrs, false), on)), _c2("v-btn", { attrs: { "icon": "" }, on: { "click": function($event) {
+      }, expression: "popSearchDate" } }, "v-text-field", attrs, false), on)), _c("v-btn", { attrs: { "icon": "" }, on: { "click": function($event) {
         return _setup.loadNextPeriod();
-      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiChevronRight))])], 1)], 1)];
+      } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiChevronRight))])], 1)], 1)];
     } }], null, false, 996853744), model: { value: _setup.showPopDatePicker, callback: function($$v) {
       _setup.showPopDatePicker = $$v;
-    }, expression: "showPopDatePicker" } }, [_c2("v-date-picker", { attrs: { "no-title": "", "locale": "zh-cn", "weekday-format": () => "" }, on: { "input": function($event) {
+    }, expression: "showPopDatePicker" } }, [_c("v-date-picker", { attrs: { "no-title": "", "locale": "zh-cn", "weekday-format": () => "" }, on: { "input": function($event) {
       _setup.showPopDatePicker = false;
     } }, model: { value: _setup.popSearchDate, callback: function($$v) {
       _setup.popSearchDate = $$v;
-    }, expression: "popSearchDate" } })], 1), _c2("v-btn", { staticClass: "ml-3 hidden-sm-and-down", attrs: { "icon": "", "href": "/post?_wf=1" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHome))])], 1)], 1) : _setup.store.showPostList ? _c2("div", { staticClass: "align-center", staticStyle: { "display": "flex" } }, [_c2("v-toolbar-title", { staticClass: "hidden-md-and-down", domProps: { "textContent": _vm._s(_setup.title) } }), !_setup.isSankakuSite ? _c2("input", { staticClass: "ml-1 mr-2 text-center rounded", style: { width: "40px", height: "30px", border: "1px solid #bbb", color: "inherit" }, domProps: { "value": _setup.store.currentPage }, on: { "keyup": function($event) {
+    }, expression: "popSearchDate" } })], 1), _c("v-btn", { staticClass: "ml-3 hidden-sm-and-down", attrs: { "icon": "", "href": "/post?_wf=1" } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiHome))])], 1)], 1) : _setup.store.showPostList ? _c("div", { staticClass: "align-center", staticStyle: { "display": "flex" } }, [_c("v-toolbar-title", { staticClass: "hidden-md-and-down", domProps: { "textContent": _vm._s(_setup.title) } }), !_setup.isSankakuSite ? _c("input", { staticClass: "ml-1 mr-2 text-center rounded", style: { width: "40px", height: "30px", border: "1px solid #bbb", color: "inherit" }, domProps: { "value": _setup.store.currentPage }, on: { "keyup": function($event) {
       return _setup.goToPage($event);
-    } } }) : _vm._e(), _setup.store.isYKSite ? [_setup.userName ? _c2("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("HzMBcS2oNGVIoLiHWprim"), "icon": "" }, on: { "click": function($event) {
+    } } }) : _vm._e(), _setup.store.isYKSite ? [_setup.userName ? _c("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("HzMBcS2oNGVIoLiHWprim"), "icon": "" }, on: { "click": function($event) {
       return _setup.fetchTaggedPosts(`vote:3:${_setup.userName} order:vote`);
-    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiStar))])], 1) : _vm._e(), _c2("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("DXEhXAQbkiCMU_l252jo_"), "icon": "" }, on: { "click": function($event) {
+    } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiStar))])], 1) : _vm._e(), _c("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("DXEhXAQbkiCMU_l252jo_"), "icon": "" }, on: { "click": function($event) {
       return _setup.showPool();
-    } } }, [_c2("v-icon", { attrs: { "size": 20 } }, [_vm._v(_vm._s(_setup.mdiImageMultiple))])], 1), _c2("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("9juZMc0gPIgvMPKVORpJ1"), "icon": "" }, on: { "click": function($event) {
+    } } }, [_c("v-icon", { attrs: { "size": 20 } }, [_vm._v(_vm._s(_setup.mdiImageMultiple))])], 1), _c("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("9juZMc0gPIgvMPKVORpJ1"), "icon": "" }, on: { "click": function($event) {
       return _setup.goToPopularPage();
-    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFire))])], 1), _c2("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("6acPWiYq2-OdySa2_xqDu"), "icon": "" }, on: { "click": function($event) {
+    } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiFire))])], 1), _c("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("6acPWiYq2-OdySa2_xqDu"), "icon": "" }, on: { "click": function($event) {
       return _setup.fetchTaggedPosts("order:random");
-    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiShuffle))])], 1)] : _vm._e(), _setup.isSupportTagSearch || _setup.isSankakuSite ? [_c2("v-menu", { attrs: { "max-width": 200, "max-height": "80vh", "transition": "slide-y-transition", "nudge-bottom": "5px", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on }) {
-      return [_c2("v-slide-x-transition", [_c2("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.searchState.showInput, expression: "searchState.showInput" }], staticClass: "app-bar-tag-input ml-4", staticStyle: { "width": "200px" } }, [_c2("v-text-field", _vm._g({ attrs: { "hide-details": "" }, on: { "input": _setup.onSearchTermInput, "click": function($event) {
+    } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiShuffle))])], 1)] : _vm._e(), _setup.isSupportTagSearch || _setup.isSankakuSite ? [_c("v-menu", { attrs: { "max-width": 200, "max-height": "80vh", "transition": "slide-y-transition", "nudge-bottom": "5px", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on }) {
+      return [_c("v-slide-x-transition", [_c("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.searchState.showInput, expression: "searchState.showInput" }], staticClass: "app-bar-tag-input ml-4", staticStyle: { "width": "200px" } }, [_c("v-text-field", _vm._g({ attrs: { "hide-details": "" }, on: { "input": _setup.onSearchTermInput, "click": function($event) {
         _setup.searchState.showMenu = true;
       }, "blur": function($event) {
         _setup.searchState.showMenu = false;
@@ -8241,43 +8312,41 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }, expression: "searchState.searchTerm" } }, on))], 1)])];
     } }], null, false, 1463821240), model: { value: _setup.searchState.showMenu, callback: function($$v) {
       _vm.$set(_setup.searchState, "showMenu", $$v);
-    }, expression: "searchState.showMenu" } }, [_setup.searchState.searchItems.length ? _c2("v-list", { staticClass: "ac_tags_list", attrs: { "dense": "" } }, [_c2("v-progress-linear", { attrs: { "active": _setup.searchState.loading, "height": 4, "indeterminate": "", "absolute": "", "top": "" } }), _vm._l(_setup.searchState.searchItems, function(item) {
-      return _c2("v-list-item", { key: item, attrs: { "dense": "" }, on: { "click": function($event) {
+    }, expression: "searchState.showMenu" } }, [_setup.searchState.searchItems.length ? _c("v-list", { staticClass: "ac_tags_list", attrs: { "dense": "" } }, [_c("v-progress-linear", { attrs: { "active": _setup.searchState.loading, "height": 4, "indeterminate": "", "absolute": "", "top": "" } }), _vm._l(_setup.searchState.searchItems, function(item) {
+      return _c("v-list-item", { key: item, attrs: { "dense": "" }, on: { "click": function($event) {
         return _setup.selectTag(item);
-      } } }, [_c2("v-list-item-title", { domProps: { "textContent": _vm._s(item) } })], 1);
-    })], 2) : _vm._e()], 1), _c2("v-btn", { attrs: { "title": _vm.$t("ZztrWbSaaaas3v0cHtSmh"), "icon": "" }, on: { "click": function($event) {
+      } } }, [_c("v-list-item-title", { domProps: { "textContent": _vm._s(item) } })], 1);
+    })], 2) : _vm._e()], 1), _c("v-btn", { attrs: { "title": _vm.$t("ZztrWbSaaaas3v0cHtSmh"), "icon": "" }, on: { "click": function($event) {
       return _setup.showTagsInput();
-    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiMagnify))])], 1)] : _vm._e()], 2) : _setup.store.showPoolList ? _c2("div", { staticClass: "align-center", staticStyle: { "display": "flex" } }, [_setup.store.showPoolList ? _c2("v-toolbar-title", { staticClass: "mr-3 hidden-md-and-down" }, [_vm._v("Pools")]) : _vm._e(), _c2("v-text-field", { attrs: { "hide-details": "", "append-icon": _setup.mdiMagnify }, on: { "keyup": function($event) {
+    } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiMagnify))])], 1)] : _vm._e()], 2) : _setup.store.showPoolList ? _c("div", { staticClass: "align-center", staticStyle: { "display": "flex" } }, [_setup.store.showPoolList ? _c("v-toolbar-title", { staticClass: "mr-3 hidden-md-and-down" }, [_vm._v("Pools")]) : _vm._e(), _c("v-text-field", { attrs: { "hide-details": "", "append-icon": _setup.mdiMagnify }, on: { "keyup": function($event) {
       if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter"))
         return null;
       return _setup.searchPool.apply(null, arguments);
     } }, model: { value: _setup.poolQueryTerm, callback: function($$v) {
       _setup.poolQueryTerm = $$v;
-    }, expression: "poolQueryTerm" } }), _c2("v-btn", { staticClass: "ml-3", attrs: { "icon": "", "href": "/post?_wf=1" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHome))])], 1), _c2("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("9juZMc0gPIgvMPKVORpJ1"), "icon": "" }, on: { "click": function($event) {
+    }, expression: "poolQueryTerm" } }), _c("v-btn", { staticClass: "ml-3", attrs: { "icon": "", "href": "/post?_wf=1" } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiHome))])], 1), _c("v-btn", { staticClass: "hidden-sm-and-down", attrs: { "title": _vm.$t("9juZMc0gPIgvMPKVORpJ1"), "icon": "" }, on: { "click": function($event) {
       return _setup.goToPopularPage();
-    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFire))])], 1)], 1) : _vm._e(), _c2("v-spacer"), _setup.store.showPostList && _setup.notPartialSupportSite ? [_c2("span", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length, expression: "store.selectedImageList.length" }], staticClass: "hidden-md-and-down ml-1 mr-1", staticStyle: { "margin-top": "2px" } }, [_vm._v(" " + _vm._s(_setup.store.selectedImageList.length) + " ")]), _c2("v-btn", { staticClass: "hidden-md-and-down", attrs: { "icon": "" }, on: { "click": _setup.selectAll } }, [_c2("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isNoSelected, expression: "isNoSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxBlankOutline))]), _c2("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isOneOrMoreSelected, expression: "isOneOrMoreSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxIntermediate))]), _c2("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isAllSelected, expression: "isAllSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxMarked))])], 1), _c2("v-menu", { attrs: { "dense": "", "offset-y": "", "close-on-content-click": false }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "hidden-md-and-down", attrs: { "title": _vm.$t("OKs1ePekQA4Ona839U114"), "icon": "" } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1)];
-    } }], null, false, 1780380651) }, [_c2("v-list", { staticStyle: { "min-width": "300px", "max-height": "80vh", "overflow": "auto" }, attrs: { "dense": "", "flat": "" } }, [_c2("v-subheader", { staticClass: "ml-2" }, [_c2("span", { staticClass: "mr-4" }, [_vm._v(_vm._s(_vm.$t("OKs1ePekQA4Ona839U114")))]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], attrs: { "small": "" }, on: { "click": _setup.startDownload } }, [_vm._v(" " + _vm._s(_vm.$t("cKn4cfAxzdgh_HD6OFibB")) + " ")]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], staticClass: "ml-2", attrs: { "small": "" }, on: { "click": _setup.exportFileUrls } }, [_vm._v(" " + _vm._s(_vm.$t("J2Ckb_-LITfmww4aEksqk")) + " ")])], 1), _setup.store.isYKSite ? _c2("div", { staticClass: "d-flex align-center mt-1 ml-2" }, [_c2("v-radio-group", { staticClass: "mr-1 mt-0", attrs: { "hide-details": "", "dense": "", "row": "" }, model: { value: _setup.downloadUrlKey, callback: function($$v) {
+    } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiFire))])], 1)], 1) : _vm._e(), _c("v-spacer"), _setup.store.showPostList && _setup.notPartialSupportSite ? [_c("span", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length, expression: "store.selectedImageList.length" }], staticClass: "hidden-md-and-down ml-1 mr-1", staticStyle: { "margin-top": "2px" } }, [_vm._v(" " + _vm._s(_setup.store.selectedImageList.length) + " ")]), _c("v-btn", { staticClass: "hidden-md-and-down", attrs: { "icon": "" }, on: { "click": _setup.selectAll } }, [_c("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isNoSelected, expression: "isNoSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxBlankOutline))]), _c("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isOneOrMoreSelected, expression: "isOneOrMoreSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxIntermediate))]), _c("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isAllSelected, expression: "isAllSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxMarked))])], 1), _c("v-menu", { attrs: { "dense": "", "offset-y": "", "close-on-content-click": false }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "hidden-md-and-down", attrs: { "title": _vm.$t("OKs1ePekQA4Ona839U114"), "icon": "" } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1)];
+    } }], null, false, 1780380651) }, [_c("v-list", { staticStyle: { "min-width": "300px", "max-height": "80vh", "overflow": "auto" }, attrs: { "dense": "", "flat": "" } }, [_c("v-subheader", { staticClass: "ml-2" }, [_c("span", { staticClass: "mr-4" }, [_vm._v(_vm._s(_vm.$t("OKs1ePekQA4Ona839U114")))]), _c("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], attrs: { "small": "" }, on: { "click": _setup.startDownload } }, [_vm._v(" " + _vm._s(_vm.$t("cKn4cfAxzdgh_HD6OFibB")) + " ")]), _c("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], staticClass: "ml-2", attrs: { "small": "" }, on: { "click": _setup.exportFileUrls } }, [_vm._v(" " + _vm._s(_vm.$t("J2Ckb_-LITfmww4aEksqk")) + " ")])], 1), _setup.store.isYKSite ? _c("div", { staticClass: "d-flex align-center mt-1 ml-2" }, [_c("v-radio-group", { staticClass: "mr-1 mt-0", attrs: { "hide-details": "", "dense": "", "row": "" }, model: { value: _setup.downloadUrlKey, callback: function($$v) {
       _setup.downloadUrlKey = $$v;
-    }, expression: "downloadUrlKey" } }, [_c2("v-radio", { attrs: { "label": _vm.$t("aVqN9TBRCbNGsW3Y2D2Nm"), "value": "jpegUrl" } }), _c2("v-radio", { attrs: { "label": _vm.$t("jDjashxA-oBPo19DXI504"), "value": "fileUrl" } })], 1), _c2("v-switch", { staticClass: "mt-0 mr-1", attrs: { "label": "Decode URL", "hide-details": "", "dense": "" }, model: { value: _setup.isExportUrlDecode, callback: function($$v) {
+    }, expression: "downloadUrlKey" } }, [_c("v-radio", { attrs: { "label": _vm.$t("aVqN9TBRCbNGsW3Y2D2Nm"), "value": "jpegUrl" } }), _c("v-radio", { attrs: { "label": _vm.$t("jDjashxA-oBPo19DXI504"), "value": "fileUrl" } })], 1), _c("v-switch", { staticClass: "mt-0 mr-1", attrs: { "label": "Decode URL", "hide-details": "", "dense": "" }, model: { value: _setup.isExportUrlDecode, callback: function($$v) {
       _setup.isExportUrlDecode = $$v;
-    }, expression: "isExportUrlDecode" } })], 1) : _vm._e(), !_setup.isZerochanPage() ? _c2("div", { staticClass: "d-flex align-center mt-1 ml-2" }, [_c2("v-switch", { staticClass: "mt-0 mr-1", attrs: { "label": "Encode URL", "hide-details": "", "dense": "" }, model: { value: _setup.isExportUrlEncode, callback: function($$v) {
+    }, expression: "isExportUrlDecode" } })], 1) : _vm._e(), !_setup.isZerochanPage() ? _c("div", { staticClass: "d-flex align-center mt-1 ml-2" }, [_c("v-switch", { staticClass: "mt-0 mr-1", attrs: { "label": "Encode URL", "hide-details": "", "dense": "" }, model: { value: _setup.isExportUrlEncode, callback: function($$v) {
       _setup.isExportUrlEncode = $$v;
-    }, expression: "isExportUrlEncode" } })], 1) : _vm._e(), _c2("v-list-item-group", { attrs: { "color": "primary" } }, _vm._l(_setup.store.selectedImageList, function(item) {
-      return _c2("v-list-item", { key: item.id, attrs: { "dense": "", "two-line": "" } }, [_c2("v-list-item-avatar", [!item.loading && !item.loaded ? _c2("v-btn", { attrs: { "icon": "" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFileClockOutline))])], 1) : _vm._e(), item.loaded ? _c2("v-btn", { attrs: { "icon": "", "color": "green" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiCheckUnderlineCircle))])], 1) : _vm._e(), item.loading ? _c2("v-progress-circular", { attrs: { "rotate": -90, "size": 28, "value": _setup.loadingValue, "color": "pink" } }) : _vm._e()], 1), _c2("v-list-item-content", { staticStyle: { "max-width": "240px" } }, [_c2("v-list-item-subtitle", { attrs: { "title": item.fileNameWithTags }, domProps: { "textContent": _vm._s(item.fileNameWithTags) } }), _c2("v-list-item-subtitle", { attrs: { "title": item[_setup.downloadUrlKey] }, domProps: { "textContent": _vm._s(item[_setup.downloadUrlKey]) } })], 1), _c2("v-list-item-action", [_c2("v-btn", { attrs: { "icon": "" }, on: { "click": function($event) {
+    }, expression: "isExportUrlEncode" } })], 1) : _vm._e(), _c("v-list-item-group", { attrs: { "color": "primary" } }, _vm._l(_setup.store.selectedImageList, function(item) {
+      return _c("v-list-item", { key: item.id, attrs: { "dense": "", "two-line": "" } }, [_c("v-list-item-avatar", [!item.loading && !item.loaded ? _c("v-btn", { attrs: { "icon": "" } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiFileClockOutline))])], 1) : _vm._e(), item.loaded ? _c("v-btn", { attrs: { "icon": "", "color": "green" } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiCheckUnderlineCircle))])], 1) : _vm._e(), item.loading ? _c("v-progress-circular", { attrs: { "rotate": -90, "size": 28, "value": _setup.loadingValue, "color": "pink" } }) : _vm._e()], 1), _c("v-list-item-content", { staticStyle: { "max-width": "240px" } }, [_c("v-list-item-subtitle", { attrs: { "title": item.fileNameWithTags }, domProps: { "textContent": _vm._s(item.fileNameWithTags) } }), _c("v-list-item-subtitle", { attrs: { "title": item[_setup.downloadUrlKey] }, domProps: { "textContent": _vm._s(item[_setup.downloadUrlKey]) } })], 1), _c("v-list-item-action", [_c("v-btn", { attrs: { "icon": "" }, on: { "click": function($event) {
         return _setup.removeFromList(item.id);
-      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDelete))])], 1)], 1)], 1);
-    }), 1)], 1)], 1)] : _vm._e(), _c2("v-btn", { attrs: { "title": _vm.$t("u8mEnSo4mxDRUbj7FeAll"), "icon": "" }, on: { "click": _setup.toggleDarkmode } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiBrightness6))])], 1), _c2("v-btn", { staticClass: "hidden-md-and-down", attrs: { "title": _vm.$t("OrwwNKZ7I70-ecpspE8d_"), "icon": "" }, on: { "click": _setup.toggleFullscreen } }, [_c2("v-icon", { attrs: { "size": 30 } }, [_vm._v(_vm._s(_setup.store.isFullscreen ? _setup.mdiFullscreenExit : _setup.mdiFullscreen))])], 1), _c2("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "hidden-md-and-down", attrs: { "title": "Language", "icon": "" } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiTranslate))])], 1)];
-    } }]) }, [_c2("v-list", { attrs: { "dense": "" } }, [_c2("v-list-item-group", { attrs: { "color": "primary" }, model: { value: _setup.currentLang, callback: function($$v) {
-      _setup.currentLang = $$v;
-    }, expression: "currentLang" } }, _vm._l(_setup.langList, function(lang) {
-      return _c2("v-list-item", { key: lang.value, attrs: { "value": lang.value, "dense": "" }, on: { "click": function($event) {
+      } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiDelete))])], 1)], 1)], 1);
+    }), 1)], 1)], 1)] : _vm._e(), _c("v-btn", { attrs: { "title": _vm.$t("u8mEnSo4mxDRUbj7FeAll"), "icon": "" }, on: { "click": _setup.toggleDarkmode } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiBrightness6))])], 1), _c("v-btn", { staticClass: "hidden-md-and-down", attrs: { "title": _vm.$t("OrwwNKZ7I70-ecpspE8d_"), "icon": "" }, on: { "click": _setup.toggleFullscreen } }, [_c("v-icon", { attrs: { "size": 30 } }, [_vm._v(_vm._s(_setup.store.isFullscreen ? _setup.mdiFullscreenExit : _setup.mdiFullscreen))])], 1), _c("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "hidden-md-and-down", attrs: { "title": "Language", "icon": "" } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiTranslate))])], 1)];
+    } }]) }, [_c("v-list", { attrs: { "dense": "" } }, [_c("v-list-item-group", { attrs: { "value": _setup.settings.lang, "color": "primary" } }, _vm._l(_setup.langList, function(lang) {
+      return _c("v-list-item", { key: lang.value, attrs: { "value": lang.value, "dense": "" }, on: { "click": function($event) {
         return _setup.selectLang(lang.value);
-      } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(lang.label))])], 1);
-    }), 1)], 1)], 1), _c2("v-btn", { attrs: { "title": _vm.$t("UxxldE9xRwmQctrvba5Y8"), "icon": "" }, on: { "click": function($event) {
+      } } }, [_c("v-list-item-title", [_vm._v(_vm._s(lang.label))])], 1);
+    }), 1)], 1)], 1), _c("v-btn", { attrs: { "title": _vm.$t("UxxldE9xRwmQctrvba5Y8"), "icon": "" }, on: { "click": function($event) {
       _setup.store.showSettings = true;
-    } } }, [_c2("v-icon", { attrs: { "size": 22 } }, [_vm._v(_vm._s(_setup.mdiCog))])], 1), _c2("v-btn", { staticClass: "hidden-md-and-down", attrs: { "title": _vm.$t("ClZdL9hGweOokP7Mn_Ptq"), "icon": "" }, on: { "click": _setup.exitMasonry } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLocationExit))])], 1), _c2("v-progress-linear", { attrs: { "active": _setup.store.requestState, "height": 6, "indeterminate": "", "absolute": "", "bottom": "" } })], 2);
+    } } }, [_c("v-icon", { attrs: { "size": 22 } }, [_vm._v(_vm._s(_setup.mdiCog))])], 1), _c("v-btn", { staticClass: "hidden-md-and-down", attrs: { "title": _vm.$t("ClZdL9hGweOokP7Mn_Ptq"), "icon": "" }, on: { "click": _setup.exitMasonry } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiLocationExit))])], 1), _c("v-progress-linear", { attrs: { "active": _setup.store.requestLoading, "height": 6, "indeterminate": "", "absolute": "", "bottom": "" } })], 2);
   };
   var _sfc_staticRenderFns$a = [];
   var __component__$a = /* @__PURE__ */ normalizeComponent(
@@ -8296,34 +8365,40 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     setup(__props) {
       const userName = Vue2.ref("");
       const version = Vue2.ref(GM_info.script.version);
-      const openLink = (link) => {
+      function openLink(link) {
         window.open(link, "_blank", "noreferrer");
-      };
-      const dealLink = (link) => {
+      }
+      function handleLink(link) {
         if (link.includes("yande"))
           return "https://yande.re/post?_wf=1";
         if (link.includes("behoimi"))
           return "http://behoimi.org";
         return `https://${link}`;
-      };
-      const dealFavicon = (link) => {
+      }
+      function handleFavicon(link) {
         if (link.includes("konachan"))
           return "https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/cbd0b71ead30e0777e5b023170ba415c_4819570566325089051.png";
         if (link.includes("behoimi"))
           return "https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/d3b97f45046795c87c12ad5704074f32_1333245617164582614.png";
-        if (link.includes("sankaku"))
+        if (link.includes("sankaku") || link.includes("idolcomplex"))
           return "https://upload-bbs.miyoushe.com/upload/2025/03/29/190122060/4fa56922d173d28ac8e687caaa487f27_1885629069482225420.png";
         if (link.includes("rule34.xxx"))
           return "https://upload-bbs.miyoushe.com/upload/2025/03/29/190122060/76ba90d4350a1455f899d2a1500fca69_8344852329496206545.png";
+        if (link.includes("rule34hentai.net"))
+          return "https://prod-alicdn-community.kurobbs.com/forum/ee44a4b6a2cc4f08b693cfc4e364b1fa20260129.png";
+        if (link.includes("aibooru.online"))
+          return "https://prod-alicdn-community.kurobbs.com/forum/177e56ba1e704d6b85e492a365642dd920260129.png";
+        if (link.includes("allthefallen") || link.includes("allgirl"))
+          return "https://kwc.cocomi.eu.org/https://danbooru.donmai.us/favicon.ico";
         return `https://kwc.cocomi.eu.org/https://${link.split("/")[0]}/favicon.ico`;
-      };
+      }
       const actSiteIndex = Vue2.computed(() => {
         return siteDomains.findIndex((e) => location.href.includes(e));
       });
-      const showSettingDrawer = () => {
+      function showSettingDrawer() {
         store.showDrawer = false;
         store.showSettings = true;
-      };
+      }
       Vue2.onMounted(async () => {
         if (store.isYKSite) {
           const name = await getUsername();
@@ -8331,40 +8406,46 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
             userName.value = name;
         }
       });
-      return { __sfc: true, userName, version, openLink, dealLink, dealFavicon, actSiteIndex, showSettingDrawer, mdiAccount, mdiFire, mdiGithub, mdiImageMultiple, mdiInformationOutline, mdiMessageAlertOutline, mdiShuffle, mdiStar, mdiWeb, getSiteTitle, siteDomains, store };
+      return { __sfc: true, userName, version, openLink, handleLink, handleFavicon, actSiteIndex, showSettingDrawer, mdiAccount, mdiFire, mdiGithub, mdiImageMultiple, mdiInformationOutline, mdiMessageAlertOutline, mdiShuffle, mdiStar, mdiWeb, getSiteTitle, siteDomains, store };
     }
   });
   var _sfc_render$9 = function render() {
-    var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
-    return _c2("v-navigation-drawer", { staticClass: "nav_drawer", attrs: { "app": "", "temporary": "" }, model: { value: _setup.store.showDrawer, callback: function($$v) {
+    var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
+    return _c("v-navigation-drawer", { staticClass: "nav_drawer", attrs: { "app": "", "temporary": "" }, model: { value: _setup.store.showDrawer, callback: function($$v) {
       _vm.$set(_setup.store, "showDrawer", $$v);
-    }, expression: "store.showDrawer" } }, [_c2("v-list-item", [_c2("v-list-item-avatar", [_c2("img", { attrs: { "width": "40", "src": "https://upload-bbs.mihoyo.com/upload/2022/09/07/190122060/8505ff4b535cb1487b521d73c7f71d63_865024295271530650.png", "alt": "", "loading": "lazy" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", { staticClass: "title" }, [_vm._v("Booru Masonry")]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("l8CbIALt_VWUnzBl_Rmgf") } }, [_vm._v(_vm._s(_vm.$t("l8CbIALt_VWUnzBl_Rmgf")))])], 1)], 1), _c2("v-divider"), _setup.store.isYKSite ? _c2("v-list", { attrs: { "dense": "", "nav": "" } }, [_c2("v-list-group", { attrs: { "value": true, "no-action": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function() {
-      return [_c2("v-list-item-content", [_c2("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("CacM8tispuPNrSxxpt9GX")))])], 1)];
-    }, proxy: true }], null, false, 765759728) }, [_setup.userName ? _c2("v-list-item", { attrs: { "link": "", "href": "/user/home" } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiAccount))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_setup.userName))])], 1)], 1) : _vm._e(), _setup.userName ? _c2("v-list-item", { attrs: { "link": "", "href": `/post?tags=vote%3A3%3A${_setup.userName}+order%3Avote&_wf=1` } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiStar))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("zs8YTCc8d8XFUgRnp7m_w")))])], 1)], 1) : _vm._e(), _c2("v-list-item", { attrs: { "link": "", "href": "/pool?page=1" } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiImageMultiple))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("DXEhXAQbkiCMU_l252jo_")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "", "href": "/post/popular_recent?period=1d" } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFire))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("7Cgsr4PUMbezDXNfWdvWH")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "", "href": "/post?tags=order%3Arandom&page=1" } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiShuffle))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("StU1-52QJmNFKQ5soJCyG")))])], 1)], 1)], 1)], 1) : _vm._e(), _c2("v-list", { attrs: { "dense": "", "nav": "" } }, [_c2("v-list-group", { attrs: { "value": true, "no-action": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function() {
-      return [_c2("v-list-item-content", [_c2("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("e2_EYvweJsVoIZlIWkPRV")))])], 1)];
-    }, proxy: true }]) }, [_c2("v-list-item-group", { attrs: { "value": _setup.actSiteIndex, "color": "primary" } }, [_vm._l(_setup.siteDomains, function(link) {
-      return _c2("v-list-item", { key: link, attrs: { "href": _setup.dealLink(link) } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": _setup.dealFavicon(link), "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_setup.getSiteTitle(link)))])], 1)], 1);
-    }), _c2("hr", { staticClass: "my-2" }), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
-      return _setup.openLink("https://pixiv.pictures");
-    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": "https://pixiv.pictures/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Pixiv Viewer")])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
-      return _setup.openLink("https://moeview.cocomi.eu.org");
-    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": "https://moeview.cocomi.eu.org/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Moeview")])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
-      return _setup.openLink("https://r-34.xyz/");
-    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": "https://r-34.xyz/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("R-34.XYZ")])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
-      return _setup.openLink("https://nekon.app/");
-    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("img", { staticClass: "site_icon", attrs: { "src": "https://nekon.app/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Nekon")])], 1)], 1)], 2)], 1)], 1), _c2("v-list", { attrs: { "dense": "", "nav": "" } }, [_c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+    }, expression: "store.showDrawer" } }, [_c("v-list-item", [_c("v-list-item-avatar", [_c("img", { attrs: { "width": "40", "src": "https://upload-bbs.mihoyo.com/upload/2022/09/07/190122060/8505ff4b535cb1487b521d73c7f71d63_865024295271530650.png", "alt": "", "loading": "lazy" } })]), _c("v-list-item-content", [_c("v-list-item-title", { staticClass: "title" }, [_vm._v("Booru Masonry")]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("l8CbIALt_VWUnzBl_Rmgf") } }, [_vm._v(_vm._s(_vm.$t("l8CbIALt_VWUnzBl_Rmgf")))])], 1)], 1), _c("v-divider"), _setup.store.isYKSite ? _c("v-list", { attrs: { "dense": "", "nav": "" } }, [_c("v-list-group", { attrs: { "value": true, "no-action": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function() {
+      return [_c("v-list-item-content", [_c("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("CacM8tispuPNrSxxpt9GX")))])], 1)];
+    }, proxy: true }], null, false, 765759728) }, [_setup.userName ? _c("v-list-item", { attrs: { "link": "", "href": "/user/home" } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiAccount))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_setup.userName))])], 1)], 1) : _vm._e(), _setup.userName ? _c("v-list-item", { attrs: { "link": "", "href": `/post?tags=vote%3A3%3A${_setup.userName}+order%3Avote&_wf=1` } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiStar))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("zs8YTCc8d8XFUgRnp7m_w")))])], 1)], 1) : _vm._e(), _c("v-list-item", { attrs: { "link": "", "href": "/pool?page=1" } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiImageMultiple))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("DXEhXAQbkiCMU_l252jo_")))])], 1)], 1), _c("v-list-item", { attrs: { "link": "", "href": "/post/popular_recent?period=1d" } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiFire))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("7Cgsr4PUMbezDXNfWdvWH")))])], 1)], 1), _c("v-list-item", { attrs: { "link": "", "href": "/post?tags=order%3Arandom&page=1" } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiShuffle))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("StU1-52QJmNFKQ5soJCyG")))])], 1)], 1)], 1)], 1) : _vm._e(), _c("v-list", { attrs: { "dense": "", "nav": "" } }, [_c("v-list-group", { attrs: { "value": true, "no-action": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function() {
+      return [_c("v-list-item-content", [_c("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("e2_EYvweJsVoIZlIWkPRV")))])], 1)];
+    }, proxy: true }]) }, [_c("v-list-item-group", { attrs: { "value": _setup.actSiteIndex, "color": "primary" } }, [_vm._l(_setup.siteDomains, function(link) {
+      return _c("v-list-item", { key: link, attrs: { "href": _setup.handleLink(link), "referrerpolicy": "no-referrer" } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("img", { staticClass: "site_icon", attrs: { "src": _setup.handleFavicon(link), "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_setup.getSiteTitle(link)))])], 1)], 1);
+    }), _c("hr", { staticClass: "my-2" }), _c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+      return _setup.openLink("https://pixiv.pictures/?ref=booru.vercel.app");
+    } } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("img", { staticClass: "site_icon", attrs: { "src": "https://pixiv.pictures/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Pixiv Viewer")])], 1)], 1), _c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+      return _setup.openLink("https://moeview.cocomi.eu.org/?ref=booru.vercel.app");
+    } } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("img", { staticClass: "site_icon", attrs: { "src": "https://moeview.cocomi.eu.org/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Moeview")])], 1)], 1), _c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+      return _setup.openLink("https://r-34.xyz/?ref=booru.vercel.app");
+    } } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("img", { staticClass: "site_icon", attrs: { "src": "https://r-34.xyz/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("R-34.XYZ")])], 1)], 1), _c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+      return _setup.openLink("https://nekon.app/?ref=booru.vercel.app");
+    } } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("img", { staticClass: "site_icon", attrs: { "src": "https://nekon.app/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Nekon")])], 1)], 1), _c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+      return _setup.openLink("https://www.someacg.top/?ref=booru.vercel.app");
+    } } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("img", { staticClass: "site_icon", attrs: { "src": "https://www.someacg.top/favicon.png", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("SomeACG")])], 1)], 1), _c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+      return _setup.openLink("https://manyacg.top/?ref=booru.vercel.app");
+    } } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("img", { staticClass: "site_icon", attrs: { "src": "https://manyacg.top/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("ManyACG")])], 1)], 1), _c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+      return _setup.openLink("https://pic.cosine.ren/?ref=booru.vercel.app");
+    } } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("img", { staticClass: "site_icon", attrs: { "src": "https://pic.cosine.ren/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Cosine Gallery")])], 1)], 1)], 2)], 1)], 1), _c("v-list", { attrs: { "dense": "", "nav": "" } }, [_c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.showSettingDrawer();
-    } } }, [_c2("v-list-item-content", [_c2("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("UxxldE9xRwmQctrvba5Y8")))])], 1)], 1)], 1), _c2("v-list", { attrs: { "dense": "", "nav": "" } }, [_c2("v-list-group", { attrs: { "value": true, "no-action": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function() {
-      return [_c2("v-list-item-content", [_c2("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("PT74UDfKA45vTVTst_-hD")))])], 1)];
-    }, proxy: true }]) }, [_c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+    } } }, [_c("v-list-item-content", [_c("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("UxxldE9xRwmQctrvba5Y8")))])], 1)], 1)], 1), _c("v-list", { attrs: { "dense": "", "nav": "" } }, [_c("v-list-group", { attrs: { "value": true, "no-action": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function() {
+      return [_c("v-list-item-content", [_c("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("PT74UDfKA45vTVTst_-hD")))])], 1)];
+    }, proxy: true }]) }, [_c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://github.com/asadahimeka/yandere-masonry/blob/main/CHANGELOG.md");
-    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiInformationOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("v" + _vm._s(_setup.version))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("iJ0h220tvMmUhkfIMYI-W")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+    } } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiInformationOutline))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("v" + _vm._s(_setup.version))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("iJ0h220tvMmUhkfIMYI-W")))])], 1)], 1), _c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://booru.cocomi.eu.org");
-    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiWeb))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("qWcqQRsE9nN43MaZ2BmN9")))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("jerGO2OCuW9TdnEnGYRWd")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+    } } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiWeb))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("qWcqQRsE9nN43MaZ2BmN9")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("jerGO2OCuW9TdnEnGYRWd")))])], 1)], 1), _c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://github.com/asadahimeka/yandere-masonry/issues");
-    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiMessageAlertOutline))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("23iEYyiQlLVhFIqGbj527")))]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("4g1TUy2kwQrdOs-w4JobB")))])], 1)], 1), _c2("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+    } } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiMessageAlertOutline))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("23iEYyiQlLVhFIqGbj527")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("4g1TUy2kwQrdOs-w4JobB")))])], 1)], 1), _c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.openLink("https://github.com/asadahimeka/yandere-masonry");
-    } } }, [_c2("v-list-item-icon", { staticClass: "mr-2" }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiGithub))])], 1), _c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v("Github")]), _c2("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("7Xq5puLNcT0mAvoxElqdf")))])], 1)], 1)], 1)], 1)], 1);
+    } } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiGithub))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Github")]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("7Xq5puLNcT0mAvoxElqdf")))])], 1)], 1)], 1)], 1)], 1);
   };
   var _sfc_staticRenderFns$9 = [];
   var __component__$9 = /* @__PURE__ */ normalizeComponent(
@@ -8383,238 +8464,163 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     setup(__props) {
       const isBoorus = Vue2.ref(isBooruSite());
       const isYandere = Vue2.ref(location.hostname == "yande.re");
-      const onComboboxChange = (val) => {
-        localStorage.setItem("__blacklist", val.join(","));
-      };
-      const removeTagFromBlacklist = (item) => {
-        store.blacklist.splice(store.blacklist.indexOf(item), 1);
-        localStorage.setItem("__blacklist", store.blacklist.join(","));
-      };
-      const exportBlacklist = () => {
-        navigator.clipboard.writeText(store.blacklist.join(",")).then(() => showMsg({ msg: i18n.t("99kLMSzDYJCAf1yK9QYzy") })).catch(() => showMsg({ msg: i18n.t("si-zDDRFrEwDTCkp53Q44"), type: "error" }));
-      };
-      const importBlacklist = () => {
+      const currentLanglabel = Vue2.computed(() => {
+        var _a2;
+        return (_a2 = langList.find((e) => e.value === settings.lang)) == null ? void 0 : _a2.label;
+      });
+      function selectLang(val) {
+        settings.lang = val;
+        i18n.locale = val;
+      }
+      function removeTagFromBlacklist(item) {
+        settings.blacklist = settings.blacklist.filter((e) => e != item);
+      }
+      function exportBlacklist() {
+        navigator.clipboard.writeText(settings.blacklist.join(",")).then(() => showMsg({ msg: i18n.t("99kLMSzDYJCAf1yK9QYzy") })).catch(() => showMsg({ msg: i18n.t("si-zDDRFrEwDTCkp53Q44"), type: "error" }));
+      }
+      function importBlacklist() {
         navigator.clipboard.readText().then((text) => {
           if (text) {
-            store.blacklist = [.../* @__PURE__ */ new Set([
-              ...store.blacklist,
+            settings.blacklist = [.../* @__PURE__ */ new Set([
+              ...settings.blacklist,
               ...text.split(",").filter(Boolean)
             ])];
-            localStorage.setItem("__blacklist", store.blacklist.join(","));
           }
         }).catch(() => showMsg({ msg: i18n.t("si-zDDRFrEwDTCkp53Q44"), type: "error" }));
-      };
-      const nsfwValue = Vue2.ref(store.showNSFWContents);
-      const setNSFWShow = (val) => {
-        const flag = val !== "0";
-        store.showNSFWContents = flag;
-        nsfwValue.value = flag;
-        localStorage.setItem("__showNSFW", val);
-        location.reload();
-      };
-      const onNSFWSwitchChange = (val) => {
-        setNSFWShow(val ? "1" : "0");
-      };
-      const onWheelSwitchChange = (val) => {
-        localStorage.setItem("__listenWheel", val ? "1" : "0");
-        location.reload();
-      };
-      const onKeyupSwitchChange = (val) => {
-        localStorage.setItem("__listenKeyup", val ? "1" : "0");
-        location.reload();
-      };
-      const onImgPreloadChange = (val) => {
-        localStorage.setItem("__fullImgPreload", val ? "1" : "");
-        location.reload();
-      };
-      const onThumbSampleUrlChange = (val) => {
-        localStorage.setItem("__thumbSampleUrl", val ? "1" : "");
-      };
-      const onShowPostCheckboxChange = (val) => {
-        localStorage.setItem("__showPostCheckbox", val ? "1" : "");
-      };
-      const onShowListPostResoChange = (val) => {
-        localStorage.setItem("__showListPostReso", val ? "1" : "");
-      };
-      const onUseFancyboxChange = (val) => {
-        localStorage.setItem("__useFancybox", val ? "1" : "");
-      };
-      const onHoldsFalseChange = (val) => {
-        localStorage.setItem("__isHoldsFalse", val ? "1" : "");
-        location.reload();
-      };
-      const onYandreFetchByHtmlChange = (val) => {
-        localStorage.setItem("__isYandereFetchByHtml", val ? "1" : "");
-        location.reload();
-      };
-      const isFitScreen = Vue2.ref(localStorage.getItem("__fitScreen") != "0");
-      const onFitScreenChange = (val) => {
-        localStorage.setItem("__fitScreen", val ? "1" : "0");
-        location.reload();
-      };
-      const isAutoWfMode = Vue2.ref(!!localStorage.getItem("__autoWfMode"));
-      const onAutoWfModeChange = (val) => {
-        localStorage.setItem("__autoWfMode", val ? "1" : "");
-        location.reload();
-      };
+      }
       const dlSubLoading = Vue2.ref(false);
       const showDLConfirm = Vue2.ref(false);
-      const isDLSubpath = Vue2.ref(Boolean(localStorage.getItem("__dl_subpath_on")));
-      const setDLSubpathOn = (val) => {
-        isDLSubpath.value = !!val;
-        localStorage.setItem("__dl_subpath_on", val);
+      function setDLSubpathOn(val) {
+        settings.isDLSubpath = val;
         showDLConfirm.value = false;
         dlSubLoading.value = false;
-        location.reload();
-      };
-      const onDLSubpathChange = (val) => {
+      }
+      function onDLSubpathChange(val) {
         dlSubLoading.value = true;
         if (val) {
           showDLConfirm.value = true;
         } else {
-          setDLSubpathOn("");
+          setDLSubpathOn(false);
         }
-      };
+      }
       const { width: windowWidth } = useWindowSize();
       const allColList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20];
-      const colList = Vue2.computed(() => store.settings.masonryLayout == "virtual" ? allColList.filter((e) => e < (windowWidth.value - 32) / 300) : allColList);
+      const colList = Vue2.computed(() => settings.masonryLayout == "virtual" ? allColList.filter((e) => e < (windowWidth.value - 32) / 300) : allColList);
       const cols = Vue2.computed(() => colList.value.map((e) => [`${e}`, e === 0 ? i18n.t("uxIs3XkeVzkrEX985zHk3").toString() : `${e} ${i18n.t("dU7ou5kVM0s9DMju5e2tS")}`]));
       const actCol = Vue2.computed(() => {
-        return colList.value.findIndex((e) => e.toString() === store.selectedColumn);
+        return colList.value.findIndex((e) => e.toString() === settings.selectedColumn);
       });
-      const selColumn = (val) => {
-        store.selectedColumn = val;
-        localStorage.setItem("__masonry_col", val);
-      };
       const layoutTypes = Vue2.ref([
         ["masonry", `Masonry/${i18n.t("6jPGehET9TViankl5-SRu")}`],
         ["grid", `Grid/${i18n.t("vfUg8xP6WptIhSL0E9b9D")}`],
-        ["flexbin", `Justified/${i18n.t("LZbI8am7nD-LiemZzroFF")}`],
+        ["justified", `Justified/${i18n.t("LZbI8am7nD-LiemZzroFF")}`],
         ["virtual", `Virtual/${i18n.t("yYtssYrCL8VwFrdvvx8v3")}`],
         ["masonry2", `Masonry2/${i18n.t("6jPGehET9TViankl5-SRu")}`]
       ]);
       const actLayout = Vue2.computed(() => {
-        var _a2, _b2, _c2;
-        return (_c2 = (_b2 = (_a2 = layoutTypes.value.find((e) => e[0] === store.settings.masonryLayout)) == null ? void 0 : _a2[1]) == null ? void 0 : _b2.split("/")) == null ? void 0 : _c2[0];
+        var _a2, _b, _c;
+        return (_c = (_b = (_a2 = layoutTypes.value.find((e) => e[0] === settings.masonryLayout)) == null ? void 0 : _a2[1]) == null ? void 0 : _b.split("/")) == null ? void 0 : _c[0];
       });
       const actLayoutIndex = Vue2.computed(() => {
-        return layoutTypes.value.findIndex((e) => e[0] === store.settings.masonryLayout);
+        return layoutTypes.value.findIndex((e) => e[0] === settings.masonryLayout);
       });
-      const onMasonryLayoutChange = (val) => {
-        selColumn("0");
-        localStorage.setItem("__masonryLayout", val);
-        location.reload();
-      };
-      const onCredentialQueryChange = (val) => {
-        localStorage.setItem("__credentialQuery", val);
-      };
-      const onPreloadNumBlur = (ev) => {
+      function onMasonryLayoutChange(val) {
+        settings.masonryLayout = val;
+        settings.selectedColumn = "0";
+      }
+      function onPreloadNumBlur(ev) {
         const input = ev.target;
         if (input.validationMessage) {
           input.value = "1";
-          store.imgPreloadNum = 1;
-          localStorage.setItem("__imgPreloadNum", "1");
+          settings.imgPreloadNum = 1;
         } else {
           const num = Number(input.value) || 1;
-          store.imgPreloadNum = num;
-          localStorage.setItem("__imgPreloadNum", num.toString());
+          settings.imgPreloadNum = num;
         }
-      };
-      const currentLang = Vue2.ref(i18n.locale);
-      const langList = [
-        { value: "zh-Hans", label: "\u7B80\u4F53\u4E2D\u6587" },
-        { value: "zh-Hant", label: "\u7E41\u9AD4\u4E2D\u6587" },
-        { value: "ja", label: "\u65E5\u672C\u8A9E" },
-        { value: "en", label: "English" }
-      ];
-      const currentLanglabel = Vue2.computed(() => {
-        var _a2;
-        return (_a2 = langList.find((e) => e.value === currentLang.value)) == null ? void 0 : _a2.label;
-      });
-      const selectLang = (val) => {
-        currentLang.value = val;
-        i18n.locale = val;
-        localStorage.setItem("__LANG", val);
-      };
-      return { __sfc: true, isBoorus, isYandere, onComboboxChange, removeTagFromBlacklist, exportBlacklist, importBlacklist, nsfwValue, setNSFWShow, onNSFWSwitchChange, onWheelSwitchChange, onKeyupSwitchChange, onImgPreloadChange, onThumbSampleUrlChange, onShowPostCheckboxChange, onShowListPostResoChange, onUseFancyboxChange, onHoldsFalseChange, onYandreFetchByHtmlChange, isFitScreen, onFitScreenChange, isAutoWfMode, onAutoWfModeChange, dlSubLoading, showDLConfirm, isDLSubpath, setDLSubpathOn, onDLSubpathChange, windowWidth, allColList, colList, cols, actCol, selColumn, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onCredentialQueryChange, onPreloadNumBlur, currentLang, langList, currentLanglabel, selectLang, mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, store, notPartialSupportSite };
+      }
+      return { __sfc: true, isBoorus, isYandere, currentLanglabel, selectLang, removeTagFromBlacklist, exportBlacklist, importBlacklist, dlSubLoading, showDLConfirm, setDLSubpathOn, onDLSubpathChange, windowWidth, allColList, colList, cols, actCol, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onPreloadNumBlur, mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, settings, store, langList, notPartialSupportSite };
     }
   });
   var _sfc_render$8 = function render() {
-    var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
-    return _c2("v-navigation-drawer", { staticClass: "nav_drawer", attrs: { "width": 400, "app": "", "temporary": "", "right": "" }, model: { value: _setup.store.showSettings, callback: function($$v) {
+    var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
+    return _c("v-navigation-drawer", { staticClass: "nav_drawer settings_drawer", attrs: { "width": 400, "app": "", "temporary": "", "right": "" }, model: { value: _setup.store.showSettings, callback: function($$v) {
       _vm.$set(_setup.store, "showSettings", $$v);
-    }, expression: "store.showSettings" } }, [_c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("UxxldE9xRwmQctrvba5Y8")))])], 1), _c2("v-list-item-icon", { on: { "click": function($event) {
+    }, expression: "store.showSettings" } }, [_c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("UxxldE9xRwmQctrvba5Y8")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("Uw9QwD1SaR2VjZEqDYRdb")))])], 1), _c("v-list-item-icon", { on: { "click": function($event) {
       _setup.store.showSettings = false;
-    } } }, [_c2("v-btn", { attrs: { "icon": "" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiClose))])], 1)], 1)], 1), _c2("v-divider"), _c2("v-list", { attrs: { "dense": "", "nav": "" } }, [_c2("v-list-item", { staticClass: "hidden-lg-and-up" }, [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("e4_fgvntwNlfxgJUc2dXK")))])], 1), _c2("v-list-item-action", [_c2("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "sel_menu_btn", staticStyle: { "max-width": "100px" }, attrs: { "small": "" } }, "v-btn", attrs, false), on), [_vm._v(" " + _vm._s(_setup.currentLanglabel) + " "), _c2("v-icon", { attrs: { "size": 16 } }, [_vm._v(_vm._s(_setup.mdiChevronDown))])], 1)];
-    } }]) }, [_c2("v-list", { attrs: { "dense": "" } }, [_c2("v-list-item-group", { attrs: { "color": "primary" }, model: { value: _setup.currentLang, callback: function($$v) {
-      _setup.currentLang = $$v;
-    }, expression: "currentLang" } }, _vm._l(_setup.langList, function(lang) {
-      return _c2("v-list-item", { key: lang.value, attrs: { "value": lang.value, "dense": "" }, on: { "click": function($event) {
+    } } }, [_c("v-btn", { attrs: { "icon": "" } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiClose))])], 1)], 1)], 1), _c("v-divider"), _c("v-list", { attrs: { "dense": "", "nav": "" } }, [_c("v-list-item", { staticClass: "hidden-lg-and-up" }, [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("e4_fgvntwNlfxgJUc2dXK")))])], 1), _c("v-list-item-action", [_c("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "sel_menu_btn", staticStyle: { "max-width": "100px" }, attrs: { "small": "" } }, "v-btn", attrs, false), on), [_vm._v(" " + _vm._s(_setup.currentLanglabel) + " "), _c("v-icon", { attrs: { "size": 16 } }, [_vm._v(_vm._s(_setup.mdiChevronDown))])], 1)];
+    } }]) }, [_c("v-list", { attrs: { "dense": "" } }, [_c("v-list-item-group", { attrs: { "value": _setup.settings.lang, "color": "primary" } }, _vm._l(_setup.langList, function(lang) {
+      return _c("v-list-item", { key: lang.value, attrs: { "value": lang.value, "dense": "" }, on: { "click": function($event) {
         return _setup.selectLang(lang.value);
-      } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(lang.label))])], 1);
-    }), 1)], 1)], 1)], 1)], 1), _c2("v-list-item", { staticClass: "mb-0" }, [_c2("v-list-item-content", [_c2("v-list-item-title", [_c2("div", { staticClass: "d-flex align-center" }, [_c2("span", [_vm._v(_vm._s(_vm.$t("_Efl8k8uYQj9iJmj3kwbd")))]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "ml-2", attrs: { "icon": "" }, on: { "click": function($event) {
+      } } }, [_c("v-list-item-title", [_vm._v(_vm._s(lang.label))])], 1);
+    }), 1)], 1)], 1)], 1)], 1), _c("v-list-item", { staticClass: "mb-0" }, [_c("v-list-item-content", [_c("v-list-item-title", [_c("div", { staticClass: "d-flex align-center" }, [_c("span", [_vm._v(_vm._s(_vm.$t("_Efl8k8uYQj9iJmj3kwbd")))]), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "ml-2", attrs: { "icon": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.exportBlacklist.apply(null, arguments);
-      } } }, "v-btn", attrs, false), on), [_c2("v-icon", { attrs: { "size": 18 } }, [_vm._v(_vm._s(_setup.mdiContentCopy))])], 1)];
-    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("EVPG1YZDtykdz3htyf11u")))])]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ attrs: { "icon": "" }, on: { "click": function($event) {
+      } } }, "v-btn", attrs, false), on), [_c("v-icon", { attrs: { "size": 18 } }, [_vm._v(_vm._s(_setup.mdiContentCopy))])], 1)];
+    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("EVPG1YZDtykdz3htyf11u")))])]), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ attrs: { "icon": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.importBlacklist.apply(null, arguments);
-      } } }, "v-btn", attrs, false), on), [_c2("v-icon", { attrs: { "size": 18 } }, [_vm._v(_vm._s(_setup.mdiContentPaste))])], 1)];
-    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("kCYFwKpwznYIKRmB1tCww")))])])], 1)]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("jMod2JozzAnwHuD-3KuPb") } }, [_vm._v(_vm._s(_vm.$t("jMod2JozzAnwHuD-3KuPb")))])], 1)], 1), _c2("v-list-item", { staticClass: "pa-0" }, [_c2("v-list-item-content", { staticClass: "pt-0" }, [_c2("v-combobox", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "append-icon": null, "items": [], "hide-details": "", "hide-no-data": "", "multiple": "", "outlined": "", "dense": "", "chips": "" }, on: { "change": _setup.onComboboxChange }, scopedSlots: _vm._u([{ key: "selection", fn: function({ item }) {
-      return [_c2("v-chip", { attrs: { "label": "", "small": "", "outlined": "", "close": "" }, on: { "click:close": function($event) {
+      } } }, "v-btn", attrs, false), on), [_c("v-icon", { attrs: { "size": 18 } }, [_vm._v(_vm._s(_setup.mdiContentPaste))])], 1)];
+    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("kCYFwKpwznYIKRmB1tCww")))])])], 1)]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("jMod2JozzAnwHuD-3KuPb") } }, [_vm._v(_vm._s(_vm.$t("jMod2JozzAnwHuD-3KuPb")))])], 1)], 1), _c("v-list-item", { staticClass: "pa-0" }, [_c("v-list-item-content", { staticClass: "pt-0" }, [_c("v-combobox", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "append-icon": null, "items": [], "hide-details": "", "hide-no-data": "", "multiple": "", "outlined": "", "dense": "", "chips": "" }, scopedSlots: _vm._u([{ key: "selection", fn: function({ item }) {
+      return [_c("v-chip", { attrs: { "label": "", "small": "", "outlined": "", "close": "" }, on: { "click:close": function($event) {
         return _setup.removeTagFromBlacklist(item);
-      } } }, [_c2("span", [_vm._v(_vm._s(item))])])];
-    } }]), model: { value: _setup.store.blacklist, callback: function($$v) {
-      _vm.$set(_setup.store, "blacklist", $$v);
-    }, expression: "store.blacklist" } })], 1)], 1), _setup.isBoorus ? [_c2("v-list-item", { staticClass: "mb-0" }, [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("RstKmO7YVQMpaDoucxUel")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("1F-R4qChHIzZaohu5GJzl") } }, [_vm._v(_vm._s(_vm.$t("1F-R4qChHIzZaohu5GJzl")))])], 1)], 1), _c2("v-list-item", { staticClass: "pa-0" }, [_c2("v-list-item-content", { staticClass: "pt-0" }, [_c2("v-text-field", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "hide-details": "", "outlined": "", "dense": "" }, on: { "change": _setup.onCredentialQueryChange }, model: { value: _setup.store.settings.credentialQuery, callback: function($$v) {
-      _vm.$set(_setup.store.settings, "credentialQuery", $$v);
-    }, expression: "store.settings.credentialQuery" } })], 1)], 1)] : _vm._e(), _setup.notPartialSupportSite ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Lm_HFVHpv4XCjilV3NLKu")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("A16qoBulYQJLbHe9mqNwm") } }, [_vm._v(_vm._s(_vm.$t("A16qoBulYQJLbHe9mqNwm")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "", "color": "deep-orange darken-1" }, on: { "change": _setup.onNSFWSwitchChange }, model: { value: _setup.nsfwValue, callback: function($$v) {
-      _setup.nsfwValue = $$v;
-    }, expression: "nsfwValue" } })], 1)], 1) : _vm._e(), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("_nQfaNuwbvPAIFKOY6_7u")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("SIUUZ4wqJTOilEdcX3EOi") } }, [_vm._v(_vm._s(_vm.$t("SIUUZ4wqJTOilEdcX3EOi")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onWheelSwitchChange }, model: { value: _setup.store.isListenWheelEvent, callback: function($$v) {
-      _vm.$set(_setup.store, "isListenWheelEvent", $$v);
-    }, expression: "store.isListenWheelEvent" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("fVE5taO6GDTPbILat4GCt")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("w95XGurDhDfOfw7XH4JFW") } }, [_vm._v(_vm._s(_vm.$t("w95XGurDhDfOfw7XH4JFW")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onKeyupSwitchChange }, model: { value: _setup.store.settings.isListenKeyupEvent, callback: function($$v) {
-      _vm.$set(_setup.store.settings, "isListenKeyupEvent", $$v);
-    }, expression: "store.settings.isListenKeyupEvent" } })], 1)], 1), _setup.notPartialSupportSite ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("kFcteLMfnoezhOwuTlLFC")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("FT1uJs8XG__n5qBvuFsH4") } }, [_vm._v(_vm._s(_vm.$t("FT1uJs8XG__n5qBvuFsH4")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onImgPreloadChange }, model: { value: _setup.store.isFullImgPreload, callback: function($$v) {
-      _vm.$set(_setup.store, "isFullImgPreload", $$v);
-    }, expression: "store.isFullImgPreload" } })], 1)], 1) : _vm._e(), _setup.notPartialSupportSite && _setup.store.isFullImgPreload ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("G3b7rbyQEj3_rgzVsNJZY")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("iRt9V9wNQASic3D7-wTZo") } }, [_vm._v(_vm._s(_vm.$t("iRt9V9wNQASic3D7-wTZo")))])], 1), _c2("v-list-item-action", { staticClass: "pl-1" }, [_c2("input", { staticClass: "text-center rounded preload_num", attrs: { "type": "number", "min": "0", "max": "5" }, domProps: { "value": _setup.store.imgPreloadNum }, on: { "blur": _setup.onPreloadNumBlur } })])], 1) : _vm._e(), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", { attrs: { "title": _vm.$t("kop_-39vkeg-bz2wztJ9O") } }, [_vm._v(_vm._s(_vm.$t("kop_-39vkeg-bz2wztJ9O")))]), _c2("v-list-item-subtitle", { attrs: { "title": "Masonry/Grid/Justified/Virtual" } }, [_vm._v("Masonry/Grid/Justified/Virtual")])], 1), _c2("v-list-item-action", [_c2("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "sel_menu_btn", staticStyle: { "max-width": "100px" }, attrs: { "small": "" } }, "v-btn", attrs, false), on), [_vm._v(" " + _vm._s(_setup.actLayout) + " "), _c2("v-icon", { attrs: { "size": 16 } }, [_vm._v(_vm._s(_setup.mdiChevronDown))])], 1)];
-    } }]) }, [_c2("v-list", { attrs: { "dense": "" } }, [_c2("v-list-item-group", { attrs: { "value": _setup.actLayoutIndex, "color": "primary" } }, _vm._l(_setup.layoutTypes, function(item) {
-      return _c2("v-list-item", { key: item[0], attrs: { "dense": "" }, on: { "click": function($event) {
+      } } }, [_c("span", [_vm._v(_vm._s(item))])])];
+    } }]), model: { value: _setup.settings.blacklist, callback: function($$v) {
+      _vm.$set(_setup.settings, "blacklist", $$v);
+    }, expression: "settings.blacklist" } })], 1)], 1), _setup.isBoorus ? [_c("v-list-item", { staticClass: "mb-0" }, [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("RstKmO7YVQMpaDoucxUel")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("1F-R4qChHIzZaohu5GJzl") } }, [_vm._v(_vm._s(_vm.$t("1F-R4qChHIzZaohu5GJzl")))])], 1)], 1), _c("v-list-item", { staticClass: "pa-0" }, [_c("v-list-item-content", { staticClass: "pt-0" }, [_c("v-text-field", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "hide-details": "", "outlined": "", "dense": "" }, model: { value: _setup.settings.credentialQuery, callback: function($$v) {
+      _vm.$set(_setup.settings, "credentialQuery", $$v);
+    }, expression: "settings.credentialQuery" } })], 1)], 1)] : _vm._e(), _setup.notPartialSupportSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Lm_HFVHpv4XCjilV3NLKu")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("A16qoBulYQJLbHe9mqNwm") } }, [_vm._v(_vm._s(_vm.$t("A16qoBulYQJLbHe9mqNwm")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "", "color": "deep-orange darken-1" }, model: { value: _setup.settings.showNSFWContents, callback: function($$v) {
+      _vm.$set(_setup.settings, "showNSFWContents", $$v);
+    }, expression: "settings.showNSFWContents" } })], 1)], 1) : _vm._e(), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("_nQfaNuwbvPAIFKOY6_7u")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("SIUUZ4wqJTOilEdcX3EOi") } }, [_vm._v(_vm._s(_vm.$t("SIUUZ4wqJTOilEdcX3EOi")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isListenWheelEvent, callback: function($$v) {
+      _vm.$set(_setup.settings, "isListenWheelEvent", $$v);
+    }, expression: "settings.isListenWheelEvent" } })], 1)], 1), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("fVE5taO6GDTPbILat4GCt")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("w95XGurDhDfOfw7XH4JFW") } }, [_vm._v(_vm._s(_vm.$t("w95XGurDhDfOfw7XH4JFW")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isListenKeyupEvent, callback: function($$v) {
+      _vm.$set(_setup.settings, "isListenKeyupEvent", $$v);
+    }, expression: "settings.isListenKeyupEvent" } })], 1)], 1), _setup.notPartialSupportSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("kFcteLMfnoezhOwuTlLFC")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("FT1uJs8XG__n5qBvuFsH4") } }, [_vm._v(_vm._s(_vm.$t("FT1uJs8XG__n5qBvuFsH4")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isFullImgPreload, callback: function($$v) {
+      _vm.$set(_setup.settings, "isFullImgPreload", $$v);
+    }, expression: "settings.isFullImgPreload" } })], 1)], 1) : _vm._e(), _setup.notPartialSupportSite && _setup.settings.isFullImgPreload ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("G3b7rbyQEj3_rgzVsNJZY")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("iRt9V9wNQASic3D7-wTZo") } }, [_vm._v(_vm._s(_vm.$t("iRt9V9wNQASic3D7-wTZo")))])], 1), _c("v-list-item-action", { staticClass: "pl-1" }, [_c("input", { staticClass: "text-center rounded preload_num", attrs: { "type": "number", "min": "0", "max": "5" }, domProps: { "value": _setup.settings.imgPreloadNum }, on: { "blur": _setup.onPreloadNumBlur } })])], 1) : _vm._e(), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", { attrs: { "title": _vm.$t("kop_-39vkeg-bz2wztJ9O") } }, [_vm._v(_vm._s(_vm.$t("kop_-39vkeg-bz2wztJ9O")))]), _c("v-list-item-subtitle", { attrs: { "title": "Masonry/Grid/Justified/Virtual" } }, [_vm._v("Masonry/Grid/Justified/Virtual")])], 1), _c("v-list-item-action", [_c("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "sel_menu_btn", staticStyle: { "max-width": "100px" }, attrs: { "small": "" } }, "v-btn", attrs, false), on), [_vm._v(" " + _vm._s(_setup.actLayout) + " "), _c("v-icon", { attrs: { "size": 16 } }, [_vm._v(_vm._s(_setup.mdiChevronDown))])], 1)];
+    } }]) }, [_c("v-list", { attrs: { "dense": "" } }, [_c("v-list-item-group", { attrs: { "value": _setup.actLayoutIndex, "color": "primary" } }, _vm._l(_setup.layoutTypes, function(item) {
+      return _c("v-list-item", { key: item[0], attrs: { "dense": "" }, on: { "click": function($event) {
         return _setup.onMasonryLayoutChange(item[0]);
-      } } }, [_c2("v-list-item-title", { domProps: { "textContent": _vm._s(item[1]) } })], 1);
-    }), 1)], 1)], 1)], 1)], 1), ["masonry", "grid", "virtual"].includes(_setup.store.settings.masonryLayout) ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("tt_YdgKCA_5m-aSTSMPQ_")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("rXjhc8VuGloy1wZ09noNB") } }, [_vm._v(_vm._s(_vm.$t("rXjhc8VuGloy1wZ09noNB")))])], 1), _c2("v-list-item-action", [_c2("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "sel_menu_btn", attrs: { "small": "" } }, "v-btn", attrs, false), on), [_c2("span", { staticStyle: { "margin-bottom": "2px" } }, [_vm._v(_vm._s(_setup.store.selectedColumn === "0" ? _vm.$t("uxIs3XkeVzkrEX985zHk3") : _setup.store.selectedColumn + _vm.$t("dU7ou5kVM0s9DMju5e2tS")))]), _c2("v-icon", { attrs: { "size": 16 } }, [_vm._v(_vm._s(_setup.mdiChevronDown))])], 1)];
-    } }], null, false, 2104038103) }, [_c2("v-list", { attrs: { "dense": "" } }, [_c2("v-list-item-group", { attrs: { "value": _setup.actCol, "color": "primary" } }, _vm._l(_setup.cols, function(col) {
-      return _c2("v-list-item", { key: col[0], attrs: { "dense": "" }, on: { "click": function($event) {
-        return _setup.selColumn(col[0]);
-      } } }, [_c2("v-list-item-title", { domProps: { "textContent": _vm._s(col[1]) } })], 1);
-    }), 1)], 1)], 1)], 1)], 1) : _vm._e(), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("4yzHPggVky2QKFD2TbBhl")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("HSx0XMZFid_lVuwjzrhH0") } }, [_vm._v(_vm._s(_vm.$t("HSx0XMZFid_lVuwjzrhH0")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onThumbSampleUrlChange }, model: { value: _setup.store.settings.isThumbSampleUrl, callback: function($$v) {
-      _vm.$set(_setup.store.settings, "isThumbSampleUrl", $$v);
-    }, expression: "store.settings.isThumbSampleUrl" } })], 1)], 1), _setup.notPartialSupportSite ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("PBjdNKuj02doUvOf2zZqP")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("z_oL9s5fS164W4_gITOGZ") } }, [_vm._v(_vm._s(_vm.$t("z_oL9s5fS164W4_gITOGZ")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "", "loading": _setup.dlSubLoading }, on: { "change": _setup.onDLSubpathChange }, model: { value: _setup.isDLSubpath, callback: function($$v) {
-      _setup.isDLSubpath = $$v;
-    }, expression: "isDLSubpath" } })], 1)], 1) : _vm._e(), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("fbIpwMw2yVoSxP66OJ32z")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("tEvQYzSVnggYAcM1uv9Tt") } }, [_vm._v(_vm._s(_vm.$t("tEvQYzSVnggYAcM1uv9Tt")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onFitScreenChange }, model: { value: _setup.isFitScreen, callback: function($$v) {
-      _setup.isFitScreen = $$v;
-    }, expression: "isFitScreen" } })], 1)], 1), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("lkCkz1OpNtTCFRfGCEoBp")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("EZd1QQdgUDjT3yya5ZYe-") } }, [_vm._v(_vm._s(_vm.$t("EZd1QQdgUDjT3yya5ZYe-")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onAutoWfModeChange }, model: { value: _setup.isAutoWfMode, callback: function($$v) {
-      _setup.isAutoWfMode = $$v;
-    }, expression: "isAutoWfMode" } })], 1)], 1), _setup.notPartialSupportSite ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("sxhTRqogDRozo9IaTGI7g")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("gPt6cpWrkvqRqZnwJo1KV") } }, [_vm._v(_vm._s(_vm.$t("gPt6cpWrkvqRqZnwJo1KV")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onShowPostCheckboxChange }, model: { value: _setup.store.settings.showPostCheckbox, callback: function($$v) {
-      _vm.$set(_setup.store.settings, "showPostCheckbox", $$v);
-    }, expression: "store.settings.showPostCheckbox" } })], 1)], 1) : _vm._e(), _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("UqbfVZzRyk0iD2NcOii_E")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("_4E2zv2NpOG4y8TV5PRL0") } }, [_vm._v(_vm._s(_vm.$t("_4E2zv2NpOG4y8TV5PRL0")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onShowListPostResoChange }, model: { value: _setup.store.settings.showListPostReso, callback: function($$v) {
-      _vm.$set(_setup.store.settings, "showListPostReso", $$v);
-    }, expression: "store.settings.showListPostReso" } })], 1)], 1), _setup.isBoorus ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("dvs63FvVKWm3uHVfqeq00")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("w4uJjpTmSEkm6SIDgEo-0") } }, [_vm._v(_vm._s(_vm.$t("Tbq8O5KhwcDHQ_qxNFW09")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "" }, on: { "change": _setup.onUseFancyboxChange }, model: { value: _setup.store.settings.useFancybox, callback: function($$v) {
-      _vm.$set(_setup.store.settings, "useFancybox", $$v);
-    }, expression: "store.settings.useFancybox" } })], 1)], 1) : _vm._e(), _setup.store.isYKSite ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("IxTawC_qs_xjxj5g8_aGx")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("-x4wjDoHtodaXEgm2SXkg") } }, [_vm._v(_vm._s(_vm.$t("-x4wjDoHtodaXEgm2SXkg")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "", "disabled": _setup.store.settings.isYandereFetchByHtml }, on: { "change": _setup.onHoldsFalseChange }, model: { value: _setup.store.settings.isHoldsFalse, callback: function($$v) {
-      _vm.$set(_setup.store.settings, "isHoldsFalse", $$v);
-    }, expression: "store.settings.isHoldsFalse" } })], 1)], 1) : _vm._e(), _setup.isYandere ? _c2("v-list-item", [_c2("v-list-item-content", [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("YAUNSVT_pTygaY306DZmU")))]), _c2("v-list-item-subtitle", { attrs: { "title": _vm.$t("HkRzE7fweBSefchs0z0r8") } }, [_vm._v(_vm._s(_vm.$t("HkRzE7fweBSefchs0z0r8")))])], 1), _c2("v-list-item-action", [_c2("v-switch", { attrs: { "inset": "", "disabled": _setup.store.settings.isHoldsFalse }, on: { "change": _setup.onYandreFetchByHtmlChange }, model: { value: _setup.store.settings.isYandereFetchByHtml, callback: function($$v) {
-      _vm.$set(_setup.store.settings, "isYandereFetchByHtml", $$v);
-    }, expression: "store.settings.isYandereFetchByHtml" } })], 1)], 1) : _vm._e()], 2), _c2("v-dialog", { attrs: { "max-width": "600" }, model: { value: _setup.showDLConfirm, callback: function($$v) {
+      } } }, [_c("v-list-item-title", { domProps: { "textContent": _vm._s(item[1]) } })], 1);
+    }), 1)], 1)], 1)], 1)], 1), ["masonry", "grid", "virtual"].includes(_setup.settings.masonryLayout) ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("tt_YdgKCA_5m-aSTSMPQ_")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("rXjhc8VuGloy1wZ09noNB") } }, [_vm._v(_vm._s(_vm.$t("rXjhc8VuGloy1wZ09noNB")))])], 1), _c("v-list-item-action", [_c("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "sel_menu_btn", attrs: { "small": "" } }, "v-btn", attrs, false), on), [_c("span", { staticStyle: { "margin-bottom": "2px" } }, [_vm._v(_vm._s(_setup.settings.selectedColumn === "0" ? _vm.$t("uxIs3XkeVzkrEX985zHk3") : _setup.settings.selectedColumn + _vm.$t("dU7ou5kVM0s9DMju5e2tS")))]), _c("v-icon", { attrs: { "size": 16 } }, [_vm._v(_vm._s(_setup.mdiChevronDown))])], 1)];
+    } }], null, false, 3336678071) }, [_c("v-list", { attrs: { "dense": "" } }, [_c("v-list-item-group", { attrs: { "value": _setup.actCol, "color": "primary" } }, _vm._l(_setup.cols, function(col) {
+      return _c("v-list-item", { key: col[0], attrs: { "dense": "" }, on: { "click": function($event) {
+        _setup.settings.selectedColumn = col[0];
+      } } }, [_c("v-list-item-title", { domProps: { "textContent": _vm._s(col[1]) } })], 1);
+    }), 1)], 1)], 1)], 1)], 1) : _vm._e(), _setup.settings.masonryLayout === "justified" ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("dm7zGAYbP2sbGXO_ekDDl")))])], 1), _c("v-list-item-action", [_c("v-slider", { staticStyle: { "min-width": "200px" }, attrs: { "min": "100", "max": "1200", "step": "1", "thumb-label": "" }, model: { value: _setup.settings.justifiedBaseWidth, callback: function($$v) {
+      _vm.$set(_setup.settings, "justifiedBaseWidth", $$v);
+    }, expression: "settings.justifiedBaseWidth" } })], 1)], 1) : _vm._e(), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("4yzHPggVky2QKFD2TbBhl")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("HSx0XMZFid_lVuwjzrhH0") } }, [_vm._v(_vm._s(_vm.$t("HSx0XMZFid_lVuwjzrhH0")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isThumbSampleUrl, callback: function($$v) {
+      _vm.$set(_setup.settings, "isThumbSampleUrl", $$v);
+    }, expression: "settings.isThumbSampleUrl" } })], 1)], 1), _setup.notPartialSupportSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("PBjdNKuj02doUvOf2zZqP")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("z_oL9s5fS164W4_gITOGZ") } }, [_vm._v(_vm._s(_vm.$t("z_oL9s5fS164W4_gITOGZ")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "", "loading": _setup.dlSubLoading }, on: { "change": _setup.onDLSubpathChange }, model: { value: _setup.settings.isDLSubpath, callback: function($$v) {
+      _vm.$set(_setup.settings, "isDLSubpath", $$v);
+    }, expression: "settings.isDLSubpath" } })], 1)], 1) : _vm._e(), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("fbIpwMw2yVoSxP66OJ32z")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("tEvQYzSVnggYAcM1uv9Tt") } }, [_vm._v(_vm._s(_vm.$t("tEvQYzSVnggYAcM1uv9Tt")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isFitScreen, callback: function($$v) {
+      _vm.$set(_setup.settings, "isFitScreen", $$v);
+    }, expression: "settings.isFitScreen" } })], 1)], 1), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("lkCkz1OpNtTCFRfGCEoBp")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("EZd1QQdgUDjT3yya5ZYe-") } }, [_vm._v(_vm._s(_vm.$t("EZd1QQdgUDjT3yya5ZYe-")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.autoWaterfall, callback: function($$v) {
+      _vm.$set(_setup.settings, "autoWaterfall", $$v);
+    }, expression: "settings.autoWaterfall" } })], 1)], 1), _setup.notPartialSupportSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("sxhTRqogDRozo9IaTGI7g")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("gPt6cpWrkvqRqZnwJo1KV") } }, [_vm._v(_vm._s(_vm.$t("gPt6cpWrkvqRqZnwJo1KV")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.showPostCheckbox, callback: function($$v) {
+      _vm.$set(_setup.settings, "showPostCheckbox", $$v);
+    }, expression: "settings.showPostCheckbox" } })], 1)], 1) : _vm._e(), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("UqbfVZzRyk0iD2NcOii_E")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("_4E2zv2NpOG4y8TV5PRL0") } }, [_vm._v(_vm._s(_vm.$t("_4E2zv2NpOG4y8TV5PRL0")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.showListPostReso, callback: function($$v) {
+      _vm.$set(_setup.settings, "showListPostReso", $$v);
+    }, expression: "settings.showListPostReso" } })], 1)], 1), _setup.isBoorus ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("dvs63FvVKWm3uHVfqeq00")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("w4uJjpTmSEkm6SIDgEo-0") } }, [_vm._v(_vm._s(_vm.$t("w4uJjpTmSEkm6SIDgEo-0")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.useFancybox, callback: function($$v) {
+      _vm.$set(_setup.settings, "useFancybox", $$v);
+    }, expression: "settings.useFancybox" } })], 1)], 1) : _vm._e(), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("ECpLfRMsS0zpJPTw0qqNs")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("vJobIibroyz2wkpmONSnR") } }, [_vm._v(_vm._s(_vm.$t("vJobIibroyz2wkpmONSnR")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.detailButtonsBottom, callback: function($$v) {
+      _vm.$set(_setup.settings, "detailButtonsBottom", $$v);
+    }, expression: "settings.detailButtonsBottom" } })], 1)], 1), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("HPukB-OKzIuRxMmO4Rx2U")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("I_MKXUxaNXp3D35GFULn4") } }, [_vm._v(_vm._s(_vm.$t("I_MKXUxaNXp3D35GFULn4")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.closePopupOnImgClick, callback: function($$v) {
+      _vm.$set(_setup.settings, "closePopupOnImgClick", $$v);
+    }, expression: "settings.closePopupOnImgClick" } })], 1)], 1), _setup.store.isYKSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("IxTawC_qs_xjxj5g8_aGx")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("-x4wjDoHtodaXEgm2SXkg") } }, [_vm._v(_vm._s(_vm.$t("-x4wjDoHtodaXEgm2SXkg")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "", "disabled": _setup.settings.isYandereFetchByHtml }, model: { value: _setup.settings.isHoldsFalse, callback: function($$v) {
+      _vm.$set(_setup.settings, "isHoldsFalse", $$v);
+    }, expression: "settings.isHoldsFalse" } })], 1)], 1) : _vm._e(), _setup.isYandere ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("YAUNSVT_pTygaY306DZmU")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("HkRzE7fweBSefchs0z0r8") } }, [_vm._v(_vm._s(_vm.$t("HkRzE7fweBSefchs0z0r8")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "", "disabled": _setup.settings.isHoldsFalse }, model: { value: _setup.settings.isYandereFetchByHtml, callback: function($$v) {
+      _vm.$set(_setup.settings, "isYandereFetchByHtml", $$v);
+    }, expression: "settings.isYandereFetchByHtml" } })], 1)], 1) : _vm._e()], 2), _c("v-dialog", { attrs: { "max-width": "600" }, model: { value: _setup.showDLConfirm, callback: function($$v) {
       _setup.showDLConfirm = $$v;
-    }, expression: "showDLConfirm" } }, [_c2("v-card", [_c2("v-card-title", { staticClass: "text-h5" }, [_vm._v(_vm._s(_vm.$t("ti3akdSS3iZV9NsGzIo3m")))]), _c2("v-card-text", [_vm._v(" " + _vm._s(_vm.$t("LN_Rsic4V50DrXbsv9T9L"))), _c2("br"), _vm._v(" " + _vm._s(_vm.$t("OJ8X55GXx5k3peoSXSujf"))), _c2("br"), _vm._v(" " + _vm._s(_vm.$t("ujBgilCWNgFNV8Q2IDMWS")) + " ")]), _c2("v-card-actions", [_c2("v-spacer"), _c2("v-btn", { attrs: { "text": "" }, on: { "click": function($event) {
-      return _setup.setDLSubpathOn("");
-    } } }, [_vm._v(_vm._s(_vm.$t("9dq_DxgMG88eom9Gq-4nT")))]), _c2("v-btn", { attrs: { "color": "primary", "text": "" }, on: { "click": function($event) {
-      return _setup.setDLSubpathOn("1");
+    }, expression: "showDLConfirm" } }, [_c("v-card", [_c("v-card-title", { staticClass: "text-h5" }, [_vm._v(_vm._s(_vm.$t("ti3akdSS3iZV9NsGzIo3m")))]), _c("v-card-text", [_vm._v(" " + _vm._s(_vm.$t("LN_Rsic4V50DrXbsv9T9L"))), _c("br"), _vm._v(" " + _vm._s(_vm.$t("OJ8X55GXx5k3peoSXSujf"))), _c("br"), _vm._v(" " + _vm._s(_vm.$t("ujBgilCWNgFNV8Q2IDMWS")) + " ")]), _c("v-card-actions", [_c("v-spacer"), _c("v-btn", { attrs: { "text": "" }, on: { "click": function($event) {
+      return _setup.setDLSubpathOn(false);
+    } } }, [_vm._v(_vm._s(_vm.$t("9dq_DxgMG88eom9Gq-4nT")))]), _c("v-btn", { attrs: { "color": "primary", "text": "" }, on: { "click": function($event) {
+      return _setup.setDLSubpathOn(true);
     } } }, [_vm._v(_vm._s(_vm.$t("0VAN4cJ-_mUxvtmg4KEi1")))])], 1)], 1)], 1)], 1);
   };
   var _sfc_staticRenderFns$8 = [];
@@ -8789,49 +8795,49 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
   });
   var _sfc_render$6 = function render() {
-    var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
-    return _c2("v-dialog", { attrs: { "value": _vm.showDialog, "max-width": "800px" }, on: { "input": _setup.handleVisible } }, [_c2("v-card", [_c2("v-card-title", [_c2("h4", [_vm._v(_vm._s(_vm.$t("FMi4atPbKn-B1HiAZ2ZP2")))]), _c2("v-spacer"), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ attrs: { "fab": "", "small": "", "text": "" }, on: { "click": function($event) {
+    var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
+    return _c("v-dialog", { attrs: { "value": _vm.showDialog, "max-width": "800px" }, on: { "input": _setup.handleVisible } }, [_c("v-card", [_c("v-card-title", [_c("h4", [_vm._v(_vm._s(_vm.$t("FMi4atPbKn-B1HiAZ2ZP2")))]), _c("v-spacer"), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ attrs: { "fab": "", "small": "", "text": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.handleVisible(false);
-      } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiClose))])], 1)];
-    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c2("v-card-text", { staticStyle: { "max-height": "72vh", "overflow-y": "auto" } }, [_c2("div", { staticClass: "subtitle-1" }, [_vm._v(_vm._s(_vm.$t("Cu6n0Apv5xVlo4DnQbVbT")))]), _c2("div", { staticClass: "export-tags-setting mb-4" }, [_c2("v-checkbox", { scopedSlots: _vm._u([{ key: "label", fn: function() {
-      return [_c2("code", [_vm._v("( ) -> \\( \\)")])];
+      } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiClose))])], 1)];
+    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c("v-card-text", { staticStyle: { "max-height": "72vh", "overflow-y": "auto" } }, [_c("div", { staticClass: "subtitle-1" }, [_vm._v(_vm._s(_vm.$t("Cu6n0Apv5xVlo4DnQbVbT")))]), _c("div", { staticClass: "export-tags-setting mb-4" }, [_c("v-checkbox", { scopedSlots: _vm._u([{ key: "label", fn: function() {
+      return [_c("code", [_vm._v("( ) -> \\( \\)")])];
     }, proxy: true }]), model: { value: _setup.isEscapeParens, callback: function($$v) {
       _setup.isEscapeParens = $$v;
-    }, expression: "isEscapeParens" } }), _c2("v-checkbox", { attrs: { "label": _vm.$t("BB4C5taWpmw06X0Kz_Gtk") }, model: { value: _setup.isSettingWght, callback: function($$v) {
+    }, expression: "isEscapeParens" } }), _c("v-checkbox", { attrs: { "label": _vm.$t("BB4C5taWpmw06X0Kz_Gtk") }, model: { value: _setup.isSettingWght, callback: function($$v) {
       _setup.isSettingWght = $$v;
-    }, expression: "isSettingWght" } }), _c2("v-radio-group", { attrs: { "row": "" }, model: { value: _setup.bracketType, callback: function($$v) {
+    }, expression: "isSettingWght" } }), _c("v-radio-group", { attrs: { "row": "" }, model: { value: _setup.bracketType, callback: function($$v) {
       _setup.bracketType = $$v;
-    }, expression: "bracketType" } }, [_c2("v-radio", { attrs: { "value": "use_parens" }, scopedSlots: _vm._u([{ key: "label", fn: function() {
-      return [_c2("code", [_vm._v("Using ( )")])];
-    }, proxy: true }]) }), _c2("v-radio", { attrs: { "value": "use_brackets" }, scopedSlots: _vm._u([{ key: "label", fn: function() {
-      return [_c2("code", [_vm._v("Using { }")])];
+    }, expression: "bracketType" } }, [_c("v-radio", { attrs: { "value": "use_parens" }, scopedSlots: _vm._u([{ key: "label", fn: function() {
+      return [_c("code", [_vm._v("Using ( )")])];
+    }, proxy: true }]) }), _c("v-radio", { attrs: { "value": "use_brackets" }, scopedSlots: _vm._u([{ key: "label", fn: function() {
+      return [_c("code", [_vm._v("Using { }")])];
     }, proxy: true }]) })], 1)], 1), _vm._l(_setup.tagTypes, function(type) {
-      return _c2("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.postTags[type[0]].length, expression: "postTags[type[0]].length" }], key: type[0] }, [_c2("div", { staticClass: "d-flex-y" }, [_c2("div", { staticClass: "subtitle-2", staticStyle: { "min-width": "72px" } }, [_vm._v(_vm._s(type[1]))]), _setup.showSubActions ? [_c2("v-btn", { attrs: { "color": "light-blue accent-4", "small": "", "text": "" }, on: { "click": function($event) {
+      return _c("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.postTags[type[0]].length, expression: "postTags[type[0]].length" }], key: type[0] }, [_c("div", { staticClass: "d-flex-y" }, [_c("div", { staticClass: "subtitle-2", staticStyle: { "min-width": "72px" } }, [_vm._v(_vm._s(type[1]))]), _setup.showSubActions ? [_c("v-btn", { attrs: { "color": "light-blue accent-4", "small": "", "text": "" }, on: { "click": function($event) {
         return _setup.selAll(type[0]);
-      } } }, [_vm._v(_vm._s(_vm.$t("zg2GRF6zmMXCkT9Uz2Bni")))]), _c2("v-btn", { attrs: { "color": "light-blue accent-4", "small": "", "text": "" }, on: { "click": function($event) {
+      } } }, [_vm._v(_vm._s(_vm.$t("zg2GRF6zmMXCkT9Uz2Bni")))]), _c("v-btn", { attrs: { "color": "light-blue accent-4", "small": "", "text": "" }, on: { "click": function($event) {
         return _setup.selNone(type[0]);
-      } } }, [_vm._v(_vm._s(_vm.$t("xSC1vpAOTLQ3RBipKrNpD")))]), _c2("v-btn", { attrs: { "color": "light-blue accent-4", "small": "", "text": "" }, on: { "click": function($event) {
+      } } }, [_vm._v(_vm._s(_vm.$t("xSC1vpAOTLQ3RBipKrNpD")))]), _c("v-btn", { attrs: { "color": "light-blue accent-4", "small": "", "text": "" }, on: { "click": function($event) {
         return _setup.selInvert(type[0]);
-      } } }, [_vm._v(_vm._s(_vm.$t("cKXET1CCnAXq4H60qr8uc")))]), _c2("v-btn", { attrs: { "color": "light-blue accent-4", "small": "", "text": "" }, on: { "click": function($event) {
+      } } }, [_vm._v(_vm._s(_vm.$t("cKXET1CCnAXq4H60qr8uc")))]), _c("v-btn", { attrs: { "color": "light-blue accent-4", "small": "", "text": "" }, on: { "click": function($event) {
         return _setup.exportTags(type[0]);
-      } } }, [_vm._v(_vm._s(_vm.$t("QH_xm27zhgs5E1077asf1")))])] : _vm._e()], 2), _c2("v-chip-group", { attrs: { "column": "", "multiple": "" }, model: { value: _setup.selTags[type[0]], callback: function($$v) {
+      } } }, [_vm._v(_vm._s(_vm.$t("QH_xm27zhgs5E1077asf1")))])] : _vm._e()], 2), _c("v-chip-group", { attrs: { "column": "", "multiple": "" }, model: { value: _setup.selTags[type[0]], callback: function($$v) {
         _vm.$set(_setup.selTags, type[0], $$v);
       }, expression: "selTags[type[0]]" } }, _vm._l(_setup.postTags[type[0]], function(tag2) {
-        return _c2("div", { key: tag2, staticClass: "d-flex-col" }, [_c2("v-chip", { attrs: { "filter": "", "small": "", "color": _setup.tagColorMap[type[0]], "value": tag2, "ripple": false } }, [_vm._v(_vm._s(tag2))]), _setup.isSettingWght ? _c2("input", { directives: [{ name: "model", rawName: "v-model", value: _setup.wghtMap[tag2], expression: "wghtMap[tag]" }], staticClass: "export-tags-wght-inp", attrs: { "type": "number" }, domProps: { "value": _setup.wghtMap[tag2] }, on: { "input": function($event) {
+        return _c("div", { key: tag2, staticClass: "d-flex-col" }, [_c("v-chip", { attrs: { "filter": "", "small": "", "color": _setup.tagColorMap[type[0]], "value": tag2, "ripple": false } }, [_vm._v(_vm._s(tag2))]), _setup.isSettingWght ? _c("input", { directives: [{ name: "model", rawName: "v-model", value: _setup.wghtMap[tag2], expression: "wghtMap[tag]" }], staticClass: "export-tags-wght-inp", attrs: { "type": "number" }, domProps: { "value": _setup.wghtMap[tag2] }, on: { "input": function($event) {
           if ($event.target.composing)
             return;
           _vm.$set(_setup.wghtMap, tag2, $event.target.value);
         } } }) : _vm._e()], 1);
       }), 0)], 1);
-    })], 2), _c2("v-card-actions", [_c2("v-btn", { attrs: { "color": "blue accent-2", "text": "" }, on: { "click": function($event) {
+    })], 2), _c("v-card-actions", [_c("v-btn", { attrs: { "color": "blue accent-2", "text": "" }, on: { "click": function($event) {
       return _setup.selAll();
-    } } }, [_vm._v(_vm._s(_vm.$t("zg2GRF6zmMXCkT9Uz2Bni")))]), _c2("v-btn", { attrs: { "color": "blue accent-2", "text": "" }, on: { "click": function($event) {
+    } } }, [_vm._v(_vm._s(_vm.$t("zg2GRF6zmMXCkT9Uz2Bni")))]), _c("v-btn", { attrs: { "color": "blue accent-2", "text": "" }, on: { "click": function($event) {
       return _setup.selNone();
-    } } }, [_vm._v(_vm._s(_vm.$t("xSC1vpAOTLQ3RBipKrNpD")))]), _c2("v-btn", { attrs: { "color": "blue accent-2", "text": "" }, on: { "click": function($event) {
+    } } }, [_vm._v(_vm._s(_vm.$t("xSC1vpAOTLQ3RBipKrNpD")))]), _c("v-btn", { attrs: { "color": "blue accent-2", "text": "" }, on: { "click": function($event) {
       return _setup.selInvert();
-    } } }, [_vm._v(_vm._s(_vm.$t("cKXET1CCnAXq4H60qr8uc")))]), _c2("v-btn", { attrs: { "color": "blue accent-2", "text": "" }, on: { "click": function($event) {
+    } } }, [_vm._v(_vm._s(_vm.$t("cKXET1CCnAXq4H60qr8uc")))]), _c("v-btn", { attrs: { "color": "blue accent-2", "text": "" }, on: { "click": function($event) {
       return _setup.exportTags();
     } } }, [_vm._v(_vm._s(_vm.$t("QH_xm27zhgs5E1077asf1")))])], 1)], 1)], 1);
   };
@@ -8850,7 +8856,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function isDanbooruPage() {
     return location.hostname == "danbooru.donmai.us";
   }
-  const isCNLang = i18n.locale.includes("zh");
+  const isCNLang$1 = i18n.locale.includes("zh");
   const tagSortOrder = ["artist", "copyright", "character", "general"];
   function getDanbooruTagDetail(image) {
     const { data, tags } = image;
@@ -8863,7 +8869,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       voted: false,
       tags: tags.map((tag2) => {
         var _a2;
-        const tagCN = isCNLang && ((_a2 = window.__tagsCN) == null ? void 0 : _a2[tag2.replace(/_/g, " ")]);
+        const tagCN = isCNLang$1 && ((_a2 = window.__tagsCN) == null ? void 0 : _a2[tag2.replace(/_/g, " ")]);
         const typedTag = { type: "", text: "", color: "" };
         for (const [key, val] of Object.entries(tagMap)) {
           if (val[2].includes(tag2)) {
@@ -8919,21 +8925,57 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const isFavBtnShow = Object.keys(favActions).includes(location.hostname);
   const addPostToFavorites = favActions[location.hostname] || (() => {
   });
+  const isCNLang = i18n.locale.includes("zh");
+  async function handlePostDetail(img) {
+    var _a2;
+    const { fileUrl, sampleUrl, tags } = await ((_a2 = fetchDetailActions.find((e) => e.is())) == null ? void 0 : _a2.detail(img.value.id)) || {};
+    if (tags == null ? void 0 : tags.length)
+      img.value.tags = tags;
+    if (fileUrl)
+      img.value.fileUrl = fileUrl;
+    if (sampleUrl)
+      img.value.fileUrl = sampleUrl;
+  }
+  async function setPostDetail(imageSelected, postDetail) {
+    if (store.isYKSite) {
+      postDetail.value = {
+        voted: false,
+        tags: []
+      };
+      const result = await getPostDetail(imageSelected.value.id);
+      if (result)
+        postDetail.value = result;
+      return;
+    }
+    if (isDanbooruPage()) {
+      postDetail.value = getDanbooruTagDetail(imageSelected.value);
+      return;
+    }
+    await handlePostDetail(imageSelected);
+    postDetail.value = {
+      voted: false,
+      tags: imageSelected.value.tags.map((tag2) => {
+        var _a2;
+        const tagCN = (_a2 = window.__tagsCN) == null ? void 0 : _a2[tag2.replace(/_/g, " ")];
+        return {
+          tag: tag2,
+          tagText: isCNLang && tagCN ? `${tag2} [ ${tagCN} ]` : tag2,
+          color: "#8F77B5",
+          type: "general"
+        };
+      })
+    };
+  }
   var _sfc_main$5 = /* @__PURE__ */ Vue2.defineComponent({
     __name: "PostDetail",
     setup(__props) {
-      const notR34Fav = Vue2.ref(!(isRule34FavPage() || isRule34Firefox() || isGelbooruFavPage() || isGelbooruPage() || isZerochanPage() || isRealbooruPage()));
+      const notR34Fav = Vue2.ref(!(rule34.fav.is() || rule34.firefox.is() || gelbooru.fav.is() || gelbooru.is() || zerochan.is() || realbooru.is()));
       const showImageToolbar = Vue2.ref(true);
       const imgLoading = Vue2.ref(true);
       const innerWidth = Vue2.ref(window.innerWidth);
       const innerHeight = Vue2.ref(window.innerHeight);
       const downloading = Vue2.ref(false);
       const scaleOn = Vue2.ref(false);
-      const showTagChipGroup = Vue2.ref(localStorage.getItem("__showTags") == "1");
-      const toggleTagsShow = () => {
-        showTagChipGroup.value = !showTagChipGroup.value;
-        localStorage.setItem("__showTags", showTagChipGroup.value ? "1" : "");
-      };
       const imageSelected = Vue2.computed(() => {
         var _a2;
         return (_a2 = store.imageList[store.imageSelectedIndex]) != null ? _a2 : {};
@@ -8953,10 +8995,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         }
       });
       const imgSrc = Vue2.computed(() => {
-        var _a2, _b2;
+        var _a2, _b;
         if (isVideo.value)
           return void 0;
-        return (_b2 = (_a2 = imageSelected.value.sampleUrl) != null ? _a2 : imageSelected.value.fileUrl) != null ? _b2 : void 0;
+        return (_b = (_a2 = imageSelected.value.sampleUrl) != null ? _a2 : imageSelected.value.fileUrl) != null ? _b : void 0;
       });
       const imgLasySrc = Vue2.computed(() => {
         var _a2;
@@ -8981,34 +9023,41 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const imgCreateTime = Vue2.computed(() => {
         return formatRelativeTime(imageSelected.value.createdAt);
       });
-      const toggleToolbar = () => {
+      function close() {
+        store.showImageSelected = false;
+      }
+      function toggleToolbar() {
         if (scaleOn.value)
           return;
+        if (settings.closePopupOnImgClick) {
+          close();
+          return;
+        }
         showImageToolbar.value = !showImageToolbar.value;
-      };
-      const toTagsPage = (tag2) => {
+      }
+      function toTagsPage(tag2) {
         if (store.isYKSite) {
           window.open(`/post?tags=${tag2}`, "_blank", "noreferrer");
         }
         if (isDanbooruPage()) {
           window.open(`/posts?tags=${tag2}`, "_blank", "noreferrer");
         }
-      };
-      const toPidPage = (pid) => {
+      }
+      function toPidPage(pid) {
         if (notYKSite.value)
           return;
         window.open(`/post/show/${pid}`, "_blank", "noreferrer");
-      };
-      const toDetailPage = () => {
+      }
+      function toDetailPage() {
         window.open(imageSelected.value.postView, "_blank", "noreferrer");
-      };
-      const toSourcePage = () => {
+      }
+      function toSourcePage() {
         const { sourceUrl } = imageSelected.value;
         if (!isURL(sourceUrl))
           return;
         window.open(sourceUrl, "_blank", "noreferrer");
-      };
-      const download = async (url, name) => {
+      }
+      async function download(url, name) {
         if (!url)
           return;
         if (location.host.includes("gelbooru")) {
@@ -9030,127 +9079,49 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           downloading.value = false;
           showMsg({ msg: `${i18n.t("FAqj5ONm50QMfIt9Vq2p1")}: ${error}`, type: "error" });
         }
-      };
-      const addToList = () => {
-        store.addToSelectedList(imageSelected.value);
-      };
-      const close = () => {
-        store.showImageSelected = false;
-      };
-      const onDtlContClick = (ev) => {
-        var _a2, _b2;
+      }
+      function addToList() {
+        addToSelectedList(imageSelected.value);
+      }
+      function onDtlContClick(ev) {
+        var _a2, _b;
         const el = ev.target;
-        if ((_b2 = (_a2 = el == null ? void 0 : el.className) == null ? void 0 : _a2.includes) == null ? void 0 : _b2.call(_a2, "img_detail_cont")) {
+        if ((_b = (_a2 = el == null ? void 0 : el.className) == null ? void 0 : _a2.includes) == null ? void 0 : _b.call(_a2, "img_detail_cont")) {
           close();
         }
-      };
+      }
       const postDetail = Vue2.ref({});
       const metaTags = Vue2.computed(() => {
         var _a2;
         return ((_a2 = postDetail.value.tags) == null ? void 0 : _a2.filter((e) => e.type != "general")) || [];
       });
-      const addFavorite = async () => {
+      async function addFavorite() {
         if (!isFavBtnShow || postDetail.value.voted)
           return;
         const isSuccess = await addPostToFavorites(imageSelected.value.id);
         if (isSuccess)
           postDetail.value.voted = true;
-      };
-      const isCNLang2 = i18n.locale.includes("zh");
-      const setPostDetail = async () => {
-        if (store.isYKSite) {
-          postDetail.value = {
-            voted: false,
-            tags: []
-          };
-          const result = await getPostDetail(imageSelected.value.id);
-          if (result)
-            postDetail.value = result;
-          return;
-        }
-        if (isDanbooruPage()) {
-          postDetail.value = getDanbooruTagDetail(imageSelected.value);
-          return;
-        }
-        if (isAnimePicturesPage()) {
-          const { tags, fileUrl } = await getAnimePicturesDetail(imageSelected.value.id);
-          if (tags == null ? void 0 : tags.length)
-            imageSelected.value.tags = tags;
-          if (fileUrl)
-            imageSelected.value.fileUrl = fileUrl;
-        }
-        if (isSankakuIdolPage()) {
-          const { sampleUrl, fileUrl } = await getSankakuIdolDetail(imageSelected.value.id);
-          if (sampleUrl)
-            imageSelected.value.sampleUrl = sampleUrl;
-          if (fileUrl)
-            imageSelected.value.fileUrl = fileUrl;
-        }
-        if (isSankakuPage()) {
-          const { sampleUrl, fileUrl } = await getSankakuDetail(imageSelected.value.id);
-          if (sampleUrl)
-            imageSelected.value.sampleUrl = sampleUrl;
-          if (fileUrl)
-            imageSelected.value.fileUrl = fileUrl;
-        }
-        if (isSankakuComplexPage()) {
-          const { sampleUrl, fileUrl } = await getSankakuComplexDetail(imageSelected.value.id);
-          if (sampleUrl)
-            imageSelected.value.sampleUrl = sampleUrl;
-          if (fileUrl)
-            imageSelected.value.fileUrl = fileUrl;
-        }
-        if (isAllGirlPage()) {
-          const { fileUrl } = await getAllGirlDetail(imageSelected.value.id);
-          if (fileUrl)
-            imageSelected.value.fileUrl = fileUrl;
-        }
-        if (isHentaiBooruPage()) {
-          const { fileUrl } = await getHentaiBooruDetail(imageSelected.value.id);
-          if (fileUrl)
-            imageSelected.value.fileUrl = fileUrl;
-        }
-        if (isKusowankaPage()) {
-          const { fileUrl, tags } = await getKusowankaDetail(imageSelected.value.id);
-          if (fileUrl)
-            imageSelected.value.fileUrl = fileUrl;
-          if (tags == null ? void 0 : tags.length)
-            imageSelected.value.tags = tags;
-        }
-        postDetail.value = {
-          voted: false,
-          tags: imageSelected.value.tags.map((tag2) => {
-            var _a2;
-            const tagCN = (_a2 = window.__tagsCN) == null ? void 0 : _a2[tag2.replace(/_/g, " ")];
-            return {
-              tag: tag2,
-              tagText: isCNLang2 && tagCN ? `${tag2} [ ${tagCN} ]` : tag2,
-              color: "#8F77B5",
-              type: "general"
-            };
-          })
-        };
-      };
+      }
       const isExportTagsEnable = Vue2.ref(true);
       const isExportTagsShow = Vue2.ref(false);
-      const openExportTags = () => {
+      function openExportTags() {
         isExportTagsShow.value = true;
-      };
+      }
       const preloadImgEl = new Image();
-      const preloadImg = (src) => {
+      function preloadImg(src) {
         console.log("preloadImg: ", src);
         return new Promise((resolve, reject) => {
           preloadImgEl.src = src;
           preloadImgEl.onload = resolve;
           preloadImgEl.onerror = reject;
         });
-      };
-      const preloadNextImg = async () => {
-        if (!store.isFullImgPreload)
+      }
+      async function preloadNextImg() {
+        if (!settings.isFullImgPreload)
           return;
         if (isVideo.value)
           return;
-        for (let index = 1; index <= store.imgPreloadNum; index++) {
+        for (let index = 1; index <= settings.imgPreloadNum; index++) {
           console.log("index: ", index);
           const next = store.imageList[store.imageSelectedIndex + index];
           if (!next)
@@ -9158,15 +9129,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           const imgSrc2 = (scaleOn.value ? next.jpegUrl : next.sampleUrl) || next.fileUrl;
           await preloadImg(imgSrc2 || "");
         }
-      };
+      }
       const isVideoShow = Vue2.ref(true);
-      const toggleVideoShow = async () => {
+      async function toggleVideoShow() {
         isVideoShow.value = false;
         await Vue2.nextTick();
         isVideoShow.value = true;
-      };
+      }
       const showPreviewThumb = Vue2.ref(true);
-      const showPrevPost = async () => {
+      async function showPrevPost() {
         if (store.imageSelectedIndex == 0)
           return;
         if (showPreviewThumb.value) {
@@ -9175,24 +9146,24 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         imgLoading.value = true;
         store.imageSelectedIndex--;
         isVideo.value && toggleVideoShow();
-        await setPostDetail();
-      };
-      const showNextPost = async () => {
+        await setPostDetail(imageSelected, postDetail);
+      }
+      async function showNextPost() {
         if (showPreviewThumb.value) {
           showPreviewThumb.value = false;
         }
         if (store.imageSelectedIndex >= store.imageList.length - 1) {
-          if (store.requestState || store.requestStop)
+          if (store.requestLoading || store.requestStop)
             return;
           await searchPosts();
         }
         imgLoading.value = true;
         store.imageSelectedIndex++;
         isVideo.value && toggleVideoShow();
-        await setPostDetail();
+        await setPostDetail(imageSelected, postDetail);
         preloadNextImg();
-      };
-      const onImageLoadError = (ev) => {
+      }
+      function onImageLoadError(ev) {
         imageSelected.value.sampleUrl = null;
         if (notR34Fav.value) {
           return;
@@ -9217,41 +9188,42 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           imageSelected.value.fileUrl = fileUrl.replace(/\.jpg(\?\d+)?$/, ".png");
           return;
         }
-        if (fileUrl && (isRealbooruPage() || isRule34Firefox())) {
+        if (fileUrl && (realbooru.is() || rule34.firefox.is())) {
           imageSelected.value.fileUrl = fileUrl.replace(/\.png(\?\d+)?$/, ".gif");
         }
-      };
+      }
       const scaleImgSrc = Vue2.computed(() => {
         return scaleOn.value ? imageSelected.value.jpegUrl || imageSelected.value.fileUrl || void 0 : void 0;
       });
-      const onScaleImgError = (ev) => {
+      function onScaleImgError(ev) {
         if (notR34Fav.value) {
           imageSelected.value.data.jpeg_url = null;
           return;
         }
+        const img = ev.target;
         const { fileUrl } = imageSelected.value;
         if (fileUrl && location.hostname.includes("zerochan")) {
           getZerochanFileUrl(imageSelected.value.id).then((url) => {
             imageSelected.value.fileUrl = url;
-            ev.target.src = url;
+            img.src = url;
           });
           return;
         }
         if (fileUrl == null ? void 0 : fileUrl.includes(".jpeg")) {
           imageSelected.value.fileUrl = fileUrl.replace(/\.jpeg(\?\d+)?$/, ".jpg");
-          ev.target.src = imageSelected.value.fileUrl;
+          img.src = imageSelected.value.fileUrl;
           return;
         }
         if (fileUrl == null ? void 0 : fileUrl.includes(".jpg")) {
           imageSelected.value.fileUrl = fileUrl.replace(/\.jpg(\?\d+)?$/, ".png");
-          ev.target.src = imageSelected.value.fileUrl;
+          img.src = imageSelected.value.fileUrl;
           return;
         }
-        if (fileUrl && (isRealbooruPage() || isRule34Firefox())) {
+        if (fileUrl && (realbooru.is() || rule34.firefox.is())) {
           imageSelected.value.fileUrl = fileUrl.replace(/\.png(\?\d+)?$/, ".gif");
-          ev.target.src = imageSelected.value.fileUrl;
+          img.src = imageSelected.value.fileUrl;
         }
-      };
+      }
       const scaleImgStyleMap = {
         FitToPage: { maxWidth: "100vw", maxHeight: "100vh" },
         FitToWidth: { width: "100vw" },
@@ -9260,30 +9232,30 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       };
       const imgScaleState = Vue2.ref("Original");
       const imgRotateDeg = Vue2.ref(0);
-      const rotateImg = () => {
+      function rotateImg() {
         imgScaleState.value = "FitToPage";
         imgRotateDeg.value += 90;
-      };
+      }
       const scaleImgStyle = Vue2.computed(() => ({
         ...scaleImgStyleMap[imgScaleState.value],
         "transform": `rotate(${imgRotateDeg.value}deg)`,
         "transform-origin": "center center"
       }));
       let clearDragEv;
-      const zoomInImg = async () => {
+      async function zoomInImg() {
         scaleOn.value = true;
         if (imageSelected.value.sampleUrl) {
           imgLoading.value = true;
         }
         await Vue2.nextTick();
         clearDragEv = dragElement(".img_scale_scroll", ".img_detail_scale");
-      };
-      const zoomOutImg = () => {
+      }
+      function zoomOutImg() {
         scaleOn.value = false;
         imgRotateDeg.value = 0;
         clearDragEv == null ? void 0 : clearDragEv();
-      };
-      const reqFullscreen = async () => {
+      }
+      async function reqFullscreen() {
         try {
           if (document.fullscreenElement)
             return;
@@ -9292,11 +9264,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         } catch (error) {
           console.log("toggleFullscreen error: ", error);
         }
-      };
+      }
       Vue2.watch(() => store.showImageSelected, async (val) => {
         if (val) {
           imgLoading.value = true;
-          await setPostDetail();
+          await setPostDetail(imageSelected, postDetail);
           preloadNextImg();
         } else {
           scaleOn.value = false;
@@ -9305,10 +9277,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           showPreviewThumb.value = true;
         }
       });
-      const onResize = () => {
+      function onResize() {
         innerWidth.value = window.innerWidth;
         innerHeight.value = window.innerHeight;
-      };
+      }
       const isTriggerEvent = Vue2.computed(() => {
         if (!store.showImageSelected)
           return false;
@@ -9343,141 +9315,141 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }, 500, true);
       Vue2.onMounted(() => {
         window.addEventListener("resize", onResize);
-        store.isListenWheelEvent && window.addEventListener("wheel", onWheel);
-        store.settings.isListenKeyupEvent && window.addEventListener("keyup", onKeyup);
+        settings.isListenWheelEvent && window.addEventListener("wheel", onWheel);
+        settings.isListenKeyupEvent && window.addEventListener("keyup", onKeyup);
       });
       Vue2.onUnmounted(() => {
         window.removeEventListener("resize", onResize);
-        store.isListenWheelEvent && window.removeEventListener("wheel", onWheel);
-        store.settings.isListenKeyupEvent && window.removeEventListener("keyup", onKeyup);
+        settings.isListenWheelEvent && window.removeEventListener("wheel", onWheel);
+        settings.isListenKeyupEvent && window.removeEventListener("keyup", onKeyup);
       });
-      return { __sfc: true, notR34Fav, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, showTagChipGroup, toggleTagsShow, imageSelected, isVideo, imgSrc, imgLasySrc, imageSelectedWidth, notYKSite, imgCreateTime, toggleToolbar, toTagsPage, toPidPage, toDetailPage, toSourcePage, download, addToList, close, onDtlContClick, postDetail, metaTags, addFavorite, isCNLang: isCNLang2, setPostDetail, isExportTagsEnable, isExportTagsShow, openExportTags, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, showPrevPost, showNextPost, onImageLoadError, scaleImgSrc, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isTriggerEvent, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFileTree, mdiFitToScreenOutline, mdiFolderNetwork, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, DPlayer, PostExportTags, isFavBtnShow, notPartialSupportSite, store };
+      return { __sfc: true, notR34Fav, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, imageSelected, isVideo, imgSrc, imgLasySrc, imageSelectedWidth, notYKSite, imgCreateTime, close, toggleToolbar, toTagsPage, toPidPage, toDetailPage, toSourcePage, download, addToList, onDtlContClick, postDetail, metaTags, addFavorite, isExportTagsEnable, isExportTagsShow, openExportTags, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, showPrevPost, showNextPost, onImageLoadError, scaleImgSrc, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isTriggerEvent, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFileTree, mdiFitToScreenOutline, mdiFolderNetwork, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, DPlayer, PostExportTags, isFavBtnShow, notPartialSupportSite, settings, store };
     }
   });
   var _sfc_render$5 = function render() {
-    var _a2, _b2, _c3, _d, _e, _f, _g, _h;
-    var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
-    return _c2("v-dialog", { attrs: { "fullscreen": "" }, model: { value: _setup.store.showImageSelected, callback: function($$v) {
+    var _a2, _b, _c2, _d, _e, _f, _g, _h;
+    var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
+    return _c("v-dialog", { attrs: { "fullscreen": "" }, model: { value: _setup.store.showImageSelected, callback: function($$v) {
       _vm.$set(_setup.store, "showImageSelected", $$v);
-    }, expression: "store.showImageSelected" } }, [_setup.store.showImageSelected ? _c2("div", { staticClass: "img_detail_cont", on: { "click": _setup.onDtlContClick } }, [_setup.isVideo ? [_setup.isVideoShow ? _c2(_setup.DPlayer, { style: `width: ${_setup.imageSelectedWidth > _setup.imageSelected.width ? _setup.imageSelected.width : _setup.imageSelectedWidth}px`, attrs: { "options": { theme: "#8E24AA", autoplay: true, loop: true, video: { url: _setup.imageSelected.fileUrl } } } }) : _vm._e()] : _c2("div", { class: { img_scale_scroll: _setup.scaleOn, img_scale_normal: !_setup.scaleOn }, attrs: { "draggable": "false" } }, [_c2("v-row", { directives: [{ name: "show", rawName: "v-show", value: _setup.imgLoading, expression: "imgLoading" }], staticClass: "img_detail_loading" }, [_setup.showPreviewThumb && !_setup.scaleOn ? _c2("img", { attrs: { "src": _setup.imgLasySrc, "width": _setup.imageSelectedWidth, "alt": "" } }) : _vm._e(), _c2("v-progress-circular", { attrs: { "size": 100, "width": 6, "indeterminate": "", "color": "deep-purple" } })], 1), !_setup.scaleOn ? _c2("img", { staticClass: "img_detail_sample", attrs: { "alt": "", "src": _setup.imgSrc, "width": _setup.imgLoading ? 0 : _setup.imageSelectedWidth }, on: { "click": function($event) {
+    }, expression: "store.showImageSelected" } }, [_setup.store.showImageSelected ? _c("div", { staticClass: "img_detail_cont", on: { "click": _setup.onDtlContClick } }, [_setup.isVideo ? [_setup.isVideoShow ? _c(_setup.DPlayer, { style: `width: ${_setup.imageSelectedWidth > _setup.imageSelected.width ? _setup.imageSelected.width : _setup.imageSelectedWidth}px`, attrs: { "options": { theme: "#8E24AA", autoplay: true, loop: true, video: { url: _setup.imageSelected.fileUrl } } } }) : _vm._e()] : _c("div", { class: { img_scale_scroll: _setup.scaleOn, img_scale_normal: !_setup.scaleOn }, attrs: { "draggable": "false" } }, [_c("v-row", { directives: [{ name: "show", rawName: "v-show", value: _setup.imgLoading, expression: "imgLoading" }], staticClass: "img_detail_loading" }, [_setup.showPreviewThumb && !_setup.scaleOn ? _c("img", { attrs: { "src": _setup.imgLasySrc, "width": _setup.imageSelectedWidth, "alt": "" } }) : _vm._e(), _c("v-progress-circular", { attrs: { "size": 100, "width": 6, "indeterminate": "", "color": "deep-purple" } })], 1), !_setup.scaleOn ? _c("img", { staticClass: "img_detail_sample", attrs: { "alt": "", "src": _setup.imgSrc, "width": _setup.imgLoading ? 0 : _setup.imageSelectedWidth }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.toggleToolbar.apply(null, arguments);
     }, "load": function($event) {
       _setup.imgLoading = false;
-    }, "error": _setup.onImageLoadError } }) : _vm._e(), _setup.scaleOn ? _c2("img", { staticClass: "img_detail_scale", style: _setup.scaleImgStyle, attrs: { "draggable": "false", "alt": "", "src": _setup.scaleImgSrc }, on: { "load": function($event) {
+    }, "error": _setup.onImageLoadError } }) : _vm._e(), _setup.scaleOn ? _c("img", { staticClass: "img_detail_scale", style: _setup.scaleImgStyle, attrs: { "draggable": "false", "alt": "", "src": _setup.scaleImgSrc }, on: { "load": function($event) {
       _setup.imgLoading = false;
-    }, "error": _setup.onScaleImgError } }) : _vm._e()], 1)], 2) : _vm._e(), _c2("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && _setup.scaleOn && !_setup.isVideo, expression: "showImageToolbar && scaleOn && !isVideo" }], staticClass: "img_detail_btn_color", staticStyle: { "position": "absolute", "top": "0", "width": "100%", "z-index": "10" }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c2("v-spacer"), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1 hidden-sm-and-down", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+    }, "error": _setup.onScaleImgError } }) : _vm._e()], 1)], 2) : _vm._e(), _c("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && _setup.scaleOn && !_setup.isVideo, expression: "showImageToolbar && scaleOn && !isVideo" }], staticClass: "img-detail-toolbar img_detail_btn_color", class: { "detail-buttons-bottom": _setup.settings.detailButtonsBottom }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c("v-spacer"), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1 hidden-sm-and-down", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         _setup.imgScaleState = "FitToPage";
-      } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFitToScreenOutline))])], 1)];
-    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("M-wISnLiQgM_DURMwKZGT")))])]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+      } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiFitToScreenOutline))])], 1)];
+    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("M-wISnLiQgM_DURMwKZGT")))])]), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         _setup.imgScaleState = "FitToWidth";
-      } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiTableSplitCell))])], 1)];
-    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("ad8lEoWap_nT9U69WBKen")))])]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+      } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiTableSplitCell))])], 1)];
+    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("ad8lEoWap_nT9U69WBKen")))])]), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         _setup.imgScaleState = "FitToHeight";
-      } } }, "v-btn", attrs, false), on), [_c2("v-icon", { staticStyle: { "transform": "rotate(90deg)" } }, [_vm._v(_vm._s(_setup.mdiTableSplitCell))])], 1)];
-    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("GjMNbm97OgVvpIYlkOisE")))])]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+      } } }, "v-btn", attrs, false), on), [_c("v-icon", { staticStyle: { "transform": "rotate(90deg)" } }, [_vm._v(_vm._s(_setup.mdiTableSplitCell))])], 1)];
+    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("GjMNbm97OgVvpIYlkOisE")))])]), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         _setup.imgScaleState = "Original";
-      } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLoupe))])], 1)];
-    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("KkkM-iz8RCVQoTrTfhS5j")))])]), !_setup.store.isFullscreen ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1 hidden-sm-and-down", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+      } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiLoupe))])], 1)];
+    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("KkkM-iz8RCVQoTrTfhS5j")))])]), !_setup.store.isFullscreen ? _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1 hidden-sm-and-down", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.reqFullscreen.apply(null, arguments);
-      } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiFullscreen))])], 1)];
-    } }], null, false, 2505938539) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("XvOYJ5gHo37M1XztPl18z")))])]) : _vm._e(), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+      } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiFullscreen))])], 1)];
+    } }], null, false, 2505938539) }, [_c("span", [_vm._v(_vm._s(_vm.$t("XvOYJ5gHo37M1XztPl18z")))])]) : _vm._e(), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.rotateImg.apply(null, arguments);
-      } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiRotateRight))])], 1)];
-    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("_bQs7o9oQSo7ao1G0cp3d")))])]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+      } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiRotateRight))])], 1)];
+    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("_bQs7o9oQSo7ao1G0cp3d")))])]), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.zoomOutImg();
-      } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiMagnifyMinusOutline))])], 1)];
-    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("lPPsX2CZbXwC-EGN79Rki")))])]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+      } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiMagnifyMinusOutline))])], 1)];
+    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("lPPsX2CZbXwC-EGN79Rki")))])]), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.close.apply(null, arguments);
-      } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiClose))])], 1)];
-    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c2("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && !_setup.scaleOn, expression: "showImageToolbar && !scaleOn" }], staticClass: "img_detail_btn_color", staticStyle: { "position": "absolute", "top": "0", "width": "100%", "z-index": "10" }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c2("v-chip", { staticClass: "hidden-xs-only", attrs: { "small": "", "role": "button", "tabindex": "0" }, domProps: { "textContent": _vm._s(`${(_a2 = _setup.imageSelected.rating) == null ? void 0 : _a2.toUpperCase()} ${_setup.imageSelected.id}`) }, on: { "click": function($event) {
+      } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiClose))])], 1)];
+    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && !_setup.scaleOn, expression: "showImageToolbar && !scaleOn" }], staticClass: "img-detail-toolbar img_detail_btn_color", class: { "detail-buttons-bottom": _setup.settings.detailButtonsBottom }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c("v-chip", { staticClass: "hidden-xs-only", attrs: { "small": "", "role": "button", "tabindex": "0" }, domProps: { "textContent": _vm._s(`${(_a2 = _setup.imageSelected.rating) == null ? void 0 : _a2.toUpperCase()} ${_setup.imageSelected.id}`) }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.toDetailPage.apply(null, arguments);
-    } } }), _setup.imgCreateTime ? _c2("v-chip", { staticClass: "ml-1 hidden-sm-and-down", attrs: { "small": "", "title": _setup.imageSelected.createdTime }, domProps: { "textContent": _vm._s(_setup.imgCreateTime) } }) : _vm._e(), _c2("v-chip-group", { directives: [{ name: "show", rawName: "v-show", value: _setup.metaTags.length, expression: "metaTags.length" }], staticClass: "hidden-sm-and-down img_detail_tag_list img_meta_tag_list", attrs: { "column": "" } }, _vm._l(_setup.metaTags, function(item, i) {
-      return _c2("v-chip", { key: i, staticClass: "img_detail_tag", class: `tag_type_${item.type}`, attrs: { "color": item.color, "title": item.tagText, "small": "", "text-color": "#ffffff", "role": "button", "tabindex": "0" }, domProps: { "textContent": _vm._s(item.tagText) }, on: { "click": function($event) {
+    } } }), _setup.imgCreateTime ? _c("v-chip", { staticClass: "ml-1 hidden-sm-and-down", attrs: { "small": "", "title": _setup.imageSelected.createdTime }, domProps: { "textContent": _vm._s(_setup.imgCreateTime) } }) : _vm._e(), _c("v-chip-group", { directives: [{ name: "show", rawName: "v-show", value: _setup.metaTags.length, expression: "metaTags.length" }], staticClass: "hidden-sm-and-down img_detail_tag_list img_meta_tag_list", attrs: { "column": "" } }, _vm._l(_setup.metaTags, function(item, i) {
+      return _c("v-chip", { key: i, staticClass: "img_detail_tag", class: `tag_type_${item.type}`, attrs: { "color": item.color, "title": item.tagText, "small": "", "text-color": "#ffffff", "role": "button", "tabindex": "0" }, domProps: { "textContent": _vm._s(item.tagText) }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.toTagsPage(item.tag);
       } } });
-    }), 1), _c2("v-spacer"), _setup.isFavBtnShow ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+    }), 1), _c("v-spacer"), _setup.isFavBtnShow ? _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addFavorite.apply(null, arguments);
-      } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.postDetail.voted ? _setup.mdiHeart : _setup.mdiHeartPlusOutline))])], 1)];
-    } }], null, false, 1566492844) }, [_c2("span", [_vm._v(_vm._s(_setup.postDetail.voted ? _vm.$t("pEU9Y9K7DsODkocCDwq_O") : _vm.$t("2ZPEAvLkCbV3mC0iJAw9K")))])]) : _vm._e(), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "", "href": _setup.imageSelected.postView, "target": "_blank", "rel": "noreferrer" } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1)];
-    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("caFFJlrS1wa_F86uKPykd")))])]), _setup.imageSelected.sourceUrl ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+      } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.postDetail.voted ? _setup.mdiHeart : _setup.mdiHeartPlusOutline))])], 1)];
+    } }], null, false, 1566492844) }, [_c("span", [_vm._v(_vm._s(_setup.postDetail.voted ? _vm.$t("pEU9Y9K7DsODkocCDwq_O") : _vm.$t("2ZPEAvLkCbV3mC0iJAw9K")))])]) : _vm._e(), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "", "href": _setup.imageSelected.postView, "target": "_blank", "rel": "noreferrer" } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1)];
+    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("caFFJlrS1wa_F86uKPykd")))])]), _setup.imageSelected.sourceUrl ? _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.toSourcePage.apply(null, arguments);
-      } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLaunch))])], 1)];
-    } }], null, false, 2921050437) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("qSF4OLshg2EEX4CwtBE6r")) + " " + _vm._s(_setup.imageSelected.sourceUrl))])]) : _vm._e(), !_setup.isVideo ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+      } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiLaunch))])], 1)];
+    } }], null, false, 2921050437) }, [_c("span", [_vm._v(_vm._s(_vm.$t("qSF4OLshg2EEX4CwtBE6r")) + " " + _vm._s(_setup.imageSelected.sourceUrl))])]) : _vm._e(), !_setup.isVideo ? _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.zoomInImg();
-      } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiMagnifyPlusOutline))])], 1)];
-    } }], null, false, 1673140250) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("B_ptN5O-9PhmG5ymGGtc6")))])]) : _vm._e(), _setup.notR34Fav ? _c2("v-menu", { attrs: { "dense": "", "open-on-hover": "", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ directives: [{ name: "show", rawName: "v-show", value: !_setup.downloading, expression: "!downloading" }], staticClass: "mr-1", attrs: { "fab": "", "small": "" } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1)];
-    } }], null, false, 2023776716) }, [_c2("v-list", { attrs: { "dense": "", "flat": "" } }, [_setup.imageSelected.sampleUrl ? _c2("v-list-item", { attrs: { "two-line": "", "link": "", "dense": "" } }, [_c2("v-list-item-content", { on: { "click": function($event) {
+      } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiMagnifyPlusOutline))])], 1)];
+    } }], null, false, 1673140250) }, [_c("span", [_vm._v(_vm._s(_vm.$t("B_ptN5O-9PhmG5ymGGtc6")))])]) : _vm._e(), _setup.notR34Fav ? _c("v-menu", { attrs: { "dense": "", "open-on-hover": "", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ directives: [{ name: "show", rawName: "v-show", value: !_setup.downloading, expression: "!downloading" }], staticClass: "mr-1", attrs: { "fab": "", "small": "" } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1)];
+    } }], null, false, 2023776716) }, [_c("v-list", { attrs: { "dense": "", "flat": "" } }, [_setup.imageSelected.sampleUrl ? _c("v-list-item", { attrs: { "two-line": "", "link": "", "dense": "" } }, [_c("v-list-item-content", { on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.download(_setup.imageSelected.sampleUrl, _setup.imageSelected.sampleDownloadName);
-    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("wI4KHHIe3zNRziW4lDZrp")))]), _c2("v-list-item-subtitle", { domProps: { "textContent": _vm._s(_setup.imageSelected.sampleDownloadText) } })], 1)], 1) : _vm._e(), _setup.imageSelected.jpegUrl ? _c2("v-list-item", { attrs: { "two-line": "", "link": "", "dense": "" } }, [_c2("v-list-item-content", { on: { "click": function($event) {
+    } } }, [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("wI4KHHIe3zNRziW4lDZrp")))]), _c("v-list-item-subtitle", { domProps: { "textContent": _vm._s(_setup.imageSelected.sampleDownloadText) } })], 1)], 1) : _vm._e(), _setup.imageSelected.jpegUrl ? _c("v-list-item", { attrs: { "two-line": "", "link": "", "dense": "" } }, [_c("v-list-item-content", { on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.download(_setup.imageSelected.jpegUrl, _setup.imageSelected.jpegDownloadName);
-    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("k4YzDnBtd_S2UpAQucGxF")))]), _c2("v-list-item-subtitle", { domProps: { "textContent": _vm._s(_setup.imageSelected.jpegDownloadText) } })], 1)], 1) : _vm._e(), _c2("v-list-item", { attrs: { "two-line": "", "link": "", "dense": "" } }, [_c2("v-list-item-content", { on: { "click": function($event) {
+    } } }, [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("k4YzDnBtd_S2UpAQucGxF")))]), _c("v-list-item-subtitle", { domProps: { "textContent": _vm._s(_setup.imageSelected.jpegDownloadText) } })], 1)], 1) : _vm._e(), _c("v-list-item", { attrs: { "two-line": "", "link": "", "dense": "" } }, [_c("v-list-item-content", { on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.download(_setup.imageSelected.fileUrl, _setup.imageSelected.fileDownloadName);
-    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("VpuyxZtIoDF9-YyOm0tK_")))]), _c2("v-list-item-subtitle", { domProps: { "textContent": _vm._s(_setup.imageSelected.fileDownloadText) } })], 1)], 1)], 1)], 1) : _vm._e(), _c2("v-progress-circular", { directives: [{ name: "show", rawName: "v-show", value: _setup.downloading, expression: "downloading" }], staticClass: "ml-1 mr-2", attrs: { "indeterminate": "", "color": "primary" } }), _setup.notPartialSupportSite && _setup.notR34Fav ? _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+    } } }, [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("VpuyxZtIoDF9-YyOm0tK_")))]), _c("v-list-item-subtitle", { domProps: { "textContent": _vm._s(_setup.imageSelected.fileDownloadText) } })], 1)], 1)], 1)], 1) : _vm._e(), _c("v-progress-circular", { directives: [{ name: "show", rawName: "v-show", value: _setup.downloading, expression: "downloading" }], staticClass: "ml-1 mr-2", attrs: { "indeterminate": "", "color": "primary" } }), _setup.notPartialSupportSite && _setup.notR34Fav ? _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addToList.apply(null, arguments);
-      } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiPlaylistPlus))])], 1)];
-    } }], null, false, 3165283113) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("hVmfDxXoj8vkgVQabEOSr")))])]) : _vm._e(), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c2("v-btn", _vm._g(_vm._b({ attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+      } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiPlaylistPlus))])], 1)];
+    } }], null, false, 3165283113) }, [_c("span", [_vm._v(_vm._s(_vm.$t("hVmfDxXoj8vkgVQabEOSr")))])]) : _vm._e(), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.close.apply(null, arguments);
-      } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiClose))])], 1)];
-    } }]) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c2("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar, expression: "showImageToolbar" }], staticClass: "img_detail_btn_color" }, [_c2("div", { staticStyle: { "position": "absolute", "z-index": "10", "bottom": "12px", "padding": "0 12px" } }, [_c2("v-chip", { directives: [{ name: "show", rawName: "v-show", value: (_b2 = _setup.postDetail.tags) == null ? void 0 : _b2.length, expression: "postDetail.tags?.length" }], staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
+      } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiClose))])], 1)];
+    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar, expression: "showImageToolbar" }], staticClass: "img_detail_btn_color" }, [_c("div", { staticClass: "img-detail-tags", class: { "detail-buttons-bottom": _setup.settings.detailButtonsBottom } }, [_c("v-chip", { directives: [{ name: "show", rawName: "v-show", value: (_b = _setup.postDetail.tags) == null ? void 0 : _b.length, expression: "postDetail.tags?.length" }], staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
       $event.stopPropagation();
-      return _setup.toggleTagsShow();
-    } } }, [_c2("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(_setup.mdiTagMultiple))]), _c2("span", [_vm._v(_vm._s(_setup.showTagChipGroup ? _vm.$t("gM92sLo0Cqfl2rCaXlOhc") : _vm.$t("l5W-EtJ_ar-SY2lF4H5Zm")))])], 1), _setup.isExportTagsEnable && ((_c3 = _setup.postDetail.tags) == null ? void 0 : _c3.length) ? _c2("v-chip", { staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
+      _setup.settings.showTagChipGroup = !_setup.settings.showTagChipGroup;
+    } } }, [_c("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(_setup.mdiTagMultiple))]), _c("span", [_vm._v(_vm._s(_setup.settings.showTagChipGroup ? _vm.$t("gM92sLo0Cqfl2rCaXlOhc") : _vm.$t("l5W-EtJ_ar-SY2lF4H5Zm")))])], 1), _setup.isExportTagsEnable && ((_c2 = _setup.postDetail.tags) == null ? void 0 : _c2.length) ? _c("v-chip", { staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.openExportTags();
-    } } }, [_c2("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(_setup.mdiTagMultiple))]), _c2("span", [_vm._v(_vm._s(_vm.$t("QH_xm27zhgs5E1077asf1")))])], 1) : _vm._e(), _setup.store.isYKSite ? [((_e = (_d = _setup.imageSelected) == null ? void 0 : _d.data) == null ? void 0 : _e.parent_id) ? _c2("v-chip", { staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
-      var _a3, _b3;
+    } } }, [_c("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(_setup.mdiTagMultiple))]), _c("span", [_vm._v(_vm._s(_vm.$t("QH_xm27zhgs5E1077asf1")))])], 1) : _vm._e(), _setup.store.isYKSite ? [((_e = (_d = _setup.imageSelected) == null ? void 0 : _d.data) == null ? void 0 : _e.parent_id) ? _c("v-chip", { staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
+      var _a3, _b2;
       $event.stopPropagation();
-      _setup.toPidPage((_b3 = (_a3 = _setup.imageSelected) == null ? void 0 : _a3.data) == null ? void 0 : _b3.parent_id);
-    } } }, [_c2("v-icon", { attrs: { "small": "", "left": "" } }, [_vm._v(_vm._s(_setup.mdiFolderNetwork))]), _c2("span", [_vm._v(_vm._s(_vm.$t("sMkrF8bqCTJZZ1kXTkT_R")))])], 1) : _vm._e(), ((_g = (_f = _setup.imageSelected) == null ? void 0 : _f.data) == null ? void 0 : _g.has_children) ? _c2("v-chip", { staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
+      _setup.toPidPage((_b2 = (_a3 = _setup.imageSelected) == null ? void 0 : _a3.data) == null ? void 0 : _b2.parent_id);
+    } } }, [_c("v-icon", { attrs: { "small": "", "left": "" } }, [_vm._v(_vm._s(_setup.mdiFolderNetwork))]), _c("span", [_vm._v(_vm._s(_vm.$t("sMkrF8bqCTJZZ1kXTkT_R")))])], 1) : _vm._e(), ((_g = (_f = _setup.imageSelected) == null ? void 0 : _f.data) == null ? void 0 : _g.has_children) ? _c("v-chip", { staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
       var _a3;
       $event.stopPropagation();
       return _setup.toTagsPage(`parent:${(_a3 = _setup.imageSelected) == null ? void 0 : _a3.id}&_wf=1`);
-    } } }, [_c2("v-icon", { attrs: { "small": "", "left": "" } }, [_vm._v(_vm._s(_setup.mdiFileTree))]), _c2("span", [_vm._v(_vm._s(_vm.$t("u0K7A_hv1RZSJl6TDR61A")))])], 1) : _vm._e()] : _vm._e(), _c2("v-chip-group", { directives: [{ name: "show", rawName: "v-show", value: _setup.showTagChipGroup, expression: "showTagChipGroup" }], staticClass: "img_detail_tag_list", attrs: { "column": "" } }, _vm._l(_setup.postDetail.tags || [], function(item, i) {
-      return _c2("v-chip", { key: i, staticClass: "img_detail_tag mr-1", class: `tag_type_${item.type}`, attrs: { "small": "", "color": item.color, "text-color": "#ffffff", "role": "button", "tabindex": "0" }, domProps: { "textContent": _vm._s(item.tagText) }, on: { "click": function($event) {
+    } } }, [_c("v-icon", { attrs: { "small": "", "left": "" } }, [_vm._v(_vm._s(_setup.mdiFileTree))]), _c("span", [_vm._v(_vm._s(_vm.$t("u0K7A_hv1RZSJl6TDR61A")))])], 1) : _vm._e()] : _vm._e(), _c("v-chip-group", { directives: [{ name: "show", rawName: "v-show", value: _setup.settings.showTagChipGroup, expression: "settings.showTagChipGroup" }], staticClass: "img_detail_tag_list", attrs: { "column": "" } }, _vm._l(_setup.postDetail.tags || [], function(item, i) {
+      return _c("v-chip", { key: i, staticClass: "img_detail_tag mr-1", class: `tag_type_${item.type}`, attrs: { "small": "", "color": item.color, "text-color": "#ffffff", "role": "button", "tabindex": "0" }, domProps: { "textContent": _vm._s(item.tagText) }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.toTagsPage(item.tag);
       } } });
-    }), 1)], 2), _c2("v-btn", { staticClass: "poa_left_center hidden-sm-and-down", staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+    }), 1)], 2), _c("v-btn", { staticClass: "poa_left_center hidden-sm-and-down", staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.showPrevPost.apply(null, arguments);
-    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiChevronLeft))])], 1), _c2("v-btn", { staticClass: "poa_right_center hidden-sm-and-down", staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+    } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiChevronLeft))])], 1), _c("v-btn", { staticClass: "poa_right_center hidden-sm-and-down", staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.showNextPost.apply(null, arguments);
-    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiChevronRight))])], 1)], 1), _setup.isExportTagsEnable && _setup.store.showImageSelected ? _c2(_setup.PostExportTags, { attrs: { "show-dialog": _setup.isExportTagsShow, "update-show-dialog": (val) => _setup.isExportTagsShow = val, "tags": ((_h = _setup.postDetail) == null ? void 0 : _h.tags) || [] } }) : _vm._e()], 1);
+    } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiChevronRight))])], 1)], 1), _setup.isExportTagsEnable && _setup.store.showImageSelected ? _c(_setup.PostExportTags, { attrs: { "show-dialog": _setup.isExportTagsShow, "update-show-dialog": (val) => _setup.isExportTagsShow = val, "tags": ((_h = _setup.postDetail) == null ? void 0 : _h.tags) || [] } }) : _vm._e()], 1);
   };
   var _sfc_staticRenderFns$5 = [];
   var __component__$5 = /* @__PURE__ */ normalizeComponent(
@@ -9494,12 +9466,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var _sfc_main$4 = /* @__PURE__ */ Vue2.defineComponent({
     __name: "PostList",
     setup(__props) {
-      const notFitScreen2 = Vue2.ref(localStorage.getItem("__fitScreen") == "0");
+      const notFitScreen = Vue2.ref(localStorage.getItem("__fitScreen") == "0");
       const isR34Fav = Vue2.ref(isRule34FavPage() || isGelbooruFavPage());
       const showImageList = Vue2.ref(true);
       const showFab = Vue2.ref(false);
       Vue2.watch(
-        () => store.selectedColumn,
+        () => settings.selectedColumn,
         () => {
           showImageList.value = false;
           Vue2.nextTick(() => {
@@ -9507,23 +9479,31 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           });
         }
       );
-      const showNoMore = Vue2.computed(() => !store.requestState && store.requestStop);
-      const showLoadMore = Vue2.computed(() => !store.requestState && !store.requestStop);
+      const showNoMore = Vue2.computed(() => !store.requestLoading && store.requestStop);
+      const showLoadMore = Vue2.computed(() => !store.requestLoading && !store.requestStop);
       const ctxActPost = Vue2.ref();
       const showMenu = Vue2.ref(false);
       const x = Vue2.ref(0);
       const y = Vue2.ref(0);
       const maxHeightStyle = Vue2.computed(() => {
-        const num = +store.selectedColumn;
+        const num = +settings.selectedColumn;
         if (num == 0 || num > 3)
           return "max-height: 60vh;overflow: hidden";
         return "";
       });
-      const getImgSrc = (img) => {
+      function imgCardStyle(image) {
+        if (settings.masonryLayout !== "justified")
+          return maxHeightStyle;
+        let style = `--w:${image == null ? void 0 : image.width};--h:${image == null ? void 0 : image.height};`;
+        if (settings.justifiedBaseWidth)
+          style += `--jstf-w:${settings.justifiedBaseWidth};`;
+        return style;
+      }
+      function getImgSrc(img) {
         let src = img == null ? void 0 : img.previewUrl;
         if (!/\.(mp4|webm)$/i.test((img == null ? void 0 : img.fileUrl) || "")) {
-          const num = +store.selectedColumn;
-          if (store.settings.isThumbSampleUrl || num != 0 && num < 7) {
+          const num = +settings.selectedColumn;
+          if (settings.isThumbSampleUrl || num != 0 && num < 7) {
             src = img == null ? void 0 : img.sampleUrl;
           }
           if (location.hostname === "danbooru.donmai.us" && src) {
@@ -9531,8 +9511,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           }
         }
         return src || (img == null ? void 0 : img.fileUrl) || void 0;
-      };
-      const onCtxMenu = (ev, img) => {
+      }
+      function onCtxMenu(ev, img) {
         if (isR34Fav.value)
           return;
         ev.preventDefault();
@@ -9543,31 +9523,31 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           ctxActPost.value = img;
           showMenu.value = true;
         });
-      };
-      const showImgModal = (index) => {
-        if (store.settings.useFancybox) {
+      }
+      function showImgModal(index) {
+        if (settings.useFancybox) {
           fancyboxShow(store.imageList, index);
           return;
         }
         store.imageSelectedIndex = index;
         store.showImageSelected = true;
-      };
-      const openDetail = (post) => {
+      }
+      function openDetail(post) {
         const img = post || ctxActPost.value;
         img && window.open(img.postView, "_blank", "noreferrer");
-      };
-      const addToSelectedList = (post) => {
+      }
+      function addToSelectedList$1(post) {
         const img = post || ctxActPost.value;
-        img && store.addToSelectedList(img);
-      };
-      const addFavorite = (id) => {
+        img && addToSelectedList(img);
+      }
+      function addFavorite(id) {
         var _a2;
         if (!isFavBtnShow)
           return;
         const imgId = id || ((_a2 = ctxActPost.value) == null ? void 0 : _a2.id);
         imgId && addPostToFavorites(imgId);
-      };
-      const downloadCtxPost = async (post) => {
+      }
+      async function downloadCtxPost(post) {
         const img = post || ctxActPost.value;
         if (!img)
           return;
@@ -9585,12 +9565,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         } catch (error) {
           showMsg({ msg: `${i18n.t("FAqj5ONm50QMfIt9Vq2p1")}: ${error}`, type: "error" });
         }
-      };
-      const isPostChecked = (id) => store.selectedImageList.some((e) => e.id === id);
-      const onPostCheckboxChange = (e, image) => {
-        e ? store.addToSelectedList(image) : store.removeFromSelectedList(image.id);
-      };
-      const onImageLoadError = (id) => {
+      }
+      function isPostChecked(id) {
+        return store.selectedImageList.some((e) => e.id === id);
+      }
+      function onPostCheckboxChange(e, image) {
+        e ? addToSelectedList(image) : removeFromSelectedList(image.id);
+      }
+      function onImageLoadError(id) {
         const item = store.imageList.find((e) => e.id == id);
         if (!item)
           return;
@@ -9611,20 +9593,20 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         } else {
           Vue2.set(item, "fileUrl", fileUrl.replace(/\.png(\?\d+)?$/, ".gif"));
         }
-      };
+      }
       const virtualMaxCol = Vue2.computed(() => {
-        const num = Number(store.selectedColumn);
+        const num = Number(settings.selectedColumn);
         return num > 0 ? num : void 0;
       });
-      const calcItemHeight = (item, itemWidth) => {
+      function calcItemHeight(item, itemWidth) {
         return item.height * (itemWidth / item.width);
-      };
+      }
       const scrollFn = throttleScroll((scroll) => {
         if (!showFab.value && scroll > 200)
           showFab.value = true;
         if (store.requestStop)
           return;
-        if (store.requestState)
+        if (store.requestLoading)
           return;
         notReachBottom() && searchPosts(true);
       }, () => {
@@ -9638,74 +9620,74 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       Vue2.onUnmounted(() => {
         window.removeEventListener("scroll", scrollFn);
       });
-      return { __sfc: true, notFitScreen: notFitScreen2, isR34Fav, showImageList, showFab, showNoMore, showLoadMore, ctxActPost, showMenu, x, y, maxHeightStyle, getImgSrc, onCtxMenu, showImgModal, openDetail, addToSelectedList, addFavorite, downloadCtxPost, isPostChecked, onPostCheckboxChange, onImageLoadError, virtualMaxCol, calcItemHeight, scrollFn, mdiDownload, mdiFileGifBox, mdiFileTree, mdiFolderNetwork, mdiHeartPlusOutline, mdiLinkVariant, mdiPlaylistPlus, mdiRefresh, mdiVideo, PostDetail, notPartialSupportSite, isFavBtnShow, refreshPosts, searchPosts, store };
+      return { __sfc: true, notFitScreen, isR34Fav, showImageList, showFab, showNoMore, showLoadMore, ctxActPost, showMenu, x, y, maxHeightStyle, imgCardStyle, getImgSrc, onCtxMenu, showImgModal, openDetail, addToSelectedList: addToSelectedList$1, addFavorite, downloadCtxPost, isPostChecked, onPostCheckboxChange, onImageLoadError, virtualMaxCol, calcItemHeight, scrollFn, mdiDownload, mdiFileGifBox, mdiFileTree, mdiFolderNetwork, mdiHeartPlusOutline, mdiLinkVariant, mdiPlaylistPlus, mdiRefresh, mdiVideo, PostDetail, notPartialSupportSite, isFavBtnShow, refreshPosts, searchPosts, settings, store };
     }
   });
   var _sfc_render$4 = function render() {
-    var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
-    return _setup.showImageList ? _c2("div", { style: _setup.store.settings.masonryLayout === "virtual" ? "height:93vh" : "" }, [_setup.store.settings.masonryLayout === "virtual" ? _c2("virtual-waterfall", { staticClass: "virtual-waterfall", class: { "wf-no-fit-screen": _setup.notFitScreen }, staticStyle: { "min-height": "93vh" }, attrs: { "gap": 10, "preload-screen-count": [1, 1], "item-min-width": 300, "items": _setup.store.imageList, "max-column-count": _setup.virtualMaxCol, "calc-item-height": _setup.calcItemHeight }, scopedSlots: _vm._u([{ key: "default", fn: function({ item, index }) {
-      var _a2, _b2;
-      return [_c2("div", { staticClass: "posts-image-card" }, [_c2("img", { staticClass: "post-image-v", attrs: { "alt": "", "loading": "lazy", "src": _setup.getImgSrc(item), "role": "button", "tabindex": "0" }, on: { "click": function($event) {
+    var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
+    return _setup.showImageList ? _c("div", { style: _setup.settings.masonryLayout === "virtual" ? "height:93vh" : "" }, [_setup.settings.masonryLayout === "virtual" ? _c("virtual-waterfall", { staticClass: "virtual-waterfall", class: { "wf-no-fit-screen": _setup.notFitScreen }, staticStyle: { "min-height": "93vh" }, attrs: { "gap": 10, "preload-screen-count": [1, 1], "item-min-width": 300, "items": _setup.store.imageList, "max-column-count": _setup.virtualMaxCol, "calc-item-height": _setup.calcItemHeight }, scopedSlots: _vm._u([{ key: "default", fn: function({ item, index }) {
+      var _a2, _b;
+      return [_c("div", { staticClass: "posts-image-card" }, [_c("img", { staticClass: "post-image-v", attrs: { "alt": "", "loading": "lazy", "src": _setup.getImgSrc(item), "role": "button", "tabindex": "0" }, on: { "click": function($event) {
         return _setup.showImgModal(index);
       }, "contextmenu": function($event) {
         return _setup.onCtxMenu($event, item);
       }, "error": function($event) {
         return _setup.onImageLoadError((item == null ? void 0 : item.id) || "");
-      } } }), _setup.store.isYKSite ? [((_a2 = item == null ? void 0 : item.data) == null ? void 0 : _a2.has_children) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), ((_b2 = item == null ? void 0 : item.data) == null ? void 0 : _b2.parent_id) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), (item == null ? void 0 : item.fileExt.toLowerCase()) === "gif" ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(item == null ? void 0 : item.fileExt.toLowerCase()) ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav && _setup.store.settings.showPostCheckbox ? _c2("div", { staticClass: "posts-image-checkbox" }, [_c2("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.isPostChecked(item == null ? void 0 : item.id), "hide-details": "" }, on: { "change": function($event) {
+      } } }), _setup.store.isYKSite ? [((_a2 = item == null ? void 0 : item.data) == null ? void 0 : _a2.has_children) ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), ((_b = item == null ? void 0 : item.data) == null ? void 0 : _b.parent_id) ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), (item == null ? void 0 : item.fileExt.toLowerCase()) === "gif" ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(item == null ? void 0 : item.fileExt.toLowerCase()) ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav && _setup.settings.showPostCheckbox ? _c("div", { staticClass: "posts-image-checkbox" }, [_c("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.isPostChecked(item == null ? void 0 : item.id), "hide-details": "" }, on: { "change": function($event) {
         return _setup.onPostCheckboxChange($event, item);
-      } } })], 1) : _vm._e(), _setup.store.settings.showListPostReso ? _c2("div", { staticClass: "posts-image-wh" }, [_vm._v(_vm._s(item == null ? void 0 : item.width) + " \xD7 " + _vm._s(item == null ? void 0 : item.height))]) : _vm._e(), !_setup.isR34Fav ? _c2("div", { staticClass: "posts-image-actions" }, [_c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4"), "href": item == null ? void 0 : item.postView, "target": "_blank", "rel": "noreferrer" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _setup.notPartialSupportSite ? _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
+      } } })], 1) : _vm._e(), _setup.settings.showListPostReso ? _c("div", { staticClass: "posts-image-wh" }, [_vm._v(_vm._s(item == null ? void 0 : item.width) + " \xD7 " + _vm._s(item == null ? void 0 : item.height))]) : _vm._e(), !_setup.isR34Fav ? _c("div", { staticClass: "posts-image-actions" }, [_c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4"), "href": item == null ? void 0 : item.postView, "target": "_blank", "rel": "noreferrer" } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _setup.notPartialSupportSite ? _c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addToSelectedList(item);
-      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiPlaylistPlus))])], 1) : _vm._e(), _setup.notPartialSupportSite ? _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("VpuyxZtIoDF9-YyOm0tK_") }, on: { "click": function($event) {
+      } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiPlaylistPlus))])], 1) : _vm._e(), _setup.notPartialSupportSite ? _c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("VpuyxZtIoDF9-YyOm0tK_") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.downloadCtxPost(item);
-      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1) : _vm._e(), _setup.isFavBtnShow ? _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("Dnnio9m9RZA6bkTLytc99") }, on: { "click": function($event) {
+      } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1) : _vm._e(), _setup.isFavBtnShow ? _c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("Dnnio9m9RZA6bkTLytc99") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addFavorite(item == null ? void 0 : item.id);
-      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHeartPlusOutline))])], 1) : _vm._e()], 1) : _vm._e()], 2)];
-    } }], null, false, 524262093) }) : _c2("wf-layout", _vm._l(_setup.store.imageList, function(image, index) {
-      var _a2, _b2;
-      return _c2("v-card", { key: index, staticClass: "posts-image-card", style: _setup.store.settings.masonryLayout === "flexbin" ? `--w:${image == null ? void 0 : image.width};--h:${image == null ? void 0 : image.height}` : _setup.maxHeightStyle }, [_setup.store.settings.masonryLayout === "flexbin" ? [_c2("img", { staticClass: "post-image", attrs: { "alt": "", "loading": "lazy", "src": _setup.getImgSrc(image), "role": "button", "tabindex": "0" }, on: { "click": function($event) {
+      } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiHeartPlusOutline))])], 1) : _vm._e()], 1) : _vm._e()], 2)];
+    } }], null, false, 1028004845) }) : _c("wf-layout", _vm._l(_setup.store.imageList, function(image, index) {
+      var _a2, _b;
+      return _c("v-card", { key: index, staticClass: "posts-image-card", style: _setup.imgCardStyle(image) }, [_setup.settings.masonryLayout === "justified" ? [_c("img", { staticClass: "post-image", attrs: { "alt": "", "loading": "lazy", "src": _setup.getImgSrc(image), "role": "button", "tabindex": "0" }, on: { "click": function($event) {
         return _setup.showImgModal(index);
       }, "contextmenu": function($event) {
         return _setup.onCtxMenu($event, image);
       }, "error": function($event) {
         return _setup.onImageLoadError((image == null ? void 0 : image.id) || "");
-      } } })] : _c2("v-img", { attrs: { "transition": "scroll-y-transition", "src": _setup.getImgSrc(image), "aspect-ratio": image == null ? void 0 : image.aspectRatio }, on: { "click": function($event) {
+      } } })] : _c("v-img", { attrs: { "transition": "scroll-y-transition", "src": _setup.getImgSrc(image), "aspect-ratio": image == null ? void 0 : image.aspectRatio }, on: { "click": function($event) {
         return _setup.showImgModal(index);
       }, "contextmenu": function($event) {
         return _setup.onCtxMenu($event, image);
       }, "error": function($event) {
         return _setup.onImageLoadError(image == null ? void 0 : image.id);
       } }, scopedSlots: _vm._u([{ key: "placeholder", fn: function() {
-        return [_c2("v-row", { staticClass: "fill-height ma-0", attrs: { "align": "center", "justify": "center" } }, [_c2("v-progress-circular", { attrs: { "indeterminate": "", "color": "deep-purple" } })], 1)];
-      }, proxy: true }], null, true) }), _setup.store.isYKSite ? [((_a2 = image == null ? void 0 : image.data) == null ? void 0 : _a2.has_children) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), ((_b2 = image == null ? void 0 : image.data) == null ? void 0 : _b2.parent_id) ? _c2("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), (image == null ? void 0 : image.fileExt.toLowerCase()) === "gif" ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(image == null ? void 0 : image.fileExt.toLowerCase()) ? _c2("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav && _setup.store.settings.showPostCheckbox ? _c2("div", { staticClass: "posts-image-checkbox" }, [_c2("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.isPostChecked(image == null ? void 0 : image.id), "hide-details": "" }, on: { "change": function($event) {
+        return [_c("v-row", { staticClass: "fill-height ma-0", attrs: { "align": "center", "justify": "center" } }, [_c("v-progress-circular", { attrs: { "indeterminate": "", "color": "deep-purple" } })], 1)];
+      }, proxy: true }], null, true) }), _setup.store.isYKSite ? [((_a2 = image == null ? void 0 : image.data) == null ? void 0 : _a2.has_children) ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), ((_b = image == null ? void 0 : image.data) == null ? void 0 : _b.parent_id) ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), (image == null ? void 0 : image.fileExt.toLowerCase()) === "gif" ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(image == null ? void 0 : image.fileExt.toLowerCase()) ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav && _setup.settings.showPostCheckbox ? _c("div", { staticClass: "posts-image-checkbox" }, [_c("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.isPostChecked(image == null ? void 0 : image.id), "hide-details": "" }, on: { "change": function($event) {
         return _setup.onPostCheckboxChange($event, image);
-      } } })], 1) : _vm._e(), _setup.store.settings.showListPostReso ? _c2("div", { staticClass: "posts-image-wh" }, [_vm._v(_vm._s(image == null ? void 0 : image.width) + " \xD7 " + _vm._s(image == null ? void 0 : image.height))]) : _vm._e(), !_setup.isR34Fav ? _c2("div", { staticClass: "posts-image-actions" }, [_c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4"), "href": image == null ? void 0 : image.postView, "target": "_blank", "rel": "noreferrer" } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _setup.notPartialSupportSite ? _c2("v-btn", { staticClass: "hidden-md-and-down", attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
+      } } })], 1) : _vm._e(), _setup.settings.showListPostReso ? _c("div", { staticClass: "posts-image-wh" }, [_vm._v(_vm._s(image == null ? void 0 : image.width) + " \xD7 " + _vm._s(image == null ? void 0 : image.height))]) : _vm._e(), !_setup.isR34Fav ? _c("div", { staticClass: "posts-image-actions" }, [_c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4"), "href": image == null ? void 0 : image.postView, "target": "_blank", "rel": "noreferrer" } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _setup.notPartialSupportSite ? _c("v-btn", { staticClass: "hidden-md-and-down", attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addToSelectedList(image);
-      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiPlaylistPlus))])], 1) : _vm._e(), _setup.notPartialSupportSite ? _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("VpuyxZtIoDF9-YyOm0tK_") }, on: { "click": function($event) {
+      } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiPlaylistPlus))])], 1) : _vm._e(), _setup.notPartialSupportSite ? _c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("VpuyxZtIoDF9-YyOm0tK_") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.downloadCtxPost(image);
-      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1) : _vm._e(), _setup.isFavBtnShow ? _c2("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("Dnnio9m9RZA6bkTLytc99") }, on: { "click": function($event) {
+      } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1) : _vm._e(), _setup.isFavBtnShow ? _c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("Dnnio9m9RZA6bkTLytc99") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addFavorite(image == null ? void 0 : image.id);
-      } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiHeartPlusOutline))])], 1) : _vm._e()], 1) : _vm._e()], 2);
-    }), 1), _c2("div", { staticClass: "d-flex justify-center" }, [_c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.requestState, expression: "store.requestState" }], attrs: { "color": "primary", "text": "" } }, [_vm._v(" " + _vm._s(_vm.$t("RN4dt81l_fZMWODsskZob")) + "... ")]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showLoadMore, expression: "showLoadMore" }], attrs: { "color": "primary", "text": "" }, on: { "click": function($event) {
+      } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiHeartPlusOutline))])], 1) : _vm._e()], 1) : _vm._e()], 2);
+    }), 1), _c("div", { staticClass: "d-flex justify-center" }, [_c("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.requestLoading, expression: "store.requestLoading" }], attrs: { "color": "primary", "text": "" } }, [_vm._v(" " + _vm._s(_vm.$t("RN4dt81l_fZMWODsskZob")) + "... ")]), _c("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showLoadMore, expression: "showLoadMore" }], attrs: { "color": "primary", "text": "" }, on: { "click": function($event) {
       return _setup.searchPosts();
-    } } }, [_vm._v(" " + _vm._s(_vm.$t("fC8XNfCl04zK7vgeaRZMQ")) + " ")]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showNoMore, expression: "showNoMore" }], staticClass: "mt-2", attrs: { "color": "primary", "text": "" } }, [_vm._v(" " + _vm._s(_vm.$t("Z4pa8GhgE63OGGvCqAld0")) + "... ")])], 1), _c2("v-menu", { attrs: { "position-x": _setup.x, "position-y": _setup.y, "absolute": "", "offset-y": "" }, model: { value: _setup.showMenu, callback: function($$v) {
+    } } }, [_vm._v(" " + _vm._s(_vm.$t("fC8XNfCl04zK7vgeaRZMQ")) + " ")]), _c("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showNoMore, expression: "showNoMore" }], staticClass: "mt-2", attrs: { "color": "primary", "text": "" } }, [_vm._v(" " + _vm._s(_vm.$t("Z4pa8GhgE63OGGvCqAld0")) + "... ")])], 1), _c("v-menu", { attrs: { "position-x": _setup.x, "position-y": _setup.y, "absolute": "", "offset-y": "" }, model: { value: _setup.showMenu, callback: function($$v) {
       _setup.showMenu = $$v;
-    }, expression: "showMenu" } }, [_c2("v-list", [_setup.isFavBtnShow ? _c2("v-list-item", { on: { "click": function($event) {
+    }, expression: "showMenu" } }, [_c("v-list", [_setup.isFavBtnShow ? _c("v-list-item", { on: { "click": function($event) {
       return _setup.addFavorite();
-    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Dnnio9m9RZA6bkTLytc99")))])], 1) : _vm._e(), _setup.notPartialSupportSite ? _c2("v-list-item", { on: { "click": function($event) {
+    } } }, [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Dnnio9m9RZA6bkTLytc99")))])], 1) : _vm._e(), _setup.notPartialSupportSite ? _c("v-list-item", { on: { "click": function($event) {
       return _setup.downloadCtxPost();
-    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("VpuyxZtIoDF9-YyOm0tK_")))])], 1) : _vm._e(), _c2("v-list-item", { on: { "click": function($event) {
+    } } }, [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("VpuyxZtIoDF9-YyOm0tK_")))])], 1) : _vm._e(), _c("v-list-item", { on: { "click": function($event) {
       return _setup.openDetail();
-    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("EsiorRgoeHI8h7IHMLDA4")))])], 1), _setup.notPartialSupportSite ? _c2("v-list-item", { staticClass: "hidden-md-and-down", on: { "click": function($event) {
+    } } }, [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("EsiorRgoeHI8h7IHMLDA4")))])], 1), _setup.notPartialSupportSite ? _c("v-list-item", { staticClass: "hidden-md-and-down", on: { "click": function($event) {
       return _setup.addToSelectedList();
-    } } }, [_c2("v-list-item-title", [_vm._v(_vm._s(_vm.$t("hVmfDxXoj8vkgVQabEOSr")))])], 1) : _vm._e()], 1)], 1), _c2("v-fab-transition", [_c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showFab, expression: "showFab" }], staticClass: "refresh_posts_btn", attrs: { "fab": "", "dark": "", "fixed": "", "bottom": "", "right": "", "color": "pink" }, on: { "click": function($event) {
+    } } }, [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("hVmfDxXoj8vkgVQabEOSr")))])], 1) : _vm._e()], 1)], 1), _c("v-fab-transition", [_c("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showFab, expression: "showFab" }], staticClass: "refresh_posts_btn", attrs: { "fab": "", "dark": "", "fixed": "", "bottom": "", "right": "", "color": "pink" }, on: { "click": function($event) {
       return _setup.refreshPosts();
-    } } }, [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiRefresh))])], 1)], 1), _c2(_setup.PostDetail)], 1) : _vm._e();
+    } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiRefresh))])], 1)], 1), _c(_setup.PostDetail)], 1) : _vm._e();
   };
   var _sfc_staticRenderFns$4 = [];
   var __component__$4 = /* @__PURE__ */ normalizeComponent(
@@ -9735,12 +9717,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         default: 5
       });
       const noMore = Vue2.ref(false);
-      const showNoMore = Vue2.computed(() => !store.requestState && noMore.value);
-      const showLoadMore = Vue2.computed(() => !store.requestState && !noMore.value);
+      const showNoMore = Vue2.computed(() => !store.requestLoading && noMore.value);
+      const showLoadMore = Vue2.computed(() => !store.requestLoading && !noMore.value);
       const page = Vue2.ref(Number(new URLSearchParams(location.search).get("page")) || 1);
       const pools = Vue2.ref([]);
-      const loadData = async (query2) => {
-        store.requestState = true;
+      async function loadData(query2) {
+        store.requestLoading = true;
         try {
           const results = await fetchPools(page.value, query2);
           if (Array.isArray(results) && results.length > 0) {
@@ -9755,16 +9737,16 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         } catch (error) {
           console.log("fetchPools error: ", error);
         } finally {
-          store.requestState = false;
+          store.requestLoading = false;
         }
-      };
-      const viewPool = (id) => {
+      }
+      function viewPool(id) {
         window.open(`/post?tags=pool%3A${id}&_wf=1`, "_blank");
-      };
+      }
       const scrollFn = throttleScroll(() => {
         if (noMore.value)
           return;
-        if (store.requestState)
+        if (store.requestLoading)
           return;
         notReachBottom() && loadData();
       });
@@ -9785,20 +9767,20 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
   });
   var _sfc_render$3 = function render() {
-    var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
-    return _c2("div", [_c2("masonry", { attrs: { "cols": _setup.columnCount, "gutter": "8px" } }, _vm._l(_setup.pools, function(item) {
-      return _c2("v-card", { key: item.id, staticClass: "mb-2" }, [_c2("v-img", { attrs: { "transition": "scroll-y-transition", "src": item.thumb, "height": "auto" } }), _c2("v-card-title", [_vm._v(_vm._s(item.name))]), _c2("v-card-subtitle", { staticClass: "pb-0" }, [_c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-        return [_c2("span", _vm._g(_vm._b({ staticClass: "d-inline-block text-truncate", staticStyle: { "max-width": "100%" } }, "span", attrs, false), on), [_vm._v(_vm._s(item.description))])];
-      } }], null, true) }, [_c2("span", { staticStyle: { "display": "inline-block", "max-width": "500px" } }, [_vm._v(_vm._s(item.description))])])], 1), _c2("v-card-text", { staticClass: "pb-0" }, [_c2("v-icon", { attrs: { "small": "" } }, [_vm._v(_vm._s(_setup.mdiCalendarBlank))]), _c2("span", { staticClass: "ml-1 mr-4" }, [_vm._v(_vm._s(item.created_at))]), _c2("v-icon", { attrs: { "small": "" } }, [_vm._v(_vm._s(_setup.mdiCalendarEdit))]), _c2("span", { staticClass: "ml-1" }, [_vm._v(_vm._s(item.updated_at))])], 1), _c2("v-card-actions", [_c2("v-list-item", { staticClass: "grow" }, [_c2("v-list-item-avatar", [_c2("v-img", { staticClass: "elevation-6", attrs: { "alt": "", "src": `/data/avatars/${item.user_id}.jpg`, "lazy-src": "https://upload-bbs.mihoyo.com/upload/2022/08/13/190122060/f65e984cb2f5184ba167e461bfdeea55_8564255716639207386.png" } })], 1), _c2("v-row", { attrs: { "align": "center", "justify": "end" } }, [_c2("v-list-item-content", { staticClass: "ml-2" }, [_c2("v-list-item-title", [_c2("a", { attrs: { "href": `/pool/show/${item.id}`, "target": "_blank" } }, [_vm._v("Pool #" + _vm._s(item.id))])])], 1), _c2("v-chip", { staticClass: "mr-1" }, [_vm._v(_vm._s(item.post_count) + " " + _vm._s(_vm.$t("xJJTEE3nZ4HVXGFfiN-LC")))]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-        return [_c2("v-btn", _vm._g(_vm._b({ attrs: { "icon": "" }, on: { "click": function($event) {
+    var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
+    return _c("div", [_c("masonry", { attrs: { "cols": _setup.columnCount, "gutter": "8px" } }, _vm._l(_setup.pools, function(item) {
+      return _c("v-card", { key: item.id, staticClass: "mb-2" }, [_c("v-img", { attrs: { "transition": "scroll-y-transition", "src": item.thumb, "height": "auto" } }), _c("v-card-title", [_vm._v(_vm._s(item.name))]), _c("v-card-subtitle", { staticClass: "pb-0" }, [_c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+        return [_c("span", _vm._g(_vm._b({ staticClass: "d-inline-block text-truncate", staticStyle: { "max-width": "100%" } }, "span", attrs, false), on), [_vm._v(_vm._s(item.description))])];
+      } }], null, true) }, [_c("span", { staticStyle: { "display": "inline-block", "max-width": "500px" } }, [_vm._v(_vm._s(item.description))])])], 1), _c("v-card-text", { staticClass: "pb-0" }, [_c("v-icon", { attrs: { "small": "" } }, [_vm._v(_vm._s(_setup.mdiCalendarBlank))]), _c("span", { staticClass: "ml-1 mr-4" }, [_vm._v(_vm._s(item.created_at))]), _c("v-icon", { attrs: { "small": "" } }, [_vm._v(_vm._s(_setup.mdiCalendarEdit))]), _c("span", { staticClass: "ml-1" }, [_vm._v(_vm._s(item.updated_at))])], 1), _c("v-card-actions", [_c("v-list-item", { staticClass: "grow" }, [_c("v-list-item-avatar", [_c("v-img", { staticClass: "elevation-6", attrs: { "alt": "", "src": `/data/avatars/${item.user_id}.jpg`, "lazy-src": "https://upload-bbs.mihoyo.com/upload/2022/08/13/190122060/f65e984cb2f5184ba167e461bfdeea55_8564255716639207386.png" } })], 1), _c("v-row", { attrs: { "align": "center", "justify": "end" } }, [_c("v-list-item-content", { staticClass: "ml-2" }, [_c("v-list-item-title", [_c("a", { attrs: { "href": `/pool/show/${item.id}`, "target": "_blank" } }, [_vm._v("Pool #" + _vm._s(item.id))])])], 1), _c("v-chip", { staticClass: "mr-1" }, [_vm._v(_vm._s(item.post_count) + " " + _vm._s(_vm.$t("xJJTEE3nZ4HVXGFfiN-LC")))]), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+        return [_c("v-btn", _vm._g(_vm._b({ attrs: { "icon": "" }, on: { "click": function($event) {
           return _setup.viewPool(item.id);
-        } } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiLaunch))])], 1)];
-      } }], null, true) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("tGi6xYfvStBmR8qduEmKX")))])]), _c2("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-        return [_c2("v-btn", _vm._g(_vm._b({ attrs: { "icon": "", "href": `/pool/zip/${item.id}?jpeg=1` } }, "v-btn", attrs, false), on), [_c2("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1)];
-      } }], null, true) }, [_c2("span", [_vm._v(_vm._s(_vm.$t("Xtk-NnMgSQZmheJ87nbRV")))])])], 1)], 1)], 1)], 1);
-    }), 1), _c2("div", { staticClass: "d-flex justify-center" }, [_c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.requestState, expression: "store.requestState" }], attrs: { "color": "primary", "text": "" } }, [_vm._v(_vm._s(_vm.$t("RN4dt81l_fZMWODsskZob")) + "...")]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showLoadMore, expression: "showLoadMore" }], attrs: { "color": "primary", "text": "" }, on: { "click": function($event) {
+        } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiLaunch))])], 1)];
+      } }], null, true) }, [_c("span", [_vm._v(_vm._s(_vm.$t("tGi6xYfvStBmR8qduEmKX")))])]), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+        return [_c("v-btn", _vm._g(_vm._b({ attrs: { "icon": "", "href": `/pool/zip/${item.id}?jpeg=1` } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1)];
+      } }], null, true) }, [_c("span", [_vm._v(_vm._s(_vm.$t("Xtk-NnMgSQZmheJ87nbRV")))])])], 1)], 1)], 1)], 1);
+    }), 1), _c("div", { staticClass: "d-flex justify-center" }, [_c("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.requestLoading, expression: "store.requestLoading" }], attrs: { "color": "primary", "text": "" } }, [_vm._v(_vm._s(_vm.$t("RN4dt81l_fZMWODsskZob")) + "...")]), _c("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showLoadMore, expression: "showLoadMore" }], attrs: { "color": "primary", "text": "" }, on: { "click": function($event) {
       return _setup.loadData();
-    } } }, [_vm._v(_vm._s(_vm.$t("fC8XNfCl04zK7vgeaRZMQ")))]), _c2("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showNoMore, expression: "showNoMore" }], attrs: { "color": "primary", "text": "" } }, [_vm._v(_vm._s(_vm.$t("4hOFoP4M3ZkL3RiN7XOc8")))])], 1)], 1);
+    } } }, [_vm._v(_vm._s(_vm.$t("fC8XNfCl04zK7vgeaRZMQ")))]), _c("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showNoMore, expression: "showNoMore" }], attrs: { "color": "primary", "text": "" } }, [_vm._v(_vm._s(_vm.$t("4hOFoP4M3ZkL3RiN7XOc8")))])], 1)], 1);
   };
   var _sfc_staticRenderFns$3 = [];
   var __component__$3 = /* @__PURE__ */ normalizeComponent(
@@ -9831,11 +9813,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
   });
   var _sfc_render$2 = function render() {
-    var _a2, _b2;
-    var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
-    return _c2("v-snackbar", { attrs: { "top": "", "color": (_a2 = _setup.snackbarTypeMap[_setup.snackbarType]) == null ? void 0 : _a2[0], "timeout": 2e3, "min-width": 160 }, model: { value: _setup.showSnackbar, callback: function($$v) {
+    var _a2, _b;
+    var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
+    return _c("v-snackbar", { attrs: { "top": "", "color": (_a2 = _setup.snackbarTypeMap[_setup.snackbarType]) == null ? void 0 : _a2[0], "timeout": 2e3, "min-width": 160 }, model: { value: _setup.showSnackbar, callback: function($$v) {
       _setup.showSnackbar = $$v;
-    }, expression: "showSnackbar" } }, [_c2("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.snackbarType, expression: "snackbarType" }] }, [_vm._v(_vm._s((_b2 = _setup.snackbarTypeMap[_setup.snackbarType]) == null ? void 0 : _b2[1]))]), _c2("span", { staticClass: "ml-2" }, [_vm._v(_vm._s(_setup.snackbarText))])], 1);
+    }, expression: "showSnackbar" } }, [_c("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.snackbarType, expression: "snackbarType" }] }, [_vm._v(_vm._s((_b = _setup.snackbarTypeMap[_setup.snackbarType]) == null ? void 0 : _b[1]))]), _c("span", { staticClass: "ml-2" }, [_vm._v(_vm._s(_setup.snackbarText))])], 1);
   };
   var _sfc_staticRenderFns$2 = [];
   var __component__$2 = /* @__PURE__ */ normalizeComponent(
@@ -9856,8 +9838,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
   });
   var _sfc_render$1 = function render() {
-    var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
-    return _c2("v-container", { staticClass: "_vcont pa-4", attrs: { "fluid": "" } }, [_setup.store.showPostList ? _c2(_setup.PostList) : _vm._e(), _setup.store.showPoolList ? _c2(_setup.PoolList) : _vm._e(), _c2(_setup.Snackbar)], 1);
+    var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
+    return _c("v-container", { staticClass: "_vcont pa-4", attrs: { "fluid": "" } }, [_setup.store.showPostList ? _c(_setup.PostList) : _vm._e(), _setup.store.showPoolList ? _c(_setup.PoolList) : _vm._e(), _c(_setup.Snackbar)], 1);
   };
   var _sfc_staticRenderFns$1 = [];
   var __component__$1 = /* @__PURE__ */ normalizeComponent(
@@ -9875,16 +9857,18 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     __name: "App",
     setup(__props) {
       const vuetify = useVuetify();
+      Vue2.watch(() => settings, (val) => {
+        localStorage.setItem("YM_APP_SETTINGS", JSON.stringify(val));
+      }, { deep: true });
       Vue2.onMounted(() => {
-        const mode = localStorage.getItem("__darkmode") || "light";
-        vuetify.theme.dark = mode === "dark";
+        vuetify.theme.dark = settings.darkMode === "dark";
       });
       return { __sfc: true, vuetify, AppBar, NavDrawer, SettingsDrawer, AppContainer };
     }
   });
   var _sfc_render = function render() {
-    var _vm = this, _c2 = _vm._self._c, _setup = _vm._self._setupProxy;
-    return _c2("v-app", [_c2(_setup.AppBar), _c2(_setup.NavDrawer), _c2("v-main", { attrs: { "app": "" } }, [_c2(_setup.AppContainer), _c2(_setup.SettingsDrawer)], 1)], 1);
+    var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
+    return _c("v-app", [_c(_setup.AppBar), _c(_setup.NavDrawer), _c("v-main", { attrs: { "app": "" } }, [_c(_setup.AppContainer), _c(_setup.SettingsDrawer)], 1)], 1);
   };
   var _sfc_staticRenderFns = [];
   var __component__ = /* @__PURE__ */ normalizeComponent(
