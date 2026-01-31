@@ -10,7 +10,7 @@
 ![Vue](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vue)
 ![Vuetify](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vuetify)
 
-中文 | [English](https://github.com/asadahimeka/yandere-masonry/blob/main/README.en.md)
+中文 | [简要](https://github.com/asadahimeka/yandere-masonry/blob/main/docs/README.old.md) | [English](https://github.com/asadahimeka/yandere-masonry/blob/main/README.en.md)
 
 ## 📖 项目简介
 
@@ -223,25 +223,28 @@
 
 ## 📸 截图展示
 
-![瀑布流浏览](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/a542077b61a2dcb85838baa41bf96c8c_7747043650649306795.png)
+![瀑布流浏览](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/1.webp)
 
-![标签翻译](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/14b7a0249234a79acac2d950db710b28_2747662949275143079.png)
+![标签翻译](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/2.webp)
 
-![瀑布流浏览](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/3886bf873b766f93e3cd103c0346705f_8954181707521812180.png)
+![瀑布流浏览](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/3.webp)
 
-![图片详情](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/f18495ec74cf7895da6a583b6eef5815_2183319892513327746.png)
+![图片详情](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/4.webp)
 
-![图集浏览](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/59a35c4b527ec44904a6114a45033caf_7008024359546939405.png)
+![图集浏览](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/5.webp)
 
-![站点切换](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/c7c1ff0b187292ebc010fd40987ad52a_6882591913629167774.png)
+![站点切换](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/6.webp)
 
-![热门浏览](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/c0e70eea28e684bdb35e7ee77123235a_5045513856955976275.png)
+![热门浏览](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/7.webp)
 
-![视频详情](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/1fbb7f92ecba4a515b3a6781bd38610a_8247048012698921815.png)
+![视频详情](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/8.webp)
 
-![右键菜单](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/7eec96d7c629bc30ff4b1942838d9ea2_7197279808091047211.png)
+![右键菜单](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/9.webp)
 
-![下载面板](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/8dccc28bf99106aaab984feb383d4c1f_939382269553345713.png)
+![下载面板](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/10.webp)
+
+![标签导出](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/11.webp)
+
 ---
 
 ## 🚀 安装指南

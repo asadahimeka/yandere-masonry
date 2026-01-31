@@ -10,7 +10,7 @@
 ![Vue](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vue)
 ![Vuetify](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vuetify)
 
-English | [中文](https://github.com/asadahimeka/yandere-masonry/blob/main/README.md)
+English | [Simple Readme](https://github.com/asadahimeka/yandere-masonry/blob/main/docs/README.old.en.md) | [中文](https://github.com/asadahimeka/yandere-masonry/blob/main/README.md)
 
 ## 📖 Project Introduction
 
@@ -240,25 +240,25 @@ Convenient image management features:
 
 ## 📸 Screenshot Display
 
-![Masonry Browsing](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/a542077b61a2dcb85838baa41bf96c8c_7747043650649306795.png)
+![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/1.en.webp)
 
-![Tag Translation](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/14b7a0249234a79acac2d950db710b28_2747662949275143079.png)
+![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/2.en.webp)
 
-![Masonry Browsing](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/3886bf873b766f93e3cd103c0346705f_8954181707521812180.png)
+![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/3.en.webp)
 
-![Image Details](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/f18495ec74cf7895da6a583b6eef5815_2183319892513327746.png)
+![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/4.en.webp)
 
-![Pool Browsing](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/59a35c4b527ec44904a6114a45033caf_7008024359546939405.png)
+![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/5.en.webp)
 
-![Site Switching](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/c7c1ff0b187292ebc010fd40987ad52a_6882591913629167774.png)
+![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/6.en.webp)
 
-![Popular Browsing](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/c0e70eea28e684bdb35e7ee77123235a_5045513856955976275.png)
+![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/7.en.webp)
 
-![Video Details](https://upload-bbs.mihoyo.com/upload/2022/08/13/260511332/1fbb7f92ecba4a515b3a6781bd38610a_8247048012698921815.png)
+![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/8.en.webp)
 
-![Right-click Menu](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/7eec96d7c629bc30ff4b1942838d9ea2_7197279808091047211.png)
+![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/9.en.webp)
 
-## ![Download Panel](https://upload-bbs.mihoyo.com/upload/2022/05/25/260511332/8dccc28bf99106aaab984feb383d4c1f_939382269553345713.png)
+---
 
 ## 🚀 Installation Guide
 
