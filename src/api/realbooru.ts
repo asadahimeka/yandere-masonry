@@ -42,3 +42,8 @@ export async function fetchRealbooruPosts(page: number, tags: string | null) {
   })
   return Promise.all(results)
 }
+
+export const realbooru = {
+  is: isRealbooruPage,
+  posts: fetchRealbooruPosts,
+}

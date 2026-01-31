@@ -1,3 +1,6 @@
+import { fetchSankakuComplexPosts, getSankakuComplexDetail, isSankakuComplexPage } from './sankaku-complex'
+import { fetchSankakuIdolPosts, getSankakuIdolDetail, isSankakuIdolPage } from './sankaku-idol'
+
 export const isSankakuSite = location.host.includes('sankaku') || location.host.includes('idolcomplex')
 
 export function isSankakuPage() {
@@ -59,4 +62,20 @@ export async function getSankakuDetail(id: string) {
     sampleUrl: json.data.sample_url,
     fileUrl: json.data.file_url,
   }
+}
+
+export const sankaku = {
+  is: isSankakuPage,
+  posts: fetchSankakuPosts,
+  detail: getSankakuDetail,
+  idol: {
+    is: isSankakuIdolPage,
+    posts: fetchSankakuIdolPosts,
+    detail: getSankakuIdolDetail,
+  },
+  complex: {
+    is: isSankakuComplexPage,
+    posts: fetchSankakuComplexPosts,
+    detail: getSankakuComplexDetail,
+  },
 }

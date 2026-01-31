@@ -1,5 +1,7 @@
 // ref: https://github.com/Vadim-evisu/true-masonry
 
+import { defineComponent } from 'vue'
+
 const props = {
   tag: {
     type: [String],
@@ -19,7 +21,7 @@ const props = {
   },
 }
 
-const setBreakpoints = (mixed, windowWidth) => {
+const setBreakpoints = (mixed: any, windowWidth: number) => {
   const valueAsNum = parseInt(mixed)
   const minVal = -1
   const zero = 0
@@ -72,7 +74,7 @@ const measurementsLength = measurements.length
  * getStyle, get style of element, check for Firefox bug
  * https://bugzilla.mozilla.org/show_bug.cgi?id=548397
  */
-const getStyle = elem => {
+const getStyle = (elem: Element) => {
   const style = getComputedStyle(elem)
   if (!style) {
     console.error(`Style returned ${style
@@ -82,7 +84,7 @@ const getStyle = elem => {
   return style
 }
 
-const getStyleSize = value => {
+const getStyleSize = (value: any) => {
   // get a number from a string, not a percentage
   const num = parseFloat(value)
   // not a percent like '100%', and a number
@@ -92,7 +94,7 @@ const getStyleSize = value => {
 
 const getWindowWidth = () => window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
 
-const TrueMasonry = {
+const TrueMasonry = defineComponent({
   props,
   data() {
     return {
@@ -120,6 +122,7 @@ const TrueMasonry = {
       this._reCalculate('force')
     })
   },
+  // eslint-disable-next-line vue/no-deprecated-destroyed-lifecycle
   beforeDestroy() {
     window.removeEventListener('resize', this._reCalculate)
   },
@@ -132,16 +135,16 @@ const TrueMasonry = {
 
       return childItems.filter(cell => cell.tag)
     },
-    _getSize(elemm) {
+    _getSize(elemm: any) {
       const style = getStyle(elemm)
-      const size = {}
+      const size: Record<string, any> = {}
       size.height = elemm.offsetHeight
 
       const isBorderBox = size.isBorderBox = style.boxSizing == 'border-box'
 
       // get all measurements
       for (let i = 0; i < measurementsLength; i++) {
-        const measurement = measurements[i]
+        const measurement: any = measurements[i]
         const value = style[measurement]
         const num = parseFloat(value)
         // any 'auto', 'medium' value will be 0
@@ -164,7 +167,7 @@ const TrueMasonry = {
       size.outerHeight = size.height + marginHeight
       return size
     },
-    _resizeMasonryItem(item) {
+    _resizeMasonryItem(item: any) {
       const rowGap = this.displayGutter
       const rowHeight = 0
       // const child = item.children[0].elm
@@ -179,7 +182,7 @@ const TrueMasonry = {
         this._resizeMasonryItem(allItems[i])
       }
     },
-    _reCalculate(force) {
+    _reCalculate(force: any) {
       if (force == 'force') {
         this._buildGrid()
         return
@@ -195,14 +198,14 @@ const TrueMasonry = {
       this._reCalculateGutterSize(this.windowWidth)
       this._resizeAllMasonryItems()
     },
-    _reCalculateColumnCount(windowWidth) {
+    _reCalculateColumnCount(windowWidth: number) {
       const zero = 0
       const one = 1
       let newCols = setBreakpoints(this.cols, windowWidth)
       newCols = Math.max(one, Number(newCols) || zero)
       this.displayColumns = newCols
     },
-    _reCalculateGutterSize(windowWidth) {
+    _reCalculateGutterSize(windowWidth: number) {
       this.displayGutter = setBreakpoints(this.gap, windowWidth)
     },
   },
@@ -210,7 +213,7 @@ const TrueMasonry = {
     const one = 1
     const ten = 10
     const hundred = 100
-    const isGutterSizeUnitless = parseInt(this.displayGutter) === this.displayGutter * one
+    const isGutterSizeUnitless = parseInt(this.displayGutter as any) === this.displayGutter * one
     const gutterSizeWithUnit = isGutterSizeUnitless ? (`${this.displayGutter}px`) : this.displayGutter
     let columnWidth = ((hundred / this.displayColumns * ten) - this.displayGutter) / ten
     if (columnWidth > 48) columnWidth -= 1
@@ -222,10 +225,10 @@ const TrueMasonry = {
     }
     return h(
       this.tag,
-      this.css ? { style: containerStyle } : null,
+      this.css ? { style: containerStyle } : undefined,
       this.$slots.default,
     )
   },
-}
+})
 
 export default TrueMasonry

@@ -82,7 +82,7 @@ const initTags = () => ({
   character: [],
   general: [],
 } as Record<string, string[]>)
-const tagColorMap = {
+const tagColorMap: Record<string, string> = {
   artist: 'orange lighten-4',
   copyright: 'purple lighten-4',
   character: 'green lighten-4',

@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app dense flat :elevation="2">
-    <v-app-bar-nav-icon @click="store.toggleDrawer()" />
+    <v-app-bar-nav-icon @click="toggleDrawer()" />
     <div v-if="store.isYKSite && showPopAction" style="display:flex" class="align-center">
       <v-toolbar-title class="mr-4 hidden-md-and-down" v-text="popTitle" />
       <v-switch v-model="isPopSearchByDate" class="hidden-sm-and-down" hide-details :label="isPopSearchByDate ? $t('nd4UjZy2ILsc-iW9iu7xR') : $t('elkBQ9moOZ-KMcy5bt_Ts')" />
@@ -228,7 +228,7 @@
         </v-btn>
       </template>
       <v-list dense>
-        <v-list-item-group v-model="currentLang" color="primary">
+        <v-list-item-group :value="settings.lang" color="primary">
           <v-list-item v-for="lang in langList" :key="lang.value" :value="lang.value" dense @click="selectLang(lang.value)">
             <v-list-item-title>{{ lang.label }}</v-list-item-title>
           </v-list-item>
@@ -242,7 +242,7 @@
       <v-icon>{{ mdiLocationExit }}</v-icon>
     </v-btn>
     <v-progress-linear
-      :active="store.requestState"
+      :active="store.requestLoading"
       :height="6"
       indeterminate
       absolute
@@ -283,8 +283,9 @@ import {
 } from '@mdi/js'
 import { computed, onMounted, reactive, ref, set, watch } from 'vue'
 import { useVuetify } from '@/plugins/vuetify'
-import store from '@/store'
 import { addDate, debounce, downloadFile, downloadText, eventBus, formatDate, showMsg, subDate } from '@/utils'
+import { settings, store, toggleDrawer } from '@/store'
+import { langList } from '@/store/settings'
 import { loadPostsByPage, loadPostsByTags, refreshPosts } from '@/store/actions/post'
 import { getRecentTags, getUsername, isPopularPage } from '@/api/moebooru'
 import { defCompTags, getSiteTitle, isSupportTagSearch, notPartialSupportSite } from '@/api/booru'
@@ -560,10 +561,11 @@ const exportFileUrls = async () => {
     if (store.isYKSite && isExportUrlDecode.value) {
       try {
         url = decodeURIComponent(url)
+        url = decodeURI(url)
       } catch (e) {}
     }
     if (isExportUrlEncode.value || isZerochanPage()) {
-      url = encodeURIComponent(url)
+      url = encodeURI(url)
     }
     return url
   }).join('\r\n')
@@ -608,17 +610,9 @@ const toggleFullscreen = async () => {
   }
 }
 
-const currentLang = ref(i18n.locale)
-const langList = [
-  { value: 'zh-Hans', label: '简体中文' },
-  { value: 'zh-Hant', label: '繁體中文' },
-  { value: 'ja', label: '日本語' },
-  { value: 'en', label: 'English' },
-]
-const selectLang = (val: string) => {
-  currentLang.value = val
+const selectLang = (val: typeof settings.lang) => {
+  settings.lang = val
   i18n.locale = val
-  localStorage.setItem('__LANG', val)
 }
 
 onMounted(() => {

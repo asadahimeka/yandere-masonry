@@ -2,6 +2,22 @@ import prepareStyle from '@/styles/prepare.css?inline'
 import ydStyle from '@/styles/yandere.css?inline'
 import knStyle from '@/styles/konachan.css?inline'
 import customStyle from '@/styles/custom.css?inline'
+import { initialSettings } from '@/store/settings'
+
+console.log('initialSettings: ', initialSettings)
+
+function doNotRun() {
+  const mimeTypes = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'webm', 'json', 'xml']
+  return mimeTypes.some(e => location.pathname.endsWith(`.${e}`))
+}
+
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+function isMoebooru() {
+  return ['yande.re', 'konachan', 'lolibooru', 'sakugabooru'].some(e => location.host.includes(e))
+}
 
 export async function prepareApp(callback?: () => void) {
   if (doNotRun()) return
@@ -22,19 +38,6 @@ export async function prepareApp(callback?: () => void) {
     await initMasonry()
     callback?.()
   })
-}
-
-function sleep(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms))
-}
-
-function doNotRun() {
-  const mimeTypes = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'webm', 'json', 'xml']
-  return mimeTypes.some(e => location.pathname.endsWith(`.${e}`))
-}
-
-function isMoebooru() {
-  return ['yande.re', 'konachan', 'lolibooru', 'sakugabooru'].some(e => location.host.includes(e))
 }
 
 const wfTypeActions: Record<string, Function> = {
@@ -77,26 +80,27 @@ async function initLayout() {
   if (!location.href.includes('yande.re/post')) return
   const listEl = document.querySelector('#post-list-posts')
   if (!listEl) return
-  const wfType = localStorage.getItem('__wfType') || 'masonry'
+  const wfType = initialSettings.masonryLayout || 'masonry'
   wfTypeActions[wfType]?.(listEl)
 }
 
 const isAutoWf = (() => {
   const params = new URLSearchParams(location.search)
   if (params.get('_wf')) return true
-  return !!localStorage.getItem('__autoWfMode')
+  return initialSettings.autoWaterfall
 })()
 
 function addWfTypeSelect() {
   if (!location.href.includes('yande.re/post')) return
   if (isAutoWf) return
-  const type = localStorage.getItem('__wfType') || 'masonry'
+  const type = initialSettings.masonryLayout || 'masonry'
   document.body.insertAdjacentHTML('beforeend', `<select id="wf-type-select">${Object.keys(wfTypeActions).map(e => `<option ${type == e ? 'selected' : ''} value="${e}">${e}</option>`).join('')}</select>`)
   const sel = document.querySelector('#wf-type-select') as HTMLSelectElement
   sel?.addEventListener('change', function () {
     const { value } = this
     if (!value) return
-    localStorage.setItem('__wfType', value)
+    initialSettings.masonryLayout = value as any
+    localStorage.setItem('YM_APP_SETTINGS', JSON.stringify(initialSettings))
     setTimeout(() => {
       location.reload()
     }, 200)
@@ -117,11 +121,6 @@ function addSiteStyle() {
   if (location.host.includes('konachan')) {
     GM_addStyle(ydStyle + knStyle)
   }
-  // fetch('https://pixiv.pictures/robots.txt').then(resp => {
-  //   if (resp.status == 403) {
-  //     GM_addStyle('#enter-masonry{display:none}')
-  //   }
-  // })
 }
 
 const locales = ['de', 'en', 'es', 'ja', 'ru', 'zh_CN', 'zh_TW']
@@ -231,12 +230,12 @@ function setMasonryMode(fn: () => void) {
     oldBtn?.remove()
   }
   const btnText = navigator.language.includes('zh') ? '瀑布流模式' : 'Browsing'
-  document.body.insertAdjacentHTML('beforeend', `<button id="enter-masonry">${btnText}</button>`)
+  document.body.insertAdjacentHTML('beforeend', `<button id="enter-masonry" class="${initialSettings.detailButtonsBottom ? 'enter-button-bottom' : ''}">${btnText}</button>`)
   const btn = document.querySelector('#enter-masonry') as HTMLButtonElement
   btn?.addEventListener('click', () => { fn() })
 }
 
-const specialSites = ['gelbooru']
+const specialSites = ['gelbooru.com']
 export function loadScript(src: string) {
   return new Promise<void>(resolve => {
     let script: HTMLScriptElement

@@ -52,3 +52,8 @@ export async function fetchR34PahealPosts(page: number, tags: string | null) {
   })
   return results
 }
+
+export const r34paheal = {
+  is: isR34PahealPage,
+  posts: fetchR34PahealPosts,
+}

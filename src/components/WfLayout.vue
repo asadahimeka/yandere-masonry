@@ -18,28 +18,24 @@
 </template>
 
 <script>
-import TrueMasonry from './TrueMasonry.js'
-import store from '@/store'
-
-const notFitScreen = localStorage.getItem('__fitScreen') == '0'
+import TrueMasonry from './TrueMasonry'
+import { settings } from '@/store'
 
 export default {
   components: {
     TrueMasonry,
   },
-  data() {
-    return {
-      wfType: store.settings.masonryLayout || 'masonry',
-    }
-  },
   computed: {
+    wfType() {
+      return settings.masonryLayout || 'masonry'
+    },
     isMasonry() {
-      return ['masonry', 'grid', '1'].includes(this.wfType)
+      return ['masonry', 'grid'].includes(this.wfType)
     },
     wfClass() {
       return {
         'wf-grid': this.wfType == 'grid',
-        'wf-no-fit-screen': notFitScreen,
+        'wf-no-fit-screen': !settings.isFitScreen,
       }
     },
     columnCount2() {
@@ -47,16 +43,9 @@ export default {
       return this.columnCount
     },
     columnCount() {
-      return store.selectedColumn === '0'
-        ? notFitScreen
+      return settings.selectedColumn === '0'
+        ? settings.isFitScreen
           ? {
-              300: 1,
-              1050: 2,
-              1500: 3,
-              1920: 4,
-              default: 4,
-            }
-          : {
               300: 1,
               600: 2,
               900: 3,
@@ -68,7 +57,14 @@ export default {
               3000: 10,
               default: 6,
             }
-        : +store.selectedColumn
+          : {
+              300: 1,
+              1050: 2,
+              1500: 3,
+              1920: 4,
+              default: 4,
+            }
+        : +settings.selectedColumn
     },
   },
 }

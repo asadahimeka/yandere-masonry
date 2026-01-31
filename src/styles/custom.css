@@ -312,10 +312,9 @@
 
 .justified-container .posts-image-card {
   --jstf-w: 340;
-  --jstf-w-px: 340PX;
   position: relative;
   flex-grow: calc(var(--w) * var(--jstf-w) / var(--h));
-  width: calc(var(--w) * var(--jstf-w-px) / var(--h));
+  width: calc(1px * var(--w) * var(--jstf-w) / var(--h));
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
   background-color: gainsboro;
@@ -326,7 +325,6 @@
 @media screen and (max-width: 500px) {
   .justified-container .posts-image-card {
     --jstf-w: 240;
-    --jstf-w-px: 240PX;
   }
 }
 
@@ -682,4 +680,33 @@ html:has(#app.theme--dark) {
 .d-flex-col .v-chip--active:hover:before,
 .d-flex-col .v-chip:focus:before {
   display: none;
+}
+
+.img-detail-toolbar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.img-detail-toolbar.detail-buttons-bottom {
+  top: unset;
+  bottom: 12px;
+}
+
+.img-detail-tags {
+  position: absolute;
+  z-index: 10;
+  bottom: 12px;
+  padding: 0 12px;
+}
+
+.img-detail-tags.detail-buttons-bottom {
+  top: 12px;
+  bottom: unset;
+}
+
+.img-detail-toolbar.detail-buttons-bottom .img_meta_tag_list {
+  top: 0;
+  transform: translateY(-95%);
 }

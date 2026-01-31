@@ -10,5 +10,5 @@
 import PostList from './PostList.vue'
 import PoolList from './PoolList.vue'
 import Snackbar from './Snackbar.vue'
-import store from '@/store'
+import { store } from '@/store'
 </script>

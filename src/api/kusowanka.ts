@@ -48,3 +48,9 @@ export async function getKusowankaDetail(id: string) {
     ],
   }
 }
+
+export const kusowanka = {
+  is: isKusowankaPage,
+  posts: fetchKusowankaPosts,
+  detail: getKusowankaDetail,
+}

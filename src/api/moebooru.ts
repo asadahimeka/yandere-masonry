@@ -1,7 +1,7 @@
 import { Post, SearchResults, forSite } from '@himeka/booru'
 import { formatDate, showMsg } from '../utils'
 import i18n from '@/utils/i18n'
-import store from '@/store'
+import { settings, store } from '@/store'
 
 function getYandereUserId() {
   const match = document.cookie.match(/user_id=(\d+)/)
@@ -21,7 +21,8 @@ export async function getUsername() {
       _moebooruUserName = getKonachanUsername()
       return _moebooruUserName
     }
-    const username = localStorage.getItem('__username')
+    const key = 'YM_moebooru_username'
+    const username = localStorage.getItem(key)
     _moebooruUserName = username
     if (username) return username
     const id = getYandereUserId()
@@ -29,7 +30,7 @@ export async function getUsername() {
     const response = await fetch(`/user.json?id=${id}`)
     const result = await response.json()
     const { name } = result[0] as Record<string, string>
-    localStorage.setItem('__username', name)
+    localStorage.setItem(key, name)
     return name
   } catch (error) {
     console.log('getUsername error:', error)
@@ -201,7 +202,7 @@ export async function fetchPools(page: number, query?: string): Promise<Pool[]> 
 }
 
 export function isYandereHtml() {
-  return location.hostname == 'yande.re' && location.pathname == '/post' && store.settings.isYandereFetchByHtml
+  return location.hostname == 'yande.re' && location.pathname == '/post' && settings.isYandereFetchByHtml
 }
 
 export async function fetchPostsByHtml(page: number, tags: string | null) {
@@ -223,6 +224,28 @@ export async function fetchPostsByHtml(page: number, tags: string | null) {
   const site = forSite(location.host)
   const posts = results.map((e: any) => new Post(e, site))
   return new SearchResults(posts, [], {}, site)
+}
+
+export const moebooru = {
+  yanderehtml: {
+    is: isYandereHtml,
+    posts: fetchPostsByHtml,
+  },
+  popular: {
+    is: isPopularPage,
+    posts: async () => {
+      const results = await fetchPostsByPath()
+      store.requestStop = true
+      return results
+    },
+  },
+  pool: {
+    is: isPoolShowPage,
+    posts: async (page: number, tags: string | null) => {
+      const results = await fetchPostsByPath('posts', page)
+      return tags ? results.tagged(tags) : results
+    },
+  },
 }
 
 // export async function fetchPostsByHtml(page: number, tags: string | null) {

@@ -1,13 +1,17 @@
-import store from '@/store'
+import { settings } from '@/store'
 import { getImageSize, showMsg } from '@/utils'
 import i18n from '@/utils/i18n'
+
+export function isRule34Page() {
+  return location.hostname == 'rule34.xxx'
+}
 
 export function isRule34FavPage() {
   return /rule34\.xxx\/index\.php\?page\=favorites\&s\=view/.test(location.href)
 }
 
 export function isRule34Firefox() {
-  return location.hostname == 'rule34.xxx' && (navigator.userAgent.includes('Firefox') || !store.settings.credentialQuery)
+  return location.hostname == 'rule34.xxx' && (navigator.userAgent.includes('Firefox') || !settings.credentialQuery)
 }
 
 export async function fetchRule34Posts(page: number, tags: string | null) {
@@ -105,4 +109,16 @@ export async function addFavoriteRule34(id: string) {
     showMsg({ msg: `${i18n.t('MWVfUiW8egLWq7MgV-wzc')}: ${result}`, type: 'error' })
     return false
   }
+}
+
+export const rule34 = {
+  is: isRule34Page,
+  fav: {
+    is: isRule34FavPage,
+    posts: fetchRule34Favorites,
+  },
+  firefox: {
+    is: isRule34Firefox,
+    posts: fetchRule34Posts,
+  },
 }

@@ -35,3 +35,8 @@ export async function fetchAnihonetwallpaperPosts(page: number, tags: string | n
   })
   return results
 }
+
+export const anihonetwallpaper = {
+  is: isAnihonetwallpaperPage,
+  posts: fetchAnihonetwallpaperPosts,
+}

@@ -2,8 +2,8 @@ export function isNozomiPage() {
   return location.hostname == 'nozomi.la' && location.pathname == '/'
 }
 
-let resPosts = []
-export function fetchNozomiPosts(page) {
+let resPosts: any[] = []
+export function fetchNozomiPosts(page: number) {
   resPosts = []
   return new Promise(resolve => {
     fetch_nozomi(page)
@@ -36,51 +36,56 @@ export function fetchNozomiPosts(page) {
   })
 }
 
+export const nozomila = {
+  is: isNozomiPage,
+  posts: fetchNozomiPosts,
+}
+
 const tns_per_page = 64
 const nozomiextension = '.nozomi'
 const nozomidir = 'nozomi'
 const postdir = 'post'
 
-const results_array = {}
-const outstanding_requests = {}
+const results_array: Record<string, any> = {}
+const outstanding_requests: Record<string, any> = {}
 let number_of_outstanding_requests = 0
-const nozomi = []
+const nozomi: number[] = []
 let total_items = 0
-const tag = 'index'; let area; let popular; let page_number
+const tag = 'index'; let area; /* let popular; */ let page_number
 let nozomi_address
 const domain = 'n.nozomi.la'
 
-const full_path_from_hash = hash => {
+const full_path_from_hash = (hash: string) => {
   if (hash.length < 3) {
     return hash
   }
   return hash.replace(/^.*(..)(.)$/, `$2/$1/${hash}`)
 }
 
-const urlencode = str => {
-  return str.replace(/[\;\/\?\:\@\=\&#%\+]/g, c => {
+const urlencode = (str: string) => {
+  return str.replace(/[\;\/\?\:\@\=\&#%\+]/g, (c: string) => {
     return `%${c.charCodeAt(0).toString(16)}`
   })
 }
 
-const remove_slashes = input => {
+const remove_slashes = (input: string) => {
   return input.replace(/[\/]/g, '')
 }
 
-function path_from_postid(postid) {
+function path_from_postid(postid: string) {
   if (postid.length < 3) return postid
   return postid.replace(/^(.*(..)(.))$/, '$3/$2/$1')
 }
 
-function fetch_nozomi(page) {
+function fetch_nozomi(page: any) {
   page_number = page
   nozomi_address = `https://${domain}`
   if (area) {
     nozomi_address += `/${nozomidir}`
   }
-  if (popular && tag !== 'index-Popular') {
-    nozomi_address += '/popular'
-  }
+  // if (popular && tag !== 'index-Popular') {
+  //   nozomi_address += '/popular'
+  // }
   nozomi_address += `/${urlencode(remove_slashes(tag))}`
   nozomi_address += nozomiextension
 
@@ -106,7 +111,7 @@ function fetch_nozomi(page) {
             nozomi.push(view.getUint32(pos, false /* big-endian */))
           }
 
-          total_items = parseInt(xhr.getResponseHeader('Content-Range').replace(/^[Bb]ytes \d+-\d+\//, '')) / 4
+          total_items = parseInt(xhr.getResponseHeader('Content-Range')!.replace(/^[Bb]ytes \d+-\d+\//, '')) / 4
           console.log('total_items: ', total_items)
 
           get_jsons()
@@ -136,7 +141,7 @@ function get_jsons() {
   results_to_page(datas)
 }
 
-function get_json(postid) {
+function get_json(postid: string | number) {
   const url = `https://j.gold-usergeneratedcontent.net/${postdir}/${path_from_postid(postid.toString())}.json`
 
   const xmlhttp = new XMLHttpRequest()
@@ -156,15 +161,15 @@ function get_json(postid) {
   xmlhttp.send()
 }
 
-function results_to_page(datas) {
+function results_to_page(datas: any[]) {
   for (const d in datas) {
     const data = datas[d]
     if (!data) continue
     data.tags = [
-      ...(data.artist?.map(e => e.tag) || []),
-      ...(data.copyright?.map(e => e.tag) || []),
-      ...(data.character?.map(e => e.tag) || []),
-      ...(data.general?.map(e => e.tag) || []),
+      ...(data.artist?.map((e: { tag: any }) => e.tag) || []),
+      ...(data.copyright?.map((e: { tag: any }) => e.tag) || []),
+      ...(data.character?.map((e: { tag: any }) => e.tag) || []),
+      ...(data.general?.map((e: { tag: any }) => e.tag) || []),
     ]
     data.postView = `https://nozomi.la/post/${data.postid}.html`
     data.previewUrl = `https://qtn.gold-usergeneratedcontent.net/${full_path_from_hash(data.imageurls[0].dataid)}.${data.imageurls[0].type}.webp`

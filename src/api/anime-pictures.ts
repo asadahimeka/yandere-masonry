@@ -50,3 +50,9 @@ export async function getAnimePicturesDetail(id: string) {
     return { tags: [], fileUrl: '' }
   }
 }
+
+export const animepictures = {
+  is: isAnimePicturesPage,
+  posts: fetchAnimePicturesPosts,
+  detail: getAnimePicturesDetail,
+}

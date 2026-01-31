@@ -3,7 +3,7 @@ import { add, formatDistanceToNow, isValid, sub } from 'date-fns'
 import type { Post } from '@himeka/booru'
 import i18n from './i18n'
 import { loadScript } from '@/prepare'
-import store from '@/store'
+import { store } from '@/store'
 
 export const eventBus = new Vue()
 

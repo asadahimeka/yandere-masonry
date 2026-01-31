@@ -41,8 +41,8 @@
     </div>
     <v-toolbar
       v-show="showImageToolbar && scaleOn && !isVideo"
-      class="img_detail_btn_color"
-      style="position:absolute;top:0;width:100%;z-index:10;"
+      class="img-detail-toolbar img_detail_btn_color"
+      :class="{ 'detail-buttons-bottom': settings.detailButtonsBottom }"
       color="transparent"
       height="auto"
       flat
@@ -164,8 +164,8 @@
     </v-toolbar>
     <v-toolbar
       v-show="showImageToolbar && !scaleOn"
-      class="img_detail_btn_color"
-      style="position:absolute;top:0;width:100%;z-index:10;"
+      class="img-detail-toolbar img_detail_btn_color"
+      :class="{ 'detail-buttons-bottom': settings.detailButtonsBottom }"
       color="transparent"
       height="auto"
       flat
@@ -323,20 +323,18 @@
         <span>{{ $t('t83UAY18UebTg1_-zFGP3') }}</span>
       </v-tooltip>
     </v-toolbar>
-    <!-- <div v-show="showImageToolbar" class="img_detail_btn_color hidden-sm-and-down"> -->
     <div v-show="showImageToolbar" class="img_detail_btn_color">
-      <!-- <div v-show="!isVideo" style="position: absolute;z-index: 10;bottom: 12px;padding: 0 12px;"> -->
-      <div style="position: absolute;z-index: 10;bottom: 12px;padding: 0 12px;">
+      <div class="img-detail-tags" :class="{ 'detail-buttons-bottom': settings.detailButtonsBottom }">
         <v-chip
           v-show="postDetail.tags?.length"
           small
           class="mr-1"
           role="button"
           tabindex="0"
-          @click.stop="toggleTagsShow()"
+          @click.stop="settings.showTagChipGroup = !settings.showTagChipGroup"
         >
           <v-icon left>{{ mdiTagMultiple }}</v-icon>
-          <span>{{ showTagChipGroup ? $t('gM92sLo0Cqfl2rCaXlOhc') : $t('l5W-EtJ_ar-SY2lF4H5Zm') }}</span>
+          <span>{{ settings.showTagChipGroup ? $t('gM92sLo0Cqfl2rCaXlOhc') : $t('l5W-EtJ_ar-SY2lF4H5Zm') }}</span>
         </v-chip>
         <v-chip
           v-if="isExportTagsEnable && postDetail.tags?.length"
@@ -376,7 +374,7 @@
             <span>{{ $t('u0K7A_hv1RZSJl6TDR61A') }}</span>
           </v-chip>
         </template>
-        <v-chip-group v-show="showTagChipGroup" column class="img_detail_tag_list">
+        <v-chip-group v-show="settings.showTagChipGroup" column class="img_detail_tag_list">
           <v-chip
             v-for="(item, i) in postDetail.tags || []"
             :key="i"
@@ -435,45 +433,32 @@ import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import DPlayer from './DPlayer.vue'
 import PostExportTags from './PostExportTags.vue'
 import { debounce, downloadFile, dragElement, formatRelativeTime, isURL, showMsg } from '@/utils'
-import { type PostDetail, getPostDetail } from '@/api/moebooru'
+import { gelbooru, realbooru, rule34, zerochan } from '@/api'
+import { type PostDetail } from '@/api/moebooru'
 import { addPostToFavorites, isFavBtnShow } from '@/api/fav'
-import { isRule34FavPage, isRule34Firefox } from '@/api/rule34'
-import { isGelbooruFavPage, isGelbooruPage } from '@/api/gelbooru'
 import { notPartialSupportSite } from '@/api/booru'
-import { getZerochanFileUrl, isZerochanPage } from '@/api/zerochan'
-import { getSankakuDetail, isSankakuPage } from '@/api/sankaku'
-import { getSankakuIdolDetail, isSankakuIdolPage } from '@/api/sankaku-idol'
-import { getSankakuComplexDetail, isSankakuComplexPage } from '@/api/sankaku-complex'
-import { getAnimePicturesDetail, isAnimePicturesPage } from '@/api/anime-pictures'
-import { getAllGirlDetail, isAllGirlPage } from '@/api/all-girl'
-import { getHentaiBooruDetail, isHentaiBooruPage } from '@/api/hentaibooru'
-import { getKusowankaDetail, isKusowankaPage } from '@/api/kusowanka'
 import { isR34PahealHome } from '@/api/r34-paheal'
-import { isRealbooruPage } from '@/api/realbooru'
-import i18n from '@/utils/i18n'
-import store from '@/store'
+import { isDanbooruPage } from '@/api/danbooru'
+import { getZerochanFileUrl } from '@/api/zerochan'
+import { addToSelectedList, settings, store } from '@/store'
 import { searchPosts } from '@/store/actions/post'
-import { getDanbooruTagDetail, isDanbooruPage } from '@/api/danbooru'
+import { setPostDetail } from '@/store/actions/detail'
+import i18n from '@/utils/i18n'
 
 const notR34Fav = ref(!(
-  isRule34FavPage()
-  || isRule34Firefox()
-  || isGelbooruFavPage()
-  || isGelbooruPage()
-  || isZerochanPage()
-  || isRealbooruPage()))
+  rule34.fav.is()
+  || rule34.firefox.is()
+  || gelbooru.fav.is()
+  || gelbooru.is()
+  || zerochan.is()
+  || realbooru.is()
+))
 const showImageToolbar = ref(true)
 const imgLoading = ref(true)
 const innerWidth = ref(window.innerWidth)
 const innerHeight = ref(window.innerHeight)
 const downloading = ref(false)
 const scaleOn = ref(false)
-const showTagChipGroup = ref(localStorage.getItem('__showTags') == '1')
-
-const toggleTagsShow = () => {
-  showTagChipGroup.value = !showTagChipGroup.value
-  localStorage.setItem('__showTags', showTagChipGroup.value ? '1' : '')
-}
 
 const imageSelected = computed(() => store.imageList[store.imageSelectedIndex] ?? {})
 const isVideo = computed(() => {
@@ -574,7 +559,7 @@ const download = async (url: string | null, name: string) => {
 }
 
 const addToList = () => {
-  store.addToSelectedList(imageSelected.value)
+  addToSelectedList(imageSelected.value)
 }
 
 const close = () => {
@@ -597,73 +582,9 @@ const addFavorite = async () => {
   if (isSuccess) postDetail.value.voted = true
 }
 
-const isCNLang = i18n.locale.includes('zh')
-const setPostDetail = async () => {
-  if (store.isYKSite) {
-    postDetail.value = {
-      voted: false,
-      tags: [],
-    }
-    const result = await getPostDetail(imageSelected.value.id)
-    if (result) postDetail.value = result
-    return
-  }
-  if (isDanbooruPage()) {
-    postDetail.value = getDanbooruTagDetail(imageSelected.value)
-    return
-  }
-  if (isAnimePicturesPage()) {
-    const { tags, fileUrl } = await getAnimePicturesDetail(imageSelected.value.id)
-    if (tags?.length) imageSelected.value.tags = tags
-    if (fileUrl) imageSelected.value.fileUrl = fileUrl
-  }
-  if (isSankakuIdolPage()) {
-    const { sampleUrl, fileUrl } = await getSankakuIdolDetail(imageSelected.value.id)
-    if (sampleUrl) imageSelected.value.sampleUrl = sampleUrl
-    if (fileUrl) imageSelected.value.fileUrl = fileUrl
-  }
-  if (isSankakuPage()) {
-    const { sampleUrl, fileUrl } = await getSankakuDetail(imageSelected.value.id)
-    if (sampleUrl) imageSelected.value.sampleUrl = sampleUrl
-    if (fileUrl) imageSelected.value.fileUrl = fileUrl
-  }
-  if (isSankakuComplexPage()) {
-    const { sampleUrl, fileUrl } = await getSankakuComplexDetail(imageSelected.value.id)
-    if (sampleUrl) imageSelected.value.sampleUrl = sampleUrl
-    if (fileUrl) imageSelected.value.fileUrl = fileUrl
-  }
-  if (isAllGirlPage()) {
-    const { fileUrl } = await getAllGirlDetail(imageSelected.value.id)
-    if (fileUrl) imageSelected.value.fileUrl = fileUrl
-  }
-  if (isHentaiBooruPage()) {
-    const { fileUrl } = await getHentaiBooruDetail(imageSelected.value.id)
-    if (fileUrl) imageSelected.value.fileUrl = fileUrl
-  }
-  if (isKusowankaPage()) {
-    const { fileUrl, tags } = await getKusowankaDetail(imageSelected.value.id)
-    if (fileUrl) imageSelected.value.fileUrl = fileUrl
-    if (tags?.length) imageSelected.value.tags = tags
-  }
-  postDetail.value = {
-    voted: false,
-    tags: imageSelected.value.tags.map(tag => {
-      const tagCN = window.__tagsCN?.[tag.replace(/_/g, ' ')]
-      return {
-        tag,
-        tagText: isCNLang && tagCN ? `${tag} [ ${tagCN} ]` : tag,
-        color: '#8F77B5',
-        type: 'general',
-      }
-    }),
-  }
-}
-
-// const isExportTagsEnable = ref(location.hostname == 'danbooru.donmai.us')
 const isExportTagsEnable = ref(true)
 const isExportTagsShow = ref(false)
 const openExportTags = () => {
-  // if (location.hostname != 'danbooru.donmai.us') return
   isExportTagsShow.value = true
 }
 
@@ -678,9 +599,9 @@ const preloadImg = (src: string) => {
 }
 
 const preloadNextImg = async () => {
-  if (!store.isFullImgPreload) return
+  if (!settings.isFullImgPreload) return
   if (isVideo.value) return
-  for (let index = 1; index <= store.imgPreloadNum; index++) {
+  for (let index = 1; index <= settings.imgPreloadNum; index++) {
     console.log('index: ', index)
     const next = store.imageList[store.imageSelectedIndex + index]
     if (!next) break
@@ -706,7 +627,7 @@ const showPrevPost = async () => {
   imgLoading.value = true
   store.imageSelectedIndex--
   isVideo.value && toggleVideoShow()
-  await setPostDetail()
+  await setPostDetail(imageSelected, postDetail)
 }
 
 const showNextPost = async () => {
@@ -714,13 +635,13 @@ const showNextPost = async () => {
     showPreviewThumb.value = false
   }
   if (store.imageSelectedIndex >= store.imageList.length - 1) {
-    if (store.requestState || store.requestStop) return
+    if (store.requestLoading || store.requestStop) return
     await searchPosts()
   }
   imgLoading.value = true
   store.imageSelectedIndex++
   isVideo.value && toggleVideoShow()
-  await setPostDetail()
+  await setPostDetail(imageSelected, postDetail)
   preloadNextImg()
 }
 
@@ -753,7 +674,7 @@ const onImageLoadError = (ev: Event) => {
     imageSelected.value.fileUrl = fileUrl.replace(/\.jpg(\?\d+)?$/, '.png')
     return
   }
-  if (fileUrl && (isRealbooruPage() || isRule34Firefox())) {
+  if (fileUrl && (realbooru.is() || rule34.firefox.is())) {
     imageSelected.value.fileUrl = fileUrl.replace(/\.png(\?\d+)?$/, '.gif')
   }
 }
@@ -792,7 +713,7 @@ const onScaleImgError = (ev: Event) => {
     ;(ev.target as HTMLImageElement).src = imageSelected.value.fileUrl
     return
   }
-  if (fileUrl && (isRealbooruPage() || isRule34Firefox())) {
+  if (fileUrl && (realbooru.is() || rule34.firefox.is())) {
     imageSelected.value.fileUrl = fileUrl.replace(/\.png(\?\d+)?$/, '.gif')
     ;(ev.target as HTMLImageElement).src = imageSelected.value.fileUrl
   }
@@ -848,7 +769,7 @@ const reqFullscreen = async () => {
 watch(() => store.showImageSelected, async val => {
   if (val) {
     imgLoading.value = true
-    await setPostDetail()
+    await setPostDetail(imageSelected, postDetail)
     preloadNextImg()
   } else {
     scaleOn.value = false
@@ -894,13 +815,13 @@ const onKeyup = debounce((ev: KeyboardEvent) => {
 
 onMounted(() => {
   window.addEventListener('resize', onResize)
-  store.isListenWheelEvent && window.addEventListener('wheel', onWheel)
-  store.settings.isListenKeyupEvent && window.addEventListener('keyup', onKeyup)
+  settings.isListenWheelEvent && window.addEventListener('wheel', onWheel)
+  settings.isListenKeyupEvent && window.addEventListener('keyup', onKeyup)
 })
 
 onUnmounted(() => {
   window.removeEventListener('resize', onResize)
-  store.isListenWheelEvent && window.removeEventListener('wheel', onWheel)
-  store.settings.isListenKeyupEvent && window.removeEventListener('keyup', onKeyup)
+  settings.isListenWheelEvent && window.removeEventListener('wheel', onWheel)
+  settings.isListenKeyupEvent && window.removeEventListener('keyup', onKeyup)
 })
 </script>

@@ -1,13 +1,11 @@
 import type { SearchResults } from '@himeka/booru'
-import store from '@/store'
+import { settings } from '@/store'
+import { allgirl, nozomila, rule34 } from '@/api'
 import { BOORU_PAGE_LIMIT, isPidSite } from '@/api/booru'
-import { isRule34FavPage } from '@/api/rule34'
-import { isAllGirlPage } from '@/api/all-girl'
-import { isNozomiPage } from '@/api/nozomi'
 import { getCookie } from '@/utils'
 
 export function getFirstPageNo(params: URLSearchParams) {
-  if (isPidSite) {
+  if (isPidSite()) {
     const page = Number(params.get('pid')) || 0
     return Math.trunc(page / BOORU_PAGE_LIMIT) + 1
   }
@@ -15,9 +13,9 @@ export function getFirstPageNo(params: URLSearchParams) {
 }
 
 export function pushPageState(pageNo: number, latePageQuery = false) {
-  if (isRule34FavPage() || isAllGirlPage() || isNozomiPage()) return
+  if (rule34.fav.is() || allgirl.is() || nozomila.is()) return
   let pageParamName = 'page'
-  if (isPidSite) {
+  if (isPidSite()) {
     pageParamName = 'pid'
     pageNo = (pageNo - 1) * BOORU_PAGE_LIMIT
   } else if (latePageQuery && pageNo > 1) {
@@ -29,7 +27,7 @@ export function pushPageState(pageNo: number, latePageQuery = false) {
 }
 
 export function dealBlacklist(results: SearchResults & { __isR34Fav?: boolean }) {
-  if (location.hostname == 'rule34.xxx' && !results.__isR34Fav) {
+  if (rule34.is() && !results.__isR34Fav) {
     if (getCookie('filter_ai') == '1') {
       results = results.filter(e => !e.tags.includes('ai_assisted') && !e.tags.includes('ai_generated')) as any
     }
@@ -38,11 +36,11 @@ export function dealBlacklist(results: SearchResults & { __isR34Fav?: boolean })
       results = results.filter(e => e.score ? +e.score >= threshold : true) as any
     }
   }
-  if (!store.blacklist.length) return results
+  if (!settings.blacklist.length) return results
   return typeof results.blacklist == 'function'
-    ? results.blacklist(store.blacklist)
+    ? results.blacklist(settings.blacklist)
     : results.filter(e => {
       const tags = e.tags.map(t => t.toLowerCase())
-      return !store.blacklist.some(w => tags.includes(w.toLowerCase()))
+      return !settings.blacklist.some(w => tags.includes(w.toLowerCase()))
     })
 }

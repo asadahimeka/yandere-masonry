@@ -19,6 +19,7 @@
     "preserveValueImports": true,
     // Enforce using `import type` instead of `import` for types
     "importsNotUsedAsValues": "error",
+    "verbatimModuleSyntax": true,
     // Recommended
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -48,15 +49,18 @@
     ]
   },
   "vueCompilerOptions": {
-    "target": "auto"
+    "target": 2.7
     // "target": 2, // For Vue version <= 2.6.14
+    // "optionsWrapper": [
+    //   "(await import('vue')).defineComponent(",
+    //   ")"
+    // ]
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "components.d.ts"
   ],
   "exclude": [
     "node_modules",

@@ -1,7 +1,7 @@
 <template>
-  <div v-if="showImageList" :style="store.settings.masonryLayout === 'virtual' ? 'height:93vh' : ''">
+  <div v-if="showImageList" :style="settings.masonryLayout === 'virtual' ? 'height:93vh' : ''">
     <virtual-waterfall
-      v-if="store.settings.masonryLayout === 'virtual'"
+      v-if="settings.masonryLayout === 'virtual'"
       class="virtual-waterfall"
       :class="{ 'wf-no-fit-screen': notFitScreen }"
       :gap="10"
@@ -55,10 +55,10 @@
           >
             {{ mdiVideo }}
           </v-icon>
-          <div v-if="!isR34Fav && store.settings.showPostCheckbox" class="posts-image-checkbox">
+          <div v-if="!isR34Fav && settings.showPostCheckbox" class="posts-image-checkbox">
             <v-checkbox class="ma-0 pa-0" :value="isPostChecked(item?.id)" hide-details @change="onPostCheckboxChange($event, item)" />
           </div>
-          <div v-if="store.settings.showListPostReso" class="posts-image-wh">{{ item?.width }} × {{ item?.height }}</div>
+          <div v-if="settings.showListPostReso" class="posts-image-wh">{{ item?.width }} × {{ item?.height }}</div>
           <div v-if="!isR34Fav" class="posts-image-actions">
             <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" :href="item?.postView" target="_blank" rel="noreferrer">
               <v-icon>{{ mdiLinkVariant }}</v-icon>
@@ -81,9 +81,9 @@
         v-for="(image, index) in store.imageList"
         :key="index"
         class="posts-image-card"
-        :style="store.settings.masonryLayout === 'flexbin' ? `--w:${image?.width};--h:${image?.height}` : maxHeightStyle"
+        :style="settings.masonryLayout === 'justified' ? `--w:${image?.width};--h:${image?.height}` : maxHeightStyle"
       >
-        <template v-if="store.settings.masonryLayout === 'flexbin'">
+        <template v-if="settings.masonryLayout === 'justified'">
           <img
             class="post-image"
             alt=""
@@ -141,10 +141,10 @@
         >
           {{ mdiVideo }}
         </v-icon>
-        <div v-if="!isR34Fav && store.settings.showPostCheckbox" class="posts-image-checkbox">
+        <div v-if="!isR34Fav && settings.showPostCheckbox" class="posts-image-checkbox">
           <v-checkbox class="ma-0 pa-0" :value="isPostChecked(image?.id)" hide-details @change="onPostCheckboxChange($event, image)" />
         </div>
-        <div v-if="store.settings.showListPostReso" class="posts-image-wh">{{ image?.width }} × {{ image?.height }}</div>
+        <div v-if="settings.showListPostReso" class="posts-image-wh">{{ image?.width }} × {{ image?.height }}</div>
         <div v-if="!isR34Fav" class="posts-image-actions">
           <v-btn icon color="#fff" :title="$t('EsiorRgoeHI8h7IHMLDA4')" :href="image?.postView" target="_blank" rel="noreferrer">
             <v-icon>{{ mdiLinkVariant }}</v-icon>
@@ -162,7 +162,7 @@
       </v-card>
     </wf-layout>
     <div class="d-flex justify-center">
-      <v-btn v-show="store.requestState" color="primary" text>
+      <v-btn v-show="store.requestLoading" color="primary" text>
         {{ $t('RN4dt81l_fZMWODsskZob') }}...
       </v-btn>
       <v-btn v-show="showLoadMore" color="primary" text @click="searchPosts()">
@@ -219,7 +219,7 @@ import { isRule34FavPage } from '@/api/rule34'
 import { isGelbooruFavPage } from '@/api/gelbooru'
 import { isR34PahealHome } from '@/api/r34-paheal'
 import { initPosts, refreshPosts, searchPosts } from '@/store/actions/post'
-import store from '@/store'
+import { removeFromSelectedList, settings, store, addToSelectedList as storeAddToSelectedList } from '@/store'
 import i18n from '@/utils/i18n'
 
 const notFitScreen = ref(localStorage.getItem('__fitScreen') == '0')
@@ -228,7 +228,7 @@ const showImageList = ref(true)
 const showFab = ref(false)
 
 watch(
-  () => store.selectedColumn,
+  () => settings.selectedColumn,
   () => {
     showImageList.value = false
     nextTick(() => {
@@ -237,8 +237,8 @@ watch(
   },
 )
 
-const showNoMore = computed(() => !store.requestState && store.requestStop)
-const showLoadMore = computed(() => !store.requestState && !store.requestStop)
+const showNoMore = computed(() => !store.requestLoading && store.requestStop)
+const showLoadMore = computed(() => !store.requestLoading && !store.requestStop)
 
 const ctxActPost = ref<Post>()
 const showMenu = ref(false)
@@ -246,7 +246,7 @@ const x = ref(0)
 const y = ref(0)
 
 const maxHeightStyle = computed(() => {
-  const num = +store.selectedColumn
+  const num = +settings.selectedColumn
   if (num == 0 || num > 3) return 'max-height: 60vh;overflow: hidden'
   return ''
 })
@@ -254,8 +254,8 @@ const maxHeightStyle = computed(() => {
 const getImgSrc = (img?: Post) => {
   let src = img?.previewUrl
   if (!/\.(mp4|webm)$/i.test(img?.fileUrl || '')) {
-    const num = +store.selectedColumn
-    if (store.settings.isThumbSampleUrl || (num != 0 && num < 7)) {
+    const num = +settings.selectedColumn
+    if (settings.isThumbSampleUrl || (num != 0 && num < 7)) {
       src = img?.sampleUrl
     }
     if (location.hostname === 'danbooru.donmai.us' && src) {
@@ -278,7 +278,7 @@ const onCtxMenu = (ev: MouseEvent, img: Post) => {
 }
 
 const showImgModal = (index: number) => {
-  if (store.settings.useFancybox) {
+  if (settings.useFancybox) {
     fancyboxShow(store.imageList, index)
     return
   }
@@ -293,7 +293,7 @@ const openDetail = (post?: Post) => {
 
 const addToSelectedList = (post?: Post) => {
   const img = post || ctxActPost.value
-  img && store.addToSelectedList(img)
+  img && storeAddToSelectedList(img)
 }
 
 const addFavorite = (id?: string) => {
@@ -323,7 +323,7 @@ const downloadCtxPost = async (post?: Post) => {
 
 const isPostChecked = (id?: string) => store.selectedImageList.some(e => e.id === id)
 const onPostCheckboxChange = (e: any, image: Post) => {
-  e ? store.addToSelectedList(image) : store.removeFromSelectedList(image.id)
+  e ? storeAddToSelectedList(image) : removeFromSelectedList(image.id)
 }
 
 const onImageLoadError = (id: string) => {
@@ -347,7 +347,7 @@ const onImageLoadError = (id: string) => {
 }
 
 const virtualMaxCol = computed(() => {
-  const num = Number(store.selectedColumn)
+  const num = Number(settings.selectedColumn)
   return num > 0 ? num : undefined
 })
 const calcItemHeight = (item: any, itemWidth: number) => {
@@ -357,7 +357,7 @@ const calcItemHeight = (item: any, itemWidth: number) => {
 const scrollFn = throttleScroll(scroll => {
   if (!showFab.value && scroll > 200) showFab.value = true
   if (store.requestStop) return
-  if (store.requestState) return
+  if (store.requestLoading) return
   notReachBottom() && searchPosts(true)
 }, () => {
   if (showFab.value) showFab.value = false

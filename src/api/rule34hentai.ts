@@ -43,3 +43,8 @@ export async function fetchRule34HentaiPosts(page: number, tags: string | null) 
   })
   return results
 }
+
+export const rule34hentai = {
+  is: isRule34HentaiPage,
+  posts: fetchRule34HentaiPosts,
+}

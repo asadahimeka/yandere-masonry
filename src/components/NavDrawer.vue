@@ -68,16 +68,16 @@
           </v-list-item-content>
         </template>
         <v-list-item-group :value="actSiteIndex" color="primary">
-          <v-list-item v-for="link in siteDomains" :key="link" :href="dealLink(link)">
+          <v-list-item v-for="link in siteDomains" :key="link" :href="handleLink(link)">
             <v-list-item-icon class="mr-2">
-              <img :src="dealFavicon(link)" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
+              <img :src="handleFavicon(link)" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>{{ getSiteTitle(link) }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <hr class="my-2">
-          <v-list-item link @click="openLink('https://pixiv.pictures')">
+          <v-list-item link @click="openLink('https://pixiv.pictures/?ref=booru.vercel.app')">
             <v-list-item-icon class="mr-2">
               <img src="https://pixiv.pictures/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
             </v-list-item-icon>
@@ -85,7 +85,7 @@
               <v-list-item-title>Pixiv Viewer</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item link @click="openLink('https://moeview.cocomi.eu.org')">
+          <v-list-item link @click="openLink('https://moeview.cocomi.eu.org/?ref=booru.vercel.app')">
             <v-list-item-icon class="mr-2">
               <img src="https://moeview.cocomi.eu.org/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
             </v-list-item-icon>
@@ -93,15 +93,7 @@
               <v-list-item-title>Moeview</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <!-- <v-list-item link @click="openLink('https://booru.io/')">
-            <v-list-item-icon class="mr-2">
-              <img src="https://booru.io/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>booru.io</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item> -->
-          <v-list-item link @click="openLink('https://r-34.xyz/')">
+          <v-list-item link @click="openLink('https://r-34.xyz/?ref=booru.vercel.app')">
             <v-list-item-icon class="mr-2">
               <img src="https://r-34.xyz/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
             </v-list-item-icon>
@@ -109,12 +101,36 @@
               <v-list-item-title>R-34.XYZ</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item link @click="openLink('https://nekon.app/')">
+          <v-list-item link @click="openLink('https://nekon.app/?ref=booru.vercel.app')">
             <v-list-item-icon class="mr-2">
               <img src="https://nekon.app/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>Nekon</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item link @click="openLink('https://www.someacg.top/?ref=booru.vercel.app')">
+            <v-list-item-icon class="mr-2">
+              <img src="https://www.someacg.top/favicon.png" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>SomeACG</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item link @click="openLink('https://manyacg.top/?ref=booru.vercel.app')">
+            <v-list-item-icon class="mr-2">
+              <img src="https://manyacg.top/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>ManyACG</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item link @click="openLink('https://pic.cosine.ren/?ref=booru.vercel.app')">
+            <v-list-item-icon class="mr-2">
+              <img src="https://pic.cosine.ren/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Cosine Gallery</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -201,7 +217,7 @@ import {
 import { computed, onMounted, ref } from 'vue'
 import { getSiteTitle, siteDomains } from '@/api/booru'
 import { getUsername } from '@/api/moebooru'
-import store from '@/store'
+import { store } from '@/store'
 
 const userName = ref('')
 const version = ref(GM_info.script.version)
@@ -210,17 +226,20 @@ const openLink = (link: string) => {
   window.open(link, '_blank', 'noreferrer')
 }
 
-const dealLink = (link: string) => {
+const handleLink = (link: string) => {
   if (link.includes('yande')) return 'https://yande.re/post?_wf=1'
   if (link.includes('behoimi')) return 'http://behoimi.org'
   return `https://${link}`
 }
 
-const dealFavicon = (link: string) => {
+const handleFavicon = (link: string) => {
   if (link.includes('konachan')) return 'https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/cbd0b71ead30e0777e5b023170ba415c_4819570566325089051.png'
   if (link.includes('behoimi')) return 'https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/d3b97f45046795c87c12ad5704074f32_1333245617164582614.png'
-  if (link.includes('sankaku')) return 'https://upload-bbs.miyoushe.com/upload/2025/03/29/190122060/4fa56922d173d28ac8e687caaa487f27_1885629069482225420.png'
+  if (link.includes('sankaku') || link.includes('idolcomplex')) return 'https://upload-bbs.miyoushe.com/upload/2025/03/29/190122060/4fa56922d173d28ac8e687caaa487f27_1885629069482225420.png'
   if (link.includes('rule34.xxx')) return 'https://upload-bbs.miyoushe.com/upload/2025/03/29/190122060/76ba90d4350a1455f899d2a1500fca69_8344852329496206545.png'
+  if (link.includes('rule34hentai.net')) return 'https://prod-alicdn-community.kurobbs.com/forum/ee44a4b6a2cc4f08b693cfc4e364b1fa20260129.png'
+  if (link.includes('aibooru.online')) return 'https://prod-alicdn-community.kurobbs.com/forum/177e56ba1e704d6b85e492a365642dd920260129.png'
+  if (link.includes('allthefallen') || link.includes('allgirl')) return 'https://kwc.cocomi.eu.org/https://danbooru.donmai.us/favicon.ico'
   return `https://kwc.cocomi.eu.org/https://${link.split('/')[0]}/favicon.ico`
 }
 

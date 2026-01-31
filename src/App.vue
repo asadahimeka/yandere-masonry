@@ -13,17 +13,21 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 import AppBar from './components/AppBar.vue'
 import NavDrawer from './components/NavDrawer.vue'
 import SettingsDrawer from './components/SettingsDrawer.vue'
 import AppContainer from './components/AppContainer.vue'
 import { useVuetify } from './plugins/vuetify'
+import { settings } from './store'
 
 const vuetify = useVuetify()
 
+watch(() => settings, val => {
+  localStorage.setItem('YM_APP_SETTINGS', JSON.stringify(val))
+}, { deep: true })
+
 onMounted(() => {
-  const mode = localStorage.getItem('__darkmode') || 'light'
-  vuetify.theme.dark = mode === 'dark'
+  vuetify.theme.dark = settings.darkMode === 'dark'
 })
 </script>

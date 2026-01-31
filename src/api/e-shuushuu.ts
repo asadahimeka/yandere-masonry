@@ -36,3 +36,8 @@ export async function fetchEshuushuuPosts(page: number) {
   })
   return results
 }
+
+export const eshuushuu = {
+  is: isEshuushuuPage,
+  posts: fetchEshuushuuPosts,
+}

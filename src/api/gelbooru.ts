@@ -1,4 +1,4 @@
-import store from '@/store'
+import { settings } from '@/store'
 import { getImageSize, showMsg } from '@/utils'
 import i18n from '@/utils/i18n'
 
@@ -7,7 +7,7 @@ export function isGelbooruFavPage() {
 }
 
 export function isGelbooruPage() {
-  return /gelbooru\.com\/index\.php\?page\=post\&s\=list/.test(location.href) && !store.settings.credentialQuery
+  return /gelbooru\.com\/index\.php\?page\=post\&s\=list/.test(location.href) && !settings.credentialQuery
 }
 
 export async function fetchGelbooruPosts(page: number) {
@@ -110,4 +110,13 @@ export async function addFavoriteGelbooru(id: string) {
     showMsg({ msg: `${i18n.t('MWVfUiW8egLWq7MgV-wzc')}: ${result}`, type: 'error' })
     return false
   }
+}
+
+export const gelbooru = {
+  is: isGelbooruPage,
+  posts: fetchGelbooruPosts,
+  fav: {
+    is: isGelbooruFavPage,
+    posts: fetchGelbooruFavorites,
+  },
 }

@@ -22,6 +22,11 @@
   transform: scale(1.05)
 }
 
+#enter-masonry.enter-button-bottom {
+  top: unset;
+  bottom: 15px;
+}
+
 #locale-select {
   position: fixed;
   z-index: 99;

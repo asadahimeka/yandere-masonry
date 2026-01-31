@@ -45,3 +45,9 @@ export async function getAllGirlDetail(id: string) {
     fileUrl: doc.querySelector<HTMLImageElement>('#image')?.src,
   }
 }
+
+export const allgirl = {
+  is: isAllGirlPage,
+  posts: fetchAllGirlPosts,
+  detail: getAllGirlDetail,
+}

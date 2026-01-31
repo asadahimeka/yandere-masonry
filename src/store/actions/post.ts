@@ -1,19 +1,28 @@
-import { fetchActions, getSearchState, setPage, setTags } from './site'
-import { dealBlacklist, pushPageState } from './_util'
-import store from '@/store'
+import { fetchPostsActions } from './site'
+import { dealBlacklist, getFirstPageNo, pushPageState } from './_util'
+import { settings, store } from '@/store'
 import { uniqBy } from '@/utils'
 
+const params = new URLSearchParams(location.search)
+const query = {
+  page: getFirstPageNo(params),
+  tags: params.get('tags'),
+}
+export const getSearchState = () => query
+export const setPage = (page: number) => query.page = page
+export const setTags = (tags: string) => query.tags = tags
+
 export const searchPosts = async (latePageQuery = false) => {
-  store.requestState = true
+  store.requestLoading = true
   try {
-    let posts = await fetchActions.find(e => e.test())?.action()
+    const { page, tags } = getSearchState()
+    let posts = await fetchPostsActions.find(e => e.is())?.posts(page, tags)
     if (Array.isArray(posts) && posts.length > 0) {
       posts = dealBlacklist(posts as any)
-      const { page } = getSearchState()
       store.currentPage = page
       store.imageList = uniqBy([
         ...store.imageList,
-        ...(store.showNSFWContents ? posts : posts.filter(e => ['s', 'g'].includes(e.rating))),
+        ...(settings.showNSFWContents ? posts : posts.filter(e => ['s', 'g'].includes(e.rating))),
       ], 'id')
       pushPageState(page, latePageQuery)
       setPage(page + 1)
@@ -23,7 +32,7 @@ export const searchPosts = async (latePageQuery = false) => {
   } catch (error) {
     console.log(`fetch error: ${error}`)
   } finally {
-    store.requestState = false
+    store.requestLoading = false
   }
 }
 
@@ -36,7 +45,7 @@ const calcFetchTimes = () => {
 
 export const initPosts = async () => {
   await searchPosts(true)
-  if (store.settings.masonryLayout === 'virtual') {
+  if (settings.masonryLayout === 'virtual') {
     document.documentElement.scrollTop = 1
   }
   if (store.requestStop) return
@@ -67,7 +76,7 @@ export const loadPostsByTags = (searchTerm: string) => {
   setTags(searchTerm)
   store.imageList = []
   searchPosts().then(() => {
-    if (store.settings.masonryLayout === 'virtual') {
+    if (settings.masonryLayout === 'virtual') {
       document.documentElement.scrollTop = 1
     }
   })

@@ -54,3 +54,9 @@ export async function getHentaiBooruDetail(id: string) {
     fileUrl: doc.querySelector<HTMLImageElement>('#main_image')?.src,
   }
 }
+
+export const hentaibooru = {
+  is: isHentaiBooruPage,
+  posts: fetchHentaiBooruPosts,
+  detail: getHentaiBooruDetail,
+}

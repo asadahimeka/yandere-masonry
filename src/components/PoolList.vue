@@ -60,7 +60,7 @@
       </v-card>
     </masonry>
     <div class="d-flex justify-center">
-      <v-btn v-show="store.requestState" color="primary" text>{{ $t('RN4dt81l_fZMWODsskZob') }}...</v-btn>
+      <v-btn v-show="store.requestLoading" color="primary" text>{{ $t('RN4dt81l_fZMWODsskZob') }}...</v-btn>
       <v-btn v-show="showLoadMore" color="primary" text @click="loadData()">{{ $t('fC8XNfCl04zK7vgeaRZMQ') }}</v-btn>
       <v-btn v-show="showNoMore" color="primary" text>{{ $t('4hOFoP4M3ZkL3RiN7XOc8') }}</v-btn>
     </div>
@@ -72,7 +72,7 @@ import { mdiCalendarBlank, mdiCalendarEdit, mdiDownload, mdiLaunch } from '@mdi/
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { type Pool, fetchPools } from '@/api/moebooru'
 import { eventBus, notReachBottom, throttleScroll } from '@/utils'
-import store from '@/store'
+import { store } from '@/store'
 
 const columnCount = ref({
   300: 1,
@@ -88,14 +88,14 @@ const columnCount = ref({
 })
 
 const noMore = ref(false)
-const showNoMore = computed(() => !store.requestState && noMore.value)
-const showLoadMore = computed(() => !store.requestState && !noMore.value)
+const showNoMore = computed(() => !store.requestLoading && noMore.value)
+const showLoadMore = computed(() => !store.requestLoading && !noMore.value)
 const page = ref(Number(new URLSearchParams(location.search).get('page')) || 1)
 
 const pools = ref<Pool[]>([])
 
 const loadData = async (query?: string) => {
-  store.requestState = true
+  store.requestLoading = true
   try {
     const results = await fetchPools(page.value, query)
     if (Array.isArray(results) && results.length > 0) {
@@ -110,7 +110,7 @@ const loadData = async (query?: string) => {
   } catch (error) {
     console.log('fetchPools error: ', error)
   } finally {
-    store.requestState = false
+    store.requestLoading = false
   }
 }
 
@@ -120,7 +120,7 @@ const viewPool = (id: string) => {
 
 const scrollFn = throttleScroll(() => {
   if (noMore.value) return
-  if (store.requestState) return
+  if (store.requestLoading) return
   notReachBottom() && loadData()
 })
 
