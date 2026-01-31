@@ -1,5 +1,5 @@
 import { fetchPostsActions } from './site'
-import { dealBlacklist, getFirstPageNo, pushPageState } from './_util'
+import { getFirstPageNo, handleBlacklist, pushPageState } from './_util'
 import { settings, store } from '@/store'
 import { uniqBy } from '@/utils'
 
@@ -18,7 +18,7 @@ export const searchPosts = async (latePageQuery = false) => {
     const { page, tags } = getSearchState()
     let posts = await fetchPostsActions.find(e => e.is())?.posts(page, tags)
     if (Array.isArray(posts) && posts.length > 0) {
-      posts = dealBlacklist(posts as any)
+      posts = handleBlacklist(posts as any)
       store.currentPage = page
       store.imageList = uniqBy([
         ...store.imageList,

@@ -22,7 +22,7 @@ module.exports = defineTmHeader({
     'https://www.zerochan.net/*',
     'https://sankaku.app/*',
     'https://chan.sankakucomplex.com/*',
-    // 'https://idol.sankakucomplex.com/*',
+    'https://www.sankakucomplex.com/*',
     'https://www.idolcomplex.com/*',
     'https://anime-pictures.net/*',
     'https://allgirl.booru.org/*',

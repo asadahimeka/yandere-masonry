@@ -26,7 +26,7 @@ export function pushPageState(pageNo: number, latePageQuery = false) {
   history.replaceState('', '', url)
 }
 
-export function dealBlacklist(results: SearchResults & { __isR34Fav?: boolean }) {
+export function handleBlacklist(results: SearchResults & { __isR34Fav?: boolean }) {
   if (rule34.is() && !results.__isR34Fav) {
     if (getCookie('filter_ai') == '1') {
       results = results.filter(e => !e.tags.includes('ai_assisted') && !e.tags.includes('ai_generated')) as any

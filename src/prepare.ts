@@ -261,17 +261,16 @@ function replaceDocument() {
   const el = document.querySelector('[name="csrf-token"]')
   const token = el?.getAttribute('content')
   token && sessionStorage.setItem('csrf-token', token)
-  const title = `${location.host.toUpperCase()} Masonry`
-  const head = /* html */`
+  document.head.innerHTML = /* html */`
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-    <title>${title}</title>
+    <title>${location.host.toUpperCase()} Masonry</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.css">
     <style>${customStyle}</style>
-  `.trim()
-  const body = /* html */`
+  `
+  document.body.innerHTML = /* html */`
     <div id="app">
       <div id="loading">
         <div id="loading-center">
@@ -284,15 +283,7 @@ function replaceDocument() {
         </div>
       </div>
     </div>
-  `.trim()
-  if (navigator.userAgent.includes('Firefox') || typeof document.write != 'function') {
-    document.head.innerHTML = head
-    document.body.innerHTML = body
-    return
-  }
-  document.open()
-  document.write(`<!DOCTYPE html><html><head>${head}</head><body>${body}</body></html>`)
-  document.close()
+  `
 }
 
 /*! prepare end */

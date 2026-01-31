@@ -4,7 +4,7 @@ import { fetchSankakuIdolPosts, getSankakuIdolDetail, isSankakuIdolPage } from '
 export const isSankakuSite = location.host.includes('sankaku') || location.host.includes('idolcomplex')
 
 export function isSankakuPage() {
-  return location.hostname == 'sankaku.app'
+  return location.hostname == 'sankaku.app' || location.hostname == 'www.sankakucomplex.com'
 }
 
 const pageState: { next: string | null } = { next: null }

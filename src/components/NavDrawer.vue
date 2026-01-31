@@ -68,7 +68,7 @@
           </v-list-item-content>
         </template>
         <v-list-item-group :value="actSiteIndex" color="primary">
-          <v-list-item v-for="link in siteDomains" :key="link" :href="handleLink(link)">
+          <v-list-item v-for="link in siteDomains" :key="link" :href="handleLink(link)" referrerpolicy="no-referrer">
             <v-list-item-icon class="mr-2">
               <img :src="handleFavicon(link)" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
             </v-list-item-icon>
