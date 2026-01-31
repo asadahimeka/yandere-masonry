@@ -209,6 +209,14 @@
           </v-menu>
         </v-list-item-action>
       </v-list-item>
+      <v-list-item v-if="settings.masonryLayout === 'justified'">
+        <v-list-item-content>
+          <v-list-item-title>{{ $t('dm7zGAYbP2sbGXO_ekDDl') }}</v-list-item-title>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-slider v-model="settings.justifiedBaseWidth" min="100" max="1200" step="1" thumb-label style="min-width: 200px;" />
+        </v-list-item-action>
+      </v-list-item>
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>{{ $t('4yzHPggVky2QKFD2TbBhl') }}</v-list-item-title>
@@ -224,7 +232,7 @@
           <v-list-item-subtitle :title="$t('z_oL9s5fS164W4_gITOGZ')">{{ $t('z_oL9s5fS164W4_gITOGZ') }}</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
-          <v-switch inset :value="settings.isDLSubpath" :loading="dlSubLoading" @change="onDLSubpathChange" />
+          <v-switch v-model="settings.isDLSubpath" inset :loading="dlSubLoading" @change="onDLSubpathChange" />
         </v-list-item-action>
       </v-list-item>
       <v-list-item>

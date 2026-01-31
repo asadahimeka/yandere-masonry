@@ -81,7 +81,7 @@
         v-for="(image, index) in store.imageList"
         :key="index"
         class="posts-image-card"
-        :style="settings.masonryLayout === 'justified' ? `--w:${image?.width};--h:${image?.height}` : maxHeightStyle"
+        :style="imgCardStyle(image)"
       >
         <template v-if="settings.masonryLayout === 'justified'">
           <img
@@ -250,6 +250,13 @@ const maxHeightStyle = computed(() => {
   if (num == 0 || num > 3) return 'max-height: 60vh;overflow: hidden'
   return ''
 })
+
+function imgCardStyle(image: Post) {
+  if (settings.masonryLayout !== 'justified') return maxHeightStyle
+  let style = `--w:${image?.width};--h:${image?.height};`
+  if (settings.justifiedBaseWidth) style += `--jstf-w:${settings.justifiedBaseWidth};`
+  return style
+}
 
 function getImgSrc(img?: Post) {
   let src = img?.previewUrl
