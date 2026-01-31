@@ -108,8 +108,7 @@ function addWfTypeSelect() {
 }
 
 async function initMasonry() {
-  replaceHead()
-  replaceBody()
+  replaceDocument()
   if (import.meta.env.PROD) await loadDeps()
 }
 
@@ -258,23 +257,21 @@ async function loadDeps() {
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.4.0/fxparser.min.js')
 }
 
-function replaceHead() {
+function replaceDocument() {
   const el = document.querySelector('[name="csrf-token"]')
   const token = el?.getAttribute('content')
   token && sessionStorage.setItem('csrf-token', token)
-  document.head.innerHTML = /* html */`
+  const title = `${location.host.toUpperCase()} Masonry`
+  const head = /* html */`
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-    <title>${location.host.toUpperCase()} Masonry</title>
+    <title>${title}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.css">
     <style>${customStyle}</style>
-  `
-}
-
-function replaceBody() {
-  document.body.innerHTML = /* html */`
+  `.trim()
+  const body = /* html */`
     <div id="app">
       <div id="loading">
         <div id="loading-center">
@@ -287,6 +284,15 @@ function replaceBody() {
         </div>
       </div>
     </div>
-  `
+  `.trim()
+  if (navigator.userAgent.includes('Firefox') || typeof document.write != 'function') {
+    document.head.innerHTML = head
+    document.body.innerHTML = body
+    return
+  }
+  document.open()
+  document.write(`<!DOCTYPE html><html><head>${head}</head><body>${body}</body></html>`)
+  document.close()
 }
+
 /*! prepare end */

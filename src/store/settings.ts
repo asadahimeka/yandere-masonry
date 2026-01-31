@@ -19,6 +19,7 @@ const langMap: Record<string, typeof langList[number]['value']> = {
   'en-GB': 'en',
 }
 
+const isMobile = navigator.userAgent.includes('Mobile')
 const defaultSettings = {
   lang: langMap[navigator.language] || 'en',
   darkMode: 'light' as 'light' | 'dark',
@@ -41,9 +42,9 @@ const defaultSettings = {
   isDLSubpath: false,
   autoWaterfall: false,
   showTagChipGroup: false,
-  justifiedBaseWidth: null as number | null,
-  detailButtonsBottom: navigator.userAgent.includes('Mobile'),
-  closePopupOnImgClick: navigator.userAgent.includes('Mobile'),
+  justifiedBaseWidth: isMobile ? 240 : 340,
+  detailButtonsBottom: isMobile,
+  closePopupOnImgClick: isMobile,
 }
 
 export const initialSettings: typeof defaultSettings = {
