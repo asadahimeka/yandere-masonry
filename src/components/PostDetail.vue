@@ -505,12 +505,20 @@ const imgCreateTime = computed(() => {
   return formatRelativeTime(imageSelected.value.createdAt)
 })
 
-const toggleToolbar = () => {
+function close() {
+  store.showImageSelected = false
+}
+
+function toggleToolbar() {
   if (scaleOn.value) return
+  if (settings.closePopupOnImgClick) {
+    close()
+    return
+  }
   showImageToolbar.value = !showImageToolbar.value
 }
 
-const toTagsPage = (tag: string) => {
+function toTagsPage(tag: string) {
   if (store.isYKSite) {
     window.open(`/post?tags=${tag}`, '_blank', 'noreferrer')
   }
@@ -519,22 +527,22 @@ const toTagsPage = (tag: string) => {
   }
 }
 
-const toPidPage = (pid: string) => {
+function toPidPage(pid: string) {
   if (notYKSite.value) return
   window.open(`/post/show/${pid}`, '_blank', 'noreferrer')
 }
 
-const toDetailPage = () => {
+function toDetailPage() {
   window.open(imageSelected.value.postView, '_blank', 'noreferrer')
 }
 
-const toSourcePage = () => {
+function toSourcePage() {
   const { sourceUrl } = imageSelected.value
   if (!isURL(sourceUrl)) return
   window.open(sourceUrl, '_blank', 'noreferrer')
 }
 
-const download = async (url: string | null, name: string) => {
+async function download(url: string | null, name: string) {
   if (!url) return
   if (location.host.includes('gelbooru')) {
     setTimeout(() => {
@@ -558,15 +566,11 @@ const download = async (url: string | null, name: string) => {
   }
 }
 
-const addToList = () => {
+function addToList() {
   addToSelectedList(imageSelected.value)
 }
 
-const close = () => {
-  store.showImageSelected = false
-}
-
-const onDtlContClick = (ev: Event) => {
+function onDtlContClick(ev: Event) {
   const el = ev.target as HTMLElement
   if (el?.className?.includes?.('img_detail_cont')) {
     close()
@@ -576,7 +580,7 @@ const onDtlContClick = (ev: Event) => {
 const postDetail = ref<PostDetail>({})
 const metaTags = computed(() => postDetail.value.tags?.filter(e => e.type != 'general') || [])
 
-const addFavorite = async () => {
+async function addFavorite() {
   if (!isFavBtnShow || postDetail.value.voted) return
   const isSuccess = await addPostToFavorites(imageSelected.value.id)
   if (isSuccess) postDetail.value.voted = true
@@ -584,12 +588,12 @@ const addFavorite = async () => {
 
 const isExportTagsEnable = ref(true)
 const isExportTagsShow = ref(false)
-const openExportTags = () => {
+function openExportTags() {
   isExportTagsShow.value = true
 }
 
 const preloadImgEl = new Image()
-const preloadImg = (src: string) => {
+function preloadImg(src: string) {
   console.log('preloadImg: ', src)
   return new Promise((resolve, reject) => {
     preloadImgEl.src = src
@@ -598,7 +602,7 @@ const preloadImg = (src: string) => {
   })
 }
 
-const preloadNextImg = async () => {
+async function preloadNextImg() {
   if (!settings.isFullImgPreload) return
   if (isVideo.value) return
   for (let index = 1; index <= settings.imgPreloadNum; index++) {
@@ -611,7 +615,7 @@ const preloadNextImg = async () => {
 }
 
 const isVideoShow = ref(true)
-const toggleVideoShow = async () => {
+async function toggleVideoShow() {
   isVideoShow.value = false
   await nextTick()
   isVideoShow.value = true
@@ -619,7 +623,7 @@ const toggleVideoShow = async () => {
 
 const showPreviewThumb = ref(true)
 
-const showPrevPost = async () => {
+async function showPrevPost() {
   if (store.imageSelectedIndex == 0) return
   if (showPreviewThumb.value) {
     showPreviewThumb.value = false
@@ -630,7 +634,7 @@ const showPrevPost = async () => {
   await setPostDetail(imageSelected, postDetail)
 }
 
-const showNextPost = async () => {
+async function showNextPost() {
   if (showPreviewThumb.value) {
     showPreviewThumb.value = false
   }
@@ -645,7 +649,7 @@ const showNextPost = async () => {
   preloadNextImg()
 }
 
-const onImageLoadError = (ev: Event) => {
+function onImageLoadError(ev: Event) {
   // imgLoading.value = false
   imageSelected.value.sampleUrl = null
 
@@ -685,7 +689,7 @@ const scaleImgSrc = computed(() => {
     : void 0
 })
 
-const onScaleImgError = (ev: Event) => {
+function onScaleImgError(ev: Event) {
   if (notR34Fav.value) {
     // @ts-expect-error data protected
     imageSelected.value.data.jpeg_url = null
@@ -693,29 +697,30 @@ const onScaleImgError = (ev: Event) => {
   }
 
   // imgLoading.value = false
+
+  const img = ev.target as HTMLImageElement
   const { fileUrl } = imageSelected.value
 
   if (fileUrl && location.hostname.includes('zerochan')) {
     getZerochanFileUrl(imageSelected.value.id).then(url => {
       imageSelected.value.fileUrl = url
-      ;(ev.target as HTMLImageElement).src = url
+      img.src = url
     })
     return
   }
-
   if (fileUrl?.includes('.jpeg')) {
     imageSelected.value.fileUrl = fileUrl.replace(/\.jpeg(\?\d+)?$/, '.jpg')
-    ;(ev.target as HTMLImageElement).src = imageSelected.value.fileUrl
+    img.src = imageSelected.value.fileUrl
     return
   }
   if (fileUrl?.includes('.jpg')) {
     imageSelected.value.fileUrl = fileUrl.replace(/\.jpg(\?\d+)?$/, '.png')
-    ;(ev.target as HTMLImageElement).src = imageSelected.value.fileUrl
+    img.src = imageSelected.value.fileUrl
     return
   }
   if (fileUrl && (realbooru.is() || rule34.firefox.is())) {
     imageSelected.value.fileUrl = fileUrl.replace(/\.png(\?\d+)?$/, '.gif')
-    ;(ev.target as HTMLImageElement).src = imageSelected.value.fileUrl
+    img.src = imageSelected.value.fileUrl
   }
 }
 
@@ -730,7 +735,7 @@ type ImgScaleState = 'FitToPage' | 'FitToWidth' | 'FitToHeight' | 'Original'
 const imgScaleState = ref<ImgScaleState>('Original')
 
 const imgRotateDeg = ref(0)
-const rotateImg = () => {
+function rotateImg() {
   imgScaleState.value = 'FitToPage'
   imgRotateDeg.value += 90
 }
@@ -742,7 +747,7 @@ const scaleImgStyle = computed(() => ({
 }))
 
 let clearDragEv: (() => void) | undefined
-const zoomInImg = async () => {
+async function zoomInImg() {
   scaleOn.value = true
   if (imageSelected.value.sampleUrl) {
     imgLoading.value = true
@@ -750,13 +755,13 @@ const zoomInImg = async () => {
   await nextTick()
   clearDragEv = dragElement('.img_scale_scroll', '.img_detail_scale')
 }
-const zoomOutImg = () => {
+function zoomOutImg() {
   scaleOn.value = false
   imgRotateDeg.value = 0
   clearDragEv?.()
 }
 
-const reqFullscreen = async () => {
+async function reqFullscreen() {
   try {
     if (document.fullscreenElement) return
     const img = document.querySelector('.img_detail_scale')
@@ -779,7 +784,7 @@ watch(() => store.showImageSelected, async val => {
   }
 })
 
-const onResize = () => {
+function onResize() {
   innerWidth.value = window.innerWidth
   innerHeight.value = window.innerHeight
 }

@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer
     v-model="store.showSettings"
-    class="nav_drawer"
+    class="nav_drawer settings_drawer"
     :width="400"
     app
     temporary
@@ -279,6 +279,15 @@
         </v-list-item-content>
         <v-list-item-action>
           <v-switch v-model="settings.detailButtonsBottom" inset />
+        </v-list-item-action>
+      </v-list-item>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>{{ $t('HPukB-OKzIuRxMmO4Rx2U') }}</v-list-item-title>
+          <v-list-item-subtitle :title="$t('I_MKXUxaNXp3D35GFULn4')">{{ $t('I_MKXUxaNXp3D35GFULn4') }}</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-switch v-model="settings.closePopupOnImgClick" inset />
         </v-list-item-action>
       </v-list-item>
       <v-list-item v-if="store.isYKSite">

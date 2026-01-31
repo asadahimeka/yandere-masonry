@@ -302,7 +302,7 @@ const isOneOrMoreSelected = computed(() => store.selectedImageList.length > 0 &&
 const isAllSelected = computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length === store.imageList.length)
 const loadingValue = ref(0)
 
-const selectAll = () => {
+function selectAll() {
   if (isNoSelected.value || isOneOrMoreSelected.value) {
     setTimeout(() => {
       const arr = [...store.imageList]
@@ -319,7 +319,7 @@ const selectAll = () => {
   }
 }
 
-const removeFromList = (id: string) => {
+function removeFromList(id: string) {
   store.selectedImageList = store.selectedImageList.filter(e => {
     if (e.loading) return true
     return e.id !== id
@@ -350,7 +350,7 @@ const onSearchTermInput = debounce(async () => {
   searchState.loading = false
 }, 500)
 
-const selectTag = (tag: string) => {
+function selectTag(tag: string) {
   const termArr = searchState.searchTerm.split(/\s+/)
   searchState.searchTerm = termArr.slice(0, -1).concat(tag).join(' ')
   searchState.showMenu = false
@@ -365,7 +365,7 @@ onMounted(async () => {
   }
 })
 
-const fetchTaggedPosts = (tags: string) => {
+function fetchTaggedPosts(tags: string) {
   const url = new URL(location.href)
   url.searchParams.set('tags', tags)
   history.pushState('', '', url)
@@ -373,7 +373,7 @@ const fetchTaggedPosts = (tags: string) => {
   loadPostsByTags(tags)
 }
 
-const showTagsInput = () => {
+function showTagsInput() {
   if (searchState.showInput) {
     if (!searchState.searchTerm) {
       searchState.showInput = false
@@ -384,7 +384,7 @@ const showTagsInput = () => {
   }
 }
 
-const onSearchTermKeydown = (ev: KeyboardEvent) => {
+function onSearchTermKeydown(ev: KeyboardEvent) {
   if (ev.key != 'Enter') return
   if (searchState.showMenu && searchState.searchItems.length) {
     const item = document.querySelector<HTMLElement>('.ac_tags_list .v-list-item--highlighted')
@@ -413,7 +413,7 @@ const periodByDateMap = (() => {
   return map
 })()
 
-const getRecentPeriod = () => {
+function getRecentPeriod() {
   const params = new URLSearchParams(location.search)
   let period: string | null | undefined = params.get('period')
   if (location.pathname.includes('popular_by')) {
@@ -422,8 +422,10 @@ const getRecentPeriod = () => {
   }
   return period || '1d'
 }
-const isPopularRecent = () => location.pathname.includes('popular_recent')
-const getPopTitle = () => {
+function isPopularRecent() {
+  return location.pathname.includes('popular_recent')
+}
+function getPopTitle() {
   if (isPopularRecent()) {
     return `Popular Recent ${getRecentPeriod()}`
   }
@@ -447,7 +449,7 @@ const popSearchDate = ref((() => {
   return subDate(1, 'days')
 })())
 
-const fetchPopularPosts = (type: string) => {
+function fetchPopularPosts(type: string) {
   let url = `/post/popular_recent?period=${type}`
   if (isPopSearchByDate.value) {
     const [year, month, day] = popSearchDate.value.split('-')
@@ -458,7 +460,7 @@ const fetchPopularPosts = (type: string) => {
   refreshPosts()
 }
 
-const selPeriod = (key: string) => {
+function selPeriod(key: string) {
   recentPeriod.value = key
   fetchPopularPosts(key)
 }
@@ -474,31 +476,31 @@ watch(isPopSearchByDate, val => {
   fetchPopularPosts('1d')
 })
 
-const loadPrevPeriod = () => {
+function loadPrevPeriod() {
   const duration = periodMap[recentPeriod.value][2]
   popSearchDate.value = subDate(1, `${duration}s`, new Date(popSearchDate.value))
 }
-const loadNextPeriod = () => {
+function loadNextPeriod() {
   const duration = periodMap[recentPeriod.value][2]
   popSearchDate.value = addDate(1, `${duration}s`, new Date(popSearchDate.value))
 }
 
-const goToPopularPage = () => {
+function goToPopularPage() {
   location.href = '/post/popular_recent?period=1d&_wf=1'
 }
 
-const showPool = () => {
+function showPool() {
   store.showPostList = false
   store.showPoolList = true
   history.pushState('', '', '/pool')
 }
 
 const poolQueryTerm = ref('')
-const searchPool = () => {
+function searchPool() {
   eventBus.$emit('loadPoolsByQuery', poolQueryTerm.value)
 }
 
-const download = (url: string, name: string) => {
+function download(url: string, name: string) {
   loadingValue.value = 0
   return downloadFile(url, name, {
     saveAs: false,
@@ -519,7 +521,7 @@ const downloadNameKey = computed(() => {
   return downloadNameMap[downloadUrlKey.value] || 'fileDownloadName'
 })
 const isGelbooru = location.host.includes('gelbooru')
-const startDownload = async () => {
+async function startDownload() {
   try {
     const len = store.selectedImageList.length
     if (isGelbooru) {
@@ -555,7 +557,7 @@ const startDownload = async () => {
 
 const isExportUrlDecode = ref(true)
 const isExportUrlEncode = ref(false)
-const exportFileUrls = async () => {
+async function exportFileUrls() {
   const urlText = store.selectedImageList.map(e => {
     let url = e[downloadUrlKey.value] || e.fileUrl || ''
     if (store.isYKSite && isExportUrlDecode.value) {
@@ -573,7 +575,7 @@ const exportFileUrls = async () => {
 }
 
 const vuetify = useVuetify()
-const toggleDarkmode = () => {
+function toggleDarkmode() {
   vuetify.theme.dark = !vuetify.theme.dark
   localStorage.setItem('__darkmode', vuetify.theme.dark ? 'dark' : 'light')
 }
@@ -585,20 +587,20 @@ const keyActions: Record<string, Function> = {
   ArrowLeft: (cur: number) => keyActions.ArrowUp(cur),
   ArrowRight: (cur: number) => keyActions.ArrowDown(cur),
 }
-const goToPage = (ev: KeyboardEvent) => {
+function goToPage(ev: KeyboardEvent) {
   const action = keyActions[ev.key]
   if (!action) return
   const input = ev.target as HTMLInputElement
   action(input?.value || 0)
 }
 
-const exitMasonry = () => {
+function exitMasonry() {
   const url = new URL(location.href)
   url.searchParams.delete('_wf')
   location.assign(url)
 }
 
-const toggleFullscreen = async () => {
+async function toggleFullscreen() {
   try {
     if (document.fullscreenElement) {
       await document.exitFullscreen()
@@ -610,7 +612,7 @@ const toggleFullscreen = async () => {
   }
 }
 
-const selectLang = (val: typeof settings.lang) => {
+function selectLang(val: typeof settings.lang) {
   settings.lang = val
   i18n.locale = val
 }

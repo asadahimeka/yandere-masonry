@@ -94,7 +94,7 @@ const page = ref(Number(new URLSearchParams(location.search).get('page')) || 1)
 
 const pools = ref<Pool[]>([])
 
-const loadData = async (query?: string) => {
+async function loadData(query?: string) {
   store.requestLoading = true
   try {
     const results = await fetchPools(page.value, query)
@@ -114,7 +114,7 @@ const loadData = async (query?: string) => {
   }
 }
 
-const viewPool = (id: string) => {
+function viewPool(id: string) {
   window.open(`/post?tags=pool%3A${id}&_wf=1`, '_blank')
 }
 

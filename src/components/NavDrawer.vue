@@ -222,17 +222,17 @@ import { store } from '@/store'
 const userName = ref('')
 const version = ref(GM_info.script.version)
 
-const openLink = (link: string) => {
+function openLink(link: string) {
   window.open(link, '_blank', 'noreferrer')
 }
 
-const handleLink = (link: string) => {
+function handleLink(link: string) {
   if (link.includes('yande')) return 'https://yande.re/post?_wf=1'
   if (link.includes('behoimi')) return 'http://behoimi.org'
   return `https://${link}`
 }
 
-const handleFavicon = (link: string) => {
+function handleFavicon(link: string) {
   if (link.includes('konachan')) return 'https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/cbd0b71ead30e0777e5b023170ba415c_4819570566325089051.png'
   if (link.includes('behoimi')) return 'https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/d3b97f45046795c87c12ad5704074f32_1333245617164582614.png'
   if (link.includes('sankaku') || link.includes('idolcomplex')) return 'https://upload-bbs.miyoushe.com/upload/2025/03/29/190122060/4fa56922d173d28ac8e687caaa487f27_1885629069482225420.png'
@@ -247,7 +247,7 @@ const actSiteIndex = computed(() => {
   return siteDomains.findIndex(e => location.href.includes(e))
 })
 
-const showSettingDrawer = () => {
+function showSettingDrawer() {
   store.showDrawer = false
   store.showSettings = true
 }

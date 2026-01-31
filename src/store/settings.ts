@@ -43,6 +43,7 @@ const defaultSettings = {
   showTagChipGroup: false,
   justifiedBaseWidth: null as number | null,
   detailButtonsBottom: navigator.userAgent.includes('Mobile'),
+  closePopupOnImgClick: navigator.userAgent.includes('Mobile'),
 }
 
 export const initialSettings: typeof defaultSettings = {

@@ -251,7 +251,7 @@ const maxHeightStyle = computed(() => {
   return ''
 })
 
-const getImgSrc = (img?: Post) => {
+function getImgSrc(img?: Post) {
   let src = img?.previewUrl
   if (!/\.(mp4|webm)$/i.test(img?.fileUrl || '')) {
     const num = +settings.selectedColumn
@@ -265,7 +265,7 @@ const getImgSrc = (img?: Post) => {
   return src || img?.fileUrl || void 0
 }
 
-const onCtxMenu = (ev: MouseEvent, img: Post) => {
+function onCtxMenu(ev: MouseEvent, img: Post) {
   if (isR34Fav.value) return
   ev.preventDefault()
   showMenu.value = false
@@ -277,7 +277,7 @@ const onCtxMenu = (ev: MouseEvent, img: Post) => {
   })
 }
 
-const showImgModal = (index: number) => {
+function showImgModal(index: number) {
   if (settings.useFancybox) {
     fancyboxShow(store.imageList, index)
     return
@@ -286,23 +286,23 @@ const showImgModal = (index: number) => {
   store.showImageSelected = true
 }
 
-const openDetail = (post?: Post) => {
+function openDetail(post?: Post) {
   const img = post || ctxActPost.value
   img && window.open(img.postView, '_blank', 'noreferrer')
 }
 
-const addToSelectedList = (post?: Post) => {
+function addToSelectedList(post?: Post) {
   const img = post || ctxActPost.value
   img && storeAddToSelectedList(img)
 }
 
-const addFavorite = (id?: string) => {
+function addFavorite(id?: string) {
   if (!isFavBtnShow) return
   const imgId = id || ctxActPost.value?.id
   imgId && addPostToFavorites(imgId)
 }
 
-const downloadCtxPost = async (post?: Post) => {
+async function downloadCtxPost(post?: Post) {
   const img = post || ctxActPost.value
   if (!img) return
   let { fileDownloadName } = img
@@ -321,12 +321,14 @@ const downloadCtxPost = async (post?: Post) => {
   }
 }
 
-const isPostChecked = (id?: string) => store.selectedImageList.some(e => e.id === id)
-const onPostCheckboxChange = (e: any, image: Post) => {
+function isPostChecked(id?: string) {
+  return store.selectedImageList.some(e => e.id === id)
+}
+function onPostCheckboxChange(e: any, image: Post) {
   e ? storeAddToSelectedList(image) : removeFromSelectedList(image.id)
 }
 
-const onImageLoadError = (id: string) => {
+function onImageLoadError(id: string) {
   const item = store.imageList.find(e => e.id == id)
   if (!item) return
   if (item.previewUrl) {
@@ -350,7 +352,7 @@ const virtualMaxCol = computed(() => {
   const num = Number(settings.selectedColumn)
   return num > 0 ? num : undefined
 })
-const calcItemHeight = (item: any, itemWidth: number) => {
+function calcItemHeight(item: any, itemWidth: number) {
   return item.height * (itemWidth / item.width)
 }
 

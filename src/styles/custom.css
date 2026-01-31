@@ -710,3 +710,7 @@ html:has(#app.theme--dark) {
   top: 0;
   transform: translateY(-95%);
 }
+
+.settings_drawer .v-list-item__subtitle {
+  white-space: normal;
+}
