@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.37.0
+// @version              0.37.1
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -711,7 +711,7 @@ var __publicField = (obj, key, value) => {
   const cKXET1CCnAXq4H60qr8uc$3 = "\u53CD\u9009";
   const QH_xm27zhgs5E1077asf1$3 = "\u5BFC\u51FA";
   const Uw9QwD1SaR2VjZEqDYRdb$3 = "\u90E8\u5206\u8BBE\u7F6E\u9700\u8981\u5237\u65B0\u9875\u9762\u540E\u751F\u6548";
-  const ECpLfRMsS0zpJPTw0qqNs$3 = "\u8BE6\u60C5\u64CD\u4F5C\u680F\u6309\u94AE\u7F6E\u4E8E\u4E0B\u65B9";
+  const ECpLfRMsS0zpJPTw0qqNs$3 = "\u8BE6\u60C5\u64CD\u4F5C\u680F\u6309\u94AE\u7F6E\u4E8E\u5E95\u90E8";
   const vJobIibroyz2wkpmONSnR$3 = "\u56FE\u7247\u8BE6\u60C5\u5F39\u7A97\u7684\u64CD\u4F5C\u6309\u94AE\u680F\u4E0E\u6807\u7B7E\u680F\u4F4D\u7F6E\u4E92\u6362";
   const I_MKXUxaNXp3D35GFULn4$3 = "\u6B64\u9009\u9879\u5173\u95ED\u65F6\uFF0C\u70B9\u51FB\u8BE6\u60C5\u56FE\u7247\u4F1A\u5207\u6362\u6309\u94AE\u4E0E\u6807\u7B7E\u7684\u663E\u793A\u9690\u85CF";
   const dm7zGAYbP2sbGXO_ekDDl$3 = "Justified \u5E03\u5C40\u5BBD\u5EA6\u7CFB\u6570";
@@ -939,7 +939,7 @@ var __publicField = (obj, key, value) => {
   const cKXET1CCnAXq4H60qr8uc$2 = "\u53CD\u9078";
   const QH_xm27zhgs5E1077asf1$2 = "\u532F\u51FA";
   const Uw9QwD1SaR2VjZEqDYRdb$2 = "\u90E8\u5206\u8A2D\u7F6E\u9700\u8981\u5237\u65B0\u9801\u9762\u5F8C\u751F\u6548";
-  const ECpLfRMsS0zpJPTw0qqNs$2 = "\u8A73\u60C5\u64CD\u4F5C\u6B04\u6309\u9215\u7F6E\u65BC\u4E0B\u65B9";
+  const ECpLfRMsS0zpJPTw0qqNs$2 = "\u8A73\u60C5\u64CD\u4F5C\u6B04\u6309\u9215\u7F6E\u65BC\u5E95\u90E8";
   const vJobIibroyz2wkpmONSnR$2 = "\u5716\u7247\u8A73\u60C5\u5F48\u7A97\u7684\u64CD\u4F5C\u6309\u9215\u6B04\u8207\u6A19\u7C64\u6B04\u4F4D\u7F6E\u4E92\u63DB";
   const I_MKXUxaNXp3D35GFULn4$2 = "\u6B64\u9078\u9805\u95DC\u9589\u6642\uFF0C\u9EDE\u64CA\u8A73\u60C5\u5716\u7247\u6703\u5207\u63DB\u6309\u9215\u8207\u6A19\u7C64\u7684\u986F\u793A\u96B1\u85CF";
   const dm7zGAYbP2sbGXO_ekDDl$2 = "Justified \u4F48\u5C40\u5BEC\u5EA6\u4FC2\u6578";
@@ -1168,7 +1168,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const cKXET1CCnAXq4H60qr8uc$1 = "Invert";
   const QH_xm27zhgs5E1077asf1$1 = "Export";
   const Uw9QwD1SaR2VjZEqDYRdb$1 = "Some settings need to refresh the page to take effect.";
-  const ECpLfRMsS0zpJPTw0qqNs$1 = "Place the action button below the details pop-up window";
+  const ECpLfRMsS0zpJPTw0qqNs$1 = "Place the action bar button at the bottom of the details popup window";
   const vJobIibroyz2wkpmONSnR$1 = "Swap the positions of the action button bar and the label bar of the image details pop-up window";
   const I_MKXUxaNXp3D35GFULn4$1 = "When this option is turned off, clicking the detail image will toggle the display and hiding of buttons and tags.";
   const dm7zGAYbP2sbGXO_ekDDl$1 = "Justified layout width factor";
@@ -1396,7 +1396,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const cKXET1CCnAXq4H60qr8uc = "\u9006\u9078\u629E";
   const QH_xm27zhgs5E1077asf1 = "\u8F38\u51FA";
   const Uw9QwD1SaR2VjZEqDYRdb = "\u4E00\u90E8\u306E\u8A2D\u5B9A\u3092\u6709\u52B9\u306B\u3059\u308B\u306B\u306F\u3001\u30DA\u30FC\u30B8\u3092\u66F4\u65B0\u3059\u308B\u5FC5\u8981\u304C\u3042\u308A\u307E\u3059\u3002";
-  const ECpLfRMsS0zpJPTw0qqNs = "\u8A73\u7D30\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7 \u30A6\u30A3\u30F3\u30C9\u30A6\u306E\u4E0B\u306B\u30A2\u30AF\u30B7\u30E7\u30F3 \u30DC\u30BF\u30F3\u3092\u914D\u7F6E\u3057\u307E\u3059\u3002";
+  const ECpLfRMsS0zpJPTw0qqNs = "\u8A73\u7D30\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7\u30A6\u30A3\u30F3\u30C9\u30A6\u306E\u4E0B\u90E8\u306B\u30A2\u30AF\u30B7\u30E7\u30F3\u30D0\u30FC\u30DC\u30BF\u30F3\u3092\u914D\u7F6E\u3057\u307E\u3059\u3002";
   const vJobIibroyz2wkpmONSnR = "\u753B\u50CF\u8A73\u7D30\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7\u30A6\u30A3\u30F3\u30C9\u30A6\u306E\u30A2\u30AF\u30B7\u30E7\u30F3\u30DC\u30BF\u30F3\u30D0\u30FC\u3068\u30E9\u30D9\u30EB\u30D0\u30FC\u306E\u4F4D\u7F6E\u3092\u5165\u308C\u66FF\u3048\u307E\u3059\u3002";
   const I_MKXUxaNXp3D35GFULn4 = "\u30AA\u30D5\u306B\u3059\u308B\u3068\u3001\u8A73\u7D30\u753B\u50CF\u3092\u30AF\u30EA\u30C3\u30AF\u3059\u308B\u3068\u30DC\u30BF\u30F3\u3084\u30BF\u30B0\u306E\u8868\u793A\u30FB\u975E\u8868\u793A\u304C\u5207\u308A\u66FF\u308F\u308A\u307E\u3059\u3002";
   const dm7zGAYbP2sbGXO_ekDDl = "\u4E21\u7AEF\u63C3\u3048\u30EC\u30A4\u30A2\u30A6\u30C8\u5E45\u4FC2\u6570";
@@ -8222,7 +8222,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const vuetify = useVuetify();
       function toggleDarkmode() {
         vuetify.theme.dark = !vuetify.theme.dark;
-        localStorage.setItem("__darkmode", vuetify.theme.dark ? "dark" : "light");
+        settings.darkMode = vuetify.theme.dark ? "dark" : "light";
       }
       const keyActions = {
         Enter: (cur) => loadPostsByPage(cur.toString()),
@@ -8573,11 +8573,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       _vm.$set(_setup.settings, "credentialQuery", $$v);
     }, expression: "settings.credentialQuery" } })], 1)], 1)] : _vm._e(), _setup.notPartialSupportSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Lm_HFVHpv4XCjilV3NLKu")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("A16qoBulYQJLbHe9mqNwm") } }, [_vm._v(_vm._s(_vm.$t("A16qoBulYQJLbHe9mqNwm")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "", "color": "deep-orange darken-1" }, model: { value: _setup.settings.showNSFWContents, callback: function($$v) {
       _vm.$set(_setup.settings, "showNSFWContents", $$v);
-    }, expression: "settings.showNSFWContents" } })], 1)], 1) : _vm._e(), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("_nQfaNuwbvPAIFKOY6_7u")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("SIUUZ4wqJTOilEdcX3EOi") } }, [_vm._v(_vm._s(_vm.$t("SIUUZ4wqJTOilEdcX3EOi")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isListenWheelEvent, callback: function($$v) {
+    }, expression: "settings.showNSFWContents" } })], 1)], 1) : _vm._e(), !_setup.settings.useFancybox ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("_nQfaNuwbvPAIFKOY6_7u")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("SIUUZ4wqJTOilEdcX3EOi") } }, [_vm._v(_vm._s(_vm.$t("SIUUZ4wqJTOilEdcX3EOi")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isListenWheelEvent, callback: function($$v) {
       _vm.$set(_setup.settings, "isListenWheelEvent", $$v);
-    }, expression: "settings.isListenWheelEvent" } })], 1)], 1), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("fVE5taO6GDTPbILat4GCt")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("w95XGurDhDfOfw7XH4JFW") } }, [_vm._v(_vm._s(_vm.$t("w95XGurDhDfOfw7XH4JFW")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isListenKeyupEvent, callback: function($$v) {
+    }, expression: "settings.isListenWheelEvent" } })], 1)], 1) : _vm._e(), !_setup.settings.useFancybox ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("fVE5taO6GDTPbILat4GCt")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("w95XGurDhDfOfw7XH4JFW") } }, [_vm._v(_vm._s(_vm.$t("w95XGurDhDfOfw7XH4JFW")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isListenKeyupEvent, callback: function($$v) {
       _vm.$set(_setup.settings, "isListenKeyupEvent", $$v);
-    }, expression: "settings.isListenKeyupEvent" } })], 1)], 1), _setup.notPartialSupportSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("kFcteLMfnoezhOwuTlLFC")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("FT1uJs8XG__n5qBvuFsH4") } }, [_vm._v(_vm._s(_vm.$t("FT1uJs8XG__n5qBvuFsH4")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isFullImgPreload, callback: function($$v) {
+    }, expression: "settings.isListenKeyupEvent" } })], 1)], 1) : _vm._e(), _setup.notPartialSupportSite && !_setup.settings.useFancybox ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("kFcteLMfnoezhOwuTlLFC")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("FT1uJs8XG__n5qBvuFsH4") } }, [_vm._v(_vm._s(_vm.$t("FT1uJs8XG__n5qBvuFsH4")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isFullImgPreload, callback: function($$v) {
       _vm.$set(_setup.settings, "isFullImgPreload", $$v);
     }, expression: "settings.isFullImgPreload" } })], 1)], 1) : _vm._e(), _setup.notPartialSupportSite && _setup.settings.isFullImgPreload ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("G3b7rbyQEj3_rgzVsNJZY")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("iRt9V9wNQASic3D7-wTZo") } }, [_vm._v(_vm._s(_vm.$t("iRt9V9wNQASic3D7-wTZo")))])], 1), _c("v-list-item-action", { staticClass: "pl-1" }, [_c("input", { staticClass: "text-center rounded preload_num", attrs: { "type": "number", "min": "0", "max": "5" }, domProps: { "value": _setup.settings.imgPreloadNum }, on: { "blur": _setup.onPreloadNumBlur } })])], 1) : _vm._e(), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", { attrs: { "title": _vm.$t("kop_-39vkeg-bz2wztJ9O") } }, [_vm._v(_vm._s(_vm.$t("kop_-39vkeg-bz2wztJ9O")))]), _c("v-list-item-subtitle", { attrs: { "title": "Masonry/Grid/Justified/Virtual" } }, [_vm._v("Masonry/Grid/Justified/Virtual")])], 1), _c("v-list-item-action", [_c("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c("v-btn", _vm._g(_vm._b({ staticClass: "sel_menu_btn", staticStyle: { "max-width": "100px" }, attrs: { "small": "" } }, "v-btn", attrs, false), on), [_vm._v(" " + _vm._s(_setup.actLayout) + " "), _c("v-icon", { attrs: { "size": 16 } }, [_vm._v(_vm._s(_setup.mdiChevronDown))])], 1)];
@@ -8605,13 +8605,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       _vm.$set(_setup.settings, "showPostCheckbox", $$v);
     }, expression: "settings.showPostCheckbox" } })], 1)], 1) : _vm._e(), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("UqbfVZzRyk0iD2NcOii_E")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("_4E2zv2NpOG4y8TV5PRL0") } }, [_vm._v(_vm._s(_vm.$t("_4E2zv2NpOG4y8TV5PRL0")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.showListPostReso, callback: function($$v) {
       _vm.$set(_setup.settings, "showListPostReso", $$v);
-    }, expression: "settings.showListPostReso" } })], 1)], 1), _setup.isBoorus ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("dvs63FvVKWm3uHVfqeq00")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("w4uJjpTmSEkm6SIDgEo-0") } }, [_vm._v(_vm._s(_vm.$t("w4uJjpTmSEkm6SIDgEo-0")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.useFancybox, callback: function($$v) {
-      _vm.$set(_setup.settings, "useFancybox", $$v);
-    }, expression: "settings.useFancybox" } })], 1)], 1) : _vm._e(), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("ECpLfRMsS0zpJPTw0qqNs")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("vJobIibroyz2wkpmONSnR") } }, [_vm._v(_vm._s(_vm.$t("vJobIibroyz2wkpmONSnR")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.detailButtonsBottom, callback: function($$v) {
+    }, expression: "settings.showListPostReso" } })], 1)], 1), !_setup.settings.useFancybox ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("ECpLfRMsS0zpJPTw0qqNs")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("vJobIibroyz2wkpmONSnR") } }, [_vm._v(_vm._s(_vm.$t("vJobIibroyz2wkpmONSnR")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.detailButtonsBottom, callback: function($$v) {
       _vm.$set(_setup.settings, "detailButtonsBottom", $$v);
-    }, expression: "settings.detailButtonsBottom" } })], 1)], 1), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("HPukB-OKzIuRxMmO4Rx2U")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("I_MKXUxaNXp3D35GFULn4") } }, [_vm._v(_vm._s(_vm.$t("I_MKXUxaNXp3D35GFULn4")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.closePopupOnImgClick, callback: function($$v) {
+    }, expression: "settings.detailButtonsBottom" } })], 1)], 1) : _vm._e(), !_setup.settings.useFancybox ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("HPukB-OKzIuRxMmO4Rx2U")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("I_MKXUxaNXp3D35GFULn4") } }, [_vm._v(_vm._s(_vm.$t("I_MKXUxaNXp3D35GFULn4")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.closePopupOnImgClick, callback: function($$v) {
       _vm.$set(_setup.settings, "closePopupOnImgClick", $$v);
-    }, expression: "settings.closePopupOnImgClick" } })], 1)], 1), _setup.store.isYKSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("IxTawC_qs_xjxj5g8_aGx")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("-x4wjDoHtodaXEgm2SXkg") } }, [_vm._v(_vm._s(_vm.$t("-x4wjDoHtodaXEgm2SXkg")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "", "disabled": _setup.settings.isYandereFetchByHtml }, model: { value: _setup.settings.isHoldsFalse, callback: function($$v) {
+    }, expression: "settings.closePopupOnImgClick" } })], 1)], 1) : _vm._e(), _setup.isBoorus ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("dvs63FvVKWm3uHVfqeq00")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("w4uJjpTmSEkm6SIDgEo-0") } }, [_vm._v(_vm._s(_vm.$t("w4uJjpTmSEkm6SIDgEo-0")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.useFancybox, callback: function($$v) {
+      _vm.$set(_setup.settings, "useFancybox", $$v);
+    }, expression: "settings.useFancybox" } })], 1)], 1) : _vm._e(), _setup.store.isYKSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("IxTawC_qs_xjxj5g8_aGx")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("-x4wjDoHtodaXEgm2SXkg") } }, [_vm._v(_vm._s(_vm.$t("-x4wjDoHtodaXEgm2SXkg")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "", "disabled": _setup.settings.isYandereFetchByHtml }, model: { value: _setup.settings.isHoldsFalse, callback: function($$v) {
       _vm.$set(_setup.settings, "isHoldsFalse", $$v);
     }, expression: "settings.isHoldsFalse" } })], 1)], 1) : _vm._e(), _setup.isYandere ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("YAUNSVT_pTygaY306DZmU")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("HkRzE7fweBSefchs0z0r8") } }, [_vm._v(_vm._s(_vm.$t("HkRzE7fweBSefchs0z0r8")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "", "disabled": _setup.settings.isHoldsFalse }, model: { value: _setup.settings.isYandereFetchByHtml, callback: function($$v) {
       _vm.$set(_setup.settings, "isYandereFetchByHtml", $$v);
