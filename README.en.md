@@ -12,6 +12,26 @@
 
 English | [Simple Readme](https://github.com/asadahimeka/yandere-masonry/blob/main/docs/README.old.en.md) | [中文](https://github.com/asadahimeka/yandere-masonry/blob/main/README.md)
 
+Yande.re/Konachan Masonry(Waterfall) Layout.
+
+## Table of Contents
+
+- [Project Introduction](#-project-introduction)
+- [Features](#-features)
+- [Supported Sites](#-supported-sites)
+- [Screenshot Display](#-screenshot-display)
+- [Installation Guide](#-installation-guide)
+- [Usage Guide](#-usage-guide)
+- [FAQ](#-faq)
+- [Technical Details](#-technical-details)
+- [Development Guide](#-development-guide)
+- [Changelog](#-changelog)
+- [Contributing Guide](#-contributing-guide)
+- [Acknowledgements](#-acknowledgements)
+- [License](#-license)
+- [Sponsorship](#-sponsorship)
+- [Statistics](#-statistics)
+
 ## 📖 Project Introduction
 
 **Yande.re Masonry** is a userscript designed specifically for anime image browsing websites, aiming to greatly enhance the browsing experience. It brings practical features such as masonry layout, Chinese tag translation, thumbnail enlargement, double-click page navigation, and more to Yande.re, Konachan, and over 20 Booru sites.
@@ -125,63 +145,6 @@ Convenient image management features:
 * **Column Switching**: Adjust display density according to preference
 * **Image Resolution Display**: Intuitively view image dimensions
 * **Type Indicators**: Icon indicators for GIFs, videos, child images, parent images, etc.
-
----
-
-## 🎯 Technical Details
-
-### Frontend Tech Stack
-
-* **Vue 2.7 + Composition API**:
-
-  * Uses Vue 2.7 Composition API features
-  * `<script setup>` syntax for cleaner code
-  * Reactive state management with excellent performance
-
-* **TypeScript Strict Mode**:
-
-  * Type safety guarantees
-  * Intelligent hints and autocomplete
-  * Reduced runtime errors
-
-* **Vite Build Tool**:
-
-  * Extremely fast development experience
-  * HMR (Hot Module Replacement)
-  * Optimized production builds
-
-### Core Technical Implementation
-
-* **Masonry Layout Algorithm**:
-
-  * Adaptive column count calculation
-  * Minimized gaps
-  * Supports multiple layout strategies
-
-* **Smart Preloading**:
-
-  * Preloads images for the next screen
-  * Configurable preload count
-
-* **Virtual Scrolling**:
-
-  * Renders only visible elements
-  * Supports smooth scrolling with large image sets
-  * Low memory usage
-
-### Multi-site Architecture
-
-* **Unified API Abstraction**:
-
-  * The `@himeka/booru` library provides most interfaces
-  * Automatically adapts API differences between sites
-  * Easy to extend to new sites
-
-* **Dynamic Site Detection**:
-
-  * Automatically identifies the current site
-  * Loads the corresponding adapter
-  * Intelligently handles special cases
 
 ---
 
@@ -409,6 +372,99 @@ Supported sites:
 
 ---
 
+## ❓ FAQ
+
+### Q: Why are some site features incomplete?
+
+A: The project is mainly optimized for Yande.re and Konachan. Other sites receive basic support. Some site API limitations or structural differences cause feature restrictions.
+
+### Q: Why do images in masonry mode differ from the original site list?
+
+A: Masonry mode uses site APIs to fetch data, which may differ from page rendering logic. This is normal.
+
+### Q: What if tag translations are incomplete?
+
+A: PRs are welcome to add translations! See the "Contributing Translations" section for details.
+
+### Q: How do I disable a feature?
+
+A: Most features can be turned off in the settings sidebar, such as thumbnail enlargement and NSFW display.
+
+### Q: Does the script support mobile devices?
+
+A: Partially supported. Mainly optimized for desktop; mobile experience may be imperfect.
+
+### Q: Why can’t some sites be used?
+
+A: Login and API credentials are required. Set credentials in the sidebar to enable usage.
+
+### Q: Why is the download feature slow?
+
+A: Browsers have concurrent download limits. It is recommended to use the "Export links" feature with professional download tools (such as IDM, wget, aria2, etc.).
+
+### Q: How can I report issues or suggestions?
+
+A: Please submit feedback on [GitHub Issues](https://github.com/asadahimeka/yandere-masonry/issues).
+
+---
+
+## 🎯 Technical Details
+
+### Frontend Tech Stack
+
+* **Vue 2.7 + Composition API**:
+
+  * Uses Vue 2.7 Composition API features
+  * `<script setup>` syntax for cleaner code
+  * Reactive state management with excellent performance
+
+* **TypeScript Strict Mode**:
+
+  * Type safety guarantees
+  * Intelligent hints and autocomplete
+  * Reduced runtime errors
+
+* **Vite Build Tool**:
+
+  * Extremely fast development experience
+  * HMR (Hot Module Replacement)
+  * Optimized production builds
+
+### Core Technical Implementation
+
+* **Masonry Layout Algorithm**:
+
+  * Adaptive column count calculation
+  * Minimized gaps
+  * Supports multiple layout strategies
+
+* **Smart Preloading**:
+
+  * Preloads images for the next screen
+  * Configurable preload count
+
+* **Virtual Scrolling**:
+
+  * Renders only visible elements
+  * Supports smooth scrolling with large image sets
+  * Low memory usage
+
+### Multi-site Architecture
+
+* **Unified API Abstraction**:
+
+  * The `@himeka/booru` library provides most interfaces
+  * Automatically adapts API differences between sites
+  * Easy to extend to new sites
+
+* **Dynamic Site Detection**:
+
+  * Automatically identifies the current site
+  * Loads the corresponding adapter
+  * Intelligently handles special cases
+
+---
+
 ## 💻 Development Guide
 
 The project code is **not** AI-generated; only the README file is AI-optimized
@@ -524,42 +580,6 @@ yandere-masonry/
    * Y/K sites: `src/data/tags_cn.json`
    * Danbooru: [danbooru_tags_json](https://github.com/asadahimeka/danbooru_tags_json)
 3. Submit a PR
-
----
-
-## ❓ FAQ
-
-### Q: Why are some site features incomplete?
-
-A: The project is mainly optimized for Yande.re and Konachan. Other sites receive basic support. Some site API limitations or structural differences cause feature restrictions.
-
-### Q: Why do images in masonry mode differ from the original site list?
-
-A: Masonry mode uses site APIs to fetch data, which may differ from page rendering logic. This is normal.
-
-### Q: What if tag translations are incomplete?
-
-A: PRs are welcome to add translations! See the "Contributing Translations" section for details.
-
-### Q: How do I disable a feature?
-
-A: Most features can be turned off in the settings sidebar, such as thumbnail enlargement and NSFW display.
-
-### Q: Does the script support mobile devices?
-
-A: Partially supported. Mainly optimized for desktop; mobile experience may be imperfect.
-
-### Q: Why can’t some sites be used?
-
-A: Login and API credentials are required. Set credentials in the sidebar to enable usage.
-
-### Q: Why is the download feature slow?
-
-A: Browsers have concurrent download limits. It is recommended to use the "Export links" feature with professional download tools (such as IDM, wget, aria2, etc.).
-
-### Q: How can I report issues or suggestions?
-
-A: Please submit feedback on [GitHub Issues](https://github.com/asadahimeka/yandere-masonry/issues).
 
 ---
 
