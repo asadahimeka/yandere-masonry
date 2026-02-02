@@ -1,0 +1,13 @@
+{
+  "name": "@himeka/release",
+  "version": "0.0.1",
+  "private": true,
+  "main": "index.mjs",
+  "type": "module",
+  "dependencies": {
+    "chalk": "5.1.2",
+    "enquirer": "2.3.6",
+    "execa": "6.1.0",
+    "semver": "7.3.8"
+  }
+}

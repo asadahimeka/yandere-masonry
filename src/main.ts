@@ -2,17 +2,19 @@
 import { prepareApp } from './prepare'
 
 import Vue from 'vue'
-import VueMasonry from 'vue-masonry-css'
+import VueMasonry from '@himeka/masonry-css'
+import TrueMasonry from '@himeka/masonry-true'
+import VirtualWaterfall from '@himeka/virtual-waterfall'
 import installVuetify from './plugins/vuetify'
 import i18n from './utils/i18n'
 import WfLayout from './components/WfLayout.vue'
-import VirtualWaterfall from './components/VirtualWaterfall.vue'
 import App from './App.vue'
 
 function initApp() {
-  Vue.use(VueMasonry)
-  Vue.component('WfLayout', WfLayout)
+  Vue.component('Masonry', VueMasonry)
+  Vue.component('TrueMasonry', TrueMasonry)
   Vue.component('VirtualWaterfall', VirtualWaterfall)
+  Vue.component('WfLayout', WfLayout)
   const vuetify = installVuetify()
   const app = new Vue({
     vuetify,

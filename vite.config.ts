@@ -23,4 +23,12 @@ export default defineConfig({
       '@': fileURLToPath(new URL('src', import.meta.url)),
     },
   },
+  esbuild: {
+    target: 'es2020',
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'es2020',
+    },
+  },
 })

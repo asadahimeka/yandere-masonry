@@ -13,15 +13,6 @@ declare module 'vuetify/lib/framework' {
   export default Vuetify
 }
 
-declare module 'vue-masonry-css' {
-  import Vue from 'vue'
-  export default {
-    install(app: typeof Vue): void
-  }
-}
-
-declare const Macy: any
-
 /**
  * Creates an HTML element specified by 'tag_name' and applies all given 'attributes' and returns the injected HTML element.
  * If a 'parent_node' is given, then it is attached to it or to document head or body otherwise.

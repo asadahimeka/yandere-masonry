@@ -1,0 +1,6 @@
+{
+  "name": "@himeka/virtual-waterfall",
+  "version": "1.0.8",
+  "private": true,
+  "main": "index.ts"
+}

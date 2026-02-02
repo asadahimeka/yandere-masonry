@@ -1,0 +1,43 @@
+{
+  "name": "@himeka/booru",
+  "version": "2.7.7",
+  "description": "Search (and do other things) on a bunch of different boorus!",
+  "author": "asadahimeka (https://github.com/asadahimeka)",
+  "license": "MIT",
+  "main": "index.js",
+  "module": "index.mjs",
+  "types": "index.d.ts",
+  "homepage": "https://github.com/asadahimeka/booru-search#readme",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js"
+    }
+  },
+  "dependencies": {
+    "fast-xml-parser": "4.4.0",
+    "isomorphic-unfetch": "3.1.0"
+  },
+  "contributors": [
+    {
+      "name": "Vladlen",
+      "url": "https://github.com/negezor"
+    },
+    {
+      "name": "Favna",
+      "url": "https://github.com/Favna"
+    },
+    {
+      "name": "Bobby Wibowo",
+      "url": "https://github.com/BobbyWibowo"
+    },
+    {
+      "name": "AtoraSuunva",
+      "url": "https://github.com/AtoraSuunva"
+    },
+    {
+      "name": "asadahimeka",
+      "url": "https://github.com/asadahimeka"
+    }
+  ]
+}

@@ -1,5 +1,7 @@
-dist
+/dist
 node_modules
-scripts
+/packages/**/*.js
+/packages/**/*.mjs
+/scripts
 /**/header.config.js
 /**/*.d.ts

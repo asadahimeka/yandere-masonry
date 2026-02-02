@@ -2,25 +2,6 @@
 
 import { defineComponent } from 'vue'
 
-const props = {
-  tag: {
-    type: [String],
-    default: 'div',
-  },
-  cols: {
-    type: [Object, Number, String],
-    default: 2,
-  },
-  gap: {
-    type: [Object, Number, String],
-    default: 0,
-  },
-  css: {
-    type: [Boolean],
-    default: true,
-  },
-}
-
 const setBreakpoints = (mixed: any, windowWidth: number) => {
   const valueAsNum = parseInt(mixed)
   const minVal = -1
@@ -95,13 +76,29 @@ const getStyleSize = (value: any) => {
 const getWindowWidth = () => window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
 
 const TrueMasonry = defineComponent({
-  props,
+  props: {
+    tag: {
+      type: [String],
+      default: 'div',
+    },
+    cols: {
+      type: [Object, Number, String],
+      default: 2,
+    },
+    gap: {
+      type: [Object, Number, String],
+      default: 0,
+    },
+    css: {
+      type: [Boolean],
+      default: true,
+    },
+  },
   data() {
     return {
       windowWidth: getWindowWidth(),
       displayColumns: 2,
       displayGutter: 0,
-      style: {},
     }
   },
   mounted() {
@@ -122,7 +119,6 @@ const TrueMasonry = defineComponent({
       this._reCalculate('force')
     })
   },
-  // eslint-disable-next-line vue/no-deprecated-destroyed-lifecycle
   beforeDestroy() {
     window.removeEventListener('resize', this._reCalculate)
   },
@@ -232,3 +228,9 @@ const TrueMasonry = defineComponent({
 })
 
 export default TrueMasonry
+
+declare module 'vue' {
+  export interface GlobalComponents {
+    TrueMasonry: typeof TrueMasonry
+  }
+}

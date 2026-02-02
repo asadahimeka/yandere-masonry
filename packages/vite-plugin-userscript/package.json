@@ -1,0 +1,20 @@
+{
+  "name": "vite-plugin-tm-userscript",
+  "version": "1.2.1",
+  "description": "A vite plugin to build userscripts mainly for Tampermonkey.",
+  "main": "index.js",
+  "module": "index.mjs",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js"
+    }
+  },
+  "author": "asadahimeka",
+  "license": "MIT",
+  "homepage": "https://github.com/asadahimeka/vite-plugin-tm-userscript#readme",
+  "dependencies": {
+    "acorn-walk": "^8.2.0"
+  }
+}

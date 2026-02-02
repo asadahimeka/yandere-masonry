@@ -19,7 +19,6 @@ export default {
     await this.$nextTick()
     this.initPlayer()
   },
-  // eslint-disable-next-line vue/no-deprecated-destroyed-lifecycle
   beforeDestroy() {
     this.dp.destroy()
     this.dp = null

@@ -11,33 +11,36 @@
     "release": "node scripts/release.mjs",
     "build": "vite build",
     "postbuild": "node scripts/postbuild.mjs",
-    "lint": "eslint src --ext .ts,.vue"
+    "lint": "eslint src --ext .ts,.vue",
+    "preinstall": "npx -y only-allow pnpm"
   },
   "dependencies": {
-    "@himeka/booru": "2.7.7",
+    "@himeka/booru": "workspace:2.7.7",
+    "@himeka/masonry-css": "workspace:1.0.3",
+    "@himeka/masonry-true": "workspace:1.0.5",
+    "@himeka/virtual-waterfall": "workspace:1.0.8",
     "@vueuse/core": "11.0.3",
     "date-fns": "3.6.0",
     "vue": "2.7.16",
     "vue-i18n": "8.28.2",
-    "vue-masonry-css": "1.0.3",
     "vuetify": "2.7.2"
   },
   "devDependencies": {
     "@antfu/eslint-config-vue": "0.27.0",
+    "@himeka/release": "workspace:0.0.1",
+    "@himeka/vite-userscript": "workspace:1.2.1",
     "@mdi/js": "7.4.47",
     "@types/node": "20.10.6",
     "@types/tampermonkey": "5.0.2",
     "@vitejs/plugin-vue2": "1.1.2",
-    "chalk": "5.1.2",
-    "enquirer": "2.3.6",
     "eslint": "8.26.0",
-    "execa": "6.1.0",
-    "minimist": "1.2.7",
-    "sass": "1.32.12",
-    "semver": "7.3.8",
     "typescript": "4.8.4",
     "vite": "2.9.5",
-    "vite-plugin-tm-userscript": "1.2.1",
     "vue-template-compiler": "2.7.16"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "vue-demi"
+    ]
   }
 }

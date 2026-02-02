@@ -16,7 +16,6 @@
         width: `${itemWidth}px`,
         height: `${data.height}px`,
         transform: `translate(${data.left}px, ${data.top}px)`,
-        // @ts-expect-error unknown containIntrinsicSize prop
         containIntrinsicSize: `${itemWidth}px ${data.height}px`,
       }"
       :data-index="data.index"

@@ -1,0 +1,9 @@
+{
+  "name": "@himeka/masonry-css",
+  "version": "1.0.3",
+  "description": "Vue Masonry component powered by CSS, dependancy free",
+  "main": "index.ts",
+  "author": "Paul Collett",
+  "license": "MIT",
+  "homepage": "https://github.com/paulcollett/vue-masonry-css#readme"
+}

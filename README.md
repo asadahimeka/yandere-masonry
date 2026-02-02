@@ -4,11 +4,11 @@
 [![Changelog](https://img.shields.io/badge/CHANGELOG-blue)](https://github.com/asadahimeka/yandere-masonry/blob/main/CHANGELOG.md)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Downloads](https://img.shields.io/greasyfork/dt/444885?logo=greasyfork)
-![Vite](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/dev/vite)
-![Userscript Plugin](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/dev/vite-plugin-tm-userscript)
-![Boour Search](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/@himeka/booru)
-![Vue](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vue)
-![Vuetify](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vuetify)
+![Vite](https://img.shields.io/badge/Vite-9135FF.svg?style=flat&logo=Vite&logoColor=white)
+![Userscript Plugin](https://img.shields.io/badge/Userscript-646CFF.svg?style=flat&logo=Vite&logoColor=white)
+![Booru Search](https://img.shields.io/badge/BooruSearch-%23ff8899.svg?style=flat)
+![Vue](https://img.shields.io/badge/Vue.js-%2335495e.svg?style=flat&logo=vuedotjs&logoColor=%234FC08D)
+![Vuetify](https://img.shields.io/badge/Vuetify-%231867c0.svg?style=flat&logo=vuetify&logoColor=white)
 
 中文 | [简要](https://github.com/asadahimeka/yandere-masonry/blob/main/docs/README.old.md) | [English](https://github.com/asadahimeka/yandere-masonry/blob/main/README.en.md)
 
@@ -160,7 +160,6 @@ Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏�
 | Rule34 | https://rule34.xxx | 基本支持（需要 API Key） |
 | Safebooru | https://safebooru.org | 基本支持 |
 | AIBooru | https://aibooru.online | 基本支持 |
-| Realbooru | https://realbooru.com | 基本支持 |
 | Xbooru | https://xbooru.com | 基本支持 |
 | ATFBooru | https://booru.allthefallen.moe | 基本支持 |
 | TBIB | https://tbib.org | 基本支持 |
@@ -177,9 +176,10 @@ Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏�
 | All Girl | https://allgirl.booru.org | 部分功能限制 |
 | e-shuushuu | https://e-shuushuu.net | 部分功能限制 |
 | Zerochan | https://www.zerochan.net | 部分功能限制 |
-| Idol Complex | https://www.idolcomplex.com | 部分功能限制（不稳定） |
 | Sankaku App | https://sankaku.app | 部分功能限制（不稳定） |
 | Sankaku Complex | https://chan.sankakucomplex.com | 部分功能限制（不稳定） |
+| Idol Complex | https://www.idolcomplex.com | 部分功能限制（不稳定） |
+| Realbooru | https://realbooru.com | 部分功能限制 |
 | Hentai Booru | https://booru.eu | 部分功能限制 |
 | Kusowanka | https://kusowanka.com | 部分功能限制 |
 | Nozomi.la | https://nozomi.la | 部分功能限制 |
@@ -475,14 +475,10 @@ git clone https://github.com/asadahimeka/yandere-masonry.git
 cd yandere-masonry
 
 # 2. 安装依赖
-npm install
-# 或
-yarn install
+pnpm install
 
 # 3. 启动开发服务器
-npm run dev
-# 或
-yarn dev
+pnpm run dev
 
 # 4. 在浏览器中打开
 # - 访问 http://127.0.0.1:3000/_development.user.js 安装开发脚本
@@ -492,10 +488,10 @@ yarn dev
 ### 可用命令
 
 ```bash
-npm run dev          # 启动开发服务器
-npm run build        # 构建生产版本
-npm run release      # 发布流程（版本号管理）
-npm run lint         # 代码检查
+pnpm run dev          # 启动开发服务器
+pnpm run build        # 构建生产版本
+pnpm run release      # 发布流程（版本号管理）
+pnpm run lint         # 代码检查
 ```
 
 ### 项目结构

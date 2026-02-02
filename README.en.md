@@ -4,11 +4,11 @@
 [![Changelog](https://img.shields.io/badge/CHANGELOG-blue)](https://github.com/asadahimeka/yandere-masonry/blob/main/CHANGELOG.md)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Downloads](https://img.shields.io/greasyfork/dt/444885?logo=greasyfork)
-![Vite](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/dev/vite)
-![Userscript Plugin](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/dev/vite-plugin-tm-userscript)
-![Boour Search](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/@himeka/booru)
-![Vue](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vue)
-![Vuetify](https://img.shields.io/github/package-json/dependency-version/asadahimeka/yandere-masonry/vuetify)
+![Vite](https://img.shields.io/badge/Vite-9135FF.svg?style=flat&logo=Vite&logoColor=white)
+![Userscript Plugin](https://img.shields.io/badge/Userscript-646CFF.svg?style=flat&logo=Vite&logoColor=white)
+![Booru Search](https://img.shields.io/badge/BooruSearch-%23ff8899.svg?style=flat)
+![Vue](https://img.shields.io/badge/Vue.js-%2335495e.svg?style=flat&logo=vuedotjs&logoColor=%234FC08D)
+![Vuetify](https://img.shields.io/badge/Vuetify-%231867c0.svg?style=flat&logo=vuetify&logoColor=white)
 
 English | [Simple Readme](https://github.com/asadahimeka/yandere-masonry/blob/main/docs/README.old.en.md) | [中文](https://github.com/asadahimeka/yandere-masonry/blob/main/README.md)
 
@@ -168,7 +168,6 @@ Convenient image management features:
 | Rule34        | [https://rule34.xxx](https://rule34.xxx)                         | Basic support (API Key required)           |
 | Safebooru     | [https://safebooru.org](https://safebooru.org)                   | Basic support                              |
 | AIBooru       | [https://aibooru.online](https://aibooru.online)                 | Basic support                              |
-| Realbooru     | [https://realbooru.com](https://realbooru.com)                   | Basic support                              |
 | Xbooru        | [https://xbooru.com](https://xbooru.com)                         | Basic support                              |
 | ATFBooru      | [https://booru.allthefallen.moe](https://booru.allthefallen.moe) | Basic support                              |
 | TBIB          | [https://tbib.org](https://tbib.org)                             | Basic support                              |
@@ -185,9 +184,10 @@ Convenient image management features:
 | All Girl          | [https://allgirl.booru.org](https://allgirl.booru.org)             | Partial feature limitations            |
 | e-shuushuu        | [https://e-shuushuu.net](https://e-shuushuu.net)                   | Partial feature limitations            |
 | Zerochan          | [https://www.zerochan.net](https://www.zerochan.net)               | Partial feature limitations            |
-| Idol Complex      | [https://www.idolcomplex.com](https://www.idolcomplex.com)         | Partial feature limitations (unstable) |
 | Sankaku App       | [https://sankaku.app](https://sankaku.app)                         | Partial feature limitations (unstable) |
 | Sankaku Complex   | [https://chan.sankakucomplex.com](https://chan.sankakucomplex.com) | Partial feature limitations (unstable) |
+| Idol Complex      | [https://www.idolcomplex.com](https://www.idolcomplex.com)         | Partial feature limitations (unstable) |
+| Realbooru         | [https://realbooru.com](https://realbooru.com)                     | Partial feature limitations            |
 | Hentai Booru      | [https://booru.eu](https://booru.eu)                               | Partial feature limitations            |
 | Kusowanka         | [https://kusowanka.com](https://kusowanka.com)                     | Partial feature limitations            |
 | Nozomi.la         | [https://nozomi.la](https://nozomi.la)                             | Partial feature limitations            |
@@ -495,14 +495,10 @@ git clone https://github.com/asadahimeka/yandere-masonry.git
 cd yandere-masonry
 
 # 2. Install dependencies
-npm install
-# or
-yarn install
+pnpm install
 
 # 3. Start the development server
-npm run dev
-# or
-yarn dev
+pnpm run dev
 
 # 4. Open in browser
 # - Visit http://127.0.0.1:3000/_development.user.js to install the development script
@@ -512,10 +508,10 @@ yarn dev
 ### Available Commands
 
 ```bash
-npm run dev          # Start development server
-npm run build        # Build production version
-npm run release      # Release process (version management)
-npm run lint         # Code linting
+pnpm run dev          # Start development server
+pnpm run build        # Build production version
+pnpm run release      # Release process (version management)
+pnpm run lint         # Code linting
 ```
 
 ### Project Structure

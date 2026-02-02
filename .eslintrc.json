@@ -32,6 +32,7 @@
     "vue/html-self-closing": ["warn", { "html": { "void": "never", "normal": "never", "component": "always" }, "svg": "never", "math": "never" }],
     "vue/no-deprecated-v-bind-sync": "off",
     "vue/no-v-text-v-html-on-component": "off",
-    "vue/singleline-html-element-content-newline": "off"
+    "vue/singleline-html-element-content-newline": "off",
+    "vue/no-deprecated-destroyed-lifecycle": "off"
   }
 }
