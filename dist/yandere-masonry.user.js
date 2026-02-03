@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.37.1
+// @version              0.37.2
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -60,7 +60,7 @@ var __publicField = (obj, key, value) => {
   var prepareStyle = "#enter-masonry{position:fixed;z-index:99999;right:16px;top:10px;height:30px;padding:6px 10px;font-size:13px;border:0;border-radius:6px;color:#fff;outline:0;background:linear-gradient(to right,#ff758c 0%,#ff7eb3 100%);opacity:1;transform:scale(1);transition:opacity,transform .2s;cursor:pointer}#enter-masonry:hover{opacity:.8;transform:scale(1.05)}#enter-masonry.enter-button-bottom{top:unset;bottom:15px}#locale-select{position:fixed;z-index:99;right:110px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}#wf-type-select{position:fixed;z-index:99;right:190px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}\n";
   var ydStyle = 'a.thumb{padding-bottom:5px;border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08] "}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743] "}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272] "}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2] "}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:100%;height:auto;margin-top:0;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}.mm-masonry{--gap: 24;--col-width: 240}.mm-masonry{--_col-width: var(--col-width, 280);--_col-width-px: calc(var(--_col-width) * 1px);--_gap: calc(var(--gap, 20) * 1px);display:var(--display, grid)!important;grid-template-columns:repeat(auto-fill,minmax(var(--_col-width-px),1fr));grid-auto-rows:1px;column-gap:var(--_gap)}.mm-masonry__item{--img-proportional-height: calc(var(--h) * var(--_col-width) / (var(--w)));grid-row-end:span var(--img-proportional-height, 240);overflow:hidden}.mm-masonry__item:not(:last-child){margin-bottom:var(--_gap)}#post-list ul#post-list-posts .mm-masonry__item .inner,#post-popular ul#post-list-posts .mm-masonry__item .inner{height:100%!important}.mm-masonry__img{width:100%!important;height:100%!important;object-fit:cover}.justified-container{display:flex!important;flex-wrap:wrap}.justified-container:after{content:"";flex-grow:999999999}.justified-item{position:relative}.justified-item img.preview{position:absolute;top:0;left:0;width:100%;vertical-align:bottom;object-fit:cover}\n';
   var knStyle = "#lsidebar{display:none}#post-popular ul#post-list-posts{display:flex;justify-content:center;flex-wrap:wrap}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
-  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;max-width:100vw;max-height:100vh;margin:0 auto}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}.img_detail_tag_list .v-slide-group__content{max-height:72vh;overflow-y:auto}::-webkit-scrollbar{width:0px}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e9eef6;border-radius:7px}.theme--dark .img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.posts-image-card{margin-bottom:8px}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{--jstf-w: 340;position:relative;flex-grow:calc(var(--w) * var(--jstf-w) / var(--h));width:calc(1px * var(--w) * var(--jstf-w) / var(--h));margin-bottom:0!important;padding-bottom:0!important;background-color:#dcdcdc;content-visibility:auto;contain-intrinsic-size:auto 300px}@media screen and (max-width: 500px){.justified-container .posts-image-card{--jstf-w: 240}}.justified-container .posts-image-card:before{content:"";display:block;padding-bottom:calc(var(--h) / var(--w) * 100%)!important}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-wh{position:absolute;bottom:0;left:0;padding:0 8px;font-size:14px;color:#fff;background:rgba(0,0,0,.4);border-top-right-radius:4px}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-checkbox{position:absolute;top:5px;left:5px;width:28px;padding:2px;height:28px;border-radius:2px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-checkbox:has(input[aria-checked="true"]),.posts-image-card:hover .posts-image-checkbox{opacity:1;visibility:visible}.posts-image-checkbox .v-input--selection-controls__ripple .primary--text,.posts-image-checkbox .v-input--selection-controls__input .v-icon{color:#fff!important}.posts-image-type{position:absolute!important;top:0;right:0px;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}@media screen and (min-width: 768px){.wf-no-fit-screen{max-width:62.5vw;margin:16px auto}}.virtual-waterfall>[data-index]{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f;border-radius:4px}.theme--light .v-app-bar{box-shadow:none!important;background:#f6f8fc!important}.theme--light .v-app-bar,.theme--light .v-app-bar .v-toolbar__content{height:64px!important}.theme--light .v-main{padding-top:64px!important}.theme--light .v-app-bar .v-toolbar__title+input{width:50px!important;background-color:#eaf1fb!important;border-radius:24px!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#5f6368!important}.theme--light .app-bar-tag-input .v-input .v-input__slot:before,.theme--light .app-bar-tag-input .v-input .v-input__slot:after{display:none}.theme--light .app-bar-tag-input .v-input input{padding:5px 44px 5px 10px;background-color:#eaf1fb;min-height:48px;border-radius:24px}.theme--light .app-bar-tag-input:not([style*="none"])+.v-btn{position:relative;left:-50px}.theme--light.v-list,.theme--light.v-navigation-drawer{background:#e9eef6!important}.theme--dark .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--dark .img_detail_btn_color .v-chip.tag_type_general,.theme--dark .img_detail_btn_color .v-btn{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag) .v-icon,.theme--light .img_detail_btn_color .v-chip.tag_type_general,.theme--light .img_detail_btn_color .v-btn{background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#1a73e8!important;box-shadow:none!important;font-weight:500}.img_detail_btn_color .v-chip.img_detail_tag{font-weight:500}.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text,.v-date-picker-table__current){padding-bottom:2px;border-radius:10px;color:#001d35;background-color:#c2e7ff}.theme--light .refresh_posts_btn{box-shadow:0 1px 2px #0000,0 1px 3px 1px #0000;background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#001d35}.theme--light .img_detail_loading .v-progress-circular{color:#1a73e8!important;caret-color:#1a73e8!important}.theme--light .blacklist_combobox .v-input__slot{padding-left:8px!important}.theme--light .v-text-field--outlined{border-radius:20px}.fancybox__caption{display:none;padding:12px 24px!important}.v-toolbar.img_detail_btn_color{backdrop-filter:none!important}.virtual-waterfall .posts-image-card{width:100%;height:100%;margin-bottom:0;background:gainsboro;border-radius:4px!important}.virtual-waterfall .post-image-v{width:100%;height:100%;object-fit:cover;border-radius:4px!important}.virtual-waterfall .posts-image-type{border-top-right-radius:4px}.virtual-waterfall .posts-image-actions{border-bottom-left-radius:4px;border-bottom-right-radius:4px}html:has(#app.theme--dark){background:#121212}@media screen and (max-width: 1200px){.nav_drawer{height:100dvh!important}.nav_drawer .v-navigation-drawer__content{padding-bottom:9vh}}.img_meta_tag_list{position:absolute;top:35px;width:200px}.img_meta_tag_list .img_detail_tag.tag_type_artist{color:#c97000!important;background-color:#ffdcb0!important;border-color:#ffdcb0!important}.img_meta_tag_list .img_detail_tag.tag_type_copyright{color:#ae3fc1!important;background-color:#f9d5ff!important;border-color:#f9d5ff!important}.img_meta_tag_list .img_detail_tag.tag_type_character{color:#0c9312!important;background-color:#c4ffc7!important;border-color:#c4ffc7!important}.true-masonry .posts-image-card{height:fit-content;max-height:unset!important;margin-bottom:0!important}.d-flex-y{display:flex;align-items:center;flex-wrap:wrap}.d-flex-col{display:flex;flex-direction:column}.export-tags-setting{display:flex;align-items:center;flex-wrap:wrap;gap:20px}.export-tags-setting .v-messages{display:none}.export-tags-setting>.v-input{margin-top:0}.export-tags-wght-inp{width:45px;height:24px;margin-left:4px;background-color:#eaf1fb;border-radius:4px;border:1px solid rgb(187,187,187);color:inherit;text-align:center}.d-flex-col .v-chip--active:before,.d-flex-col .v-chip--active:hover:before,.d-flex-col .v-chip:focus:before{display:none}.img-detail-toolbar{position:absolute;top:0;width:100%;z-index:10}.img-detail-toolbar.detail-buttons-bottom{top:unset;bottom:12px}.img-detail-tags{position:absolute;z-index:10;bottom:12px;padding:0 12px}.img-detail-tags.detail-buttons-bottom{top:12px;bottom:unset}.img-detail-toolbar.detail-buttons-bottom .img_meta_tag_list{top:0;transform:translateY(-95%)}.settings_drawer .v-list-item__subtitle{white-space:normal}\n';
+  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;max-width:100vw;max-height:100vh;margin:0 auto}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}.img_detail_tag_list .v-slide-group__content{max-height:72vh;overflow-y:auto}::-webkit-scrollbar{width:0px}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e9eef6;border-radius:7px}.theme--dark .img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.posts-image-card{margin-bottom:8px}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{--jstf-w: 340;position:relative;flex-grow:calc(var(--w) * var(--jstf-w) / var(--h));width:calc(1px * var(--w) * var(--jstf-w) / var(--h));margin-bottom:0!important;padding-bottom:0!important;background-color:#dcdcdc;content-visibility:auto;contain-intrinsic-size:auto 300px}@media screen and (max-width: 500px){.justified-container .posts-image-card{--jstf-w: 240}}.justified-container .posts-image-card:before{content:"";display:block;padding-bottom:calc(var(--h) / var(--w) * 100%)!important}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-wh{position:absolute;bottom:0;left:0;padding:0 8px;font-size:14px;color:#fff;background:rgba(0,0,0,.4);border-top-right-radius:4px}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-checkbox{position:absolute;top:5px;left:5px;width:28px;padding:2px;height:28px;border-radius:2px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-checkbox:has(input[aria-checked="true"]),.posts-image-card:hover .posts-image-checkbox{opacity:1;visibility:visible}.posts-image-checkbox .v-input--selection-controls__ripple .primary--text,.posts-image-checkbox .v-input--selection-controls__input .v-icon{color:#fff!important}.posts-image-type{position:absolute!important;top:0;right:0;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}@media screen and (min-width: 768px){.wf-no-fit-screen{max-width:62.5vw;margin:16px auto}}.virtual-waterfall>[data-index]{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f;border-radius:4px}.theme--light .v-app-bar{box-shadow:none!important;background:#f6f8fc!important}.theme--light .v-app-bar,.theme--light .v-app-bar .v-toolbar__content{height:64px!important}.theme--light .v-main{padding-top:64px!important}.theme--light .v-app-bar .v-toolbar__title+input{width:50px!important;background-color:#eaf1fb!important;border-radius:24px!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#5f6368!important}.theme--light .app-bar-tag-input .v-input .v-input__slot:before,.theme--light .app-bar-tag-input .v-input .v-input__slot:after{display:none}.theme--light .app-bar-tag-input .v-input input{padding:5px 44px 5px 10px;background-color:#eaf1fb;min-height:48px;border-radius:24px}.theme--light .app-bar-tag-input:not([style*="none"])+.v-btn{position:relative;left:-50px}.theme--light.v-list,.theme--light.v-navigation-drawer{background:#e9eef6!important}.theme--dark .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--dark .img_detail_btn_color .v-chip.tag_type_general,.theme--dark .img_detail_btn_color .v-btn{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag) .v-icon,.theme--light .img_detail_btn_color .v-chip.tag_type_general,.theme--light .img_detail_btn_color .v-btn{background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#1a73e8!important;box-shadow:none!important;font-weight:500}.img_detail_btn_color .v-chip.img_detail_tag{font-weight:500}.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text,.v-date-picker-table__current){padding-bottom:2px;border-radius:10px;color:#001d35;background-color:#c2e7ff}.theme--light .refresh_posts_btn{box-shadow:0 1px 2px #0000,0 1px 3px 1px #0000;background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#001d35}.theme--light .img_detail_loading .v-progress-circular{color:#1a73e8!important;caret-color:#1a73e8!important}.theme--light .blacklist_combobox .v-input__slot{padding-left:8px!important}.theme--light .v-text-field--outlined{border-radius:20px}.fancybox__caption{display:none;padding:12px 24px!important}.v-toolbar.img_detail_btn_color{backdrop-filter:none!important}.virtual-waterfall .posts-image-card{width:100%;height:100%;margin-bottom:0;background:gainsboro;border-radius:4px!important}.virtual-waterfall .post-image-v{width:100%;height:100%;object-fit:cover;border-radius:4px!important}.virtual-waterfall .posts-image-type{border-top-right-radius:4px}.virtual-waterfall .posts-image-actions{border-bottom-left-radius:4px;border-bottom-right-radius:4px}html:has(#app.theme--dark){background:#121212}@media screen and (max-width: 1200px){.nav_drawer{height:100dvh!important}.nav_drawer .v-navigation-drawer__content{padding-bottom:9vh}}.img_meta_tag_list{position:absolute;top:35px;width:200px}.img_meta_tag_list .img_detail_tag.tag_type_artist{color:#c97000!important;background-color:#ffdcb0!important;border-color:#ffdcb0!important}.img_meta_tag_list .img_detail_tag.tag_type_copyright{color:#ae3fc1!important;background-color:#f9d5ff!important;border-color:#f9d5ff!important}.img_meta_tag_list .img_detail_tag.tag_type_character{color:#0c9312!important;background-color:#c4ffc7!important;border-color:#c4ffc7!important}.true-masonry .posts-image-card{height:fit-content;max-height:unset!important;margin-bottom:0!important}.d-flex-y{display:flex;align-items:center;flex-wrap:wrap}.d-flex-col{display:flex;flex-direction:column}.export-tags-setting{display:flex;align-items:center;flex-wrap:wrap;gap:20px}.export-tags-setting .v-messages{display:none}.export-tags-setting>.v-input{margin-top:0}.export-tags-wght-inp{width:45px;height:24px;margin-left:4px;background-color:#eaf1fb;border-radius:4px;border:1px solid rgb(187,187,187);color:inherit;text-align:center}.d-flex-col .v-chip--active:before,.d-flex-col .v-chip--active:hover:before,.d-flex-col .v-chip:focus:before{display:none}.img-detail-toolbar{position:absolute;top:0;width:100%;z-index:10}.img-detail-toolbar.detail-buttons-bottom{top:unset;bottom:12px}.img-detail-tags{position:absolute;z-index:10;bottom:12px;padding:0 12px}.img-detail-tags.detail-buttons-bottom{top:12px;bottom:unset}.img-detail-toolbar.detail-buttons-bottom .img_meta_tag_list{top:0;transform:translateY(-95%)}.settings_drawer .v-list-item__subtitle{white-space:normal}\n';
   const langList = [
     { value: "zh-Hans", label: "\u7B80\u4F53\u4E2D\u6587" },
     { value: "zh-Hant", label: "\u7E41\u9AD4\u4E2D\u6587" },
@@ -84,7 +84,7 @@ var __publicField = (obj, key, value) => {
   const defaultSettings = {
     lang: langMap[navigator.language] || "en",
     darkMode: "light",
-    blacklist: ((_a = localStorage.getItem("__blacklist")) == null ? void 0 : _a.split(",").filter(Boolean)) || [],
+    blacklist: localStorage.getItem("__blacklist")?.split(",").filter(Boolean) || [],
     selectedColumn: "0",
     showNSFWContents: true,
     isListenWheelEvent: true,
@@ -105,7 +105,8 @@ var __publicField = (obj, key, value) => {
     showTagChipGroup: false,
     justifiedBaseWidth: isMobile ? 240 : 340,
     detailButtonsBottom: isMobile,
-    closePopupOnImgClick: isMobile
+    closePopupOnImgClick: isMobile,
+    downloadBy: "tm"
   };
   const initialSettings = {
     ...defaultSettings,
@@ -146,7 +147,7 @@ var __publicField = (obj, key, value) => {
     setMasonryMode(async () => {
       removeOldListeners();
       await initMasonry();
-      callback == null ? void 0 : callback();
+      callback?.();
     });
   }
   const wfTypeActions = {
@@ -154,12 +155,12 @@ var __publicField = (obj, key, value) => {
       list.classList.add("mm-masonry");
       for (const item of list.children) {
         const img = item.querySelector("img");
-        const w = Number(img == null ? void 0 : img.getAttribute("width"));
-        let h = Number(img == null ? void 0 : img.getAttribute("height"));
+        const w = Number(img?.getAttribute("width"));
+        let h = Number(img?.getAttribute("height"));
         h += w * 0.17;
         item.setAttribute("style", `width:auto;margin:0 0 12px 0;vertical-align:top;--w:${w};--h:${h}`);
         item.classList.add("mm-masonry__item");
-        img == null ? void 0 : img.classList.add("mm-masonry__img");
+        img?.classList.add("mm-masonry__img");
       }
     },
     grid: (list) => {
@@ -168,32 +169,30 @@ var __publicField = (obj, key, value) => {
         const img = item.querySelector("img");
         item.setAttribute("style", "width:auto;margin:0 0 12px 0;vertical-align:top;--img-proportional-height:263;");
         item.classList.add("mm-masonry__item");
-        img == null ? void 0 : img.classList.add("mm-masonry__img");
+        img?.classList.add("mm-masonry__img");
       }
     },
     justified: (list) => {
-      var _a2;
       list.classList.add("justified-container");
       for (const item of list.children) {
         const img = item.querySelector("img");
-        const w = Number(img == null ? void 0 : img.getAttribute("width"));
-        const h = Number(img == null ? void 0 : img.getAttribute("height"));
+        const w = Number(img?.getAttribute("width"));
+        const h = Number(img?.getAttribute("height"));
         const width = w * 300 / h;
         item.setAttribute("style", `width:${width}px;flex-grow:${width};margin:0 10px 10px 0;vertical-align:top;`);
-        (_a2 = item.querySelector(".thumb")) == null ? void 0 : _a2.setAttribute("style", `padding-bottom:${h / w * 101}%`);
+        item.querySelector(".thumb")?.setAttribute("style", `padding-bottom:${h / w * 101}%`);
         item.classList.add("justified-item");
       }
     }
   };
   async function initLayout() {
-    var _a2;
     if (!location.href.includes("yande.re/post"))
       return;
     const listEl = document.querySelector("#post-list-posts");
     if (!listEl)
       return;
     const wfType = initialSettings.masonryLayout || "masonry";
-    (_a2 = wfTypeActions[wfType]) == null ? void 0 : _a2.call(wfTypeActions, listEl);
+    wfTypeActions[wfType]?.(listEl);
   }
   const isAutoWf = (() => {
     const params2 = new URLSearchParams(location.search);
@@ -209,7 +208,7 @@ var __publicField = (obj, key, value) => {
     const type = initialSettings.masonryLayout || "masonry";
     document.body.insertAdjacentHTML("beforeend", `<select id="wf-type-select">${Object.keys(wfTypeActions).map((e) => `<option ${type == e ? "selected" : ""} value="${e}">${e}</option>`).join("")}</select>`);
     const sel = document.querySelector("#wf-type-select");
-    sel == null ? void 0 : sel.addEventListener("change", function() {
+    sel?.addEventListener("change", function() {
       const { value } = this;
       if (!value)
         return;
@@ -256,7 +255,7 @@ var __publicField = (obj, key, value) => {
       return;
     document.body.insertAdjacentHTML("beforeend", `<select id="locale-select"><option value="">- lang -</option>${locales.map((e) => `<option value="${e}">${e}</option>`).join("")}</select>`);
     const sel = document.querySelector("#locale-select");
-    sel == null ? void 0 : sel.addEventListener("change", function() {
+    sel?.addEventListener("change", function() {
       const { value } = this;
       if (!value)
         return;
@@ -271,22 +270,20 @@ var __publicField = (obj, key, value) => {
       const next = document.querySelector("a.next_page");
       const w = document.documentElement.offsetWidth || document.body.offsetWidth;
       const clickX = e.clientX;
-      clickX > w / 2 ? next == null ? void 0 : next.click() : prev == null ? void 0 : prev.click();
+      clickX > w / 2 ? next?.click() : prev?.click();
     });
   }
   function setTagText(seletcor, textEn, display) {
-    var _a2;
     const elements = document.querySelectorAll(seletcor);
     for (const item of elements) {
-      const en2 = (textEn == null ? void 0 : textEn(item)) || item.innerHTML;
-      const cn = (_a2 = window.__tagsCN) == null ? void 0 : _a2[en2];
+      const en2 = textEn?.(item) || item.innerHTML;
+      const cn = window.__tagsCN?.[en2];
       if (cn)
-        item.innerHTML = (display == null ? void 0 : display(en2, cn)) || `${en2} [${cn}]`;
+        item.innerHTML = display?.(en2, cn) || `${en2} [${cn}]`;
     }
   }
   async function translateTags() {
-    var _a2;
-    const locale = (_a2 = document.cookie.match(/locale=(\w+)/)) == null ? void 0 : _a2[1];
+    const locale = document.cookie.match(/locale=(\w+)/)?.[1];
     if (locale && locale !== "zh_CN")
       return;
     const response = await fetch("https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/all_tags_cn.min.json");
@@ -348,12 +345,12 @@ var __publicField = (obj, key, value) => {
       return fn();
     if (location.href.includes("safebooru")) {
       const oldBtn = document.querySelector("#enter-masonry");
-      oldBtn == null ? void 0 : oldBtn.remove();
+      oldBtn?.remove();
     }
     const btnText = navigator.language.includes("zh") ? "\u7011\u5E03\u6D41\u6A21\u5F0F" : "Browsing";
     document.body.insertAdjacentHTML("beforeend", `<button id="enter-masonry" class="${initialSettings.detailButtonsBottom ? "enter-button-bottom" : ""}">${btnText}</button>`);
     const btn = document.querySelector("#enter-masonry");
-    btn == null ? void 0 : btn.addEventListener("click", () => {
+    btn?.addEventListener("click", () => {
       fn();
     });
   }
@@ -384,7 +381,7 @@ var __publicField = (obj, key, value) => {
   }
   function replaceDocument() {
     const el = document.querySelector('[name="csrf-token"]');
-    const token = el == null ? void 0 : el.getAttribute("content");
+    const token = el?.getAttribute("content");
     token && sessionStorage.setItem("csrf-token", token);
     document.head.innerHTML = `
     <meta charset="utf-8">
@@ -411,7 +408,6 @@ var __publicField = (obj, key, value) => {
   `;
   }
   prepareApp(() => {(function(Vue2, Vuetify2, VueI18n2, fastXmlParser) {
-  var _a;
   "use strict";
   ;
   function _interopDefaultLegacy(e) {
@@ -426,58 +422,23 @@ var __publicField = (obj, key, value) => {
    * https://github.com/paulcollett/vue-masonry-css
    * Released under the MIT License.
    */
-  var componentName = "masonry";
-  var props$1 = {
-    tag: {
-      type: [String],
-      default: "div"
-    },
-    cols: {
-      type: [Object, Number, String],
-      default: 2
-    },
-    gutter: {
-      type: [Object, Number, String],
-      default: 0
-    },
-    css: {
-      type: [Boolean],
-      default: true
-    },
-    columnTag: {
-      type: [String],
-      default: "div"
-    },
-    columnClass: {
-      type: [String, Array, Object],
-      default: function() {
-        return [];
-      }
-    },
-    columnAttr: {
-      type: [Object],
-      default: function() {
-        return {};
-      }
-    }
-  };
-  var breakpointValue = function(mixed, windowWidth) {
-    var valueAsNum = parseInt(mixed);
+  const breakpointValue = function(mixed, windowWidth) {
+    const valueAsNum = parseInt(mixed);
     if (valueAsNum > -1) {
       return mixed;
     } else if (typeof mixed !== "object") {
       return 0;
     }
-    var matchedBreakpoint = Infinity;
-    var matchedValue = mixed.default || 0;
-    for (var k in mixed) {
-      var breakpoint = parseInt(k);
-      var breakpointValRaw = mixed[breakpoint];
-      var breakpointVal = parseInt(breakpointValRaw);
+    let matchedBreakpoint = Infinity;
+    let matchedValue = mixed.default || 0;
+    for (const k in mixed) {
+      const breakpoint = parseInt(k);
+      const breakpointValRaw = mixed[breakpoint];
+      const breakpointVal = parseInt(breakpointValRaw);
       if (isNaN(breakpoint) || isNaN(breakpointVal)) {
         continue;
       }
-      var isNewBreakpoint = windowWidth <= breakpoint && breakpoint < matchedBreakpoint;
+      const isNewBreakpoint = windowWidth <= breakpoint && breakpoint < matchedBreakpoint;
       if (isNewBreakpoint) {
         matchedBreakpoint = breakpoint;
         matchedValue = breakpointValRaw;
@@ -485,65 +446,93 @@ var __publicField = (obj, key, value) => {
     }
     return matchedValue;
   };
-  var component = {
-    props: props$1,
-    data: function data() {
+  const getWindowWidth$1 = () => window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  const masonry = Vue2.defineComponent({
+    props: {
+      tag: {
+        type: [String],
+        default: "div"
+      },
+      cols: {
+        type: [Object, Number, String],
+        default: 2
+      },
+      gutter: {
+        type: [Object, Number, String],
+        default: 0
+      },
+      css: {
+        type: [Boolean],
+        default: true
+      },
+      columnTag: {
+        type: [String],
+        default: "div"
+      },
+      columnClass: {
+        type: [String, Array, Object],
+        default: () => []
+      },
+      columnAttr: {
+        type: [Object],
+        default: () => ({})
+      }
+    },
+    data() {
       return {
+        windowWidth: 0,
         displayColumns: 2,
         displayGutter: 0
       };
     },
-    mounted: function mounted() {
-      var this$1$1 = this;
-      this.$nextTick(function() {
-        this$1$1.reCalculate();
+    mounted() {
+      this.$nextTick(() => {
+        this.reCalculate();
       });
       if (window) {
         window.addEventListener("resize", this.reCalculate);
       }
     },
-    updated: function updated() {
-      var this$1$1 = this;
-      this.$nextTick(function() {
-        this$1$1.reCalculate();
+    updated() {
+      this.$nextTick(() => {
+        this.reCalculate();
       });
     },
-    beforeDestroy: function beforeDestroy() {
+    beforeDestroy() {
       if (window) {
         window.removeEventListener("resize", this.reCalculate);
       }
     },
     methods: {
-      reCalculate: function reCalculate() {
-        var previousWindowWidth = this.windowWidth;
-        this.windowWidth = (window ? window.innerWidth : null) || Infinity;
+      reCalculate() {
+        const previousWindowWidth = this.windowWidth;
+        this.windowWidth = getWindowWidth$1() || Infinity;
         if (previousWindowWidth === this.windowWidth) {
           return;
         }
         this._reCalculateColumnCount(this.windowWidth);
         this._reCalculateGutterSize(this.windowWidth);
       },
-      _reCalculateGutterSize: function _reCalculateGutterSize(windowWidth) {
+      _reCalculateGutterSize(windowWidth) {
         this.displayGutter = breakpointValue(this.gutter, windowWidth);
       },
-      _reCalculateColumnCount: function _reCalculateColumnCount(windowWidth) {
-        var newColumns = breakpointValue(this.cols, windowWidth);
+      _reCalculateColumnCount(windowWidth) {
+        let newColumns = breakpointValue(this.cols, windowWidth);
         newColumns = Math.max(1, Number(newColumns) || 0);
         this.displayColumns = newColumns;
       },
-      _getChildItemsInColumnsArray: function _getChildItemsInColumnsArray() {
-        var this$1$1 = this;
-        var columns = [];
-        var childItems = this.$slots.default || [];
+      _getChildItemsInColumnsArray() {
+        const columns = [];
+        let childItems = this.$slots.default || [];
         if (childItems.length === 1 && childItems[0].componentOptions && childItems[0].componentOptions.tag == "transition-group") {
-          childItems = childItems[0].componentOptions.children;
+          childItems = childItems[0].componentOptions.children || [];
         }
-        for (var i = 0, visibleItemI = 0; i < childItems.length; i++, visibleItemI++) {
+        for (let i = 0, visibleItemI = 0; i < childItems.length; i++, visibleItemI++) {
           if (!childItems[i].tag) {
             visibleItemI--;
             continue;
           }
-          var columnIndex = visibleItemI % this$1$1.displayColumns;
+          const columnIndex = visibleItemI % this.displayColumns;
           if (!columns[columnIndex]) {
             columns[columnIndex] = [];
           }
@@ -552,1022 +541,36 @@ var __publicField = (obj, key, value) => {
         return columns;
       }
     },
-    render: function render(createElement) {
-      var this$1$1 = this;
-      var columnsContainingChildren = this._getChildItemsInColumnsArray();
-      var isGutterSizeUnitless = parseInt(this.displayGutter) === this.displayGutter * 1;
-      var gutterSizeWithUnit = isGutterSizeUnitless ? this.displayGutter + "px" : this.displayGutter;
-      var columnStyle = {
+    render(createElement) {
+      const columnsContainingChildren = this._getChildItemsInColumnsArray();
+      const isGutterSizeUnitless = parseInt(this.displayGutter) === this.displayGutter * 1;
+      const gutterSizeWithUnit = isGutterSizeUnitless ? `${this.displayGutter}px` : this.displayGutter;
+      const columnStyle = {
         boxSizing: "border-box",
         backgroundClip: "padding-box",
-        width: 100 / this.displayColumns + "%",
+        width: `${100 / this.displayColumns}%`,
         border: "0 solid transparent",
         borderLeftWidth: gutterSizeWithUnit
       };
-      var columns = columnsContainingChildren.map(function(children, index) {
-        return createElement(this$1$1.columnTag, {
-          key: index + "-" + columnsContainingChildren.length,
-          style: this$1$1.css ? columnStyle : null,
-          class: this$1$1.columnClass,
-          attrs: this$1$1.columnAttr
+      const columns = columnsContainingChildren.map((children, index) => {
+        return createElement(this.columnTag, {
+          key: `${index}-${columnsContainingChildren.length}`,
+          style: this.css ? columnStyle : void 0,
+          class: this.columnClass,
+          attrs: this.columnAttr
         }, children);
       });
-      var containerStyle = {
+      const containerStyle = {
         display: ["-webkit-box", "-ms-flexbox", "flex"],
-        marginLeft: "-" + gutterSizeWithUnit
+        marginLeft: `-${gutterSizeWithUnit}`
       };
       return createElement(
         this.tag,
-        this.css ? { style: containerStyle } : null,
+        this.css ? { style: containerStyle } : void 0,
         columns
       );
     }
-  };
-  var Plugin = function() {
-  };
-  Plugin.install = function(Vue3, options) {
-    if (Plugin.installed) {
-      return;
-    }
-    if (options && options.name) {
-      Vue3.component(options.name, component);
-    } else {
-      Vue3.component(componentName, component);
-    }
-  };
-  if (typeof window !== "undefined" && window.Vue) {
-    window.Vue.use(Plugin);
-  }
-  function installVuetify() {
-    Vue__default["default"].use(Vuetify__default["default"]);
-    return new Vuetify__default["default"]({
-      icons: {
-        iconfont: "mdiSvg"
-      },
-      theme: {
-        dark: false,
-        themes: {
-          light: {
-            primary: "#1a73e8",
-            accent: "#c2e7ff"
-          },
-          dark: {
-            primary: "#BA68C8",
-            accent: "#FF80AB"
-          }
-        }
-      }
-    });
-  }
-  function useVuetify() {
-    const instance = Vue2.getCurrentInstance();
-    if (!instance) {
-      throw new Error("Should be used in setup().");
-    }
-    return instance.proxy.$vuetify;
-  }
-  const UxxldE9xRwmQctrvba5Y8$3 = "\u8BBE\u7F6E";
-  const Ym0HIEu9Q80qXB31LuC6c$3 = "\u753B\u5E08";
-  const juT6gwLOg5r1h2vFpFf6P$3 = "\u7248\u6743";
-  const aonlPAu9kEkkwNvQg0DBk$3 = "\u89D2\u8272";
-  const ctWGhVvqB2k_1TX2iY0l2$3 = "\u6536\u85CF\u6210\u529F";
-  const HzMBcS2oNGVIoLiHWprim$3 = "\u6536\u85CF\u5939";
-  const DXEhXAQbkiCMU_l252jo_$3 = "\u56FE\u96C6 (Pool)";
-  const ZztrWbSaaaas3v0cHtSmh$3 = "\u641C\u7D22\u6807\u7B7E";
-  const OKs1ePekQA4Ona839U114$3 = "\u4E0B\u8F7D\u5217\u8868";
-  const cKn4cfAxzdgh_HD6OFibB$3 = "\u5F00\u59CB\u4E0B\u8F7D";
-  const aVqN9TBRCbNGsW3Y2D2Nm$3 = "\u5927\u56FE";
-  const u8mEnSo4mxDRUbj7FeAll$3 = "\u5207\u6362\u6DF1\u8272\u6A21\u5F0F";
-  const ClZdL9hGweOokP7Mn_Ptq$3 = "\u9000\u51FA\u7011\u5E03\u6D41\u6A21\u5F0F";
-  const ze1PaiGdX4ufmoOLv_xw6$3 = "\u6309\u5E74";
-  const l8CbIALt_VWUnzBl_Rmgf$3 = "Booru \u56FE\u7AD9\u7011\u5E03\u6D41\u6D4F\u89C8";
-  const CacM8tispuPNrSxxpt9GX$3 = "\u5FEB\u6377\u65B9\u5F0F";
-  const zs8YTCc8d8XFUgRnp7m_w$3 = "\u6211\u7684\u6536\u85CF\u5939";
-  const e2_EYvweJsVoIZlIWkPRV$3 = "\u7AD9\u70B9\u5217\u8868";
-  const qWcqQRsE9nN43MaZ2BmN9$3 = "Web \u7248\u672C";
-  const jerGO2OCuW9TdnEnGYRWd$3 = "\u70B9\u51FB\u67E5\u770B";
-  const tGi6xYfvStBmR8qduEmKX$3 = "\u67E5\u770B";
-  const RN4dt81l_fZMWODsskZob$3 = "\u52A0\u8F7D\u4E2D";
-  const fC8XNfCl04zK7vgeaRZMQ$3 = "\u52A0\u8F7D\u66F4\u591A";
-  const ad8lEoWap_nT9U69WBKen$3 = "\u9002\u5E94\u5BBD\u5EA6";
-  const GjMNbm97OgVvpIYlkOisE$3 = "\u9002\u5E94\u9AD8\u5EA6";
-  const XvOYJ5gHo37M1XztPl18z$3 = "\u5168\u5C4F";
-  const _bQs7o9oQSo7ao1G0cp3d$3 = "\u65CB\u8F6C";
-  const pEU9Y9K7DsODkocCDwq_O$3 = "\u5DF2\u6536\u85CF";
-  const caFFJlrS1wa_F86uKPykd$3 = "\u8BE6\u60C5";
-  const qSF4OLshg2EEX4CwtBE6r$3 = "\u6765\u6E90";
-  const wI4KHHIe3zNRziW4lDZrp$3 = "\u4E0B\u8F7D\u6837\u54C1\u56FE";
-  const k4YzDnBtd_S2UpAQucGxF$3 = "\u4E0B\u8F7D\u9AD8\u6E05\u56FE";
-  const hVmfDxXoj8vkgVQabEOSr$3 = "\u52A0\u5165\u4E0B\u8F7D\u5217\u8868";
-  const gM92sLo0Cqfl2rCaXlOhc$3 = "\u9690\u85CF";
-  const FAqj5ONm50QMfIt9Vq2p1$3 = "\u4E0B\u8F7D\u51FA\u9519";
-  const Z4pa8GhgE63OGGvCqAld0$3 = "\u4E0B\u9762\u6CA1\u6709\u4E86";
-  const Dnnio9m9RZA6bkTLytc99$3 = "\u52A0\u5165\u6536\u85CF";
-  const EsiorRgoeHI8h7IHMLDA4$3 = "\u65B0\u6807\u7B7E\u9875\u6253\u5F00";
-  const _Efl8k8uYQj9iJmj3kwbd$3 = "\u672C\u5730\u6807\u7B7E\u9ED1\u540D\u5355";
-  const RstKmO7YVQMpaDoucxUel$3 = "\u5F53\u524D\u7AD9\u70B9 API Credentials";
-  const Lm_HFVHpv4XCjilV3NLKu$3 = "\u663E\u793A NSFW \u5185\u5BB9";
-  const A16qoBulYQJLbHe9mqNwm$3 = "\u5305\u542B\u88F8\u9732\u3001\u6027\u63CF\u5199\u5185\u5BB9\u7B49\u8FC7\u6FC0\u5185\u5BB9";
-  const _nQfaNuwbvPAIFKOY6_7u$3 = "\u76D1\u542C\u6EDA\u8F6E\u4E8B\u4EF6";
-  const SIUUZ4wqJTOilEdcX3EOi$3 = "\u8BE6\u60C5\u5F39\u7A97\u6EDA\u8F6E\u5207\u6362\u56FE\u7247";
-  const fVE5taO6GDTPbILat4GCt$3 = "\u76D1\u542C\u952E\u76D8\u4E8B\u4EF6";
-  const w95XGurDhDfOfw7XH4JFW$3 = "\u8BE6\u60C5\u5F39\u7A97\u4F7F\u7528A/D/\u2190/\u2192\u5207\u6362\u56FE\u7247";
-  const kFcteLMfnoezhOwuTlLFC$3 = "\u8BE6\u60C5\u56FE\u7247\u9884\u52A0\u8F7D";
-  const FT1uJs8XG__n5qBvuFsH4$3 = "\u8BE6\u60C5\u5F39\u7A97\u9884\u52A0\u8F7D\u4E0B\u4E00\u5F20\u6837\u54C1\u56FE/\u539F\u56FE";
-  const G3b7rbyQEj3_rgzVsNJZY$3 = "\u56FE\u7247\u9884\u52A0\u8F7D\u6570\u91CF";
-  const rXjhc8VuGloy1wZ09noNB$3 = "\u5C0F\u4E8E7\u5217\u65F6\u5217\u8868\u4F1A\u52A0\u8F7D\u5927\u56FE";
-  const uxIs3XkeVzkrEX985zHk3$3 = "\u81EA\u52A8";
-  const dU7ou5kVM0s9DMju5e2tS$3 = "\u5217";
-  const vfUg8xP6WptIhSL0E9b9D$3 = "\u7B49\u5BBD\u7B49\u9AD8";
-  const PBjdNKuj02doUvOf2zZqP$3 = "\u56FE\u7247\u4FDD\u5B58\u5230\u5B50\u6587\u4EF6\u5939";
-  const z_oL9s5fS164W4_gITOGZ$3 = "\u5728\u9ED8\u8BA4\u4E0B\u8F7D\u76EE\u5F55\u521B\u5EFA\u4E00\u4E2A\u4EE5\u7AD9\u70B9\u4E3A\u540D\u7684\u6587\u4EF6\u5939\u5B58\u653E\u56FE\u7247\uFF0C\u9700\u8981\u5C06 Tampermonkey \u7684\u201C\u4E0B\u8F7D\u6A21\u5F0F\u201D\u4FEE\u6539\u4E3A\u201C\u6D4F\u89C8\u5668 API\u201D";
-  const ti3akdSS3iZV9NsGzIo3m$3 = "\u63D0\u793A";
-  const LN_Rsic4V50DrXbsv9T9L$3 = "\u786E\u5B9A\u8981\u5F00\u542F\u5B50\u6587\u4EF6\u5939\u4E0B\u8F7D\u529F\u80FD\u5417\uFF1F\u8BF7\u786E\u4FDD\u60A8\u5DF2\u5C06 Tampermonkey \u7684\u201C\u4E0B\u8F7D\u6A21\u5F0F\u201D\u4FEE\u6539\u4E3A\u201C\u6D4F\u89C8\u5668 API\u201D\u3002";
-  const OJ8X55GXx5k3peoSXSujf$3 = "\u6253\u5F00\u65B9\u5F0F\uFF1A\u5C06 Tampermonkey \u8BBE\u7F6E\u4E2D\u7684\u201C\u914D\u7F6E\u6A21\u5F0F\u201D\u7531\u201C\u65B0\u624B\u201D\u6539\u4E3A\u201C\u9AD8\u7EA7\u201D\uFF0C\u7136\u540E\u627E\u5230\u201C\u4E0B\u8F7D BETA\u201D\uFF0C\u5C06\u201C\u4E0B\u8F7D\u6A21\u5F0F\u201D\u4FEE\u6539\u4E3A\u201C\u6D4F\u89C8\u5668 API\u201D\u3002";
-  const ujBgilCWNgFNV8Q2IDMWS$3 = "\u63D0\u793A\uFF1A\u4E3A\u65B9\u4FBF\u4F7F\u7528\uFF0C\u53EF\u4EE5\u5C06\u6D4F\u89C8\u5668\u8BBE\u7F6E\u4E2D\u201C\u4E0B\u8F7D\u524D\u8BE2\u95EE\u6BCF\u4E2A\u6587\u4EF6\u7684\u4FDD\u5B58\u4F4D\u7F6E\u201D\u9009\u9879\u5173\u95ED\u3002";
-  const sMkrF8bqCTJZZ1kXTkT_R$3 = "\u67E5\u770B\u7236\u6295\u7A3F";
-  const u0K7A_hv1RZSJl6TDR61A$3 = "\u67E5\u770B\u5B50\u9879";
-  const EVPG1YZDtykdz3htyf11u$3 = "\u590D\u5236\u5230\u526A\u8D34\u677F";
-  const kCYFwKpwznYIKRmB1tCww$3 = "\u4ECE\u526A\u8D34\u677F\u8BFB\u53D6";
-  const fbIpwMw2yVoSxP66OJ32z$3 = "\u56FE\u7247\u94FA\u6EE1\u5C4F\u5E55";
-  const tEvQYzSVnggYAcM1uv9Tt$3 = "\u5173\u95ED\u6B64\u529F\u80FD\u7684\u8BDD\u5C4F\u5E55\u4E24\u4FA7\u4F1A\u7559\u767D";
-  const HSx0XMZFid_lVuwjzrhH0$3 = "\u56FE\u7247\u5217\u8868\u7684\u7F29\u7565\u56FE\u4F7F\u7528\u5927\u56FE\u94FE\u63A5(sample_url)";
-  const lkCkz1OpNtTCFRfGCEoBp$3 = "\u81EA\u52A8\u8FDB\u5165\u7011\u5E03\u6D41\u6A21\u5F0F";
-  const e4_fgvntwNlfxgJUc2dXK$3 = "\u8BED\u8A00";
-  const sxhTRqogDRozo9IaTGI7g$3 = "\u5217\u8868\u56FE\u7247\u663E\u793A\u590D\u9009\u6846";
-  const gPt6cpWrkvqRqZnwJo1KV$3 = "\u5728\u56FE\u7247\u5361\u7247\u5DE6\u4E0A\u89D2\u663E\u793A\u52A0\u5165\u4E0B\u8F7D\u5217\u8868\u7684\u590D\u9009\u6846";
-  const dvs63FvVKWm3uHVfqeq00$3 = "\u4F7F\u7528 Fancybox \u67E5\u770B\u8BE6\u60C5";
-  const Tbq8O5KhwcDHQ_qxNFW09$3 = "\u5B9E\u9A8C\u6027";
-  const IxTawC_qs_xjxj5g8_aGx$3 = "\u9690\u85CF\u6302\u8D77\u7684\u56FE\u7247";
-  const YAUNSVT_pTygaY306DZmU$3 = "yande.re \u4E0D\u4F7F\u7528 API \u83B7\u53D6\u56FE\u7247\u5217\u8868";
-  const HkRzE7fweBSefchs0z0r8$3 = "\u76F4\u63A5\u89E3\u6790 HTML \u83B7\u53D6\u56FE\u7247\u6570\u636E";
-  const yYtssYrCL8VwFrdvvx8v3$3 = "\u865A\u62DF\u5217\u8868(\u7B49\u5BBD\u4E0D\u7B49\u9AD8)";
-  const UqbfVZzRyk0iD2NcOii_E$3 = "\u5217\u8868\u56FE\u7247\u663E\u793A\u5206\u8FA8\u7387";
-  const _4E2zv2NpOG4y8TV5PRL0$3 = "\u5728\u56FE\u7247\u5361\u7247\u5DE6\u4E0B\u89D2\u663E\u793A\u539F\u56FE\u7684\u5206\u8FA8\u7387";
-  const Cu6n0Apv5xVlo4DnQbVbT$3 = "\u6807\u7B7E\u5BFC\u51FA\u8BBE\u7F6E";
-  const BB4C5taWpmw06X0Kz_Gtk$3 = "\u8BBE\u7F6E\u6743\u91CD";
-  const zg2GRF6zmMXCkT9Uz2Bni$3 = "\u5168\u9009";
-  const xSC1vpAOTLQ3RBipKrNpD$3 = "\u4E0D\u9009";
-  const cKXET1CCnAXq4H60qr8uc$3 = "\u53CD\u9009";
-  const QH_xm27zhgs5E1077asf1$3 = "\u5BFC\u51FA";
-  const Uw9QwD1SaR2VjZEqDYRdb$3 = "\u90E8\u5206\u8BBE\u7F6E\u9700\u8981\u5237\u65B0\u9875\u9762\u540E\u751F\u6548";
-  const ECpLfRMsS0zpJPTw0qqNs$3 = "\u8BE6\u60C5\u64CD\u4F5C\u680F\u6309\u94AE\u7F6E\u4E8E\u5E95\u90E8";
-  const vJobIibroyz2wkpmONSnR$3 = "\u56FE\u7247\u8BE6\u60C5\u5F39\u7A97\u7684\u64CD\u4F5C\u6309\u94AE\u680F\u4E0E\u6807\u7B7E\u680F\u4F4D\u7F6E\u4E92\u6362";
-  const I_MKXUxaNXp3D35GFULn4$3 = "\u6B64\u9009\u9879\u5173\u95ED\u65F6\uFF0C\u70B9\u51FB\u8BE6\u60C5\u56FE\u7247\u4F1A\u5207\u6362\u6309\u94AE\u4E0E\u6807\u7B7E\u7684\u663E\u793A\u9690\u85CF";
-  const dm7zGAYbP2sbGXO_ekDDl$3 = "Justified \u5E03\u5C40\u5BBD\u5EA6\u7CFB\u6570";
-  var zhHans = {
-    UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$3,
-    "ZtQHZx-pEjmu_o3dQD1fc": "\u793E\u56E2",
-    Ym0HIEu9Q80qXB31LuC6c: Ym0HIEu9Q80qXB31LuC6c$3,
-    juT6gwLOg5r1h2vFpFf6P: juT6gwLOg5r1h2vFpFf6P$3,
-    aonlPAu9kEkkwNvQg0DBk: aonlPAu9kEkkwNvQg0DBk$3,
-    "MWVfUiW8egLWq7MgV-wzc": "\u6536\u85CF\u5931\u8D25",
-    ctWGhVvqB2k_1TX2iY0l2: ctWGhVvqB2k_1TX2iY0l2$3,
-    "nd4UjZy2ILsc-iW9iu7xR": "\u6309\u65E5\u671F",
-    "elkBQ9moOZ-KMcy5bt_Ts": "\u6700\u8FD1\u4EBA\u6C14",
-    HzMBcS2oNGVIoLiHWprim: HzMBcS2oNGVIoLiHWprim$3,
-    DXEhXAQbkiCMU_l252jo_: DXEhXAQbkiCMU_l252jo_$3,
-    "9juZMc0gPIgvMPKVORpJ1": "\u4EBA\u6C14",
-    "6acPWiYq2-OdySa2_xqDu": "\u968F\u673A",
-    ZztrWbSaaaas3v0cHtSmh: ZztrWbSaaaas3v0cHtSmh$3,
-    OKs1ePekQA4Ona839U114: OKs1ePekQA4Ona839U114$3,
-    cKn4cfAxzdgh_HD6OFibB: cKn4cfAxzdgh_HD6OFibB$3,
-    "J2Ckb_-LITfmww4aEksqk": "\u8F93\u51FA\u4E0B\u8F7D\u5730\u5740",
-    aVqN9TBRCbNGsW3Y2D2Nm: aVqN9TBRCbNGsW3Y2D2Nm$3,
-    "jDjashxA-oBPo19DXI504": "\u539F\u56FE",
-    u8mEnSo4mxDRUbj7FeAll: u8mEnSo4mxDRUbj7FeAll$3,
-    "OrwwNKZ7I70-ecpspE8d_": "\u5207\u6362\u5168\u5C4F",
-    ClZdL9hGweOokP7Mn_Ptq: ClZdL9hGweOokP7Mn_Ptq$3,
-    "Mt3-hyoH7f_pW2gnfxyur": "\u6309\u65E5",
-    "riciqzr6ILBnpPc7KtG-C": "\u6309\u5468",
-    "PQhFo-g7sgagimkleVoZR": "\u6309\u6708",
-    ze1PaiGdX4ufmoOLv_xw6: ze1PaiGdX4ufmoOLv_xw6$3,
-    l8CbIALt_VWUnzBl_Rmgf: l8CbIALt_VWUnzBl_Rmgf$3,
-    CacM8tispuPNrSxxpt9GX: CacM8tispuPNrSxxpt9GX$3,
-    zs8YTCc8d8XFUgRnp7m_w: zs8YTCc8d8XFUgRnp7m_w$3,
-    "7Cgsr4PUMbezDXNfWdvWH": "\u4EBA\u6C14\u4F5C\u54C1",
-    "StU1-52QJmNFKQ5soJCyG": "\u968F\u673A\u4F5C\u54C1",
-    e2_EYvweJsVoIZlIWkPRV: e2_EYvweJsVoIZlIWkPRV$3,
-    "PT74UDfKA45vTVTst_-hD": "\u5173\u4E8E",
-    "iJ0h220tvMmUhkfIMYI-W": "\u67E5\u770B\u66F4\u65B0\u65E5\u5FD7",
-    qWcqQRsE9nN43MaZ2BmN9: qWcqQRsE9nN43MaZ2BmN9$3,
-    jerGO2OCuW9TdnEnGYRWd: jerGO2OCuW9TdnEnGYRWd$3,
-    "23iEYyiQlLVhFIqGbj527": "\u95EE\u9898\u4E0E\u5EFA\u8BAE",
-    "4g1TUy2kwQrdOs-w4JobB": "\u70B9\u51FB\u53CD\u9988",
-    "7Xq5puLNcT0mAvoxElqdf": "\u6B22\u8FCE Star \u2606\u5F61",
-    "xJJTEE3nZ4HVXGFfiN-LC": "\u5F20",
-    tGi6xYfvStBmR8qduEmKX: tGi6xYfvStBmR8qduEmKX$3,
-    "Xtk-NnMgSQZmheJ87nbRV": "\u4E0B\u8F7D",
-    RN4dt81l_fZMWODsskZob: RN4dt81l_fZMWODsskZob$3,
-    fC8XNfCl04zK7vgeaRZMQ: fC8XNfCl04zK7vgeaRZMQ$3,
-    "4hOFoP4M3ZkL3RiN7XOc8": "\u6CA1\u4E86",
-    "M-wISnLiQgM_DURMwKZGT": "\u9002\u5E94\u9875\u9762",
-    ad8lEoWap_nT9U69WBKen: ad8lEoWap_nT9U69WBKen$3,
-    GjMNbm97OgVvpIYlkOisE: GjMNbm97OgVvpIYlkOisE$3,
-    "KkkM-iz8RCVQoTrTfhS5j": "\u539F\u59CB\u5927\u5C0F",
-    XvOYJ5gHo37M1XztPl18z: XvOYJ5gHo37M1XztPl18z$3,
-    _bQs7o9oQSo7ao1G0cp3d: _bQs7o9oQSo7ao1G0cp3d$3,
-    "lPPsX2CZbXwC-EGN79Rki": "\u7F29\u5C0F",
-    "t83UAY18UebTg1_-zFGP3": "\u5173\u95ED",
-    pEU9Y9K7DsODkocCDwq_O: pEU9Y9K7DsODkocCDwq_O$3,
-    "2ZPEAvLkCbV3mC0iJAw9K": "\u6536\u85CF",
-    caFFJlrS1wa_F86uKPykd: caFFJlrS1wa_F86uKPykd$3,
-    qSF4OLshg2EEX4CwtBE6r: qSF4OLshg2EEX4CwtBE6r$3,
-    "B_ptN5O-9PhmG5ymGGtc6": "\u67E5\u770B\u5927\u56FE",
-    wI4KHHIe3zNRziW4lDZrp: wI4KHHIe3zNRziW4lDZrp$3,
-    k4YzDnBtd_S2UpAQucGxF: k4YzDnBtd_S2UpAQucGxF$3,
-    "VpuyxZtIoDF9-YyOm0tK_": "\u4E0B\u8F7D\u539F\u6587\u4EF6",
-    hVmfDxXoj8vkgVQabEOSr: hVmfDxXoj8vkgVQabEOSr$3,
-    gM92sLo0Cqfl2rCaXlOhc: gM92sLo0Cqfl2rCaXlOhc$3,
-    "l5W-EtJ_ar-SY2lF4H5Zm": "\u663E\u793A",
-    FAqj5ONm50QMfIt9Vq2p1: FAqj5ONm50QMfIt9Vq2p1$3,
-    Z4pa8GhgE63OGGvCqAld0: Z4pa8GhgE63OGGvCqAld0$3,
-    Dnnio9m9RZA6bkTLytc99: Dnnio9m9RZA6bkTLytc99$3,
-    EsiorRgoeHI8h7IHMLDA4: EsiorRgoeHI8h7IHMLDA4$3,
-    _Efl8k8uYQj9iJmj3kwbd: _Efl8k8uYQj9iJmj3kwbd$3,
-    "jMod2JozzAnwHuD-3KuPb": "\u4E0B\u65B9\u8F93\u5165\u6807\u7B7E\uFF0C\u56DE\u8F66\u6DFB\u52A0",
-    RstKmO7YVQMpaDoucxUel: RstKmO7YVQMpaDoucxUel$3,
-    "1F-R4qChHIzZaohu5GJzl": "\u5F62\u5982: &api_key=xx&user_id=1",
-    Lm_HFVHpv4XCjilV3NLKu: Lm_HFVHpv4XCjilV3NLKu$3,
-    A16qoBulYQJLbHe9mqNwm: A16qoBulYQJLbHe9mqNwm$3,
-    _nQfaNuwbvPAIFKOY6_7u: _nQfaNuwbvPAIFKOY6_7u$3,
-    SIUUZ4wqJTOilEdcX3EOi: SIUUZ4wqJTOilEdcX3EOi$3,
-    fVE5taO6GDTPbILat4GCt: fVE5taO6GDTPbILat4GCt$3,
-    w95XGurDhDfOfw7XH4JFW: w95XGurDhDfOfw7XH4JFW$3,
-    kFcteLMfnoezhOwuTlLFC: kFcteLMfnoezhOwuTlLFC$3,
-    FT1uJs8XG__n5qBvuFsH4: FT1uJs8XG__n5qBvuFsH4$3,
-    G3b7rbyQEj3_rgzVsNJZY: G3b7rbyQEj3_rgzVsNJZY$3,
-    "iRt9V9wNQASic3D7-wTZo": "\u5B9E\u9A8C\u6027/\u4E0D\u4FDD\u8BC1\u53EF\u7528",
-    "kop_-39vkeg-bz2wztJ9O": "\u56FE\u7247\u5217\u8868\u5E03\u5C40",
-    "tt_YdgKCA_5m-aSTSMPQ_": "\u7011\u5E03\u6D41\u5217\u6570",
-    rXjhc8VuGloy1wZ09noNB: rXjhc8VuGloy1wZ09noNB$3,
-    uxIs3XkeVzkrEX985zHk3: uxIs3XkeVzkrEX985zHk3$3,
-    dU7ou5kVM0s9DMju5e2tS: dU7ou5kVM0s9DMju5e2tS$3,
-    "6jPGehET9TViankl5-SRu": "\u7B49\u5BBD\u4E0D\u7B49\u9AD8",
-    vfUg8xP6WptIhSL0E9b9D: vfUg8xP6WptIhSL0E9b9D$3,
-    "LZbI8am7nD-LiemZzroFF": "\u7B49\u9AD8\u4E0D\u7B49\u5BBD",
-    PBjdNKuj02doUvOf2zZqP: PBjdNKuj02doUvOf2zZqP$3,
-    z_oL9s5fS164W4_gITOGZ: z_oL9s5fS164W4_gITOGZ$3,
-    ti3akdSS3iZV9NsGzIo3m: ti3akdSS3iZV9NsGzIo3m$3,
-    "9dq_DxgMG88eom9Gq-4nT": "\u53D6\u6D88",
-    "0VAN4cJ-_mUxvtmg4KEi1": "\u786E\u5B9A",
-    LN_Rsic4V50DrXbsv9T9L: LN_Rsic4V50DrXbsv9T9L$3,
-    OJ8X55GXx5k3peoSXSujf: OJ8X55GXx5k3peoSXSujf$3,
-    ujBgilCWNgFNV8Q2IDMWS: ujBgilCWNgFNV8Q2IDMWS$3,
-    sMkrF8bqCTJZZ1kXTkT_R: sMkrF8bqCTJZZ1kXTkT_R$3,
-    u0K7A_hv1RZSJl6TDR61A: u0K7A_hv1RZSJl6TDR61A$3,
-    EVPG1YZDtykdz3htyf11u: EVPG1YZDtykdz3htyf11u$3,
-    kCYFwKpwznYIKRmB1tCww: kCYFwKpwznYIKRmB1tCww$3,
-    fbIpwMw2yVoSxP66OJ32z: fbIpwMw2yVoSxP66OJ32z$3,
-    tEvQYzSVnggYAcM1uv9Tt: tEvQYzSVnggYAcM1uv9Tt$3,
-    "99kLMSzDYJCAf1yK9QYzy": "\u5DF2\u590D\u5236",
-    "si-zDDRFrEwDTCkp53Q44": "\u8BF7\u5141\u8BB8\u526A\u8D34\u677F\u6743\u9650",
-    "eOxsWLzwqrlhBdVMwz-rH": "\u63A8\u8350\u7F51\u7AD9",
-    "4yzHPggVky2QKFD2TbBhl": "\u7F29\u7565\u56FE\u4F7F\u7528\u5927\u56FE",
-    HSx0XMZFid_lVuwjzrhH0: HSx0XMZFid_lVuwjzrhH0$3,
-    lkCkz1OpNtTCFRfGCEoBp: lkCkz1OpNtTCFRfGCEoBp$3,
-    "EZd1QQdgUDjT3yya5ZYe-": "\u6253\u5F00\u6E90\u7AD9\u65F6\u76F4\u63A5\u8FDB\u5165\u7011\u5E03\u6D41\u6D4F\u89C8\u6A21\u5F0F",
-    e4_fgvntwNlfxgJUc2dXK: e4_fgvntwNlfxgJUc2dXK$3,
-    sxhTRqogDRozo9IaTGI7g: sxhTRqogDRozo9IaTGI7g$3,
-    gPt6cpWrkvqRqZnwJo1KV: gPt6cpWrkvqRqZnwJo1KV$3,
-    dvs63FvVKWm3uHVfqeq00: dvs63FvVKWm3uHVfqeq00$3,
-    "w4uJjpTmSEkm6SIDgEo-0": "\u56FE\u7247\u8BE6\u60C5\u4F7F\u7528\u652F\u6301\u7F29\u653E\u65CB\u8F6C\u7B49\u64CD\u4F5C\u7684 Fancybox \u7EC4\u4EF6\u67E5\u770B",
-    Tbq8O5KhwcDHQ_qxNFW09: Tbq8O5KhwcDHQ_qxNFW09$3,
-    "-x4wjDoHtodaXEgm2SXkg": "\u8C03\u7528 API \u65F6\u4F1A\u9ED8\u8BA4\u4F20\u5165 `holds:false` \u6807\u7B7E",
-    IxTawC_qs_xjxj5g8_aGx: IxTawC_qs_xjxj5g8_aGx$3,
-    YAUNSVT_pTygaY306DZmU: YAUNSVT_pTygaY306DZmU$3,
-    HkRzE7fweBSefchs0z0r8: HkRzE7fweBSefchs0z0r8$3,
-    yYtssYrCL8VwFrdvvx8v3: yYtssYrCL8VwFrdvvx8v3$3,
-    UqbfVZzRyk0iD2NcOii_E: UqbfVZzRyk0iD2NcOii_E$3,
-    _4E2zv2NpOG4y8TV5PRL0: _4E2zv2NpOG4y8TV5PRL0$3,
-    "FMi4atPbKn-B1HiAZ2ZP2": "\u5BFC\u51FA\u6807\u7B7E",
-    Cu6n0Apv5xVlo4DnQbVbT: Cu6n0Apv5xVlo4DnQbVbT$3,
-    BB4C5taWpmw06X0Kz_Gtk: BB4C5taWpmw06X0Kz_Gtk$3,
-    zg2GRF6zmMXCkT9Uz2Bni: zg2GRF6zmMXCkT9Uz2Bni$3,
-    xSC1vpAOTLQ3RBipKrNpD: xSC1vpAOTLQ3RBipKrNpD$3,
-    cKXET1CCnAXq4H60qr8uc: cKXET1CCnAXq4H60qr8uc$3,
-    QH_xm27zhgs5E1077asf1: QH_xm27zhgs5E1077asf1$3,
-    Uw9QwD1SaR2VjZEqDYRdb: Uw9QwD1SaR2VjZEqDYRdb$3,
-    ECpLfRMsS0zpJPTw0qqNs: ECpLfRMsS0zpJPTw0qqNs$3,
-    vJobIibroyz2wkpmONSnR: vJobIibroyz2wkpmONSnR$3,
-    "HPukB-OKzIuRxMmO4Rx2U": "\u70B9\u51FB\u8BE6\u60C5\u56FE\u7247\u5173\u95ED\u5F39\u7A97",
-    I_MKXUxaNXp3D35GFULn4: I_MKXUxaNXp3D35GFULn4$3,
-    dm7zGAYbP2sbGXO_ekDDl: dm7zGAYbP2sbGXO_ekDDl$3
-  };
-  const UxxldE9xRwmQctrvba5Y8$2 = "\u8A2D\u7F6E";
-  const A16qoBulYQJLbHe9mqNwm$2 = "\u5305\u542B\u88F8\u9732\u3001\u6027\u611B\u63CF\u5BEB\u5167\u5BB9\u7B49\u904E\u6FC0\u5167\u5BB9";
-  const CacM8tispuPNrSxxpt9GX$2 = "\u5FEB\u6377\u65B9\u5F0F";
-  const ClZdL9hGweOokP7Mn_Ptq$2 = "\u9000\u51FA\u7011\u5E03\u6D41\u6A21\u5F0F";
-  const DXEhXAQbkiCMU_l252jo_$2 = "\u5716\u96C6 (Pool)";
-  const Dnnio9m9RZA6bkTLytc99$2 = "\u52A0\u5165\u6536\u85CF";
-  const EsiorRgoeHI8h7IHMLDA4$2 = "\u65B0\u6A19\u7C64\u9801\u6253\u958B";
-  const FAqj5ONm50QMfIt9Vq2p1$2 = "\u4E0B\u8F09\u51FA\u932F";
-  const FT1uJs8XG__n5qBvuFsH4$2 = "\u8A73\u60C5\u5F48\u7A97\u9810\u52A0\u8F09\u4E0B\u4E00\u5F35\u6A23\u54C1\u5716/\u539F\u5716";
-  const G3b7rbyQEj3_rgzVsNJZY$2 = "\u5716\u7247\u9810\u52A0\u8F09\u6578\u91CF";
-  const GjMNbm97OgVvpIYlkOisE$2 = "\u9069\u61C9\u9AD8\u5EA6";
-  const HzMBcS2oNGVIoLiHWprim$2 = "\u6536\u85CF\u593E";
-  const Lm_HFVHpv4XCjilV3NLKu$2 = "\u986F\u793A NSFW \u5167\u5BB9";
-  const OKs1ePekQA4Ona839U114$2 = "\u4E0B\u8F09\u5217\u8868";
-  const RN4dt81l_fZMWODsskZob$2 = "\u52A0\u8F09\u4E2D";
-  const RstKmO7YVQMpaDoucxUel$2 = "\u7576\u524D\u7AD9\u9EDE API Credentials";
-  const SIUUZ4wqJTOilEdcX3EOi$2 = "\u8A73\u60C5\u5F48\u7A97\u6EFE\u8F2A\u5207\u63DB\u5716\u7247";
-  const XvOYJ5gHo37M1XztPl18z$2 = "\u5168\u5C4F";
-  const Ym0HIEu9Q80qXB31LuC6c$2 = "\u756B\u5E2B";
-  const Z4pa8GhgE63OGGvCqAld0$2 = "\u4E0B\u9762\u6C92\u6709\u4E86";
-  const ZztrWbSaaaas3v0cHtSmh$2 = "\u641C\u7D22\u6A19\u7C64";
-  const _Efl8k8uYQj9iJmj3kwbd$2 = "\u672C\u5730\u6A19\u7C64\u9ED1\u540D\u55AE";
-  const _bQs7o9oQSo7ao1G0cp3d$2 = "\u65CB\u8F49";
-  const _nQfaNuwbvPAIFKOY6_7u$2 = "\u76E3\u807D\u6EFE\u8F2A\u4E8B\u4EF6";
-  const aVqN9TBRCbNGsW3Y2D2Nm$2 = "\u5927\u5716";
-  const ad8lEoWap_nT9U69WBKen$2 = "\u9069\u61C9\u5BEC\u5EA6";
-  const aonlPAu9kEkkwNvQg0DBk$2 = "\u89D2\u8272";
-  const cKn4cfAxzdgh_HD6OFibB$2 = "\u958B\u59CB\u4E0B\u8F09";
-  const caFFJlrS1wa_F86uKPykd$2 = "\u8A73\u60C5";
-  const ctWGhVvqB2k_1TX2iY0l2$2 = "\u6536\u85CF\u6210\u529F";
-  const dU7ou5kVM0s9DMju5e2tS$2 = "\u5217";
-  const e2_EYvweJsVoIZlIWkPRV$2 = "\u7AD9\u9EDE\u5217\u8868";
-  const fC8XNfCl04zK7vgeaRZMQ$2 = "\u52A0\u8F09\u66F4\u591A";
-  const fVE5taO6GDTPbILat4GCt$2 = "\u76E3\u807D\u9375\u76E4\u4E8B\u4EF6";
-  const gM92sLo0Cqfl2rCaXlOhc$2 = "\u96B1\u85CF";
-  const hVmfDxXoj8vkgVQabEOSr$2 = "\u52A0\u5165\u4E0B\u8F09\u5217\u8868";
-  const jerGO2OCuW9TdnEnGYRWd$2 = "\u9EDE\u64CA\u67E5\u770B";
-  const juT6gwLOg5r1h2vFpFf6P$2 = "\u7248\u6B0A";
-  const k4YzDnBtd_S2UpAQucGxF$2 = "\u4E0B\u8F09\u9AD8\u6E05\u5716";
-  const kFcteLMfnoezhOwuTlLFC$2 = "\u8A73\u60C5\u5716\u7247\u9810\u52A0\u8F09";
-  const l8CbIALt_VWUnzBl_Rmgf$2 = "Booru \u5716\u7AD9\u7011\u5E03\u6D41\u700F\u89BD";
-  const pEU9Y9K7DsODkocCDwq_O$2 = "\u5DF2\u6536\u85CF";
-  const qSF4OLshg2EEX4CwtBE6r$2 = "\u4F86\u6E90";
-  const qWcqQRsE9nN43MaZ2BmN9$2 = "Web \u7248\u672C";
-  const rXjhc8VuGloy1wZ09noNB$2 = "\u5C0F\u65BC7\u5217\u6642\u5217\u8868\u6703\u52A0\u8F09\u5927\u5716";
-  const tGi6xYfvStBmR8qduEmKX$2 = "\u67E5\u770B";
-  const u8mEnSo4mxDRUbj7FeAll$2 = "\u5207\u63DB\u6DF1\u8272\u6A21\u5F0F";
-  const uxIs3XkeVzkrEX985zHk3$2 = "\u81EA\u52D5";
-  const vfUg8xP6WptIhSL0E9b9D$2 = "\u7B49\u5BEC\u7B49\u9AD8";
-  const w95XGurDhDfOfw7XH4JFW$2 = "\u8A73\u60C5\u5F48\u7A97\u4F7F\u7528A/D/\u2190/\u2192\u5207\u63DB\u5716\u7247";
-  const wI4KHHIe3zNRziW4lDZrp$2 = "\u4E0B\u8F09\u6A23\u54C1\u5716";
-  const ze1PaiGdX4ufmoOLv_xw6$2 = "\u6309\u5E74";
-  const zs8YTCc8d8XFUgRnp7m_w$2 = "\u6211\u7684\u6536\u85CF\u593E";
-  const PBjdNKuj02doUvOf2zZqP$2 = "\u5716\u7247\u4FDD\u5B58\u5230\u5B50\u6587\u4EF6\u593E";
-  const z_oL9s5fS164W4_gITOGZ$2 = "\u5728\u9ED8\u8A8D\u4E0B\u8F09\u76EE\u9304\u5275\u5EFA\u4E00\u500B\u4EE5\u7AD9\u9EDE\u70BA\u540D\u7684\u6587\u4EF6\u593E\u5B58\u653E\u5716\u7247\uFF0C\u9700\u8981\u5C07 Tampermonkey \u7684\u201C\u4E0B\u8F09\u6A21\u5F0F\u201D\u4FEE\u6539\u70BA\u201C\u700F\u89BD\u5668 API\u201D";
-  const LN_Rsic4V50DrXbsv9T9L$2 = "\u78BA\u5B9A\u8981\u958B\u555F\u5B50\u6587\u4EF6\u593E\u4E0B\u8F09\u529F\u80FD\u55CE\uFF1F\n\u8ACB\u78BA\u4FDD\u60A8\u5DF2\u5C07 Tampermonkey \u7684\u201C\u4E0B\u8F09\u6A21\u5F0F\u201D\u4FEE\u6539\u70BA\u201C\u700F\u89BD\u5668 API\u201D\u3002";
-  const OJ8X55GXx5k3peoSXSujf$2 = "\u6253\u958B\u65B9\u5F0F\uFF1A\u5C07 Tampermonkey \u8A2D\u7F6E\u4E2D\u7684\u201C\u914D\u7F6E\u6A21\u5F0F\u201D\u7531\u201C\u65B0\u624B\u201D\u6539\u70BA\u201C\u9AD8\u7D1A\u201D\uFF0C\u7136\u5F8C\u627E\u5230\u201C\u4E0B\u8F09 BETA\u201D\uFF0C\u5C07\u201C\u4E0B\u8F09\u6A21\u5F0F\u201D\u4FEE\u6539\u70BA\u201C\u700F\u89BD\u5668 API\u201D\u3002";
-  const ti3akdSS3iZV9NsGzIo3m$2 = "\u63D0\u793A";
-  const ujBgilCWNgFNV8Q2IDMWS$2 = "\u63D0\u793A\uFF1A\u70BA\u65B9\u4FBF\u4F7F\u7528\uFF0C\u53EF\u4EE5\u5C07\u700F\u89BD\u5668\u8A2D\u7F6E\u4E2D\u201C\u4E0B\u8F09\u524D\u8A62\u554F\u6BCF\u500B\u6587\u4EF6\u7684\u4FDD\u5B58\u4F4D\u7F6E\u201D\u9078\u9805\u95DC\u9589\u3002";
-  const sMkrF8bqCTJZZ1kXTkT_R$2 = "\u67E5\u770B\u7236\u6295\u7A3F";
-  const u0K7A_hv1RZSJl6TDR61A$2 = "\u67E5\u770B\u5B50\u9805";
-  const EVPG1YZDtykdz3htyf11u$2 = "\u8907\u88FD\u5230\u526A\u8CBC\u7C3F";
-  const fbIpwMw2yVoSxP66OJ32z$2 = "\u5716\u7247\u92EA\u6EFF\u87A2\u5E55";
-  const kCYFwKpwznYIKRmB1tCww$2 = "\u5F9E\u526A\u8CBC\u7C3F\u8B80\u53D6";
-  const tEvQYzSVnggYAcM1uv9Tt$2 = "\u95DC\u9589\u6B64\u529F\u80FD\u7684\u8A71\u87A2\u5E55\u5169\u5074\u6703\u7559\u767D";
-  const HSx0XMZFid_lVuwjzrhH0$2 = "\u5716\u7247\u6E05\u55AE\u7684\u7E2E\u5716\u4F7F\u7528\u5927\u5716\u9023\u7D50(sample_url)";
-  const lkCkz1OpNtTCFRfGCEoBp$2 = "\u81EA\u52D5\u9032\u5165\u7011\u5E03\u6D41\u6A21\u5F0F";
-  const e4_fgvntwNlfxgJUc2dXK$2 = "\u8A9E\u8A00";
-  const gPt6cpWrkvqRqZnwJo1KV$2 = "\u5728\u5716\u7247\u5361\u7247\u5DE6\u4E0A\u89D2\u986F\u793A\u52A0\u5165\u4E0B\u8F09\u6E05\u55AE\u7684\u8907\u9078\u6846";
-  const sxhTRqogDRozo9IaTGI7g$2 = "\u6E05\u55AE\u5716\u7247\u986F\u793A\u8907\u9078\u6846";
-  const dvs63FvVKWm3uHVfqeq00$2 = "\u4F7F\u7528 Fancybox \u67E5\u770B\u8A73\u60C5";
-  const Tbq8O5KhwcDHQ_qxNFW09$2 = "\u5BE6\u9A57\u6027";
-  const IxTawC_qs_xjxj5g8_aGx$2 = "\u96B1\u85CF\u639B\u8D77\u7684\u5716\u7247";
-  const YAUNSVT_pTygaY306DZmU$2 = "yande.re \u4E0D\u4F7F\u7528 API \u53D6\u5F97\u5716\u7247\u5217\u8868";
-  const HkRzE7fweBSefchs0z0r8$2 = "\u76F4\u63A5\u89E3\u6790 HTML \u53D6\u5F97\u5716\u7247\u6578\u64DA";
-  const yYtssYrCL8VwFrdvvx8v3$2 = "\u865B\u64EC\u5217\u8868(\u7B49\u5BEC\u4E0D\u7B49\u9AD8)";
-  const UqbfVZzRyk0iD2NcOii_E$2 = "\u5217\u8868\u5716\u7247\u986F\u793A\u5206\u8FA8\u7387";
-  const _4E2zv2NpOG4y8TV5PRL0$2 = "\u5728\u5716\u7247\u5361\u5DE6\u4E0B\u89D2\u986F\u793A\u539F\u5716\u7684\u5206\u8FA8\u7387";
-  const Cu6n0Apv5xVlo4DnQbVbT$2 = "\u6A19\u7C64\u532F\u51FA\u8A2D\u7F6E";
-  const BB4C5taWpmw06X0Kz_Gtk$2 = "\u8A2D\u7F6E\u6B0A\u91CD";
-  const zg2GRF6zmMXCkT9Uz2Bni$2 = "\u5168\u9078";
-  const xSC1vpAOTLQ3RBipKrNpD$2 = "\u53D6\u6D88\u5168\u9078";
-  const cKXET1CCnAXq4H60qr8uc$2 = "\u53CD\u9078";
-  const QH_xm27zhgs5E1077asf1$2 = "\u532F\u51FA";
-  const Uw9QwD1SaR2VjZEqDYRdb$2 = "\u90E8\u5206\u8A2D\u7F6E\u9700\u8981\u5237\u65B0\u9801\u9762\u5F8C\u751F\u6548";
-  const ECpLfRMsS0zpJPTw0qqNs$2 = "\u8A73\u60C5\u64CD\u4F5C\u6B04\u6309\u9215\u7F6E\u65BC\u5E95\u90E8";
-  const vJobIibroyz2wkpmONSnR$2 = "\u5716\u7247\u8A73\u60C5\u5F48\u7A97\u7684\u64CD\u4F5C\u6309\u9215\u6B04\u8207\u6A19\u7C64\u6B04\u4F4D\u7F6E\u4E92\u63DB";
-  const I_MKXUxaNXp3D35GFULn4$2 = "\u6B64\u9078\u9805\u95DC\u9589\u6642\uFF0C\u9EDE\u64CA\u8A73\u60C5\u5716\u7247\u6703\u5207\u63DB\u6309\u9215\u8207\u6A19\u7C64\u7684\u986F\u793A\u96B1\u85CF";
-  const dm7zGAYbP2sbGXO_ekDDl$2 = "Justified \u4F48\u5C40\u5BEC\u5EA6\u4FC2\u6578";
-  var zhHant = {
-    UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$2,
-    "1F-R4qChHIzZaohu5GJzl": "\u5F62\u5982: &api_key=xx&user_id=1",
-    "23iEYyiQlLVhFIqGbj527": "\u554F\u984C\u8207\u5EFA\u8B70",
-    "2ZPEAvLkCbV3mC0iJAw9K": "\u6536\u85CF",
-    "4g1TUy2kwQrdOs-w4JobB": "\u9EDE\u64CA\u53CD\u994B",
-    "4hOFoP4M3ZkL3RiN7XOc8": "\u6C92\u4E86",
-    "6acPWiYq2-OdySa2_xqDu": "\u96A8\u6A5F",
-    "6jPGehET9TViankl5-SRu": "\u7B49\u5BEC\u4E0D\u7B49\u9AD8",
-    "7Cgsr4PUMbezDXNfWdvWH": "\u4EBA\u6C23\u4F5C\u54C1",
-    "7Xq5puLNcT0mAvoxElqdf": "\u6B61\u8FCE Star \u2606\u5F61",
-    "9juZMc0gPIgvMPKVORpJ1": "\u4EBA\u6C23",
-    A16qoBulYQJLbHe9mqNwm: A16qoBulYQJLbHe9mqNwm$2,
-    "B_ptN5O-9PhmG5ymGGtc6": "\u67E5\u770B\u5927\u5716",
-    CacM8tispuPNrSxxpt9GX: CacM8tispuPNrSxxpt9GX$2,
-    ClZdL9hGweOokP7Mn_Ptq: ClZdL9hGweOokP7Mn_Ptq$2,
-    DXEhXAQbkiCMU_l252jo_: DXEhXAQbkiCMU_l252jo_$2,
-    Dnnio9m9RZA6bkTLytc99: Dnnio9m9RZA6bkTLytc99$2,
-    EsiorRgoeHI8h7IHMLDA4: EsiorRgoeHI8h7IHMLDA4$2,
-    FAqj5ONm50QMfIt9Vq2p1: FAqj5ONm50QMfIt9Vq2p1$2,
-    FT1uJs8XG__n5qBvuFsH4: FT1uJs8XG__n5qBvuFsH4$2,
-    G3b7rbyQEj3_rgzVsNJZY: G3b7rbyQEj3_rgzVsNJZY$2,
-    GjMNbm97OgVvpIYlkOisE: GjMNbm97OgVvpIYlkOisE$2,
-    HzMBcS2oNGVIoLiHWprim: HzMBcS2oNGVIoLiHWprim$2,
-    "J2Ckb_-LITfmww4aEksqk": "\u8F38\u51FA\u4E0B\u8F09\u5730\u5740",
-    "KkkM-iz8RCVQoTrTfhS5j": "\u539F\u59CB\u5927\u5C0F",
-    "LZbI8am7nD-LiemZzroFF": "\u7B49\u9AD8\u4E0D\u7B49\u5BEC",
-    Lm_HFVHpv4XCjilV3NLKu: Lm_HFVHpv4XCjilV3NLKu$2,
-    "M-wISnLiQgM_DURMwKZGT": "\u9069\u61C9\u9801\u9762",
-    "MWVfUiW8egLWq7MgV-wzc": "\u6536\u85CF\u5931\u6557",
-    "Mt3-hyoH7f_pW2gnfxyur": "\u6309\u65E5",
-    OKs1ePekQA4Ona839U114: OKs1ePekQA4Ona839U114$2,
-    "OrwwNKZ7I70-ecpspE8d_": "\u5207\u63DB\u5168\u5C4F",
-    "PQhFo-g7sgagimkleVoZR": "\u6309\u6708",
-    "PT74UDfKA45vTVTst_-hD": "\u95DC\u65BC",
-    RN4dt81l_fZMWODsskZob: RN4dt81l_fZMWODsskZob$2,
-    RstKmO7YVQMpaDoucxUel: RstKmO7YVQMpaDoucxUel$2,
-    SIUUZ4wqJTOilEdcX3EOi: SIUUZ4wqJTOilEdcX3EOi$2,
-    "StU1-52QJmNFKQ5soJCyG": "\u96A8\u6A5F\u4F5C\u54C1",
-    "VpuyxZtIoDF9-YyOm0tK_": "\u4E0B\u8F09\u539F\u6587\u4EF6",
-    "Xtk-NnMgSQZmheJ87nbRV": "\u4E0B\u8F09",
-    XvOYJ5gHo37M1XztPl18z: XvOYJ5gHo37M1XztPl18z$2,
-    Ym0HIEu9Q80qXB31LuC6c: Ym0HIEu9Q80qXB31LuC6c$2,
-    Z4pa8GhgE63OGGvCqAld0: Z4pa8GhgE63OGGvCqAld0$2,
-    "ZtQHZx-pEjmu_o3dQD1fc": "\u793E\u5718",
-    ZztrWbSaaaas3v0cHtSmh: ZztrWbSaaaas3v0cHtSmh$2,
-    _Efl8k8uYQj9iJmj3kwbd: _Efl8k8uYQj9iJmj3kwbd$2,
-    _bQs7o9oQSo7ao1G0cp3d: _bQs7o9oQSo7ao1G0cp3d$2,
-    _nQfaNuwbvPAIFKOY6_7u: _nQfaNuwbvPAIFKOY6_7u$2,
-    aVqN9TBRCbNGsW3Y2D2Nm: aVqN9TBRCbNGsW3Y2D2Nm$2,
-    ad8lEoWap_nT9U69WBKen: ad8lEoWap_nT9U69WBKen$2,
-    aonlPAu9kEkkwNvQg0DBk: aonlPAu9kEkkwNvQg0DBk$2,
-    cKn4cfAxzdgh_HD6OFibB: cKn4cfAxzdgh_HD6OFibB$2,
-    caFFJlrS1wa_F86uKPykd: caFFJlrS1wa_F86uKPykd$2,
-    ctWGhVvqB2k_1TX2iY0l2: ctWGhVvqB2k_1TX2iY0l2$2,
-    dU7ou5kVM0s9DMju5e2tS: dU7ou5kVM0s9DMju5e2tS$2,
-    e2_EYvweJsVoIZlIWkPRV: e2_EYvweJsVoIZlIWkPRV$2,
-    "elkBQ9moOZ-KMcy5bt_Ts": "\u6700\u8FD1\u4EBA\u6C23",
-    fC8XNfCl04zK7vgeaRZMQ: fC8XNfCl04zK7vgeaRZMQ$2,
-    fVE5taO6GDTPbILat4GCt: fVE5taO6GDTPbILat4GCt$2,
-    gM92sLo0Cqfl2rCaXlOhc: gM92sLo0Cqfl2rCaXlOhc$2,
-    hVmfDxXoj8vkgVQabEOSr: hVmfDxXoj8vkgVQabEOSr$2,
-    "iJ0h220tvMmUhkfIMYI-W": "\u67E5\u770B\u66F4\u65B0\u65E5\u8A8C",
-    "iRt9V9wNQASic3D7-wTZo": "\u5BE6\u9A57\u6027/\u4E0D\u4FDD\u8B49\u53EF\u7528",
-    "jDjashxA-oBPo19DXI504": "\u539F\u5716",
-    "jMod2JozzAnwHuD-3KuPb": "\u4E0B\u65B9\u8F38\u5165\u6A19\u7C64\uFF0C\u56DE\u8ECA\u6DFB\u52A0",
-    jerGO2OCuW9TdnEnGYRWd: jerGO2OCuW9TdnEnGYRWd$2,
-    juT6gwLOg5r1h2vFpFf6P: juT6gwLOg5r1h2vFpFf6P$2,
-    k4YzDnBtd_S2UpAQucGxF: k4YzDnBtd_S2UpAQucGxF$2,
-    kFcteLMfnoezhOwuTlLFC: kFcteLMfnoezhOwuTlLFC$2,
-    "kop_-39vkeg-bz2wztJ9O": "\u5716\u7247\u5217\u8868\u4F48\u5C40",
-    "l5W-EtJ_ar-SY2lF4H5Zm": "\u986F\u793A",
-    l8CbIALt_VWUnzBl_Rmgf: l8CbIALt_VWUnzBl_Rmgf$2,
-    "lPPsX2CZbXwC-EGN79Rki": "\u7E2E\u5C0F",
-    "nd4UjZy2ILsc-iW9iu7xR": "\u6309\u65E5\u671F",
-    pEU9Y9K7DsODkocCDwq_O: pEU9Y9K7DsODkocCDwq_O$2,
-    qSF4OLshg2EEX4CwtBE6r: qSF4OLshg2EEX4CwtBE6r$2,
-    qWcqQRsE9nN43MaZ2BmN9: qWcqQRsE9nN43MaZ2BmN9$2,
-    rXjhc8VuGloy1wZ09noNB: rXjhc8VuGloy1wZ09noNB$2,
-    "riciqzr6ILBnpPc7KtG-C": "\u6309\u9031",
-    "t83UAY18UebTg1_-zFGP3": "\u95DC\u9589",
-    tGi6xYfvStBmR8qduEmKX: tGi6xYfvStBmR8qduEmKX$2,
-    "tt_YdgKCA_5m-aSTSMPQ_": "\u7011\u5E03\u6D41\u5217\u6578",
-    u8mEnSo4mxDRUbj7FeAll: u8mEnSo4mxDRUbj7FeAll$2,
-    uxIs3XkeVzkrEX985zHk3: uxIs3XkeVzkrEX985zHk3$2,
-    vfUg8xP6WptIhSL0E9b9D: vfUg8xP6WptIhSL0E9b9D$2,
-    w95XGurDhDfOfw7XH4JFW: w95XGurDhDfOfw7XH4JFW$2,
-    wI4KHHIe3zNRziW4lDZrp: wI4KHHIe3zNRziW4lDZrp$2,
-    "xJJTEE3nZ4HVXGFfiN-LC": "\u5F35",
-    ze1PaiGdX4ufmoOLv_xw6: ze1PaiGdX4ufmoOLv_xw6$2,
-    zs8YTCc8d8XFUgRnp7m_w: zs8YTCc8d8XFUgRnp7m_w$2,
-    PBjdNKuj02doUvOf2zZqP: PBjdNKuj02doUvOf2zZqP$2,
-    z_oL9s5fS164W4_gITOGZ: z_oL9s5fS164W4_gITOGZ$2,
-    "0VAN4cJ-_mUxvtmg4KEi1": "\u78BA\u5B9A",
-    "9dq_DxgMG88eom9Gq-4nT": "\u53D6\u6D88",
-    LN_Rsic4V50DrXbsv9T9L: LN_Rsic4V50DrXbsv9T9L$2,
-    OJ8X55GXx5k3peoSXSujf: OJ8X55GXx5k3peoSXSujf$2,
-    ti3akdSS3iZV9NsGzIo3m: ti3akdSS3iZV9NsGzIo3m$2,
-    ujBgilCWNgFNV8Q2IDMWS: ujBgilCWNgFNV8Q2IDMWS$2,
-    sMkrF8bqCTJZZ1kXTkT_R: sMkrF8bqCTJZZ1kXTkT_R$2,
-    u0K7A_hv1RZSJl6TDR61A: u0K7A_hv1RZSJl6TDR61A$2,
-    "99kLMSzDYJCAf1yK9QYzy": "\u5DF2\u8907\u88FD",
-    EVPG1YZDtykdz3htyf11u: EVPG1YZDtykdz3htyf11u$2,
-    fbIpwMw2yVoSxP66OJ32z: fbIpwMw2yVoSxP66OJ32z$2,
-    kCYFwKpwznYIKRmB1tCww: kCYFwKpwznYIKRmB1tCww$2,
-    "si-zDDRFrEwDTCkp53Q44": "\u8ACB\u5141\u8A31\u526A\u8CBC\u7C3F\u6B0A\u9650",
-    tEvQYzSVnggYAcM1uv9Tt: tEvQYzSVnggYAcM1uv9Tt$2,
-    "eOxsWLzwqrlhBdVMwz-rH": "\u63A8\u85A6\u7DB2\u7AD9",
-    "4yzHPggVky2QKFD2TbBhl": "\u7E2E\u5716\u4F7F\u7528\u5927\u5716",
-    HSx0XMZFid_lVuwjzrhH0: HSx0XMZFid_lVuwjzrhH0$2,
-    "EZd1QQdgUDjT3yya5ZYe-": "\u958B\u555F\u4F86\u6E90\u7AD9\u6642\u76F4\u63A5\u9032\u5165\u7011\u5E03\u6D41\u700F\u89BD\u6A21\u5F0F",
-    lkCkz1OpNtTCFRfGCEoBp: lkCkz1OpNtTCFRfGCEoBp$2,
-    e4_fgvntwNlfxgJUc2dXK: e4_fgvntwNlfxgJUc2dXK$2,
-    gPt6cpWrkvqRqZnwJo1KV: gPt6cpWrkvqRqZnwJo1KV$2,
-    sxhTRqogDRozo9IaTGI7g: sxhTRqogDRozo9IaTGI7g$2,
-    dvs63FvVKWm3uHVfqeq00: dvs63FvVKWm3uHVfqeq00$2,
-    "w4uJjpTmSEkm6SIDgEo-0": "\u5716\u7247\u8A73\u60C5\u4F7F\u7528\u652F\u63F4\u7E2E\u653E\u65CB\u8F49\u7B49\u64CD\u4F5C\u7684 Fancybox \u7D44\u4EF6\u67E5\u770B",
-    Tbq8O5KhwcDHQ_qxNFW09: Tbq8O5KhwcDHQ_qxNFW09$2,
-    IxTawC_qs_xjxj5g8_aGx: IxTawC_qs_xjxj5g8_aGx$2,
-    "-x4wjDoHtodaXEgm2SXkg": "\u547C\u53EB API \u6642\u6703\u9810\u8A2D\u50B3\u5165 `holds:false` \u6A19\u7C64",
-    YAUNSVT_pTygaY306DZmU: YAUNSVT_pTygaY306DZmU$2,
-    HkRzE7fweBSefchs0z0r8: HkRzE7fweBSefchs0z0r8$2,
-    yYtssYrCL8VwFrdvvx8v3: yYtssYrCL8VwFrdvvx8v3$2,
-    UqbfVZzRyk0iD2NcOii_E: UqbfVZzRyk0iD2NcOii_E$2,
-    _4E2zv2NpOG4y8TV5PRL0: _4E2zv2NpOG4y8TV5PRL0$2,
-    "FMi4atPbKn-B1HiAZ2ZP2": "\u532F\u51FA\u6A19\u7C64",
-    Cu6n0Apv5xVlo4DnQbVbT: Cu6n0Apv5xVlo4DnQbVbT$2,
-    BB4C5taWpmw06X0Kz_Gtk: BB4C5taWpmw06X0Kz_Gtk$2,
-    zg2GRF6zmMXCkT9Uz2Bni: zg2GRF6zmMXCkT9Uz2Bni$2,
-    xSC1vpAOTLQ3RBipKrNpD: xSC1vpAOTLQ3RBipKrNpD$2,
-    cKXET1CCnAXq4H60qr8uc: cKXET1CCnAXq4H60qr8uc$2,
-    QH_xm27zhgs5E1077asf1: QH_xm27zhgs5E1077asf1$2,
-    Uw9QwD1SaR2VjZEqDYRdb: Uw9QwD1SaR2VjZEqDYRdb$2,
-    ECpLfRMsS0zpJPTw0qqNs: ECpLfRMsS0zpJPTw0qqNs$2,
-    vJobIibroyz2wkpmONSnR: vJobIibroyz2wkpmONSnR$2,
-    "HPukB-OKzIuRxMmO4Rx2U": "\u9EDE\u64CA\u8A73\u60C5\u5716\u7247\u95DC\u9589\u5F48\u7A97",
-    I_MKXUxaNXp3D35GFULn4: I_MKXUxaNXp3D35GFULn4$2,
-    dm7zGAYbP2sbGXO_ekDDl: dm7zGAYbP2sbGXO_ekDDl$2
-  };
-  const UxxldE9xRwmQctrvba5Y8$1 = "Settings";
-  const A16qoBulYQJLbHe9mqNwm$1 = "Contains excessive content such as nudity and sexual descriptions";
-  const CacM8tispuPNrSxxpt9GX$1 = "Shortcuts";
-  const ClZdL9hGweOokP7Mn_Ptq$1 = "Exit Waterfall Mode";
-  const DXEhXAQbkiCMU_l252jo_$1 = "Pools";
-  const Dnnio9m9RZA6bkTLytc99$1 = "Add to favorites";
-  const EsiorRgoeHI8h7IHMLDA4$1 = "Open in new tab";
-  const FAqj5ONm50QMfIt9Vq2p1$1 = "Download error";
-  const FT1uJs8XG__n5qBvuFsH4$1 = "The details pop-up window preloads the next sample image/original image";
-  const G3b7rbyQEj3_rgzVsNJZY$1 = "Number of images preloaded";
-  const GjMNbm97OgVvpIYlkOisE$1 = "Adapt to height";
-  const HzMBcS2oNGVIoLiHWprim$1 = "Favorites";
-  const Lm_HFVHpv4XCjilV3NLKu$1 = "Show NSFW content";
-  const OKs1ePekQA4Ona839U114$1 = "Download list";
-  const RN4dt81l_fZMWODsskZob$1 = "Loading";
-  const RstKmO7YVQMpaDoucxUel$1 = "Current Site API Credentials";
-  const SIUUZ4wqJTOilEdcX3EOi$1 = "Details pop-up scroll wheel to switch images";
-  const XvOYJ5gHo37M1XztPl18z$1 = "Fullscreen";
-  const Ym0HIEu9Q80qXB31LuC6c$1 = "Illustrator";
-  const Z4pa8GhgE63OGGvCqAld0$1 = "No more";
-  const ZztrWbSaaaas3v0cHtSmh$1 = "Search tags";
-  const _Efl8k8uYQj9iJmj3kwbd$1 = "Local Tag Blacklist";
-  const _bQs7o9oQSo7ao1G0cp3d$1 = "Rotate";
-  const _nQfaNuwbvPAIFKOY6_7u$1 = "Listen for wheel events";
-  const aVqN9TBRCbNGsW3Y2D2Nm$1 = "Large image";
-  const ad8lEoWap_nT9U69WBKen$1 = "Adapt to width";
-  const aonlPAu9kEkkwNvQg0DBk$1 = "Character";
-  const cKn4cfAxzdgh_HD6OFibB$1 = "Start download";
-  const caFFJlrS1wa_F86uKPykd$1 = "Details";
-  const ctWGhVvqB2k_1TX2iY0l2$1 = "Add to favorites success";
-  const dU7ou5kVM0s9DMju5e2tS$1 = "Column(s)";
-  const e2_EYvweJsVoIZlIWkPRV$1 = "Site list";
-  const fC8XNfCl04zK7vgeaRZMQ$1 = "Load more";
-  const fVE5taO6GDTPbILat4GCt$1 = "Listen for keyboard events";
-  const gM92sLo0Cqfl2rCaXlOhc$1 = "Hide";
-  const hVmfDxXoj8vkgVQabEOSr$1 = "Add to download list";
-  const jerGO2OCuW9TdnEnGYRWd$1 = "Click to view";
-  const juT6gwLOg5r1h2vFpFf6P$1 = "Copyright";
-  const k4YzDnBtd_S2UpAQucGxF$1 = "Download jpeg image";
-  const kFcteLMfnoezhOwuTlLFC$1 = "Detailed image preloading";
-  const l8CbIALt_VWUnzBl_Rmgf$1 = "Booru sites waterfall browsing";
-  const pEU9Y9K7DsODkocCDwq_O$1 = "Bookmarked";
-  const qSF4OLshg2EEX4CwtBE6r$1 = "Source";
-  const qWcqQRsE9nN43MaZ2BmN9$1 = "Web version";
-  const rXjhc8VuGloy1wZ09noNB$1 = "When the list is less than 7 columns, the list will load a large image";
-  const tGi6xYfvStBmR8qduEmKX$1 = "View";
-  const u8mEnSo4mxDRUbj7FeAll$1 = "Toggle dark mode";
-  const uxIs3XkeVzkrEX985zHk3$1 = "Auto";
-  const vfUg8xP6WptIhSL0E9b9D$1 = "Equal width and height";
-  const w95XGurDhDfOfw7XH4JFW$1 = "Use A/D/\u2190/\u2192 to switch images in the detail pop-up window";
-  const wI4KHHIe3zNRziW4lDZrp$1 = "Download sample image";
-  const ze1PaiGdX4ufmoOLv_xw6$1 = "By year";
-  const zs8YTCc8d8XFUgRnp7m_w$1 = "My favorites";
-  const PBjdNKuj02doUvOf2zZqP$1 = "Save images to subfolders";
-  const z_oL9s5fS164W4_gITOGZ$1 = `Create a folder named after the site in the default download directory to store pictures, you need to change Tampermonkey's "Download Mode" to "Browser API"`;
-  const LN_Rsic4V50DrXbsv9T9L$1 = `Are you sure you want to enable subfolder downloads? 
-Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
-  const OJ8X55GXx5k3peoSXSujf$1 = 'How to open it: Change the "Configuration Mode" in the Tampermonkey settings from "Novice" to "Advanced", then find "Download BETA", and change the "Download Mode" to "Browser API".';
-  const ti3akdSS3iZV9NsGzIo3m$1 = "Tips";
-  const ujBgilCWNgFNV8Q2IDMWS$1 = 'Tip: For convenience, you can turn off the "Ask where to save each file before downloading" option in the browser settings.';
-  const sMkrF8bqCTJZZ1kXTkT_R$1 = "Parent";
-  const u0K7A_hv1RZSJl6TDR61A$1 = "Child";
-  const EVPG1YZDtykdz3htyf11u$1 = "Copy to clipboard";
-  const fbIpwMw2yVoSxP66OJ32z$1 = "Images fill the screen";
-  const kCYFwKpwznYIKRmB1tCww$1 = "Read from clipboard";
-  const tEvQYzSVnggYAcM1uv9Tt$1 = "When this feature is turned off, both sides of the screen will be blank.";
-  const HSx0XMZFid_lVuwjzrhH0$1 = "Use the large image link(sample_url) to load the list image thumbnail.";
-  const lkCkz1OpNtTCFRfGCEoBp$1 = "Automatically enter waterfall mode";
-  const e4_fgvntwNlfxgJUc2dXK$1 = "Language";
-  const gPt6cpWrkvqRqZnwJo1KV$1 = "Display a checkbox to add to the download list in the upper left corner of the image card";
-  const sxhTRqogDRozo9IaTGI7g$1 = "Show checkbox in list image card";
-  const dvs63FvVKWm3uHVfqeq00$1 = "Use Fancybox to view details";
-  const Tbq8O5KhwcDHQ_qxNFW09$1 = "Experimental";
-  const IxTawC_qs_xjxj5g8_aGx$1 = "Hide held posts";
-  const YAUNSVT_pTygaY306DZmU$1 = "yande.re does not use API to get image list";
-  const HkRzE7fweBSefchs0z0r8$1 = "Directly parsing HTML to obtain image data";
-  const yYtssYrCL8VwFrdvvx8v3$1 = "Virtual list (equal width and unequal height)";
-  const UqbfVZzRyk0iD2NcOii_E$1 = "Show resolution in list image card.";
-  const _4E2zv2NpOG4y8TV5PRL0$1 = "Display the resolution of the original image in the lower left corner of the image card";
-  const Cu6n0Apv5xVlo4DnQbVbT$1 = "Tags Export Settings";
-  const BB4C5taWpmw06X0Kz_Gtk$1 = "Setting weights";
-  const zg2GRF6zmMXCkT9Uz2Bni$1 = "All";
-  const xSC1vpAOTLQ3RBipKrNpD$1 = "None";
-  const cKXET1CCnAXq4H60qr8uc$1 = "Invert";
-  const QH_xm27zhgs5E1077asf1$1 = "Export";
-  const Uw9QwD1SaR2VjZEqDYRdb$1 = "Some settings need to refresh the page to take effect.";
-  const ECpLfRMsS0zpJPTw0qqNs$1 = "Place the action bar button at the bottom of the details popup window";
-  const vJobIibroyz2wkpmONSnR$1 = "Swap the positions of the action button bar and the label bar of the image details pop-up window";
-  const I_MKXUxaNXp3D35GFULn4$1 = "When this option is turned off, clicking the detail image will toggle the display and hiding of buttons and tags.";
-  const dm7zGAYbP2sbGXO_ekDDl$1 = "Justified layout width factor";
-  var en = {
-    UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$1,
-    "1F-R4qChHIzZaohu5GJzl": "e.g: &api_key=xx&user_id=1",
-    "23iEYyiQlLVhFIqGbj527": "Questions and Suggestions",
-    "2ZPEAvLkCbV3mC0iJAw9K": "Add to favorites",
-    "4g1TUy2kwQrdOs-w4JobB": "Click to feedback",
-    "4hOFoP4M3ZkL3RiN7XOc8": "No more",
-    "6acPWiYq2-OdySa2_xqDu": "Random",
-    "6jPGehET9TViankl5-SRu": "Equal width and different height",
-    "7Cgsr4PUMbezDXNfWdvWH": "Popular",
-    "7Xq5puLNcT0mAvoxElqdf": "Welcome Star \u2606\u5F61",
-    "9juZMc0gPIgvMPKVORpJ1": "Popular",
-    A16qoBulYQJLbHe9mqNwm: A16qoBulYQJLbHe9mqNwm$1,
-    "B_ptN5O-9PhmG5ymGGtc6": "View larger image",
-    CacM8tispuPNrSxxpt9GX: CacM8tispuPNrSxxpt9GX$1,
-    ClZdL9hGweOokP7Mn_Ptq: ClZdL9hGweOokP7Mn_Ptq$1,
-    DXEhXAQbkiCMU_l252jo_: DXEhXAQbkiCMU_l252jo_$1,
-    Dnnio9m9RZA6bkTLytc99: Dnnio9m9RZA6bkTLytc99$1,
-    EsiorRgoeHI8h7IHMLDA4: EsiorRgoeHI8h7IHMLDA4$1,
-    FAqj5ONm50QMfIt9Vq2p1: FAqj5ONm50QMfIt9Vq2p1$1,
-    FT1uJs8XG__n5qBvuFsH4: FT1uJs8XG__n5qBvuFsH4$1,
-    G3b7rbyQEj3_rgzVsNJZY: G3b7rbyQEj3_rgzVsNJZY$1,
-    GjMNbm97OgVvpIYlkOisE: GjMNbm97OgVvpIYlkOisE$1,
-    HzMBcS2oNGVIoLiHWprim: HzMBcS2oNGVIoLiHWprim$1,
-    "J2Ckb_-LITfmww4aEksqk": "Output download links",
-    "KkkM-iz8RCVQoTrTfhS5j": "Original size",
-    "LZbI8am7nD-LiemZzroFF": "Equal height and unequal width",
-    Lm_HFVHpv4XCjilV3NLKu: Lm_HFVHpv4XCjilV3NLKu$1,
-    "M-wISnLiQgM_DURMwKZGT": "Fit page",
-    "MWVfUiW8egLWq7MgV-wzc": "Add to favorites failed",
-    "Mt3-hyoH7f_pW2gnfxyur": "By day",
-    OKs1ePekQA4Ona839U114: OKs1ePekQA4Ona839U114$1,
-    "OrwwNKZ7I70-ecpspE8d_": "Toggle fullscreen",
-    "PQhFo-g7sgagimkleVoZR": "By month",
-    "PT74UDfKA45vTVTst_-hD": "About",
-    RN4dt81l_fZMWODsskZob: RN4dt81l_fZMWODsskZob$1,
-    RstKmO7YVQMpaDoucxUel: RstKmO7YVQMpaDoucxUel$1,
-    SIUUZ4wqJTOilEdcX3EOi: SIUUZ4wqJTOilEdcX3EOi$1,
-    "StU1-52QJmNFKQ5soJCyG": "Random",
-    "VpuyxZtIoDF9-YyOm0tK_": "Download the original file",
-    "Xtk-NnMgSQZmheJ87nbRV": "Download",
-    XvOYJ5gHo37M1XztPl18z: XvOYJ5gHo37M1XztPl18z$1,
-    Ym0HIEu9Q80qXB31LuC6c: Ym0HIEu9Q80qXB31LuC6c$1,
-    Z4pa8GhgE63OGGvCqAld0: Z4pa8GhgE63OGGvCqAld0$1,
-    "ZtQHZx-pEjmu_o3dQD1fc": "Circle",
-    ZztrWbSaaaas3v0cHtSmh: ZztrWbSaaaas3v0cHtSmh$1,
-    _Efl8k8uYQj9iJmj3kwbd: _Efl8k8uYQj9iJmj3kwbd$1,
-    _bQs7o9oQSo7ao1G0cp3d: _bQs7o9oQSo7ao1G0cp3d$1,
-    _nQfaNuwbvPAIFKOY6_7u: _nQfaNuwbvPAIFKOY6_7u$1,
-    aVqN9TBRCbNGsW3Y2D2Nm: aVqN9TBRCbNGsW3Y2D2Nm$1,
-    ad8lEoWap_nT9U69WBKen: ad8lEoWap_nT9U69WBKen$1,
-    aonlPAu9kEkkwNvQg0DBk: aonlPAu9kEkkwNvQg0DBk$1,
-    cKn4cfAxzdgh_HD6OFibB: cKn4cfAxzdgh_HD6OFibB$1,
-    caFFJlrS1wa_F86uKPykd: caFFJlrS1wa_F86uKPykd$1,
-    ctWGhVvqB2k_1TX2iY0l2: ctWGhVvqB2k_1TX2iY0l2$1,
-    dU7ou5kVM0s9DMju5e2tS: dU7ou5kVM0s9DMju5e2tS$1,
-    e2_EYvweJsVoIZlIWkPRV: e2_EYvweJsVoIZlIWkPRV$1,
-    "elkBQ9moOZ-KMcy5bt_Ts": "Recent Popular",
-    fC8XNfCl04zK7vgeaRZMQ: fC8XNfCl04zK7vgeaRZMQ$1,
-    fVE5taO6GDTPbILat4GCt: fVE5taO6GDTPbILat4GCt$1,
-    gM92sLo0Cqfl2rCaXlOhc: gM92sLo0Cqfl2rCaXlOhc$1,
-    hVmfDxXoj8vkgVQabEOSr: hVmfDxXoj8vkgVQabEOSr$1,
-    "iJ0h220tvMmUhkfIMYI-W": "Check out the changelog",
-    "iRt9V9wNQASic3D7-wTZo": "Experimental/not guaranteed",
-    "jDjashxA-oBPo19DXI504": "Original image",
-    "jMod2JozzAnwHuD-3KuPb": "Input the tags below and press Enter to add",
-    jerGO2OCuW9TdnEnGYRWd: jerGO2OCuW9TdnEnGYRWd$1,
-    juT6gwLOg5r1h2vFpFf6P: juT6gwLOg5r1h2vFpFf6P$1,
-    k4YzDnBtd_S2UpAQucGxF: k4YzDnBtd_S2UpAQucGxF$1,
-    kFcteLMfnoezhOwuTlLFC: kFcteLMfnoezhOwuTlLFC$1,
-    "kop_-39vkeg-bz2wztJ9O": "Image List Layout",
-    "l5W-EtJ_ar-SY2lF4H5Zm": "Show",
-    l8CbIALt_VWUnzBl_Rmgf: l8CbIALt_VWUnzBl_Rmgf$1,
-    "lPPsX2CZbXwC-EGN79Rki": "Zoom out",
-    "nd4UjZy2ILsc-iW9iu7xR": "By date",
-    pEU9Y9K7DsODkocCDwq_O: pEU9Y9K7DsODkocCDwq_O$1,
-    qSF4OLshg2EEX4CwtBE6r: qSF4OLshg2EEX4CwtBE6r$1,
-    qWcqQRsE9nN43MaZ2BmN9: qWcqQRsE9nN43MaZ2BmN9$1,
-    rXjhc8VuGloy1wZ09noNB: rXjhc8VuGloy1wZ09noNB$1,
-    "riciqzr6ILBnpPc7KtG-C": "By week",
-    "t83UAY18UebTg1_-zFGP3": "Close",
-    tGi6xYfvStBmR8qduEmKX: tGi6xYfvStBmR8qduEmKX$1,
-    "tt_YdgKCA_5m-aSTSMPQ_": "Number of waterfall columns",
-    u8mEnSo4mxDRUbj7FeAll: u8mEnSo4mxDRUbj7FeAll$1,
-    uxIs3XkeVzkrEX985zHk3: uxIs3XkeVzkrEX985zHk3$1,
-    vfUg8xP6WptIhSL0E9b9D: vfUg8xP6WptIhSL0E9b9D$1,
-    w95XGurDhDfOfw7XH4JFW: w95XGurDhDfOfw7XH4JFW$1,
-    wI4KHHIe3zNRziW4lDZrp: wI4KHHIe3zNRziW4lDZrp$1,
-    "xJJTEE3nZ4HVXGFfiN-LC": "pcs",
-    ze1PaiGdX4ufmoOLv_xw6: ze1PaiGdX4ufmoOLv_xw6$1,
-    zs8YTCc8d8XFUgRnp7m_w: zs8YTCc8d8XFUgRnp7m_w$1,
-    PBjdNKuj02doUvOf2zZqP: PBjdNKuj02doUvOf2zZqP$1,
-    z_oL9s5fS164W4_gITOGZ: z_oL9s5fS164W4_gITOGZ$1,
-    "0VAN4cJ-_mUxvtmg4KEi1": "OK",
-    "9dq_DxgMG88eom9Gq-4nT": "Cancel",
-    LN_Rsic4V50DrXbsv9T9L: LN_Rsic4V50DrXbsv9T9L$1,
-    OJ8X55GXx5k3peoSXSujf: OJ8X55GXx5k3peoSXSujf$1,
-    ti3akdSS3iZV9NsGzIo3m: ti3akdSS3iZV9NsGzIo3m$1,
-    ujBgilCWNgFNV8Q2IDMWS: ujBgilCWNgFNV8Q2IDMWS$1,
-    sMkrF8bqCTJZZ1kXTkT_R: sMkrF8bqCTJZZ1kXTkT_R$1,
-    u0K7A_hv1RZSJl6TDR61A: u0K7A_hv1RZSJl6TDR61A$1,
-    "99kLMSzDYJCAf1yK9QYzy": "Copied",
-    EVPG1YZDtykdz3htyf11u: EVPG1YZDtykdz3htyf11u$1,
-    fbIpwMw2yVoSxP66OJ32z: fbIpwMw2yVoSxP66OJ32z$1,
-    kCYFwKpwznYIKRmB1tCww: kCYFwKpwznYIKRmB1tCww$1,
-    "si-zDDRFrEwDTCkp53Q44": "Please allow clipboard permission",
-    tEvQYzSVnggYAcM1uv9Tt: tEvQYzSVnggYAcM1uv9Tt$1,
-    "eOxsWLzwqrlhBdVMwz-rH": "Recommended Websites",
-    "4yzHPggVky2QKFD2TbBhl": "Use large image link for thumbnail",
-    HSx0XMZFid_lVuwjzrhH0: HSx0XMZFid_lVuwjzrhH0$1,
-    "EZd1QQdgUDjT3yya5ZYe-": "Directly enter waterfall browsing mode when opening the source site",
-    lkCkz1OpNtTCFRfGCEoBp: lkCkz1OpNtTCFRfGCEoBp$1,
-    e4_fgvntwNlfxgJUc2dXK: e4_fgvntwNlfxgJUc2dXK$1,
-    gPt6cpWrkvqRqZnwJo1KV: gPt6cpWrkvqRqZnwJo1KV$1,
-    sxhTRqogDRozo9IaTGI7g: sxhTRqogDRozo9IaTGI7g$1,
-    dvs63FvVKWm3uHVfqeq00: dvs63FvVKWm3uHVfqeq00$1,
-    "w4uJjpTmSEkm6SIDgEo-0": "Using Fancybox that supports zooming/rotation/so on to view details.",
-    Tbq8O5KhwcDHQ_qxNFW09: Tbq8O5KhwcDHQ_qxNFW09$1,
-    IxTawC_qs_xjxj5g8_aGx: IxTawC_qs_xjxj5g8_aGx$1,
-    "-x4wjDoHtodaXEgm2SXkg": "When calling the API, the `holds:false` tag will be passed in by default.",
-    YAUNSVT_pTygaY306DZmU: YAUNSVT_pTygaY306DZmU$1,
-    HkRzE7fweBSefchs0z0r8: HkRzE7fweBSefchs0z0r8$1,
-    yYtssYrCL8VwFrdvvx8v3: yYtssYrCL8VwFrdvvx8v3$1,
-    UqbfVZzRyk0iD2NcOii_E: UqbfVZzRyk0iD2NcOii_E$1,
-    _4E2zv2NpOG4y8TV5PRL0: _4E2zv2NpOG4y8TV5PRL0$1,
-    "FMi4atPbKn-B1HiAZ2ZP2": "Export Tags",
-    Cu6n0Apv5xVlo4DnQbVbT: Cu6n0Apv5xVlo4DnQbVbT$1,
-    BB4C5taWpmw06X0Kz_Gtk: BB4C5taWpmw06X0Kz_Gtk$1,
-    zg2GRF6zmMXCkT9Uz2Bni: zg2GRF6zmMXCkT9Uz2Bni$1,
-    xSC1vpAOTLQ3RBipKrNpD: xSC1vpAOTLQ3RBipKrNpD$1,
-    cKXET1CCnAXq4H60qr8uc: cKXET1CCnAXq4H60qr8uc$1,
-    QH_xm27zhgs5E1077asf1: QH_xm27zhgs5E1077asf1$1,
-    Uw9QwD1SaR2VjZEqDYRdb: Uw9QwD1SaR2VjZEqDYRdb$1,
-    ECpLfRMsS0zpJPTw0qqNs: ECpLfRMsS0zpJPTw0qqNs$1,
-    vJobIibroyz2wkpmONSnR: vJobIibroyz2wkpmONSnR$1,
-    "HPukB-OKzIuRxMmO4Rx2U": "Close the pop-up window when you click on the detailed image",
-    I_MKXUxaNXp3D35GFULn4: I_MKXUxaNXp3D35GFULn4$1,
-    dm7zGAYbP2sbGXO_ekDDl: dm7zGAYbP2sbGXO_ekDDl$1
-  };
-  const UxxldE9xRwmQctrvba5Y8 = "\u8A2D\u5B9A";
-  const A16qoBulYQJLbHe9mqNwm = "\u30CC\u30FC\u30C9\u3084\u6027\u7684\u63CF\u5199\u306A\u3069\u306E\u904E\u5EA6\u306A\u5185\u5BB9\u304C\u542B\u307E\u308C\u3066\u3044\u308B\u3082\u306E";
-  const CacM8tispuPNrSxxpt9GX = "\u30B7\u30E7\u30FC\u30C8\u30AB\u30C3\u30C8";
-  const ClZdL9hGweOokP7Mn_Ptq = "\u30A6\u30A9\u30FC\u30BF\u30FC\u30D5\u30A9\u30FC\u30EB\u30E2\u30FC\u30C9\u3092\u7D42\u4E86\u3059\u308B";
-  const DXEhXAQbkiCMU_l252jo_ = "\u30D7\u30FC\u30EB";
-  const Dnnio9m9RZA6bkTLytc99 = "\u304A\u6C17\u306B\u5165\u308A\u306B\u8FFD\u52A0";
-  const EsiorRgoeHI8h7IHMLDA4 = "\u65B0\u3057\u3044\u30BF\u30D6\u3067\u958B\u304F";
-  const FAqj5ONm50QMfIt9Vq2p1 = "\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u30A8\u30E9\u30FC";
-  const FT1uJs8XG__n5qBvuFsH4 = "\u8A73\u7D30\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7 \u30A6\u30A3\u30F3\u30C9\u30A6\u306B\u306F\u3001\u6B21\u306E\u30B5\u30F3\u30D7\u30EB\u753B\u50CF/\u30AA\u30EA\u30B8\u30CA\u30EB\u753B\u50CF\u304C\u30D7\u30EA\u30ED\u30FC\u30C9\u3055\u308C\u307E\u3059\u3002";
-  const G3b7rbyQEj3_rgzVsNJZY = "\u30D7\u30EA\u30ED\u30FC\u30C9\u3055\u308C\u305F\u753B\u50CF\u306E\u6570";
-  const GjMNbm97OgVvpIYlkOisE = "\u9AD8\u3055\u306B\u9069\u5FDC\u3059\u308B";
-  const HzMBcS2oNGVIoLiHWprim = "\u304A\u6C17\u306B\u5165\u308A";
-  const Lm_HFVHpv4XCjilV3NLKu = "NSFW\u30B3\u30F3\u30C6\u30F3\u30C4\u3092\u8868\u793A";
-  const OKs1ePekQA4Ona839U114 = "\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u30EA\u30B9\u30C8";
-  const RN4dt81l_fZMWODsskZob = "\u8AAD\u307F\u8FBC\u307F\u4E2D";
-  const RstKmO7YVQMpaDoucxUel = "\u73FE\u5728\u306E\u30B5\u30A4\u30C8 API \u8A8D\u8A3C\u60C5\u5831";
-  const SIUUZ4wqJTOilEdcX3EOi = "\u753B\u50CF\u3092\u5207\u308A\u66FF\u3048\u308B\u305F\u3081\u306E\u8A73\u7D30\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7 \u30B9\u30AF\u30ED\u30FC\u30EB \u30DB\u30A4\u30FC\u30EB";
-  const XvOYJ5gHo37M1XztPl18z = "\u5168\u753B\u9762\u8868\u793A";
-  const Ym0HIEu9Q80qXB31LuC6c = "\u30A4\u30E9\u30B9\u30C8\u30EC\u30FC\u30BF\u30FC";
-  const Z4pa8GhgE63OGGvCqAld0 = "\u3082\u3046\u3044\u3084";
-  const ZztrWbSaaaas3v0cHtSmh = "\u30BF\u30B0\u3092\u691C\u7D22";
-  const _Efl8k8uYQj9iJmj3kwbd = "\u30ED\u30FC\u30AB\u30EB\u30BF\u30B0\u30D6\u30E9\u30C3\u30AF\u30EA\u30B9\u30C8";
-  const _bQs7o9oQSo7ao1G0cp3d = "\u56DE\u8EE2";
-  const _nQfaNuwbvPAIFKOY6_7u = "\u30DB\u30A4\u30FC\u30EB \u30A4\u30D9\u30F3\u30C8\u3092\u30EA\u30C3\u30B9\u30F3\u3059\u308B";
-  const aVqN9TBRCbNGsW3Y2D2Nm = "\u5927\u304D\u306A\u753B\u50CF";
-  const ad8lEoWap_nT9U69WBKen = "\u5E45\u306B\u5408\u308F\u305B\u308B";
-  const aonlPAu9kEkkwNvQg0DBk = "\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC";
-  const cKn4cfAxzdgh_HD6OFibB = "\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u958B\u59CB";
-  const caFFJlrS1wa_F86uKPykd = "\u8A73\u7D30";
-  const ctWGhVvqB2k_1TX2iY0l2 = "\u304A\u6C17\u306B\u5165\u308A\u306B\u8FFD\u52A0\u6210\u529F";
-  const dU7ou5kVM0s9DMju5e2tS = "\u6841";
-  const e2_EYvweJsVoIZlIWkPRV = "\u30B5\u30A4\u30C8\u30EA\u30B9\u30C8";
-  const fC8XNfCl04zK7vgeaRZMQ = "\u3082\u3063\u3068\u8AAD\u307F\u8FBC\u3080";
-  const fVE5taO6GDTPbILat4GCt = "\u30AD\u30FC\u30DC\u30FC\u30C9\u30A4\u30D9\u30F3\u30C8\u3092\u30EA\u30C3\u30B9\u30F3\u3059\u308B";
-  const gM92sLo0Cqfl2rCaXlOhc = "\u96A0\u308C\u308B";
-  const hVmfDxXoj8vkgVQabEOSr = "\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u30EA\u30B9\u30C8\u306B\u8FFD\u52A0";
-  const jerGO2OCuW9TdnEnGYRWd = "\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u8868\u793A";
-  const juT6gwLOg5r1h2vFpFf6P = "\u8457\u4F5C\u6A29";
-  const k4YzDnBtd_S2UpAQucGxF = "JPEG\u753B\u50CF\u3092\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9";
-  const kFcteLMfnoezhOwuTlLFC = "\u8A73\u7D30\u306A\u753B\u50CF\u306E\u30D7\u30EA\u30ED\u30FC\u30C9";
-  const l8CbIALt_VWUnzBl_Rmgf = "Booru \u30B5\u30A4\u30C8\u306E\u30A6\u30A9\u30FC\u30BF\u30FC\u30D5\u30A9\u30FC\u30EB \u30D6\u30E9\u30A6\u30B8\u30F3\u30B0";
-  const pEU9Y9K7DsODkocCDwq_O = "\u30D6\u30C3\u30AF\u30DE\u30FC\u30AF\u6E08\u307F";
-  const qSF4OLshg2EEX4CwtBE6r = "\u30BD\u30FC\u30B9";
-  const qWcqQRsE9nN43MaZ2BmN9 = "Web\u30D0\u30FC\u30B8\u30E7\u30F3";
-  const rXjhc8VuGloy1wZ09noNB = "\u30EA\u30B9\u30C8\u304C 7 \u5217\u672A\u6E80\u306E\u5834\u5408\u3001\u30EA\u30B9\u30C8\u306B\u306F\u5927\u304D\u306A\u753B\u50CF\u304C\u30ED\u30FC\u30C9\u3055\u308C\u307E\u3059\u3002";
-  const tGi6xYfvStBmR8qduEmKX = "\u898B\u308B";
-  const u8mEnSo4mxDRUbj7FeAll = "\u30C0\u30FC\u30AF\u30E2\u30FC\u30C9\u3092\u5207\u308A\u66FF\u3048\u308B";
-  const uxIs3XkeVzkrEX985zHk3 = "\u81EA\u52D5";
-  const vfUg8xP6WptIhSL0E9b9D = "\u5E45\u3068\u9AD8\u3055\u304C\u7B49\u3057\u3044";
-  const w95XGurDhDfOfw7XH4JFW = "A/D/\u2190/\u2192\u3067\u8A73\u7D30\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7\u30A6\u30A3\u30F3\u30C9\u30A6\u306E\u753B\u50CF\u3092\u5207\u308A\u66FF\u3048\u307E\u3059";
-  const wI4KHHIe3zNRziW4lDZrp = "\u30B5\u30F3\u30D7\u30EB\u753B\u50CF\u3092\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9";
-  const ze1PaiGdX4ufmoOLv_xw6 = "\u5E74\u5225";
-  const zs8YTCc8d8XFUgRnp7m_w = "\u79C1\u306E\u304A\u6C17\u306B\u5165\u308A";
-  const PBjdNKuj02doUvOf2zZqP = "\u753B\u50CF\u3092\u30B5\u30D6\u30D5\u30A9\u30EB\u30C0\u30FC\u306B\u4FDD\u5B58\u3059\u308B";
-  const z_oL9s5fS164W4_gITOGZ = "\u5199\u771F\u3092\u4FDD\u5B58\u3059\u308B\u306B\u306F\u3001\u30C7\u30D5\u30A9\u30EB\u30C8\u306E\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9 \u30C7\u30A3\u30EC\u30AF\u30C8\u30EA\u306B\u30B5\u30A4\u30C8\u306B\u3061\u306A\u3093\u3060\u540D\u524D\u306E\u30D5\u30A9\u30EB\u30C0\u30FC\u3092\u4F5C\u6210\u3057\u307E\u3059\u3002Tampermonkey \u306E\u300C\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9 \u30E2\u30FC\u30C9\u300D\u3092\u300C\u30D6\u30E9\u30A6\u30B6 API\u300D\u306B\u5909\u66F4\u3059\u308B\u5FC5\u8981\u304C\u3042\u308A\u307E\u3059\u3002";
-  const LN_Rsic4V50DrXbsv9T9L = "\u30B5\u30D6\u30D5\u30A9\u30EB\u30C0\u30FC\u306E\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u3092\u6709\u52B9\u306B\u3057\u3066\u3082\u3088\u308D\u3057\u3044\u3067\u3059\u304B? \nTampermonkey \u306E\u300C\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9 \u30E2\u30FC\u30C9\u300D\u3092\u300C\u30D6\u30E9\u30A6\u30B6 API\u300D\u306B\u5909\u66F4\u3057\u3066\u3044\u308B\u3053\u3068\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002";
-  const OJ8X55GXx5k3peoSXSujf = "\u958B\u304F\u65B9\u6CD5: Tampermonkey \u8A2D\u5B9A\u306E\u300C\u69CB\u6210\u30E2\u30FC\u30C9\u300D\u3092\u300C\u521D\u5FC3\u8005\u300D\u304B\u3089\u300C\u4E0A\u7D1A\u300D\u306B\u5909\u66F4\u3057\u3001\u300C\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9 \u30D9\u30FC\u30BF\u300D\u3092\u898B\u3064\u3051\u3066\u3001\u300C\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9 \u30E2\u30FC\u30C9\u300D\u3092\u300C\u30D6\u30E9\u30A6\u30B6 API\u300D\u306B\u5909\u66F4\u3057\u307E\u3059\u3002";
-  const ti3akdSS3iZV9NsGzIo3m = "\u30D2\u30F3\u30C8";
-  const ujBgilCWNgFNV8Q2IDMWS = "\u30D2\u30F3\u30C8: \u4FBF\u5B9C\u4E0A\u3001\u30D6\u30E9\u30A6\u30B6\u306E\u8A2D\u5B9A\u3067 [\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u524D\u306B\u5404\u30D5\u30A1\u30A4\u30EB\u306E\u4FDD\u5B58\u5834\u6240\u3092\u78BA\u8A8D\u3059\u308B] \u30AA\u30D7\u30B7\u30E7\u30F3\u3092\u30AA\u30D5\u306B\u3059\u308B\u3053\u3068\u304C\u3067\u304D\u307E\u3059\u3002";
-  const sMkrF8bqCTJZZ1kXTkT_R = "Parent";
-  const u0K7A_hv1RZSJl6TDR61A = "Child";
-  const EVPG1YZDtykdz3htyf11u = "\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u306B\u30B3\u30D4\u30FC";
-  const fbIpwMw2yVoSxP66OJ32z = "\u753B\u50CF\u304C\u753B\u9762\u3044\u3063\u3071\u3044\u306B\u8868\u793A\u3055\u308C\u308B";
-  const kCYFwKpwznYIKRmB1tCww = "\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u304B\u3089\u8AAD\u307F\u53D6\u308B";
-  const tEvQYzSVnggYAcM1uv9Tt = "\u3053\u306E\u6A5F\u80FD\u3092\u30AA\u30D5\u306B\u3059\u308B\u3068\u3001\u753B\u9762\u306E\u4E21\u5074\u304C\u7A7A\u767D\u306B\u306A\u308A\u307E\u3059\u3002";
-  const HSx0XMZFid_lVuwjzrhH0 = "\u753B\u50CF\u4E00\u89A7\u306E\u30B5\u30E0\u30CD\u30A4\u30EB\u306F\u5927\u304D\u306A\u753B\u50CF\u30EA\u30F3\u30AF(sample_url)\u3092\u4F7F\u7528\u3057\u3066\u3044\u307E\u3059";
-  const lkCkz1OpNtTCFRfGCEoBp = "\u81EA\u52D5\u7684\u306B\u30A6\u30A9\u30FC\u30BF\u30FC\u30D5\u30A9\u30FC\u30EB\u30D5\u30ED\u30FC\u30E2\u30FC\u30C9\u306B\u5165\u308A\u307E\u3059";
-  const e4_fgvntwNlfxgJUc2dXK = "\u8A00\u8A9E";
-  const gPt6cpWrkvqRqZnwJo1KV = "\u753B\u50CF\u30AB\u30FC\u30C9\u306E\u5DE6\u4E0A\u9685\u306B\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9 \u30EA\u30B9\u30C8\u306B\u8FFD\u52A0\u3059\u308B\u30C1\u30A7\u30C3\u30AF\u30DC\u30C3\u30AF\u30B9\u3092\u8868\u793A\u3057\u307E\u3059\u3002";
-  const sxhTRqogDRozo9IaTGI7g = "\u6295\u7A3F\u30EA\u30B9\u30C8\u306B\u753B\u50CF\u30C1\u30A7\u30C3\u30AF\u30DC\u30C3\u30AF\u30B9\u3092\u8868\u793A\u3059\u308B";
-  const dvs63FvVKWm3uHVfqeq00 = "Fancybox \u3092\u4F7F\u7528\u3057\u3066\u8A73\u7D30\u3092\u8868\u793A\u3059\u308B";
-  const Tbq8O5KhwcDHQ_qxNFW09 = "\u5B9F\u9A13\u7684";
-  const IxTawC_qs_xjxj5g8_aGx = "\u4FDD\u7559\u4E2D\u306E\u753B\u50CF\u3092\u975E\u8868\u793A\u306B\u3059\u308B";
-  const YAUNSVT_pTygaY306DZmU = "yande.re \u306F\u753B\u50CF\u30EA\u30B9\u30C8\u306E\u53D6\u5F97\u306B API \u3092\u4F7F\u7528\u3057\u307E\u305B\u3093";
-  const HkRzE7fweBSefchs0z0r8 = "HTML \u3092\u76F4\u63A5\u89E3\u6790\u3057\u3066\u753B\u50CF\u30C7\u30FC\u30BF\u3092\u53D6\u5F97\u3059\u308B";
-  const yYtssYrCL8VwFrdvvx8v3 = "\u4EEE\u60F3\u30EA\u30B9\u30C8 (\u5E45\u306F\u7B49\u3057\u304F\u3001\u9AD8\u3055\u306F\u7B49\u3057\u304F\u306A\u3044)";
-  const UqbfVZzRyk0iD2NcOii_E = "\u30C7\u30A3\u30B9\u30D7\u30EC\u30A4\u30EA\u30B9\u30C8\u753B\u50CF\u306E\u89E3\u50CF\u5EA6";
-  const _4E2zv2NpOG4y8TV5PRL0 = "\u753B\u50CF\u30AB\u30FC\u30C9\u306E\u5DE6\u4E0B\u9685\u306B\u5143\u306E\u753B\u50CF\u306E\u89E3\u50CF\u5EA6\u3092\u8868\u793A\u3057\u307E\u3059\u3002";
-  const Cu6n0Apv5xVlo4DnQbVbT = "\u30BF\u30B0\u30A8\u30AF\u30B9\u30DD\u30FC\u30C8\u8A2D\u5B9A";
-  const BB4C5taWpmw06X0Kz_Gtk = "\u30A6\u30A7\u30A4\u30C8\u306E\u8A2D\u5B9A";
-  const zg2GRF6zmMXCkT9Uz2Bni = "\u5168\u9078\u629E";
-  const xSC1vpAOTLQ3RBipKrNpD = "\u9078\u629E\u3057\u306A\u3044";
-  const cKXET1CCnAXq4H60qr8uc = "\u9006\u9078\u629E";
-  const QH_xm27zhgs5E1077asf1 = "\u8F38\u51FA";
-  const Uw9QwD1SaR2VjZEqDYRdb = "\u4E00\u90E8\u306E\u8A2D\u5B9A\u3092\u6709\u52B9\u306B\u3059\u308B\u306B\u306F\u3001\u30DA\u30FC\u30B8\u3092\u66F4\u65B0\u3059\u308B\u5FC5\u8981\u304C\u3042\u308A\u307E\u3059\u3002";
-  const ECpLfRMsS0zpJPTw0qqNs = "\u8A73\u7D30\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7\u30A6\u30A3\u30F3\u30C9\u30A6\u306E\u4E0B\u90E8\u306B\u30A2\u30AF\u30B7\u30E7\u30F3\u30D0\u30FC\u30DC\u30BF\u30F3\u3092\u914D\u7F6E\u3057\u307E\u3059\u3002";
-  const vJobIibroyz2wkpmONSnR = "\u753B\u50CF\u8A73\u7D30\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7\u30A6\u30A3\u30F3\u30C9\u30A6\u306E\u30A2\u30AF\u30B7\u30E7\u30F3\u30DC\u30BF\u30F3\u30D0\u30FC\u3068\u30E9\u30D9\u30EB\u30D0\u30FC\u306E\u4F4D\u7F6E\u3092\u5165\u308C\u66FF\u3048\u307E\u3059\u3002";
-  const I_MKXUxaNXp3D35GFULn4 = "\u30AA\u30D5\u306B\u3059\u308B\u3068\u3001\u8A73\u7D30\u753B\u50CF\u3092\u30AF\u30EA\u30C3\u30AF\u3059\u308B\u3068\u30DC\u30BF\u30F3\u3084\u30BF\u30B0\u306E\u8868\u793A\u30FB\u975E\u8868\u793A\u304C\u5207\u308A\u66FF\u308F\u308A\u307E\u3059\u3002";
-  const dm7zGAYbP2sbGXO_ekDDl = "\u4E21\u7AEF\u63C3\u3048\u30EC\u30A4\u30A2\u30A6\u30C8\u5E45\u4FC2\u6570";
-  var ja = {
-    UxxldE9xRwmQctrvba5Y8,
-    "1F-R4qChHIzZaohu5GJzl": "\u4F8B\uFF1A&api_key=xx&user_id=1",
-    "23iEYyiQlLVhFIqGbj527": "\u8CEA\u554F\u3068\u63D0\u6848",
-    "2ZPEAvLkCbV3mC0iJAw9K": "\u304A\u6C17\u306B\u5165\u308A\u306B\u8FFD\u52A0",
-    "4g1TUy2kwQrdOs-w4JobB": "\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u30D5\u30A3\u30FC\u30C9\u30D0\u30C3\u30AF\u3092\u9001\u4FE1",
-    "4hOFoP4M3ZkL3RiN7XOc8": "\u3082\u3046\u3044\u3084",
-    "6acPWiYq2-OdySa2_xqDu": "\u30E9\u30F3\u30C0\u30E0",
-    "6jPGehET9TViankl5-SRu": "\u5E45\u306F\u540C\u3058\u3067\u9AD8\u3055\u306F\u7570\u306A\u308A\u307E\u3059",
-    "7Cgsr4PUMbezDXNfWdvWH": "\u4EBA\u6C17\u4F5C\u54C1",
-    "7Xq5puLNcT0mAvoxElqdf": "\u30A6\u30A7\u30EB\u30AB\u30E0\u30B9\u30BF\u30FC\u2606\u5F61",
-    "9juZMc0gPIgvMPKVORpJ1": "\u4EBA\u6C17",
-    A16qoBulYQJLbHe9mqNwm,
-    "B_ptN5O-9PhmG5ymGGtc6": "\u62E1\u5927\u753B\u50CF\u3092\u898B\u308B",
-    CacM8tispuPNrSxxpt9GX,
-    ClZdL9hGweOokP7Mn_Ptq,
-    DXEhXAQbkiCMU_l252jo_,
-    Dnnio9m9RZA6bkTLytc99,
-    EsiorRgoeHI8h7IHMLDA4,
-    FAqj5ONm50QMfIt9Vq2p1,
-    FT1uJs8XG__n5qBvuFsH4,
-    G3b7rbyQEj3_rgzVsNJZY,
-    GjMNbm97OgVvpIYlkOisE,
-    HzMBcS2oNGVIoLiHWprim,
-    "J2Ckb_-LITfmww4aEksqk": "\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u30EA\u30F3\u30AF\u3092\u51FA\u529B\u3059\u308B",
-    "KkkM-iz8RCVQoTrTfhS5j": "\u30AA\u30EA\u30B8\u30CA\u30EB\u30B5\u30A4\u30BA",
-    "LZbI8am7nD-LiemZzroFF": "\u9AD8\u3055\u304C\u540C\u3058\u3067\u5E45\u304C\u4E0D\u7B49",
-    Lm_HFVHpv4XCjilV3NLKu,
-    "M-wISnLiQgM_DURMwKZGT": "\u30DA\u30FC\u30B8\u306B\u5408\u308F\u305B\u308B",
-    "MWVfUiW8egLWq7MgV-wzc": "\u304A\u6C17\u306B\u5165\u308A\u306B\u8FFD\u52A0\u3067\u304D\u307E\u305B\u3093\u3067\u3057\u305F",
-    "Mt3-hyoH7f_pW2gnfxyur": "\u65E5\u5225",
-    OKs1ePekQA4Ona839U114,
-    "OrwwNKZ7I70-ecpspE8d_": "\u30D5\u30EB\u30B9\u30AF\u30EA\u30FC\u30F3\u5207\u308A\u66FF\u3048",
-    "PQhFo-g7sgagimkleVoZR": "\u6708\u5225",
-    "PT74UDfKA45vTVTst_-hD": "\u3053\u306E\u30B9\u30AF\u30EA\u30D7\u30C8\u306B\u3064\u3044\u3066",
-    RN4dt81l_fZMWODsskZob,
-    RstKmO7YVQMpaDoucxUel,
-    SIUUZ4wqJTOilEdcX3EOi,
-    "StU1-52QJmNFKQ5soJCyG": "\u30E9\u30F3\u30C0\u30E0\u4F5C\u54C1",
-    "VpuyxZtIoDF9-YyOm0tK_": "\u5143\u306E\u30D5\u30A1\u30A4\u30EB\u3092\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u3059\u308B",
-    "Xtk-NnMgSQZmheJ87nbRV": "\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9",
-    XvOYJ5gHo37M1XztPl18z,
-    Ym0HIEu9Q80qXB31LuC6c,
-    Z4pa8GhgE63OGGvCqAld0,
-    "ZtQHZx-pEjmu_o3dQD1fc": "\u30B5\u30FC\u30AF\u30EB",
-    ZztrWbSaaaas3v0cHtSmh,
-    _Efl8k8uYQj9iJmj3kwbd,
-    _bQs7o9oQSo7ao1G0cp3d,
-    _nQfaNuwbvPAIFKOY6_7u,
-    aVqN9TBRCbNGsW3Y2D2Nm,
-    ad8lEoWap_nT9U69WBKen,
-    aonlPAu9kEkkwNvQg0DBk,
-    cKn4cfAxzdgh_HD6OFibB,
-    caFFJlrS1wa_F86uKPykd,
-    ctWGhVvqB2k_1TX2iY0l2,
-    dU7ou5kVM0s9DMju5e2tS,
-    e2_EYvweJsVoIZlIWkPRV,
-    "elkBQ9moOZ-KMcy5bt_Ts": "\u6700\u8FD1\u306E\u4EBA\u6C17",
-    fC8XNfCl04zK7vgeaRZMQ,
-    fVE5taO6GDTPbILat4GCt,
-    gM92sLo0Cqfl2rCaXlOhc,
-    hVmfDxXoj8vkgVQabEOSr,
-    "iJ0h220tvMmUhkfIMYI-W": "\u5909\u66F4\u5C65\u6B74",
-    "iRt9V9wNQASic3D7-wTZo": "\u5B9F\u9A13\u7684/\u4FDD\u8A3C\u3055\u308C\u3066\u3044\u307E\u305B\u3093",
-    "jDjashxA-oBPo19DXI504": "\u5143\u306E\u753B\u50CF",
-    "jMod2JozzAnwHuD-3KuPb": "\u4EE5\u4E0B\u306E\u30BF\u30B0\u3092\u5165\u529B\u3057\u3001Enter \u30AD\u30FC\u3092\u62BC\u3057\u3066\u8FFD\u52A0\u3057\u307E\u3059",
-    jerGO2OCuW9TdnEnGYRWd,
-    juT6gwLOg5r1h2vFpFf6P,
-    k4YzDnBtd_S2UpAQucGxF,
-    kFcteLMfnoezhOwuTlLFC,
-    "kop_-39vkeg-bz2wztJ9O": "\u753B\u50CF\u30EA\u30B9\u30C8\u306E\u30EC\u30A4\u30A2\u30A6\u30C8",
-    "l5W-EtJ_ar-SY2lF4H5Zm": "\u898B\u305B\u308B",
-    l8CbIALt_VWUnzBl_Rmgf,
-    "lPPsX2CZbXwC-EGN79Rki": "\u30BA\u30FC\u30E0\u30A2\u30A6\u30C8\u3059\u308B",
-    "nd4UjZy2ILsc-iW9iu7xR": "\u65E5\u4ED8\u9806",
-    pEU9Y9K7DsODkocCDwq_O,
-    qSF4OLshg2EEX4CwtBE6r,
-    qWcqQRsE9nN43MaZ2BmN9,
-    rXjhc8VuGloy1wZ09noNB,
-    "riciqzr6ILBnpPc7KtG-C": "\u9031\u5225",
-    "t83UAY18UebTg1_-zFGP3": "\u9589\u3058\u308B",
-    tGi6xYfvStBmR8qduEmKX,
-    "tt_YdgKCA_5m-aSTSMPQ_": "\u30A6\u30A9\u30FC\u30BF\u30FC\u30D5\u30A9\u30FC\u30EB\u306E\u5217\u306E\u6570",
-    u8mEnSo4mxDRUbj7FeAll,
-    uxIs3XkeVzkrEX985zHk3,
-    vfUg8xP6WptIhSL0E9b9D,
-    w95XGurDhDfOfw7XH4JFW,
-    wI4KHHIe3zNRziW4lDZrp,
-    "xJJTEE3nZ4HVXGFfiN-LC": "\u679A",
-    ze1PaiGdX4ufmoOLv_xw6,
-    zs8YTCc8d8XFUgRnp7m_w,
-    PBjdNKuj02doUvOf2zZqP,
-    z_oL9s5fS164W4_gITOGZ,
-    "0VAN4cJ-_mUxvtmg4KEi1": "OK",
-    "9dq_DxgMG88eom9Gq-4nT": "\u30AD\u30E3\u30F3\u30BB\u30EB",
-    LN_Rsic4V50DrXbsv9T9L,
-    OJ8X55GXx5k3peoSXSujf,
-    ti3akdSS3iZV9NsGzIo3m,
-    ujBgilCWNgFNV8Q2IDMWS,
-    sMkrF8bqCTJZZ1kXTkT_R,
-    u0K7A_hv1RZSJl6TDR61A,
-    "99kLMSzDYJCAf1yK9QYzy": "\u30B3\u30D4\u30FC\u3055\u308C\u307E\u3057\u305F",
-    EVPG1YZDtykdz3htyf11u,
-    fbIpwMw2yVoSxP66OJ32z,
-    kCYFwKpwznYIKRmB1tCww,
-    "si-zDDRFrEwDTCkp53Q44": "\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u306E\u8A31\u53EF\u3092\u8A31\u53EF\u3057\u3066\u304F\u3060\u3055\u3044",
-    tEvQYzSVnggYAcM1uv9Tt,
-    "eOxsWLzwqrlhBdVMwz-rH": "\u304A\u3059\u3059\u3081\u30B5\u30A4\u30C8",
-    "4yzHPggVky2QKFD2TbBhl": "\u30B5\u30E0\u30CD\u30A4\u30EB\u306B\u306F\u5927\u304D\u306A\u753B\u50CF\u3092\u4F7F\u7528\u3059\u308B",
-    HSx0XMZFid_lVuwjzrhH0,
-    "EZd1QQdgUDjT3yya5ZYe-": "\u30BD\u30FC\u30B9\u30B5\u30A4\u30C8\u3092\u958B\u3044\u305F\u3068\u304D\u306B\u76F4\u63A5\u30A6\u30A9\u30FC\u30BF\u30FC\u30D5\u30A9\u30FC\u30EB\u30D6\u30E9\u30A6\u30B8\u30F3\u30B0\u30E2\u30FC\u30C9\u306B\u5165\u308B",
-    lkCkz1OpNtTCFRfGCEoBp,
-    e4_fgvntwNlfxgJUc2dXK,
-    gPt6cpWrkvqRqZnwJo1KV,
-    sxhTRqogDRozo9IaTGI7g,
-    dvs63FvVKWm3uHVfqeq00,
-    "w4uJjpTmSEkm6SIDgEo-0": "\u753B\u50CF\u306E\u8A73\u7D30\u306F\u3001\u30BA\u30FC\u30E0\u3084\u56DE\u8EE2\u306A\u3069\u306E\u64CD\u4F5C\u3092\u30B5\u30DD\u30FC\u30C8\u3059\u308B Fancybox \u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u3092\u4F7F\u7528\u3057\u3066\u8868\u793A\u3067\u304D\u307E\u3059\u3002",
-    Tbq8O5KhwcDHQ_qxNFW09,
-    IxTawC_qs_xjxj5g8_aGx,
-    "-x4wjDoHtodaXEgm2SXkg": "API \u3092\u547C\u3073\u51FA\u3059\u3068\u3001\u30C7\u30D5\u30A9\u30EB\u30C8\u3067 `holds:false` \u30BF\u30B0\u304C\u6E21\u3055\u308C\u307E\u3059\u3002",
-    YAUNSVT_pTygaY306DZmU,
-    HkRzE7fweBSefchs0z0r8,
-    yYtssYrCL8VwFrdvvx8v3,
-    UqbfVZzRyk0iD2NcOii_E,
-    _4E2zv2NpOG4y8TV5PRL0,
-    "FMi4atPbKn-B1HiAZ2ZP2": "\u30A8\u30AF\u30B9\u30DD\u30FC\u30C8\u30BF\u30B0",
-    Cu6n0Apv5xVlo4DnQbVbT,
-    BB4C5taWpmw06X0Kz_Gtk,
-    zg2GRF6zmMXCkT9Uz2Bni,
-    xSC1vpAOTLQ3RBipKrNpD,
-    cKXET1CCnAXq4H60qr8uc,
-    QH_xm27zhgs5E1077asf1,
-    Uw9QwD1SaR2VjZEqDYRdb,
-    ECpLfRMsS0zpJPTw0qqNs,
-    vJobIibroyz2wkpmONSnR,
-    "HPukB-OKzIuRxMmO4Rx2U": "\u8A73\u7D30\u753B\u50CF\u3092\u30AF\u30EA\u30C3\u30AF\u3059\u308B\u3068\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7\u30A6\u30A3\u30F3\u30C9\u30A6\u3092\u9589\u3058\u307E\u3059",
-    I_MKXUxaNXp3D35GFULn4,
-    dm7zGAYbP2sbGXO_ekDDl
-  };
-  Vue__default["default"].use(VueI18n__default["default"]);
-  const i18n = new VueI18n__default["default"]({
-    locale: initialSettings.lang || "en",
-    fallbackLocale: "en",
-    messages: {
-      "zh-Hans": zhHans,
-      "zh-Hant": zhHant,
-      en,
-      ja
-    }
   });
-  const props = {
-    tag: {
-      type: [String],
-      default: "div"
-    },
-    cols: {
-      type: [Object, Number, String],
-      default: 2
-    },
-    gap: {
-      type: [Object, Number, String],
-      default: 0
-    },
-    css: {
-      type: [Boolean],
-      default: true
-    }
-  };
   const setBreakpoints = (mixed, windowWidth) => {
     const valueAsNum = parseInt(mixed);
     const minVal = -1;
@@ -1623,13 +626,29 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   };
   const getWindowWidth = () => window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
   const TrueMasonry = Vue2.defineComponent({
-    props,
+    props: {
+      tag: {
+        type: [String],
+        default: "div"
+      },
+      cols: {
+        type: [Object, Number, String],
+        default: 2
+      },
+      gap: {
+        type: [Object, Number, String],
+        default: 0
+      },
+      css: {
+        type: [Boolean],
+        default: true
+      }
+    },
     data() {
       return {
         windowWidth: getWindowWidth(),
         displayColumns: 2,
-        displayGutter: 0,
-        style: {}
+        displayGutter: 0
       };
     },
     mounted() {
@@ -1742,155 +761,6 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       );
     }
   });
-  const settings = Vue__default["default"].observable(initialSettings);
-  const ykFlag = ["konachan", "yande.re"].some((e) => location.href.includes(e));
-  const poolFlag = location.pathname == "/pool";
-  const store = Vue__default["default"].observable({
-    requestLoading: false,
-    requestStop: false,
-    showImageSelected: false,
-    imageSelectedIndex: 0,
-    showDrawer: false,
-    showSettings: false,
-    showFab: false,
-    currentPage: 1,
-    imageList: [],
-    selectedImageList: [],
-    isYKSite: ykFlag,
-    showPostList: !poolFlag,
-    showPoolList: ykFlag && poolFlag,
-    isFullscreen: false
-  });
-  function toggleDrawer() {
-    store.showDrawer = !store.showDrawer;
-  }
-  function addToSelectedList(item) {
-    if (store.selectedImageList.some((e) => e.id === item.id))
-      return;
-    Object.assign(item, { fileNameWithTags: `${location.hostname} ${item.id} ${item.tags.join(" ")}` });
-    store.selectedImageList.push(item);
-  }
-  function removeFromSelectedList(id) {
-    store.selectedImageList = store.selectedImageList.filter((e) => {
-      if (e.loading)
-        return true;
-      return e.id !== id;
-    });
-  }
-  function normalizeComponent(scriptExports, render, staticRenderFns, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
-    var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
-    if (render) {
-      options.render = render;
-      options.staticRenderFns = staticRenderFns;
-      options._compiled = true;
-    }
-    if (functionalTemplate) {
-      options.functional = true;
-    }
-    if (scopeId) {
-      options._scopeId = "data-v-" + scopeId;
-    }
-    var hook;
-    if (moduleIdentifier) {
-      hook = function(context) {
-        context = context || this.$vnode && this.$vnode.ssrContext || this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext;
-        if (!context && typeof __VUE_SSR_CONTEXT__ !== "undefined") {
-          context = __VUE_SSR_CONTEXT__;
-        }
-        if (injectStyles) {
-          injectStyles.call(this, context);
-        }
-        if (context && context._registeredComponents) {
-          context._registeredComponents.add(moduleIdentifier);
-        }
-      };
-      options._ssrRegister = hook;
-    } else if (injectStyles) {
-      hook = shadowMode ? function() {
-        injectStyles.call(
-          this,
-          (options.functional ? this.parent : this).$root.$options.shadowRoot
-        );
-      } : injectStyles;
-    }
-    if (hook) {
-      if (options.functional) {
-        options._injectStyles = hook;
-        var originalRender = options.render;
-        options.render = function renderWithStyleInjection(h, context) {
-          hook.call(context);
-          return originalRender(h, context);
-        };
-      } else {
-        var existing = options.beforeCreate;
-        options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
-      }
-    }
-    return {
-      exports: scriptExports,
-      options
-    };
-  }
-  const _sfc_main$c = {
-    components: {
-      TrueMasonry
-    },
-    computed: {
-      wfType() {
-        return settings.masonryLayout || "masonry";
-      },
-      isMasonry() {
-        return ["masonry", "grid"].includes(this.wfType);
-      },
-      wfClass() {
-        return {
-          "wf-grid": this.wfType == "grid",
-          "wf-no-fit-screen": !settings.isFitScreen
-        };
-      },
-      columnCount2() {
-        if (typeof this.columnCount == "number")
-          return { default: this.columnCount };
-        return this.columnCount;
-      },
-      columnCount() {
-        return settings.selectedColumn === "0" ? settings.isFitScreen ? {
-          300: 1,
-          600: 2,
-          900: 3,
-          1200: 4,
-          1600: 6,
-          1920: 7,
-          2400: 8,
-          2700: 9,
-          3e3: 10,
-          default: 6
-        } : {
-          300: 1,
-          1050: 2,
-          1500: 3,
-          1920: 4,
-          default: 4
-        } : +settings.selectedColumn;
-      }
-    }
-  };
-  var _sfc_render$c = function render() {
-    var _vm = this, _c = _vm._self._c;
-    return _c("div", { staticClass: "wf-layout", class: _vm.wfClass }, [_vm.wfType === "masonry2" ? _c("TrueMasonry", { staticClass: "true-masonry", attrs: { "gap": { default: 8 }, "cols": _vm.columnCount2 } }, [_vm._t("default")], 2) : _vm.isMasonry ? _c("masonry", { attrs: { "cols": _vm.columnCount, "gutter": "8px" } }, [_vm._t("default")], 2) : _c("div", { staticClass: "justified-container" }, [_vm._t("default")], 2)], 1);
-  };
-  var _sfc_staticRenderFns$c = [];
-  var __component__$c = /* @__PURE__ */ normalizeComponent(
-    _sfc_main$c,
-    _sfc_render$c,
-    _sfc_staticRenderFns$c,
-    false,
-    null,
-    null,
-    null,
-    null
-  );
-  var WfLayout = __component__$c.exports;
   Vue__default["default"].util.warn;
   function tryOnScopeDispose(fn) {
     if (Vue2.getCurrentScope()) {
@@ -1922,9 +792,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       Vue2.nextTick(fn);
   }
   function unrefElement(elRef) {
-    var _a2;
+    var _a;
     const plain = toValue(elRef);
-    return (_a2 = plain == null ? void 0 : plain.$el) != null ? _a2 : plain;
+    return (_a = plain == null ? void 0 : plain.$el) != null ? _a : plain;
   }
   const defaultWindow = isClient ? window : void 0;
   isClient ? window.document : void 0;
@@ -2182,8 +1052,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function useElementSize(target, initialSize = { width: 0, height: 0 }, options = {}) {
     const { window: window2 = defaultWindow, box = "content-box" } = options;
     const isSVG = Vue2.computed(() => {
-      var _a2, _b;
-      return (_b = (_a2 = unrefElement(target)) == null ? void 0 : _a2.namespaceURI) == null ? void 0 : _b.includes("svg");
+      var _a, _b;
+      return (_b = (_a = unrefElement(target)) == null ? void 0 : _a.namespaceURI) == null ? void 0 : _b.includes("svg");
     });
     const width = Vue2.ref(initialSize.width);
     const height = Vue2.ref(initialSize.height);
@@ -2269,7 +1139,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     return { width, height };
   }
-  var _sfc_main$b = /* @__PURE__ */ Vue2.defineComponent({
+  var _sfc_main$c = /* @__PURE__ */ Vue2.defineComponent({
     __name: "VirtualWaterfall",
     props: {
       virtual: { type: Boolean, default: true },
@@ -2283,7 +1153,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       calcItemHeight: { type: Function, default: () => 250 }
     },
     setup(__props, { expose }) {
-      const props2 = __props;
+      const props = __props;
       const content = Vue2.ref();
       const { width: contentWidth } = useElementSize(content);
       const { top: contentTop } = useElementBounding(content);
@@ -2297,21 +1167,21 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           return 0;
         }
         const cWidth = contentWidth.value;
-        if (cWidth >= props2.itemMinWidth * 2) {
-          const count = Math.floor(cWidth / props2.itemMinWidth);
-          if (props2.maxColumnCount && count > props2.maxColumnCount) {
-            return props2.maxColumnCount;
+        if (cWidth >= props.itemMinWidth * 2) {
+          const count = Math.floor(cWidth / props.itemMinWidth);
+          if (props.maxColumnCount && count > props.maxColumnCount) {
+            return props.maxColumnCount;
           }
           return count;
         }
-        return props2.minColumnCount;
+        return props.minColumnCount;
       });
       const columnsTop = Vue2.ref(new Array(columnCount.value).fill(0));
       const itemWidth = Vue2.computed(() => {
         if (!contentWidth.value || columnCount.value <= 0) {
           return 0;
         }
-        const gap = (columnCount.value - 1) * props2.gap;
+        const gap = (columnCount.value - 1) * props.gap;
         return Math.ceil((contentWidth.value - gap) / columnCount.value);
       });
       const itemSpaces = Vue2.shallowRef([]);
@@ -2325,7 +1195,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return columnsTop.value.indexOf(Math.min(...columnsTop.value));
       };
       Vue2.watchEffect(() => {
-        const length = props2.items.length;
+        const length = props.items.length;
         if (!columnCount.value || !length) {
           itemSpaces.value = [];
           return;
@@ -2344,19 +1214,19 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
             continue;
           }
           const columnIndex = getColumnIndex();
-          const h = props2.calcItemHeight(props2.items[i], itemWidth.value);
+          const h = props.calcItemHeight(props.items[i], itemWidth.value);
           const top = columnsTop.value[columnIndex];
-          const left = (itemWidth.value + props2.gap) * columnIndex;
+          const left = (itemWidth.value + props.gap) * columnIndex;
           const space = {
             index: i,
-            item: props2.items[i],
+            item: props.items[i],
             column: columnIndex,
             top,
             left,
             bottom: top + h,
             height: h
           };
-          columnsTop.value[columnIndex] += h + props2.gap;
+          columnsTop.value[columnIndex] += h + props.gap;
           spaces[i] = space;
         }
         itemSpaces.value = spaces;
@@ -2366,12 +1236,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         if (!length) {
           return [];
         }
-        if (!props2.virtual) {
+        if (!props.virtual) {
           return itemSpaces.value;
         }
         const parentTop = content.value.parentElement.offsetTop;
         const tp = -contentTop.value + parentTop;
-        const [topPreloadScreenCount, bottomPreloadScreenCount] = props2.preloadScreenCount;
+        const [topPreloadScreenCount, bottomPreloadScreenCount] = props.preloadScreenCount;
         const innerHeight = content.value.parentElement.clientHeight;
         const minLimit = tp - topPreloadScreenCount * innerHeight;
         const maxLimit = tp + (bottomPreloadScreenCount + 1) * innerHeight;
@@ -2386,10 +1256,64 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         }
         return items;
       });
-      return { __sfc: true, props: props2, content, contentWidth, contentTop, columnCount, columnsTop, itemWidth, itemSpaces, withItemSpaces, getColumnIndex, itemRenderList };
+      return { __sfc: true, props, content, contentWidth, contentTop, columnCount, columnsTop, itemWidth, itemSpaces, withItemSpaces, getColumnIndex, itemRenderList };
     }
   });
-  var _sfc_render$b = function render() {
+  function normalizeComponent(scriptExports, render, staticRenderFns, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
+    var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
+    if (render) {
+      options.render = render;
+      options.staticRenderFns = staticRenderFns;
+      options._compiled = true;
+    }
+    if (functionalTemplate) {
+      options.functional = true;
+    }
+    if (scopeId) {
+      options._scopeId = "data-v-" + scopeId;
+    }
+    var hook;
+    if (moduleIdentifier) {
+      hook = function(context) {
+        context = context || this.$vnode && this.$vnode.ssrContext || this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext;
+        if (!context && typeof __VUE_SSR_CONTEXT__ !== "undefined") {
+          context = __VUE_SSR_CONTEXT__;
+        }
+        if (injectStyles) {
+          injectStyles.call(this, context);
+        }
+        if (context && context._registeredComponents) {
+          context._registeredComponents.add(moduleIdentifier);
+        }
+      };
+      options._ssrRegister = hook;
+    } else if (injectStyles) {
+      hook = shadowMode ? function() {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        );
+      } : injectStyles;
+    }
+    if (hook) {
+      if (options.functional) {
+        options._injectStyles = hook;
+        var originalRender = options.render;
+        options.render = function renderWithStyleInjection(h, context) {
+          hook.call(context);
+          return originalRender(h, context);
+        };
+      } else {
+        var existing = options.beforeCreate;
+        options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+      }
+    }
+    return {
+      exports: scriptExports,
+      options
+    };
+  }
+  var _sfc_render$c = function render() {
     var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
     return _c("div", { ref: "content", style: {
       position: "relative",
@@ -2406,6 +1330,1078 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }, attrs: { "data-index": data.index } }, [_vm._t("default", null, { "item": data.item, "index": data.index })], 2);
     }), 0);
   };
+  var _sfc_staticRenderFns$c = [];
+  var __component__$c = /* @__PURE__ */ normalizeComponent(
+    _sfc_main$c,
+    _sfc_render$c,
+    _sfc_staticRenderFns$c,
+    false,
+    null,
+    null,
+    null,
+    null
+  );
+  var VirtualWaterfall = __component__$c.exports;
+  function installVuetify() {
+    Vue__default["default"].use(Vuetify__default["default"]);
+    return new Vuetify__default["default"]({
+      icons: {
+        iconfont: "mdiSvg"
+      },
+      theme: {
+        dark: false,
+        themes: {
+          light: {
+            primary: "#1a73e8",
+            accent: "#c2e7ff"
+          },
+          dark: {
+            primary: "#BA68C8",
+            accent: "#FF80AB"
+          }
+        }
+      }
+    });
+  }
+  function useVuetify() {
+    const instance = Vue2.getCurrentInstance();
+    if (!instance) {
+      throw new Error("Should be used in setup().");
+    }
+    return instance.proxy.$vuetify;
+  }
+  const UxxldE9xRwmQctrvba5Y8$3 = "\u8BBE\u7F6E";
+  const Ym0HIEu9Q80qXB31LuC6c$3 = "\u753B\u5E08";
+  const juT6gwLOg5r1h2vFpFf6P$3 = "\u7248\u6743";
+  const aonlPAu9kEkkwNvQg0DBk$3 = "\u89D2\u8272";
+  const ctWGhVvqB2k_1TX2iY0l2$3 = "\u6536\u85CF\u6210\u529F";
+  const HzMBcS2oNGVIoLiHWprim$3 = "\u6536\u85CF\u5939";
+  const DXEhXAQbkiCMU_l252jo_$3 = "\u56FE\u96C6 (Pool)";
+  const ZztrWbSaaaas3v0cHtSmh$3 = "\u641C\u7D22\u6807\u7B7E";
+  const OKs1ePekQA4Ona839U114$3 = "\u4E0B\u8F7D\u5217\u8868";
+  const cKn4cfAxzdgh_HD6OFibB$3 = "\u5F00\u59CB\u4E0B\u8F7D";
+  const aVqN9TBRCbNGsW3Y2D2Nm$3 = "\u5927\u56FE";
+  const u8mEnSo4mxDRUbj7FeAll$3 = "\u5207\u6362\u6DF1\u8272\u6A21\u5F0F";
+  const ClZdL9hGweOokP7Mn_Ptq$3 = "\u9000\u51FA\u7011\u5E03\u6D41\u6A21\u5F0F";
+  const ze1PaiGdX4ufmoOLv_xw6$3 = "\u6309\u5E74";
+  const l8CbIALt_VWUnzBl_Rmgf$3 = "Booru \u56FE\u7AD9\u7011\u5E03\u6D41\u6D4F\u89C8";
+  const CacM8tispuPNrSxxpt9GX$3 = "\u5FEB\u6377\u65B9\u5F0F";
+  const zs8YTCc8d8XFUgRnp7m_w$3 = "\u6211\u7684\u6536\u85CF\u5939";
+  const e2_EYvweJsVoIZlIWkPRV$3 = "\u7AD9\u70B9\u5217\u8868";
+  const qWcqQRsE9nN43MaZ2BmN9$3 = "Web \u7248\u672C";
+  const jerGO2OCuW9TdnEnGYRWd$3 = "\u70B9\u51FB\u67E5\u770B";
+  const tGi6xYfvStBmR8qduEmKX$3 = "\u67E5\u770B";
+  const RN4dt81l_fZMWODsskZob$3 = "\u52A0\u8F7D\u4E2D";
+  const fC8XNfCl04zK7vgeaRZMQ$3 = "\u52A0\u8F7D\u66F4\u591A";
+  const ad8lEoWap_nT9U69WBKen$3 = "\u9002\u5E94\u5BBD\u5EA6";
+  const GjMNbm97OgVvpIYlkOisE$3 = "\u9002\u5E94\u9AD8\u5EA6";
+  const XvOYJ5gHo37M1XztPl18z$3 = "\u5168\u5C4F";
+  const _bQs7o9oQSo7ao1G0cp3d$3 = "\u65CB\u8F6C";
+  const pEU9Y9K7DsODkocCDwq_O$3 = "\u5DF2\u6536\u85CF";
+  const caFFJlrS1wa_F86uKPykd$3 = "\u8BE6\u60C5";
+  const qSF4OLshg2EEX4CwtBE6r$3 = "\u6765\u6E90";
+  const wI4KHHIe3zNRziW4lDZrp$3 = "\u4E0B\u8F7D\u6837\u54C1\u56FE";
+  const k4YzDnBtd_S2UpAQucGxF$3 = "\u4E0B\u8F7D\u9AD8\u6E05\u56FE";
+  const hVmfDxXoj8vkgVQabEOSr$3 = "\u52A0\u5165\u4E0B\u8F7D\u5217\u8868";
+  const gM92sLo0Cqfl2rCaXlOhc$3 = "\u9690\u85CF";
+  const FAqj5ONm50QMfIt9Vq2p1$3 = "\u4E0B\u8F7D\u51FA\u9519";
+  const Z4pa8GhgE63OGGvCqAld0$3 = "\u4E0B\u9762\u6CA1\u6709\u4E86";
+  const Dnnio9m9RZA6bkTLytc99$3 = "\u52A0\u5165\u6536\u85CF";
+  const EsiorRgoeHI8h7IHMLDA4$3 = "\u65B0\u6807\u7B7E\u9875\u6253\u5F00";
+  const _Efl8k8uYQj9iJmj3kwbd$3 = "\u672C\u5730\u6807\u7B7E\u9ED1\u540D\u5355";
+  const RstKmO7YVQMpaDoucxUel$3 = "\u5F53\u524D\u7AD9\u70B9 API Credentials";
+  const Lm_HFVHpv4XCjilV3NLKu$3 = "\u663E\u793A NSFW \u5185\u5BB9";
+  const A16qoBulYQJLbHe9mqNwm$3 = "\u5305\u542B\u88F8\u9732\u3001\u6027\u63CF\u5199\u5185\u5BB9\u7B49\u8FC7\u6FC0\u5185\u5BB9";
+  const _nQfaNuwbvPAIFKOY6_7u$3 = "\u76D1\u542C\u6EDA\u8F6E\u4E8B\u4EF6";
+  const SIUUZ4wqJTOilEdcX3EOi$3 = "\u8BE6\u60C5\u5F39\u7A97\u6EDA\u8F6E\u5207\u6362\u56FE\u7247";
+  const fVE5taO6GDTPbILat4GCt$3 = "\u76D1\u542C\u952E\u76D8\u4E8B\u4EF6";
+  const w95XGurDhDfOfw7XH4JFW$3 = "\u8BE6\u60C5\u5F39\u7A97\u4F7F\u7528A/D/\u2190/\u2192\u5207\u6362\u56FE\u7247";
+  const kFcteLMfnoezhOwuTlLFC$3 = "\u8BE6\u60C5\u56FE\u7247\u9884\u52A0\u8F7D";
+  const FT1uJs8XG__n5qBvuFsH4$3 = "\u8BE6\u60C5\u5F39\u7A97\u9884\u52A0\u8F7D\u4E0B\u4E00\u5F20\u6837\u54C1\u56FE/\u539F\u56FE";
+  const G3b7rbyQEj3_rgzVsNJZY$3 = "\u56FE\u7247\u9884\u52A0\u8F7D\u6570\u91CF";
+  const rXjhc8VuGloy1wZ09noNB$3 = "\u5C0F\u4E8E7\u5217\u65F6\u5217\u8868\u4F1A\u52A0\u8F7D\u5927\u56FE";
+  const uxIs3XkeVzkrEX985zHk3$3 = "\u81EA\u52A8";
+  const dU7ou5kVM0s9DMju5e2tS$3 = "\u5217";
+  const vfUg8xP6WptIhSL0E9b9D$3 = "\u7B49\u5BBD\u7B49\u9AD8";
+  const PBjdNKuj02doUvOf2zZqP$3 = "\u56FE\u7247\u4FDD\u5B58\u5230\u5B50\u6587\u4EF6\u5939";
+  const z_oL9s5fS164W4_gITOGZ$3 = "\u5728\u9ED8\u8BA4\u4E0B\u8F7D\u76EE\u5F55\u521B\u5EFA\u4E00\u4E2A\u4EE5\u7AD9\u70B9\u4E3A\u540D\u7684\u6587\u4EF6\u5939\u5B58\u653E\u56FE\u7247\uFF0C\u9700\u8981\u5C06 Tampermonkey \u7684\u201C\u4E0B\u8F7D\u6A21\u5F0F\u201D\u4FEE\u6539\u4E3A\u201C\u6D4F\u89C8\u5668 API\u201D";
+  const ti3akdSS3iZV9NsGzIo3m$3 = "\u63D0\u793A";
+  const LN_Rsic4V50DrXbsv9T9L$3 = "\u786E\u5B9A\u8981\u5F00\u542F\u5B50\u6587\u4EF6\u5939\u4E0B\u8F7D\u529F\u80FD\u5417\uFF1F\u8BF7\u786E\u4FDD\u60A8\u5DF2\u5C06 Tampermonkey \u7684\u201C\u4E0B\u8F7D\u6A21\u5F0F\u201D\u4FEE\u6539\u4E3A\u201C\u6D4F\u89C8\u5668 API\u201D\u3002";
+  const OJ8X55GXx5k3peoSXSujf$3 = "\u6253\u5F00\u65B9\u5F0F\uFF1A\u5C06 Tampermonkey \u8BBE\u7F6E\u4E2D\u7684\u201C\u914D\u7F6E\u6A21\u5F0F\u201D\u7531\u201C\u65B0\u624B\u201D\u6539\u4E3A\u201C\u9AD8\u7EA7\u201D\uFF0C\u7136\u540E\u627E\u5230\u201C\u4E0B\u8F7D BETA\u201D\uFF0C\u5C06\u201C\u4E0B\u8F7D\u6A21\u5F0F\u201D\u4FEE\u6539\u4E3A\u201C\u6D4F\u89C8\u5668 API\u201D\u3002";
+  const ujBgilCWNgFNV8Q2IDMWS$3 = "\u63D0\u793A\uFF1A\u4E3A\u65B9\u4FBF\u4F7F\u7528\uFF0C\u53EF\u4EE5\u5C06\u6D4F\u89C8\u5668\u8BBE\u7F6E\u4E2D\u201C\u4E0B\u8F7D\u524D\u8BE2\u95EE\u6BCF\u4E2A\u6587\u4EF6\u7684\u4FDD\u5B58\u4F4D\u7F6E\u201D\u9009\u9879\u5173\u95ED\u3002";
+  const sMkrF8bqCTJZZ1kXTkT_R$3 = "\u67E5\u770B\u7236\u6295\u7A3F";
+  const u0K7A_hv1RZSJl6TDR61A$3 = "\u67E5\u770B\u5B50\u9879";
+  const EVPG1YZDtykdz3htyf11u$3 = "\u590D\u5236\u5230\u526A\u8D34\u677F";
+  const kCYFwKpwznYIKRmB1tCww$3 = "\u4ECE\u526A\u8D34\u677F\u8BFB\u53D6";
+  const fbIpwMw2yVoSxP66OJ32z$3 = "\u56FE\u7247\u94FA\u6EE1\u5C4F\u5E55";
+  const tEvQYzSVnggYAcM1uv9Tt$3 = "\u5173\u95ED\u6B64\u529F\u80FD\u7684\u8BDD\u5C4F\u5E55\u4E24\u4FA7\u4F1A\u7559\u767D";
+  const HSx0XMZFid_lVuwjzrhH0$3 = "\u56FE\u7247\u5217\u8868\u7684\u7F29\u7565\u56FE\u4F7F\u7528\u5927\u56FE\u94FE\u63A5(sample_url)";
+  const lkCkz1OpNtTCFRfGCEoBp$3 = "\u81EA\u52A8\u8FDB\u5165\u7011\u5E03\u6D41\u6A21\u5F0F";
+  const e4_fgvntwNlfxgJUc2dXK$3 = "\u8BED\u8A00";
+  const sxhTRqogDRozo9IaTGI7g$3 = "\u5217\u8868\u56FE\u7247\u663E\u793A\u590D\u9009\u6846";
+  const gPt6cpWrkvqRqZnwJo1KV$3 = "\u5728\u56FE\u7247\u5361\u7247\u5DE6\u4E0A\u89D2\u663E\u793A\u52A0\u5165\u4E0B\u8F7D\u5217\u8868\u7684\u590D\u9009\u6846";
+  const dvs63FvVKWm3uHVfqeq00$3 = "\u4F7F\u7528 Fancybox \u67E5\u770B\u8BE6\u60C5";
+  const Tbq8O5KhwcDHQ_qxNFW09$3 = "\u5B9E\u9A8C\u6027";
+  const IxTawC_qs_xjxj5g8_aGx$3 = "\u9690\u85CF\u6302\u8D77\u7684\u56FE\u7247";
+  const YAUNSVT_pTygaY306DZmU$3 = "yande.re \u4E0D\u4F7F\u7528 API \u83B7\u53D6\u56FE\u7247\u5217\u8868";
+  const HkRzE7fweBSefchs0z0r8$3 = "\u76F4\u63A5\u89E3\u6790 HTML \u83B7\u53D6\u56FE\u7247\u6570\u636E";
+  const yYtssYrCL8VwFrdvvx8v3$3 = "\u865A\u62DF\u5217\u8868(\u7B49\u5BBD\u4E0D\u7B49\u9AD8)";
+  const UqbfVZzRyk0iD2NcOii_E$3 = "\u5217\u8868\u56FE\u7247\u663E\u793A\u5206\u8FA8\u7387";
+  const _4E2zv2NpOG4y8TV5PRL0$3 = "\u5728\u56FE\u7247\u5361\u7247\u5DE6\u4E0B\u89D2\u663E\u793A\u539F\u56FE\u7684\u5206\u8FA8\u7387";
+  const Cu6n0Apv5xVlo4DnQbVbT$3 = "\u6807\u7B7E\u5BFC\u51FA\u8BBE\u7F6E";
+  const BB4C5taWpmw06X0Kz_Gtk$3 = "\u8BBE\u7F6E\u6743\u91CD";
+  const zg2GRF6zmMXCkT9Uz2Bni$3 = "\u5168\u9009";
+  const xSC1vpAOTLQ3RBipKrNpD$3 = "\u4E0D\u9009";
+  const cKXET1CCnAXq4H60qr8uc$3 = "\u53CD\u9009";
+  const QH_xm27zhgs5E1077asf1$3 = "\u5BFC\u51FA";
+  const Uw9QwD1SaR2VjZEqDYRdb$3 = "\u90E8\u5206\u8BBE\u7F6E\u9700\u8981\u5237\u65B0\u9875\u9762\u540E\u751F\u6548";
+  const ECpLfRMsS0zpJPTw0qqNs$3 = "\u8BE6\u60C5\u64CD\u4F5C\u680F\u6309\u94AE\u7F6E\u4E8E\u5E95\u90E8";
+  const vJobIibroyz2wkpmONSnR$3 = "\u56FE\u7247\u8BE6\u60C5\u5F39\u7A97\u7684\u64CD\u4F5C\u6309\u94AE\u680F\u4E0E\u6807\u7B7E\u680F\u4F4D\u7F6E\u4E92\u6362";
+  const I_MKXUxaNXp3D35GFULn4$3 = "\u6B64\u9009\u9879\u5173\u95ED\u65F6\uFF0C\u70B9\u51FB\u8BE6\u60C5\u56FE\u7247\u4F1A\u5207\u6362\u6309\u94AE\u4E0E\u6807\u7B7E\u7684\u663E\u793A\u9690\u85CF";
+  const dm7zGAYbP2sbGXO_ekDDl$3 = "Justified \u5E03\u5C40\u5BBD\u5EA6\u7CFB\u6570";
+  const UOaS5wud2xGLzx9NGJxYQ$3 = "\u9009\u62E9\u76EE\u5F55";
+  const jx2FWrN3O_8T7U5aSbvXj$3 = "\u9009\u62E9\u56FE\u7247\u7684\u4FDD\u5B58\u4F4D\u7F6E";
+  var zhHans = {
+    UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$3,
+    "ZtQHZx-pEjmu_o3dQD1fc": "\u793E\u56E2",
+    Ym0HIEu9Q80qXB31LuC6c: Ym0HIEu9Q80qXB31LuC6c$3,
+    juT6gwLOg5r1h2vFpFf6P: juT6gwLOg5r1h2vFpFf6P$3,
+    aonlPAu9kEkkwNvQg0DBk: aonlPAu9kEkkwNvQg0DBk$3,
+    "MWVfUiW8egLWq7MgV-wzc": "\u6536\u85CF\u5931\u8D25",
+    ctWGhVvqB2k_1TX2iY0l2: ctWGhVvqB2k_1TX2iY0l2$3,
+    "nd4UjZy2ILsc-iW9iu7xR": "\u6309\u65E5\u671F",
+    "elkBQ9moOZ-KMcy5bt_Ts": "\u6700\u8FD1\u4EBA\u6C14",
+    HzMBcS2oNGVIoLiHWprim: HzMBcS2oNGVIoLiHWprim$3,
+    DXEhXAQbkiCMU_l252jo_: DXEhXAQbkiCMU_l252jo_$3,
+    "9juZMc0gPIgvMPKVORpJ1": "\u4EBA\u6C14",
+    "6acPWiYq2-OdySa2_xqDu": "\u968F\u673A",
+    ZztrWbSaaaas3v0cHtSmh: ZztrWbSaaaas3v0cHtSmh$3,
+    OKs1ePekQA4Ona839U114: OKs1ePekQA4Ona839U114$3,
+    cKn4cfAxzdgh_HD6OFibB: cKn4cfAxzdgh_HD6OFibB$3,
+    "J2Ckb_-LITfmww4aEksqk": "\u8F93\u51FA\u4E0B\u8F7D\u5730\u5740",
+    aVqN9TBRCbNGsW3Y2D2Nm: aVqN9TBRCbNGsW3Y2D2Nm$3,
+    "jDjashxA-oBPo19DXI504": "\u539F\u56FE",
+    u8mEnSo4mxDRUbj7FeAll: u8mEnSo4mxDRUbj7FeAll$3,
+    "OrwwNKZ7I70-ecpspE8d_": "\u5207\u6362\u5168\u5C4F",
+    ClZdL9hGweOokP7Mn_Ptq: ClZdL9hGweOokP7Mn_Ptq$3,
+    "Mt3-hyoH7f_pW2gnfxyur": "\u6309\u65E5",
+    "riciqzr6ILBnpPc7KtG-C": "\u6309\u5468",
+    "PQhFo-g7sgagimkleVoZR": "\u6309\u6708",
+    ze1PaiGdX4ufmoOLv_xw6: ze1PaiGdX4ufmoOLv_xw6$3,
+    l8CbIALt_VWUnzBl_Rmgf: l8CbIALt_VWUnzBl_Rmgf$3,
+    CacM8tispuPNrSxxpt9GX: CacM8tispuPNrSxxpt9GX$3,
+    zs8YTCc8d8XFUgRnp7m_w: zs8YTCc8d8XFUgRnp7m_w$3,
+    "7Cgsr4PUMbezDXNfWdvWH": "\u4EBA\u6C14\u4F5C\u54C1",
+    "StU1-52QJmNFKQ5soJCyG": "\u968F\u673A\u4F5C\u54C1",
+    e2_EYvweJsVoIZlIWkPRV: e2_EYvweJsVoIZlIWkPRV$3,
+    "PT74UDfKA45vTVTst_-hD": "\u5173\u4E8E",
+    "iJ0h220tvMmUhkfIMYI-W": "\u67E5\u770B\u66F4\u65B0\u65E5\u5FD7",
+    qWcqQRsE9nN43MaZ2BmN9: qWcqQRsE9nN43MaZ2BmN9$3,
+    jerGO2OCuW9TdnEnGYRWd: jerGO2OCuW9TdnEnGYRWd$3,
+    "23iEYyiQlLVhFIqGbj527": "\u95EE\u9898\u4E0E\u5EFA\u8BAE",
+    "4g1TUy2kwQrdOs-w4JobB": "\u70B9\u51FB\u53CD\u9988",
+    "7Xq5puLNcT0mAvoxElqdf": "\u6B22\u8FCE Star \u2606\u5F61",
+    "xJJTEE3nZ4HVXGFfiN-LC": "\u5F20",
+    tGi6xYfvStBmR8qduEmKX: tGi6xYfvStBmR8qduEmKX$3,
+    "Xtk-NnMgSQZmheJ87nbRV": "\u4E0B\u8F7D",
+    RN4dt81l_fZMWODsskZob: RN4dt81l_fZMWODsskZob$3,
+    fC8XNfCl04zK7vgeaRZMQ: fC8XNfCl04zK7vgeaRZMQ$3,
+    "4hOFoP4M3ZkL3RiN7XOc8": "\u6CA1\u4E86",
+    "M-wISnLiQgM_DURMwKZGT": "\u9002\u5E94\u9875\u9762",
+    ad8lEoWap_nT9U69WBKen: ad8lEoWap_nT9U69WBKen$3,
+    GjMNbm97OgVvpIYlkOisE: GjMNbm97OgVvpIYlkOisE$3,
+    "KkkM-iz8RCVQoTrTfhS5j": "\u539F\u59CB\u5927\u5C0F",
+    XvOYJ5gHo37M1XztPl18z: XvOYJ5gHo37M1XztPl18z$3,
+    _bQs7o9oQSo7ao1G0cp3d: _bQs7o9oQSo7ao1G0cp3d$3,
+    "lPPsX2CZbXwC-EGN79Rki": "\u7F29\u5C0F",
+    "t83UAY18UebTg1_-zFGP3": "\u5173\u95ED",
+    pEU9Y9K7DsODkocCDwq_O: pEU9Y9K7DsODkocCDwq_O$3,
+    "2ZPEAvLkCbV3mC0iJAw9K": "\u6536\u85CF",
+    caFFJlrS1wa_F86uKPykd: caFFJlrS1wa_F86uKPykd$3,
+    qSF4OLshg2EEX4CwtBE6r: qSF4OLshg2EEX4CwtBE6r$3,
+    "B_ptN5O-9PhmG5ymGGtc6": "\u67E5\u770B\u5927\u56FE",
+    wI4KHHIe3zNRziW4lDZrp: wI4KHHIe3zNRziW4lDZrp$3,
+    k4YzDnBtd_S2UpAQucGxF: k4YzDnBtd_S2UpAQucGxF$3,
+    "VpuyxZtIoDF9-YyOm0tK_": "\u4E0B\u8F7D\u539F\u6587\u4EF6",
+    hVmfDxXoj8vkgVQabEOSr: hVmfDxXoj8vkgVQabEOSr$3,
+    gM92sLo0Cqfl2rCaXlOhc: gM92sLo0Cqfl2rCaXlOhc$3,
+    "l5W-EtJ_ar-SY2lF4H5Zm": "\u663E\u793A",
+    FAqj5ONm50QMfIt9Vq2p1: FAqj5ONm50QMfIt9Vq2p1$3,
+    Z4pa8GhgE63OGGvCqAld0: Z4pa8GhgE63OGGvCqAld0$3,
+    Dnnio9m9RZA6bkTLytc99: Dnnio9m9RZA6bkTLytc99$3,
+    EsiorRgoeHI8h7IHMLDA4: EsiorRgoeHI8h7IHMLDA4$3,
+    _Efl8k8uYQj9iJmj3kwbd: _Efl8k8uYQj9iJmj3kwbd$3,
+    "jMod2JozzAnwHuD-3KuPb": "\u4E0B\u65B9\u8F93\u5165\u6807\u7B7E\uFF0C\u56DE\u8F66\u6DFB\u52A0",
+    RstKmO7YVQMpaDoucxUel: RstKmO7YVQMpaDoucxUel$3,
+    "1F-R4qChHIzZaohu5GJzl": "\u5F62\u5982: &api_key=xx&user_id=1",
+    Lm_HFVHpv4XCjilV3NLKu: Lm_HFVHpv4XCjilV3NLKu$3,
+    A16qoBulYQJLbHe9mqNwm: A16qoBulYQJLbHe9mqNwm$3,
+    _nQfaNuwbvPAIFKOY6_7u: _nQfaNuwbvPAIFKOY6_7u$3,
+    SIUUZ4wqJTOilEdcX3EOi: SIUUZ4wqJTOilEdcX3EOi$3,
+    fVE5taO6GDTPbILat4GCt: fVE5taO6GDTPbILat4GCt$3,
+    w95XGurDhDfOfw7XH4JFW: w95XGurDhDfOfw7XH4JFW$3,
+    kFcteLMfnoezhOwuTlLFC: kFcteLMfnoezhOwuTlLFC$3,
+    FT1uJs8XG__n5qBvuFsH4: FT1uJs8XG__n5qBvuFsH4$3,
+    G3b7rbyQEj3_rgzVsNJZY: G3b7rbyQEj3_rgzVsNJZY$3,
+    "iRt9V9wNQASic3D7-wTZo": "\u5B9E\u9A8C\u6027/\u4E0D\u4FDD\u8BC1\u53EF\u7528",
+    "kop_-39vkeg-bz2wztJ9O": "\u56FE\u7247\u5217\u8868\u5E03\u5C40",
+    "tt_YdgKCA_5m-aSTSMPQ_": "\u7011\u5E03\u6D41\u5217\u6570",
+    rXjhc8VuGloy1wZ09noNB: rXjhc8VuGloy1wZ09noNB$3,
+    uxIs3XkeVzkrEX985zHk3: uxIs3XkeVzkrEX985zHk3$3,
+    dU7ou5kVM0s9DMju5e2tS: dU7ou5kVM0s9DMju5e2tS$3,
+    "6jPGehET9TViankl5-SRu": "\u7B49\u5BBD\u4E0D\u7B49\u9AD8",
+    vfUg8xP6WptIhSL0E9b9D: vfUg8xP6WptIhSL0E9b9D$3,
+    "LZbI8am7nD-LiemZzroFF": "\u7B49\u9AD8\u4E0D\u7B49\u5BBD",
+    PBjdNKuj02doUvOf2zZqP: PBjdNKuj02doUvOf2zZqP$3,
+    z_oL9s5fS164W4_gITOGZ: z_oL9s5fS164W4_gITOGZ$3,
+    ti3akdSS3iZV9NsGzIo3m: ti3akdSS3iZV9NsGzIo3m$3,
+    "9dq_DxgMG88eom9Gq-4nT": "\u53D6\u6D88",
+    "0VAN4cJ-_mUxvtmg4KEi1": "\u786E\u5B9A",
+    LN_Rsic4V50DrXbsv9T9L: LN_Rsic4V50DrXbsv9T9L$3,
+    OJ8X55GXx5k3peoSXSujf: OJ8X55GXx5k3peoSXSujf$3,
+    ujBgilCWNgFNV8Q2IDMWS: ujBgilCWNgFNV8Q2IDMWS$3,
+    sMkrF8bqCTJZZ1kXTkT_R: sMkrF8bqCTJZZ1kXTkT_R$3,
+    u0K7A_hv1RZSJl6TDR61A: u0K7A_hv1RZSJl6TDR61A$3,
+    EVPG1YZDtykdz3htyf11u: EVPG1YZDtykdz3htyf11u$3,
+    kCYFwKpwznYIKRmB1tCww: kCYFwKpwznYIKRmB1tCww$3,
+    fbIpwMw2yVoSxP66OJ32z: fbIpwMw2yVoSxP66OJ32z$3,
+    tEvQYzSVnggYAcM1uv9Tt: tEvQYzSVnggYAcM1uv9Tt$3,
+    "99kLMSzDYJCAf1yK9QYzy": "\u5DF2\u590D\u5236",
+    "si-zDDRFrEwDTCkp53Q44": "\u8BF7\u5141\u8BB8\u526A\u8D34\u677F\u6743\u9650",
+    "eOxsWLzwqrlhBdVMwz-rH": "\u63A8\u8350\u7F51\u7AD9",
+    "4yzHPggVky2QKFD2TbBhl": "\u7F29\u7565\u56FE\u4F7F\u7528\u5927\u56FE",
+    HSx0XMZFid_lVuwjzrhH0: HSx0XMZFid_lVuwjzrhH0$3,
+    lkCkz1OpNtTCFRfGCEoBp: lkCkz1OpNtTCFRfGCEoBp$3,
+    "EZd1QQdgUDjT3yya5ZYe-": "\u6253\u5F00\u6E90\u7AD9\u65F6\u76F4\u63A5\u8FDB\u5165\u7011\u5E03\u6D41\u6D4F\u89C8\u6A21\u5F0F",
+    e4_fgvntwNlfxgJUc2dXK: e4_fgvntwNlfxgJUc2dXK$3,
+    sxhTRqogDRozo9IaTGI7g: sxhTRqogDRozo9IaTGI7g$3,
+    gPt6cpWrkvqRqZnwJo1KV: gPt6cpWrkvqRqZnwJo1KV$3,
+    dvs63FvVKWm3uHVfqeq00: dvs63FvVKWm3uHVfqeq00$3,
+    "w4uJjpTmSEkm6SIDgEo-0": "\u56FE\u7247\u8BE6\u60C5\u4F7F\u7528\u652F\u6301\u7F29\u653E\u65CB\u8F6C\u7B49\u64CD\u4F5C\u7684 Fancybox \u7EC4\u4EF6\u67E5\u770B",
+    Tbq8O5KhwcDHQ_qxNFW09: Tbq8O5KhwcDHQ_qxNFW09$3,
+    "-x4wjDoHtodaXEgm2SXkg": "\u8C03\u7528 API \u65F6\u4F1A\u9ED8\u8BA4\u4F20\u5165 `holds:false` \u6807\u7B7E",
+    IxTawC_qs_xjxj5g8_aGx: IxTawC_qs_xjxj5g8_aGx$3,
+    YAUNSVT_pTygaY306DZmU: YAUNSVT_pTygaY306DZmU$3,
+    HkRzE7fweBSefchs0z0r8: HkRzE7fweBSefchs0z0r8$3,
+    yYtssYrCL8VwFrdvvx8v3: yYtssYrCL8VwFrdvvx8v3$3,
+    UqbfVZzRyk0iD2NcOii_E: UqbfVZzRyk0iD2NcOii_E$3,
+    _4E2zv2NpOG4y8TV5PRL0: _4E2zv2NpOG4y8TV5PRL0$3,
+    "FMi4atPbKn-B1HiAZ2ZP2": "\u5BFC\u51FA\u6807\u7B7E",
+    Cu6n0Apv5xVlo4DnQbVbT: Cu6n0Apv5xVlo4DnQbVbT$3,
+    BB4C5taWpmw06X0Kz_Gtk: BB4C5taWpmw06X0Kz_Gtk$3,
+    zg2GRF6zmMXCkT9Uz2Bni: zg2GRF6zmMXCkT9Uz2Bni$3,
+    xSC1vpAOTLQ3RBipKrNpD: xSC1vpAOTLQ3RBipKrNpD$3,
+    cKXET1CCnAXq4H60qr8uc: cKXET1CCnAXq4H60qr8uc$3,
+    QH_xm27zhgs5E1077asf1: QH_xm27zhgs5E1077asf1$3,
+    Uw9QwD1SaR2VjZEqDYRdb: Uw9QwD1SaR2VjZEqDYRdb$3,
+    ECpLfRMsS0zpJPTw0qqNs: ECpLfRMsS0zpJPTw0qqNs$3,
+    vJobIibroyz2wkpmONSnR: vJobIibroyz2wkpmONSnR$3,
+    "HPukB-OKzIuRxMmO4Rx2U": "\u70B9\u51FB\u8BE6\u60C5\u56FE\u7247\u5173\u95ED\u5F39\u7A97",
+    I_MKXUxaNXp3D35GFULn4: I_MKXUxaNXp3D35GFULn4$3,
+    dm7zGAYbP2sbGXO_ekDDl: dm7zGAYbP2sbGXO_ekDDl$3,
+    "kMu1vOFmTJac-ylP0b13Z": "\u4E0B\u8F7D\u6210\u529F",
+    UOaS5wud2xGLzx9NGJxYQ: UOaS5wud2xGLzx9NGJxYQ$3,
+    jx2FWrN3O_8T7U5aSbvXj: jx2FWrN3O_8T7U5aSbvXj$3,
+    "1sUsdpwBzU4gBf7Mrcihq": "\u56FE\u7247\u4FDD\u5B58\u76EE\u5F55",
+    "rcpw-hgymDP2bsJPPUb_F": "\u9009\u62E9\u56FE\u7247\u7684\u4E0B\u8F7D\u65B9\u5F0F",
+    "Ah2uP1cGRBQ6jff-SIc-Q": "\u56FE\u7247\u4E0B\u8F7D\u65B9\u5F0F"
+  };
+  const UxxldE9xRwmQctrvba5Y8$2 = "\u8A2D\u7F6E";
+  const A16qoBulYQJLbHe9mqNwm$2 = "\u5305\u542B\u88F8\u9732\u3001\u6027\u611B\u63CF\u5BEB\u5167\u5BB9\u7B49\u904E\u6FC0\u5167\u5BB9";
+  const CacM8tispuPNrSxxpt9GX$2 = "\u5FEB\u6377\u65B9\u5F0F";
+  const ClZdL9hGweOokP7Mn_Ptq$2 = "\u9000\u51FA\u7011\u5E03\u6D41\u6A21\u5F0F";
+  const DXEhXAQbkiCMU_l252jo_$2 = "\u5716\u96C6 (Pool)";
+  const Dnnio9m9RZA6bkTLytc99$2 = "\u52A0\u5165\u6536\u85CF";
+  const EsiorRgoeHI8h7IHMLDA4$2 = "\u65B0\u6A19\u7C64\u9801\u6253\u958B";
+  const FAqj5ONm50QMfIt9Vq2p1$2 = "\u4E0B\u8F09\u51FA\u932F";
+  const FT1uJs8XG__n5qBvuFsH4$2 = "\u8A73\u60C5\u5F48\u7A97\u9810\u52A0\u8F09\u4E0B\u4E00\u5F35\u6A23\u54C1\u5716/\u539F\u5716";
+  const G3b7rbyQEj3_rgzVsNJZY$2 = "\u5716\u7247\u9810\u52A0\u8F09\u6578\u91CF";
+  const GjMNbm97OgVvpIYlkOisE$2 = "\u9069\u61C9\u9AD8\u5EA6";
+  const HzMBcS2oNGVIoLiHWprim$2 = "\u6536\u85CF\u593E";
+  const Lm_HFVHpv4XCjilV3NLKu$2 = "\u986F\u793A NSFW \u5167\u5BB9";
+  const OKs1ePekQA4Ona839U114$2 = "\u4E0B\u8F09\u5217\u8868";
+  const RN4dt81l_fZMWODsskZob$2 = "\u52A0\u8F09\u4E2D";
+  const RstKmO7YVQMpaDoucxUel$2 = "\u7576\u524D\u7AD9\u9EDE API Credentials";
+  const SIUUZ4wqJTOilEdcX3EOi$2 = "\u8A73\u60C5\u5F48\u7A97\u6EFE\u8F2A\u5207\u63DB\u5716\u7247";
+  const XvOYJ5gHo37M1XztPl18z$2 = "\u5168\u5C4F";
+  const Ym0HIEu9Q80qXB31LuC6c$2 = "\u756B\u5E2B";
+  const Z4pa8GhgE63OGGvCqAld0$2 = "\u4E0B\u9762\u6C92\u6709\u4E86";
+  const ZztrWbSaaaas3v0cHtSmh$2 = "\u641C\u7D22\u6A19\u7C64";
+  const _Efl8k8uYQj9iJmj3kwbd$2 = "\u672C\u5730\u6A19\u7C64\u9ED1\u540D\u55AE";
+  const _bQs7o9oQSo7ao1G0cp3d$2 = "\u65CB\u8F49";
+  const _nQfaNuwbvPAIFKOY6_7u$2 = "\u76E3\u807D\u6EFE\u8F2A\u4E8B\u4EF6";
+  const aVqN9TBRCbNGsW3Y2D2Nm$2 = "\u5927\u5716";
+  const ad8lEoWap_nT9U69WBKen$2 = "\u9069\u61C9\u5BEC\u5EA6";
+  const aonlPAu9kEkkwNvQg0DBk$2 = "\u89D2\u8272";
+  const cKn4cfAxzdgh_HD6OFibB$2 = "\u958B\u59CB\u4E0B\u8F09";
+  const caFFJlrS1wa_F86uKPykd$2 = "\u8A73\u60C5";
+  const ctWGhVvqB2k_1TX2iY0l2$2 = "\u6536\u85CF\u6210\u529F";
+  const dU7ou5kVM0s9DMju5e2tS$2 = "\u5217";
+  const e2_EYvweJsVoIZlIWkPRV$2 = "\u7AD9\u9EDE\u5217\u8868";
+  const fC8XNfCl04zK7vgeaRZMQ$2 = "\u52A0\u8F09\u66F4\u591A";
+  const fVE5taO6GDTPbILat4GCt$2 = "\u76E3\u807D\u9375\u76E4\u4E8B\u4EF6";
+  const gM92sLo0Cqfl2rCaXlOhc$2 = "\u96B1\u85CF";
+  const hVmfDxXoj8vkgVQabEOSr$2 = "\u52A0\u5165\u4E0B\u8F09\u5217\u8868";
+  const jerGO2OCuW9TdnEnGYRWd$2 = "\u9EDE\u64CA\u67E5\u770B";
+  const juT6gwLOg5r1h2vFpFf6P$2 = "\u7248\u6B0A";
+  const k4YzDnBtd_S2UpAQucGxF$2 = "\u4E0B\u8F09\u9AD8\u6E05\u5716";
+  const kFcteLMfnoezhOwuTlLFC$2 = "\u8A73\u60C5\u5716\u7247\u9810\u52A0\u8F09";
+  const l8CbIALt_VWUnzBl_Rmgf$2 = "Booru \u5716\u7AD9\u7011\u5E03\u6D41\u700F\u89BD";
+  const pEU9Y9K7DsODkocCDwq_O$2 = "\u5DF2\u6536\u85CF";
+  const qSF4OLshg2EEX4CwtBE6r$2 = "\u4F86\u6E90";
+  const qWcqQRsE9nN43MaZ2BmN9$2 = "Web \u7248\u672C";
+  const rXjhc8VuGloy1wZ09noNB$2 = "\u5C0F\u65BC7\u5217\u6642\u5217\u8868\u6703\u52A0\u8F09\u5927\u5716";
+  const tGi6xYfvStBmR8qduEmKX$2 = "\u67E5\u770B";
+  const u8mEnSo4mxDRUbj7FeAll$2 = "\u5207\u63DB\u6DF1\u8272\u6A21\u5F0F";
+  const uxIs3XkeVzkrEX985zHk3$2 = "\u81EA\u52D5";
+  const vfUg8xP6WptIhSL0E9b9D$2 = "\u7B49\u5BEC\u7B49\u9AD8";
+  const w95XGurDhDfOfw7XH4JFW$2 = "\u8A73\u60C5\u5F48\u7A97\u4F7F\u7528A/D/\u2190/\u2192\u5207\u63DB\u5716\u7247";
+  const wI4KHHIe3zNRziW4lDZrp$2 = "\u4E0B\u8F09\u6A23\u54C1\u5716";
+  const ze1PaiGdX4ufmoOLv_xw6$2 = "\u6309\u5E74";
+  const zs8YTCc8d8XFUgRnp7m_w$2 = "\u6211\u7684\u6536\u85CF\u593E";
+  const PBjdNKuj02doUvOf2zZqP$2 = "\u5716\u7247\u4FDD\u5B58\u5230\u5B50\u6587\u4EF6\u593E";
+  const z_oL9s5fS164W4_gITOGZ$2 = "\u5728\u9ED8\u8A8D\u4E0B\u8F09\u76EE\u9304\u5275\u5EFA\u4E00\u500B\u4EE5\u7AD9\u9EDE\u70BA\u540D\u7684\u6587\u4EF6\u593E\u5B58\u653E\u5716\u7247\uFF0C\u9700\u8981\u5C07 Tampermonkey \u7684\u201C\u4E0B\u8F09\u6A21\u5F0F\u201D\u4FEE\u6539\u70BA\u201C\u700F\u89BD\u5668 API\u201D";
+  const LN_Rsic4V50DrXbsv9T9L$2 = "\u78BA\u5B9A\u8981\u958B\u555F\u5B50\u6587\u4EF6\u593E\u4E0B\u8F09\u529F\u80FD\u55CE\uFF1F\n\u8ACB\u78BA\u4FDD\u60A8\u5DF2\u5C07 Tampermonkey \u7684\u201C\u4E0B\u8F09\u6A21\u5F0F\u201D\u4FEE\u6539\u70BA\u201C\u700F\u89BD\u5668 API\u201D\u3002";
+  const OJ8X55GXx5k3peoSXSujf$2 = "\u6253\u958B\u65B9\u5F0F\uFF1A\u5C07 Tampermonkey \u8A2D\u7F6E\u4E2D\u7684\u201C\u914D\u7F6E\u6A21\u5F0F\u201D\u7531\u201C\u65B0\u624B\u201D\u6539\u70BA\u201C\u9AD8\u7D1A\u201D\uFF0C\u7136\u5F8C\u627E\u5230\u201C\u4E0B\u8F09 BETA\u201D\uFF0C\u5C07\u201C\u4E0B\u8F09\u6A21\u5F0F\u201D\u4FEE\u6539\u70BA\u201C\u700F\u89BD\u5668 API\u201D\u3002";
+  const ti3akdSS3iZV9NsGzIo3m$2 = "\u63D0\u793A";
+  const ujBgilCWNgFNV8Q2IDMWS$2 = "\u63D0\u793A\uFF1A\u70BA\u65B9\u4FBF\u4F7F\u7528\uFF0C\u53EF\u4EE5\u5C07\u700F\u89BD\u5668\u8A2D\u7F6E\u4E2D\u201C\u4E0B\u8F09\u524D\u8A62\u554F\u6BCF\u500B\u6587\u4EF6\u7684\u4FDD\u5B58\u4F4D\u7F6E\u201D\u9078\u9805\u95DC\u9589\u3002";
+  const sMkrF8bqCTJZZ1kXTkT_R$2 = "\u67E5\u770B\u7236\u6295\u7A3F";
+  const u0K7A_hv1RZSJl6TDR61A$2 = "\u67E5\u770B\u5B50\u9805";
+  const EVPG1YZDtykdz3htyf11u$2 = "\u8907\u88FD\u5230\u526A\u8CBC\u7C3F";
+  const fbIpwMw2yVoSxP66OJ32z$2 = "\u5716\u7247\u92EA\u6EFF\u87A2\u5E55";
+  const kCYFwKpwznYIKRmB1tCww$2 = "\u5F9E\u526A\u8CBC\u7C3F\u8B80\u53D6";
+  const tEvQYzSVnggYAcM1uv9Tt$2 = "\u95DC\u9589\u6B64\u529F\u80FD\u7684\u8A71\u87A2\u5E55\u5169\u5074\u6703\u7559\u767D";
+  const HSx0XMZFid_lVuwjzrhH0$2 = "\u5716\u7247\u6E05\u55AE\u7684\u7E2E\u5716\u4F7F\u7528\u5927\u5716\u9023\u7D50(sample_url)";
+  const lkCkz1OpNtTCFRfGCEoBp$2 = "\u81EA\u52D5\u9032\u5165\u7011\u5E03\u6D41\u6A21\u5F0F";
+  const e4_fgvntwNlfxgJUc2dXK$2 = "\u8A9E\u8A00";
+  const gPt6cpWrkvqRqZnwJo1KV$2 = "\u5728\u5716\u7247\u5361\u7247\u5DE6\u4E0A\u89D2\u986F\u793A\u52A0\u5165\u4E0B\u8F09\u6E05\u55AE\u7684\u8907\u9078\u6846";
+  const sxhTRqogDRozo9IaTGI7g$2 = "\u6E05\u55AE\u5716\u7247\u986F\u793A\u8907\u9078\u6846";
+  const dvs63FvVKWm3uHVfqeq00$2 = "\u4F7F\u7528 Fancybox \u67E5\u770B\u8A73\u60C5";
+  const Tbq8O5KhwcDHQ_qxNFW09$2 = "\u5BE6\u9A57\u6027";
+  const IxTawC_qs_xjxj5g8_aGx$2 = "\u96B1\u85CF\u639B\u8D77\u7684\u5716\u7247";
+  const YAUNSVT_pTygaY306DZmU$2 = "yande.re \u4E0D\u4F7F\u7528 API \u53D6\u5F97\u5716\u7247\u5217\u8868";
+  const HkRzE7fweBSefchs0z0r8$2 = "\u76F4\u63A5\u89E3\u6790 HTML \u53D6\u5F97\u5716\u7247\u6578\u64DA";
+  const yYtssYrCL8VwFrdvvx8v3$2 = "\u865B\u64EC\u5217\u8868(\u7B49\u5BEC\u4E0D\u7B49\u9AD8)";
+  const UqbfVZzRyk0iD2NcOii_E$2 = "\u5217\u8868\u5716\u7247\u986F\u793A\u5206\u8FA8\u7387";
+  const _4E2zv2NpOG4y8TV5PRL0$2 = "\u5728\u5716\u7247\u5361\u5DE6\u4E0B\u89D2\u986F\u793A\u539F\u5716\u7684\u5206\u8FA8\u7387";
+  const Cu6n0Apv5xVlo4DnQbVbT$2 = "\u6A19\u7C64\u532F\u51FA\u8A2D\u7F6E";
+  const BB4C5taWpmw06X0Kz_Gtk$2 = "\u8A2D\u7F6E\u6B0A\u91CD";
+  const zg2GRF6zmMXCkT9Uz2Bni$2 = "\u5168\u9078";
+  const xSC1vpAOTLQ3RBipKrNpD$2 = "\u53D6\u6D88\u5168\u9078";
+  const cKXET1CCnAXq4H60qr8uc$2 = "\u53CD\u9078";
+  const QH_xm27zhgs5E1077asf1$2 = "\u532F\u51FA";
+  const Uw9QwD1SaR2VjZEqDYRdb$2 = "\u90E8\u5206\u8A2D\u7F6E\u9700\u8981\u5237\u65B0\u9801\u9762\u5F8C\u751F\u6548";
+  const ECpLfRMsS0zpJPTw0qqNs$2 = "\u8A73\u60C5\u64CD\u4F5C\u6B04\u6309\u9215\u7F6E\u65BC\u5E95\u90E8";
+  const vJobIibroyz2wkpmONSnR$2 = "\u5716\u7247\u8A73\u60C5\u5F48\u7A97\u7684\u64CD\u4F5C\u6309\u9215\u6B04\u8207\u6A19\u7C64\u6B04\u4F4D\u7F6E\u4E92\u63DB";
+  const I_MKXUxaNXp3D35GFULn4$2 = "\u6B64\u9078\u9805\u95DC\u9589\u6642\uFF0C\u9EDE\u64CA\u8A73\u60C5\u5716\u7247\u6703\u5207\u63DB\u6309\u9215\u8207\u6A19\u7C64\u7684\u986F\u793A\u96B1\u85CF";
+  const dm7zGAYbP2sbGXO_ekDDl$2 = "Justified \u4F48\u5C40\u5BEC\u5EA6\u4FC2\u6578";
+  const UOaS5wud2xGLzx9NGJxYQ$2 = "\u9078\u64C7\u76EE\u9304";
+  const jx2FWrN3O_8T7U5aSbvXj$2 = "\u9078\u64C7\u5716\u7247\u7684\u4FDD\u5B58\u4F4D\u7F6E";
+  var zhHant = {
+    UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$2,
+    "1F-R4qChHIzZaohu5GJzl": "\u5F62\u5982: &api_key=xx&user_id=1",
+    "23iEYyiQlLVhFIqGbj527": "\u554F\u984C\u8207\u5EFA\u8B70",
+    "2ZPEAvLkCbV3mC0iJAw9K": "\u6536\u85CF",
+    "4g1TUy2kwQrdOs-w4JobB": "\u9EDE\u64CA\u53CD\u994B",
+    "4hOFoP4M3ZkL3RiN7XOc8": "\u6C92\u4E86",
+    "6acPWiYq2-OdySa2_xqDu": "\u96A8\u6A5F",
+    "6jPGehET9TViankl5-SRu": "\u7B49\u5BEC\u4E0D\u7B49\u9AD8",
+    "7Cgsr4PUMbezDXNfWdvWH": "\u4EBA\u6C23\u4F5C\u54C1",
+    "7Xq5puLNcT0mAvoxElqdf": "\u6B61\u8FCE Star \u2606\u5F61",
+    "9juZMc0gPIgvMPKVORpJ1": "\u4EBA\u6C23",
+    A16qoBulYQJLbHe9mqNwm: A16qoBulYQJLbHe9mqNwm$2,
+    "B_ptN5O-9PhmG5ymGGtc6": "\u67E5\u770B\u5927\u5716",
+    CacM8tispuPNrSxxpt9GX: CacM8tispuPNrSxxpt9GX$2,
+    ClZdL9hGweOokP7Mn_Ptq: ClZdL9hGweOokP7Mn_Ptq$2,
+    DXEhXAQbkiCMU_l252jo_: DXEhXAQbkiCMU_l252jo_$2,
+    Dnnio9m9RZA6bkTLytc99: Dnnio9m9RZA6bkTLytc99$2,
+    EsiorRgoeHI8h7IHMLDA4: EsiorRgoeHI8h7IHMLDA4$2,
+    FAqj5ONm50QMfIt9Vq2p1: FAqj5ONm50QMfIt9Vq2p1$2,
+    FT1uJs8XG__n5qBvuFsH4: FT1uJs8XG__n5qBvuFsH4$2,
+    G3b7rbyQEj3_rgzVsNJZY: G3b7rbyQEj3_rgzVsNJZY$2,
+    GjMNbm97OgVvpIYlkOisE: GjMNbm97OgVvpIYlkOisE$2,
+    HzMBcS2oNGVIoLiHWprim: HzMBcS2oNGVIoLiHWprim$2,
+    "J2Ckb_-LITfmww4aEksqk": "\u8F38\u51FA\u4E0B\u8F09\u5730\u5740",
+    "KkkM-iz8RCVQoTrTfhS5j": "\u539F\u59CB\u5927\u5C0F",
+    "LZbI8am7nD-LiemZzroFF": "\u7B49\u9AD8\u4E0D\u7B49\u5BEC",
+    Lm_HFVHpv4XCjilV3NLKu: Lm_HFVHpv4XCjilV3NLKu$2,
+    "M-wISnLiQgM_DURMwKZGT": "\u9069\u61C9\u9801\u9762",
+    "MWVfUiW8egLWq7MgV-wzc": "\u6536\u85CF\u5931\u6557",
+    "Mt3-hyoH7f_pW2gnfxyur": "\u6309\u65E5",
+    OKs1ePekQA4Ona839U114: OKs1ePekQA4Ona839U114$2,
+    "OrwwNKZ7I70-ecpspE8d_": "\u5207\u63DB\u5168\u5C4F",
+    "PQhFo-g7sgagimkleVoZR": "\u6309\u6708",
+    "PT74UDfKA45vTVTst_-hD": "\u95DC\u65BC",
+    RN4dt81l_fZMWODsskZob: RN4dt81l_fZMWODsskZob$2,
+    RstKmO7YVQMpaDoucxUel: RstKmO7YVQMpaDoucxUel$2,
+    SIUUZ4wqJTOilEdcX3EOi: SIUUZ4wqJTOilEdcX3EOi$2,
+    "StU1-52QJmNFKQ5soJCyG": "\u96A8\u6A5F\u4F5C\u54C1",
+    "VpuyxZtIoDF9-YyOm0tK_": "\u4E0B\u8F09\u539F\u6587\u4EF6",
+    "Xtk-NnMgSQZmheJ87nbRV": "\u4E0B\u8F09",
+    XvOYJ5gHo37M1XztPl18z: XvOYJ5gHo37M1XztPl18z$2,
+    Ym0HIEu9Q80qXB31LuC6c: Ym0HIEu9Q80qXB31LuC6c$2,
+    Z4pa8GhgE63OGGvCqAld0: Z4pa8GhgE63OGGvCqAld0$2,
+    "ZtQHZx-pEjmu_o3dQD1fc": "\u793E\u5718",
+    ZztrWbSaaaas3v0cHtSmh: ZztrWbSaaaas3v0cHtSmh$2,
+    _Efl8k8uYQj9iJmj3kwbd: _Efl8k8uYQj9iJmj3kwbd$2,
+    _bQs7o9oQSo7ao1G0cp3d: _bQs7o9oQSo7ao1G0cp3d$2,
+    _nQfaNuwbvPAIFKOY6_7u: _nQfaNuwbvPAIFKOY6_7u$2,
+    aVqN9TBRCbNGsW3Y2D2Nm: aVqN9TBRCbNGsW3Y2D2Nm$2,
+    ad8lEoWap_nT9U69WBKen: ad8lEoWap_nT9U69WBKen$2,
+    aonlPAu9kEkkwNvQg0DBk: aonlPAu9kEkkwNvQg0DBk$2,
+    cKn4cfAxzdgh_HD6OFibB: cKn4cfAxzdgh_HD6OFibB$2,
+    caFFJlrS1wa_F86uKPykd: caFFJlrS1wa_F86uKPykd$2,
+    ctWGhVvqB2k_1TX2iY0l2: ctWGhVvqB2k_1TX2iY0l2$2,
+    dU7ou5kVM0s9DMju5e2tS: dU7ou5kVM0s9DMju5e2tS$2,
+    e2_EYvweJsVoIZlIWkPRV: e2_EYvweJsVoIZlIWkPRV$2,
+    "elkBQ9moOZ-KMcy5bt_Ts": "\u6700\u8FD1\u4EBA\u6C23",
+    fC8XNfCl04zK7vgeaRZMQ: fC8XNfCl04zK7vgeaRZMQ$2,
+    fVE5taO6GDTPbILat4GCt: fVE5taO6GDTPbILat4GCt$2,
+    gM92sLo0Cqfl2rCaXlOhc: gM92sLo0Cqfl2rCaXlOhc$2,
+    hVmfDxXoj8vkgVQabEOSr: hVmfDxXoj8vkgVQabEOSr$2,
+    "iJ0h220tvMmUhkfIMYI-W": "\u67E5\u770B\u66F4\u65B0\u65E5\u8A8C",
+    "iRt9V9wNQASic3D7-wTZo": "\u5BE6\u9A57\u6027/\u4E0D\u4FDD\u8B49\u53EF\u7528",
+    "jDjashxA-oBPo19DXI504": "\u539F\u5716",
+    "jMod2JozzAnwHuD-3KuPb": "\u4E0B\u65B9\u8F38\u5165\u6A19\u7C64\uFF0C\u56DE\u8ECA\u6DFB\u52A0",
+    jerGO2OCuW9TdnEnGYRWd: jerGO2OCuW9TdnEnGYRWd$2,
+    juT6gwLOg5r1h2vFpFf6P: juT6gwLOg5r1h2vFpFf6P$2,
+    k4YzDnBtd_S2UpAQucGxF: k4YzDnBtd_S2UpAQucGxF$2,
+    kFcteLMfnoezhOwuTlLFC: kFcteLMfnoezhOwuTlLFC$2,
+    "kop_-39vkeg-bz2wztJ9O": "\u5716\u7247\u5217\u8868\u4F48\u5C40",
+    "l5W-EtJ_ar-SY2lF4H5Zm": "\u986F\u793A",
+    l8CbIALt_VWUnzBl_Rmgf: l8CbIALt_VWUnzBl_Rmgf$2,
+    "lPPsX2CZbXwC-EGN79Rki": "\u7E2E\u5C0F",
+    "nd4UjZy2ILsc-iW9iu7xR": "\u6309\u65E5\u671F",
+    pEU9Y9K7DsODkocCDwq_O: pEU9Y9K7DsODkocCDwq_O$2,
+    qSF4OLshg2EEX4CwtBE6r: qSF4OLshg2EEX4CwtBE6r$2,
+    qWcqQRsE9nN43MaZ2BmN9: qWcqQRsE9nN43MaZ2BmN9$2,
+    rXjhc8VuGloy1wZ09noNB: rXjhc8VuGloy1wZ09noNB$2,
+    "riciqzr6ILBnpPc7KtG-C": "\u6309\u9031",
+    "t83UAY18UebTg1_-zFGP3": "\u95DC\u9589",
+    tGi6xYfvStBmR8qduEmKX: tGi6xYfvStBmR8qduEmKX$2,
+    "tt_YdgKCA_5m-aSTSMPQ_": "\u7011\u5E03\u6D41\u5217\u6578",
+    u8mEnSo4mxDRUbj7FeAll: u8mEnSo4mxDRUbj7FeAll$2,
+    uxIs3XkeVzkrEX985zHk3: uxIs3XkeVzkrEX985zHk3$2,
+    vfUg8xP6WptIhSL0E9b9D: vfUg8xP6WptIhSL0E9b9D$2,
+    w95XGurDhDfOfw7XH4JFW: w95XGurDhDfOfw7XH4JFW$2,
+    wI4KHHIe3zNRziW4lDZrp: wI4KHHIe3zNRziW4lDZrp$2,
+    "xJJTEE3nZ4HVXGFfiN-LC": "\u5F35",
+    ze1PaiGdX4ufmoOLv_xw6: ze1PaiGdX4ufmoOLv_xw6$2,
+    zs8YTCc8d8XFUgRnp7m_w: zs8YTCc8d8XFUgRnp7m_w$2,
+    PBjdNKuj02doUvOf2zZqP: PBjdNKuj02doUvOf2zZqP$2,
+    z_oL9s5fS164W4_gITOGZ: z_oL9s5fS164W4_gITOGZ$2,
+    "0VAN4cJ-_mUxvtmg4KEi1": "\u78BA\u5B9A",
+    "9dq_DxgMG88eom9Gq-4nT": "\u53D6\u6D88",
+    LN_Rsic4V50DrXbsv9T9L: LN_Rsic4V50DrXbsv9T9L$2,
+    OJ8X55GXx5k3peoSXSujf: OJ8X55GXx5k3peoSXSujf$2,
+    ti3akdSS3iZV9NsGzIo3m: ti3akdSS3iZV9NsGzIo3m$2,
+    ujBgilCWNgFNV8Q2IDMWS: ujBgilCWNgFNV8Q2IDMWS$2,
+    sMkrF8bqCTJZZ1kXTkT_R: sMkrF8bqCTJZZ1kXTkT_R$2,
+    u0K7A_hv1RZSJl6TDR61A: u0K7A_hv1RZSJl6TDR61A$2,
+    "99kLMSzDYJCAf1yK9QYzy": "\u5DF2\u8907\u88FD",
+    EVPG1YZDtykdz3htyf11u: EVPG1YZDtykdz3htyf11u$2,
+    fbIpwMw2yVoSxP66OJ32z: fbIpwMw2yVoSxP66OJ32z$2,
+    kCYFwKpwznYIKRmB1tCww: kCYFwKpwznYIKRmB1tCww$2,
+    "si-zDDRFrEwDTCkp53Q44": "\u8ACB\u5141\u8A31\u526A\u8CBC\u7C3F\u6B0A\u9650",
+    tEvQYzSVnggYAcM1uv9Tt: tEvQYzSVnggYAcM1uv9Tt$2,
+    "eOxsWLzwqrlhBdVMwz-rH": "\u63A8\u85A6\u7DB2\u7AD9",
+    "4yzHPggVky2QKFD2TbBhl": "\u7E2E\u5716\u4F7F\u7528\u5927\u5716",
+    HSx0XMZFid_lVuwjzrhH0: HSx0XMZFid_lVuwjzrhH0$2,
+    "EZd1QQdgUDjT3yya5ZYe-": "\u958B\u555F\u4F86\u6E90\u7AD9\u6642\u76F4\u63A5\u9032\u5165\u7011\u5E03\u6D41\u700F\u89BD\u6A21\u5F0F",
+    lkCkz1OpNtTCFRfGCEoBp: lkCkz1OpNtTCFRfGCEoBp$2,
+    e4_fgvntwNlfxgJUc2dXK: e4_fgvntwNlfxgJUc2dXK$2,
+    gPt6cpWrkvqRqZnwJo1KV: gPt6cpWrkvqRqZnwJo1KV$2,
+    sxhTRqogDRozo9IaTGI7g: sxhTRqogDRozo9IaTGI7g$2,
+    dvs63FvVKWm3uHVfqeq00: dvs63FvVKWm3uHVfqeq00$2,
+    "w4uJjpTmSEkm6SIDgEo-0": "\u5716\u7247\u8A73\u60C5\u4F7F\u7528\u652F\u63F4\u7E2E\u653E\u65CB\u8F49\u7B49\u64CD\u4F5C\u7684 Fancybox \u7D44\u4EF6\u67E5\u770B",
+    Tbq8O5KhwcDHQ_qxNFW09: Tbq8O5KhwcDHQ_qxNFW09$2,
+    IxTawC_qs_xjxj5g8_aGx: IxTawC_qs_xjxj5g8_aGx$2,
+    "-x4wjDoHtodaXEgm2SXkg": "\u547C\u53EB API \u6642\u6703\u9810\u8A2D\u50B3\u5165 `holds:false` \u6A19\u7C64",
+    YAUNSVT_pTygaY306DZmU: YAUNSVT_pTygaY306DZmU$2,
+    HkRzE7fweBSefchs0z0r8: HkRzE7fweBSefchs0z0r8$2,
+    yYtssYrCL8VwFrdvvx8v3: yYtssYrCL8VwFrdvvx8v3$2,
+    UqbfVZzRyk0iD2NcOii_E: UqbfVZzRyk0iD2NcOii_E$2,
+    _4E2zv2NpOG4y8TV5PRL0: _4E2zv2NpOG4y8TV5PRL0$2,
+    "FMi4atPbKn-B1HiAZ2ZP2": "\u532F\u51FA\u6A19\u7C64",
+    Cu6n0Apv5xVlo4DnQbVbT: Cu6n0Apv5xVlo4DnQbVbT$2,
+    BB4C5taWpmw06X0Kz_Gtk: BB4C5taWpmw06X0Kz_Gtk$2,
+    zg2GRF6zmMXCkT9Uz2Bni: zg2GRF6zmMXCkT9Uz2Bni$2,
+    xSC1vpAOTLQ3RBipKrNpD: xSC1vpAOTLQ3RBipKrNpD$2,
+    cKXET1CCnAXq4H60qr8uc: cKXET1CCnAXq4H60qr8uc$2,
+    QH_xm27zhgs5E1077asf1: QH_xm27zhgs5E1077asf1$2,
+    Uw9QwD1SaR2VjZEqDYRdb: Uw9QwD1SaR2VjZEqDYRdb$2,
+    ECpLfRMsS0zpJPTw0qqNs: ECpLfRMsS0zpJPTw0qqNs$2,
+    vJobIibroyz2wkpmONSnR: vJobIibroyz2wkpmONSnR$2,
+    "HPukB-OKzIuRxMmO4Rx2U": "\u9EDE\u64CA\u8A73\u60C5\u5716\u7247\u95DC\u9589\u5F48\u7A97",
+    I_MKXUxaNXp3D35GFULn4: I_MKXUxaNXp3D35GFULn4$2,
+    dm7zGAYbP2sbGXO_ekDDl: dm7zGAYbP2sbGXO_ekDDl$2,
+    "kMu1vOFmTJac-ylP0b13Z": "\u4E0B\u8F09\u6210\u529F",
+    UOaS5wud2xGLzx9NGJxYQ: UOaS5wud2xGLzx9NGJxYQ$2,
+    jx2FWrN3O_8T7U5aSbvXj: jx2FWrN3O_8T7U5aSbvXj$2,
+    "1sUsdpwBzU4gBf7Mrcihq": "\u5716\u7247\u4FDD\u5B58\u76EE\u9304",
+    "rcpw-hgymDP2bsJPPUb_F": "\u9078\u64C7\u5716\u7247\u7684\u4E0B\u8F09\u65B9\u5F0F",
+    "Ah2uP1cGRBQ6jff-SIc-Q": "\u5716\u7247\u4E0B\u8F09\u65B9\u5F0F"
+  };
+  const UxxldE9xRwmQctrvba5Y8$1 = "Settings";
+  const A16qoBulYQJLbHe9mqNwm$1 = "Contains excessive content such as nudity and sexual descriptions";
+  const CacM8tispuPNrSxxpt9GX$1 = "Shortcuts";
+  const ClZdL9hGweOokP7Mn_Ptq$1 = "Exit Waterfall Mode";
+  const DXEhXAQbkiCMU_l252jo_$1 = "Pools";
+  const Dnnio9m9RZA6bkTLytc99$1 = "Add to favorites";
+  const EsiorRgoeHI8h7IHMLDA4$1 = "Open in new tab";
+  const FAqj5ONm50QMfIt9Vq2p1$1 = "Download error";
+  const FT1uJs8XG__n5qBvuFsH4$1 = "The details pop-up window preloads the next sample image/original image";
+  const G3b7rbyQEj3_rgzVsNJZY$1 = "Number of images preloaded";
+  const GjMNbm97OgVvpIYlkOisE$1 = "Adapt to height";
+  const HzMBcS2oNGVIoLiHWprim$1 = "Favorites";
+  const Lm_HFVHpv4XCjilV3NLKu$1 = "Show NSFW content";
+  const OKs1ePekQA4Ona839U114$1 = "Download list";
+  const RN4dt81l_fZMWODsskZob$1 = "Loading";
+  const RstKmO7YVQMpaDoucxUel$1 = "Current Site API Credentials";
+  const SIUUZ4wqJTOilEdcX3EOi$1 = "Details pop-up scroll wheel to switch images";
+  const XvOYJ5gHo37M1XztPl18z$1 = "Fullscreen";
+  const Ym0HIEu9Q80qXB31LuC6c$1 = "Illustrator";
+  const Z4pa8GhgE63OGGvCqAld0$1 = "No more";
+  const ZztrWbSaaaas3v0cHtSmh$1 = "Search tags";
+  const _Efl8k8uYQj9iJmj3kwbd$1 = "Local Tag Blacklist";
+  const _bQs7o9oQSo7ao1G0cp3d$1 = "Rotate";
+  const _nQfaNuwbvPAIFKOY6_7u$1 = "Listen for wheel events";
+  const aVqN9TBRCbNGsW3Y2D2Nm$1 = "Large image";
+  const ad8lEoWap_nT9U69WBKen$1 = "Adapt to width";
+  const aonlPAu9kEkkwNvQg0DBk$1 = "Character";
+  const cKn4cfAxzdgh_HD6OFibB$1 = "Start download";
+  const caFFJlrS1wa_F86uKPykd$1 = "Details";
+  const ctWGhVvqB2k_1TX2iY0l2$1 = "Add to favorites success";
+  const dU7ou5kVM0s9DMju5e2tS$1 = "Column(s)";
+  const e2_EYvweJsVoIZlIWkPRV$1 = "Site list";
+  const fC8XNfCl04zK7vgeaRZMQ$1 = "Load more";
+  const fVE5taO6GDTPbILat4GCt$1 = "Listen for keyboard events";
+  const gM92sLo0Cqfl2rCaXlOhc$1 = "Hide";
+  const hVmfDxXoj8vkgVQabEOSr$1 = "Add to download list";
+  const jerGO2OCuW9TdnEnGYRWd$1 = "Click to view";
+  const juT6gwLOg5r1h2vFpFf6P$1 = "Copyright";
+  const k4YzDnBtd_S2UpAQucGxF$1 = "Download jpeg image";
+  const kFcteLMfnoezhOwuTlLFC$1 = "Detailed image preloading";
+  const l8CbIALt_VWUnzBl_Rmgf$1 = "Booru sites waterfall browsing";
+  const pEU9Y9K7DsODkocCDwq_O$1 = "Bookmarked";
+  const qSF4OLshg2EEX4CwtBE6r$1 = "Source";
+  const qWcqQRsE9nN43MaZ2BmN9$1 = "Web version";
+  const rXjhc8VuGloy1wZ09noNB$1 = "When the list is less than 7 columns, the list will load a large image";
+  const tGi6xYfvStBmR8qduEmKX$1 = "View";
+  const u8mEnSo4mxDRUbj7FeAll$1 = "Toggle dark mode";
+  const uxIs3XkeVzkrEX985zHk3$1 = "Auto";
+  const vfUg8xP6WptIhSL0E9b9D$1 = "Equal width and height";
+  const w95XGurDhDfOfw7XH4JFW$1 = "Use A/D/\u2190/\u2192 to switch images in the detail pop-up window";
+  const wI4KHHIe3zNRziW4lDZrp$1 = "Download sample image";
+  const ze1PaiGdX4ufmoOLv_xw6$1 = "By year";
+  const zs8YTCc8d8XFUgRnp7m_w$1 = "My favorites";
+  const PBjdNKuj02doUvOf2zZqP$1 = "Save images to subfolders";
+  const z_oL9s5fS164W4_gITOGZ$1 = `Create a folder named after the site in the default download directory to store pictures, you need to change Tampermonkey's "Download Mode" to "Browser API"`;
+  const LN_Rsic4V50DrXbsv9T9L$1 = `Are you sure you want to enable subfolder downloads? 
+Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
+  const OJ8X55GXx5k3peoSXSujf$1 = 'How to open it: Change the "Configuration Mode" in the Tampermonkey settings from "Novice" to "Advanced", then find "Download BETA", and change the "Download Mode" to "Browser API".';
+  const ti3akdSS3iZV9NsGzIo3m$1 = "Tips";
+  const ujBgilCWNgFNV8Q2IDMWS$1 = 'Tip: For convenience, you can turn off the "Ask where to save each file before downloading" option in the browser settings.';
+  const sMkrF8bqCTJZZ1kXTkT_R$1 = "Parent";
+  const u0K7A_hv1RZSJl6TDR61A$1 = "Child";
+  const EVPG1YZDtykdz3htyf11u$1 = "Copy to clipboard";
+  const fbIpwMw2yVoSxP66OJ32z$1 = "Images fill the screen";
+  const kCYFwKpwznYIKRmB1tCww$1 = "Read from clipboard";
+  const tEvQYzSVnggYAcM1uv9Tt$1 = "When this feature is turned off, both sides of the screen will be blank.";
+  const HSx0XMZFid_lVuwjzrhH0$1 = "Use the large image link(sample_url) to load the list image thumbnail.";
+  const lkCkz1OpNtTCFRfGCEoBp$1 = "Automatically enter waterfall mode";
+  const e4_fgvntwNlfxgJUc2dXK$1 = "Language";
+  const gPt6cpWrkvqRqZnwJo1KV$1 = "Display a checkbox to add to the download list in the upper left corner of the image card";
+  const sxhTRqogDRozo9IaTGI7g$1 = "Show checkbox in list image card";
+  const dvs63FvVKWm3uHVfqeq00$1 = "Use Fancybox to view details";
+  const Tbq8O5KhwcDHQ_qxNFW09$1 = "Experimental";
+  const IxTawC_qs_xjxj5g8_aGx$1 = "Hide held posts";
+  const YAUNSVT_pTygaY306DZmU$1 = "yande.re does not use API to get image list";
+  const HkRzE7fweBSefchs0z0r8$1 = "Directly parsing HTML to obtain image data";
+  const yYtssYrCL8VwFrdvvx8v3$1 = "Virtual list (equal width and unequal height)";
+  const UqbfVZzRyk0iD2NcOii_E$1 = "Show resolution in list image card.";
+  const _4E2zv2NpOG4y8TV5PRL0$1 = "Display the resolution of the original image in the lower left corner of the image card";
+  const Cu6n0Apv5xVlo4DnQbVbT$1 = "Tags Export Settings";
+  const BB4C5taWpmw06X0Kz_Gtk$1 = "Setting weights";
+  const zg2GRF6zmMXCkT9Uz2Bni$1 = "All";
+  const xSC1vpAOTLQ3RBipKrNpD$1 = "None";
+  const cKXET1CCnAXq4H60qr8uc$1 = "Invert";
+  const QH_xm27zhgs5E1077asf1$1 = "Export";
+  const Uw9QwD1SaR2VjZEqDYRdb$1 = "Some settings need to refresh the page to take effect.";
+  const ECpLfRMsS0zpJPTw0qqNs$1 = "Place the action bar button at the bottom of the details popup window";
+  const vJobIibroyz2wkpmONSnR$1 = "Swap the positions of the action button bar and the label bar of the image details pop-up window";
+  const I_MKXUxaNXp3D35GFULn4$1 = "When this option is turned off, clicking the detail image will toggle the display and hiding of buttons and tags.";
+  const dm7zGAYbP2sbGXO_ekDDl$1 = "Justified layout width factor";
+  const UOaS5wud2xGLzx9NGJxYQ$1 = "Select directory";
+  const jx2FWrN3O_8T7U5aSbvXj$1 = "Choose where to save the image";
+  var en = {
+    UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$1,
+    "1F-R4qChHIzZaohu5GJzl": "e.g: &api_key=xx&user_id=1",
+    "23iEYyiQlLVhFIqGbj527": "Questions and Suggestions",
+    "2ZPEAvLkCbV3mC0iJAw9K": "Add to favorites",
+    "4g1TUy2kwQrdOs-w4JobB": "Click to feedback",
+    "4hOFoP4M3ZkL3RiN7XOc8": "No more",
+    "6acPWiYq2-OdySa2_xqDu": "Random",
+    "6jPGehET9TViankl5-SRu": "Equal width and different height",
+    "7Cgsr4PUMbezDXNfWdvWH": "Popular",
+    "7Xq5puLNcT0mAvoxElqdf": "Welcome Star \u2606\u5F61",
+    "9juZMc0gPIgvMPKVORpJ1": "Popular",
+    A16qoBulYQJLbHe9mqNwm: A16qoBulYQJLbHe9mqNwm$1,
+    "B_ptN5O-9PhmG5ymGGtc6": "View larger image",
+    CacM8tispuPNrSxxpt9GX: CacM8tispuPNrSxxpt9GX$1,
+    ClZdL9hGweOokP7Mn_Ptq: ClZdL9hGweOokP7Mn_Ptq$1,
+    DXEhXAQbkiCMU_l252jo_: DXEhXAQbkiCMU_l252jo_$1,
+    Dnnio9m9RZA6bkTLytc99: Dnnio9m9RZA6bkTLytc99$1,
+    EsiorRgoeHI8h7IHMLDA4: EsiorRgoeHI8h7IHMLDA4$1,
+    FAqj5ONm50QMfIt9Vq2p1: FAqj5ONm50QMfIt9Vq2p1$1,
+    FT1uJs8XG__n5qBvuFsH4: FT1uJs8XG__n5qBvuFsH4$1,
+    G3b7rbyQEj3_rgzVsNJZY: G3b7rbyQEj3_rgzVsNJZY$1,
+    GjMNbm97OgVvpIYlkOisE: GjMNbm97OgVvpIYlkOisE$1,
+    HzMBcS2oNGVIoLiHWprim: HzMBcS2oNGVIoLiHWprim$1,
+    "J2Ckb_-LITfmww4aEksqk": "Output download links",
+    "KkkM-iz8RCVQoTrTfhS5j": "Original size",
+    "LZbI8am7nD-LiemZzroFF": "Equal height and unequal width",
+    Lm_HFVHpv4XCjilV3NLKu: Lm_HFVHpv4XCjilV3NLKu$1,
+    "M-wISnLiQgM_DURMwKZGT": "Fit page",
+    "MWVfUiW8egLWq7MgV-wzc": "Add to favorites failed",
+    "Mt3-hyoH7f_pW2gnfxyur": "By day",
+    OKs1ePekQA4Ona839U114: OKs1ePekQA4Ona839U114$1,
+    "OrwwNKZ7I70-ecpspE8d_": "Toggle fullscreen",
+    "PQhFo-g7sgagimkleVoZR": "By month",
+    "PT74UDfKA45vTVTst_-hD": "About",
+    RN4dt81l_fZMWODsskZob: RN4dt81l_fZMWODsskZob$1,
+    RstKmO7YVQMpaDoucxUel: RstKmO7YVQMpaDoucxUel$1,
+    SIUUZ4wqJTOilEdcX3EOi: SIUUZ4wqJTOilEdcX3EOi$1,
+    "StU1-52QJmNFKQ5soJCyG": "Random",
+    "VpuyxZtIoDF9-YyOm0tK_": "Download the original file",
+    "Xtk-NnMgSQZmheJ87nbRV": "Download",
+    XvOYJ5gHo37M1XztPl18z: XvOYJ5gHo37M1XztPl18z$1,
+    Ym0HIEu9Q80qXB31LuC6c: Ym0HIEu9Q80qXB31LuC6c$1,
+    Z4pa8GhgE63OGGvCqAld0: Z4pa8GhgE63OGGvCqAld0$1,
+    "ZtQHZx-pEjmu_o3dQD1fc": "Circle",
+    ZztrWbSaaaas3v0cHtSmh: ZztrWbSaaaas3v0cHtSmh$1,
+    _Efl8k8uYQj9iJmj3kwbd: _Efl8k8uYQj9iJmj3kwbd$1,
+    _bQs7o9oQSo7ao1G0cp3d: _bQs7o9oQSo7ao1G0cp3d$1,
+    _nQfaNuwbvPAIFKOY6_7u: _nQfaNuwbvPAIFKOY6_7u$1,
+    aVqN9TBRCbNGsW3Y2D2Nm: aVqN9TBRCbNGsW3Y2D2Nm$1,
+    ad8lEoWap_nT9U69WBKen: ad8lEoWap_nT9U69WBKen$1,
+    aonlPAu9kEkkwNvQg0DBk: aonlPAu9kEkkwNvQg0DBk$1,
+    cKn4cfAxzdgh_HD6OFibB: cKn4cfAxzdgh_HD6OFibB$1,
+    caFFJlrS1wa_F86uKPykd: caFFJlrS1wa_F86uKPykd$1,
+    ctWGhVvqB2k_1TX2iY0l2: ctWGhVvqB2k_1TX2iY0l2$1,
+    dU7ou5kVM0s9DMju5e2tS: dU7ou5kVM0s9DMju5e2tS$1,
+    e2_EYvweJsVoIZlIWkPRV: e2_EYvweJsVoIZlIWkPRV$1,
+    "elkBQ9moOZ-KMcy5bt_Ts": "Recent Popular",
+    fC8XNfCl04zK7vgeaRZMQ: fC8XNfCl04zK7vgeaRZMQ$1,
+    fVE5taO6GDTPbILat4GCt: fVE5taO6GDTPbILat4GCt$1,
+    gM92sLo0Cqfl2rCaXlOhc: gM92sLo0Cqfl2rCaXlOhc$1,
+    hVmfDxXoj8vkgVQabEOSr: hVmfDxXoj8vkgVQabEOSr$1,
+    "iJ0h220tvMmUhkfIMYI-W": "Check out the changelog",
+    "iRt9V9wNQASic3D7-wTZo": "Experimental/not guaranteed",
+    "jDjashxA-oBPo19DXI504": "Original image",
+    "jMod2JozzAnwHuD-3KuPb": "Input the tags below and press Enter to add",
+    jerGO2OCuW9TdnEnGYRWd: jerGO2OCuW9TdnEnGYRWd$1,
+    juT6gwLOg5r1h2vFpFf6P: juT6gwLOg5r1h2vFpFf6P$1,
+    k4YzDnBtd_S2UpAQucGxF: k4YzDnBtd_S2UpAQucGxF$1,
+    kFcteLMfnoezhOwuTlLFC: kFcteLMfnoezhOwuTlLFC$1,
+    "kop_-39vkeg-bz2wztJ9O": "Image List Layout",
+    "l5W-EtJ_ar-SY2lF4H5Zm": "Show",
+    l8CbIALt_VWUnzBl_Rmgf: l8CbIALt_VWUnzBl_Rmgf$1,
+    "lPPsX2CZbXwC-EGN79Rki": "Zoom out",
+    "nd4UjZy2ILsc-iW9iu7xR": "By date",
+    pEU9Y9K7DsODkocCDwq_O: pEU9Y9K7DsODkocCDwq_O$1,
+    qSF4OLshg2EEX4CwtBE6r: qSF4OLshg2EEX4CwtBE6r$1,
+    qWcqQRsE9nN43MaZ2BmN9: qWcqQRsE9nN43MaZ2BmN9$1,
+    rXjhc8VuGloy1wZ09noNB: rXjhc8VuGloy1wZ09noNB$1,
+    "riciqzr6ILBnpPc7KtG-C": "By week",
+    "t83UAY18UebTg1_-zFGP3": "Close",
+    tGi6xYfvStBmR8qduEmKX: tGi6xYfvStBmR8qduEmKX$1,
+    "tt_YdgKCA_5m-aSTSMPQ_": "Number of waterfall columns",
+    u8mEnSo4mxDRUbj7FeAll: u8mEnSo4mxDRUbj7FeAll$1,
+    uxIs3XkeVzkrEX985zHk3: uxIs3XkeVzkrEX985zHk3$1,
+    vfUg8xP6WptIhSL0E9b9D: vfUg8xP6WptIhSL0E9b9D$1,
+    w95XGurDhDfOfw7XH4JFW: w95XGurDhDfOfw7XH4JFW$1,
+    wI4KHHIe3zNRziW4lDZrp: wI4KHHIe3zNRziW4lDZrp$1,
+    "xJJTEE3nZ4HVXGFfiN-LC": "pcs",
+    ze1PaiGdX4ufmoOLv_xw6: ze1PaiGdX4ufmoOLv_xw6$1,
+    zs8YTCc8d8XFUgRnp7m_w: zs8YTCc8d8XFUgRnp7m_w$1,
+    PBjdNKuj02doUvOf2zZqP: PBjdNKuj02doUvOf2zZqP$1,
+    z_oL9s5fS164W4_gITOGZ: z_oL9s5fS164W4_gITOGZ$1,
+    "0VAN4cJ-_mUxvtmg4KEi1": "OK",
+    "9dq_DxgMG88eom9Gq-4nT": "Cancel",
+    LN_Rsic4V50DrXbsv9T9L: LN_Rsic4V50DrXbsv9T9L$1,
+    OJ8X55GXx5k3peoSXSujf: OJ8X55GXx5k3peoSXSujf$1,
+    ti3akdSS3iZV9NsGzIo3m: ti3akdSS3iZV9NsGzIo3m$1,
+    ujBgilCWNgFNV8Q2IDMWS: ujBgilCWNgFNV8Q2IDMWS$1,
+    sMkrF8bqCTJZZ1kXTkT_R: sMkrF8bqCTJZZ1kXTkT_R$1,
+    u0K7A_hv1RZSJl6TDR61A: u0K7A_hv1RZSJl6TDR61A$1,
+    "99kLMSzDYJCAf1yK9QYzy": "Copied",
+    EVPG1YZDtykdz3htyf11u: EVPG1YZDtykdz3htyf11u$1,
+    fbIpwMw2yVoSxP66OJ32z: fbIpwMw2yVoSxP66OJ32z$1,
+    kCYFwKpwznYIKRmB1tCww: kCYFwKpwznYIKRmB1tCww$1,
+    "si-zDDRFrEwDTCkp53Q44": "Please allow clipboard permission",
+    tEvQYzSVnggYAcM1uv9Tt: tEvQYzSVnggYAcM1uv9Tt$1,
+    "eOxsWLzwqrlhBdVMwz-rH": "Recommended Websites",
+    "4yzHPggVky2QKFD2TbBhl": "Use large image link for thumbnail",
+    HSx0XMZFid_lVuwjzrhH0: HSx0XMZFid_lVuwjzrhH0$1,
+    "EZd1QQdgUDjT3yya5ZYe-": "Directly enter waterfall browsing mode when opening the source site",
+    lkCkz1OpNtTCFRfGCEoBp: lkCkz1OpNtTCFRfGCEoBp$1,
+    e4_fgvntwNlfxgJUc2dXK: e4_fgvntwNlfxgJUc2dXK$1,
+    gPt6cpWrkvqRqZnwJo1KV: gPt6cpWrkvqRqZnwJo1KV$1,
+    sxhTRqogDRozo9IaTGI7g: sxhTRqogDRozo9IaTGI7g$1,
+    dvs63FvVKWm3uHVfqeq00: dvs63FvVKWm3uHVfqeq00$1,
+    "w4uJjpTmSEkm6SIDgEo-0": "Using Fancybox that supports zooming/rotation/so on to view details.",
+    Tbq8O5KhwcDHQ_qxNFW09: Tbq8O5KhwcDHQ_qxNFW09$1,
+    IxTawC_qs_xjxj5g8_aGx: IxTawC_qs_xjxj5g8_aGx$1,
+    "-x4wjDoHtodaXEgm2SXkg": "When calling the API, the `holds:false` tag will be passed in by default.",
+    YAUNSVT_pTygaY306DZmU: YAUNSVT_pTygaY306DZmU$1,
+    HkRzE7fweBSefchs0z0r8: HkRzE7fweBSefchs0z0r8$1,
+    yYtssYrCL8VwFrdvvx8v3: yYtssYrCL8VwFrdvvx8v3$1,
+    UqbfVZzRyk0iD2NcOii_E: UqbfVZzRyk0iD2NcOii_E$1,
+    _4E2zv2NpOG4y8TV5PRL0: _4E2zv2NpOG4y8TV5PRL0$1,
+    "FMi4atPbKn-B1HiAZ2ZP2": "Export Tags",
+    Cu6n0Apv5xVlo4DnQbVbT: Cu6n0Apv5xVlo4DnQbVbT$1,
+    BB4C5taWpmw06X0Kz_Gtk: BB4C5taWpmw06X0Kz_Gtk$1,
+    zg2GRF6zmMXCkT9Uz2Bni: zg2GRF6zmMXCkT9Uz2Bni$1,
+    xSC1vpAOTLQ3RBipKrNpD: xSC1vpAOTLQ3RBipKrNpD$1,
+    cKXET1CCnAXq4H60qr8uc: cKXET1CCnAXq4H60qr8uc$1,
+    QH_xm27zhgs5E1077asf1: QH_xm27zhgs5E1077asf1$1,
+    Uw9QwD1SaR2VjZEqDYRdb: Uw9QwD1SaR2VjZEqDYRdb$1,
+    ECpLfRMsS0zpJPTw0qqNs: ECpLfRMsS0zpJPTw0qqNs$1,
+    vJobIibroyz2wkpmONSnR: vJobIibroyz2wkpmONSnR$1,
+    "HPukB-OKzIuRxMmO4Rx2U": "Close the pop-up window when you click on the detailed image",
+    I_MKXUxaNXp3D35GFULn4: I_MKXUxaNXp3D35GFULn4$1,
+    dm7zGAYbP2sbGXO_ekDDl: dm7zGAYbP2sbGXO_ekDDl$1,
+    "kMu1vOFmTJac-ylP0b13Z": "Download successful",
+    UOaS5wud2xGLzx9NGJxYQ: UOaS5wud2xGLzx9NGJxYQ$1,
+    jx2FWrN3O_8T7U5aSbvXj: jx2FWrN3O_8T7U5aSbvXj$1,
+    "1sUsdpwBzU4gBf7Mrcihq": "Image saving directory",
+    "rcpw-hgymDP2bsJPPUb_F": "Choose how to download images",
+    "Ah2uP1cGRBQ6jff-SIc-Q": "Image download method"
+  };
+  const UxxldE9xRwmQctrvba5Y8 = "\u8A2D\u5B9A";
+  const A16qoBulYQJLbHe9mqNwm = "\u30CC\u30FC\u30C9\u3084\u6027\u7684\u63CF\u5199\u306A\u3069\u306E\u904E\u5EA6\u306A\u5185\u5BB9\u304C\u542B\u307E\u308C\u3066\u3044\u308B\u3082\u306E";
+  const CacM8tispuPNrSxxpt9GX = "\u30B7\u30E7\u30FC\u30C8\u30AB\u30C3\u30C8";
+  const ClZdL9hGweOokP7Mn_Ptq = "\u30A6\u30A9\u30FC\u30BF\u30FC\u30D5\u30A9\u30FC\u30EB\u30E2\u30FC\u30C9\u3092\u7D42\u4E86\u3059\u308B";
+  const DXEhXAQbkiCMU_l252jo_ = "\u30D7\u30FC\u30EB";
+  const Dnnio9m9RZA6bkTLytc99 = "\u304A\u6C17\u306B\u5165\u308A\u306B\u8FFD\u52A0";
+  const EsiorRgoeHI8h7IHMLDA4 = "\u65B0\u3057\u3044\u30BF\u30D6\u3067\u958B\u304F";
+  const FAqj5ONm50QMfIt9Vq2p1 = "\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u30A8\u30E9\u30FC";
+  const FT1uJs8XG__n5qBvuFsH4 = "\u8A73\u7D30\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7 \u30A6\u30A3\u30F3\u30C9\u30A6\u306B\u306F\u3001\u6B21\u306E\u30B5\u30F3\u30D7\u30EB\u753B\u50CF/\u30AA\u30EA\u30B8\u30CA\u30EB\u753B\u50CF\u304C\u30D7\u30EA\u30ED\u30FC\u30C9\u3055\u308C\u307E\u3059\u3002";
+  const G3b7rbyQEj3_rgzVsNJZY = "\u30D7\u30EA\u30ED\u30FC\u30C9\u3055\u308C\u305F\u753B\u50CF\u306E\u6570";
+  const GjMNbm97OgVvpIYlkOisE = "\u9AD8\u3055\u306B\u9069\u5FDC\u3059\u308B";
+  const HzMBcS2oNGVIoLiHWprim = "\u304A\u6C17\u306B\u5165\u308A";
+  const Lm_HFVHpv4XCjilV3NLKu = "NSFW\u30B3\u30F3\u30C6\u30F3\u30C4\u3092\u8868\u793A";
+  const OKs1ePekQA4Ona839U114 = "\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u30EA\u30B9\u30C8";
+  const RN4dt81l_fZMWODsskZob = "\u8AAD\u307F\u8FBC\u307F\u4E2D";
+  const RstKmO7YVQMpaDoucxUel = "\u73FE\u5728\u306E\u30B5\u30A4\u30C8 API \u8A8D\u8A3C\u60C5\u5831";
+  const SIUUZ4wqJTOilEdcX3EOi = "\u753B\u50CF\u3092\u5207\u308A\u66FF\u3048\u308B\u305F\u3081\u306E\u8A73\u7D30\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7 \u30B9\u30AF\u30ED\u30FC\u30EB \u30DB\u30A4\u30FC\u30EB";
+  const XvOYJ5gHo37M1XztPl18z = "\u5168\u753B\u9762\u8868\u793A";
+  const Ym0HIEu9Q80qXB31LuC6c = "\u30A4\u30E9\u30B9\u30C8\u30EC\u30FC\u30BF\u30FC";
+  const Z4pa8GhgE63OGGvCqAld0 = "\u3082\u3046\u3044\u3084";
+  const ZztrWbSaaaas3v0cHtSmh = "\u30BF\u30B0\u3092\u691C\u7D22";
+  const _Efl8k8uYQj9iJmj3kwbd = "\u30ED\u30FC\u30AB\u30EB\u30BF\u30B0\u30D6\u30E9\u30C3\u30AF\u30EA\u30B9\u30C8";
+  const _bQs7o9oQSo7ao1G0cp3d = "\u56DE\u8EE2";
+  const _nQfaNuwbvPAIFKOY6_7u = "\u30DB\u30A4\u30FC\u30EB \u30A4\u30D9\u30F3\u30C8\u3092\u30EA\u30C3\u30B9\u30F3\u3059\u308B";
+  const aVqN9TBRCbNGsW3Y2D2Nm = "\u5927\u304D\u306A\u753B\u50CF";
+  const ad8lEoWap_nT9U69WBKen = "\u5E45\u306B\u5408\u308F\u305B\u308B";
+  const aonlPAu9kEkkwNvQg0DBk = "\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC";
+  const cKn4cfAxzdgh_HD6OFibB = "\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u958B\u59CB";
+  const caFFJlrS1wa_F86uKPykd = "\u8A73\u7D30";
+  const ctWGhVvqB2k_1TX2iY0l2 = "\u304A\u6C17\u306B\u5165\u308A\u306B\u8FFD\u52A0\u6210\u529F";
+  const dU7ou5kVM0s9DMju5e2tS = "\u6841";
+  const e2_EYvweJsVoIZlIWkPRV = "\u30B5\u30A4\u30C8\u30EA\u30B9\u30C8";
+  const fC8XNfCl04zK7vgeaRZMQ = "\u3082\u3063\u3068\u8AAD\u307F\u8FBC\u3080";
+  const fVE5taO6GDTPbILat4GCt = "\u30AD\u30FC\u30DC\u30FC\u30C9\u30A4\u30D9\u30F3\u30C8\u3092\u30EA\u30C3\u30B9\u30F3\u3059\u308B";
+  const gM92sLo0Cqfl2rCaXlOhc = "\u96A0\u308C\u308B";
+  const hVmfDxXoj8vkgVQabEOSr = "\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u30EA\u30B9\u30C8\u306B\u8FFD\u52A0";
+  const jerGO2OCuW9TdnEnGYRWd = "\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u8868\u793A";
+  const juT6gwLOg5r1h2vFpFf6P = "\u8457\u4F5C\u6A29";
+  const k4YzDnBtd_S2UpAQucGxF = "JPEG\u753B\u50CF\u3092\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9";
+  const kFcteLMfnoezhOwuTlLFC = "\u8A73\u7D30\u306A\u753B\u50CF\u306E\u30D7\u30EA\u30ED\u30FC\u30C9";
+  const l8CbIALt_VWUnzBl_Rmgf = "Booru \u30B5\u30A4\u30C8\u306E\u30A6\u30A9\u30FC\u30BF\u30FC\u30D5\u30A9\u30FC\u30EB \u30D6\u30E9\u30A6\u30B8\u30F3\u30B0";
+  const pEU9Y9K7DsODkocCDwq_O = "\u30D6\u30C3\u30AF\u30DE\u30FC\u30AF\u6E08\u307F";
+  const qSF4OLshg2EEX4CwtBE6r = "\u30BD\u30FC\u30B9";
+  const qWcqQRsE9nN43MaZ2BmN9 = "Web\u30D0\u30FC\u30B8\u30E7\u30F3";
+  const rXjhc8VuGloy1wZ09noNB = "\u30EA\u30B9\u30C8\u304C 7 \u5217\u672A\u6E80\u306E\u5834\u5408\u3001\u30EA\u30B9\u30C8\u306B\u306F\u5927\u304D\u306A\u753B\u50CF\u304C\u30ED\u30FC\u30C9\u3055\u308C\u307E\u3059\u3002";
+  const tGi6xYfvStBmR8qduEmKX = "\u898B\u308B";
+  const u8mEnSo4mxDRUbj7FeAll = "\u30C0\u30FC\u30AF\u30E2\u30FC\u30C9\u3092\u5207\u308A\u66FF\u3048\u308B";
+  const uxIs3XkeVzkrEX985zHk3 = "\u81EA\u52D5";
+  const vfUg8xP6WptIhSL0E9b9D = "\u5E45\u3068\u9AD8\u3055\u304C\u7B49\u3057\u3044";
+  const w95XGurDhDfOfw7XH4JFW = "A/D/\u2190/\u2192\u3067\u8A73\u7D30\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7\u30A6\u30A3\u30F3\u30C9\u30A6\u306E\u753B\u50CF\u3092\u5207\u308A\u66FF\u3048\u307E\u3059";
+  const wI4KHHIe3zNRziW4lDZrp = "\u30B5\u30F3\u30D7\u30EB\u753B\u50CF\u3092\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9";
+  const ze1PaiGdX4ufmoOLv_xw6 = "\u5E74\u5225";
+  const zs8YTCc8d8XFUgRnp7m_w = "\u79C1\u306E\u304A\u6C17\u306B\u5165\u308A";
+  const PBjdNKuj02doUvOf2zZqP = "\u753B\u50CF\u3092\u30B5\u30D6\u30D5\u30A9\u30EB\u30C0\u30FC\u306B\u4FDD\u5B58\u3059\u308B";
+  const z_oL9s5fS164W4_gITOGZ = "\u5199\u771F\u3092\u4FDD\u5B58\u3059\u308B\u306B\u306F\u3001\u30C7\u30D5\u30A9\u30EB\u30C8\u306E\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9 \u30C7\u30A3\u30EC\u30AF\u30C8\u30EA\u306B\u30B5\u30A4\u30C8\u306B\u3061\u306A\u3093\u3060\u540D\u524D\u306E\u30D5\u30A9\u30EB\u30C0\u30FC\u3092\u4F5C\u6210\u3057\u307E\u3059\u3002Tampermonkey \u306E\u300C\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9 \u30E2\u30FC\u30C9\u300D\u3092\u300C\u30D6\u30E9\u30A6\u30B6 API\u300D\u306B\u5909\u66F4\u3059\u308B\u5FC5\u8981\u304C\u3042\u308A\u307E\u3059\u3002";
+  const LN_Rsic4V50DrXbsv9T9L = "\u30B5\u30D6\u30D5\u30A9\u30EB\u30C0\u30FC\u306E\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u3092\u6709\u52B9\u306B\u3057\u3066\u3082\u3088\u308D\u3057\u3044\u3067\u3059\u304B? \nTampermonkey \u306E\u300C\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9 \u30E2\u30FC\u30C9\u300D\u3092\u300C\u30D6\u30E9\u30A6\u30B6 API\u300D\u306B\u5909\u66F4\u3057\u3066\u3044\u308B\u3053\u3068\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002";
+  const OJ8X55GXx5k3peoSXSujf = "\u958B\u304F\u65B9\u6CD5: Tampermonkey \u8A2D\u5B9A\u306E\u300C\u69CB\u6210\u30E2\u30FC\u30C9\u300D\u3092\u300C\u521D\u5FC3\u8005\u300D\u304B\u3089\u300C\u4E0A\u7D1A\u300D\u306B\u5909\u66F4\u3057\u3001\u300C\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9 \u30D9\u30FC\u30BF\u300D\u3092\u898B\u3064\u3051\u3066\u3001\u300C\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9 \u30E2\u30FC\u30C9\u300D\u3092\u300C\u30D6\u30E9\u30A6\u30B6 API\u300D\u306B\u5909\u66F4\u3057\u307E\u3059\u3002";
+  const ti3akdSS3iZV9NsGzIo3m = "\u30D2\u30F3\u30C8";
+  const ujBgilCWNgFNV8Q2IDMWS = "\u30D2\u30F3\u30C8: \u4FBF\u5B9C\u4E0A\u3001\u30D6\u30E9\u30A6\u30B6\u306E\u8A2D\u5B9A\u3067 [\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u524D\u306B\u5404\u30D5\u30A1\u30A4\u30EB\u306E\u4FDD\u5B58\u5834\u6240\u3092\u78BA\u8A8D\u3059\u308B] \u30AA\u30D7\u30B7\u30E7\u30F3\u3092\u30AA\u30D5\u306B\u3059\u308B\u3053\u3068\u304C\u3067\u304D\u307E\u3059\u3002";
+  const sMkrF8bqCTJZZ1kXTkT_R = "Parent";
+  const u0K7A_hv1RZSJl6TDR61A = "Child";
+  const EVPG1YZDtykdz3htyf11u = "\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u306B\u30B3\u30D4\u30FC";
+  const fbIpwMw2yVoSxP66OJ32z = "\u753B\u50CF\u304C\u753B\u9762\u3044\u3063\u3071\u3044\u306B\u8868\u793A\u3055\u308C\u308B";
+  const kCYFwKpwznYIKRmB1tCww = "\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u304B\u3089\u8AAD\u307F\u53D6\u308B";
+  const tEvQYzSVnggYAcM1uv9Tt = "\u3053\u306E\u6A5F\u80FD\u3092\u30AA\u30D5\u306B\u3059\u308B\u3068\u3001\u753B\u9762\u306E\u4E21\u5074\u304C\u7A7A\u767D\u306B\u306A\u308A\u307E\u3059\u3002";
+  const HSx0XMZFid_lVuwjzrhH0 = "\u753B\u50CF\u4E00\u89A7\u306E\u30B5\u30E0\u30CD\u30A4\u30EB\u306F\u5927\u304D\u306A\u753B\u50CF\u30EA\u30F3\u30AF(sample_url)\u3092\u4F7F\u7528\u3057\u3066\u3044\u307E\u3059";
+  const lkCkz1OpNtTCFRfGCEoBp = "\u81EA\u52D5\u7684\u306B\u30A6\u30A9\u30FC\u30BF\u30FC\u30D5\u30A9\u30FC\u30EB\u30D5\u30ED\u30FC\u30E2\u30FC\u30C9\u306B\u5165\u308A\u307E\u3059";
+  const e4_fgvntwNlfxgJUc2dXK = "\u8A00\u8A9E";
+  const gPt6cpWrkvqRqZnwJo1KV = "\u753B\u50CF\u30AB\u30FC\u30C9\u306E\u5DE6\u4E0A\u9685\u306B\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9 \u30EA\u30B9\u30C8\u306B\u8FFD\u52A0\u3059\u308B\u30C1\u30A7\u30C3\u30AF\u30DC\u30C3\u30AF\u30B9\u3092\u8868\u793A\u3057\u307E\u3059\u3002";
+  const sxhTRqogDRozo9IaTGI7g = "\u6295\u7A3F\u30EA\u30B9\u30C8\u306B\u753B\u50CF\u30C1\u30A7\u30C3\u30AF\u30DC\u30C3\u30AF\u30B9\u3092\u8868\u793A\u3059\u308B";
+  const dvs63FvVKWm3uHVfqeq00 = "Fancybox \u3092\u4F7F\u7528\u3057\u3066\u8A73\u7D30\u3092\u8868\u793A\u3059\u308B";
+  const Tbq8O5KhwcDHQ_qxNFW09 = "\u5B9F\u9A13\u7684";
+  const IxTawC_qs_xjxj5g8_aGx = "\u4FDD\u7559\u4E2D\u306E\u753B\u50CF\u3092\u975E\u8868\u793A\u306B\u3059\u308B";
+  const YAUNSVT_pTygaY306DZmU = "yande.re \u306F\u753B\u50CF\u30EA\u30B9\u30C8\u306E\u53D6\u5F97\u306B API \u3092\u4F7F\u7528\u3057\u307E\u305B\u3093";
+  const HkRzE7fweBSefchs0z0r8 = "HTML \u3092\u76F4\u63A5\u89E3\u6790\u3057\u3066\u753B\u50CF\u30C7\u30FC\u30BF\u3092\u53D6\u5F97\u3059\u308B";
+  const yYtssYrCL8VwFrdvvx8v3 = "\u4EEE\u60F3\u30EA\u30B9\u30C8 (\u5E45\u306F\u7B49\u3057\u304F\u3001\u9AD8\u3055\u306F\u7B49\u3057\u304F\u306A\u3044)";
+  const UqbfVZzRyk0iD2NcOii_E = "\u30C7\u30A3\u30B9\u30D7\u30EC\u30A4\u30EA\u30B9\u30C8\u753B\u50CF\u306E\u89E3\u50CF\u5EA6";
+  const _4E2zv2NpOG4y8TV5PRL0 = "\u753B\u50CF\u30AB\u30FC\u30C9\u306E\u5DE6\u4E0B\u9685\u306B\u5143\u306E\u753B\u50CF\u306E\u89E3\u50CF\u5EA6\u3092\u8868\u793A\u3057\u307E\u3059\u3002";
+  const Cu6n0Apv5xVlo4DnQbVbT = "\u30BF\u30B0\u30A8\u30AF\u30B9\u30DD\u30FC\u30C8\u8A2D\u5B9A";
+  const BB4C5taWpmw06X0Kz_Gtk = "\u30A6\u30A7\u30A4\u30C8\u306E\u8A2D\u5B9A";
+  const zg2GRF6zmMXCkT9Uz2Bni = "\u5168\u9078\u629E";
+  const xSC1vpAOTLQ3RBipKrNpD = "\u9078\u629E\u3057\u306A\u3044";
+  const cKXET1CCnAXq4H60qr8uc = "\u9006\u9078\u629E";
+  const QH_xm27zhgs5E1077asf1 = "\u8F38\u51FA";
+  const Uw9QwD1SaR2VjZEqDYRdb = "\u4E00\u90E8\u306E\u8A2D\u5B9A\u3092\u6709\u52B9\u306B\u3059\u308B\u306B\u306F\u3001\u30DA\u30FC\u30B8\u3092\u66F4\u65B0\u3059\u308B\u5FC5\u8981\u304C\u3042\u308A\u307E\u3059\u3002";
+  const ECpLfRMsS0zpJPTw0qqNs = "\u8A73\u7D30\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7\u30A6\u30A3\u30F3\u30C9\u30A6\u306E\u4E0B\u90E8\u306B\u30A2\u30AF\u30B7\u30E7\u30F3\u30D0\u30FC\u30DC\u30BF\u30F3\u3092\u914D\u7F6E\u3057\u307E\u3059\u3002";
+  const vJobIibroyz2wkpmONSnR = "\u753B\u50CF\u8A73\u7D30\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7\u30A6\u30A3\u30F3\u30C9\u30A6\u306E\u30A2\u30AF\u30B7\u30E7\u30F3\u30DC\u30BF\u30F3\u30D0\u30FC\u3068\u30E9\u30D9\u30EB\u30D0\u30FC\u306E\u4F4D\u7F6E\u3092\u5165\u308C\u66FF\u3048\u307E\u3059\u3002";
+  const I_MKXUxaNXp3D35GFULn4 = "\u30AA\u30D5\u306B\u3059\u308B\u3068\u3001\u8A73\u7D30\u753B\u50CF\u3092\u30AF\u30EA\u30C3\u30AF\u3059\u308B\u3068\u30DC\u30BF\u30F3\u3084\u30BF\u30B0\u306E\u8868\u793A\u30FB\u975E\u8868\u793A\u304C\u5207\u308A\u66FF\u308F\u308A\u307E\u3059\u3002";
+  const dm7zGAYbP2sbGXO_ekDDl = "\u4E21\u7AEF\u63C3\u3048\u30EC\u30A4\u30A2\u30A6\u30C8\u5E45\u4FC2\u6570";
+  const UOaS5wud2xGLzx9NGJxYQ = "\u30C7\u30A3\u30EC\u30AF\u30C8\u30EA\u306E\u9078\u629E";
+  const jx2FWrN3O_8T7U5aSbvXj = "\u753B\u50CF\u3092\u4FDD\u5B58\u3059\u308B\u5834\u6240\u3092\u9078\u629E\u3057\u307E\u3059";
+  var ja = {
+    UxxldE9xRwmQctrvba5Y8,
+    "1F-R4qChHIzZaohu5GJzl": "\u4F8B\uFF1A&api_key=xx&user_id=1",
+    "23iEYyiQlLVhFIqGbj527": "\u8CEA\u554F\u3068\u63D0\u6848",
+    "2ZPEAvLkCbV3mC0iJAw9K": "\u304A\u6C17\u306B\u5165\u308A\u306B\u8FFD\u52A0",
+    "4g1TUy2kwQrdOs-w4JobB": "\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u30D5\u30A3\u30FC\u30C9\u30D0\u30C3\u30AF\u3092\u9001\u4FE1",
+    "4hOFoP4M3ZkL3RiN7XOc8": "\u3082\u3046\u3044\u3084",
+    "6acPWiYq2-OdySa2_xqDu": "\u30E9\u30F3\u30C0\u30E0",
+    "6jPGehET9TViankl5-SRu": "\u5E45\u306F\u540C\u3058\u3067\u9AD8\u3055\u306F\u7570\u306A\u308A\u307E\u3059",
+    "7Cgsr4PUMbezDXNfWdvWH": "\u4EBA\u6C17\u4F5C\u54C1",
+    "7Xq5puLNcT0mAvoxElqdf": "\u30A6\u30A7\u30EB\u30AB\u30E0\u30B9\u30BF\u30FC\u2606\u5F61",
+    "9juZMc0gPIgvMPKVORpJ1": "\u4EBA\u6C17",
+    A16qoBulYQJLbHe9mqNwm,
+    "B_ptN5O-9PhmG5ymGGtc6": "\u62E1\u5927\u753B\u50CF\u3092\u898B\u308B",
+    CacM8tispuPNrSxxpt9GX,
+    ClZdL9hGweOokP7Mn_Ptq,
+    DXEhXAQbkiCMU_l252jo_,
+    Dnnio9m9RZA6bkTLytc99,
+    EsiorRgoeHI8h7IHMLDA4,
+    FAqj5ONm50QMfIt9Vq2p1,
+    FT1uJs8XG__n5qBvuFsH4,
+    G3b7rbyQEj3_rgzVsNJZY,
+    GjMNbm97OgVvpIYlkOisE,
+    HzMBcS2oNGVIoLiHWprim,
+    "J2Ckb_-LITfmww4aEksqk": "\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u30EA\u30F3\u30AF\u3092\u51FA\u529B\u3059\u308B",
+    "KkkM-iz8RCVQoTrTfhS5j": "\u30AA\u30EA\u30B8\u30CA\u30EB\u30B5\u30A4\u30BA",
+    "LZbI8am7nD-LiemZzroFF": "\u9AD8\u3055\u304C\u540C\u3058\u3067\u5E45\u304C\u4E0D\u7B49",
+    Lm_HFVHpv4XCjilV3NLKu,
+    "M-wISnLiQgM_DURMwKZGT": "\u30DA\u30FC\u30B8\u306B\u5408\u308F\u305B\u308B",
+    "MWVfUiW8egLWq7MgV-wzc": "\u304A\u6C17\u306B\u5165\u308A\u306B\u8FFD\u52A0\u3067\u304D\u307E\u305B\u3093\u3067\u3057\u305F",
+    "Mt3-hyoH7f_pW2gnfxyur": "\u65E5\u5225",
+    OKs1ePekQA4Ona839U114,
+    "OrwwNKZ7I70-ecpspE8d_": "\u30D5\u30EB\u30B9\u30AF\u30EA\u30FC\u30F3\u5207\u308A\u66FF\u3048",
+    "PQhFo-g7sgagimkleVoZR": "\u6708\u5225",
+    "PT74UDfKA45vTVTst_-hD": "\u3053\u306E\u30B9\u30AF\u30EA\u30D7\u30C8\u306B\u3064\u3044\u3066",
+    RN4dt81l_fZMWODsskZob,
+    RstKmO7YVQMpaDoucxUel,
+    SIUUZ4wqJTOilEdcX3EOi,
+    "StU1-52QJmNFKQ5soJCyG": "\u30E9\u30F3\u30C0\u30E0\u4F5C\u54C1",
+    "VpuyxZtIoDF9-YyOm0tK_": "\u5143\u306E\u30D5\u30A1\u30A4\u30EB\u3092\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u3059\u308B",
+    "Xtk-NnMgSQZmheJ87nbRV": "\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9",
+    XvOYJ5gHo37M1XztPl18z,
+    Ym0HIEu9Q80qXB31LuC6c,
+    Z4pa8GhgE63OGGvCqAld0,
+    "ZtQHZx-pEjmu_o3dQD1fc": "\u30B5\u30FC\u30AF\u30EB",
+    ZztrWbSaaaas3v0cHtSmh,
+    _Efl8k8uYQj9iJmj3kwbd,
+    _bQs7o9oQSo7ao1G0cp3d,
+    _nQfaNuwbvPAIFKOY6_7u,
+    aVqN9TBRCbNGsW3Y2D2Nm,
+    ad8lEoWap_nT9U69WBKen,
+    aonlPAu9kEkkwNvQg0DBk,
+    cKn4cfAxzdgh_HD6OFibB,
+    caFFJlrS1wa_F86uKPykd,
+    ctWGhVvqB2k_1TX2iY0l2,
+    dU7ou5kVM0s9DMju5e2tS,
+    e2_EYvweJsVoIZlIWkPRV,
+    "elkBQ9moOZ-KMcy5bt_Ts": "\u6700\u8FD1\u306E\u4EBA\u6C17",
+    fC8XNfCl04zK7vgeaRZMQ,
+    fVE5taO6GDTPbILat4GCt,
+    gM92sLo0Cqfl2rCaXlOhc,
+    hVmfDxXoj8vkgVQabEOSr,
+    "iJ0h220tvMmUhkfIMYI-W": "\u5909\u66F4\u5C65\u6B74",
+    "iRt9V9wNQASic3D7-wTZo": "\u5B9F\u9A13\u7684/\u4FDD\u8A3C\u3055\u308C\u3066\u3044\u307E\u305B\u3093",
+    "jDjashxA-oBPo19DXI504": "\u5143\u306E\u753B\u50CF",
+    "jMod2JozzAnwHuD-3KuPb": "\u4EE5\u4E0B\u306E\u30BF\u30B0\u3092\u5165\u529B\u3057\u3001Enter \u30AD\u30FC\u3092\u62BC\u3057\u3066\u8FFD\u52A0\u3057\u307E\u3059",
+    jerGO2OCuW9TdnEnGYRWd,
+    juT6gwLOg5r1h2vFpFf6P,
+    k4YzDnBtd_S2UpAQucGxF,
+    kFcteLMfnoezhOwuTlLFC,
+    "kop_-39vkeg-bz2wztJ9O": "\u753B\u50CF\u30EA\u30B9\u30C8\u306E\u30EC\u30A4\u30A2\u30A6\u30C8",
+    "l5W-EtJ_ar-SY2lF4H5Zm": "\u898B\u305B\u308B",
+    l8CbIALt_VWUnzBl_Rmgf,
+    "lPPsX2CZbXwC-EGN79Rki": "\u30BA\u30FC\u30E0\u30A2\u30A6\u30C8\u3059\u308B",
+    "nd4UjZy2ILsc-iW9iu7xR": "\u65E5\u4ED8\u9806",
+    pEU9Y9K7DsODkocCDwq_O,
+    qSF4OLshg2EEX4CwtBE6r,
+    qWcqQRsE9nN43MaZ2BmN9,
+    rXjhc8VuGloy1wZ09noNB,
+    "riciqzr6ILBnpPc7KtG-C": "\u9031\u5225",
+    "t83UAY18UebTg1_-zFGP3": "\u9589\u3058\u308B",
+    tGi6xYfvStBmR8qduEmKX,
+    "tt_YdgKCA_5m-aSTSMPQ_": "\u30A6\u30A9\u30FC\u30BF\u30FC\u30D5\u30A9\u30FC\u30EB\u306E\u5217\u306E\u6570",
+    u8mEnSo4mxDRUbj7FeAll,
+    uxIs3XkeVzkrEX985zHk3,
+    vfUg8xP6WptIhSL0E9b9D,
+    w95XGurDhDfOfw7XH4JFW,
+    wI4KHHIe3zNRziW4lDZrp,
+    "xJJTEE3nZ4HVXGFfiN-LC": "\u679A",
+    ze1PaiGdX4ufmoOLv_xw6,
+    zs8YTCc8d8XFUgRnp7m_w,
+    PBjdNKuj02doUvOf2zZqP,
+    z_oL9s5fS164W4_gITOGZ,
+    "0VAN4cJ-_mUxvtmg4KEi1": "OK",
+    "9dq_DxgMG88eom9Gq-4nT": "\u30AD\u30E3\u30F3\u30BB\u30EB",
+    LN_Rsic4V50DrXbsv9T9L,
+    OJ8X55GXx5k3peoSXSujf,
+    ti3akdSS3iZV9NsGzIo3m,
+    ujBgilCWNgFNV8Q2IDMWS,
+    sMkrF8bqCTJZZ1kXTkT_R,
+    u0K7A_hv1RZSJl6TDR61A,
+    "99kLMSzDYJCAf1yK9QYzy": "\u30B3\u30D4\u30FC\u3055\u308C\u307E\u3057\u305F",
+    EVPG1YZDtykdz3htyf11u,
+    fbIpwMw2yVoSxP66OJ32z,
+    kCYFwKpwznYIKRmB1tCww,
+    "si-zDDRFrEwDTCkp53Q44": "\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u306E\u8A31\u53EF\u3092\u8A31\u53EF\u3057\u3066\u304F\u3060\u3055\u3044",
+    tEvQYzSVnggYAcM1uv9Tt,
+    "eOxsWLzwqrlhBdVMwz-rH": "\u304A\u3059\u3059\u3081\u30B5\u30A4\u30C8",
+    "4yzHPggVky2QKFD2TbBhl": "\u30B5\u30E0\u30CD\u30A4\u30EB\u306B\u306F\u5927\u304D\u306A\u753B\u50CF\u3092\u4F7F\u7528\u3059\u308B",
+    HSx0XMZFid_lVuwjzrhH0,
+    "EZd1QQdgUDjT3yya5ZYe-": "\u30BD\u30FC\u30B9\u30B5\u30A4\u30C8\u3092\u958B\u3044\u305F\u3068\u304D\u306B\u76F4\u63A5\u30A6\u30A9\u30FC\u30BF\u30FC\u30D5\u30A9\u30FC\u30EB\u30D6\u30E9\u30A6\u30B8\u30F3\u30B0\u30E2\u30FC\u30C9\u306B\u5165\u308B",
+    lkCkz1OpNtTCFRfGCEoBp,
+    e4_fgvntwNlfxgJUc2dXK,
+    gPt6cpWrkvqRqZnwJo1KV,
+    sxhTRqogDRozo9IaTGI7g,
+    dvs63FvVKWm3uHVfqeq00,
+    "w4uJjpTmSEkm6SIDgEo-0": "\u753B\u50CF\u306E\u8A73\u7D30\u306F\u3001\u30BA\u30FC\u30E0\u3084\u56DE\u8EE2\u306A\u3069\u306E\u64CD\u4F5C\u3092\u30B5\u30DD\u30FC\u30C8\u3059\u308B Fancybox \u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u3092\u4F7F\u7528\u3057\u3066\u8868\u793A\u3067\u304D\u307E\u3059\u3002",
+    Tbq8O5KhwcDHQ_qxNFW09,
+    IxTawC_qs_xjxj5g8_aGx,
+    "-x4wjDoHtodaXEgm2SXkg": "API \u3092\u547C\u3073\u51FA\u3059\u3068\u3001\u30C7\u30D5\u30A9\u30EB\u30C8\u3067 `holds:false` \u30BF\u30B0\u304C\u6E21\u3055\u308C\u307E\u3059\u3002",
+    YAUNSVT_pTygaY306DZmU,
+    HkRzE7fweBSefchs0z0r8,
+    yYtssYrCL8VwFrdvvx8v3,
+    UqbfVZzRyk0iD2NcOii_E,
+    _4E2zv2NpOG4y8TV5PRL0,
+    "FMi4atPbKn-B1HiAZ2ZP2": "\u30A8\u30AF\u30B9\u30DD\u30FC\u30C8\u30BF\u30B0",
+    Cu6n0Apv5xVlo4DnQbVbT,
+    BB4C5taWpmw06X0Kz_Gtk,
+    zg2GRF6zmMXCkT9Uz2Bni,
+    xSC1vpAOTLQ3RBipKrNpD,
+    cKXET1CCnAXq4H60qr8uc,
+    QH_xm27zhgs5E1077asf1,
+    Uw9QwD1SaR2VjZEqDYRdb,
+    ECpLfRMsS0zpJPTw0qqNs,
+    vJobIibroyz2wkpmONSnR,
+    "HPukB-OKzIuRxMmO4Rx2U": "\u8A73\u7D30\u753B\u50CF\u3092\u30AF\u30EA\u30C3\u30AF\u3059\u308B\u3068\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7\u30A6\u30A3\u30F3\u30C9\u30A6\u3092\u9589\u3058\u307E\u3059",
+    I_MKXUxaNXp3D35GFULn4,
+    dm7zGAYbP2sbGXO_ekDDl,
+    "kMu1vOFmTJac-ylP0b13Z": "\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u6210\u529F",
+    UOaS5wud2xGLzx9NGJxYQ,
+    jx2FWrN3O_8T7U5aSbvXj,
+    "1sUsdpwBzU4gBf7Mrcihq": "\u753B\u50CF\u4FDD\u5B58\u30C7\u30A3\u30EC\u30AF\u30C8\u30EA",
+    "rcpw-hgymDP2bsJPPUb_F": "\u753B\u50CF\u306E\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u65B9\u6CD5\u3092\u9078\u629E\u3059\u308B",
+    "Ah2uP1cGRBQ6jff-SIc-Q": "\u753B\u50CF\u306E\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u65B9\u6CD5"
+  };
+  Vue__default["default"].use(VueI18n__default["default"]);
+  const i18n = new VueI18n__default["default"]({
+    locale: initialSettings.lang || "en",
+    fallbackLocale: "en",
+    messages: {
+      "zh-Hans": zhHans,
+      "zh-Hant": zhHant,
+      en,
+      ja
+    }
+  });
+  const settings = Vue__default["default"].observable(initialSettings);
+  const ykFlag = ["konachan", "yande.re"].some((e) => location.href.includes(e));
+  const poolFlag = location.pathname == "/pool";
+  const store = Vue__default["default"].observable({
+    requestLoading: false,
+    requestStop: false,
+    showImageSelected: false,
+    imageSelectedIndex: 0,
+    showDrawer: false,
+    showSettings: false,
+    showFab: false,
+    currentPage: 1,
+    imageList: [],
+    selectedImageList: [],
+    isYKSite: ykFlag,
+    showPostList: !poolFlag,
+    showPoolList: ykFlag && poolFlag,
+    isFullscreen: false
+  });
+  function toggleDrawer() {
+    store.showDrawer = !store.showDrawer;
+  }
+  function addToSelectedList(item) {
+    if (store.selectedImageList.some((e) => e.id === item.id))
+      return;
+    Object.assign(item, { fileNameWithTags: `${location.hostname} ${item.id} ${item.tags.join(" ")}` });
+    store.selectedImageList.push(item);
+  }
+  function removeFromSelectedList(id) {
+    store.selectedImageList = store.selectedImageList.filter((e) => {
+      if (e.loading)
+        return true;
+      return e.id !== id;
+    });
+  }
+  var _sfc_main$b = /* @__PURE__ */ Vue2.defineComponent({
+    __name: "WfLayout",
+    setup(__props) {
+      const wfType = Vue2.computed(() => settings.masonryLayout || "masonry");
+      const isMasonry = Vue2.computed(() => ["masonry", "grid"].includes(wfType.value));
+      const wfClass = Vue2.computed(() => ({
+        "wf-grid": wfType.value == "grid",
+        "wf-no-fit-screen": !settings.isFitScreen
+      }));
+      const columnCount = Vue2.computed(() => {
+        return settings.selectedColumn === "0" ? settings.isFitScreen ? {
+          300: 1,
+          600: 2,
+          900: 3,
+          1200: 4,
+          1600: 6,
+          1920: 7,
+          2400: 8,
+          2700: 9,
+          3e3: 10,
+          default: 6
+        } : {
+          300: 1,
+          1050: 2,
+          1500: 3,
+          1920: 4,
+          default: 4
+        } : +settings.selectedColumn;
+      });
+      const columnCount2 = Vue2.computed(() => {
+        if (typeof columnCount.value == "number")
+          return { default: columnCount.value };
+        return columnCount.value;
+      });
+      return { __sfc: true, wfType, isMasonry, wfClass, columnCount, columnCount2 };
+    }
+  });
+  var _sfc_render$b = function render() {
+    var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
+    return _c("div", { staticClass: "wf-layout", class: _setup.wfClass }, [_setup.wfType === "masonry2" ? _c("true-masonry", { staticClass: "true-masonry", attrs: { "gap": { default: 8 }, "cols": _setup.columnCount2 } }, [_vm._t("default")], 2) : _setup.isMasonry ? _c("masonry", { attrs: { "cols": _setup.columnCount, "gutter": "8px" } }, [_vm._t("default")], 2) : _c("div", { staticClass: "justified-container" }, [_vm._t("default")], 2)], 1);
+  };
   var _sfc_staticRenderFns$b = [];
   var __component__$b = /* @__PURE__ */ normalizeComponent(
     _sfc_main$b,
@@ -2417,7 +2413,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     null,
     null
   );
-  var VirtualWaterfall = __component__$b.exports;
+  var WfLayout = __component__$b.exports;
   var mdiAccount = "M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z";
   var mdiBrightness6 = "M12,18V6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z";
   var mdiCalendar = "M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z";
@@ -2554,9 +2550,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return defaultOptions$1;
   }
   function startOfWeek(date, options) {
-    var _a2, _b, _c, _d, _e, _f, _g, _h;
     const defaultOptions2 = getDefaultOptions$1();
-    const weekStartsOn = (_h = (_g = (_d = (_c = options == null ? void 0 : options.weekStartsOn) != null ? _c : (_b = (_a2 = options == null ? void 0 : options.locale) == null ? void 0 : _a2.options) == null ? void 0 : _b.weekStartsOn) != null ? _d : defaultOptions2.weekStartsOn) != null ? _g : (_f = (_e = defaultOptions2.locale) == null ? void 0 : _e.options) == null ? void 0 : _f.weekStartsOn) != null ? _h : 0;
+    const weekStartsOn = options?.weekStartsOn ?? options?.locale?.options?.weekStartsOn ?? defaultOptions2.weekStartsOn ?? defaultOptions2.locale?.options?.weekStartsOn ?? 0;
     const _date = toDate(date);
     const day = _date.getDay();
     const diff = (day < weekStartsOn ? 7 : 0) + day - weekStartsOn;
@@ -2692,7 +2687,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   }
   function differenceInSeconds(dateLeft, dateRight, options) {
     const diff = differenceInMilliseconds(dateLeft, dateRight) / 1e3;
-    return getRoundingMethod(options == null ? void 0 : options.roundingMethod)(diff);
+    return getRoundingMethod(options?.roundingMethod)(diff);
   }
   const formatDistanceLocale = {
     lessThanXSeconds: {
@@ -2767,7 +2762,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     } else {
       result = tokenValue.other.replace("{{count}}", count.toString());
     }
-    if (options == null ? void 0 : options.addSuffix) {
+    if (options?.addSuffix) {
       if (options.comparison && options.comparison > 0) {
         return "in " + result;
       } else {
@@ -2826,15 +2821,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const formatRelative = (token, _date, _baseDate, _options) => formatRelativeLocale[token];
   function buildLocalizeFn(args) {
     return (value, options) => {
-      const context = (options == null ? void 0 : options.context) ? String(options.context) : "standalone";
+      const context = options?.context ? String(options.context) : "standalone";
       let valuesArray;
       if (context === "formatting" && args.formattingValues) {
         const defaultWidth = args.defaultFormattingWidth || args.defaultWidth;
-        const width = (options == null ? void 0 : options.width) ? String(options.width) : defaultWidth;
+        const width = options?.width ? String(options.width) : defaultWidth;
         valuesArray = args.formattingValues[width] || args.formattingValues[defaultWidth];
       } else {
         const defaultWidth = args.defaultWidth;
-        const width = (options == null ? void 0 : options.width) ? String(options.width) : args.defaultWidth;
+        const width = options?.width ? String(options.width) : args.defaultWidth;
         valuesArray = args.values[width] || args.values[defaultWidth];
       }
       const index = args.argumentCallback ? args.argumentCallback(value) : value;
@@ -3185,11 +3180,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return Math.round(diff / millisecondsInWeek) + 1;
   }
   function getWeekYear(date, options) {
-    var _a2, _b, _c, _d, _e, _f, _g, _h;
     const _date = toDate(date);
     const year = _date.getFullYear();
     const defaultOptions2 = getDefaultOptions$1();
-    const firstWeekContainsDate = (_h = (_g = (_d = (_c = options == null ? void 0 : options.firstWeekContainsDate) != null ? _c : (_b = (_a2 = options == null ? void 0 : options.locale) == null ? void 0 : _a2.options) == null ? void 0 : _b.firstWeekContainsDate) != null ? _d : defaultOptions2.firstWeekContainsDate) != null ? _g : (_f = (_e = defaultOptions2.locale) == null ? void 0 : _e.options) == null ? void 0 : _f.firstWeekContainsDate) != null ? _h : 1;
+    const firstWeekContainsDate = options?.firstWeekContainsDate ?? options?.locale?.options?.firstWeekContainsDate ?? defaultOptions2.firstWeekContainsDate ?? defaultOptions2.locale?.options?.firstWeekContainsDate ?? 1;
     const firstWeekOfNextYear = constructFrom(date, 0);
     firstWeekOfNextYear.setFullYear(year + 1, 0, firstWeekContainsDate);
     firstWeekOfNextYear.setHours(0, 0, 0, 0);
@@ -3207,9 +3201,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
   }
   function startOfWeekYear(date, options) {
-    var _a2, _b, _c, _d, _e, _f, _g, _h;
     const defaultOptions2 = getDefaultOptions$1();
-    const firstWeekContainsDate = (_h = (_g = (_d = (_c = options == null ? void 0 : options.firstWeekContainsDate) != null ? _c : (_b = (_a2 = options == null ? void 0 : options.locale) == null ? void 0 : _a2.options) == null ? void 0 : _b.firstWeekContainsDate) != null ? _d : defaultOptions2.firstWeekContainsDate) != null ? _g : (_f = (_e = defaultOptions2.locale) == null ? void 0 : _e.options) == null ? void 0 : _f.firstWeekContainsDate) != null ? _h : 1;
+    const firstWeekContainsDate = options?.firstWeekContainsDate ?? options?.locale?.options?.firstWeekContainsDate ?? defaultOptions2.firstWeekContainsDate ?? defaultOptions2.locale?.options?.firstWeekContainsDate ?? 1;
     const year = getWeekYear(date, options);
     const firstWeek = constructFrom(date, 0);
     firstWeek.setFullYear(year, 0, firstWeekContainsDate);
@@ -3297,16 +3290,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return `Use \`${token.toLowerCase()}\` instead of \`${token}\` (in \`${format}\`) for formatting ${subject} to the input \`${input}\`; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md`;
   }
   function formatDistance(date, baseDate, options) {
-    var _a2, _b;
     const defaultOptions2 = getDefaultOptions$1();
-    const locale = (_b = (_a2 = options == null ? void 0 : options.locale) != null ? _a2 : defaultOptions2.locale) != null ? _b : enUS;
+    const locale = options?.locale ?? defaultOptions2.locale ?? enUS;
     const minutesInAlmostTwoDays = 2520;
     const comparison = compareAsc(date, baseDate);
     if (isNaN(comparison)) {
       throw new RangeError("Invalid time value");
     }
     const localizeOptions = Object.assign({}, options, {
-      addSuffix: options == null ? void 0 : options.addSuffix,
+      addSuffix: options?.addSuffix,
       comparison
     });
     let dateLeft;
@@ -3323,7 +3315,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const minutes = Math.round((seconds - offsetInSeconds) / 60);
     let months;
     if (minutes < 2) {
-      if (options == null ? void 0 : options.includeSeconds) {
+      if (options?.includeSeconds) {
         if (seconds < 5) {
           return locale.formatDistance("lessThanXSeconds", 5, localizeOptions);
         } else if (seconds < 10) {
@@ -4238,9 +4230,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
   }
   function setDay(date, day, options) {
-    var _a2, _b, _c, _d, _e, _f, _g, _h;
     const defaultOptions2 = getDefaultOptions$1();
-    const weekStartsOn = (_h = (_g = (_d = (_c = options == null ? void 0 : options.weekStartsOn) != null ? _c : (_b = (_a2 = options == null ? void 0 : options.locale) == null ? void 0 : _a2.options) == null ? void 0 : _b.weekStartsOn) != null ? _d : defaultOptions2.weekStartsOn) != null ? _g : (_f = (_e = defaultOptions2.locale) == null ? void 0 : _e.options) == null ? void 0 : _f.weekStartsOn) != null ? _h : 0;
+    const weekStartsOn = options?.weekStartsOn ?? options?.locale?.options?.weekStartsOn ?? defaultOptions2.weekStartsOn ?? defaultOptions2.locale?.options?.weekStartsOn ?? 0;
     const _date = toDate(date);
     const currentDay = _date.getDay();
     const remainder = day % 7;
@@ -4967,11 +4958,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const notWhitespaceRegExp = /\S/;
   const unescapedLatinCharacterRegExp = /[a-zA-Z]/;
   function parse(dateStr, formatStr, referenceDate, options) {
-    var _a2, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r;
     const defaultOptions2 = getDefaultOptions();
-    const locale = (_b = (_a2 = options == null ? void 0 : options.locale) != null ? _a2 : defaultOptions2.locale) != null ? _b : enUS;
-    const firstWeekContainsDate = (_j = (_i = (_f = (_e = options == null ? void 0 : options.firstWeekContainsDate) != null ? _e : (_d = (_c = options == null ? void 0 : options.locale) == null ? void 0 : _c.options) == null ? void 0 : _d.firstWeekContainsDate) != null ? _f : defaultOptions2.firstWeekContainsDate) != null ? _i : (_h = (_g = defaultOptions2.locale) == null ? void 0 : _g.options) == null ? void 0 : _h.firstWeekContainsDate) != null ? _j : 1;
-    const weekStartsOn = (_r = (_q = (_n = (_m = options == null ? void 0 : options.weekStartsOn) != null ? _m : (_l = (_k = options == null ? void 0 : options.locale) == null ? void 0 : _k.options) == null ? void 0 : _l.weekStartsOn) != null ? _n : defaultOptions2.weekStartsOn) != null ? _q : (_p = (_o = defaultOptions2.locale) == null ? void 0 : _o.options) == null ? void 0 : _p.weekStartsOn) != null ? _r : 0;
+    const locale = options?.locale ?? defaultOptions2.locale ?? enUS;
+    const firstWeekContainsDate = options?.firstWeekContainsDate ?? options?.locale?.options?.firstWeekContainsDate ?? defaultOptions2.firstWeekContainsDate ?? defaultOptions2.locale?.options?.firstWeekContainsDate ?? 1;
+    const weekStartsOn = options?.weekStartsOn ?? options?.locale?.options?.weekStartsOn ?? defaultOptions2.weekStartsOn ?? defaultOptions2.locale?.options?.weekStartsOn ?? 0;
     if (formatStr === "") {
       if (dateStr === "") {
         return toDate(referenceDate);
@@ -4995,10 +4985,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }).join("").match(formattingTokensRegExp);
     const usedTokens = [];
     for (let token of tokens) {
-      if (!(options == null ? void 0 : options.useAdditionalWeekYearTokens) && isProtectedWeekYearToken(token)) {
+      if (!options?.useAdditionalWeekYearTokens && isProtectedWeekYearToken(token)) {
         warnOrThrowProtectedError(token, formatStr, dateStr);
       }
-      if (!(options == null ? void 0 : options.useAdditionalDayOfYearTokens) && isProtectedDayOfYearToken(token)) {
+      if (!options?.useAdditionalDayOfYearTokens && isProtectedDayOfYearToken(token)) {
         warnOrThrowProtectedError(token, formatStr, dateStr);
       }
       const firstCharacter = token[0];
@@ -5101,16 +5091,101 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const finalDate = constructFrom(date, dateWithoutDays.getTime() - mstoSub);
     return finalDate;
   }
+  const isFsaSupported = "showDirectoryPicker" in self;
+  let mainDirHandle;
+  async function saveFile(urlOrBlob, fileName, subdir) {
+    if (!mainDirHandle) {
+      mainDirHandle = await getMainDirHandle();
+      if (!mainDirHandle)
+        mainDirHandle = await setMainDirHandle();
+    }
+    if (!mainDirHandle) {
+      throw new Error("Failed to get dir handle.");
+    }
+    if (!await verifyPermission(mainDirHandle)) {
+      throw new Error("Permission not granted.");
+    }
+    const fileHandle = subdir ? await getSubDirFileHandle(mainDirHandle, subdir, fileName) : await mainDirHandle.getFileHandle(fileName, { create: true });
+    if (typeof urlOrBlob == "string") {
+      await writeURLToFile(fileHandle, urlOrBlob);
+    } else {
+      await writeBlobToFile(fileHandle, urlOrBlob);
+    }
+    return `${mainDirHandle.name}${subdir ? `/${subdir}` : ""}/${fileName}`;
+  }
+  async function getMainDirHandle() {
+    const directoryHandle = await loadDirHandleFromIDB();
+    return directoryHandle;
+  }
+  async function setMainDirHandle() {
+    const directoryHandle = await window.showDirectoryPicker({ mode: "readwrite" });
+    await saveDirHandleToIDB(directoryHandle);
+    return directoryHandle;
+  }
+  async function verifyPermission(handle) {
+    if (await handle.queryPermission({ mode: "readwrite" }) === "granted") {
+      return true;
+    }
+    if (await handle.requestPermission({ mode: "readwrite" }) === "granted") {
+      return true;
+    }
+    return false;
+  }
+  async function writeURLToFile(fileHandle, url) {
+    const response = await fetch(url);
+    if (!response.ok)
+      throw new Error(`Response not ok: ${response.status}`);
+    const writable = await fileHandle.createWritable();
+    await response.body?.pipeTo(writable);
+  }
+  async function writeBlobToFile(fileHandle, blob) {
+    const writable = await fileHandle.createWritable();
+    await writable.write(blob);
+    await writable.close();
+  }
+  async function getSubDirFileHandle(dirHandle, subDirName, fileName) {
+    const subDirHandle = await dirHandle.getDirectoryHandle(subDirName, { create: true });
+    const fileHandle = await subDirHandle.getFileHandle(fileName, { create: true });
+    return fileHandle;
+  }
+  function openIDB() {
+    return new Promise((resolve, reject) => {
+      const request = indexedDB.open("y-fsa-db", 1);
+      request.onupgradeneeded = () => {
+        const db = request.result;
+        if (!db.objectStoreNames.contains("handles")) {
+          db.createObjectStore("handles");
+        }
+      };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+  }
+  async function saveDirHandleToIDB(handle) {
+    const db = await openIDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction("handles", "readwrite");
+      const store2 = tx.objectStore("handles");
+      store2.put(handle, "dir");
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+  }
+  async function loadDirHandleFromIDB() {
+    const db = await openIDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction("handles", "readonly");
+      const store2 = tx.objectStore("handles");
+      const req = store2.get("dir");
+      req.onsuccess = () => resolve(req.result || null);
+      req.onerror = () => reject(req.error);
+    });
+  }
   const eventBus = new Vue__default["default"]();
   function isURL(s) {
     return /^https?:\/\/.*/.test(s);
   }
-  const isSubpathDL = Boolean(localStorage.getItem("__dl_subpath_on"));
-  function downloadFile(url, name, options) {
-    if (!/\.\w+$/.test(name))
-      name += `.${url.split(".").pop()}`;
-    if (isSubpathDL)
-      name = `${location.hostname}/${name}`;
+  function downloadByGM(url, name, options) {
     return new Promise((resolve, reject) => {
       GM_download({
         url,
@@ -5120,6 +5195,57 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         ...options
       });
     });
+  }
+  async function downloadByFetch(source, fileName) {
+    try {
+      const resp = await fetch(source);
+      if (!resp.ok)
+        throw new Error(`Response not ok: ${resp.status}`);
+      const url = URL.createObjectURL(await resp.blob());
+      downloadByLink(url, fileName);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.log("downloadByFetch err: ", err);
+      downloadByLink(source, fileName);
+    }
+  }
+  function downloadByLink(source, fileName) {
+    const a = document.createElement("a");
+    a.href = source;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.style.display = "none";
+    a.setAttribute("download", fileName);
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+  async function downloadFile(url, name, options) {
+    if (!/\.\w+$/.test(name))
+      name += `.${url.split(".").pop()}`;
+    try {
+      switch (settings.downloadBy) {
+        case "tm": {
+          if (settings.isDLSubpath)
+            name = `${location.hostname}/${name}`;
+          await downloadByGM(url, name, options);
+          break;
+        }
+        case "fsa": {
+          const res = await saveFile(url, name, settings.isDLSubpath ? location.hostname : void 0);
+          showMsg({ type: "success", msg: `${i18n.t("kMu1vOFmTJac-ylP0b13Z")}: ${res}` });
+          break;
+        }
+        case "newtab":
+          downloadByLink(url, name);
+          break;
+        default:
+          break;
+      }
+    } catch (err) {
+      console.log("downloadByGM err: ", err);
+      await downloadByFetch(url, name);
+    }
   }
   function downloadText(text, filename = "file.txt") {
     const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
@@ -5147,7 +5273,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       ticking = true;
       window.requestAnimationFrame(() => {
         const scroll = doc.scrollTop;
-        scroll > position ? downFn(scroll, arg) : upFn == null ? void 0 : upFn(scroll, arg);
+        scroll > position ? downFn(scroll, arg) : upFn?.(scroll, arg);
         position = scroll;
         ticking = false;
       });
@@ -5387,10 +5513,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const results = [...doc.querySelectorAll(".content .thumb")].map(async (el) => {
-      var _a2;
       const a = el.querySelector("a");
       const img = el.querySelector("img");
-      const id = (_a2 = a.getAttribute("id")) == null ? void 0 : _a2.slice(1);
+      const id = a.getAttribute("id")?.slice(1);
       const previewUrl = img.src;
       const { width, height } = await getImageSize(previewUrl);
       const tags2 = img.title.split(/\s/).filter(Boolean);
@@ -5411,11 +5536,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return Promise.all(results);
   }
   async function getAllGirlDetail(id) {
-    var _a2;
     const resp = await fetch(`https://allgirl.booru.org/index.php?page=post&s=view&id=${id}`);
     const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
     return {
-      fileUrl: (_a2 = doc.querySelector("#image")) == null ? void 0 : _a2.src
+      fileUrl: doc.querySelector("#image")?.src
     };
   }
   const allgirl = {
@@ -5430,18 +5554,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const htmlResp = await fetch(`https://anihonetwallpaper.com/page/${page}${tags ? `?s=${tags}` : ""}`);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const results = [...doc.querySelectorAll("main .post_box ")].map((el) => {
-      var _a2;
       const a = el.querySelector(".posttitle a");
       const img = el.querySelector(".thumbnail-image");
-      const id = (_a2 = a == null ? void 0 : a.href.match(/(\d+)/)) == null ? void 0 : _a2[1];
-      const previewUrl = img == null ? void 0 : img.getAttribute("data-src");
-      const width = img == null ? void 0 : img.getAttribute("width");
-      const height = img == null ? void 0 : img.getAttribute("height");
+      const id = a?.href.match(/(\d+)/)?.[1];
+      const previewUrl = img?.getAttribute("data-src");
+      const width = img?.getAttribute("width");
+      const height = img?.getAttribute("height");
       const tags2 = [...el.querySelectorAll(".itiran a[rel*=tag]")].map((e) => e.innerText);
-      const fileUrl = (previewUrl == null ? void 0 : previewUrl.includes("wp.com")) ? previewUrl.replace(/i\d\.wp\.com\//, "").replace(/\?fit\=\d+\,\d+/, "") : previewUrl == null ? void 0 : previewUrl.replace(/\-\d+x\d+\.(jpg|jpeg|png|webp)/, ".$1");
+      const fileUrl = previewUrl?.includes("wp.com") ? previewUrl.replace(/i\d\.wp\.com\//, "").replace(/\?fit\=\d+\,\d+/, "") : previewUrl?.replace(/\-\d+x\d+\.(jpg|jpeg|png|webp)/, ".$1");
       return {
         id,
-        postView: a == null ? void 0 : a.href,
+        postView: a?.href,
         previewUrl,
         fileUrl,
         tags: tags2,
@@ -5878,7 +6001,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     if (site.paginate === "pid")
       page -= 1;
     let credentialsQuery = "";
-    if (credentials == null ? void 0 : credentials.query) {
+    if (credentials?.query) {
       const q = credentials.query;
       credentialsQuery = q.startsWith("&") ? q : "&" + q;
     }
@@ -5911,12 +6034,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     attributeNamePrefix: ""
   });
   function jsonfy(xml) {
-    var _a2;
     if (typeof xml === "object")
       return xml;
     const data = xmlParser.parse(xml);
     if (data.html || data["!doctype"]) {
-      const page = data.html || ((_a2 = data["!doctype"]) == null ? void 0 : _a2.html);
+      const page = data.html || data["!doctype"]?.html;
       const message2 = [];
       if (page.body.h1) {
         message2.push(page.body.h1);
@@ -5961,7 +6083,6 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     );
   }
   function parseImageUrl(url, data, booru, type = "file") {
-    var _a2;
     if (!url || url.trim() === "" || data.is_deleted) {
       return null;
     }
@@ -5978,7 +6099,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       url = `https:${data.image}`;
     }
     if (!data[`${type}_url`] && data.directory !== void 0) {
-      const directory = (_a2 = data.directory) != null ? _a2 : `${data.hash.substr(0, 2)}/${data.hash.substr(2, 2)}`;
+      const directory = data.directory ?? `${data.hash.substr(0, 2)}/${data.hash.substr(2, 2)}`;
       const hash = data.image.split(".")[0];
       const map = {
         preview: `//${booru.domain}/thumbnails/${directory}/thumbnail_${hash}.jpg`,
@@ -6023,8 +6144,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return size.toFixed(2) + "B";
   }
   function getFileExt(url) {
-    var _a2;
-    return (_a2 = url == null ? void 0 : url.split(".").pop()) != null ? _a2 : "";
+    return url?.split(".").pop() ?? "";
   }
   function dealDanbooruPreviewUrl(url, booru) {
     if ([
@@ -6144,32 +6264,25 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return this.width / this.height;
     }
     get jpegUrl() {
-      var _a2;
-      return (_a2 = this.data.jpeg_url) != null ? _a2 : "";
+      return this.data.jpeg_url ?? "";
     }
     get jpegWidth() {
-      var _a2;
-      return (_a2 = this.data.jpeg_width) != null ? _a2 : 0;
+      return this.data.jpeg_width ?? 0;
     }
     get jpegHeight() {
-      var _a2;
-      return (_a2 = this.data.jpeg_height) != null ? _a2 : 0;
+      return this.data.jpeg_height ?? 0;
     }
     get fileExt() {
-      var _a2;
-      return (_a2 = this.data.file_ext) != null ? _a2 : getFileExt(this.fileUrl);
+      return this.data.file_ext ?? getFileExt(this.fileUrl);
     }
     get sampleSize() {
-      var _a2;
-      return (_a2 = this.data.sample_file_size) != null ? _a2 : 0;
+      return this.data.sample_file_size ?? 0;
     }
     get jpegSize() {
-      var _a2;
-      return (_a2 = this.data.jpeg_file_size) != null ? _a2 : 0;
+      return this.data.jpeg_file_size ?? 0;
     }
     get fileSize() {
-      var _a2;
-      return (_a2 = this.data.file_size) != null ? _a2 : 0;
+      return this.data.file_size ?? 0;
     }
     get sampleSizeText() {
       return formatFileSize(this.data.sample_file_size);
@@ -6458,18 +6571,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       __publicField(this, "tagJoin");
       __publicField(this, "insecure");
       __publicField(this, "defaultTags");
-      var _a2, _b, _c, _d, _e, _f, _g, _h, _i;
       this.domain = data.domain;
-      this.type = (_a2 = data.type) != null ? _a2 : "json";
-      this.aliases = (_b = data.aliases) != null ? _b : [];
+      this.type = data.type ?? "json";
+      this.aliases = data.aliases ?? [];
       this.nsfw = data.nsfw;
-      this.api = (_c = data.api) != null ? _c : {};
-      this.paginate = (_d = data.paginate) != null ? _d : "page";
-      this.random = (_e = data.random) != null ? _e : false;
-      this.tagQuery = (_f = data.tagQuery) != null ? _f : "tags";
-      this.tagJoin = (_g = data.tagJoin) != null ? _g : "+";
-      this.insecure = (_h = data.insecure) != null ? _h : false;
-      this.defaultTags = (_i = data.defaultTags) != null ? _i : [];
+      this.api = data.api ?? {};
+      this.paginate = data.paginate ?? "page";
+      this.random = data.random ?? false;
+      this.tagQuery = data.tagQuery ?? "tags";
+      this.tagJoin = data.tagJoin ?? "+";
+      this.insecure = data.insecure ?? false;
+      this.defaultTags = data.defaultTags ?? [];
     }
   };
   var BooruTypes = {
@@ -6520,7 +6632,6 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "R18+": "e"
   };
   async function fetchSankakuComplexPosts(page, tags) {
-    var _a2, _b;
     const w = unsafeWindow;
     w.$.ajax = () => {
     };
@@ -6536,19 +6647,18 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     !state.nextUrl && tags && url.searchParams.set("tags", tags);
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    state.nextUrl = (_b = (_a2 = doc.querySelector("body > div[next-page-url]")) == null ? void 0 : _a2.getAttribute("next-page-url")) == null ? void 0 : _b.replace(/amp;/g, "");
+    state.nextUrl = doc.querySelector("body > div[next-page-url]")?.getAttribute("next-page-url")?.replace(/amp;/g, "");
     const results = [...doc.querySelectorAll(".post-gallery .post-preview")].map((el) => {
-      var _a3;
       const id = el.getAttribute("data-id");
       const img = el.querySelector("img");
-      const tagsText = (img == null ? void 0 : img.getAttribute("data-auto_page")) || "";
+      const tagsText = img?.getAttribute("data-auto_page") || "";
       const tagsArr = tagsText.split(/\s/) || [];
       const [_, width, height] = tagsText.match(/Size:(\d+)x(\d+)/) || [];
       const [__, ratingText] = tagsText.match(/Rating:(\S+)/) || [];
       return {
         id,
-        postView: (_a3 = el.querySelector("a")) == null ? void 0 : _a3.href,
-        previewUrl: img == null ? void 0 : img.src,
+        postView: el.querySelector("a")?.href,
+        previewUrl: img?.src,
         fileUrl: "",
         tags: tagsArr,
         width: Number(width),
@@ -6563,13 +6673,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return results;
   }
   async function getSankakuComplexDetail(id) {
-    var _a2, _b, _c;
     const url = new URL(`https://chan.sankakucomplex.com/cn/posts/${id}`);
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    const imgSrc = (_a2 = doc.querySelector("#post-content img")) == null ? void 0 : _a2.src;
-    const fileUrl = (_b = doc.querySelector("#post-content a")) == null ? void 0 : _b.href;
-    const videoSrc = (_c = doc.querySelector("#post-content video")) == null ? void 0 : _c.src;
+    const imgSrc = doc.querySelector("#post-content img")?.src;
+    const fileUrl = doc.querySelector("#post-content a")?.href;
+    const videoSrc = doc.querySelector("#post-content video")?.src;
     return {
       sampleUrl: imgSrc,
       fileUrl: fileUrl || imgSrc || videoSrc
@@ -6795,10 +6904,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "realbooru.com": 42
   };
   const BOORU_PAGE_LIMIT = defaultLimitMap[location.host] || 40;
-  const isPidSite = () => {
-    var _a2;
-    return ((_a2 = sites[location.host]) == null ? void 0 : _a2.paginate) === "pid" || realbooru.is();
-  };
+  const isPidSite = () => sites[location.host]?.paginate === "pid" || realbooru.is();
   async function searchBooru(page, tags) {
     if (!tags || tags === "all")
       tags = "";
@@ -6850,17 +6956,16 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const results = [...doc.querySelectorAll("#content .image_thread")].map((el) => {
-      var _a2, _b, _c, _d, _e, _f, _g;
-      const id = (_a2 = el.getAttribute("id")) == null ? void 0 : _a2.slice(1);
-      const fileUrl = (_b = el.querySelector(".thumb_image")) == null ? void 0 : _b.href;
-      const fileExt = fileUrl == null ? void 0 : fileUrl.split(".").pop();
+      const id = el.getAttribute("id")?.slice(1);
+      const fileUrl = el.querySelector(".thumb_image")?.href;
+      const fileExt = fileUrl?.split(".").pop();
       const tags = [...el.querySelectorAll(".quicktag")].map((e) => e.innerText.replace(/[\t\n]/g, "")).join("").split('"').filter((e) => e.trim()).map((e) => e.replace(/\s/g, "_"));
-      const [_, width, height] = ((_c = el.querySelector(".meta dl dd:nth-child(8)")) == null ? void 0 : _c.innerText.match(/(\d+)x(\d+)/)) || [];
-      const date = (_d = el.querySelector(".meta dl dd:nth-child(4)")) == null ? void 0 : _d.innerText;
+      const [_, width, height] = el.querySelector(".meta dl dd:nth-child(8)")?.innerText.match(/(\d+)x(\d+)/) || [];
+      const date = el.querySelector(".meta dl dd:nth-child(4)")?.innerText;
       return {
         id,
-        postView: (_e = el.querySelector(".title a")) == null ? void 0 : _e.href,
-        previewUrl: (_f = el.querySelector(".thumb_image img")) == null ? void 0 : _f.src,
+        postView: el.querySelector(".title a")?.href,
+        previewUrl: el.querySelector(".thumb_image img")?.src,
         fileUrl,
         tags,
         width: Number(width),
@@ -6868,7 +6973,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         aspectRatio: Number(width) / Number(height),
         fileExt,
         fileDownloadName: `e-shuushuu ${id} ${tags.join(" ")}.${fileExt}`,
-        fileDownloadText: `${width}\xD7${height} [${(_g = el.querySelector(".meta dl dd:nth-child(6)")) == null ? void 0 : _g.innerText.replace(/[\t\n]/g, "")}] ${fileExt == null ? void 0 : fileExt.toUpperCase()}`,
+        fileDownloadText: `${width}\xD7${height} [${el.querySelector(".meta dl dd:nth-child(6)")?.innerText.replace(/[\t\n]/g, "")}] ${fileExt?.toUpperCase()}`,
         rating: "",
         createdAt: date && parse(date, "MMMM do, yyyy h:mm a", new Date())
       };
@@ -6891,16 +6996,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const results = [...doc.querySelectorAll(".thumbnail-container .thumbnail-preview")].map(async (el) => {
-      var _a2, _b, _c, _d;
       const img = el.querySelector("img");
-      const imgSrc = (img == null ? void 0 : img.src) || "";
-      const postView = (_a2 = el.querySelector("a")) == null ? void 0 : _a2.href;
-      const id = (_b = postView == null ? void 0 : postView.match(/id=(\d+)/)) == null ? void 0 : _b[1];
+      const imgSrc = img?.src || "";
+      const postView = el.querySelector("a")?.href;
+      const id = postView?.match(/id=(\d+)/)?.[1];
       const { width, height } = await getImageSize(imgSrc);
-      const tags = img == null ? void 0 : img.title.split(/\s+/).filter(Boolean);
-      const isGif = ["animated_gif", "gif"].some((e) => tags == null ? void 0 : tags.includes(e));
-      const isVideo = ["mp4", "video"].some((e) => tags == null ? void 0 : tags.includes(e));
-      let rating = (_d = (_c = img == null ? void 0 : img.title) == null ? void 0 : _c.match(/rating:(\w)\w+/)) == null ? void 0 : _d[1];
+      const tags = img?.title.split(/\s+/).filter(Boolean);
+      const isGif = ["animated_gif", "gif"].some((e) => tags?.includes(e));
+      const isVideo = ["mp4", "video"].some((e) => tags?.includes(e));
+      let rating = img?.title?.match(/rating:(\w)\w+/)?.[1];
       if (rating == "g")
         rating = "s";
       return {
@@ -6926,16 +7030,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const results = [...doc.querySelectorAll(".thumb")].map(async (el) => {
-      var _a2, _b, _c, _d;
       const img = el.querySelector("img");
-      const imgSrc = (img == null ? void 0 : img.src) || "";
-      const postView = (_a2 = el.querySelector("a")) == null ? void 0 : _a2.href;
-      const id = (_b = postView == null ? void 0 : postView.match(/id=(\d+)/)) == null ? void 0 : _b[1];
+      const imgSrc = img?.src || "";
+      const postView = el.querySelector("a")?.href;
+      const id = postView?.match(/id=(\d+)/)?.[1];
       const { width, height } = await getImageSize(imgSrc);
-      const tags = img == null ? void 0 : img.title.split(/\s+/).filter(Boolean);
-      const isGif = ["animated_gif", "gif"].some((e) => tags == null ? void 0 : tags.includes(e));
-      const isVideo = ["mp4", "video"].some((e) => tags == null ? void 0 : tags.includes(e));
-      let rating = (_d = (_c = img == null ? void 0 : img.title) == null ? void 0 : _c.match(/rating:(\w)\w+/)) == null ? void 0 : _d[1];
+      const tags = img?.title.split(/\s+/).filter(Boolean);
+      const isGif = ["animated_gif", "gif"].some((e) => tags?.includes(e));
+      const isVideo = ["mp4", "video"].some((e) => tags?.includes(e));
+      let rating = img?.title?.match(/rating:(\w)\w+/)?.[1];
       if (rating == "g")
         rating = "s";
       return {
@@ -7001,17 +7104,16 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const htmlResp = await fetch(url);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const results = [...doc.querySelectorAll(".shm-image-list span.thumb")].map((el) => {
-      var _a2;
       const a = el.querySelector("a");
       const img = el.querySelector("img");
-      const id = a == null ? void 0 : a.getAttribute("data-post-id");
+      const id = a?.getAttribute("data-post-id");
       const previewUrl = img.src;
-      const tags2 = ((_a2 = a == null ? void 0 : a.getAttribute("data-tags")) == null ? void 0 : _a2.split(/\s/).filter(Boolean)) || [];
-      const [_, width, height] = (img == null ? void 0 : img.title.match(/\/\/\s+(\d+)x(\d+)\s+\/\//)) || [];
-      const [__, size] = (img == null ? void 0 : img.title.match(/\/\/\s+\d+x\d+\s+\/\/\s+([\w\.]+)/)) || [];
+      const tags2 = a?.getAttribute("data-tags")?.split(/\s/).filter(Boolean) || [];
+      const [_, width, height] = img?.title.match(/\/\/\s+(\d+)x(\d+)\s+\/\//) || [];
+      const [__, size] = img?.title.match(/\/\/\s+\d+x\d+\s+\/\/\s+([\w\.]+)/) || [];
       return {
         id,
-        postView: a == null ? void 0 : a.href,
+        postView: a?.href,
         previewUrl,
         fileUrl: "",
         tags: tags2,
@@ -7027,11 +7129,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return results;
   }
   async function getHentaiBooruDetail(id) {
-    var _a2;
     const resp = await fetch(`https://booru.eu/post/view/${id}`);
     const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
     return {
-      fileUrl: (_a2 = doc.querySelector("#main_image")) == null ? void 0 : _a2.src
+      fileUrl: doc.querySelector("#main_image")?.src
     };
   }
   const hentaibooru = {
@@ -7048,10 +7149,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const results = [...doc.querySelectorAll(".box_thumbs .box_thumb")].map(async (el) => {
-      var _a2;
       const a = el.querySelector("a");
       const img = el.querySelector("[data-bg]");
-      const id = (_a2 = a.href.match(/(\d+)/)) == null ? void 0 : _a2[1];
+      const id = a.href.match(/(\d+)/)?.[1];
       const previewUrl = img.getAttribute("data-bg");
       const { width, height } = await getImageSize(previewUrl);
       return {
@@ -7071,11 +7171,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return Promise.all(results);
   }
   async function getKusowankaDetail(id) {
-    var _a2;
     const resp = await fetch(`https://kusowanka.com/post/${id}/`);
     const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
     return {
-      fileUrl: (_a2 = doc.querySelector(".post_image img")) == null ? void 0 : _a2.getAttribute("data-src"),
+      fileUrl: doc.querySelector(".post_image img")?.getAttribute("data-src"),
       tags: [
         ...[...doc.querySelectorAll(".parodies_list a")].map((e) => e.innerText),
         ...[...doc.querySelectorAll(".characters_list a")].map((e) => e.innerText),
@@ -7092,11 +7191,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   };
   function getYandereUserId() {
     const match2 = document.cookie.match(/user_id=(\d+)/);
-    return match2 == null ? void 0 : match2[1];
+    return match2?.[1];
   }
   function getKonachanUsername() {
     const match2 = document.cookie.match(/login=(\w+)/);
-    return match2 == null ? void 0 : match2[1];
+    return match2?.[1];
   }
   let _moebooruUserName;
   async function getUsername() {
@@ -7144,9 +7243,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return {
         voted: result.votes[id] == 3,
         tags: Object.entries(result.tags).map(([tag2, type]) => {
-          var _a2, _b, _c;
-          const tagCN = (_a2 = window.__tagsCN) == null ? void 0 : _a2[tag2];
-          const typeText = (_b = tagInfoMap[type]) == null ? void 0 : _b[0];
+          const tagCN = window.__tagsCN?.[tag2];
+          const typeText = tagInfoMap[type]?.[0];
           const tagText = [
             typeText && `[ ${typeText} ] `,
             tag2,
@@ -7156,7 +7254,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
             tag: tag2,
             type,
             tagText,
-            color: ((_c = tagInfoMap[type]) == null ? void 0 : _c[1]) || tagInfoMap.general[1]
+            color: tagInfoMap[type]?.[1] || tagInfoMap.general[1]
           };
         }).sort((a, b) => {
           return tagSortOrder$1.indexOf(a.type) - tagSortOrder$1.indexOf(b.type);
@@ -7168,13 +7266,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
   }
   async function addPostToFavorites$1(id) {
-    var _a2;
     const form = new FormData();
     form.append("id", id);
     form.append("score", "3");
     const response = await fetch("/post/vote.json", {
       method: "POST",
-      headers: { "x-csrf-token": (_a2 = sessionStorage.getItem("csrf-token")) != null ? _a2 : "" },
+      headers: { "x-csrf-token": sessionStorage.getItem("csrf-token") ?? "" },
       body: form
     });
     if (!response.ok) {
@@ -7208,7 +7305,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return new SearchResults(posts, [], {}, site);
   }
   function splitTags(tagsData, limit, searchTerm) {
-    let results = tagsData == null ? void 0 : tagsData.split(/\s+/);
+    let results = tagsData?.split(/\s+/);
     if (searchTerm)
       results = results.filter((e) => e.includes(searchTerm));
     if (!Array.isArray(results))
@@ -7216,8 +7313,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return results.slice(0, limit).map((e) => e.split("`")[1]).filter(Boolean);
   }
   function getTagsString(key) {
-    var _a2;
-    return ((_a2 = window.TagCompletion) == null ? void 0 : _a2[key]) || localStorage.getItem(key) || "";
+    return window.TagCompletion?.[key] || localStorage.getItem(key) || "";
   }
   function searchTagsByName(searchTerm) {
     if (!searchTerm)
@@ -7237,9 +7333,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const xmlResp = await fetch(url);
     const doc = new DOMParser().parseFromString(await xmlResp.text(), "text/xml");
     const thumbMap = [...doc.querySelectorAll("entry")].reduce((acc, cur) => {
-      var _a2, _b, _c, _d;
-      const id = (_c = (_b = (_a2 = cur.querySelector("id")) == null ? void 0 : _a2.textContent) == null ? void 0 : _b.match(/Pool\/(\d+)/)) == null ? void 0 : _c[1];
-      const url2 = (_d = cur.querySelector("link[rel=enclosure]")) == null ? void 0 : _d.getAttribute("href");
+      const id = cur.querySelector("id")?.textContent?.match(/Pool\/(\d+)/)?.[1];
+      const url2 = cur.querySelector("link[rel=enclosure]")?.getAttribute("href");
       if (id && url2)
         acc[id] = url2;
       return acc;
@@ -7261,13 +7356,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const script = doc.querySelector("form:has(select[name=locale]) + script");
-    const scriptText = (script == null ? void 0 : script.innerText.trim()) || "";
+    const scriptText = script?.innerText.trim() || "";
     let results = [];
     try {
-      results = scriptText.split("\n").slice(1).map((e) => {
-        var _a2;
-        return JSON.parse(((_a2 = e.match(/Post.register\((.*)\)/)) == null ? void 0 : _a2[1]) || "[]");
-      });
+      results = scriptText.split("\n").slice(1).map((e) => JSON.parse(e.match(/Post.register\((.*)\)/)?.[1] || "[]"));
     } catch (err) {
       console.log("err: ", err);
     }
@@ -7432,16 +7524,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     xmlhttp.send();
   }
   function results_to_page(datas) {
-    var _a2, _b, _c, _d;
     for (const d in datas) {
       const data = datas[d];
       if (!data)
         continue;
       data.tags = [
-        ...((_a2 = data.artist) == null ? void 0 : _a2.map((e) => e.tag)) || [],
-        ...((_b = data.copyright) == null ? void 0 : _b.map((e) => e.tag)) || [],
-        ...((_c = data.character) == null ? void 0 : _c.map((e) => e.tag)) || [],
-        ...((_d = data.general) == null ? void 0 : _d.map((e) => e.tag)) || []
+        ...data.artist?.map((e) => e.tag) || [],
+        ...data.copyright?.map((e) => e.tag) || [],
+        ...data.character?.map((e) => e.tag) || [],
+        ...data.general?.map((e) => e.tag) || []
       ];
       data.postView = `https://nozomi.la/post/${data.postid}.html`;
       data.previewUrl = `https://qtn.gold-usergeneratedcontent.net/${full_path_from_hash(data.imageurls[0].dataid)}.${data.imageurls[0].type}.webp`;
@@ -7472,17 +7563,16 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const htmlResp = await fetch(url.href, { credentials: "include" });
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const results = [...doc.querySelectorAll("#content .image-list .thumb")].map(async (el) => {
-      var _a2, _b, _c;
       const id = el.id;
       const img = el.querySelector("img");
-      const imgSrc = (img == null ? void 0 : img.src) || "";
-      const postView = (_a2 = el.querySelector("a")) == null ? void 0 : _a2.href;
+      const imgSrc = img?.src || "";
+      const postView = el.querySelector("a")?.href;
       const { width, height } = await getImageSize(imgSrc);
-      const tags2 = img == null ? void 0 : img.title.split(/\s+/).filter(Boolean);
-      const isVideo = ["mp4", "video"].some((e) => tags2 == null ? void 0 : tags2.includes(e));
+      const tags2 = img?.title.split(/\s+/).filter(Boolean);
+      const isVideo = ["mp4", "video"].some((e) => tags2?.includes(e));
       const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.mp4").replace("https://wimg.", "https://api-cdn-mp4.");
-      const rating = (_b = img == null ? void 0 : img.title.match(/rating\:(\w)/)) == null ? void 0 : _b[1];
-      const score = (_c = img == null ? void 0 : img.title.match(/score\:(\d+)/)) == null ? void 0 : _c[1];
+      const rating = img?.title.match(/rating\:(\w)/)?.[1];
+      const score = img?.title.match(/score\:(\d+)/)?.[1];
       if (el.querySelector(".blacklist-img")) {
         return null;
       }
@@ -7511,14 +7601,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const results = [...doc.querySelectorAll("#content .image-list .thumb")].map(async (el) => {
-      var _a2, _b;
       const img = el.querySelector("img");
-      const imgSrc = (img == null ? void 0 : img.src) || "";
-      const postView = (_a2 = el.querySelector("a")) == null ? void 0 : _a2.href;
-      const id = (_b = postView == null ? void 0 : postView.match(/id=(\d+)/)) == null ? void 0 : _b[1];
+      const imgSrc = img?.src || "";
+      const postView = el.querySelector("a")?.href;
+      const id = postView?.match(/id=(\d+)/)?.[1];
       const { width, height } = await getImageSize(imgSrc);
-      const tags = img == null ? void 0 : img.title.split(/\s+/).filter(Boolean);
-      const isVideo = ["mp4", "animated", "video"].some((e) => tags == null ? void 0 : tags.includes(e));
+      const tags = img?.title.split(/\s+/).filter(Boolean);
+      const isVideo = ["mp4", "animated", "video"].some((e) => tags?.includes(e));
       const videoUrl = imgSrc.replace(/(.*)thumbnails(.*)thumbnail_(.*)\.jpg/i, "$1images$2$3.mp4").replace("https://wimg.", "https://api-cdn-mp4.");
       return {
         id,
@@ -7540,8 +7629,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return list;
   }
   async function addFavoriteRule34(id) {
-    var _a2;
-    const _id = ((_a2 = id.match(/(\d+)/)) == null ? void 0 : _a2[1]) || id;
+    const _id = id.match(/(\d+)/)?.[1] || id;
     const response = await fetch(`https://rule34.xxx/public/addfav.php?id=${_id}`);
     if (!response.ok) {
       showMsg({ msg: `${i18n.t("MWVfUiW8egLWq7MgV-wzc")}: ${response.status}`, type: "error" });
@@ -7593,26 +7681,25 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const htmlResp = await fetch(url);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const results = [...doc.querySelectorAll(".shm-image-list .shm-thumb.thumb")].map((el) => {
-      var _a2, _b, _c;
       const id = el.getAttribute("data-post-id");
       const fileExt = el.getAttribute("data-ext");
-      const tags2 = ((_a2 = el.getAttribute("data-tags")) == null ? void 0 : _a2.split(/\s/).filter(Boolean)) || [];
+      const tags2 = el.getAttribute("data-tags")?.split(/\s/).filter(Boolean) || [];
       const img = el.querySelector("img");
-      const [_, width, height] = (img == null ? void 0 : img.title.match(/\s+(\d+)x(\d+)[,\s]+/)) || [];
-      const [__, size] = (img == null ? void 0 : img.title.match(/\s+\d+x\d+\s+\/\/\s+([\w\.]+)/)) || [];
-      const date = img == null ? void 0 : img.title.split("\n").pop();
+      const [_, width, height] = img?.title.match(/\s+(\d+)x(\d+)[,\s]+/) || [];
+      const [__, size] = img?.title.match(/\s+\d+x\d+\s+\/\/\s+([\w\.]+)/) || [];
+      const date = img?.title.split("\n").pop();
       return {
         id,
-        postView: (_b = el.querySelector(".shm-thumb-link")) == null ? void 0 : _b.href,
-        previewUrl: img == null ? void 0 : img.src,
-        fileUrl: (_c = el.querySelector(".shm-thumb-link + br + a")) == null ? void 0 : _c.href,
+        postView: el.querySelector(".shm-thumb-link")?.href,
+        previewUrl: img?.src,
+        fileUrl: el.querySelector(".shm-thumb-link + br + a")?.href,
         tags: tags2,
         width: Number(width),
         height: Number(height),
         aspectRatio: Number(width) / Number(height),
         fileExt,
         fileDownloadName: `Rule34.Paheal ${id} ${tags2.join(" ")}.${fileExt}`,
-        fileDownloadText: `${width}\xD7${height} [${size}] ${fileExt == null ? void 0 : fileExt.toUpperCase()}`,
+        fileDownloadText: `${width}\xD7${height} [${size}] ${fileExt?.toUpperCase()}`,
         rating: "e",
         createdAt: date && parse(`${date} +00`, "MMMM do, yyyy; HH:mm x", new Date())
       };
@@ -7635,15 +7722,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const results = [...doc.querySelectorAll(".content .thumb")].map(async (el) => {
-      var _a2;
       const a = el.querySelector("a");
       const img = el.querySelector("img");
-      const id = (_a2 = a.getAttribute("id")) == null ? void 0 : _a2.slice(1);
+      const id = a.getAttribute("id")?.slice(1);
       const previewUrl = img.src;
       const { width, height } = await getImageSize(previewUrl);
       const tags2 = img.title.split(/,\s+/).filter(Boolean);
       const isGif = tags2.includes("gif");
-      const isVideo = (img == null ? void 0 : img.style.border.includes("rgb(0, 0, 255)")) || (img == null ? void 0 : img.style.border.includes("#0000ff"));
+      const isVideo = img?.style.border.includes("rgb(0, 0, 255)") || img?.style.border.includes("#0000ff");
       const replaceSampleExt = isGif ? "$1images$2$3.gif" : isVideo ? "$1images$2$3.webm" : "$1samples$2sample_$3.jpg";
       const replaceFileExt = isGif ? "$1images$2$3.gif" : isVideo ? "$1images$2$3.mp4" : "$1images$2$3.jpeg";
       return {
@@ -7671,24 +7757,22 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return location.hostname == "rule34hentai.net";
   }
   async function fetchRule34HentaiPosts(page, tags) {
-    var _a2;
     if (!tags) {
-      tags = ((_a2 = location.pathname.match(/post\/list\/(.+)\/\d+/)) == null ? void 0 : _a2[1]) || "";
+      tags = location.pathname.match(/post\/list\/(.+)\/\d+/)?.[1] || "";
     }
     const url = `https://rule34hentai.net/post/list/${tags ? `${tags}/` : ""}${page}`;
     const htmlResp = await fetch(url);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const results = [...doc.querySelectorAll("#image-list .thumb")].map((el) => {
-      var _a3;
       const img = el.querySelector("img");
       const id = el.getAttribute("data-post-id");
-      const previewUrl = (img == null ? void 0 : img.src) || "";
-      const previewWidth = Number(img == null ? void 0 : img.getAttribute("width"));
-      const previewHeight = Number(img == null ? void 0 : img.getAttribute("height"));
+      const previewUrl = img?.src || "";
+      const previewWidth = Number(img?.getAttribute("width"));
+      const previewHeight = Number(img?.getAttribute("height"));
       const width = Number(el.getAttribute("data-width"));
       const height = Number(el.getAttribute("data-height"));
-      const postTags = ((_a3 = el.getAttribute("data-tags")) == null ? void 0 : _a3.split(/\s+/).filter(Boolean)) || [];
-      const m = (img == null ? void 0 : img.title.split("//").map((e) => e.trim())) || [];
+      const postTags = el.getAttribute("data-tags")?.split(/\s+/).filter(Boolean) || [];
+      const m = img?.title.split("//").map((e) => e.trim()) || [];
       const fileExt = m[3] || "";
       const fileSizeText = m[2] || "";
       const fileUrl = previewUrl.replace(/(.*)\/_thumbs\/(.*)\/thumb\..*/, `$1/_images/$2/${id}.${fileExt}`);
@@ -7723,14 +7807,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function openApiWindow() {
     return new Promise((resolve) => {
       const win = window.open("https://www.zerochan.net/?p=1&json", "", "width=500,height=500");
-      win == null ? void 0 : win.addEventListener("load", () => {
+      win?.addEventListener("load", () => {
         isChallengePass = true;
         win.close();
         resolve();
       });
       setTimeout(() => {
         if (!isChallengePass) {
-          win == null ? void 0 : win.close();
+          win?.close();
           resolve();
         }
       }, 5e3);
@@ -7852,11 +7936,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const setPage = (page) => query.page = page;
   const setTags = (tags) => query.tags = tags;
   const searchPosts = async (latePageQuery = false) => {
-    var _a2;
     store.requestLoading = true;
     try {
       const { page, tags } = getSearchState();
-      let posts = await ((_a2 = fetchPostsActions.find((e) => e.is())) == null ? void 0 : _a2.posts(page, tags));
+      let posts = await fetchPostsActions.find((e) => e.is())?.posts(page, tags);
       if (Array.isArray(posts) && posts.length > 0) {
         posts = handleBlacklist(posts);
         store.currentPage = page;
@@ -7877,7 +7960,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   };
   const calcFetchTimes = () => {
     const vcont = document.querySelector("._vcont");
-    const cnth = vcont == null ? void 0 : vcont.clientHeight;
+    const cnth = vcont?.clientHeight;
     const doch = document.documentElement.clientHeight;
     return cnth ? Math.floor(doch / cnth) : 1;
   };
@@ -7997,7 +8080,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         if (!isAutocompleteAct)
           return;
         const val = searchState.searchTerm;
-        const lastTag = val == null ? void 0 : val.split(/\s+/).slice(-1)[0];
+        const lastTag = val?.split(/\s+/).slice(-1)[0];
         if (!lastTag) {
           searchState.showMenu = false;
           searchState.searchItems = defCompTags;
@@ -8067,11 +8150,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return map;
       })();
       function getRecentPeriod() {
-        var _a2;
         const params2 = new URLSearchParams(location.search);
         let period = params2.get("period");
         if (location.pathname.includes("popular_by")) {
-          period = (_a2 = location.pathname.match(/\/post\/popular_by_(.*)/)) == null ? void 0 : _a2[1];
+          period = location.pathname.match(/\/post\/popular_by_(.*)/)?.[1];
           period = Object.keys(periodByDateMap).find((e) => periodByDateMap[e][2] == period);
         }
         return period || "1d";
@@ -8080,11 +8162,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return location.pathname.includes("popular_recent");
       }
       function getPopTitle() {
-        var _a2;
         if (isPopularRecent()) {
           return `Popular Recent ${getRecentPeriod()}`;
         }
-        return (_a2 = location.pathname.split("/").pop()) == null ? void 0 : _a2.replace(/_/g, " ").toUpperCase();
+        return location.pathname.split("/").pop()?.replace(/_/g, " ").toUpperCase();
       }
       const popTitle = Vue2.ref(getPopTitle());
       const isPopSearchByDate = Vue2.ref(!isPopularRecent());
@@ -8196,6 +8277,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
             Vue2.set(item, "loaded", true);
           }
         } catch (error) {
+          console.log("download error: ", error);
           const msg = error;
           showMsg({ msg, type: "error" });
         }
@@ -8236,7 +8318,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         if (!action)
           return;
         const input = ev.target;
-        action((input == null ? void 0 : input.value) || 0);
+        action(input?.value || 0);
       }
       function exitMasonry() {
         const url = new URL(location.href);
@@ -8464,10 +8546,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     setup(__props) {
       const isBoorus = Vue2.ref(isBooruSite());
       const isYandere = Vue2.ref(location.hostname == "yande.re");
-      const currentLanglabel = Vue2.computed(() => {
-        var _a2;
-        return (_a2 = langList.find((e) => e.value === settings.lang)) == null ? void 0 : _a2.label;
-      });
+      const currentLanglabel = Vue2.computed(() => langList.find((e) => e.value === settings.lang)?.label);
       function selectLang(val) {
         settings.lang = val;
         i18n.locale = val;
@@ -8488,6 +8567,34 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           }
         }).catch(() => showMsg({ msg: i18n.t("si-zDDRFrEwDTCkp53Q44"), type: "error" }));
       }
+      const downloadMethods = Vue2.ref([
+        { text: "Tampermonkey", value: "tm" },
+        { text: "FileSystemAccess", value: "fsa" },
+        { text: i18n.t("EsiorRgoeHI8h7IHMLDA4"), value: "newtab" }
+      ]);
+      const actDownloadMethod = Vue2.computed(() => {
+        return downloadMethods.value.find((e) => e.value === settings.downloadBy)?.text;
+      });
+      const fsaDirName = Vue2.ref("");
+      getFsaDirName();
+      async function getFsaDirName() {
+        if (!isFsaSupported) {
+          downloadMethods.value = downloadMethods.value.filter((e) => e.value !== "fsa");
+          return;
+        }
+        const dirHandle = await getMainDirHandle();
+        if (dirHandle) {
+          fsaDirName.value = dirHandle.name;
+        }
+      }
+      async function setFsaDirName() {
+        try {
+          const dirHandle = await setMainDirHandle();
+          fsaDirName.value = dirHandle.name;
+        } catch (err) {
+          console.log("setFsaDirName err: ", err);
+        }
+      }
       const dlSubLoading = Vue2.ref(false);
       const showDLConfirm = Vue2.ref(false);
       function setDLSubpathOn(val) {
@@ -8496,6 +8603,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         dlSubLoading.value = false;
       }
       function onDLSubpathChange(val) {
+        if (settings.downloadBy != "tm")
+          return;
         dlSubLoading.value = true;
         if (val) {
           showDLConfirm.value = true;
@@ -8518,8 +8627,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         ["masonry2", `Masonry2/${i18n.t("6jPGehET9TViankl5-SRu")}`]
       ]);
       const actLayout = Vue2.computed(() => {
-        var _a2, _b, _c;
-        return (_c = (_b = (_a2 = layoutTypes.value.find((e) => e[0] === settings.masonryLayout)) == null ? void 0 : _a2[1]) == null ? void 0 : _b.split("/")) == null ? void 0 : _c[0];
+        return layoutTypes.value.find((e) => e[0] === settings.masonryLayout)?.[1]?.split("/")?.[0];
       });
       const actLayoutIndex = Vue2.computed(() => {
         return layoutTypes.value.findIndex((e) => e[0] === settings.masonryLayout);
@@ -8538,7 +8646,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           settings.imgPreloadNum = num;
         }
       }
-      return { __sfc: true, isBoorus, isYandere, currentLanglabel, selectLang, removeTagFromBlacklist, exportBlacklist, importBlacklist, dlSubLoading, showDLConfirm, setDLSubpathOn, onDLSubpathChange, windowWidth, allColList, colList, cols, actCol, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onPreloadNumBlur, mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, settings, store, langList, notPartialSupportSite };
+      return { __sfc: true, isBoorus, isYandere, currentLanglabel, selectLang, removeTagFromBlacklist, exportBlacklist, importBlacklist, downloadMethods, actDownloadMethod, fsaDirName, getFsaDirName, setFsaDirName, dlSubLoading, showDLConfirm, setDLSubpathOn, onDLSubpathChange, windowWidth, allColList, colList, cols, actCol, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onPreloadNumBlur, mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, settings, store, langList, notPartialSupportSite, isFsaSupported };
     }
   });
   var _sfc_render$8 = function render() {
@@ -8563,29 +8671,29 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         $event.stopPropagation();
         return _setup.importBlacklist.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c("v-icon", { attrs: { "size": 18 } }, [_vm._v(_vm._s(_setup.mdiContentPaste))])], 1)];
-    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("kCYFwKpwznYIKRmB1tCww")))])])], 1)]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("jMod2JozzAnwHuD-3KuPb") } }, [_vm._v(_vm._s(_vm.$t("jMod2JozzAnwHuD-3KuPb")))])], 1)], 1), _c("v-list-item", { staticClass: "pa-0" }, [_c("v-list-item-content", { staticClass: "pt-0" }, [_c("v-combobox", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "append-icon": null, "items": [], "hide-details": "", "hide-no-data": "", "multiple": "", "outlined": "", "dense": "", "chips": "" }, scopedSlots: _vm._u([{ key: "selection", fn: function({ item }) {
+    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("kCYFwKpwznYIKRmB1tCww")))])])], 1)]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("jMod2JozzAnwHuD-3KuPb")))])], 1)], 1), _c("v-list-item", { staticClass: "pa-0" }, [_c("v-list-item-content", { staticClass: "pt-0" }, [_c("v-combobox", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "append-icon": null, "items": [], "hide-details": "", "hide-no-data": "", "multiple": "", "outlined": "", "dense": "", "chips": "" }, scopedSlots: _vm._u([{ key: "selection", fn: function({ item }) {
       return [_c("v-chip", { attrs: { "label": "", "small": "", "outlined": "", "close": "" }, on: { "click:close": function($event) {
         return _setup.removeTagFromBlacklist(item);
       } } }, [_c("span", [_vm._v(_vm._s(item))])])];
     } }]), model: { value: _setup.settings.blacklist, callback: function($$v) {
       _vm.$set(_setup.settings, "blacklist", $$v);
-    }, expression: "settings.blacklist" } })], 1)], 1), _setup.isBoorus ? [_c("v-list-item", { staticClass: "mb-0" }, [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("RstKmO7YVQMpaDoucxUel")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("1F-R4qChHIzZaohu5GJzl") } }, [_vm._v(_vm._s(_vm.$t("1F-R4qChHIzZaohu5GJzl")))])], 1)], 1), _c("v-list-item", { staticClass: "pa-0" }, [_c("v-list-item-content", { staticClass: "pt-0" }, [_c("v-text-field", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "hide-details": "", "outlined": "", "dense": "" }, model: { value: _setup.settings.credentialQuery, callback: function($$v) {
+    }, expression: "settings.blacklist" } })], 1)], 1), _setup.isBoorus ? [_c("v-list-item", { staticClass: "mb-0" }, [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("RstKmO7YVQMpaDoucxUel")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("1F-R4qChHIzZaohu5GJzl")))])], 1)], 1), _c("v-list-item", { staticClass: "pa-0" }, [_c("v-list-item-content", { staticClass: "pt-0" }, [_c("v-text-field", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "hide-details": "", "outlined": "", "dense": "" }, model: { value: _setup.settings.credentialQuery, callback: function($$v) {
       _vm.$set(_setup.settings, "credentialQuery", $$v);
-    }, expression: "settings.credentialQuery" } })], 1)], 1)] : _vm._e(), _setup.notPartialSupportSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Lm_HFVHpv4XCjilV3NLKu")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("A16qoBulYQJLbHe9mqNwm") } }, [_vm._v(_vm._s(_vm.$t("A16qoBulYQJLbHe9mqNwm")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "", "color": "deep-orange darken-1" }, model: { value: _setup.settings.showNSFWContents, callback: function($$v) {
+    }, expression: "settings.credentialQuery" } })], 1)], 1)] : _vm._e(), _setup.notPartialSupportSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Lm_HFVHpv4XCjilV3NLKu")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("A16qoBulYQJLbHe9mqNwm")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "", "color": "deep-orange darken-1" }, model: { value: _setup.settings.showNSFWContents, callback: function($$v) {
       _vm.$set(_setup.settings, "showNSFWContents", $$v);
-    }, expression: "settings.showNSFWContents" } })], 1)], 1) : _vm._e(), !_setup.settings.useFancybox ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("_nQfaNuwbvPAIFKOY6_7u")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("SIUUZ4wqJTOilEdcX3EOi") } }, [_vm._v(_vm._s(_vm.$t("SIUUZ4wqJTOilEdcX3EOi")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isListenWheelEvent, callback: function($$v) {
+    }, expression: "settings.showNSFWContents" } })], 1)], 1) : _vm._e(), !_setup.settings.useFancybox ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("_nQfaNuwbvPAIFKOY6_7u")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("SIUUZ4wqJTOilEdcX3EOi")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isListenWheelEvent, callback: function($$v) {
       _vm.$set(_setup.settings, "isListenWheelEvent", $$v);
-    }, expression: "settings.isListenWheelEvent" } })], 1)], 1) : _vm._e(), !_setup.settings.useFancybox ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("fVE5taO6GDTPbILat4GCt")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("w95XGurDhDfOfw7XH4JFW") } }, [_vm._v(_vm._s(_vm.$t("w95XGurDhDfOfw7XH4JFW")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isListenKeyupEvent, callback: function($$v) {
+    }, expression: "settings.isListenWheelEvent" } })], 1)], 1) : _vm._e(), !_setup.settings.useFancybox ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("fVE5taO6GDTPbILat4GCt")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("w95XGurDhDfOfw7XH4JFW")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isListenKeyupEvent, callback: function($$v) {
       _vm.$set(_setup.settings, "isListenKeyupEvent", $$v);
-    }, expression: "settings.isListenKeyupEvent" } })], 1)], 1) : _vm._e(), _setup.notPartialSupportSite && !_setup.settings.useFancybox ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("kFcteLMfnoezhOwuTlLFC")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("FT1uJs8XG__n5qBvuFsH4") } }, [_vm._v(_vm._s(_vm.$t("FT1uJs8XG__n5qBvuFsH4")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isFullImgPreload, callback: function($$v) {
+    }, expression: "settings.isListenKeyupEvent" } })], 1)], 1) : _vm._e(), _setup.notPartialSupportSite && !_setup.settings.useFancybox ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("kFcteLMfnoezhOwuTlLFC")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("FT1uJs8XG__n5qBvuFsH4")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isFullImgPreload, callback: function($$v) {
       _vm.$set(_setup.settings, "isFullImgPreload", $$v);
-    }, expression: "settings.isFullImgPreload" } })], 1)], 1) : _vm._e(), _setup.notPartialSupportSite && _setup.settings.isFullImgPreload ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("G3b7rbyQEj3_rgzVsNJZY")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("iRt9V9wNQASic3D7-wTZo") } }, [_vm._v(_vm._s(_vm.$t("iRt9V9wNQASic3D7-wTZo")))])], 1), _c("v-list-item-action", { staticClass: "pl-1" }, [_c("input", { staticClass: "text-center rounded preload_num", attrs: { "type": "number", "min": "0", "max": "5" }, domProps: { "value": _setup.settings.imgPreloadNum }, on: { "blur": _setup.onPreloadNumBlur } })])], 1) : _vm._e(), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", { attrs: { "title": _vm.$t("kop_-39vkeg-bz2wztJ9O") } }, [_vm._v(_vm._s(_vm.$t("kop_-39vkeg-bz2wztJ9O")))]), _c("v-list-item-subtitle", { attrs: { "title": "Masonry/Grid/Justified/Virtual" } }, [_vm._v("Masonry/Grid/Justified/Virtual")])], 1), _c("v-list-item-action", [_c("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    }, expression: "settings.isFullImgPreload" } })], 1)], 1) : _vm._e(), _setup.notPartialSupportSite && _setup.settings.isFullImgPreload ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("G3b7rbyQEj3_rgzVsNJZY")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("iRt9V9wNQASic3D7-wTZo")))])], 1), _c("v-list-item-action", { staticClass: "pl-1" }, [_c("input", { staticClass: "text-center rounded preload_num", attrs: { "type": "number", "min": "0", "max": "5" }, domProps: { "value": _setup.settings.imgPreloadNum }, on: { "blur": _setup.onPreloadNumBlur } })])], 1) : _vm._e(), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("kop_-39vkeg-bz2wztJ9O")))]), _c("v-list-item-subtitle", { attrs: { "title": "Masonry/Grid/Justified/Virtual" } }, [_vm._v("Masonry/Grid/Justified/Virtual")])], 1), _c("v-list-item-action", [_c("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c("v-btn", _vm._g(_vm._b({ staticClass: "sel_menu_btn", staticStyle: { "max-width": "100px" }, attrs: { "small": "" } }, "v-btn", attrs, false), on), [_vm._v(" " + _vm._s(_setup.actLayout) + " "), _c("v-icon", { attrs: { "size": 16 } }, [_vm._v(_vm._s(_setup.mdiChevronDown))])], 1)];
     } }]) }, [_c("v-list", { attrs: { "dense": "" } }, [_c("v-list-item-group", { attrs: { "value": _setup.actLayoutIndex, "color": "primary" } }, _vm._l(_setup.layoutTypes, function(item) {
       return _c("v-list-item", { key: item[0], attrs: { "dense": "" }, on: { "click": function($event) {
         return _setup.onMasonryLayoutChange(item[0]);
       } } }, [_c("v-list-item-title", { domProps: { "textContent": _vm._s(item[1]) } })], 1);
-    }), 1)], 1)], 1)], 1)], 1), ["masonry", "grid", "virtual"].includes(_setup.settings.masonryLayout) ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("tt_YdgKCA_5m-aSTSMPQ_")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("rXjhc8VuGloy1wZ09noNB") } }, [_vm._v(_vm._s(_vm.$t("rXjhc8VuGloy1wZ09noNB")))])], 1), _c("v-list-item-action", [_c("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    }), 1)], 1)], 1)], 1)], 1), ["masonry", "grid", "virtual"].includes(_setup.settings.masonryLayout) ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("tt_YdgKCA_5m-aSTSMPQ_")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("rXjhc8VuGloy1wZ09noNB")))])], 1), _c("v-list-item-action", [_c("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c("v-btn", _vm._g(_vm._b({ staticClass: "sel_menu_btn", attrs: { "small": "" } }, "v-btn", attrs, false), on), [_c("span", { staticStyle: { "margin-bottom": "2px" } }, [_vm._v(_vm._s(_setup.settings.selectedColumn === "0" ? _vm.$t("uxIs3XkeVzkrEX985zHk3") : _setup.settings.selectedColumn + _vm.$t("dU7ou5kVM0s9DMju5e2tS")))]), _c("v-icon", { attrs: { "size": 16 } }, [_vm._v(_vm._s(_setup.mdiChevronDown))])], 1)];
     } }], null, false, 3336678071) }, [_c("v-list", { attrs: { "dense": "" } }, [_c("v-list-item-group", { attrs: { "value": _setup.actCol, "color": "primary" } }, _vm._l(_setup.cols, function(col) {
       return _c("v-list-item", { key: col[0], attrs: { "dense": "" }, on: { "click": function($event) {
@@ -8593,27 +8701,33 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       } } }, [_c("v-list-item-title", { domProps: { "textContent": _vm._s(col[1]) } })], 1);
     }), 1)], 1)], 1)], 1)], 1) : _vm._e(), _setup.settings.masonryLayout === "justified" ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("dm7zGAYbP2sbGXO_ekDDl")))])], 1), _c("v-list-item-action", [_c("v-slider", { staticStyle: { "min-width": "200px" }, attrs: { "min": "100", "max": "1200", "step": "1", "thumb-label": "" }, model: { value: _setup.settings.justifiedBaseWidth, callback: function($$v) {
       _vm.$set(_setup.settings, "justifiedBaseWidth", $$v);
-    }, expression: "settings.justifiedBaseWidth" } })], 1)], 1) : _vm._e(), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("4yzHPggVky2QKFD2TbBhl")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("HSx0XMZFid_lVuwjzrhH0") } }, [_vm._v(_vm._s(_vm.$t("HSx0XMZFid_lVuwjzrhH0")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isThumbSampleUrl, callback: function($$v) {
+    }, expression: "settings.justifiedBaseWidth" } })], 1)], 1) : _vm._e(), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("4yzHPggVky2QKFD2TbBhl")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("HSx0XMZFid_lVuwjzrhH0")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isThumbSampleUrl, callback: function($$v) {
       _vm.$set(_setup.settings, "isThumbSampleUrl", $$v);
-    }, expression: "settings.isThumbSampleUrl" } })], 1)], 1), _setup.notPartialSupportSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("PBjdNKuj02doUvOf2zZqP")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("z_oL9s5fS164W4_gITOGZ") } }, [_vm._v(_vm._s(_vm.$t("z_oL9s5fS164W4_gITOGZ")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "", "loading": _setup.dlSubLoading }, on: { "change": _setup.onDLSubpathChange }, model: { value: _setup.settings.isDLSubpath, callback: function($$v) {
+    }, expression: "settings.isThumbSampleUrl" } })], 1)], 1), _setup.notPartialSupportSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Ah2uP1cGRBQ6jff-SIc-Q")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("rcpw-hgymDP2bsJPPUb_F")))])], 1), _c("v-list-item-action", [_c("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "sel_menu_btn", attrs: { "small": "" } }, "v-btn", attrs, false), on), [_vm._v(" " + _vm._s(_setup.actDownloadMethod) + " "), _c("v-icon", { attrs: { "size": 16 } }, [_vm._v(_vm._s(_setup.mdiChevronDown))])], 1)];
+    } }], null, false, 1357285571) }, [_c("v-list", { attrs: { "dense": "" } }, [_c("v-list-item-group", { attrs: { "value": _setup.settings.downloadBy, "color": "primary" } }, _vm._l(_setup.downloadMethods, function(it) {
+      return _c("v-list-item", { key: it.value, attrs: { "value": it.value, "dense": "" }, on: { "click": function($event) {
+        _setup.settings.downloadBy = it.value;
+      } } }, [_c("v-list-item-title", [_vm._v(_vm._s(it.text))])], 1);
+    }), 1)], 1)], 1)], 1)], 1) : _vm._e(), _setup.notPartialSupportSite && _setup.isFsaSupported && _setup.settings.downloadBy === "fsa" ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("1sUsdpwBzU4gBf7Mrcihq")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("jx2FWrN3O_8T7U5aSbvXj")))])], 1), _c("v-list-item-action", [_c("v-btn", { staticClass: "sel_menu_btn", attrs: { "small": "" }, on: { "click": _setup.setFsaDirName } }, [_vm._v(_vm._s(_setup.fsaDirName || _vm.$t("UOaS5wud2xGLzx9NGJxYQ")))])], 1)], 1) : _vm._e(), _setup.notPartialSupportSite && _setup.settings.downloadBy !== "newtab" ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("PBjdNKuj02doUvOf2zZqP")))]), _setup.settings.downloadBy === "tm" ? _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("z_oL9s5fS164W4_gITOGZ")))]) : _vm._e(), _setup.settings.downloadBy === "fsa" ? _c("v-list-item-subtitle", [_vm._v("\u662F\u5426\u5C06\u56FE\u7247\u4FDD\u5B58\u5230\u4EE5\u7AD9\u70B9\u4E3A\u540D\u7684\u6587\u4EF6\u5939")]) : _vm._e()], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "", "loading": _setup.dlSubLoading }, on: { "change": _setup.onDLSubpathChange }, model: { value: _setup.settings.isDLSubpath, callback: function($$v) {
       _vm.$set(_setup.settings, "isDLSubpath", $$v);
-    }, expression: "settings.isDLSubpath" } })], 1)], 1) : _vm._e(), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("fbIpwMw2yVoSxP66OJ32z")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("tEvQYzSVnggYAcM1uv9Tt") } }, [_vm._v(_vm._s(_vm.$t("tEvQYzSVnggYAcM1uv9Tt")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isFitScreen, callback: function($$v) {
+    }, expression: "settings.isDLSubpath" } })], 1)], 1) : _vm._e(), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("fbIpwMw2yVoSxP66OJ32z")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("tEvQYzSVnggYAcM1uv9Tt")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isFitScreen, callback: function($$v) {
       _vm.$set(_setup.settings, "isFitScreen", $$v);
-    }, expression: "settings.isFitScreen" } })], 1)], 1), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("lkCkz1OpNtTCFRfGCEoBp")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("EZd1QQdgUDjT3yya5ZYe-") } }, [_vm._v(_vm._s(_vm.$t("EZd1QQdgUDjT3yya5ZYe-")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.autoWaterfall, callback: function($$v) {
+    }, expression: "settings.isFitScreen" } })], 1)], 1), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("lkCkz1OpNtTCFRfGCEoBp")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("EZd1QQdgUDjT3yya5ZYe-")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.autoWaterfall, callback: function($$v) {
       _vm.$set(_setup.settings, "autoWaterfall", $$v);
-    }, expression: "settings.autoWaterfall" } })], 1)], 1), _setup.notPartialSupportSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("sxhTRqogDRozo9IaTGI7g")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("gPt6cpWrkvqRqZnwJo1KV") } }, [_vm._v(_vm._s(_vm.$t("gPt6cpWrkvqRqZnwJo1KV")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.showPostCheckbox, callback: function($$v) {
+    }, expression: "settings.autoWaterfall" } })], 1)], 1), _setup.notPartialSupportSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("sxhTRqogDRozo9IaTGI7g")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("gPt6cpWrkvqRqZnwJo1KV")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.showPostCheckbox, callback: function($$v) {
       _vm.$set(_setup.settings, "showPostCheckbox", $$v);
-    }, expression: "settings.showPostCheckbox" } })], 1)], 1) : _vm._e(), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("UqbfVZzRyk0iD2NcOii_E")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("_4E2zv2NpOG4y8TV5PRL0") } }, [_vm._v(_vm._s(_vm.$t("_4E2zv2NpOG4y8TV5PRL0")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.showListPostReso, callback: function($$v) {
+    }, expression: "settings.showPostCheckbox" } })], 1)], 1) : _vm._e(), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("UqbfVZzRyk0iD2NcOii_E")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("_4E2zv2NpOG4y8TV5PRL0")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.showListPostReso, callback: function($$v) {
       _vm.$set(_setup.settings, "showListPostReso", $$v);
-    }, expression: "settings.showListPostReso" } })], 1)], 1), !_setup.settings.useFancybox ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("ECpLfRMsS0zpJPTw0qqNs")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("vJobIibroyz2wkpmONSnR") } }, [_vm._v(_vm._s(_vm.$t("vJobIibroyz2wkpmONSnR")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.detailButtonsBottom, callback: function($$v) {
+    }, expression: "settings.showListPostReso" } })], 1)], 1), !_setup.settings.useFancybox ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("ECpLfRMsS0zpJPTw0qqNs")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("vJobIibroyz2wkpmONSnR")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.detailButtonsBottom, callback: function($$v) {
       _vm.$set(_setup.settings, "detailButtonsBottom", $$v);
-    }, expression: "settings.detailButtonsBottom" } })], 1)], 1) : _vm._e(), !_setup.settings.useFancybox ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("HPukB-OKzIuRxMmO4Rx2U")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("I_MKXUxaNXp3D35GFULn4") } }, [_vm._v(_vm._s(_vm.$t("I_MKXUxaNXp3D35GFULn4")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.closePopupOnImgClick, callback: function($$v) {
+    }, expression: "settings.detailButtonsBottom" } })], 1)], 1) : _vm._e(), !_setup.settings.useFancybox ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("HPukB-OKzIuRxMmO4Rx2U")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("I_MKXUxaNXp3D35GFULn4")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.closePopupOnImgClick, callback: function($$v) {
       _vm.$set(_setup.settings, "closePopupOnImgClick", $$v);
-    }, expression: "settings.closePopupOnImgClick" } })], 1)], 1) : _vm._e(), _setup.isBoorus ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("dvs63FvVKWm3uHVfqeq00")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("w4uJjpTmSEkm6SIDgEo-0") } }, [_vm._v(_vm._s(_vm.$t("w4uJjpTmSEkm6SIDgEo-0")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.useFancybox, callback: function($$v) {
+    }, expression: "settings.closePopupOnImgClick" } })], 1)], 1) : _vm._e(), _setup.isBoorus ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("dvs63FvVKWm3uHVfqeq00")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("w4uJjpTmSEkm6SIDgEo-0")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.useFancybox, callback: function($$v) {
       _vm.$set(_setup.settings, "useFancybox", $$v);
-    }, expression: "settings.useFancybox" } })], 1)], 1) : _vm._e(), _setup.store.isYKSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("IxTawC_qs_xjxj5g8_aGx")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("-x4wjDoHtodaXEgm2SXkg") } }, [_vm._v(_vm._s(_vm.$t("-x4wjDoHtodaXEgm2SXkg")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "", "disabled": _setup.settings.isYandereFetchByHtml }, model: { value: _setup.settings.isHoldsFalse, callback: function($$v) {
+    }, expression: "settings.useFancybox" } })], 1)], 1) : _vm._e(), _setup.store.isYKSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("IxTawC_qs_xjxj5g8_aGx")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("-x4wjDoHtodaXEgm2SXkg")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "", "disabled": _setup.settings.isYandereFetchByHtml }, model: { value: _setup.settings.isHoldsFalse, callback: function($$v) {
       _vm.$set(_setup.settings, "isHoldsFalse", $$v);
-    }, expression: "settings.isHoldsFalse" } })], 1)], 1) : _vm._e(), _setup.isYandere ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("YAUNSVT_pTygaY306DZmU")))]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("HkRzE7fweBSefchs0z0r8") } }, [_vm._v(_vm._s(_vm.$t("HkRzE7fweBSefchs0z0r8")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "", "disabled": _setup.settings.isHoldsFalse }, model: { value: _setup.settings.isYandereFetchByHtml, callback: function($$v) {
+    }, expression: "settings.isHoldsFalse" } })], 1)], 1) : _vm._e(), _setup.isYandere ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("YAUNSVT_pTygaY306DZmU")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("HkRzE7fweBSefchs0z0r8")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "", "disabled": _setup.settings.isHoldsFalse }, model: { value: _setup.settings.isYandereFetchByHtml, callback: function($$v) {
       _vm.$set(_setup.settings, "isYandereFetchByHtml", $$v);
     }, expression: "settings.isYandereFetchByHtml" } })], 1)], 1) : _vm._e()], 2), _c("v-dialog", { attrs: { "max-width": "600" }, model: { value: _setup.showDLConfirm, callback: function($$v) {
       _setup.showDLConfirm = $$v;
@@ -8700,7 +8814,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       } }
     },
     setup(__props) {
-      const props2 = __props;
+      const props = __props;
       const initTags = () => ({
         artist: [],
         copyright: [],
@@ -8721,15 +8835,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const tagTypes = Vue2.ref(Object.keys(initTags()).map((k) => [k, `${k[0].toUpperCase()}${k.slice(1)}`]));
       const wghtMap = Vue2.ref({});
       const showSubActions = Vue2.computed(() => postTags.value.artist.length && postTags.value.copyright.length && postTags.value.character.length);
-      Vue2.watch(() => props2.showDialog, (val) => {
+      Vue2.watch(() => props.showDialog, (val) => {
         if (!val)
           return;
         Object.keys(postTags.value).forEach((type) => {
-          postTags.value[type] = props2.tags.filter((e) => e.type == type).map((e) => e.tag.replaceAll("_", " "));
+          postTags.value[type] = props.tags.filter((e) => e.type == type).map((e) => e.tag.replaceAll("_", " "));
         });
       });
       function handleVisible(val) {
-        props2.updateShowDialog(val);
+        props.updateShowDialog(val);
         if (!val) {
           postTags.value = initTags();
           selTags.value = initTags();
@@ -8791,7 +8905,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       function copyText(text) {
         navigator.clipboard.writeText(text).then(() => showMsg({ msg: i18n.t("99kLMSzDYJCAf1yK9QYzy") })).catch(() => showMsg({ msg: i18n.t("si-zDDRFrEwDTCkp53Q44"), type: "error" }));
       }
-      return { __sfc: true, props: props2, initTags, tagColorMap, isEscapeParens, isSettingWght, bracketType, postTags, selTags, tagTypes, wghtMap, showSubActions, handleVisible, selAll, selNone, selInvert, exportTags, addBrackets, copyText, mdiClose };
+      return { __sfc: true, props, initTags, tagColorMap, isEscapeParens, isSettingWght, bracketType, postTags, selTags, tagTypes, wghtMap, showSubActions, handleVisible, selAll, selNone, selInvert, exportTags, addBrackets, copyText, mdiClose };
     }
   });
   var _sfc_render$6 = function render() {
@@ -8868,8 +8982,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return {
       voted: false,
       tags: tags.map((tag2) => {
-        var _a2;
-        const tagCN = isCNLang$1 && ((_a2 = window.__tagsCN) == null ? void 0 : _a2[tag2.replace(/_/g, " ")]);
+        const tagCN = isCNLang$1 && window.__tagsCN?.[tag2.replace(/_/g, " ")];
         const typedTag = { type: "", text: "", color: "" };
         for (const [key, val] of Object.entries(tagMap)) {
           if (val[2].includes(tag2)) {
@@ -8896,10 +9009,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     };
   }
   async function addFavoriteDanbooru(id) {
-    var _a2;
     const response = await fetch(`https://danbooru.donmai.us/favorites?post_id=${id}`, {
       method: "POST",
-      headers: { "x-csrf-token": (_a2 = sessionStorage.getItem("csrf-token")) != null ? _a2 : "" }
+      headers: { "x-csrf-token": sessionStorage.getItem("csrf-token") ?? "" }
     });
     if (!response.ok) {
       showMsg({ msg: `${i18n.t("MWVfUiW8egLWq7MgV-wzc")}: ${response.status}`, type: "error" });
@@ -8927,9 +9039,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   });
   const isCNLang = i18n.locale.includes("zh");
   async function handlePostDetail(img) {
-    var _a2;
-    const { fileUrl, sampleUrl, tags } = await ((_a2 = fetchDetailActions.find((e) => e.is())) == null ? void 0 : _a2.detail(img.value.id)) || {};
-    if (tags == null ? void 0 : tags.length)
+    const { fileUrl, sampleUrl, tags } = await fetchDetailActions.find((e) => e.is())?.detail(img.value.id) || {};
+    if (tags?.length)
       img.value.tags = tags;
     if (fileUrl)
       img.value.fileUrl = fileUrl;
@@ -8955,8 +9066,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     postDetail.value = {
       voted: false,
       tags: imageSelected.value.tags.map((tag2) => {
-        var _a2;
-        const tagCN = (_a2 = window.__tagsCN) == null ? void 0 : _a2[tag2.replace(/_/g, " ")];
+        const tagCN = window.__tagsCN?.[tag2.replace(/_/g, " ")];
         return {
           tag: tag2,
           tagText: isCNLang && tagCN ? `${tag2} [ ${tagCN} ]` : tag2,
@@ -8976,10 +9086,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const innerHeight = Vue2.ref(window.innerHeight);
       const downloading = Vue2.ref(false);
       const scaleOn = Vue2.ref(false);
-      const imageSelected = Vue2.computed(() => {
-        var _a2;
-        return (_a2 = store.imageList[store.imageSelectedIndex]) != null ? _a2 : {};
-      });
+      const imageSelected = Vue2.computed(() => store.imageList[store.imageSelectedIndex] ?? {});
       const isVideo = Vue2.computed(() => {
         const { fileUrl, fileExt } = imageSelected.value;
         if (!fileUrl)
@@ -8995,16 +9102,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         }
       });
       const imgSrc = Vue2.computed(() => {
-        var _a2, _b;
         if (isVideo.value)
           return void 0;
-        return (_b = (_a2 = imageSelected.value.sampleUrl) != null ? _a2 : imageSelected.value.fileUrl) != null ? _b : void 0;
+        return imageSelected.value.sampleUrl ?? imageSelected.value.fileUrl ?? void 0;
       });
       const imgLasySrc = Vue2.computed(() => {
-        var _a2;
         if (isVideo.value)
           return void 0;
-        return (_a2 = imageSelected.value.previewUrl) != null ? _a2 : void 0;
+        return imageSelected.value.previewUrl ?? void 0;
       });
       const imageSelectedWidth = Vue2.computed(() => {
         const width = Number.parseInt(
@@ -9084,17 +9189,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         addToSelectedList(imageSelected.value);
       }
       function onDtlContClick(ev) {
-        var _a2, _b;
         const el = ev.target;
-        if ((_b = (_a2 = el == null ? void 0 : el.className) == null ? void 0 : _a2.includes) == null ? void 0 : _b.call(_a2, "img_detail_cont")) {
+        if (el?.className?.includes?.("img_detail_cont")) {
           close();
         }
       }
       const postDetail = Vue2.ref({});
-      const metaTags = Vue2.computed(() => {
-        var _a2;
-        return ((_a2 = postDetail.value.tags) == null ? void 0 : _a2.filter((e) => e.type != "general")) || [];
-      });
+      const metaTags = Vue2.computed(() => postDetail.value.tags?.filter((e) => e.type != "general") || []);
       async function addFavorite() {
         if (!isFavBtnShow || postDetail.value.voted)
           return;
@@ -9176,15 +9277,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           });
           return;
         }
-        if (!(el == null ? void 0 : el.src.includes("/images/"))) {
+        if (!el?.src.includes("/images/")) {
           el.src = imageSelected.value.fileUrl || "";
           return;
         }
-        if (fileUrl == null ? void 0 : fileUrl.includes(".jpeg")) {
+        if (fileUrl?.includes(".jpeg")) {
           imageSelected.value.fileUrl = fileUrl.replace(/\.jpeg(\?\d+)?$/, ".jpg");
           return;
         }
-        if (fileUrl == null ? void 0 : fileUrl.includes(".jpg")) {
+        if (fileUrl?.includes(".jpg")) {
           imageSelected.value.fileUrl = fileUrl.replace(/\.jpg(\?\d+)?$/, ".png");
           return;
         }
@@ -9209,12 +9310,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           });
           return;
         }
-        if (fileUrl == null ? void 0 : fileUrl.includes(".jpeg")) {
+        if (fileUrl?.includes(".jpeg")) {
           imageSelected.value.fileUrl = fileUrl.replace(/\.jpeg(\?\d+)?$/, ".jpg");
           img.src = imageSelected.value.fileUrl;
           return;
         }
-        if (fileUrl == null ? void 0 : fileUrl.includes(".jpg")) {
+        if (fileUrl?.includes(".jpg")) {
           imageSelected.value.fileUrl = fileUrl.replace(/\.jpg(\?\d+)?$/, ".png");
           img.src = imageSelected.value.fileUrl;
           return;
@@ -9253,14 +9354,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       function zoomOutImg() {
         scaleOn.value = false;
         imgRotateDeg.value = 0;
-        clearDragEv == null ? void 0 : clearDragEv();
+        clearDragEv?.();
       }
       async function reqFullscreen() {
         try {
           if (document.fullscreenElement)
             return;
           const img = document.querySelector(".img_detail_scale");
-          await (img == null ? void 0 : img.requestFullscreen());
+          await img?.requestFullscreen();
         } catch (error) {
           console.log("toggleFullscreen error: ", error);
         }
@@ -9327,7 +9428,6 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
   });
   var _sfc_render$5 = function render() {
-    var _a2, _b, _c2, _d, _e, _f, _g, _h;
     var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
     return _c("v-dialog", { attrs: { "fullscreen": "" }, model: { value: _setup.store.showImageSelected, callback: function($$v) {
       _vm.$set(_setup.store, "showImageSelected", $$v);
@@ -9378,7 +9478,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         $event.stopPropagation();
         return _setup.close.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiClose))])], 1)];
-    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && !_setup.scaleOn, expression: "showImageToolbar && !scaleOn" }], staticClass: "img-detail-toolbar img_detail_btn_color", class: { "detail-buttons-bottom": _setup.settings.detailButtonsBottom }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c("v-chip", { staticClass: "hidden-xs-only", attrs: { "small": "", "role": "button", "tabindex": "0" }, domProps: { "textContent": _vm._s(`${(_a2 = _setup.imageSelected.rating) == null ? void 0 : _a2.toUpperCase()} ${_setup.imageSelected.id}`) }, on: { "click": function($event) {
+    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && !_setup.scaleOn, expression: "showImageToolbar && !scaleOn" }], staticClass: "img-detail-toolbar img_detail_btn_color", class: { "detail-buttons-bottom": _setup.settings.detailButtonsBottom }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c("v-chip", { staticClass: "hidden-xs-only", attrs: { "small": "", "role": "button", "tabindex": "0" }, domProps: { "textContent": _vm._s(`${_setup.imageSelected.rating?.toUpperCase()} ${_setup.imageSelected.id}`) }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.toDetailPage.apply(null, arguments);
     } } }), _setup.imgCreateTime ? _c("v-chip", { staticClass: "ml-1 hidden-sm-and-down", attrs: { "small": "", "title": _setup.imageSelected.createdTime }, domProps: { "textContent": _vm._s(_setup.imgCreateTime) } }) : _vm._e(), _c("v-chip-group", { directives: [{ name: "show", rawName: "v-show", value: _setup.metaTags.length, expression: "metaTags.length" }], staticClass: "hidden-sm-and-down img_detail_tag_list img_meta_tag_list", attrs: { "column": "" } }, _vm._l(_setup.metaTags, function(item, i) {
@@ -9424,20 +9524,18 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         $event.stopPropagation();
         return _setup.close.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiClose))])], 1)];
-    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar, expression: "showImageToolbar" }], staticClass: "img_detail_btn_color" }, [_c("div", { staticClass: "img-detail-tags", class: { "detail-buttons-bottom": _setup.settings.detailButtonsBottom } }, [_c("v-chip", { directives: [{ name: "show", rawName: "v-show", value: (_b = _setup.postDetail.tags) == null ? void 0 : _b.length, expression: "postDetail.tags?.length" }], staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
+    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar, expression: "showImageToolbar" }], staticClass: "img_detail_btn_color" }, [_c("div", { staticClass: "img-detail-tags", class: { "detail-buttons-bottom": _setup.settings.detailButtonsBottom } }, [_c("v-chip", { directives: [{ name: "show", rawName: "v-show", value: _setup.postDetail.tags?.length, expression: "postDetail.tags?.length" }], staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
       $event.stopPropagation();
       _setup.settings.showTagChipGroup = !_setup.settings.showTagChipGroup;
-    } } }, [_c("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(_setup.mdiTagMultiple))]), _c("span", [_vm._v(_vm._s(_setup.settings.showTagChipGroup ? _vm.$t("gM92sLo0Cqfl2rCaXlOhc") : _vm.$t("l5W-EtJ_ar-SY2lF4H5Zm")))])], 1), _setup.isExportTagsEnable && ((_c2 = _setup.postDetail.tags) == null ? void 0 : _c2.length) ? _c("v-chip", { staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
+    } } }, [_c("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(_setup.mdiTagMultiple))]), _c("span", [_vm._v(_vm._s(_setup.settings.showTagChipGroup ? _vm.$t("gM92sLo0Cqfl2rCaXlOhc") : _vm.$t("l5W-EtJ_ar-SY2lF4H5Zm")))])], 1), _setup.isExportTagsEnable && _setup.postDetail.tags?.length ? _c("v-chip", { staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.openExportTags();
-    } } }, [_c("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(_setup.mdiTagMultiple))]), _c("span", [_vm._v(_vm._s(_vm.$t("QH_xm27zhgs5E1077asf1")))])], 1) : _vm._e(), _setup.store.isYKSite ? [((_e = (_d = _setup.imageSelected) == null ? void 0 : _d.data) == null ? void 0 : _e.parent_id) ? _c("v-chip", { staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
-      var _a3, _b2;
+    } } }, [_c("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(_setup.mdiTagMultiple))]), _c("span", [_vm._v(_vm._s(_vm.$t("QH_xm27zhgs5E1077asf1")))])], 1) : _vm._e(), _setup.store.isYKSite ? [_setup.imageSelected?.data?.parent_id ? _c("v-chip", { staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
       $event.stopPropagation();
-      _setup.toPidPage((_b2 = (_a3 = _setup.imageSelected) == null ? void 0 : _a3.data) == null ? void 0 : _b2.parent_id);
-    } } }, [_c("v-icon", { attrs: { "small": "", "left": "" } }, [_vm._v(_vm._s(_setup.mdiFolderNetwork))]), _c("span", [_vm._v(_vm._s(_vm.$t("sMkrF8bqCTJZZ1kXTkT_R")))])], 1) : _vm._e(), ((_g = (_f = _setup.imageSelected) == null ? void 0 : _f.data) == null ? void 0 : _g.has_children) ? _c("v-chip", { staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
-      var _a3;
+      _setup.toPidPage(_setup.imageSelected?.data?.parent_id);
+    } } }, [_c("v-icon", { attrs: { "small": "", "left": "" } }, [_vm._v(_vm._s(_setup.mdiFolderNetwork))]), _c("span", [_vm._v(_vm._s(_vm.$t("sMkrF8bqCTJZZ1kXTkT_R")))])], 1) : _vm._e(), _setup.imageSelected?.data?.has_children ? _c("v-chip", { staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
       $event.stopPropagation();
-      return _setup.toTagsPage(`parent:${(_a3 = _setup.imageSelected) == null ? void 0 : _a3.id}&_wf=1`);
+      return _setup.toTagsPage(`parent:${_setup.imageSelected?.id}&_wf=1`);
     } } }, [_c("v-icon", { attrs: { "small": "", "left": "" } }, [_vm._v(_vm._s(_setup.mdiFileTree))]), _c("span", [_vm._v(_vm._s(_vm.$t("u0K7A_hv1RZSJl6TDR61A")))])], 1) : _vm._e()] : _vm._e(), _c("v-chip-group", { directives: [{ name: "show", rawName: "v-show", value: _setup.settings.showTagChipGroup, expression: "settings.showTagChipGroup" }], staticClass: "img_detail_tag_list", attrs: { "column": "" } }, _vm._l(_setup.postDetail.tags || [], function(item, i) {
       return _c("v-chip", { key: i, staticClass: "img_detail_tag mr-1", class: `tag_type_${item.type}`, attrs: { "small": "", "color": item.color, "text-color": "#ffffff", "role": "button", "tabindex": "0" }, domProps: { "textContent": _vm._s(item.tagText) }, on: { "click": function($event) {
         $event.stopPropagation();
@@ -9449,7 +9547,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiChevronLeft))])], 1), _c("v-btn", { staticClass: "poa_right_center hidden-sm-and-down", staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.showNextPost.apply(null, arguments);
-    } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiChevronRight))])], 1)], 1), _setup.isExportTagsEnable && _setup.store.showImageSelected ? _c(_setup.PostExportTags, { attrs: { "show-dialog": _setup.isExportTagsShow, "update-show-dialog": (val) => _setup.isExportTagsShow = val, "tags": ((_h = _setup.postDetail) == null ? void 0 : _h.tags) || [] } }) : _vm._e()], 1);
+    } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiChevronRight))])], 1)], 1), _setup.isExportTagsEnable && _setup.store.showImageSelected ? _c(_setup.PostExportTags, { attrs: { "show-dialog": _setup.isExportTagsShow, "update-show-dialog": (val) => _setup.isExportTagsShow = val, "tags": _setup.postDetail?.tags || [] } }) : _vm._e()], 1);
   };
   var _sfc_staticRenderFns$5 = [];
   var __component__$5 = /* @__PURE__ */ normalizeComponent(
@@ -9494,23 +9592,23 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       function imgCardStyle(image) {
         if (settings.masonryLayout !== "justified")
           return maxHeightStyle;
-        let style = `--w:${image == null ? void 0 : image.width};--h:${image == null ? void 0 : image.height};`;
+        let style = `--w:${image?.width};--h:${image?.height};`;
         if (settings.justifiedBaseWidth)
           style += `--jstf-w:${settings.justifiedBaseWidth};`;
         return style;
       }
       function getImgSrc(img) {
-        let src = img == null ? void 0 : img.previewUrl;
-        if (!/\.(mp4|webm)$/i.test((img == null ? void 0 : img.fileUrl) || "")) {
+        let src = img?.previewUrl;
+        if (!/\.(mp4|webm)$/i.test(img?.fileUrl || "")) {
           const num = +settings.selectedColumn;
           if (settings.isThumbSampleUrl || num != 0 && num < 7) {
-            src = img == null ? void 0 : img.sampleUrl;
+            src = img?.sampleUrl;
           }
           if (location.hostname === "danbooru.donmai.us" && src) {
             src = src.replace(/(.*)\/180x180\/(.*)jpg/, "$1/720x720/$2webp");
           }
         }
-        return src || (img == null ? void 0 : img.fileUrl) || void 0;
+        return src || img?.fileUrl || void 0;
       }
       function onCtxMenu(ev, img) {
         if (isR34Fav.value)
@@ -9541,10 +9639,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         img && addToSelectedList(img);
       }
       function addFavorite(id) {
-        var _a2;
         if (!isFavBtnShow)
           return;
-        const imgId = id || ((_a2 = ctxActPost.value) == null ? void 0 : _a2.id);
+        const imgId = id || ctxActPost.value?.id;
         imgId && addPostToFavorites(imgId);
       }
       async function downloadCtxPost(post) {
@@ -9626,16 +9723,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var _sfc_render$4 = function render() {
     var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
     return _setup.showImageList ? _c("div", { style: _setup.settings.masonryLayout === "virtual" ? "height:93vh" : "" }, [_setup.settings.masonryLayout === "virtual" ? _c("virtual-waterfall", { staticClass: "virtual-waterfall", class: { "wf-no-fit-screen": _setup.notFitScreen }, staticStyle: { "min-height": "93vh" }, attrs: { "gap": 10, "preload-screen-count": [1, 1], "item-min-width": 300, "items": _setup.store.imageList, "max-column-count": _setup.virtualMaxCol, "calc-item-height": _setup.calcItemHeight }, scopedSlots: _vm._u([{ key: "default", fn: function({ item, index }) {
-      var _a2, _b;
       return [_c("div", { staticClass: "posts-image-card" }, [_c("img", { staticClass: "post-image-v", attrs: { "alt": "", "loading": "lazy", "src": _setup.getImgSrc(item), "role": "button", "tabindex": "0" }, on: { "click": function($event) {
         return _setup.showImgModal(index);
       }, "contextmenu": function($event) {
         return _setup.onCtxMenu($event, item);
       }, "error": function($event) {
-        return _setup.onImageLoadError((item == null ? void 0 : item.id) || "");
-      } } }), _setup.store.isYKSite ? [((_a2 = item == null ? void 0 : item.data) == null ? void 0 : _a2.has_children) ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), ((_b = item == null ? void 0 : item.data) == null ? void 0 : _b.parent_id) ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), (item == null ? void 0 : item.fileExt.toLowerCase()) === "gif" ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(item == null ? void 0 : item.fileExt.toLowerCase()) ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav && _setup.settings.showPostCheckbox ? _c("div", { staticClass: "posts-image-checkbox" }, [_c("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.isPostChecked(item == null ? void 0 : item.id), "hide-details": "" }, on: { "change": function($event) {
+        return _setup.onImageLoadError(item?.id || "");
+      } } }), _setup.store.isYKSite ? [item?.data?.has_children ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), item?.data?.parent_id ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), item?.fileExt.toLowerCase() === "gif" ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(item?.fileExt.toLowerCase()) ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav && _setup.settings.showPostCheckbox ? _c("div", { staticClass: "posts-image-checkbox" }, [_c("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.isPostChecked(item?.id), "hide-details": "" }, on: { "change": function($event) {
         return _setup.onPostCheckboxChange($event, item);
-      } } })], 1) : _vm._e(), _setup.settings.showListPostReso ? _c("div", { staticClass: "posts-image-wh" }, [_vm._v(_vm._s(item == null ? void 0 : item.width) + " \xD7 " + _vm._s(item == null ? void 0 : item.height))]) : _vm._e(), !_setup.isR34Fav ? _c("div", { staticClass: "posts-image-actions" }, [_c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4"), "href": item == null ? void 0 : item.postView, "target": "_blank", "rel": "noreferrer" } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _setup.notPartialSupportSite ? _c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
+      } } })], 1) : _vm._e(), _setup.settings.showListPostReso ? _c("div", { staticClass: "posts-image-wh" }, [_vm._v(_vm._s(item?.width) + " \xD7 " + _vm._s(item?.height))]) : _vm._e(), !_setup.isR34Fav ? _c("div", { staticClass: "posts-image-actions" }, [_c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4"), "href": item?.postView, "target": "_blank", "rel": "noreferrer" } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _setup.notPartialSupportSite ? _c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addToSelectedList(item);
       } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiPlaylistPlus))])], 1) : _vm._e(), _setup.notPartialSupportSite ? _c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("VpuyxZtIoDF9-YyOm0tK_") }, on: { "click": function($event) {
@@ -9643,27 +9739,26 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return _setup.downloadCtxPost(item);
       } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1) : _vm._e(), _setup.isFavBtnShow ? _c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("Dnnio9m9RZA6bkTLytc99") }, on: { "click": function($event) {
         $event.stopPropagation();
-        return _setup.addFavorite(item == null ? void 0 : item.id);
+        return _setup.addFavorite(item?.id);
       } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiHeartPlusOutline))])], 1) : _vm._e()], 1) : _vm._e()], 2)];
     } }], null, false, 1028004845) }) : _c("wf-layout", _vm._l(_setup.store.imageList, function(image, index) {
-      var _a2, _b;
       return _c("v-card", { key: index, staticClass: "posts-image-card", style: _setup.imgCardStyle(image) }, [_setup.settings.masonryLayout === "justified" ? [_c("img", { staticClass: "post-image", attrs: { "alt": "", "loading": "lazy", "src": _setup.getImgSrc(image), "role": "button", "tabindex": "0" }, on: { "click": function($event) {
         return _setup.showImgModal(index);
       }, "contextmenu": function($event) {
         return _setup.onCtxMenu($event, image);
       }, "error": function($event) {
-        return _setup.onImageLoadError((image == null ? void 0 : image.id) || "");
-      } } })] : _c("v-img", { attrs: { "transition": "scroll-y-transition", "src": _setup.getImgSrc(image), "aspect-ratio": image == null ? void 0 : image.aspectRatio }, on: { "click": function($event) {
+        return _setup.onImageLoadError(image?.id || "");
+      } } })] : _c("v-img", { attrs: { "transition": "scroll-y-transition", "src": _setup.getImgSrc(image), "aspect-ratio": image?.aspectRatio }, on: { "click": function($event) {
         return _setup.showImgModal(index);
       }, "contextmenu": function($event) {
         return _setup.onCtxMenu($event, image);
       }, "error": function($event) {
-        return _setup.onImageLoadError(image == null ? void 0 : image.id);
+        return _setup.onImageLoadError(image?.id);
       } }, scopedSlots: _vm._u([{ key: "placeholder", fn: function() {
         return [_c("v-row", { staticClass: "fill-height ma-0", attrs: { "align": "center", "justify": "center" } }, [_c("v-progress-circular", { attrs: { "indeterminate": "", "color": "deep-purple" } })], 1)];
-      }, proxy: true }], null, true) }), _setup.store.isYKSite ? [((_a2 = image == null ? void 0 : image.data) == null ? void 0 : _a2.has_children) ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), ((_b = image == null ? void 0 : image.data) == null ? void 0 : _b.parent_id) ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), (image == null ? void 0 : image.fileExt.toLowerCase()) === "gif" ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(image == null ? void 0 : image.fileExt.toLowerCase()) ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav && _setup.settings.showPostCheckbox ? _c("div", { staticClass: "posts-image-checkbox" }, [_c("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.isPostChecked(image == null ? void 0 : image.id), "hide-details": "" }, on: { "change": function($event) {
+      }, proxy: true }], null, true) }), _setup.store.isYKSite ? [image?.data?.has_children ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), image?.data?.parent_id ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), image?.fileExt.toLowerCase() === "gif" ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(image?.fileExt.toLowerCase()) ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav && _setup.settings.showPostCheckbox ? _c("div", { staticClass: "posts-image-checkbox" }, [_c("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.isPostChecked(image?.id), "hide-details": "" }, on: { "change": function($event) {
         return _setup.onPostCheckboxChange($event, image);
-      } } })], 1) : _vm._e(), _setup.settings.showListPostReso ? _c("div", { staticClass: "posts-image-wh" }, [_vm._v(_vm._s(image == null ? void 0 : image.width) + " \xD7 " + _vm._s(image == null ? void 0 : image.height))]) : _vm._e(), !_setup.isR34Fav ? _c("div", { staticClass: "posts-image-actions" }, [_c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4"), "href": image == null ? void 0 : image.postView, "target": "_blank", "rel": "noreferrer" } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _setup.notPartialSupportSite ? _c("v-btn", { staticClass: "hidden-md-and-down", attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
+      } } })], 1) : _vm._e(), _setup.settings.showListPostReso ? _c("div", { staticClass: "posts-image-wh" }, [_vm._v(_vm._s(image?.width) + " \xD7 " + _vm._s(image?.height))]) : _vm._e(), !_setup.isR34Fav ? _c("div", { staticClass: "posts-image-actions" }, [_c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4"), "href": image?.postView, "target": "_blank", "rel": "noreferrer" } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _setup.notPartialSupportSite ? _c("v-btn", { staticClass: "hidden-md-and-down", attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.addToSelectedList(image);
       } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiPlaylistPlus))])], 1) : _vm._e(), _setup.notPartialSupportSite ? _c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("VpuyxZtIoDF9-YyOm0tK_") }, on: { "click": function($event) {
@@ -9671,7 +9766,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return _setup.downloadCtxPost(image);
       } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1) : _vm._e(), _setup.isFavBtnShow ? _c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("Dnnio9m9RZA6bkTLytc99") }, on: { "click": function($event) {
         $event.stopPropagation();
-        return _setup.addFavorite(image == null ? void 0 : image.id);
+        return _setup.addFavorite(image?.id);
       } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiHeartPlusOutline))])], 1) : _vm._e()], 1) : _vm._e()], 2);
     }), 1), _c("div", { staticClass: "d-flex justify-center" }, [_c("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.requestLoading, expression: "store.requestLoading" }], attrs: { "color": "primary", "text": "" } }, [_vm._v(" " + _vm._s(_vm.$t("RN4dt81l_fZMWODsskZob")) + "... ")]), _c("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.showLoadMore, expression: "showLoadMore" }], attrs: { "color": "primary", "text": "" }, on: { "click": function($event) {
       return _setup.searchPosts();
@@ -9813,11 +9908,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
   });
   var _sfc_render$2 = function render() {
-    var _a2, _b;
     var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
-    return _c("v-snackbar", { attrs: { "top": "", "color": (_a2 = _setup.snackbarTypeMap[_setup.snackbarType]) == null ? void 0 : _a2[0], "timeout": 2e3, "min-width": 160 }, model: { value: _setup.showSnackbar, callback: function($$v) {
+    return _c("v-snackbar", { attrs: { "top": "", "color": _setup.snackbarTypeMap[_setup.snackbarType]?.[0], "timeout": 2e3, "min-width": 160 }, model: { value: _setup.showSnackbar, callback: function($$v) {
       _setup.showSnackbar = $$v;
-    }, expression: "showSnackbar" } }, [_c("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.snackbarType, expression: "snackbarType" }] }, [_vm._v(_vm._s((_b = _setup.snackbarTypeMap[_setup.snackbarType]) == null ? void 0 : _b[1]))]), _c("span", { staticClass: "ml-2" }, [_vm._v(_vm._s(_setup.snackbarText))])], 1);
+    }, expression: "showSnackbar" } }, [_c("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.snackbarType, expression: "snackbarType" }] }, [_vm._v(_vm._s(_setup.snackbarTypeMap[_setup.snackbarType]?.[1]))]), _c("span", { staticClass: "ml-2" }, [_vm._v(_vm._s(_setup.snackbarText))])], 1);
   };
   var _sfc_staticRenderFns$2 = [];
   var __component__$2 = /* @__PURE__ */ normalizeComponent(
@@ -9883,9 +9977,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   );
   var App = __component__.exports;
   function initApp() {
-    Vue__default["default"].use(Plugin);
-    Vue__default["default"].component("WfLayout", WfLayout);
+    Vue__default["default"].component("Masonry", masonry);
+    Vue__default["default"].component("TrueMasonry", TrueMasonry);
     Vue__default["default"].component("VirtualWaterfall", VirtualWaterfall);
+    Vue__default["default"].component("WfLayout", WfLayout);
     const vuetify = installVuetify();
     const app = new Vue__default["default"]({
       vuetify,

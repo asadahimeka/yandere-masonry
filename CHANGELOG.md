@@ -1,3 +1,13 @@
+## v0.37.2
+
+- feat: 新增通过 FileSystemAccess API 下载图片的设置
+- fix: 修复 Safari 浏览下无法加载
+
+## v0.37.1
+
+- fix: 修复深色模式设置失效
+
+
 ## v0.37.0
 
 - feat: Justified 布局缩略图宽度调整设置

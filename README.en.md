@@ -225,6 +225,11 @@ Convenient image management features:
 
 ## 🚀 Installation Guide
 
+> ⚠️ **Compatibility**:
+> - The primary testing environment is Windows + Chrome/Edge browser
+> - Firefox browser is supported to the best of our ability
+> - macOS + Safari support is limited
+
 ### Method 1: Install via Greasy Fork (Recommended)
 
 1. **Install a userscript manager** (if not already installed):
