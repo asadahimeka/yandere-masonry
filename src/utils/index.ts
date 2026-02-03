@@ -2,8 +2,9 @@ import Vue from 'vue'
 import { add, formatDistanceToNow, isValid, sub } from 'date-fns'
 import type { Post } from '@himeka/booru'
 import i18n from './i18n'
+import { saveFile } from './fsa'
 import { loadScript } from '@/prepare'
-import { store } from '@/store'
+import { settings, store } from '@/store'
 
 export const eventBus = new Vue()
 
@@ -11,10 +12,7 @@ export function isURL(s: string) {
   return /^https?:\/\/.*/.test(s)
 }
 
-const isSubpathDL = Boolean(localStorage.getItem('__dl_subpath_on'))
-export function downloadFile(url: string, name: string, options?: Partial<Tampermonkey.DownloadRequest>) {
-  if (!/\.\w+$/.test(name)) name += `.${url.split('.').pop()}`
-  if (isSubpathDL) name = `${location.hostname}/${name}`
+function downloadByGM(url: string, name: string, options?: Partial<Tampermonkey.DownloadRequest>) {
   return new Promise<void>((resolve, reject) => {
     GM_download({
       url,
@@ -24,6 +22,57 @@ export function downloadFile(url: string, name: string, options?: Partial<Tamper
       ...options,
     })
   })
+}
+
+async function downloadByFetch(source: string, fileName: string) {
+  try {
+    const resp = await fetch(source)
+    if (!resp.ok) throw new Error(`Response not ok: ${resp.status}`)
+    const url = URL.createObjectURL(await resp.blob())
+    downloadByLink(url, fileName)
+    URL.revokeObjectURL(url)
+  } catch (err) {
+    console.log('downloadByFetch err: ', err)
+    downloadByLink(source, fileName)
+  }
+}
+
+function downloadByLink(source: string, fileName: string) {
+  const a = document.createElement('a')
+  a.href = source
+  a.target = '_blank'
+  a.rel = 'noopener noreferrer'
+  a.style.display = 'none'
+  a.setAttribute('download', fileName)
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+}
+
+export async function downloadFile(url: string, name: string, options?: Partial<Tampermonkey.DownloadRequest>) {
+  if (!/\.\w+$/.test(name)) name += `.${url.split('.').pop()}`
+  try {
+    switch (settings.downloadBy) {
+      case 'tm': {
+        if (settings.isDLSubpath) name = `${location.hostname}/${name}`
+        await downloadByGM(url, name, options)
+        break
+      }
+      case 'fsa': {
+        const res = await saveFile(url, name, settings.isDLSubpath ? location.hostname : undefined)
+        showMsg({ type: 'success', msg: `${i18n.t('kMu1vOFmTJac-ylP0b13Z')}: ${res}` })
+        break
+      }
+      case 'newtab':
+        downloadByLink(url, name)
+        break
+      default:
+        break
+    }
+  } catch (err) {
+    console.log('downloadByGM err: ', err)
+    await downloadByFetch(url, name)
+  }
 }
 
 export function downloadText(text: string, filename = 'file.txt') {

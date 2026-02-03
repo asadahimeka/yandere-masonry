@@ -550,6 +550,7 @@ async function startDownload() {
       set(item, 'loaded', true)
     }
   } catch (error) {
+    console.log('download error: ', error)
     const msg = error as string
     showMsg({ msg, type: 'error' })
   }

@@ -76,7 +76,7 @@ const masonry = defineComponent({
 
   data() {
     return {
-      windowWidth: getWindowWidth(),
+      windowWidth: 0,
       displayColumns: 2,
       displayGutter: 0,
     }
