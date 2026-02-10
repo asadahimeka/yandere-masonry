@@ -53,16 +53,16 @@ export async function downloadFile(url: string, name: string, options?: Partial<
   if (!/\.\w+$/.test(name)) name += `.${url.split('.').pop()}`
   try {
     switch (settings.downloadBy) {
-      case 'tm': {
+      case 'tm':
         if (settings.isDLSubpath) name = `${location.hostname}/${name}`
         await downloadByGM(url, name, options)
         break
-      }
-      case 'fsa': {
-        const res = await saveFile(url, name, settings.isDLSubpath ? location.hostname : undefined)
-        showMsg({ type: 'success', msg: `${i18n.t('kMu1vOFmTJac-ylP0b13Z')}: ${res}` })
+      case 'fsa':
+        {
+          const res = await saveFile(url, name, settings.isDLSubpath ? location.hostname : undefined)
+          showMsg({ type: 'success', msg: `${i18n.t('kMu1vOFmTJac-ylP0b13Z')}: ${res}` })
+        }
         break
-      }
       case 'newtab':
         downloadByLink(url, name)
         break

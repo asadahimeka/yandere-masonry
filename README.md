@@ -469,7 +469,7 @@ A: 请到 [GitHub Issues](https://github.com/asadahimeka/yandere-masonry/issues)
 ### 环境要求
 
 - Node.js >= 16
-- npm 或 yarn
+- pnpm >= 9
 - Git
 
 ### 开发步骤

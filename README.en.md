@@ -489,7 +489,7 @@ The project code is **not** AI-generated; only the README file is AI-optimized
 ### Environment Requirements
 
 * Node.js >= 16
-* npm or yarn
+* pnpm >= 9
 * Git
 
 ### Development Steps
