@@ -355,6 +355,21 @@
   object-fit: cover;
 }
 
+.site_icon_fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* explicit border-box: chip stays 20x20 even where Vuetify's global border-box rule is absent */
+  box-sizing: border-box;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  /* nudge down 1px: uppercase glyphs sit high in the line box (descender space below baseline) */
+  padding-top: 1px;
+}
+
 .theme--light .sel_menu_btn {
   min-height: 32px;
   padding: 0 16px;

@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer v-model="store.showDrawer" class="nav_drawer" app temporary>
     <v-list-item>
-      <v-list-item-avatar>
+      <v-list-item-avatar v-if="!isDanbooruPage()">
         <img width="40" src="https://upload-bbs.mihoyo.com/upload/2022/09/07/190122060/8505ff4b535cb1487b521d73c7f71d63_865024295271530650.png" alt="" loading="lazy">
       </v-list-item-avatar>
       <v-list-item-content>
@@ -70,67 +70,19 @@
         <v-list-item-group :value="actSiteIndex" color="primary">
           <v-list-item v-for="link in siteDomains" :key="link" :href="handleLink(link)" referrerpolicy="no-referrer">
             <v-list-item-icon class="mr-2">
-              <img :src="handleFavicon(link)" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
+              <div class="site_icon site_icon_fallback" :style="{ backgroundColor: fallbackColor(link) }">{{ fallbackLetter(link) }}</div>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>{{ getSiteTitle(link) }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <hr class="my-2">
-          <v-list-item link @click="openLink('https://pixiv.pictures/?ref=booru.vercel.app')">
+          <v-list-item v-for="tool in toolLinks" :key="tool.host" link @click="openLink(tool.url)">
             <v-list-item-icon class="mr-2">
-              <img src="https://pixiv.pictures/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
+              <div class="site_icon site_icon_fallback" :style="{ backgroundColor: fallbackColor(tool.host) }">{{ fallbackLetter(tool.host) }}</div>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>Pixiv Viewer</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item link @click="openLink('https://moeview.cocomi.eu.org/?ref=booru.vercel.app')">
-            <v-list-item-icon class="mr-2">
-              <img src="https://moeview.cocomi.eu.org/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>Moeview</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item link @click="openLink('https://r-34.xyz/?ref=booru.vercel.app')">
-            <v-list-item-icon class="mr-2">
-              <img src="https://r-34.xyz/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>R-34.XYZ</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item link @click="openLink('https://nekon.app/?ref=booru.vercel.app')">
-            <v-list-item-icon class="mr-2">
-              <img src="https://nekon.app/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>Nekon</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item link @click="openLink('https://www.someacg.top/?ref=booru.vercel.app')">
-            <v-list-item-icon class="mr-2">
-              <img src="https://www.someacg.top/favicon.png" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>SomeACG</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item link @click="openLink('https://manyacg.top/?ref=booru.vercel.app')">
-            <v-list-item-icon class="mr-2">
-              <img src="https://manyacg.top/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>ManyACG</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item link @click="openLink('https://pic.cosine.ren/?ref=booru.vercel.app')">
-            <v-list-item-icon class="mr-2">
-              <img src="https://pic.cosine.ren/favicon.ico" loading="lazy" class="site_icon" referrerpolicy="no-referrer">
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>Cosine Gallery</v-list-item-title>
+              <v-list-item-title>{{ tool.title }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -216,6 +168,7 @@ import {
 } from '@mdi/js'
 import { computed, onMounted, ref } from 'vue'
 import { getSiteTitle, siteDomains } from '@/api/booru'
+import { isDanbooruPage } from '@/api/danbooru'
 import { getUsername } from '@/api/moebooru'
 import { store } from '@/store'
 
@@ -232,15 +185,27 @@ function handleLink(link: string) {
   return `https://${link}`
 }
 
-function handleFavicon(link: string) {
-  if (link.includes('konachan')) return 'https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/cbd0b71ead30e0777e5b023170ba415c_4819570566325089051.png'
-  if (link.includes('behoimi')) return 'https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/d3b97f45046795c87c12ad5704074f32_1333245617164582614.png'
-  if (link.includes('sankaku') || link.includes('idolcomplex')) return 'https://upload-bbs.miyoushe.com/upload/2025/03/29/190122060/4fa56922d173d28ac8e687caaa487f27_1885629069482225420.png'
-  if (link.includes('rule34.xxx')) return 'https://upload-bbs.miyoushe.com/upload/2025/03/29/190122060/76ba90d4350a1455f899d2a1500fca69_8344852329496206545.png'
-  if (link.includes('rule34hentai.net')) return 'https://prod-alicdn-community.kurobbs.com/forum/ee44a4b6a2cc4f08b693cfc4e364b1fa20260129.png'
-  if (link.includes('aibooru.online')) return 'https://prod-alicdn-community.kurobbs.com/forum/177e56ba1e704d6b85e492a365642dd920260129.png'
-  if (link.includes('allthefallen') || link.includes('allgirl')) return 'https://kwc.cocomi.eu.org/https://danbooru.donmai.us/favicon.ico'
-  return `https://kwc.cocomi.eu.org/https://${link.split('/')[0]}/favicon.ico`
+const FALLBACK_COLORS = ['#e91e63', '#8e24aa', '#3949ab', '#1e88e5', '#00897b', '#43a047', '#f4511e', '#5c6bc0']
+
+const toolLinks = [
+  { title: 'Pixiv Viewer', url: 'https://pixiv.pictures/?ref=booru.vercel.app', host: 'pixiv.pictures' },
+  { title: 'Moeview', url: 'https://moeview.cocomi.eu.org/?ref=booru.vercel.app', host: 'moeview.cocomi.eu.org' },
+  { title: 'R-34.XYZ', url: 'https://r-34.xyz/?ref=booru.vercel.app', host: 'r-34.xyz' },
+  { title: 'Nekon', url: 'https://nekon.app/?ref=booru.vercel.app', host: 'nekon.app' },
+  { title: 'SomeACG', url: 'https://www.someacg.top/?ref=booru.vercel.app', host: 'someacg.top' },
+  { title: 'ManyACG', url: 'https://manyacg.top/?ref=booru.vercel.app', host: 'manyacg.top' },
+  { title: 'Cosine Gallery', url: 'https://pic.cosine.ren/?ref=booru.vercel.app', host: 'pic.cosine.ren' },
+]
+
+function fallbackColor(url: string) {
+  let hash = 0
+  for (let i = 0; i < url.length; i++) hash = (hash * 31 + url.charCodeAt(i)) >>> 0
+  return FALLBACK_COLORS[hash % FALLBACK_COLORS.length]
+}
+
+function fallbackLetter(url: string) {
+  const host = url.replace(/^https?:\/\//, '').split('/')[0].replace(/^www\./, '')
+  return host.charAt(0).toUpperCase() || '?'
 }
 
 const actSiteIndex = computed(() => {
