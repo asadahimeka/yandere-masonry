@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.37.5
+// @version              0.37.6
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -42,13 +42,23 @@
 // @source               https://github.com/asadahimeka/yandere-masonry
 // @icon                 https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/f1f6267537a5aff959ee63ec2c9e4e52_4821140735490026106.jpg
 // @supportURL           https://github.com/asadahimeka/yandere-masonry/issues
+// @resource             vuetifycss https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.css
+// @resource             normalizecss https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css
+// @resource             fancyboxcss https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css
+// @resource             vuejs https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.16/vue.min.js
+// @resource             vuetifyjs https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.js
+// @resource             vuei18njs https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.28.2/vue-i18n.min.js
+// @resource             fxparserjs https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.4.0/fxparser.min.js
+// @resource             tagscn https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/all_tags_cn.min.json
+// @resource             tagscnspace https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/all_tags_cn_space.min.json
 // @run-at               document-end
 // @grant                GM_addStyle
 // @grant                unsafeWindow
 // @grant                GM_addElement
+// @grant                GM_xmlhttpRequest
+// @grant                GM_getResourceText
 // @grant                GM_info
 // @grant                GM_download
-// @grant                GM_xmlhttpRequest
 // ==/UserScript==
 
 var __defProp = Object.defineProperty;
@@ -61,7 +71,7 @@ var __publicField = (obj, key, value) => {
   var prepareStyle = "#enter-masonry{position:fixed;z-index:99999;right:16px;top:10px;height:30px;padding:6px 10px;font-size:13px;border:0;border-radius:6px;color:#fff;outline:0;background:linear-gradient(to right,#ff758c 0%,#ff7eb3 100%);opacity:1;transform:scale(1);transition:opacity,transform .2s;cursor:pointer}#enter-masonry:hover{opacity:.8;transform:scale(1.05)}#enter-masonry.enter-button-bottom{top:unset;bottom:15px}#locale-select{position:fixed;z-index:99;right:110px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}#wf-type-select{position:fixed;z-index:99;right:190px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}\n";
   var ydStyle = 'a.thumb{padding-bottom:5px;border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08] "}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743] "}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272] "}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2] "}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:100%;height:auto;margin-top:0;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}.mm-masonry{--gap: 24;--col-width: 240}.mm-masonry{--_col-width: var(--col-width, 280);--_col-width-px: calc(var(--_col-width) * 1px);--_gap: calc(var(--gap, 20) * 1px);display:var(--display, grid)!important;grid-template-columns:repeat(auto-fill,minmax(var(--_col-width-px),1fr));grid-auto-rows:1px;column-gap:var(--_gap)}.mm-masonry__item{--img-proportional-height: calc(var(--h) * var(--_col-width) / (var(--w)));grid-row-end:span var(--img-proportional-height, 240);overflow:hidden}.mm-masonry__item:not(:last-child){margin-bottom:var(--_gap)}#post-list ul#post-list-posts .mm-masonry__item .inner,#post-popular ul#post-list-posts .mm-masonry__item .inner{height:100%!important}.mm-masonry__img{width:100%!important;height:100%!important;object-fit:cover}.justified-container{display:flex!important;flex-wrap:wrap}.justified-container:after{content:"";flex-grow:999999999}.justified-item{position:relative}.justified-item img.preview{position:absolute;top:0;left:0;width:100%;vertical-align:bottom;object-fit:cover}\n';
   var knStyle = "#lsidebar{display:none}#post-popular ul#post-list-posts{display:flex;justify-content:center;flex-wrap:wrap}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
-  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;max-width:100vw;max-height:100vh;margin:0 auto}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}.img_detail_tag_list .v-slide-group__content{max-height:72vh;overflow-y:auto}::-webkit-scrollbar{width:0px}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e9eef6;border-radius:7px}.theme--dark .img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.posts-image-card{margin-bottom:8px}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{--jstf-w: 340;position:relative;flex-grow:calc(var(--w) * var(--jstf-w) / var(--h));width:calc(1px * var(--w) * var(--jstf-w) / var(--h));margin-bottom:0!important;padding-bottom:0!important;background-color:#dcdcdc;content-visibility:auto;contain-intrinsic-size:auto 300px}@media screen and (max-width: 500px){.justified-container .posts-image-card{--jstf-w: 240}}.justified-container .posts-image-card:before{content:"";display:block;padding-bottom:calc(var(--h) / var(--w) * 100%)!important}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-wh{position:absolute;bottom:0;left:0;padding:0 8px;font-size:14px;color:#fff;background:rgba(0,0,0,.4);border-top-right-radius:4px}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-checkbox{position:absolute;top:5px;left:5px;width:28px;padding:2px;height:28px;border-radius:2px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-checkbox:has(input[aria-checked="true"]),.posts-image-card:hover .posts-image-checkbox{opacity:1;visibility:visible}.posts-image-checkbox .v-input--selection-controls__ripple .primary--text,.posts-image-checkbox .v-input--selection-controls__input .v-icon{color:#fff!important}.posts-image-type{position:absolute!important;top:0;right:0;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}@media screen and (min-width: 768px){.wf-no-fit-screen{max-width:62.5vw;margin:16px auto}}.virtual-waterfall>[data-index]{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f;border-radius:4px}.theme--light .v-app-bar{box-shadow:none!important;background:#f6f8fc!important}.theme--light .v-app-bar,.theme--light .v-app-bar .v-toolbar__content{height:64px!important}.theme--light .v-main{padding-top:64px!important}.theme--light .v-app-bar .v-toolbar__title+input{width:50px!important;background-color:#eaf1fb!important;border-radius:24px!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#5f6368!important}.theme--light .app-bar-tag-input .v-input .v-input__slot:before,.theme--light .app-bar-tag-input .v-input .v-input__slot:after{display:none}.theme--light .app-bar-tag-input .v-input input{padding:5px 44px 5px 10px;background-color:#eaf1fb;min-height:48px;border-radius:24px}.theme--light .app-bar-tag-input:not([style*="none"])+.v-btn{position:relative;left:-50px}.theme--light.v-list,.theme--light.v-navigation-drawer{background:#e9eef6!important}.theme--dark .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--dark .img_detail_btn_color .v-chip.tag_type_general,.theme--dark .img_detail_btn_color .v-btn{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag) .v-icon,.theme--light .img_detail_btn_color .v-chip.tag_type_general,.theme--light .img_detail_btn_color .v-btn{background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#1a73e8!important;box-shadow:none!important;font-weight:500}.img_detail_btn_color .v-chip.img_detail_tag{font-weight:500}.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text,.v-date-picker-table__current){padding-bottom:2px;border-radius:10px;color:#001d35;background-color:#c2e7ff}.theme--light .refresh_posts_btn{box-shadow:0 1px 2px #0000,0 1px 3px 1px #0000;background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#001d35}.theme--light .img_detail_loading .v-progress-circular{color:#1a73e8!important;caret-color:#1a73e8!important}.theme--light .blacklist_combobox .v-input__slot{padding-left:8px!important}.theme--light .v-text-field--outlined{border-radius:20px}.fancybox__caption{display:none;padding:12px 24px!important}.v-toolbar.img_detail_btn_color{backdrop-filter:none!important}.virtual-waterfall .posts-image-card{width:100%;height:100%;margin-bottom:0;background:gainsboro;border-radius:4px!important}.virtual-waterfall .post-image-v{width:100%;height:100%;object-fit:cover;border-radius:4px!important}.virtual-waterfall .posts-image-type{border-top-right-radius:4px}.virtual-waterfall .posts-image-actions{border-bottom-left-radius:4px;border-bottom-right-radius:4px}html:has(#app.theme--dark){background:#121212}@media screen and (max-width: 1200px){.nav_drawer{height:100dvh!important}.nav_drawer .v-navigation-drawer__content{padding-bottom:9vh}}.img_meta_tag_list{position:absolute;top:35px;width:200px}.img_meta_tag_list .img_detail_tag.tag_type_artist{color:#c97000!important;background-color:#ffdcb0!important;border-color:#ffdcb0!important}.img_meta_tag_list .img_detail_tag.tag_type_copyright{color:#ae3fc1!important;background-color:#f9d5ff!important;border-color:#f9d5ff!important}.img_meta_tag_list .img_detail_tag.tag_type_character{color:#0c9312!important;background-color:#c4ffc7!important;border-color:#c4ffc7!important}.true-masonry .posts-image-card{height:fit-content;max-height:unset!important;margin-bottom:0!important}.d-flex-y{display:flex;align-items:center;flex-wrap:wrap}.d-flex-col{display:flex;flex-direction:column}.export-tags-setting{display:flex;align-items:center;flex-wrap:wrap;gap:20px}.export-tags-setting .v-messages{display:none}.export-tags-setting>.v-input{margin-top:0}.export-tags-wght-inp{width:45px;height:24px;margin-left:4px;background-color:#eaf1fb;border-radius:4px;border:1px solid rgb(187,187,187);color:inherit;text-align:center}.d-flex-col .v-chip--active:before,.d-flex-col .v-chip--active:hover:before,.d-flex-col .v-chip:focus:before{display:none}.img-detail-toolbar{position:absolute;top:0;width:100%;z-index:10}.img-detail-toolbar.detail-buttons-bottom{top:unset;bottom:12px}.img-detail-tags{position:absolute;z-index:10;bottom:12px;padding:0 12px}.img-detail-tags.detail-buttons-bottom{top:12px;bottom:unset}.img-detail-toolbar.detail-buttons-bottom .img_meta_tag_list{top:0;transform:translateY(-95%)}.settings_drawer .v-list-item__subtitle{white-space:normal}\n';
+  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;max-width:100vw;max-height:100vh;margin:0 auto}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}.img_detail_tag_list .v-slide-group__content{max-height:72vh;overflow-y:auto}::-webkit-scrollbar{width:0px}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e9eef6;border-radius:7px}.theme--dark .img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.posts-image-card{margin-bottom:8px}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{--jstf-w: 340;position:relative;flex-grow:calc(var(--w) * var(--jstf-w) / var(--h));width:calc(1px * var(--w) * var(--jstf-w) / var(--h));margin-bottom:0!important;padding-bottom:0!important;background-color:#dcdcdc;content-visibility:auto;contain-intrinsic-size:auto 300px}@media screen and (max-width: 500px){.justified-container .posts-image-card{--jstf-w: 240}}.justified-container .posts-image-card:before{content:"";display:block;padding-bottom:calc(var(--h) / var(--w) * 100%)!important}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.site_icon_fallback{display:flex;align-items:center;justify-content:center;box-sizing:border-box;border-radius:4px;color:#fff;font-size:12px;font-weight:600;line-height:1;padding-top:1px}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-wh{position:absolute;bottom:0;left:0;padding:0 8px;font-size:14px;color:#fff;background:rgba(0,0,0,.4);border-top-right-radius:4px}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-checkbox{position:absolute;top:5px;left:5px;width:28px;padding:2px;height:28px;border-radius:2px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-checkbox:has(input[aria-checked="true"]),.posts-image-card:hover .posts-image-checkbox{opacity:1;visibility:visible}.posts-image-checkbox .v-input--selection-controls__ripple .primary--text,.posts-image-checkbox .v-input--selection-controls__input .v-icon{color:#fff!important}.posts-image-type{position:absolute!important;top:0;right:0;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}@media screen and (min-width: 768px){.wf-no-fit-screen{max-width:62.5vw;margin:16px auto}}.virtual-waterfall>[data-index]{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f;border-radius:4px}.theme--light .v-app-bar{box-shadow:none!important;background:#f6f8fc!important}.theme--light .v-app-bar,.theme--light .v-app-bar .v-toolbar__content{height:64px!important}.theme--light .v-main{padding-top:64px!important}.theme--light .v-app-bar .v-toolbar__title+input{width:50px!important;background-color:#eaf1fb!important;border-radius:24px!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#5f6368!important}.theme--light .app-bar-tag-input .v-input .v-input__slot:before,.theme--light .app-bar-tag-input .v-input .v-input__slot:after{display:none}.theme--light .app-bar-tag-input .v-input input{padding:5px 44px 5px 10px;background-color:#eaf1fb;min-height:48px;border-radius:24px}.theme--light .app-bar-tag-input:not([style*="none"])+.v-btn{position:relative;left:-50px}.theme--light.v-list,.theme--light.v-navigation-drawer{background:#e9eef6!important}.theme--dark .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--dark .img_detail_btn_color .v-chip.tag_type_general,.theme--dark .img_detail_btn_color .v-btn{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag) .v-icon,.theme--light .img_detail_btn_color .v-chip.tag_type_general,.theme--light .img_detail_btn_color .v-btn{background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#1a73e8!important;box-shadow:none!important;font-weight:500}.img_detail_btn_color .v-chip.img_detail_tag{font-weight:500}.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text,.v-date-picker-table__current){padding-bottom:2px;border-radius:10px;color:#001d35;background-color:#c2e7ff}.theme--light .refresh_posts_btn{box-shadow:0 1px 2px #0000,0 1px 3px 1px #0000;background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#001d35}.theme--light .img_detail_loading .v-progress-circular{color:#1a73e8!important;caret-color:#1a73e8!important}.theme--light .blacklist_combobox .v-input__slot{padding-left:8px!important}.theme--light .v-text-field--outlined{border-radius:20px}.fancybox__caption{display:none;padding:12px 24px!important}.v-toolbar.img_detail_btn_color{backdrop-filter:none!important}.virtual-waterfall .posts-image-card{width:100%;height:100%;margin-bottom:0;background:gainsboro;border-radius:4px!important}.virtual-waterfall .post-image-v{width:100%;height:100%;object-fit:cover;border-radius:4px!important}.virtual-waterfall .posts-image-type{border-top-right-radius:4px}.virtual-waterfall .posts-image-actions{border-bottom-left-radius:4px;border-bottom-right-radius:4px}html:has(#app.theme--dark){background:#121212}@media screen and (max-width: 1200px){.nav_drawer{height:100dvh!important}.nav_drawer .v-navigation-drawer__content{padding-bottom:9vh}}.img_meta_tag_list{position:absolute;top:35px;width:200px}.img_meta_tag_list .img_detail_tag.tag_type_artist{color:#c97000!important;background-color:#ffdcb0!important;border-color:#ffdcb0!important}.img_meta_tag_list .img_detail_tag.tag_type_copyright{color:#ae3fc1!important;background-color:#f9d5ff!important;border-color:#f9d5ff!important}.img_meta_tag_list .img_detail_tag.tag_type_character{color:#0c9312!important;background-color:#c4ffc7!important;border-color:#c4ffc7!important}.true-masonry .posts-image-card{height:fit-content;max-height:unset!important;margin-bottom:0!important}.d-flex-y{display:flex;align-items:center;flex-wrap:wrap}.d-flex-col{display:flex;flex-direction:column}.export-tags-setting{display:flex;align-items:center;flex-wrap:wrap;gap:20px}.export-tags-setting .v-messages{display:none}.export-tags-setting>.v-input{margin-top:0}.export-tags-wght-inp{width:45px;height:24px;margin-left:4px;background-color:#eaf1fb;border-radius:4px;border:1px solid rgb(187,187,187);color:inherit;text-align:center}.d-flex-col .v-chip--active:before,.d-flex-col .v-chip--active:hover:before,.d-flex-col .v-chip:focus:before{display:none}.img-detail-toolbar{position:absolute;top:0;width:100%;z-index:10}.img-detail-toolbar.detail-buttons-bottom{top:unset;bottom:12px}.img-detail-tags{position:absolute;z-index:10;bottom:12px;padding:0 12px}.img-detail-tags.detail-buttons-bottom{top:12px;bottom:unset}.img-detail-toolbar.detail-buttons-bottom .img_meta_tag_list{top:0;transform:translateY(-95%)}.settings_drawer .v-list-item__subtitle{white-space:normal}\n';
   const langList = [
     { value: "zh-Hans", label: "\u7B80\u4F53\u4E2D\u6587" },
     { value: "zh-Hant", label: "\u7E41\u9AD4\u4E2D\u6587" },
@@ -107,7 +117,8 @@ var __publicField = (obj, key, value) => {
     justifiedBaseWidth: isMobile ? 240 : 340,
     detailButtonsBottom: isMobile,
     closePopupOnImgClick: isMobile,
-    downloadBy: "tm"
+    downloadBy: "tm",
+    downloadUrlKey: "fileUrl"
   };
   const initialSettings = {
     ...defaultSettings,
@@ -283,12 +294,19 @@ var __publicField = (obj, key, value) => {
         item.innerHTML = display?.(en2, cn) || `${en2} [${cn}]`;
     }
   }
-  async function translateTags() {
+  function translateTags() {
     const locale = document.cookie.match(/locale=(\w+)/)?.[1];
     if (locale && locale !== "zh_CN")
       return;
-    const response = await fetch("https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/all_tags_cn.min.json");
-    window.__tagsCN = await response.json();
+    const text = getResourceText("tagscn");
+    if (!text)
+      return;
+    try {
+      window.__tagsCN = JSON.parse(text);
+    } catch (error) {
+      console.warn("[YM] failed to parse tag translation:", error);
+      window.__tagsCN = {};
+    }
     const url = new URL(location.href);
     if (url.pathname == "/tag")
       return setTagText("td[class^=tag-type] a:last-child");
@@ -298,19 +316,18 @@ var __publicField = (obj, key, value) => {
     setTagText('#site-title a[href^="/post?tags="]', textEn);
     setTagText('#tag-sidebar a[href^="/post?tags="]:not(.no-browser-link)', textEn, (en2, cn) => `[${cn}] ${en2}`);
   }
-  async function translateDanbooruTags() {
+  function translateDanbooruTags() {
     if (!navigator.language.includes("zh"))
       return;
-    let tagsCache = sessionStorage.getItem("__YM_TAGS_CN_CACHE") || "";
-    if (!tagsCache) {
-      try {
-        const response = await fetch("https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/all_tags_cn_space.min.json");
-        tagsCache = await response.text();
-        sessionStorage.setItem("__YM_TAGS_CN_CACHE", tagsCache);
-      } catch (error) {
-      }
+    const text = getResourceText("tagscnspace");
+    if (!text)
+      return;
+    try {
+      window.__tagsCN = JSON.parse(text);
+    } catch (error) {
+      console.warn("[YM] failed to parse danbooru tag translation:", error);
+      window.__tagsCN = {};
     }
-    window.__tagsCN = JSON.parse(tagsCache || "{}");
     const textEn = (el) => el.innerText.trim();
     const textCn = (en2, cn) => `[${cn}] ${en2}`;
     setTagText('.tag-list li a[href*="post"]:not([onclick])', textEn, textCn);
@@ -355,30 +372,127 @@ var __publicField = (obj, key, value) => {
       fn();
     });
   }
-  const specialSites = ["gelbooru.com"];
-  function loadScript(src) {
-    return new Promise((resolve) => {
-      let script;
-      if (specialSites.some((e) => location.hostname.includes(e))) {
-        script = GM_addElement("script", { src });
-        script.addEventListener("load", () => {
-          resolve();
-        }, false);
-      } else {
-        script = document.createElement("script");
-        script.src = src;
-        script.addEventListener("load", () => {
-          resolve();
-        }, false);
-        document.head.appendChild(script);
-      }
+  const scriptLoadTimeout = 15e3;
+  function loadScriptByElement(src) {
+    console.log("loadScriptByElement: ", src);
+    return new Promise((resolve, reject) => {
+      const script = GM_addElement("script", { src });
+      const timer = setTimeout(() => reject(new Error(`script load timeout: ${src}`)), scriptLoadTimeout);
+      script.addEventListener("load", () => {
+        clearTimeout(timer);
+        resolve();
+      }, false);
+      script.addEventListener("error", () => {
+        clearTimeout(timer);
+        reject(new Error(`script load failed: ${src}`));
+      }, false);
     });
   }
+  function loadScriptByEval(src) {
+    console.log("loadScriptByEval: ", src);
+    return new Promise((resolve, reject) => {
+      GM_xmlhttpRequest({
+        method: "GET",
+        url: src,
+        timeout: scriptLoadTimeout,
+        onload(res) {
+          if (res.status !== 200) {
+            reject(new Error(`HTTP ${res.status}: ${src}`));
+            return;
+          }
+          try {
+            (0, eval)(res.responseText);
+            resolve();
+          } catch (error) {
+            reject(error instanceof Error ? error : new Error(String(error)));
+          }
+        },
+        onerror() {
+          reject(new Error(`script fetch failed: ${src}`));
+        },
+        ontimeout() {
+          reject(new Error(`script fetch timeout: ${src}`));
+        }
+      });
+    });
+  }
+  async function loadScript(src) {
+    try {
+      await loadScriptByElement(src);
+    } catch (error) {
+      console.warn("[YM] script element load failed, falling back to eval:", src, error);
+      await loadScriptByEval(src);
+    }
+  }
+  const deps = [
+    { name: "vuejs", globalName: "Vue", url: "https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.16/vue.min.js" },
+    { name: "vuetifyjs", globalName: "Vuetify", url: "https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.js" },
+    { name: "vuei18njs", globalName: "VueI18n", url: "https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.28.2/vue-i18n.min.js" },
+    { name: "fxparserjs", globalName: "XMLParser", url: "https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.4.0/fxparser.min.js" }
+  ];
+  function loadScriptFromResource(source) {
+    GM_addElement("script", { textContent: source });
+  }
+  function pageGlobal(name) {
+    const w = typeof unsafeWindow !== "undefined" ? unsafeWindow : window;
+    return w?.[name];
+  }
+  async function waitForGlobal(name) {
+    for (let i = 0; i < 20; i++) {
+      if (typeof pageGlobal(name) !== "undefined")
+        return true;
+      await new Promise((resolve) => setTimeout(resolve, 25));
+    }
+    return typeof pageGlobal(name) !== "undefined";
+  }
+  async function loadDep(dep) {
+    let source = "";
+    try {
+      source = GM_getResourceText(dep.name) || "";
+    } catch (error) {
+      console.warn("[YM] failed to read resource:", dep.name, error);
+    }
+    if (source) {
+      try {
+        loadScriptFromResource(source);
+        if (await waitForGlobal(dep.globalName))
+          return;
+        console.warn("[YM] resource script did not expose global, falling back to CDN:", dep.globalName);
+      } catch (error) {
+        console.warn("[YM] resource script failed, falling back to CDN:", dep.name, error);
+      }
+    }
+    await loadScript(dep.url);
+  }
   async function loadDeps() {
-    await loadScript("https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.16/vue.min.js");
-    await loadScript("https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.js");
-    await loadScript("https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.28.2/vue-i18n.min.js");
-    await loadScript("https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.4.0/fxparser.min.js");
+    try {
+      for (const dep of deps) {
+        await loadDep(dep);
+      }
+    } catch (error) {
+      console.error("[YM] failed to load dependencies:", error);
+      const loadingText = document.querySelector("#loading p");
+      if (loadingText)
+        loadingText.textContent = "Dependencies failed to load / \u4F9D\u8D56\u52A0\u8F7D\u5931\u8D25";
+      throw error;
+    }
+  }
+  function addResourceStyle(name) {
+    try {
+      const css = GM_getResourceText(name);
+      if (css)
+        GM_addStyle(css);
+    } catch (error) {
+      console.warn("[YM] failed to apply resource style:", name, error);
+    }
+  }
+  function getResourceText(name) {
+    try {
+      return GM_getResourceText(name) || "";
+    } catch (error) {
+      console.warn("[YM] failed to read resource:", name, error);
+      return "";
+    }
   }
   function replaceDocument() {
     const el = document.querySelector('[name="csrf-token"]');
@@ -388,11 +502,10 @@ var __publicField = (obj, key, value) => {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <title>${location.host.toUpperCase()} Masonry</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.css">
-    <style>${customStyle}</style>
-  `;
+  `.trim();
+    addResourceStyle("normalizecss");
+    addResourceStyle("vuetifycss");
+    GM_addStyle(customStyle);
     document.body.innerHTML = `
     <div id="app">
       <div id="loading">
@@ -406,7 +519,7 @@ var __publicField = (obj, key, value) => {
         </div>
       </div>
     </div>
-  `;
+  `.trim();
   }
   prepareApp(() => {(function(Vue2, Vuetify2, VueI18n2, fastXmlParser) {
   "use strict";
@@ -1462,6 +1575,8 @@ var __publicField = (obj, key, value) => {
   const dm7zGAYbP2sbGXO_ekDDl$3 = "Justified \u5E03\u5C40\u5BBD\u5EA6\u7CFB\u6570";
   const UOaS5wud2xGLzx9NGJxYQ$3 = "\u9009\u62E9\u76EE\u5F55";
   const jx2FWrN3O_8T7U5aSbvXj$3 = "\u9009\u62E9\u56FE\u7247\u7684\u4FDD\u5B58\u4F4D\u7F6E";
+  const downloadDefaultSizeTitle$3 = "\u9ED8\u8BA4\u4E0B\u8F7D\u56FE\u7247\u5927\u5C0F";
+  const downloadDefaultSizeSubtitle$3 = "\u9009\u62E9\u6279\u91CF\u4E0B\u8F7D\u548C\u5FEB\u6377\u4E0B\u8F7D\u9ED8\u8BA4\u4F7F\u7528\u7684\u56FE\u7247\u94FE\u63A5";
   var zhHans = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$3,
     "ZtQHZx-pEjmu_o3dQD1fc": "\u793E\u56E2",
@@ -1605,7 +1720,9 @@ var __publicField = (obj, key, value) => {
     jx2FWrN3O_8T7U5aSbvXj: jx2FWrN3O_8T7U5aSbvXj$3,
     "1sUsdpwBzU4gBf7Mrcihq": "\u56FE\u7247\u4FDD\u5B58\u76EE\u5F55",
     "rcpw-hgymDP2bsJPPUb_F": "\u9009\u62E9\u56FE\u7247\u7684\u4E0B\u8F7D\u65B9\u5F0F",
-    "Ah2uP1cGRBQ6jff-SIc-Q": "\u56FE\u7247\u4E0B\u8F7D\u65B9\u5F0F"
+    "Ah2uP1cGRBQ6jff-SIc-Q": "\u56FE\u7247\u4E0B\u8F7D\u65B9\u5F0F",
+    downloadDefaultSizeTitle: downloadDefaultSizeTitle$3,
+    downloadDefaultSizeSubtitle: downloadDefaultSizeSubtitle$3
   };
   const UxxldE9xRwmQctrvba5Y8$2 = "\u8A2D\u7F6E";
   const A16qoBulYQJLbHe9mqNwm$2 = "\u5305\u542B\u88F8\u9732\u3001\u6027\u611B\u63CF\u5BEB\u5167\u5BB9\u7B49\u904E\u6FC0\u5167\u5BB9";
@@ -1698,6 +1815,8 @@ var __publicField = (obj, key, value) => {
   const dm7zGAYbP2sbGXO_ekDDl$2 = "Justified \u4F48\u5C40\u5BEC\u5EA6\u4FC2\u6578";
   const UOaS5wud2xGLzx9NGJxYQ$2 = "\u9078\u64C7\u76EE\u9304";
   const jx2FWrN3O_8T7U5aSbvXj$2 = "\u9078\u64C7\u5716\u7247\u7684\u4FDD\u5B58\u4F4D\u7F6E";
+  const downloadDefaultSizeTitle$2 = "\u9810\u8A2D\u4E0B\u8F09\u5716\u7247\u5927\u5C0F";
+  const downloadDefaultSizeSubtitle$2 = "\u9078\u64C7\u6279\u91CF\u4E0B\u8F09\u8207\u5FEB\u6377\u4E0B\u8F09\u9810\u8A2D\u4F7F\u7528\u7684\u5716\u7247\u9023\u7D50";
   var zhHant = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$2,
     "1F-R4qChHIzZaohu5GJzl": "\u5F62\u5982: &api_key=xx&user_id=1",
@@ -1841,7 +1960,9 @@ var __publicField = (obj, key, value) => {
     jx2FWrN3O_8T7U5aSbvXj: jx2FWrN3O_8T7U5aSbvXj$2,
     "1sUsdpwBzU4gBf7Mrcihq": "\u5716\u7247\u4FDD\u5B58\u76EE\u9304",
     "rcpw-hgymDP2bsJPPUb_F": "\u9078\u64C7\u5716\u7247\u7684\u4E0B\u8F09\u65B9\u5F0F",
-    "Ah2uP1cGRBQ6jff-SIc-Q": "\u5716\u7247\u4E0B\u8F09\u65B9\u5F0F"
+    "Ah2uP1cGRBQ6jff-SIc-Q": "\u5716\u7247\u4E0B\u8F09\u65B9\u5F0F",
+    downloadDefaultSizeTitle: downloadDefaultSizeTitle$2,
+    downloadDefaultSizeSubtitle: downloadDefaultSizeSubtitle$2
   };
   const UxxldE9xRwmQctrvba5Y8$1 = "Settings";
   const A16qoBulYQJLbHe9mqNwm$1 = "Contains excessive content such as nudity and sexual descriptions";
@@ -1935,6 +2056,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const dm7zGAYbP2sbGXO_ekDDl$1 = "Justified layout width factor";
   const UOaS5wud2xGLzx9NGJxYQ$1 = "Select directory";
   const jx2FWrN3O_8T7U5aSbvXj$1 = "Choose where to save the image";
+  const downloadDefaultSizeTitle$1 = "Default download image size";
+  const downloadDefaultSizeSubtitle$1 = "Choose the image source used by batch and quick downloads by default";
   var en = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$1,
     "1F-R4qChHIzZaohu5GJzl": "e.g: &api_key=xx&user_id=1",
@@ -2078,7 +2201,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     jx2FWrN3O_8T7U5aSbvXj: jx2FWrN3O_8T7U5aSbvXj$1,
     "1sUsdpwBzU4gBf7Mrcihq": "Image saving directory",
     "rcpw-hgymDP2bsJPPUb_F": "Choose how to download images",
-    "Ah2uP1cGRBQ6jff-SIc-Q": "Image download method"
+    "Ah2uP1cGRBQ6jff-SIc-Q": "Image download method",
+    downloadDefaultSizeTitle: downloadDefaultSizeTitle$1,
+    downloadDefaultSizeSubtitle: downloadDefaultSizeSubtitle$1
   };
   const UxxldE9xRwmQctrvba5Y8 = "\u8A2D\u5B9A";
   const A16qoBulYQJLbHe9mqNwm = "\u30CC\u30FC\u30C9\u3084\u6027\u7684\u63CF\u5199\u306A\u3069\u306E\u904E\u5EA6\u306A\u5185\u5BB9\u304C\u542B\u307E\u308C\u3066\u3044\u308B\u3082\u306E";
@@ -2171,6 +2296,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const dm7zGAYbP2sbGXO_ekDDl = "\u4E21\u7AEF\u63C3\u3048\u30EC\u30A4\u30A2\u30A6\u30C8\u5E45\u4FC2\u6570";
   const UOaS5wud2xGLzx9NGJxYQ = "\u30C7\u30A3\u30EC\u30AF\u30C8\u30EA\u306E\u9078\u629E";
   const jx2FWrN3O_8T7U5aSbvXj = "\u753B\u50CF\u3092\u4FDD\u5B58\u3059\u308B\u5834\u6240\u3092\u9078\u629E\u3057\u307E\u3059";
+  const downloadDefaultSizeTitle = "\u65E2\u5B9A\u306E\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u753B\u50CF\u30B5\u30A4\u30BA";
+  const downloadDefaultSizeSubtitle = "\u4E00\u62EC\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u3068\u30AF\u30A4\u30C3\u30AF\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u3067\u65E2\u5B9A\u4F7F\u7528\u3059\u308B\u753B\u50CF\u30EA\u30F3\u30AF\u3092\u9078\u629E";
   var ja = {
     UxxldE9xRwmQctrvba5Y8,
     "1F-R4qChHIzZaohu5GJzl": "\u4F8B\uFF1A&api_key=xx&user_id=1",
@@ -2314,7 +2441,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     jx2FWrN3O_8T7U5aSbvXj,
     "1sUsdpwBzU4gBf7Mrcihq": "\u753B\u50CF\u4FDD\u5B58\u30C7\u30A3\u30EC\u30AF\u30C8\u30EA",
     "rcpw-hgymDP2bsJPPUb_F": "\u753B\u50CF\u306E\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u65B9\u6CD5\u3092\u9078\u629E\u3059\u308B",
-    "Ah2uP1cGRBQ6jff-SIc-Q": "\u753B\u50CF\u306E\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u65B9\u6CD5"
+    "Ah2uP1cGRBQ6jff-SIc-Q": "\u753B\u50CF\u306E\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u65B9\u6CD5",
+    downloadDefaultSizeTitle,
+    downloadDefaultSizeSubtitle
   };
   Vue__default["default"].use(VueI18n__default["default"]);
   const i18n = new VueI18n__default["default"]({
@@ -5430,7 +5559,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           };
         };
       }
-      document.head.insertAdjacentHTML("beforeend", '<link href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css" rel="stylesheet">');
+      try {
+        const fancyboxCss = GM_getResourceText("fancyboxcss");
+        if (fancyboxCss)
+          GM_addStyle(fancyboxCss);
+      } catch (error) {
+        console.warn("[YM] failed to apply fancybox style:", error);
+      }
       await loadScript("https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js");
     }
     const isMobile2 = navigator.userAgent.includes("Mobile");
@@ -6892,6 +7027,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "realbooru.com",
     "rule34hentai.net"
   ].includes(location.host);
+  const sampleDownloadHosts = /* @__PURE__ */ new Set([
+    "anime-pictures.net",
+    "gelbooru.com",
+    "rule34.xxx"
+  ]);
+  const isSampleDownloadSupportedSite = () => {
+    return notPartialSupportSite && (isBooruSite() || sampleDownloadHosts.has(location.host));
+  };
   const defCompTags = (() => {
     if (store.isYKSite) {
       return ["rating:s", "rating:q", "rating:e", "order:score", "order:vote", "order:mpixels", "order:landscape", "order:portrait"];
@@ -8170,6 +8313,45 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const isAutocompleteAct = Object.keys(autocompleteActions).includes(location.hostname);
   const fetchAutocomplete = autocompleteActions[location.hostname] || (() => {
   });
+  const downloadNameMap = {
+    sampleUrl: "sampleDownloadName",
+    jpegUrl: "jpegDownloadName",
+    fileUrl: "fileDownloadName"
+  };
+  const downloadFallbackMap = {
+    sampleUrl: ["sampleUrl", "fileUrl", "jpegUrl"],
+    jpegUrl: ["jpegUrl", "fileUrl", "sampleUrl"],
+    fileUrl: ["fileUrl", "sampleUrl", "jpegUrl"]
+  };
+  function getAvailableDownloadUrlKeys(hasSampleUrl, hasJpegUrl) {
+    const keys = [];
+    if (hasSampleUrl)
+      keys.push("sampleUrl");
+    if (hasJpegUrl)
+      keys.push("jpegUrl");
+    keys.push("fileUrl");
+    return keys;
+  }
+  function getActiveDownloadUrlKey(keys, preferred) {
+    return keys.find((key) => key === preferred) || keys[0] || "fileUrl";
+  }
+  function resolvePostDownloadSource(post, preferred) {
+    for (const key of downloadFallbackMap[preferred]) {
+      const url = post[key];
+      if (!url)
+        continue;
+      return {
+        key,
+        url,
+        name: post[downloadNameMap[key]] || post.fileDownloadName || post.sampleDownloadName || post.jpegDownloadName || ""
+      };
+    }
+    return {
+      key: preferred,
+      url: null,
+      name: post.fileDownloadName || post.sampleDownloadName || post.jpegDownloadName || ""
+    };
+  }
   var _sfc_main$a = /* @__PURE__ */ Vue2.defineComponent({
     __name: "AppBar",
     setup(__props) {
@@ -8370,14 +8552,29 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           }
         });
       }
-      const downloadUrlKey = Vue2.ref("fileUrl");
-      const downloadNameMap = {
-        fileUrl: "fileDownloadName",
-        jpegUrl: "jpegDownloadName"
-      };
-      const downloadNameKey = Vue2.computed(() => {
-        return downloadNameMap[downloadUrlKey.value] || "fileDownloadName";
+      const hasSampleDownload = isSampleDownloadSupportedSite();
+      const downloadSourceOptions = Vue2.computed(() => {
+        const options = [];
+        if (hasSampleDownload)
+          options.push({ text: i18n.t("wI4KHHIe3zNRziW4lDZrp").toString(), value: "sampleUrl" });
+        if (store.isYKSite)
+          options.push({ text: i18n.t("aVqN9TBRCbNGsW3Y2D2Nm").toString(), value: "jpegUrl" });
+        options.push({ text: i18n.t("jDjashxA-oBPo19DXI504").toString(), value: "fileUrl" });
+        return options;
       });
+      const showDownloadSourceSwitch = Vue2.computed(() => downloadSourceOptions.value.length > 1);
+      const downloadUrlKey = Vue2.computed({
+        get: () => {
+          const keys = getAvailableDownloadUrlKeys(hasSampleDownload, store.isYKSite);
+          return getActiveDownloadUrlKey(keys, settings.downloadUrlKey);
+        },
+        set: (val) => {
+          settings.downloadUrlKey = val;
+        }
+      });
+      function getItemDownloadUrl(item) {
+        return resolvePostDownloadSource(item, downloadUrlKey.value).url || "";
+      }
       const isGelbooru = location.host.includes("gelbooru");
       async function startDownload() {
         try {
@@ -8385,9 +8582,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           if (isGelbooru) {
             for (let index = 0; index < len; index++) {
               const item = store.selectedImageList[index];
-              const downloadUrl = item[downloadUrlKey.value] || item.fileUrl;
-              const downloadName = item[downloadNameKey.value];
-              if (!downloadUrl)
+              const { url: downloadUrl, name: downloadName } = resolvePostDownloadSource(item, downloadUrlKey.value);
+              if (!downloadUrl || !downloadName)
                 continue;
               download(downloadUrl, `${downloadName}`);
             }
@@ -8395,8 +8591,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           }
           for (let index = 0; index < len; index++) {
             const item = store.selectedImageList[index];
-            const downloadUrl = item[downloadUrlKey.value] || item.fileUrl;
-            let downloadName = store.isYKSite ? item.fileNameWithTags : item[downloadNameKey.value];
+            const { url: downloadUrl, name: resolvedName } = resolvePostDownloadSource(item, downloadUrlKey.value);
+            let downloadName = store.isYKSite ? item.fileNameWithTags || resolvedName : resolvedName;
             if (isR34PahealHome()) {
               downloadName = `${downloadName}.${item.data.file_name.split(".").pop()}`;
             }
@@ -8419,7 +8615,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const isExportUrlEncode = Vue2.ref(false);
       async function exportFileUrls() {
         const urlText = store.selectedImageList.map((e) => {
-          let url = e[downloadUrlKey.value] || e.fileUrl || "";
+          let url = resolvePostDownloadSource(e, downloadUrlKey.value).url || "";
           if (store.isYKSite && isExportUrlDecode.value) {
             try {
               url = decodeURIComponent(url);
@@ -8478,7 +8674,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           store.isFullscreen = !!document.fullscreenElement;
         });
       });
-      return { __sfc: true, title, isNoSelected, isOneOrMoreSelected, isAllSelected, loadingValue, selectAll, removeFromList, tagsQuery, searchState, onSearchTermInput, selectTag, userName, fetchTaggedPosts, showTagsInput, onSearchTermKeydown, showPopAction, periodMap, periodByDateMap, getRecentPeriod, isPopularRecent, getPopTitle, popTitle, isPopSearchByDate, recentPeriod, periodComputedMap, showPopDatePicker, popSearchDate, fetchPopularPosts, selPeriod, loadPrevPeriod, loadNextPeriod, goToPopularPage, showPool, poolQueryTerm, searchPool, download, downloadUrlKey, downloadNameMap, downloadNameKey, isGelbooru, startDownload, isExportUrlDecode, isExportUrlEncode, exportFileUrls, vuetify, toggleDarkmode, keyActions, goToPage, exitMasonry, toggleFullscreen, selectLang, mdiBrightness6, mdiCalendar, mdiCalendarSearch, mdiCheckUnderlineCircle, mdiCheckboxBlankOutline, mdiCheckboxIntermediate, mdiCheckboxMarked, mdiChevronLeft, mdiChevronRight, mdiCog, mdiDelete, mdiDownload, mdiFileClockOutline, mdiFire, mdiFullscreen, mdiFullscreenExit, mdiHome, mdiImageMultiple, mdiLocationExit, mdiMagnify, mdiShuffle, mdiStar, mdiTranslate, settings, store, toggleDrawer, langList, isSupportTagSearch, notPartialSupportSite, isSankakuSite, isZerochanPage };
+      return { __sfc: true, title, isNoSelected, isOneOrMoreSelected, isAllSelected, loadingValue, selectAll, removeFromList, tagsQuery, searchState, onSearchTermInput, selectTag, userName, fetchTaggedPosts, showTagsInput, onSearchTermKeydown, showPopAction, periodMap, periodByDateMap, getRecentPeriod, isPopularRecent, getPopTitle, popTitle, isPopSearchByDate, recentPeriod, periodComputedMap, showPopDatePicker, popSearchDate, fetchPopularPosts, selPeriod, loadPrevPeriod, loadNextPeriod, goToPopularPage, showPool, poolQueryTerm, searchPool, download, hasSampleDownload, downloadSourceOptions, showDownloadSourceSwitch, downloadUrlKey, getItemDownloadUrl, isGelbooru, startDownload, isExportUrlDecode, isExportUrlEncode, exportFileUrls, vuetify, toggleDarkmode, keyActions, goToPage, exitMasonry, toggleFullscreen, selectLang, mdiBrightness6, mdiCalendar, mdiCalendarSearch, mdiCheckUnderlineCircle, mdiCheckboxBlankOutline, mdiCheckboxIntermediate, mdiCheckboxMarked, mdiChevronLeft, mdiChevronRight, mdiCog, mdiDelete, mdiDownload, mdiFileClockOutline, mdiFire, mdiFullscreen, mdiFullscreenExit, mdiHome, mdiImageMultiple, mdiLocationExit, mdiMagnify, mdiShuffle, mdiStar, mdiTranslate, settings, store, toggleDrawer, langList, isSupportTagSearch, notPartialSupportSite, isSankakuSite, isZerochanPage };
     }
   });
   var _sfc_render$a = function render() {
@@ -8543,14 +8739,16 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return _setup.goToPopularPage();
     } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiFire))])], 1)], 1) : _vm._e(), _c("v-spacer"), _setup.store.showPostList && _setup.notPartialSupportSite ? [_c("span", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length, expression: "store.selectedImageList.length" }], staticClass: "hidden-md-and-down ml-1 mr-1", staticStyle: { "margin-top": "2px" } }, [_vm._v(" " + _vm._s(_setup.store.selectedImageList.length) + " ")]), _c("v-btn", { staticClass: "hidden-md-and-down", attrs: { "icon": "" }, on: { "click": _setup.selectAll } }, [_c("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isNoSelected, expression: "isNoSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxBlankOutline))]), _c("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isOneOrMoreSelected, expression: "isOneOrMoreSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxIntermediate))]), _c("v-icon", { directives: [{ name: "show", rawName: "v-show", value: _setup.isAllSelected, expression: "isAllSelected" }] }, [_vm._v(_vm._s(_setup.mdiCheckboxMarked))])], 1), _c("v-menu", { attrs: { "dense": "", "offset-y": "", "close-on-content-click": false }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c("v-btn", _vm._g(_vm._b({ staticClass: "hidden-md-and-down", attrs: { "title": _vm.$t("OKs1ePekQA4Ona839U114"), "icon": "" } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1)];
-    } }], null, false, 1780380651) }, [_c("v-list", { staticStyle: { "min-width": "300px", "max-height": "80vh", "overflow": "auto" }, attrs: { "dense": "", "flat": "" } }, [_c("v-subheader", { staticClass: "ml-2" }, [_c("span", { staticClass: "mr-4" }, [_vm._v(_vm._s(_vm.$t("OKs1ePekQA4Ona839U114")))]), _c("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], attrs: { "small": "" }, on: { "click": _setup.startDownload } }, [_vm._v(" " + _vm._s(_vm.$t("cKn4cfAxzdgh_HD6OFibB")) + " ")]), _c("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], staticClass: "ml-2", attrs: { "small": "" }, on: { "click": _setup.exportFileUrls } }, [_vm._v(" " + _vm._s(_vm.$t("J2Ckb_-LITfmww4aEksqk")) + " ")])], 1), _setup.store.isYKSite ? _c("div", { staticClass: "d-flex align-center mt-1 ml-2" }, [_c("v-radio-group", { staticClass: "mr-1 mt-0", attrs: { "hide-details": "", "dense": "", "row": "" }, model: { value: _setup.downloadUrlKey, callback: function($$v) {
+    } }], null, false, 1780380651) }, [_c("v-list", { staticStyle: { "min-width": "300px", "max-height": "80vh", "overflow": "auto" }, attrs: { "dense": "", "flat": "" } }, [_c("v-subheader", { staticClass: "ml-2" }, [_c("span", { staticClass: "mr-4" }, [_vm._v(_vm._s(_vm.$t("OKs1ePekQA4Ona839U114")))]), _c("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], attrs: { "small": "" }, on: { "click": _setup.startDownload } }, [_vm._v(" " + _vm._s(_vm.$t("cKn4cfAxzdgh_HD6OFibB")) + " ")]), _c("v-btn", { directives: [{ name: "show", rawName: "v-show", value: _setup.store.selectedImageList.length > 0, expression: "store.selectedImageList.length > 0" }], staticClass: "ml-2", attrs: { "small": "" }, on: { "click": _setup.exportFileUrls } }, [_vm._v(" " + _vm._s(_vm.$t("J2Ckb_-LITfmww4aEksqk")) + " ")])], 1), _setup.showDownloadSourceSwitch ? _c("div", { staticClass: "d-flex align-center mt-1 ml-2" }, [_c("v-radio-group", { staticClass: "mr-1 mt-0", attrs: { "hide-details": "", "dense": "", "row": "" }, model: { value: _setup.downloadUrlKey, callback: function($$v) {
       _setup.downloadUrlKey = $$v;
-    }, expression: "downloadUrlKey" } }, [_c("v-radio", { attrs: { "label": _vm.$t("aVqN9TBRCbNGsW3Y2D2Nm"), "value": "jpegUrl" } }), _c("v-radio", { attrs: { "label": _vm.$t("jDjashxA-oBPo19DXI504"), "value": "fileUrl" } })], 1), _c("v-switch", { staticClass: "mt-0 mr-1", attrs: { "label": "Decode URL", "hide-details": "", "dense": "" }, model: { value: _setup.isExportUrlDecode, callback: function($$v) {
+    }, expression: "downloadUrlKey" } }, _vm._l(_setup.downloadSourceOptions, function(item) {
+      return _c("v-radio", { key: item.value, attrs: { "label": item.text, "value": item.value } });
+    }), 1)], 1) : _vm._e(), _setup.store.isYKSite ? _c("div", { staticClass: "d-flex align-center mt-1 ml-2" }, [_c("v-switch", { staticClass: "mt-0 mr-1", attrs: { "label": "Decode URL", "hide-details": "", "dense": "" }, model: { value: _setup.isExportUrlDecode, callback: function($$v) {
       _setup.isExportUrlDecode = $$v;
     }, expression: "isExportUrlDecode" } })], 1) : _vm._e(), !_setup.isZerochanPage() ? _c("div", { staticClass: "d-flex align-center mt-1 ml-2" }, [_c("v-switch", { staticClass: "mt-0 mr-1", attrs: { "label": "Encode URL", "hide-details": "", "dense": "" }, model: { value: _setup.isExportUrlEncode, callback: function($$v) {
       _setup.isExportUrlEncode = $$v;
     }, expression: "isExportUrlEncode" } })], 1) : _vm._e(), _c("v-list-item-group", { attrs: { "color": "primary" } }, _vm._l(_setup.store.selectedImageList, function(item) {
-      return _c("v-list-item", { key: item.id, attrs: { "dense": "", "two-line": "" } }, [_c("v-list-item-avatar", [!item.loading && !item.loaded ? _c("v-btn", { attrs: { "icon": "" } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiFileClockOutline))])], 1) : _vm._e(), item.loaded ? _c("v-btn", { attrs: { "icon": "", "color": "green" } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiCheckUnderlineCircle))])], 1) : _vm._e(), item.loading ? _c("v-progress-circular", { attrs: { "rotate": -90, "size": 28, "value": _setup.loadingValue, "color": "pink" } }) : _vm._e()], 1), _c("v-list-item-content", { staticStyle: { "max-width": "240px" } }, [_c("v-list-item-subtitle", { attrs: { "title": item.fileNameWithTags }, domProps: { "textContent": _vm._s(item.fileNameWithTags) } }), _c("v-list-item-subtitle", { attrs: { "title": item[_setup.downloadUrlKey] }, domProps: { "textContent": _vm._s(item[_setup.downloadUrlKey]) } })], 1), _c("v-list-item-action", [_c("v-btn", { attrs: { "icon": "" }, on: { "click": function($event) {
+      return _c("v-list-item", { key: item.id, attrs: { "dense": "", "two-line": "" } }, [_c("v-list-item-avatar", [!item.loading && !item.loaded ? _c("v-btn", { attrs: { "icon": "" } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiFileClockOutline))])], 1) : _vm._e(), item.loaded ? _c("v-btn", { attrs: { "icon": "", "color": "green" } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiCheckUnderlineCircle))])], 1) : _vm._e(), item.loading ? _c("v-progress-circular", { attrs: { "rotate": -90, "size": 28, "value": _setup.loadingValue, "color": "pink" } }) : _vm._e()], 1), _c("v-list-item-content", { staticStyle: { "max-width": "240px" } }, [_c("v-list-item-subtitle", { attrs: { "title": item.fileNameWithTags }, domProps: { "textContent": _vm._s(item.fileNameWithTags) } }), _c("v-list-item-subtitle", { attrs: { "title": _setup.getItemDownloadUrl(item) }, domProps: { "textContent": _vm._s(_setup.getItemDownloadUrl(item)) } })], 1), _c("v-list-item-action", [_c("v-btn", { attrs: { "icon": "" }, on: { "click": function($event) {
         return _setup.removeFromList(item.id);
       } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiDelete))])], 1)], 1)], 1);
     }), 1)], 1)], 1)] : _vm._e(), _c("v-btn", { attrs: { "title": _vm.$t("u8mEnSo4mxDRUbj7FeAll"), "icon": "" }, on: { "click": _setup.toggleDarkmode } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiBrightness6))])], 1), _c("v-btn", { staticClass: "hidden-md-and-down", attrs: { "title": _vm.$t("OrwwNKZ7I70-ecpspE8d_"), "icon": "" }, on: { "click": _setup.toggleFullscreen } }, [_c("v-icon", { attrs: { "size": 30 } }, [_vm._v(_vm._s(_setup.store.isFullscreen ? _setup.mdiFullscreenExit : _setup.mdiFullscreen))])], 1), _c("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
@@ -8575,6 +8773,65 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     null
   );
   var AppBar = __component__$a.exports;
+  function isDanbooruPage() {
+    return location.hostname == "danbooru.donmai.us";
+  }
+  const isCNLang$1 = i18n.locale.includes("zh");
+  const tagSortOrder = ["artist", "copyright", "character", "general"];
+  function getDanbooruTagDetail(image) {
+    const { data, tags } = image;
+    const tagMap2 = {
+      artist: [i18n.t("Ym0HIEu9Q80qXB31LuC6c"), "#FB8C00", data.tag_string_artist.split(/\s+/)],
+      copyright: [i18n.t("juT6gwLOg5r1h2vFpFf6P"), "#AB47BC", data.tag_string_copyright.split(/\s+/)],
+      character: [i18n.t("aonlPAu9kEkkwNvQg0DBk"), "#66BB6A", data.tag_string_character.split(/\s+/)]
+    };
+    return {
+      voted: false,
+      tags: tags.map((tag2) => {
+        const tagCN = isCNLang$1 && window.__tagsCN?.[tag2.replace(/_/g, " ")];
+        const typedTag = { type: "", text: "", color: "" };
+        for (const [key, val] of Object.entries(tagMap2)) {
+          if (val[2].includes(tag2)) {
+            typedTag.type = key;
+            typedTag.text = val[0];
+            typedTag.color = val[1];
+            break;
+          }
+        }
+        const tagText = [
+          typedTag.text && `[ ${typedTag.text} ] `,
+          tag2,
+          tagCN && ` [ ${tagCN} ]`
+        ].filter(Boolean).join("");
+        return {
+          tag: tag2,
+          tagText,
+          color: typedTag.color || "#8F77B5",
+          type: typedTag.type || "general"
+        };
+      }).sort((a, b) => {
+        return tagSortOrder.indexOf(a.type) - tagSortOrder.indexOf(b.type);
+      })
+    };
+  }
+  async function addFavoriteDanbooru(id) {
+    const response = await fetch(`https://danbooru.donmai.us/favorites?post_id=${id}`, {
+      method: "POST",
+      headers: { "x-csrf-token": sessionStorage.getItem("csrf-token") ?? "" }
+    });
+    if (!response.ok) {
+      showMsg({ msg: `${i18n.t("MWVfUiW8egLWq7MgV-wzc")}: ${response.status}`, type: "error" });
+      return false;
+    }
+    const result = await response.text();
+    if (result.includes('toggleClass("fav-buttons-true")')) {
+      showMsg({ msg: i18n.t("ctWGhVvqB2k_1TX2iY0l2").toString() });
+      return true;
+    } else {
+      showMsg({ msg: `${i18n.t("MWVfUiW8egLWq7MgV-wzc")}: ${result}`, type: "error" });
+      return false;
+    }
+  }
   var _sfc_main$9 = /* @__PURE__ */ Vue2.defineComponent({
     __name: "NavDrawer",
     setup(__props) {
@@ -8590,22 +8847,25 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           return "http://behoimi.org";
         return `https://${link}`;
       }
-      function handleFavicon(link) {
-        if (link.includes("konachan"))
-          return "https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/cbd0b71ead30e0777e5b023170ba415c_4819570566325089051.png";
-        if (link.includes("behoimi"))
-          return "https://upload-bbs.miyoushe.com/upload/2023/01/14/190122060/d3b97f45046795c87c12ad5704074f32_1333245617164582614.png";
-        if (link.includes("sankaku") || link.includes("idolcomplex"))
-          return "https://upload-bbs.miyoushe.com/upload/2025/03/29/190122060/4fa56922d173d28ac8e687caaa487f27_1885629069482225420.png";
-        if (link.includes("rule34.xxx"))
-          return "https://upload-bbs.miyoushe.com/upload/2025/03/29/190122060/76ba90d4350a1455f899d2a1500fca69_8344852329496206545.png";
-        if (link.includes("rule34hentai.net"))
-          return "https://prod-alicdn-community.kurobbs.com/forum/ee44a4b6a2cc4f08b693cfc4e364b1fa20260129.png";
-        if (link.includes("aibooru.online"))
-          return "https://prod-alicdn-community.kurobbs.com/forum/177e56ba1e704d6b85e492a365642dd920260129.png";
-        if (link.includes("allthefallen") || link.includes("allgirl"))
-          return "https://kwc.cocomi.eu.org/https://danbooru.donmai.us/favicon.ico";
-        return `https://kwc.cocomi.eu.org/https://${link.split("/")[0]}/favicon.ico`;
+      const FALLBACK_COLORS = ["#e91e63", "#8e24aa", "#3949ab", "#1e88e5", "#00897b", "#43a047", "#f4511e", "#5c6bc0"];
+      const toolLinks = [
+        { title: "Pixiv Viewer", url: "https://pixiv.pictures/?ref=booru.vercel.app", host: "pixiv.pictures" },
+        { title: "Moeview", url: "https://moeview.cocomi.eu.org/?ref=booru.vercel.app", host: "moeview.cocomi.eu.org" },
+        { title: "R-34.XYZ", url: "https://r-34.xyz/?ref=booru.vercel.app", host: "r-34.xyz" },
+        { title: "Nekon", url: "https://nekon.app/?ref=booru.vercel.app", host: "nekon.app" },
+        { title: "SomeACG", url: "https://www.someacg.top/?ref=booru.vercel.app", host: "someacg.top" },
+        { title: "ManyACG", url: "https://manyacg.top/?ref=booru.vercel.app", host: "manyacg.top" },
+        { title: "Cosine Gallery", url: "https://pic.cosine.ren/?ref=booru.vercel.app", host: "pic.cosine.ren" }
+      ];
+      function fallbackColor(url) {
+        let hash = 0;
+        for (let i = 0; i < url.length; i++)
+          hash = hash * 31 + url.charCodeAt(i) >>> 0;
+        return FALLBACK_COLORS[hash % FALLBACK_COLORS.length];
+      }
+      function fallbackLetter(url) {
+        const host = url.replace(/^https?:\/\//, "").split("/")[0].replace(/^www\./, "");
+        return host.charAt(0).toUpperCase() || "?";
       }
       const actSiteIndex = Vue2.computed(() => {
         return siteDomains.findIndex((e) => location.href.includes(e));
@@ -8621,34 +8881,24 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
             userName.value = name;
         }
       });
-      return { __sfc: true, userName, version, openLink, handleLink, handleFavicon, actSiteIndex, showSettingDrawer, mdiAccount, mdiFire, mdiGithub, mdiImageMultiple, mdiInformationOutline, mdiMessageAlertOutline, mdiShuffle, mdiStar, mdiWeb, getSiteTitle, siteDomains, store };
+      return { __sfc: true, userName, version, openLink, handleLink, FALLBACK_COLORS, toolLinks, fallbackColor, fallbackLetter, actSiteIndex, showSettingDrawer, mdiAccount, mdiFire, mdiGithub, mdiImageMultiple, mdiInformationOutline, mdiMessageAlertOutline, mdiShuffle, mdiStar, mdiWeb, getSiteTitle, siteDomains, isDanbooruPage, store };
     }
   });
   var _sfc_render$9 = function render() {
     var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
     return _c("v-navigation-drawer", { staticClass: "nav_drawer", attrs: { "app": "", "temporary": "" }, model: { value: _setup.store.showDrawer, callback: function($$v) {
       _vm.$set(_setup.store, "showDrawer", $$v);
-    }, expression: "store.showDrawer" } }, [_c("v-list-item", [_c("v-list-item-avatar", [_c("img", { attrs: { "width": "40", "src": "https://upload-bbs.mihoyo.com/upload/2022/09/07/190122060/8505ff4b535cb1487b521d73c7f71d63_865024295271530650.png", "alt": "", "loading": "lazy" } })]), _c("v-list-item-content", [_c("v-list-item-title", { staticClass: "title" }, [_vm._v("Booru Masonry")]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("l8CbIALt_VWUnzBl_Rmgf") } }, [_vm._v(_vm._s(_vm.$t("l8CbIALt_VWUnzBl_Rmgf")))])], 1)], 1), _c("v-divider"), _setup.store.isYKSite ? _c("v-list", { attrs: { "dense": "", "nav": "" } }, [_c("v-list-group", { attrs: { "value": true, "no-action": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function() {
+    }, expression: "store.showDrawer" } }, [_c("v-list-item", [!_setup.isDanbooruPage() ? _c("v-list-item-avatar", [_c("img", { attrs: { "width": "40", "src": "https://upload-bbs.mihoyo.com/upload/2022/09/07/190122060/8505ff4b535cb1487b521d73c7f71d63_865024295271530650.png", "alt": "", "loading": "lazy" } })]) : _vm._e(), _c("v-list-item-content", [_c("v-list-item-title", { staticClass: "title" }, [_vm._v("Booru Masonry")]), _c("v-list-item-subtitle", { attrs: { "title": _vm.$t("l8CbIALt_VWUnzBl_Rmgf") } }, [_vm._v(_vm._s(_vm.$t("l8CbIALt_VWUnzBl_Rmgf")))])], 1)], 1), _c("v-divider"), _setup.store.isYKSite ? _c("v-list", { attrs: { "dense": "", "nav": "" } }, [_c("v-list-group", { attrs: { "value": true, "no-action": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function() {
       return [_c("v-list-item-content", [_c("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("CacM8tispuPNrSxxpt9GX")))])], 1)];
     }, proxy: true }], null, false, 765759728) }, [_setup.userName ? _c("v-list-item", { attrs: { "link": "", "href": "/user/home" } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiAccount))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_setup.userName))])], 1)], 1) : _vm._e(), _setup.userName ? _c("v-list-item", { attrs: { "link": "", "href": `/post?tags=vote%3A3%3A${_setup.userName}+order%3Avote&_wf=1` } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiStar))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("zs8YTCc8d8XFUgRnp7m_w")))])], 1)], 1) : _vm._e(), _c("v-list-item", { attrs: { "link": "", "href": "/pool?page=1" } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiImageMultiple))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("DXEhXAQbkiCMU_l252jo_")))])], 1)], 1), _c("v-list-item", { attrs: { "link": "", "href": "/post/popular_recent?period=1d" } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiFire))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("7Cgsr4PUMbezDXNfWdvWH")))])], 1)], 1), _c("v-list-item", { attrs: { "link": "", "href": "/post?tags=order%3Arandom&page=1" } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiShuffle))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("StU1-52QJmNFKQ5soJCyG")))])], 1)], 1)], 1)], 1) : _vm._e(), _c("v-list", { attrs: { "dense": "", "nav": "" } }, [_c("v-list-group", { attrs: { "value": true, "no-action": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function() {
       return [_c("v-list-item-content", [_c("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("e2_EYvweJsVoIZlIWkPRV")))])], 1)];
     }, proxy: true }]) }, [_c("v-list-item-group", { attrs: { "value": _setup.actSiteIndex, "color": "primary" } }, [_vm._l(_setup.siteDomains, function(link) {
-      return _c("v-list-item", { key: link, attrs: { "href": _setup.handleLink(link), "referrerpolicy": "no-referrer" } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("img", { staticClass: "site_icon", attrs: { "src": _setup.handleFavicon(link), "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_setup.getSiteTitle(link)))])], 1)], 1);
-    }), _c("hr", { staticClass: "my-2" }), _c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
-      return _setup.openLink("https://pixiv.pictures/?ref=booru.vercel.app");
-    } } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("img", { staticClass: "site_icon", attrs: { "src": "https://pixiv.pictures/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Pixiv Viewer")])], 1)], 1), _c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
-      return _setup.openLink("https://moeview.cocomi.eu.org/?ref=booru.vercel.app");
-    } } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("img", { staticClass: "site_icon", attrs: { "src": "https://moeview.cocomi.eu.org/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Moeview")])], 1)], 1), _c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
-      return _setup.openLink("https://r-34.xyz/?ref=booru.vercel.app");
-    } } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("img", { staticClass: "site_icon", attrs: { "src": "https://r-34.xyz/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("R-34.XYZ")])], 1)], 1), _c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
-      return _setup.openLink("https://nekon.app/?ref=booru.vercel.app");
-    } } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("img", { staticClass: "site_icon", attrs: { "src": "https://nekon.app/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Nekon")])], 1)], 1), _c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
-      return _setup.openLink("https://www.someacg.top/?ref=booru.vercel.app");
-    } } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("img", { staticClass: "site_icon", attrs: { "src": "https://www.someacg.top/favicon.png", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("SomeACG")])], 1)], 1), _c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
-      return _setup.openLink("https://manyacg.top/?ref=booru.vercel.app");
-    } } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("img", { staticClass: "site_icon", attrs: { "src": "https://manyacg.top/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("ManyACG")])], 1)], 1), _c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
-      return _setup.openLink("https://pic.cosine.ren/?ref=booru.vercel.app");
-    } } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("img", { staticClass: "site_icon", attrs: { "src": "https://pic.cosine.ren/favicon.ico", "loading": "lazy", "referrerpolicy": "no-referrer" } })]), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v("Cosine Gallery")])], 1)], 1)], 2)], 1)], 1), _c("v-list", { attrs: { "dense": "", "nav": "" } }, [_c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
+      return _c("v-list-item", { key: link, attrs: { "href": _setup.handleLink(link), "referrerpolicy": "no-referrer" } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("div", { staticClass: "site_icon site_icon_fallback", style: { backgroundColor: _setup.fallbackColor(link) } }, [_vm._v(_vm._s(_setup.fallbackLetter(link)))])]), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_setup.getSiteTitle(link)))])], 1)], 1);
+    }), _c("hr", { staticClass: "my-2" }), _vm._l(_setup.toolLinks, function(tool) {
+      return _c("v-list-item", { key: tool.host, attrs: { "link": "" }, on: { "click": function($event) {
+        return _setup.openLink(tool.url);
+      } } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("div", { staticClass: "site_icon site_icon_fallback", style: { backgroundColor: _setup.fallbackColor(tool.host) } }, [_vm._v(_vm._s(_setup.fallbackLetter(tool.host)))])]), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(tool.title))])], 1)], 1);
+    })], 2)], 1)], 1), _c("v-list", { attrs: { "dense": "", "nav": "" } }, [_c("v-list-item", { attrs: { "link": "" }, on: { "click": function($event) {
       return _setup.showSettingDrawer();
     } } }, [_c("v-list-item-content", [_c("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("UxxldE9xRwmQctrvba5Y8")))])], 1)], 1)], 1), _c("v-list", { attrs: { "dense": "", "nav": "" } }, [_c("v-list-group", { attrs: { "value": true, "no-action": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function() {
       return [_c("v-list-item-content", [_c("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("PT74UDfKA45vTVTst_-hD")))])], 1)];
@@ -8700,6 +8950,24 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           }
         }).catch(() => showMsg({ msg: i18n.t("si-zDDRFrEwDTCkp53Q44"), type: "error" }));
       }
+      const hasSampleDownload = isSampleDownloadSupportedSite();
+      const downloadSourceOptions = Vue2.computed(() => {
+        const options = [];
+        if (hasSampleDownload)
+          options.push({ text: i18n.t("wI4KHHIe3zNRziW4lDZrp").toString(), value: "sampleUrl" });
+        if (store.isYKSite)
+          options.push({ text: i18n.t("k4YzDnBtd_S2UpAQucGxF").toString(), value: "jpegUrl" });
+        options.push({ text: i18n.t("VpuyxZtIoDF9-YyOm0tK_").toString(), value: "fileUrl" });
+        return options;
+      });
+      const showDownloadSourceSetting = Vue2.computed(() => notPartialSupportSite && downloadSourceOptions.value.length > 1);
+      const activeDownloadUrlKey = Vue2.computed(() => {
+        const keys = getAvailableDownloadUrlKeys(hasSampleDownload, store.isYKSite);
+        return getActiveDownloadUrlKey(keys, settings.downloadUrlKey);
+      });
+      const actDownloadSourceText = Vue2.computed(() => {
+        return downloadSourceOptions.value.find((e) => e.value === activeDownloadUrlKey.value)?.text || i18n.t("VpuyxZtIoDF9-YyOm0tK_").toString();
+      });
       const downloadMethods = Vue2.ref([
         { text: "Tampermonkey", value: "tm" },
         { text: "FileSystemAccess", value: "fsa" },
@@ -8779,7 +9047,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           settings.imgPreloadNum = num;
         }
       }
-      return { __sfc: true, isBoorus, isYandere, currentLanglabel, selectLang, removeTagFromBlacklist, exportBlacklist, importBlacklist, downloadMethods, actDownloadMethod, fsaDirName, getFsaDirName, setFsaDirName, dlSubLoading, showDLConfirm, setDLSubpathOn, onDLSubpathChange, windowWidth, allColList, colList, cols, actCol, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onPreloadNumBlur, mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, settings, store, langList, notPartialSupportSite, isFsaSupported };
+      return { __sfc: true, isBoorus, isYandere, currentLanglabel, selectLang, removeTagFromBlacklist, exportBlacklist, importBlacklist, hasSampleDownload, downloadSourceOptions, showDownloadSourceSetting, activeDownloadUrlKey, actDownloadSourceText, downloadMethods, actDownloadMethod, fsaDirName, getFsaDirName, setFsaDirName, dlSubLoading, showDLConfirm, setDLSubpathOn, onDLSubpathChange, windowWidth, allColList, colList, cols, actCol, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onPreloadNumBlur, mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, settings, store, langList, notPartialSupportSite, isFsaSupported };
     }
   });
   var _sfc_render$8 = function render() {
@@ -8836,7 +9104,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       _vm.$set(_setup.settings, "justifiedBaseWidth", $$v);
     }, expression: "settings.justifiedBaseWidth" } })], 1)], 1) : _vm._e(), _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("4yzHPggVky2QKFD2TbBhl")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("HSx0XMZFid_lVuwjzrhH0")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isThumbSampleUrl, callback: function($$v) {
       _vm.$set(_setup.settings, "isThumbSampleUrl", $$v);
-    }, expression: "settings.isThumbSampleUrl" } })], 1)], 1), _setup.notPartialSupportSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Ah2uP1cGRBQ6jff-SIc-Q")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("rcpw-hgymDP2bsJPPUb_F")))])], 1), _c("v-list-item-action", [_c("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    }, expression: "settings.isThumbSampleUrl" } })], 1)], 1), _setup.showDownloadSourceSetting ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("downloadDefaultSizeTitle")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("downloadDefaultSizeSubtitle")))])], 1), _c("v-list-item-action", [_c("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "sel_menu_btn", attrs: { "small": "" } }, "v-btn", attrs, false), on), [_vm._v(" " + _vm._s(_setup.actDownloadSourceText) + " "), _c("v-icon", { attrs: { "size": 16 } }, [_vm._v(_vm._s(_setup.mdiChevronDown))])], 1)];
+    } }], null, false, 1887710908) }, [_c("v-list", { attrs: { "dense": "" } }, [_c("v-list-item-group", { attrs: { "value": _setup.activeDownloadUrlKey, "color": "primary" } }, _vm._l(_setup.downloadSourceOptions, function(it) {
+      return _c("v-list-item", { key: it.value, attrs: { "value": it.value, "dense": "" }, on: { "click": function($event) {
+        _setup.settings.downloadUrlKey = it.value;
+      } } }, [_c("v-list-item-title", [_vm._v(_vm._s(it.text))])], 1);
+    }), 1)], 1)], 1)], 1)], 1) : _vm._e(), _setup.notPartialSupportSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Ah2uP1cGRBQ6jff-SIc-Q")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("rcpw-hgymDP2bsJPPUb_F")))])], 1), _c("v-list-item-action", [_c("v-menu", { attrs: { "transition": "slide-y-transition", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c("v-btn", _vm._g(_vm._b({ staticClass: "sel_menu_btn", attrs: { "small": "" } }, "v-btn", attrs, false), on), [_vm._v(" " + _vm._s(_setup.actDownloadMethod) + " "), _c("v-icon", { attrs: { "size": 16 } }, [_vm._v(_vm._s(_setup.mdiChevronDown))])], 1)];
     } }], null, false, 1357285571) }, [_c("v-list", { attrs: { "dense": "" } }, [_c("v-list-item-group", { attrs: { "value": _setup.settings.downloadBy, "color": "primary" } }, _vm._l(_setup.downloadMethods, function(it) {
       return _c("v-list-item", { key: it.value, attrs: { "value": it.value, "dense": "" }, on: { "click": function($event) {
@@ -9100,65 +9374,6 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     null
   );
   var PostExportTags = __component__$6.exports;
-  function isDanbooruPage() {
-    return location.hostname == "danbooru.donmai.us";
-  }
-  const isCNLang$1 = i18n.locale.includes("zh");
-  const tagSortOrder = ["artist", "copyright", "character", "general"];
-  function getDanbooruTagDetail(image) {
-    const { data, tags } = image;
-    const tagMap2 = {
-      artist: [i18n.t("Ym0HIEu9Q80qXB31LuC6c"), "#FB8C00", data.tag_string_artist.split(/\s+/)],
-      copyright: [i18n.t("juT6gwLOg5r1h2vFpFf6P"), "#AB47BC", data.tag_string_copyright.split(/\s+/)],
-      character: [i18n.t("aonlPAu9kEkkwNvQg0DBk"), "#66BB6A", data.tag_string_character.split(/\s+/)]
-    };
-    return {
-      voted: false,
-      tags: tags.map((tag2) => {
-        const tagCN = isCNLang$1 && window.__tagsCN?.[tag2.replace(/_/g, " ")];
-        const typedTag = { type: "", text: "", color: "" };
-        for (const [key, val] of Object.entries(tagMap2)) {
-          if (val[2].includes(tag2)) {
-            typedTag.type = key;
-            typedTag.text = val[0];
-            typedTag.color = val[1];
-            break;
-          }
-        }
-        const tagText = [
-          typedTag.text && `[ ${typedTag.text} ] `,
-          tag2,
-          tagCN && ` [ ${tagCN} ]`
-        ].filter(Boolean).join("");
-        return {
-          tag: tag2,
-          tagText,
-          color: typedTag.color || "#8F77B5",
-          type: typedTag.type || "general"
-        };
-      }).sort((a, b) => {
-        return tagSortOrder.indexOf(a.type) - tagSortOrder.indexOf(b.type);
-      })
-    };
-  }
-  async function addFavoriteDanbooru(id) {
-    const response = await fetch(`https://danbooru.donmai.us/favorites?post_id=${id}`, {
-      method: "POST",
-      headers: { "x-csrf-token": sessionStorage.getItem("csrf-token") ?? "" }
-    });
-    if (!response.ok) {
-      showMsg({ msg: `${i18n.t("MWVfUiW8egLWq7MgV-wzc")}: ${response.status}`, type: "error" });
-      return false;
-    }
-    const result = await response.text();
-    if (result.includes('toggleClass("fav-buttons-true")')) {
-      showMsg({ msg: i18n.t("ctWGhVvqB2k_1TX2iY0l2").toString() });
-      return true;
-    } else {
-      showMsg({ msg: `${i18n.t("MWVfUiW8egLWq7MgV-wzc")}: ${result}`, type: "error" });
-      return false;
-    }
-  }
   const favActions = {
     "yande.re": addPostToFavorites$1,
     "konachan.com": addPostToFavorites$1,
@@ -9178,7 +9393,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     if (fileUrl)
       img.value.fileUrl = fileUrl;
     if (sampleUrl)
-      img.value.fileUrl = sampleUrl;
+      img.value.sampleUrl = sampleUrl;
   }
   async function setPostDetail(imageSelected, postDetail) {
     if (store.isYKSite) {
@@ -9705,6 +9920,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const isR34Fav = Vue2.ref(isRule34FavPage() || isGelbooruFavPage());
       const showImageList = Vue2.ref(true);
       const showFab = Vue2.ref(false);
+      const hasSampleDownload = isSampleDownloadSupportedSite();
+      const activeDownloadUrlKey = Vue2.computed(() => {
+        const keys = getAvailableDownloadUrlKeys(hasSampleDownload, store.isYKSite);
+        return getActiveDownloadUrlKey(keys, settings.downloadUrlKey);
+      });
       Vue2.watch(
         () => settings.selectedColumn,
         () => {
@@ -9785,17 +10005,18 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         const img = post || ctxActPost.value;
         if (!img)
           return;
-        let { fileDownloadName } = img;
-        if (!img.fileUrl)
+        const { url: downloadUrl, name: resolvedName } = resolvePostDownloadSource(img, activeDownloadUrlKey.value);
+        let downloadName = resolvedName;
+        if (!downloadUrl)
           return;
         if (store.isYKSite) {
-          fileDownloadName = `${location.hostname} ${img.id} ${img.tags.join(" ")}`;
+          downloadName = `${location.hostname} ${img.id} ${img.tags.join(" ")}`;
         }
         if (isR34PahealHome()) {
-          fileDownloadName = `${fileDownloadName}.${img.data.file_name.split(".").pop()}`;
+          downloadName = `${downloadName}.${img.data.file_name.split(".").pop()}`;
         }
         try {
-          await downloadFile(img.fileUrl, fileDownloadName);
+          await downloadFile(downloadUrl, downloadName);
         } catch (error) {
           showMsg({ msg: `${i18n.t("FAqj5ONm50QMfIt9Vq2p1")}: ${error}`, type: "error" });
         }
@@ -9854,7 +10075,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       Vue2.onUnmounted(() => {
         window.removeEventListener("scroll", scrollFn);
       });
-      return { __sfc: true, notFitScreen, isR34Fav, showImageList, showFab, showNoMore, showLoadMore, ctxActPost, showMenu, x, y, maxHeightStyle, imgCardStyle, getImgSrc, onCtxMenu, showImgModal, openDetail, addToSelectedList: addToSelectedList$1, addFavorite, downloadCtxPost, isPostChecked, onPostCheckboxChange, onImageLoadError, virtualMaxCol, calcItemHeight, scrollFn, mdiDownload, mdiFileGifBox, mdiFileTree, mdiFolderNetwork, mdiHeartPlusOutline, mdiLinkVariant, mdiPlaylistPlus, mdiRefresh, mdiVideo, PostDetail, notPartialSupportSite, isFavBtnShow, refreshPosts, searchPosts, settings, store };
+      return { __sfc: true, notFitScreen, isR34Fav, showImageList, showFab, hasSampleDownload, activeDownloadUrlKey, showNoMore, showLoadMore, ctxActPost, showMenu, x, y, maxHeightStyle, imgCardStyle, getImgSrc, onCtxMenu, showImgModal, openDetail, addToSelectedList: addToSelectedList$1, addFavorite, downloadCtxPost, isPostChecked, onPostCheckboxChange, onImageLoadError, virtualMaxCol, calcItemHeight, scrollFn, mdiDownload, mdiFileGifBox, mdiFileTree, mdiFolderNetwork, mdiHeartPlusOutline, mdiLinkVariant, mdiPlaylistPlus, mdiRefresh, mdiVideo, PostDetail, notPartialSupportSite, isFavBtnShow, refreshPosts, searchPosts, settings, store };
     }
   });
   var _sfc_render$4 = function render() {

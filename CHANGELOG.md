@@ -1,3 +1,7 @@
+## v0.37.6
+
+- fix: 修复 danbooru 无法加载
+
 ## v0.37.5
 
 - fix: 修复 gelbooru 无法下载图片到子目录
