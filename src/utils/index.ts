@@ -307,7 +307,12 @@ export async function fancyboxShow(images: Post[], index = 0) {
         }
       }
     }
-    document.head.insertAdjacentHTML('beforeend', '<link href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css" rel="stylesheet">')
+    try {
+      const fancyboxCss = GM_getResourceText('fancyboxcss')
+      if (fancyboxCss) GM_addStyle(fancyboxCss)
+    } catch (error) {
+      console.warn('[YM] failed to apply fancybox style:', error)
+    }
     await loadScript('https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js')
   }
   const isMobile = navigator.userAgent.includes('Mobile')

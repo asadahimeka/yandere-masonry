@@ -16,6 +16,17 @@ module.exports = defineTmHeader({
   "source": "https://github.com/asadahimeka/yandere-masonry",
   "icon": "https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/f1f6267537a5aff959ee63ec2c9e4e52_4821140735490026106.jpg",
   "license": "MIT",
+  "resource": [
+    "vuetifycss https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.css",
+    "normalizecss https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css",
+    "fancyboxcss https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css",
+    "vuejs https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.16/vue.min.js",
+    "vuetifyjs https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.js",
+    "vuei18njs https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.28.2/vue-i18n.min.js",
+    "fxparserjs https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.4.0/fxparser.min.js",
+    "tagscn https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/all_tags_cn.min.json",
+    "tagscnspace https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/all_tags_cn_space.min.json"
+  ],
   "match": [
     ...Object.entries(sites).filter(([e]) => !blackList.has(e)).map(([k, v]) => `http${v.insecure ? '' : 's'}://${k}/*`),
     'https://e-shuushuu.net/*',

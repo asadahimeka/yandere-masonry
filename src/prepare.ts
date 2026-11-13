@@ -169,11 +169,17 @@ function setTagText(seletcor: string, textEn?: (el: HTMLElement) => string, disp
   }
 }
 
-async function translateTags() {
+function translateTags() {
   const locale = document.cookie.match(/locale=(\w+)/)?.[1]
   if (locale && locale !== 'zh_CN') return
-  const response = await fetch('https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/all_tags_cn.min.json')
-  window.__tagsCN = await response.json()
+  const text = getResourceText('tagscn')
+  if (!text) return
+  try {
+    window.__tagsCN = JSON.parse(text)
+  } catch (error) {
+    console.warn('[YM] failed to parse tag translation:', error)
+    window.__tagsCN = {}
+  }
   const url = new URL(location.href)
   if (url.pathname == '/tag') return setTagText('td[class^=tag-type] a:last-child')
   if (!url.pathname.includes('/post')) return
@@ -182,17 +188,16 @@ async function translateTags() {
   setTagText('#tag-sidebar a[href^="/post?tags="]:not(.no-browser-link)', textEn, (en, cn) => `[${cn}] ${en}`)
 }
 
-async function translateDanbooruTags() {
+function translateDanbooruTags() {
   if (!navigator.language.includes('zh')) return
-  let tagsCache = sessionStorage.getItem('__YM_TAGS_CN_CACHE') || ''
-  if (!tagsCache) {
-    try {
-      const response = await fetch('https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/all_tags_cn_space.min.json')
-      tagsCache = await response.text()
-      sessionStorage.setItem('__YM_TAGS_CN_CACHE', tagsCache)
-    } catch (error) {}
+  const text = getResourceText('tagscnspace')
+  if (!text) return
+  try {
+    window.__tagsCN = JSON.parse(text)
+  } catch (error) {
+    console.warn('[YM] failed to parse danbooru tag translation:', error)
+    window.__tagsCN = {}
   }
-  window.__tagsCN = JSON.parse(tagsCache || '{}')
   const textEn = (el: HTMLElement) => el.innerText.trim()
   const textCn = (en: string, cn: string) => `[${cn}] ${en}`
   setTagText('.tag-list li a[href*="post"]:not([onclick])', textEn, textCn)
@@ -234,27 +239,126 @@ function setMasonryMode(fn: () => void) {
   btn?.addEventListener('click', () => { fn() })
 }
 
-const specialSites = ['gelbooru.com']
-export function loadScript(src: string) {
-  return new Promise<void>(resolve => {
-    let script: HTMLScriptElement
-    if (specialSites.some(e => location.hostname.includes(e))) {
-      script = GM_addElement('script', { src })
-      script.addEventListener('load', () => { resolve() }, false)
-    } else {
-      script = document.createElement('script')
-      script.src = src
-      script.addEventListener('load', () => { resolve() }, false)
-      document.head.appendChild(script)
-    }
+const scriptLoadTimeout = 15000
+
+function loadScriptByElement(src: string) {
+  console.log('loadScriptByElement: ', src)
+  return new Promise<void>((resolve, reject) => {
+    const script = GM_addElement('script', { src })
+    const timer = setTimeout(() => reject(new Error(`script load timeout: ${src}`)), scriptLoadTimeout)
+    script.addEventListener('load', () => { clearTimeout(timer); resolve() }, false)
+    script.addEventListener('error', () => { clearTimeout(timer); reject(new Error(`script load failed: ${src}`)) }, false)
   })
 }
 
+function loadScriptByEval(src: string) {
+  console.log('loadScriptByEval: ', src)
+  return new Promise<void>((resolve, reject) => {
+    GM_xmlhttpRequest({
+      method: 'GET',
+      url: src,
+      timeout: scriptLoadTimeout,
+      onload(res) {
+        if (res.status !== 200) { reject(new Error(`HTTP ${res.status}: ${src}`)); return }
+        try {
+          // indirect eval so top-level var declarations become real globals
+          // eslint-disable-next-line no-eval
+          (0, eval)(res.responseText)
+          resolve()
+        } catch (error) {
+          reject(error instanceof Error ? error : new Error(String(error)))
+        }
+      },
+      onerror() { reject(new Error(`script fetch failed: ${src}`)) },
+      ontimeout() { reject(new Error(`script fetch timeout: ${src}`)) },
+    })
+  })
+}
+
+export async function loadScript(src: string) {
+  try {
+    await loadScriptByElement(src)
+  } catch (error) {
+    console.warn('[YM] script element load failed, falling back to eval:', src, error)
+    await loadScriptByEval(src)
+  }
+}
+
+const deps: { name: string; globalName: string; url: string }[] = [
+  { name: 'vuejs', globalName: 'Vue', url: 'https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.16/vue.min.js' },
+  { name: 'vuetifyjs', globalName: 'Vuetify', url: 'https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.js' },
+  { name: 'vuei18njs', globalName: 'VueI18n', url: 'https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.28.2/vue-i18n.min.js' },
+  { name: 'fxparserjs', globalName: 'XMLParser', url: 'https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.4.0/fxparser.min.js' },
+]
+
+function loadScriptFromResource(source: string) {
+  // inline scripts run synchronously when inserted, so the 'load' event can fire
+  // before we could attach a listener; resolve right away and let the caller
+  // check whether the library actually exposed its global
+  GM_addElement('script', { textContent: source })
+}
+
+function pageGlobal(name: string) {
+  const w = (typeof unsafeWindow !== 'undefined' ? unsafeWindow : window) as any
+  return w?.[name]
+}
+
+async function waitForGlobal(name: string) {
+  for (let i = 0; i < 20; i++) {
+    if (typeof pageGlobal(name) !== 'undefined') return true
+    await new Promise(resolve => setTimeout(resolve, 25))
+  }
+  return typeof pageGlobal(name) !== 'undefined'
+}
+
+async function loadDep(dep: { name: string; globalName: string; url: string }) {
+  let source = ''
+  try {
+    source = GM_getResourceText(dep.name) || ''
+  } catch (error) {
+    console.warn('[YM] failed to read resource:', dep.name, error)
+  }
+  if (source) {
+    try {
+      loadScriptFromResource(source)
+      if (await waitForGlobal(dep.globalName)) return
+      console.warn('[YM] resource script did not expose global, falling back to CDN:', dep.globalName)
+    } catch (error) {
+      console.warn('[YM] resource script failed, falling back to CDN:', dep.name, error)
+    }
+  }
+  await loadScript(dep.url)
+}
+
 async function loadDeps() {
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.16/vue.min.js')
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.js')
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.28.2/vue-i18n.min.js')
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.4.0/fxparser.min.js')
+  try {
+    for (const dep of deps) {
+      await loadDep(dep)
+    }
+  } catch (error) {
+    console.error('[YM] failed to load dependencies:', error)
+    const loadingText = document.querySelector('#loading p')
+    if (loadingText) loadingText.textContent = 'Dependencies failed to load / 依赖加载失败'
+    throw error
+  }
+}
+
+function addResourceStyle(name: string) {
+  try {
+    const css = GM_getResourceText(name)
+    if (css) GM_addStyle(css)
+  } catch (error) {
+    console.warn('[YM] failed to apply resource style:', name, error)
+  }
+}
+
+function getResourceText(name: string) {
+  try {
+    return GM_getResourceText(name) || ''
+  } catch (error) {
+    console.warn('[YM] failed to read resource:', name, error)
+    return ''
+  }
 }
 
 function replaceDocument() {
@@ -265,11 +369,10 @@ function replaceDocument() {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <title>${location.host.toUpperCase()} Masonry</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.css">
-    <style>${customStyle}</style>
-  `
+  `.trim()
+  addResourceStyle('normalizecss')
+  addResourceStyle('vuetifycss')
+  GM_addStyle(customStyle)
   document.body.innerHTML = /* html */`
     <div id="app">
       <div id="loading">
@@ -283,7 +386,7 @@ function replaceDocument() {
         </div>
       </div>
     </div>
-  `
+  `.trim()
 }
 
 /*! prepare end */
