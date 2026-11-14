@@ -30,6 +30,14 @@ async function parseCard(el: Element) {
   const id = new URL(a.href, ORIGIN).pathname.split('/').pop()?.replace(/\.html?$/, '') || ''
   if (!id || seenIds.has(id)) return null
 
+  // 站点把标签放在缩略图外层链接的 aria-label 里，形如 "Anime, Girl, 4K, Wallpaper, #7685t"
+  const tags = [...new Set(
+    (a.getAttribute('aria-label') || '')
+      .split(',')
+      .map(tag => tag.trim())
+      .filter(tag => tag && !tag.startsWith('#') && !/^wallpaper$/i.test(tag)),
+  )]
+
   const previewUrl = new URL(img.getAttribute('src') || '', ORIGIN).href
   const fileUrl = thumbToOriginal(previewUrl)
   if (!fileUrl) return null
@@ -50,7 +58,7 @@ async function parseCard(el: Element) {
     // 详情页默认显示 sampleUrl，用站点的 2K 变体，别把缩略图放大糊一屏
     sampleUrl: `${fileUrl}-pc-2k.jpg`,
     fileUrl,
-    tags: [] as string[],
+    tags,
     width,
     height,
     aspectRatio: width / height,
