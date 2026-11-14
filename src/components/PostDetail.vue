@@ -441,6 +441,7 @@ import { resolvePostDownloadSource } from '@/utils/download-source'
 import { notPartialSupportSite } from '@/api/booru'
 import { isR34PahealHome } from '@/api/r34-paheal'
 import { uhdpaper, uhdpaperSearchUrl } from '@/api/uhdpaper'
+import { hentaibooru, hentaibooruSearchUrl } from '@/api/hentaibooru'
 import { isDanbooruPage } from '@/api/danbooru'
 import { getZerochanFileUrl } from '@/api/zerochan'
 import { addToSelectedList, settings, store } from '@/store'
@@ -531,6 +532,9 @@ function toTagsPage(tag: string) {
   if (uhdpaper.is()) {
     // 站点搜索地址 + _wf=1，新标签页直接进瀑布流
     window.open(`${uhdpaperSearchUrl(tag)}&_wf=1`, '_blank', 'noreferrer')
+  }
+  if (hentaibooru.is()) {
+    window.open(hentaibooruSearchUrl(tag), '_blank', 'noreferrer')
   }
 }
 
