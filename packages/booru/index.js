@@ -504,7 +504,35 @@ function formatFileSize(size) {
   return size.toFixed(2) + "B";
 }
 function getFileExt(url) {
-  return url?.split(".").pop() ?? "";
+  if (!url) return "";
+  const raw = String(url);
+  const isPlainExt = (value) => /^[a-z0-9]{1,8}$/.test(value);
+  // 先按旧语义取扩展名，兼容文件名放在查询串里的 URL（如 out.php?page=dummy&s=abc.jpg）
+  const lastDot = raw.lastIndexOf(".");
+  if (lastDot !== -1) {
+    const candidate = raw.slice(lastDot + 1).split(/[?#]/)[0].toLowerCase();
+    if (isPlainExt(candidate))
+      return candidate;
+  }
+  // 再退化到 URL path 末段的文件名
+  const [pathname] = raw.split(/[?#]/);
+  let path = pathname;
+  try {
+    path = new URL(pathname).pathname;
+  } catch (e) {
+    // 相对路径，保持原样处理
+  }
+  const filename = path.split("/").pop() || "";
+  const dot = filename.lastIndexOf(".");
+  if (dot >= 0 && dot < filename.length - 1) {
+    const ext = filename.slice(dot + 1).toLowerCase();
+    if (isPlainExt(ext))
+      return ext;
+  }
+  const format = /(?:^|[?&])format=([a-z0-9]+)/i.exec(raw)?.[1];
+  if (format)
+    return format.toLowerCase();
+  return "";
 }
 function dealDanbooruPreviewUrl(url, booru) {
   if ([
@@ -633,7 +661,8 @@ var Post = class {
     return this.data.jpeg_height ?? 0;
   }
   get fileExt() {
-    return this.data.file_ext ?? getFileExt(this.fileUrl);
+    if (this.data.file_ext) return this.data.file_ext;
+    return getFileExt(this.fileUrl) || getFileExt(this.data.file_name);
   }
   get sampleSize() {
     return this.data.sample_file_size ?? 0;

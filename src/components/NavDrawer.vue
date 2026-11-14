@@ -189,7 +189,7 @@ const FALLBACK_COLORS = ['#e91e63', '#8e24aa', '#3949ab', '#1e88e5', '#00897b', 
 
 const toolLinks = [
   { title: 'Pixiv Viewer', url: 'https://pixiv.pictures/?ref=booru.vercel.app', host: 'pixiv.pictures' },
-  { title: 'Moeview', url: 'https://moeview.cocomi.eu.org/?ref=booru.vercel.app', host: 'moeview.cocomi.eu.org' },
+  { title: 'Moeview', url: 'https://moeview.app/?ref=booru.vercel.app', host: 'moeview.app' },
   { title: 'R-34.XYZ', url: 'https://r-34.xyz/?ref=booru.vercel.app', host: 'r-34.xyz' },
   { title: 'Nekon', url: 'https://nekon.app/?ref=booru.vercel.app', host: 'nekon.app' },
   { title: 'SomeACG', url: 'https://www.someacg.top/?ref=booru.vercel.app', host: 'someacg.top' },

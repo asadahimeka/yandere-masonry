@@ -552,9 +552,8 @@ async function download(url: string | null, name: string) {
   if (store.isYKSite) {
     name = `${location.hostname} ${imageSelected.value.id} ${imageSelected.value.tags.join(' ')}`
   }
-  if (isR34PahealHome()) {
-    // @ts-expect-error protected prop
-    name = `${name}.${imageSelected.value.data.file_name.split('.').pop()}`
+  if (isR34PahealHome() && imageSelected.value.fileExt) {
+    name = `${name}.${imageSelected.value.fileExt}`
   }
   try {
     downloading.value = true

@@ -550,9 +550,8 @@ async function startDownload() {
       const item = store.selectedImageList[index]
       const { url: downloadUrl, name: resolvedName } = resolvePostDownloadSource(item, downloadUrlKey.value)
       let downloadName = store.isYKSite ? item.fileNameWithTags || resolvedName : resolvedName
-      if (isR34PahealHome()) {
-        // @ts-expect-error protected prop
-        downloadName = `${downloadName}.${item.data.file_name.split('.').pop()}`
+      if (isR34PahealHome() && item.fileExt) {
+        downloadName = `${downloadName}.${item.fileExt}`
       }
       if (!downloadUrl) continue
       if (item.loaded) continue

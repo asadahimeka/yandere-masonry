@@ -44,13 +44,13 @@
             </v-icon>
           </template>
           <v-icon
-            v-if="item?.fileExt.toLowerCase() === 'gif'"
+            v-if="item?.fileExt?.toLowerCase() === 'gif'"
             class="posts-image-type"
           >
             {{ mdiFileGifBox }}
           </v-icon>
           <v-icon
-            v-if="['mp4', 'webm'].includes(item?.fileExt.toLowerCase())"
+            v-if="['mp4', 'webm'].includes(item?.fileExt?.toLowerCase())"
             class="posts-image-type"
           >
             {{ mdiVideo }}
@@ -130,13 +130,13 @@
           </v-icon>
         </template>
         <v-icon
-          v-if="image?.fileExt.toLowerCase() === 'gif'"
+          v-if="image?.fileExt?.toLowerCase() === 'gif'"
           class="posts-image-type"
         >
           {{ mdiFileGifBox }}
         </v-icon>
         <v-icon
-          v-if="['mp4', 'webm'].includes(image?.fileExt.toLowerCase())"
+          v-if="['mp4', 'webm'].includes(image?.fileExt?.toLowerCase())"
           class="posts-image-type"
         >
           {{ mdiVideo }}
@@ -324,9 +324,8 @@ async function downloadCtxPost(post?: Post) {
   if (store.isYKSite) {
     downloadName = `${location.hostname} ${img.id} ${img.tags.join(' ')}`
   }
-  if (isR34PahealHome()) {
-    // @ts-expect-error protected prop
-    downloadName = `${downloadName}.${img.data.file_name.split('.').pop()}`
+  if (isR34PahealHome() && img.fileExt) {
+    downloadName = `${downloadName}.${img.fileExt}`
   }
   try {
     await downloadFile(downloadUrl, downloadName)
