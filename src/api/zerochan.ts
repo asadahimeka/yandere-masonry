@@ -2,30 +2,85 @@ export function isZerochanPage() {
   return location.hostname == 'www.zerochan.net'
 }
 
-let isChallengePass = false
-function openApiWindow() {
-  return new Promise<void>(resolve => {
-    const win = window.open('https://www.zerochan.net/?p=1&json', '', 'width=500,height=500')
-    win?.addEventListener('load', () => {
-      isChallengePass = true
-      win.close()
-      resolve()
-    })
-    setTimeout(() => {
-      if (!isChallengePass) {
-        win?.close()
-        resolve()
+const ZEROCHAN_ORIGIN = 'https://www.zerochan.net'
+const CHALLENGE_SVG_PATTERN = /totally-innocent-logo-image\.svg\?[^"'\s]+/
+
+// 校验失败且无法识别时不再重试，否则每次翻页都要多等一轮请求
+let isChallengeUnknown = false
+
+async function requestZerochan(url: string) {
+  const resp = await fetch(url)
+  if (resp.status !== 503) {
+    return resp
+  }
+  if (isChallengeUnknown) {
+    return resp
+  }
+  // 先 clone 再读取，未命中校验时原始 resp 的 body 仍可交给调用方解析
+  const html = await resp.clone().text()
+  const svgMatch = html.match(CHALLENGE_SVG_PATTERN)
+  if (!svgMatch) {
+    isChallengeUnknown = true
+    return resp
+  }
+  // 校验页靠 onload 请求 SVG 来下发 xbotcheck cookie，同源 fetch 会一并保存；
+  // 原先的 window.open 不在用户手势内，常被拦截并白白等待超时
+  await fetch(`${ZEROCHAN_ORIGIN}/${svgMatch[0]}`)
+  return fetch(url)
+}
+
+// 线上列表接口会把合法 JSON 包在一个多余的 "{" 和整页 HTML 里，按花括号配对截出真正的对象
+export function extractJsonPayload(text: string): string {
+  const trimmed = text.trimStart()
+  const body = /^\{\s*(?=\{)/.test(trimmed) ? trimmed.replace(/^\{\s*/, '') : trimmed
+  let depth = 0
+  let inString = false
+  let escaped = false
+  for (let i = 0; i < body.length; i++) {
+    const char = body[i]
+    if (escaped) {
+      escaped = false
+      continue
+    }
+    if (char === '\\') {
+      escaped = true
+      continue
+    }
+    if (char === '"') {
+      inString = !inString
+      continue
+    }
+    if (inString) {
+      continue
+    }
+    if (char === '{') {
+      depth++
+    } else if (char === '}') {
+      depth--
+      if (depth === 0) {
+        return body.slice(0, i + 1)
       }
-    }, 5000)
-  })
+    }
+  }
+  return body
 }
 
 export async function fetchZerochanPosts(page: number, tags: string | null) {
-  if (!isChallengePass) {
-    await openApiWindow()
+  const resp = await requestZerochan(`${ZEROCHAN_ORIGIN}/${tags || ''}?p=${page}&json`)
+  const raw = await resp.text()
+  let json: any
+  try {
+    json = JSON.parse(extractJsonPayload(raw))
+  } catch {
+    throw new Error(
+      `zerochan JSON endpoint returned a broken response (HTTP ${resp.status}): ${raw.slice(0, 120)}`,
+    )
   }
-  const resp = await fetch(`https://www.zerochan.net/${tags || ''}?p=${page}&json`)
-  const json = await resp.json()
+  if (!Array.isArray(json.items)) {
+    throw new TypeError(
+      `zerochan JSON endpoint returned no items (HTTP ${resp.status}): ${raw.slice(0, 120)}`,
+    )
+  }
   return json.items.map((e: any) => {
     const primary = escape(e.tag.replace(/\s/g, '.'))
     return {
@@ -48,8 +103,9 @@ export async function fetchZerochanPosts(page: number, tags: string | null) {
 }
 
 export async function getZerochanFileUrl(id: string) {
-  const resp = await fetch(`https://www.zerochan.net/${id}?json`)
-  const json = await resp.json()
+  const resp = await requestZerochan(`${ZEROCHAN_ORIGIN}/${id}?json`)
+  const raw = await resp.text()
+  const json = JSON.parse(extractJsonPayload(raw))
   return json.full
 }
 
