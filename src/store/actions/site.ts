@@ -53,10 +53,11 @@ export const fetchPostsActions: FetchPostsAction[] = [
 
 interface FetchDetailAction {
   is: () => boolean
-  detail: (id: string) => Promise<{ fileUrl?: string | null; sampleUrl?: string | null; tags?: string[] }>
+  detail: (id: string) => Promise<{ fileUrl?: string | null; sampleUrl?: string | null; tags?: string[]; source?: string | null }>
 }
 
 export const fetchDetailActions: FetchDetailAction[] = [
+  uhdpaper,
   animepictures,
   sankaku.idol,
   sankaku,

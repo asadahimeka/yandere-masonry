@@ -10,6 +10,8 @@ export function isUhdpaperPage() {
 let nextPageHref: string | null = null
 let seenIds = new Set<string>()
 let started = false
+// 列表页只能拿到按逗号拆散的词，真正的标签（短语）要回详情页取
+const postHrefById = new Map<string, string>()
 
 // 站点自己的搜索地址：空格用 + 连接，并带上 i=0
 export function uhdpaperSearchUrl(tags: string) {
@@ -43,6 +45,7 @@ async function parseCard(el: Element) {
   if (!fileUrl) return null
 
   seenIds.add(id)
+  postHrefById.set(id, a.href)
 
   // 列表页不给尺寸，只能用缩略图量比例；量不到就按 16:9 兜底
   let { width, height } = await getImageSize(previewUrl)
@@ -89,7 +92,30 @@ export async function fetchUhdpaperPosts(page: number, tags: string | null) {
   return results.filter(Boolean)
 }
 
+// 详情页隐藏块 <div id="post_tmp"> 里放着站点自己的元数据：
+// <h2>Anime Girls, Tongue Out, Nun, Tattoo, 4K, #7310j</h2>、<a> 来源、<img> 原图
+export async function fetchUhdpaperDetail(id: string) {
+  const href = postHrefById.get(id)
+  if (!href) return {}
+  const resp = await fetch(href)
+  if (!resp.ok) return {}
+  const doc = new DOMParser().parseFromString(await resp.text(), 'text/html')
+  const meta = doc.querySelector('#post_tmp')
+  if (!meta) return {}
+
+  const tags = [...new Set(
+    (meta.querySelector('h2')?.textContent || '')
+      .split(',')
+      .map(tag => tag.trim())
+      .filter(tag => tag && !tag.startsWith('#') && !/^wallpaper$/i.test(tag)),
+  )]
+  const source = meta.querySelector('a')?.getAttribute('href') || ''
+
+  return { tags, source }
+}
+
 export const uhdpaper = {
   is: isUhdpaperPage,
   posts: fetchUhdpaperPosts,
+  detail: fetchUhdpaperDetail,
 }

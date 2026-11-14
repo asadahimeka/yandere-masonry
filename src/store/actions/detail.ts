@@ -10,10 +10,11 @@ import i18n from '@/utils/i18n'
 const isCNLang = i18n.locale.includes('zh')
 
 export async function handlePostDetail(img: Ref<Post>) {
-  const { fileUrl, sampleUrl, tags } = await fetchDetailActions
+  const { fileUrl, sampleUrl, tags, source } = await fetchDetailActions
     .find(e => e.is())
     ?.detail(img.value.id) || {}
   if (tags?.length) img.value.tags = tags
+  if (source) img.value.source = source
   if (fileUrl) img.value.fileUrl = fileUrl
   if (sampleUrl) img.value.sampleUrl = sampleUrl
 }
