@@ -23,6 +23,7 @@ export const siteDomains = [
   'nozomi.la',
   'realbooru.com',
   'rule34hentai.net',
+  'www.uhdpaper.com',
 ]
 
 export const isSupportTagSearch = isBooruSite() || !['nozomi.la'].includes(location.host)
@@ -86,6 +87,7 @@ const specTitleMap: Record<string, string> = {
   'allgirl.booru.org': 'All girl',
   'booru.eu': 'Hentai Booru',
   'rule34hentai.net': 'Rule34Hentai',
+  'uhdpaper.com': 'UHDPaper',
 }
 
 export function getSiteTitle(domain: string = location.host) {

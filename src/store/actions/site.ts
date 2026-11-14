@@ -15,6 +15,7 @@ import {
   rule34,
   rule34hentai,
   sankaku,
+  uhdpaper,
   zerochan,
 } from '@/api'
 
@@ -46,6 +47,7 @@ export const fetchPostsActions: FetchPostsAction[] = [
   sankaku.complex,
   realbooru,
   rule34hentai,
+  uhdpaper,
   { is: () => true, posts: async () => [] },
 ]
 

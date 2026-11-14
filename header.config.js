@@ -41,7 +41,9 @@ module.exports = defineTmHeader({
     'https://kusowanka.com/*',
     'https://anihonetwallpaper.com/*',
     'https://nozomi.la/*',
-    'https://rule34hentai.net/*'
+    'https://rule34hentai.net/*',
+    'https://www.uhdpaper.com/*',
+    'https://uhdpaper.com/*'
   ],
   "supportURL": "https://github.com/asadahimeka/yandere-masonry/issues",
   "run-at": "document-end",
