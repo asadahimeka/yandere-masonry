@@ -115,6 +115,18 @@
           <v-icon>{{ mdiMagnify }}</v-icon>
         </v-btn>
       </template>
+      <v-btn
+        v-if="isSzuru"
+        class="hidden-sm-and-down szuru-guide-btn ml-1"
+        color="deep-orange"
+        dark
+        small
+        :title="$t('szurubooruAppBarHint')"
+        @click="store.showSettings = true"
+      >
+        <v-icon left :size="16" style="color:white!important">{{ mdiInformationOutline }}</v-icon>
+        <span style="color:white">{{ $t('szurubooruGuideBtn') }}</span>
+      </v-btn>
     </div>
     <div v-else-if="store.showPoolList" style="display:flex" class="align-center">
       <v-toolbar-title v-if="store.showPoolList" class="mr-3 hidden-md-and-down">Pools</v-toolbar-title>
@@ -276,6 +288,7 @@ import {
   mdiFullscreenExit,
   mdiHome,
   mdiImageMultiple,
+  mdiInformationOutline,
   mdiLocationExit,
   mdiMagnify,
   mdiShuffle,
@@ -292,6 +305,7 @@ import { getRecentTags, getUsername, isPopularPage } from '@/api/moebooru'
 import { defCompTags, getSiteTitle, isSampleDownloadSupportedSite, isSupportTagSearch, notPartialSupportSite } from '@/api/booru'
 import { fetchAutocomplete, isAutocompleteAct } from '@/api/autocomplete'
 import { isSankakuSite } from '@/api/sankaku'
+import { isSzurubooru } from '@/api/szurubooru'
 import { isR34PahealHome } from '@/api/r34-paheal'
 import { isZerochanPage } from '@/api/zerochan'
 import { uhdpaper, uhdpaperSearchUrl } from '@/api/uhdpaper'
@@ -299,6 +313,7 @@ import { type DownloadUrlKey, getActiveDownloadUrlKey, getAvailableDownloadUrlKe
 import i18n from '@/utils/i18n'
 
 const title = computed(() => `${getSiteTitle()} - ${store.imageList.length} Posts - Page `)
+const isSzuru = computed(() => isSzurubooru())
 
 const isNoSelected = computed(() => store.selectedImageList.length === 0)
 const isOneOrMoreSelected = computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length < store.imageList.length)

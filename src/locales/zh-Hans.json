@@ -143,5 +143,15 @@
   "rcpw-hgymDP2bsJPPUb_F": "选择图片的下载方式",
   "Ah2uP1cGRBQ6jff-SIc-Q": "图片下载方式",
   "downloadDefaultSizeTitle": "默认下载图片大小",
-  "downloadDefaultSizeSubtitle": "选择批量下载和快捷下载默认使用的图片链接"
+  "downloadDefaultSizeSubtitle": "选择批量下载和快捷下载默认使用的图片链接",
+  "szurubooruDomainTitle": "Szurubooru 域名",
+  "szurubooruDomainSubtitle": "自部署站点域名，如 https://szuru.example.com 。配置保存在脚本内，对所有站点生效；自部署站点还需在 Tampermonkey 中为本脚本添加该域名的匹配（管理面板 → 本脚本 → 设置 → 包含/用户域名，如 https://szuru.example.com/* ），否则脚本不会注入。当前以本站（demo）作为配置入口也可以。",
+  "szurubooruAuthTitle": "Szurubooru 认证",
+  "szurubooruAuthSubtitle": "私有实例需填写：登录站点 → 右上角用户菜单 → 登录令牌（Login tokens）创建令牌，用户名与令牌都填入下方。公开实例留空即可。",
+  "szurubooruUsernameLabel": "用户名",
+  "szurubooruTokenLabel": "Token",
+  "szurubooruAppBarHint": "当前为 Szurubooru 站点：点击打开设置，可配置自部署域名与认证；自部署站点还需在 Tampermonkey 中为本脚本添加该域名匹配（包含/用户域名，如 https://your.domain/* ）才会注入脚本",
+  "szurubooruGuideBtn": "域名设置",
+  "szurubooruDomainLabel": "域名（如 https://szuru.example.com）",
+  "szurubooruAddConfig": "添加 Szurubooru 站点"
 }

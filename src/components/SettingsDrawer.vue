@@ -111,6 +111,66 @@
           </v-list-item-content>
         </v-list-item>
       </template>
+      <template v-if="isSzuru">
+        <v-list-item class="mb-0">
+          <v-list-item-content>
+            <v-list-item-title>{{ $t('szurubooruDomainTitle') }}</v-list-item-title>
+            <v-list-item-subtitle>{{ $t('szurubooruDomainSubtitle') }}</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item class="mb-0">
+          <v-list-item-content>
+            <v-list-item-title>{{ $t('szurubooruAuthTitle') }}</v-list-item-title>
+            <v-list-item-subtitle>{{ $t('szurubooruAuthSubtitle') }}</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item v-for="(cfg, i) in settings.szurubooruConfigs" :key="i" class="pa-0">
+          <v-list-item-content class="pt-0">
+            <div class="d-flex align-center">
+              <v-text-field
+                v-model="cfg.domain"
+                :label="$t('szurubooruDomainLabel')"
+                class="blacklist_combobox ma-0 pa-0 mr-1"
+                hide-details
+                outlined
+                dense
+              />
+              <v-btn icon @click="removeSzuruConfig(i)">
+                <v-icon :size="18">{{ mdiDelete }}</v-icon>
+              </v-btn>
+            </div>
+            <div class="d-flex mt-1">
+              <v-text-field
+                v-model="cfg.username"
+                :label="$t('szurubooruUsernameLabel')"
+                class="blacklist_combobox ma-0 pa-0 mr-1"
+                hide-details
+                outlined
+                dense
+              />
+              <v-text-field
+                v-model="cfg.token"
+                :label="$t('szurubooruTokenLabel')"
+                :append-icon="showSzuruToken ? mdiEye : mdiEyeOff"
+                :type="showSzuruToken ? 'text' : 'password'"
+                class="blacklist_combobox ma-0 pa-0"
+                hide-details
+                outlined
+                dense
+                @click:append="showSzuruToken = !showSzuruToken"
+              />
+            </div>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item class="pa-0">
+          <v-list-item-content class="pt-0">
+            <v-btn small class="sel_menu_btn" @click="addSzuruConfig">
+              <v-icon left :size="16">{{ mdiPlus }}</v-icon>
+              {{ $t('szurubooruAddConfig') }}
+            </v-btn>
+          </v-list-item-content>
+        </v-list-item>
+      </template>
       <v-list-item v-if="notPartialSupportSite">
         <v-list-item-content>
           <v-list-item-title>{{ $t('Lm_HFVHpv4XCjilV3NLKu') }}</v-list-item-title>
@@ -394,10 +454,11 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useWindowSize } from '@vueuse/core'
-import { mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste } from '@mdi/js'
+import { mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, mdiDelete, mdiEye, mdiEyeOff, mdiPlus } from '@mdi/js'
 import { settings, store } from '@/store'
 import { langList } from '@/store/settings'
 import { isBooruSite, isSampleDownloadSupportedSite, notPartialSupportSite } from '@/api/booru'
+import { isSzurubooru } from '@/api/szurubooru'
 import { showMsg } from '@/utils'
 import i18n from '@/utils/i18n'
 import { type DownloadUrlKey, getActiveDownloadUrlKey, getAvailableDownloadUrlKeys } from '@/utils/download-source'
@@ -405,6 +466,16 @@ import { getMainDirHandle, isFsaSupported, setMainDirHandle } from '@/utils/fsa'
 
 const isBoorus = ref(isBooruSite())
 const isYandere = ref(location.hostname == 'yande.re')
+const isSzuru = computed(() => isSzurubooru())
+const showSzuruToken = ref(false)
+
+function addSzuruConfig() {
+  settings.szurubooruConfigs.push({ domain: '', username: '', token: '' })
+}
+
+function removeSzuruConfig(index: number) {
+  settings.szurubooruConfigs.splice(index, 1)
+}
 
 const currentLanglabel = computed(() => langList.find(e => e.value === settings.lang)?.label)
 function selectLang(val: typeof settings.lang) {

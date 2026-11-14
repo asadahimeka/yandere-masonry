@@ -1,5 +1,6 @@
 import { search, sites } from '@himeka/booru'
 import { isSankakuSite } from './sankaku'
+import { isConfiguredSzuruDomain, szurubooru } from './szurubooru'
 import { animepictures, realbooru, rule34 } from '@/api'
 import { settings, store } from '@/store'
 
@@ -10,6 +11,7 @@ export const isBooruSite = () => siteKeys.includes(location.host)
 export const siteDomains = [
   ...siteKeys,
   'e-shuushuu.net',
+  'nekomaru.moe',
   'zerochan.net',
   'chan.sankakucomplex.com',
   // 'idol.sankakucomplex.com',
@@ -67,6 +69,13 @@ export const defCompTags = (() => {
   if (/gelbooru\.com|rule34\.xxx/.test(location.host)) {
     return ['rating:safe', 'rating:questionable', 'rating:explicit', 'sort:score']
   }
+  if (szurubooru.is()) {
+    return [
+      'safety:safe', 'safety:sketchy', 'safety:unsafe',
+      'sort:random', 'sort:score', 'sort:fav-count', 'sort:tag-count', 'sort:comment-count', 'sort:last-edit',
+      'type:image', 'type:animation', 'type:video',
+    ]
+  }
   return []
 })()
 
@@ -88,11 +97,14 @@ const specTitleMap: Record<string, string> = {
   'booru.eu': 'Hentai Booru',
   'rule34hentai.net': 'Rule34Hentai',
   'uhdpaper.com': 'UHDPaper',
+  'nekomaru.moe': 'Szurubooru(Demo)',
 }
 
 export function getSiteTitle(domain: string = location.host) {
   const host = domain.toLowerCase().replace('www.', '')
-  return specTitleMap[host] || (host[0].toUpperCase() + host.slice(1).split('.')[0])
+  if (specTitleMap[host]) return specTitleMap[host]
+  if (isConfiguredSzuruDomain(host)) return 'Szurubooru'
+  return host[0].toUpperCase() + host.slice(1).split('.')[0]
 }
 
 const defaultLimitMap: Record<string, number> = {

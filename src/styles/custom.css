@@ -729,3 +729,18 @@ html:has(#app.theme--dark) {
 .settings_drawer .v-list-item__subtitle {
   white-space: normal;
 }
+
+/* 顶栏 Szurubooru 指引按钮（szuru 站点醒目提示，AppBar.vue） */
+.szuru-guide-btn {
+  animation: szuru-guide-pulse 1.8s ease-in-out 3;
+}
+
+@keyframes szuru-guide-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 87, 34, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(255, 87, 34, 0);
+  }
+}

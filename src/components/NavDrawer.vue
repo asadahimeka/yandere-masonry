@@ -68,7 +68,7 @@
           </v-list-item-content>
         </template>
         <v-list-item-group :value="actSiteIndex" color="primary">
-          <v-list-item v-for="link in siteDomains" :key="link" :href="handleLink(link)" referrerpolicy="no-referrer">
+          <v-list-item v-for="link in navSites" :key="link" :href="handleLink(link)" referrerpolicy="no-referrer">
             <v-list-item-icon class="mr-2">
               <div class="site_icon site_icon_fallback" :style="{ backgroundColor: fallbackColor(link) }">{{ fallbackLetter(link) }}</div>
             </v-list-item-icon>
@@ -170,7 +170,16 @@ import { computed, onMounted, ref } from 'vue'
 import { getSiteTitle, siteDomains } from '@/api/booru'
 import { isDanbooruPage } from '@/api/danbooru'
 import { getUsername } from '@/api/moebooru'
-import { store } from '@/store'
+import { SZURU_DEMO_HOST, normalizeSzuruDomain } from '@/api/szurubooru'
+import { settings, store } from '@/store'
+
+// 站点导航 = 内置站点 + 已配置的自部署 szurubooru 域名
+const navSites = computed(() => {
+  const szuruDomains = settings.szurubooruConfigs
+    .map(c => normalizeSzuruDomain(c.domain))
+    .filter(d => d && d !== SZURU_DEMO_HOST && !siteDomains.includes(d))
+  return [...siteDomains, ...szuruDomains]
+})
 
 const userName = ref('')
 const version = ref(GM_info.script.version)
@@ -209,7 +218,7 @@ function fallbackLetter(url: string) {
 }
 
 const actSiteIndex = computed(() => {
-  return siteDomains.findIndex(e => location.href.includes(e))
+  return navSites.value.findIndex(e => location.href.includes(e))
 })
 
 function showSettingDrawer() {

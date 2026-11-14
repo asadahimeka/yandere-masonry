@@ -190,6 +190,20 @@ Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏�
 > - 部分站点可能存在页面列表与 API 返回不一致的情况
 > - 有些站点需要设置 API Key 后才能正常使用
 
+### 自部署 Szurubooru 支持
+
+支持任意自部署的 [szurubooru](https://github.com/rr-/szurubooru) 实例（列表/详情/下载/标签搜索）。内置演示站：[Nekomaru](https://nekomaru.moe)（侧边栏显示为 Szurubooru(Demo)），可直接体验。
+
+**配置步骤**：
+
+1. 在 [nekomaru.moe](https://nekomaru.moe/post?_wf=1)（或任一 szurubooru 站点）打开瀑布流，点击顶栏「Szurubooru 指引」按钮（或侧边栏 → 设置）打开设置面板
+2. 在「Szurubooru 站点」中点击「添加 Szurubooru 站点」，填写你的自部署域名（如 `https://szuru.example.com`），支持配置多个站点；配置保存在脚本内，对所有站点生效，已配置的域名也会显示在侧边栏站点列表中
+3. 私有实例：登录站点 → 右上角用户菜单 → 登录令牌（Login tokens）创建令牌，在该站点配置中填入用户名与令牌；公开实例留空即可
+4. 在 Tampermonkey 中为脚本添加自部署域名的匹配：管理面板 → 本脚本 → 设置 → 包含/用户域名，添加 `https://szuru.example.com/*`（此步骤必须，否则脚本不会注入到你的站点）
+5. 打开自部署站点的 `/posts` 页即可使用
+
+> 💡 「Szurubooru 站点」设置组仅在 szurubooru 站点（demo 站或已配置域名的站点）显示。
+
 ---
 
 ## 📸 截图展示

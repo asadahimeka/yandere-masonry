@@ -25,6 +25,7 @@
 // @match                https://realbooru.com/*
 // @match                https://booru.allthefallen.moe/*
 // @match                https://aibooru.online/*
+// @match                https://nekomaru.moe/*
 // @match                https://e-shuushuu.net/*
 // @match                https://www.zerochan.net/*
 // @match                https://sankaku.app/*
@@ -38,6 +39,8 @@
 // @match                https://anihonetwallpaper.com/*
 // @match                https://nozomi.la/*
 // @match                https://rule34hentai.net/*
+// @match                https://www.uhdpaper.com/*
+// @match                https://uhdpaper.com/*
 // @homepage             https://www.nanoka.top
 // @source               https://github.com/asadahimeka/yandere-masonry
 // @icon                 https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/f1f6267537a5aff959ee63ec2c9e4e52_4821140735490026106.jpg
@@ -49,14 +52,16 @@
 // @resource             vuetifyjs https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.js
 // @resource             vuei18njs https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.28.2/vue-i18n.min.js
 // @resource             fxparserjs https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.4.0/fxparser.min.js
-// @resource             tagscn https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/all_tags_cn.min.json
-// @resource             tagscnspace https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/all_tags_cn_space.min.json
+// @resource             tagscn https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@v0.37.7/src/data/all_tags_cn.min.json
+// @resource             tagscnspace https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@v0.37.7/src/data/all_tags_cn_space.min.json
 // @run-at               document-end
 // @grant                GM_addStyle
 // @grant                unsafeWindow
 // @grant                GM_addElement
 // @grant                GM_xmlhttpRequest
 // @grant                GM_getResourceText
+// @grant                GM_getValue
+// @grant                GM_setValue
 // @grant                GM_info
 // @grant                GM_download
 // ==/UserScript==
@@ -71,7 +76,7 @@ var __publicField = (obj, key, value) => {
   var prepareStyle = "#enter-masonry{position:fixed;z-index:99999;right:16px;top:10px;height:30px;padding:6px 10px;font-size:13px;border:0;border-radius:6px;color:#fff;outline:0;background:linear-gradient(to right,#ff758c 0%,#ff7eb3 100%);opacity:1;transform:scale(1);transition:opacity,transform .2s;cursor:pointer}#enter-masonry:hover{opacity:.8;transform:scale(1.05)}#enter-masonry.enter-button-bottom{top:unset;bottom:15px}#locale-select{position:fixed;z-index:99;right:110px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}#wf-type-select{position:fixed;z-index:99;right:190px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}\n";
   var ydStyle = 'a.thumb{padding-bottom:5px;border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08] "}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743] "}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272] "}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2] "}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:100%;height:auto;margin-top:0;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}.mm-masonry{--gap: 24;--col-width: 240}.mm-masonry{--_col-width: var(--col-width, 280);--_col-width-px: calc(var(--_col-width) * 1px);--_gap: calc(var(--gap, 20) * 1px);display:var(--display, grid)!important;grid-template-columns:repeat(auto-fill,minmax(var(--_col-width-px),1fr));grid-auto-rows:1px;column-gap:var(--_gap)}.mm-masonry__item{--img-proportional-height: calc(var(--h) * var(--_col-width) / (var(--w)));grid-row-end:span var(--img-proportional-height, 240);overflow:hidden}.mm-masonry__item:not(:last-child){margin-bottom:var(--_gap)}#post-list ul#post-list-posts .mm-masonry__item .inner,#post-popular ul#post-list-posts .mm-masonry__item .inner{height:100%!important}.mm-masonry__img{width:100%!important;height:100%!important;object-fit:cover}.justified-container{display:flex!important;flex-wrap:wrap}.justified-container:after{content:"";flex-grow:999999999}.justified-item{position:relative}.justified-item img.preview{position:absolute;top:0;left:0;width:100%;vertical-align:bottom;object-fit:cover}\n';
   var knStyle = "#lsidebar{display:none}#post-popular ul#post-list-posts{display:flex;justify-content:center;flex-wrap:wrap}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
-  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;max-width:100vw;max-height:100vh;margin:0 auto}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}.img_detail_tag_list .v-slide-group__content{max-height:72vh;overflow-y:auto}::-webkit-scrollbar{width:0px}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e9eef6;border-radius:7px}.theme--dark .img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.posts-image-card{margin-bottom:8px}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{--jstf-w: 340;position:relative;flex-grow:calc(var(--w) * var(--jstf-w) / var(--h));width:calc(1px * var(--w) * var(--jstf-w) / var(--h));margin-bottom:0!important;padding-bottom:0!important;background-color:#dcdcdc;content-visibility:auto;contain-intrinsic-size:auto 300px}@media screen and (max-width: 500px){.justified-container .posts-image-card{--jstf-w: 240}}.justified-container .posts-image-card:before{content:"";display:block;padding-bottom:calc(var(--h) / var(--w) * 100%)!important}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.site_icon_fallback{display:flex;align-items:center;justify-content:center;box-sizing:border-box;border-radius:4px;color:#fff;font-size:12px;font-weight:600;line-height:1;padding-top:1px}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-wh{position:absolute;bottom:0;left:0;padding:0 8px;font-size:14px;color:#fff;background:rgba(0,0,0,.4);border-top-right-radius:4px}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-checkbox{position:absolute;top:5px;left:5px;width:28px;padding:2px;height:28px;border-radius:2px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-checkbox:has(input[aria-checked="true"]),.posts-image-card:hover .posts-image-checkbox{opacity:1;visibility:visible}.posts-image-checkbox .v-input--selection-controls__ripple .primary--text,.posts-image-checkbox .v-input--selection-controls__input .v-icon{color:#fff!important}.posts-image-type{position:absolute!important;top:0;right:0;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}@media screen and (min-width: 768px){.wf-no-fit-screen{max-width:62.5vw;margin:16px auto}}.virtual-waterfall>[data-index]{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f;border-radius:4px}.theme--light .v-app-bar{box-shadow:none!important;background:#f6f8fc!important}.theme--light .v-app-bar,.theme--light .v-app-bar .v-toolbar__content{height:64px!important}.theme--light .v-main{padding-top:64px!important}.theme--light .v-app-bar .v-toolbar__title+input{width:50px!important;background-color:#eaf1fb!important;border-radius:24px!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#5f6368!important}.theme--light .app-bar-tag-input .v-input .v-input__slot:before,.theme--light .app-bar-tag-input .v-input .v-input__slot:after{display:none}.theme--light .app-bar-tag-input .v-input input{padding:5px 44px 5px 10px;background-color:#eaf1fb;min-height:48px;border-radius:24px}.theme--light .app-bar-tag-input:not([style*="none"])+.v-btn{position:relative;left:-50px}.theme--light.v-list,.theme--light.v-navigation-drawer{background:#e9eef6!important}.theme--dark .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--dark .img_detail_btn_color .v-chip.tag_type_general,.theme--dark .img_detail_btn_color .v-btn{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag) .v-icon,.theme--light .img_detail_btn_color .v-chip.tag_type_general,.theme--light .img_detail_btn_color .v-btn{background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#1a73e8!important;box-shadow:none!important;font-weight:500}.img_detail_btn_color .v-chip.img_detail_tag{font-weight:500}.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text,.v-date-picker-table__current){padding-bottom:2px;border-radius:10px;color:#001d35;background-color:#c2e7ff}.theme--light .refresh_posts_btn{box-shadow:0 1px 2px #0000,0 1px 3px 1px #0000;background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#001d35}.theme--light .img_detail_loading .v-progress-circular{color:#1a73e8!important;caret-color:#1a73e8!important}.theme--light .blacklist_combobox .v-input__slot{padding-left:8px!important}.theme--light .v-text-field--outlined{border-radius:20px}.fancybox__caption{display:none;padding:12px 24px!important}.v-toolbar.img_detail_btn_color{backdrop-filter:none!important}.virtual-waterfall .posts-image-card{width:100%;height:100%;margin-bottom:0;background:gainsboro;border-radius:4px!important}.virtual-waterfall .post-image-v{width:100%;height:100%;object-fit:cover;border-radius:4px!important}.virtual-waterfall .posts-image-type{border-top-right-radius:4px}.virtual-waterfall .posts-image-actions{border-bottom-left-radius:4px;border-bottom-right-radius:4px}html:has(#app.theme--dark){background:#121212}@media screen and (max-width: 1200px){.nav_drawer{height:100dvh!important}.nav_drawer .v-navigation-drawer__content{padding-bottom:9vh}}.img_meta_tag_list{position:absolute;top:35px;width:200px}.img_meta_tag_list .img_detail_tag.tag_type_artist{color:#c97000!important;background-color:#ffdcb0!important;border-color:#ffdcb0!important}.img_meta_tag_list .img_detail_tag.tag_type_copyright{color:#ae3fc1!important;background-color:#f9d5ff!important;border-color:#f9d5ff!important}.img_meta_tag_list .img_detail_tag.tag_type_character{color:#0c9312!important;background-color:#c4ffc7!important;border-color:#c4ffc7!important}.true-masonry .posts-image-card{height:fit-content;max-height:unset!important;margin-bottom:0!important}.d-flex-y{display:flex;align-items:center;flex-wrap:wrap}.d-flex-col{display:flex;flex-direction:column}.export-tags-setting{display:flex;align-items:center;flex-wrap:wrap;gap:20px}.export-tags-setting .v-messages{display:none}.export-tags-setting>.v-input{margin-top:0}.export-tags-wght-inp{width:45px;height:24px;margin-left:4px;background-color:#eaf1fb;border-radius:4px;border:1px solid rgb(187,187,187);color:inherit;text-align:center}.d-flex-col .v-chip--active:before,.d-flex-col .v-chip--active:hover:before,.d-flex-col .v-chip:focus:before{display:none}.img-detail-toolbar{position:absolute;top:0;width:100%;z-index:10}.img-detail-toolbar.detail-buttons-bottom{top:unset;bottom:12px}.img-detail-tags{position:absolute;z-index:10;bottom:12px;padding:0 12px}.img-detail-tags.detail-buttons-bottom{top:12px;bottom:unset}.img-detail-toolbar.detail-buttons-bottom .img_meta_tag_list{top:0;transform:translateY(-95%)}.settings_drawer .v-list-item__subtitle{white-space:normal}\n';
+  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;max-width:100vw;max-height:100vh;margin:0 auto}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}.img_detail_tag_list .v-slide-group__content{max-height:72vh;overflow-y:auto}::-webkit-scrollbar{width:0px}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e9eef6;border-radius:7px}.theme--dark .img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.posts-image-card{margin-bottom:8px}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{--jstf-w: 340;position:relative;flex-grow:calc(var(--w) * var(--jstf-w) / var(--h));width:calc(1px * var(--w) * var(--jstf-w) / var(--h));margin-bottom:0!important;padding-bottom:0!important;background-color:#dcdcdc;content-visibility:auto;contain-intrinsic-size:auto 300px}@media screen and (max-width: 500px){.justified-container .posts-image-card{--jstf-w: 240}}.justified-container .posts-image-card:before{content:"";display:block;padding-bottom:calc(var(--h) / var(--w) * 100%)!important}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.site_icon_fallback{display:flex;align-items:center;justify-content:center;box-sizing:border-box;border-radius:4px;color:#fff;font-size:12px;font-weight:600;line-height:1;padding-top:1px}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-wh{position:absolute;bottom:0;left:0;padding:0 8px;font-size:14px;color:#fff;background:rgba(0,0,0,.4);border-top-right-radius:4px}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-checkbox{position:absolute;top:5px;left:5px;width:28px;padding:2px;height:28px;border-radius:2px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-checkbox:has(input[aria-checked="true"]),.posts-image-card:hover .posts-image-checkbox{opacity:1;visibility:visible}.posts-image-checkbox .v-input--selection-controls__ripple .primary--text,.posts-image-checkbox .v-input--selection-controls__input .v-icon{color:#fff!important}.posts-image-type{position:absolute!important;top:0;right:0;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}@media screen and (min-width: 768px){.wf-no-fit-screen{max-width:62.5vw;margin:16px auto}}.virtual-waterfall>[data-index]{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f;border-radius:4px}.theme--light .v-app-bar{box-shadow:none!important;background:#f6f8fc!important}.theme--light .v-app-bar,.theme--light .v-app-bar .v-toolbar__content{height:64px!important}.theme--light .v-main{padding-top:64px!important}.theme--light .v-app-bar .v-toolbar__title+input{width:50px!important;background-color:#eaf1fb!important;border-radius:24px!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#5f6368!important}.theme--light .app-bar-tag-input .v-input .v-input__slot:before,.theme--light .app-bar-tag-input .v-input .v-input__slot:after{display:none}.theme--light .app-bar-tag-input .v-input input{padding:5px 44px 5px 10px;background-color:#eaf1fb;min-height:48px;border-radius:24px}.theme--light .app-bar-tag-input:not([style*="none"])+.v-btn{position:relative;left:-50px}.theme--light.v-list,.theme--light.v-navigation-drawer{background:#e9eef6!important}.theme--dark .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--dark .img_detail_btn_color .v-chip.tag_type_general,.theme--dark .img_detail_btn_color .v-btn{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag) .v-icon,.theme--light .img_detail_btn_color .v-chip.tag_type_general,.theme--light .img_detail_btn_color .v-btn{background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#1a73e8!important;box-shadow:none!important;font-weight:500}.img_detail_btn_color .v-chip.img_detail_tag{font-weight:500}.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text,.v-date-picker-table__current){padding-bottom:2px;border-radius:10px;color:#001d35;background-color:#c2e7ff}.theme--light .refresh_posts_btn{box-shadow:0 1px 2px #0000,0 1px 3px 1px #0000;background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#001d35}.theme--light .img_detail_loading .v-progress-circular{color:#1a73e8!important;caret-color:#1a73e8!important}.theme--light .blacklist_combobox .v-input__slot{padding-left:8px!important}.theme--light .v-text-field--outlined{border-radius:20px}.fancybox__caption{display:none;padding:12px 24px!important}.v-toolbar.img_detail_btn_color{backdrop-filter:none!important}.virtual-waterfall .posts-image-card{width:100%;height:100%;margin-bottom:0;background:gainsboro;border-radius:4px!important}.virtual-waterfall .post-image-v{width:100%;height:100%;object-fit:cover;border-radius:4px!important}.virtual-waterfall .posts-image-type{border-top-right-radius:4px}.virtual-waterfall .posts-image-actions{border-bottom-left-radius:4px;border-bottom-right-radius:4px}html:has(#app.theme--dark){background:#121212}@media screen and (max-width: 1200px){.nav_drawer{height:100dvh!important}.nav_drawer .v-navigation-drawer__content{padding-bottom:9vh}}.img_meta_tag_list{position:absolute;top:35px;width:200px}.img_meta_tag_list .img_detail_tag.tag_type_artist{color:#c97000!important;background-color:#ffdcb0!important;border-color:#ffdcb0!important}.img_meta_tag_list .img_detail_tag.tag_type_copyright{color:#ae3fc1!important;background-color:#f9d5ff!important;border-color:#f9d5ff!important}.img_meta_tag_list .img_detail_tag.tag_type_character{color:#0c9312!important;background-color:#c4ffc7!important;border-color:#c4ffc7!important}.true-masonry .posts-image-card{height:fit-content;max-height:unset!important;margin-bottom:0!important}.d-flex-y{display:flex;align-items:center;flex-wrap:wrap}.d-flex-col{display:flex;flex-direction:column}.export-tags-setting{display:flex;align-items:center;flex-wrap:wrap;gap:20px}.export-tags-setting .v-messages{display:none}.export-tags-setting>.v-input{margin-top:0}.export-tags-wght-inp{width:45px;height:24px;margin-left:4px;background-color:#eaf1fb;border-radius:4px;border:1px solid rgb(187,187,187);color:inherit;text-align:center}.d-flex-col .v-chip--active:before,.d-flex-col .v-chip--active:hover:before,.d-flex-col .v-chip:focus:before{display:none}.img-detail-toolbar{position:absolute;top:0;width:100%;z-index:10}.img-detail-toolbar.detail-buttons-bottom{top:unset;bottom:12px}.img-detail-tags{position:absolute;z-index:10;bottom:12px;padding:0 12px}.img-detail-tags.detail-buttons-bottom{top:12px;bottom:unset}.img-detail-toolbar.detail-buttons-bottom .img_meta_tag_list{top:0;transform:translateY(-95%)}.settings_drawer .v-list-item__subtitle{white-space:normal}.szuru-guide-btn{animation:szuru-guide-pulse 1.8s ease-in-out 3}@keyframes szuru-guide-pulse{0%,to{box-shadow:0 0 #ff572280}50%{box-shadow:0 0 0 8px #ff572200}}\n';
   const langList = [
     { value: "zh-Hans", label: "\u7B80\u4F53\u4E2D\u6587" },
     { value: "zh-Hant", label: "\u7E41\u9AD4\u4E2D\u6587" },
@@ -118,7 +123,8 @@ var __publicField = (obj, key, value) => {
     detailButtonsBottom: isMobile,
     closePopupOnImgClick: isMobile,
     downloadBy: "tm",
-    downloadUrlKey: "fileUrl"
+    downloadUrlKey: "fileUrl",
+    szurubooruConfigs: []
   };
   const initialSettings = {
     ...defaultSettings,
@@ -130,6 +136,27 @@ var __publicField = (obj, key, value) => {
       }
     })()
   };
+  if (typeof GM_getValue === "function") {
+    try {
+      const raw = GM_getValue("ym_szurubooruConfigs");
+      if (typeof raw === "string") {
+        const arr = JSON.parse(raw);
+        if (Array.isArray(arr))
+          initialSettings.szurubooruConfigs = arr;
+      } else {
+        const domain2 = GM_getValue("ym_szurubooruDomain");
+        if (typeof domain2 === "string" && domain2) {
+          initialSettings.szurubooruConfigs = [{
+            domain: domain2,
+            username: typeof GM_getValue("ym_szurubooruUsername") === "string" ? GM_getValue("ym_szurubooruUsername") : "",
+            token: typeof GM_getValue("ym_szurubooruToken") === "string" ? GM_getValue("ym_szurubooruToken") : ""
+          }];
+        }
+      }
+    } catch (error) {
+      console.warn("[YM] failed to read szurubooru configs:", error);
+    }
+  }
   console.log("initialSettings: ", initialSettings);
   function doNotRun() {
     const mimeTypes = ["jpg", "jpeg", "png", "gif", "mp4", "webm", "json", "xml"];
@@ -1577,6 +1604,16 @@ var __publicField = (obj, key, value) => {
   const jx2FWrN3O_8T7U5aSbvXj$3 = "\u9009\u62E9\u56FE\u7247\u7684\u4FDD\u5B58\u4F4D\u7F6E";
   const downloadDefaultSizeTitle$3 = "\u9ED8\u8BA4\u4E0B\u8F7D\u56FE\u7247\u5927\u5C0F";
   const downloadDefaultSizeSubtitle$3 = "\u9009\u62E9\u6279\u91CF\u4E0B\u8F7D\u548C\u5FEB\u6377\u4E0B\u8F7D\u9ED8\u8BA4\u4F7F\u7528\u7684\u56FE\u7247\u94FE\u63A5";
+  const szurubooruDomainTitle$3 = "Szurubooru \u57DF\u540D";
+  const szurubooruDomainSubtitle$3 = "\u81EA\u90E8\u7F72\u7AD9\u70B9\u57DF\u540D\uFF0C\u5982 https://szuru.example.com \u3002\u914D\u7F6E\u4FDD\u5B58\u5728\u811A\u672C\u5185\uFF0C\u5BF9\u6240\u6709\u7AD9\u70B9\u751F\u6548\uFF1B\u81EA\u90E8\u7F72\u7AD9\u70B9\u8FD8\u9700\u5728 Tampermonkey \u4E2D\u4E3A\u672C\u811A\u672C\u6DFB\u52A0\u8BE5\u57DF\u540D\u7684\u5339\u914D\uFF08\u7BA1\u7406\u9762\u677F \u2192 \u672C\u811A\u672C \u2192 \u8BBE\u7F6E \u2192 \u5305\u542B/\u7528\u6237\u57DF\u540D\uFF0C\u5982 https://szuru.example.com/* \uFF09\uFF0C\u5426\u5219\u811A\u672C\u4E0D\u4F1A\u6CE8\u5165\u3002\u5F53\u524D\u4EE5\u672C\u7AD9\uFF08demo\uFF09\u4F5C\u4E3A\u914D\u7F6E\u5165\u53E3\u4E5F\u53EF\u4EE5\u3002";
+  const szurubooruAuthTitle$3 = "Szurubooru \u8BA4\u8BC1";
+  const szurubooruAuthSubtitle$3 = "\u79C1\u6709\u5B9E\u4F8B\u9700\u586B\u5199\uFF1A\u767B\u5F55\u7AD9\u70B9 \u2192 \u53F3\u4E0A\u89D2\u7528\u6237\u83DC\u5355 \u2192 \u767B\u5F55\u4EE4\u724C\uFF08Login tokens\uFF09\u521B\u5EFA\u4EE4\u724C\uFF0C\u7528\u6237\u540D\u4E0E\u4EE4\u724C\u90FD\u586B\u5165\u4E0B\u65B9\u3002\u516C\u5F00\u5B9E\u4F8B\u7559\u7A7A\u5373\u53EF\u3002";
+  const szurubooruUsernameLabel$3 = "\u7528\u6237\u540D";
+  const szurubooruTokenLabel$3 = "Token";
+  const szurubooruAppBarHint$3 = "\u5F53\u524D\u4E3A Szurubooru \u7AD9\u70B9\uFF1A\u70B9\u51FB\u6253\u5F00\u8BBE\u7F6E\uFF0C\u53EF\u914D\u7F6E\u81EA\u90E8\u7F72\u57DF\u540D\u4E0E\u8BA4\u8BC1\uFF1B\u81EA\u90E8\u7F72\u7AD9\u70B9\u8FD8\u9700\u5728 Tampermonkey \u4E2D\u4E3A\u672C\u811A\u672C\u6DFB\u52A0\u8BE5\u57DF\u540D\u5339\u914D\uFF08\u5305\u542B/\u7528\u6237\u57DF\u540D\uFF0C\u5982 https://your.domain/* \uFF09\u624D\u4F1A\u6CE8\u5165\u811A\u672C";
+  const szurubooruGuideBtn$3 = "\u57DF\u540D\u8BBE\u7F6E";
+  const szurubooruDomainLabel$3 = "\u57DF\u540D\uFF08\u5982 https://szuru.example.com\uFF09";
+  const szurubooruAddConfig$3 = "\u6DFB\u52A0 Szurubooru \u7AD9\u70B9";
   var zhHans = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$3,
     "ZtQHZx-pEjmu_o3dQD1fc": "\u793E\u56E2",
@@ -1722,7 +1759,17 @@ var __publicField = (obj, key, value) => {
     "rcpw-hgymDP2bsJPPUb_F": "\u9009\u62E9\u56FE\u7247\u7684\u4E0B\u8F7D\u65B9\u5F0F",
     "Ah2uP1cGRBQ6jff-SIc-Q": "\u56FE\u7247\u4E0B\u8F7D\u65B9\u5F0F",
     downloadDefaultSizeTitle: downloadDefaultSizeTitle$3,
-    downloadDefaultSizeSubtitle: downloadDefaultSizeSubtitle$3
+    downloadDefaultSizeSubtitle: downloadDefaultSizeSubtitle$3,
+    szurubooruDomainTitle: szurubooruDomainTitle$3,
+    szurubooruDomainSubtitle: szurubooruDomainSubtitle$3,
+    szurubooruAuthTitle: szurubooruAuthTitle$3,
+    szurubooruAuthSubtitle: szurubooruAuthSubtitle$3,
+    szurubooruUsernameLabel: szurubooruUsernameLabel$3,
+    szurubooruTokenLabel: szurubooruTokenLabel$3,
+    szurubooruAppBarHint: szurubooruAppBarHint$3,
+    szurubooruGuideBtn: szurubooruGuideBtn$3,
+    szurubooruDomainLabel: szurubooruDomainLabel$3,
+    szurubooruAddConfig: szurubooruAddConfig$3
   };
   const UxxldE9xRwmQctrvba5Y8$2 = "\u8A2D\u7F6E";
   const A16qoBulYQJLbHe9mqNwm$2 = "\u5305\u542B\u88F8\u9732\u3001\u6027\u611B\u63CF\u5BEB\u5167\u5BB9\u7B49\u904E\u6FC0\u5167\u5BB9";
@@ -1817,6 +1864,16 @@ var __publicField = (obj, key, value) => {
   const jx2FWrN3O_8T7U5aSbvXj$2 = "\u9078\u64C7\u5716\u7247\u7684\u4FDD\u5B58\u4F4D\u7F6E";
   const downloadDefaultSizeTitle$2 = "\u9810\u8A2D\u4E0B\u8F09\u5716\u7247\u5927\u5C0F";
   const downloadDefaultSizeSubtitle$2 = "\u9078\u64C7\u6279\u91CF\u4E0B\u8F09\u8207\u5FEB\u6377\u4E0B\u8F09\u9810\u8A2D\u4F7F\u7528\u7684\u5716\u7247\u9023\u7D50";
+  const szurubooruDomainTitle$2 = "Szurubooru \u7DB2\u57DF";
+  const szurubooruDomainSubtitle$2 = "\u81EA\u67B6\u7AD9\u9EDE\u7DB2\u57DF\uFF0C\u5982 https://szuru.example.com \u3002\u8A2D\u5B9A\u4FDD\u5B58\u5728\u8173\u672C\u5167\uFF0C\u5C0D\u6240\u6709\u7AD9\u9EDE\u751F\u6548\uFF1B\u81EA\u67B6\u7AD9\u9EDE\u9084\u9700\u5728 Tampermonkey \u4E2D\u70BA\u672C\u8173\u672C\u65B0\u589E\u8A72\u7DB2\u57DF\u7684\u6BD4\u5C0D\uFF08\u7BA1\u7406\u9762\u677F \u2192 \u672C\u8173\u672C \u2192 \u8A2D\u5B9A \u2192 \u5305\u542B/\u4F7F\u7528\u8005\u7DB2\u57DF\uFF0C\u5982 https://szuru.example.com/* \uFF09\uFF0C\u5426\u5247\u8173\u672C\u4E0D\u6703\u6CE8\u5165\u3002\u53EF\u5148\u4EE5\u672C\u7AD9\uFF08demo\uFF09\u4F5C\u70BA\u8A2D\u5B9A\u5165\u53E3\u3002";
+  const szurubooruAuthTitle$2 = "Szurubooru \u8A8D\u8B49";
+  const szurubooruAuthSubtitle$2 = "\u79C1\u6709\u5BE6\u4F8B\u9700\u586B\u5BEB\uFF1A\u767B\u5165\u7AD9\u9EDE \u2192 \u53F3\u4E0A\u89D2\u4F7F\u7528\u8005\u9078\u55AE \u2192 \u767B\u5165\u6B0A\u6756\uFF08Login tokens\uFF09\u5EFA\u7ACB\u6B0A\u6756\uFF0C\u4F7F\u7528\u8005\u540D\u7A31\u8207\u6B0A\u6756\u90FD\u586B\u5165\u4E0B\u65B9\u3002\u516C\u958B\u5BE6\u4F8B\u7559\u7A7A\u5373\u53EF\u3002";
+  const szurubooruUsernameLabel$2 = "\u4F7F\u7528\u8005\u540D\u7A31";
+  const szurubooruTokenLabel$2 = "Token";
+  const szurubooruAppBarHint$2 = "\u76EE\u524D\u70BA Szurubooru \u7AD9\u9EDE\uFF1A\u9EDE\u64CA\u958B\u555F\u8A2D\u5B9A\uFF0C\u53EF\u8A2D\u5B9A\u81EA\u67B6\u7DB2\u57DF\u8207\u8A8D\u8B49\uFF1B\u81EA\u67B6\u7AD9\u9EDE\u9084\u9700\u5728 Tampermonkey \u4E2D\u70BA\u672C\u8173\u672C\u65B0\u589E\u8A72\u7DB2\u57DF\u6BD4\u5C0D\uFF08\u5305\u542B/\u4F7F\u7528\u8005\u7DB2\u57DF\uFF0C\u5982 https://your.domain/* \uFF09\u624D\u6703\u6CE8\u5165\u8173\u672C";
+  const szurubooruGuideBtn$2 = "\u57DF\u540D\u8A2D\u5B9A";
+  const szurubooruDomainLabel$2 = "\u7DB2\u57DF\uFF08\u5982 https://szuru.example.com\uFF09";
+  const szurubooruAddConfig$2 = "\u65B0\u589E Szurubooru \u7AD9\u9EDE";
   var zhHant = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$2,
     "1F-R4qChHIzZaohu5GJzl": "\u5F62\u5982: &api_key=xx&user_id=1",
@@ -1962,7 +2019,17 @@ var __publicField = (obj, key, value) => {
     "rcpw-hgymDP2bsJPPUb_F": "\u9078\u64C7\u5716\u7247\u7684\u4E0B\u8F09\u65B9\u5F0F",
     "Ah2uP1cGRBQ6jff-SIc-Q": "\u5716\u7247\u4E0B\u8F09\u65B9\u5F0F",
     downloadDefaultSizeTitle: downloadDefaultSizeTitle$2,
-    downloadDefaultSizeSubtitle: downloadDefaultSizeSubtitle$2
+    downloadDefaultSizeSubtitle: downloadDefaultSizeSubtitle$2,
+    szurubooruDomainTitle: szurubooruDomainTitle$2,
+    szurubooruDomainSubtitle: szurubooruDomainSubtitle$2,
+    szurubooruAuthTitle: szurubooruAuthTitle$2,
+    szurubooruAuthSubtitle: szurubooruAuthSubtitle$2,
+    szurubooruUsernameLabel: szurubooruUsernameLabel$2,
+    szurubooruTokenLabel: szurubooruTokenLabel$2,
+    szurubooruAppBarHint: szurubooruAppBarHint$2,
+    szurubooruGuideBtn: szurubooruGuideBtn$2,
+    szurubooruDomainLabel: szurubooruDomainLabel$2,
+    szurubooruAddConfig: szurubooruAddConfig$2
   };
   const UxxldE9xRwmQctrvba5Y8$1 = "Settings";
   const A16qoBulYQJLbHe9mqNwm$1 = "Contains excessive content such as nudity and sexual descriptions";
@@ -2058,6 +2125,16 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const jx2FWrN3O_8T7U5aSbvXj$1 = "Choose where to save the image";
   const downloadDefaultSizeTitle$1 = "Default download image size";
   const downloadDefaultSizeSubtitle$1 = "Choose the image source used by batch and quick downloads by default";
+  const szurubooruDomainTitle$1 = "Szurubooru Domain";
+  const szurubooruDomainSubtitle$1 = "Domain of your self-hosted site, e.g. https://szuru.example.com . The setting is stored inside the script and shared across all sites. Self-hosted sites also need a match added for this script in Tampermonkey (Dashboard \u2192 this script \u2192 Settings \u2192 Include/User Domain, e.g. https://szuru.example.com/* ), otherwise the script will not be injected. You can configure it here on the demo site first.";
+  const szurubooruAuthTitle$1 = "Szurubooru Authentication";
+  const szurubooruAuthSubtitle$1 = "For private instances: log in to the site \u2192 user menu (top right) \u2192 Login tokens, create a token and fill in both username and token below. Leave empty for public instances.";
+  const szurubooruUsernameLabel$1 = "Username";
+  const szurubooruTokenLabel$1 = "Token";
+  const szurubooruAppBarHint$1 = "This is a Szurubooru site: click to open settings and configure your self-hosted domain and authentication. Self-hosted sites also need a match added for this script in Tampermonkey (Include/User Domain, e.g. https://your.domain/* ) or the script will not be injected";
+  const szurubooruGuideBtn$1 = "Domain settings";
+  const szurubooruDomainLabel$1 = "Domain (e.g. https://szuru.example.com)";
+  const szurubooruAddConfig$1 = "Add Szurubooru Site";
   var en = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$1,
     "1F-R4qChHIzZaohu5GJzl": "e.g: &api_key=xx&user_id=1",
@@ -2203,7 +2280,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "rcpw-hgymDP2bsJPPUb_F": "Choose how to download images",
     "Ah2uP1cGRBQ6jff-SIc-Q": "Image download method",
     downloadDefaultSizeTitle: downloadDefaultSizeTitle$1,
-    downloadDefaultSizeSubtitle: downloadDefaultSizeSubtitle$1
+    downloadDefaultSizeSubtitle: downloadDefaultSizeSubtitle$1,
+    szurubooruDomainTitle: szurubooruDomainTitle$1,
+    szurubooruDomainSubtitle: szurubooruDomainSubtitle$1,
+    szurubooruAuthTitle: szurubooruAuthTitle$1,
+    szurubooruAuthSubtitle: szurubooruAuthSubtitle$1,
+    szurubooruUsernameLabel: szurubooruUsernameLabel$1,
+    szurubooruTokenLabel: szurubooruTokenLabel$1,
+    szurubooruAppBarHint: szurubooruAppBarHint$1,
+    szurubooruGuideBtn: szurubooruGuideBtn$1,
+    szurubooruDomainLabel: szurubooruDomainLabel$1,
+    szurubooruAddConfig: szurubooruAddConfig$1
   };
   const UxxldE9xRwmQctrvba5Y8 = "\u8A2D\u5B9A";
   const A16qoBulYQJLbHe9mqNwm = "\u30CC\u30FC\u30C9\u3084\u6027\u7684\u63CF\u5199\u306A\u3069\u306E\u904E\u5EA6\u306A\u5185\u5BB9\u304C\u542B\u307E\u308C\u3066\u3044\u308B\u3082\u306E";
@@ -2298,6 +2385,16 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const jx2FWrN3O_8T7U5aSbvXj = "\u753B\u50CF\u3092\u4FDD\u5B58\u3059\u308B\u5834\u6240\u3092\u9078\u629E\u3057\u307E\u3059";
   const downloadDefaultSizeTitle = "\u65E2\u5B9A\u306E\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u753B\u50CF\u30B5\u30A4\u30BA";
   const downloadDefaultSizeSubtitle = "\u4E00\u62EC\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u3068\u30AF\u30A4\u30C3\u30AF\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u3067\u65E2\u5B9A\u4F7F\u7528\u3059\u308B\u753B\u50CF\u30EA\u30F3\u30AF\u3092\u9078\u629E";
+  const szurubooruDomainTitle = "Szurubooru \u30C9\u30E1\u30A4\u30F3";
+  const szurubooruDomainSubtitle = "\u81EA\u5206\u3067\u30DB\u30B9\u30C8\u3057\u3066\u3044\u308B\u30B5\u30A4\u30C8\u306E\u30C9\u30E1\u30A4\u30F3\uFF08\u4F8B: https://szuru.example.com \uFF09\u3002\u8A2D\u5B9A\u306F\u30B9\u30AF\u30EA\u30D7\u30C8\u5185\u306B\u4FDD\u5B58\u3055\u308C\u3001\u5168\u30B5\u30A4\u30C8\u3067\u5171\u6709\u3055\u308C\u307E\u3059\u3002\u81EA\u5DF1\u30DB\u30B9\u30C8\u306E\u30B5\u30A4\u30C8\u3067\u306F\u3001Tampermonkey \u3067\u672C\u30B9\u30AF\u30EA\u30D7\u30C8\u306B\u305D\u306E\u30C9\u30E1\u30A4\u30F3\u306E\u30DE\u30C3\u30C1\u3092\u8FFD\u52A0\u3059\u308B\u5FC5\u8981\u304C\u3042\u308A\u307E\u3059\uFF08\u30C0\u30C3\u30B7\u30E5\u30DC\u30FC\u30C9 \u2192 \u672C\u30B9\u30AF\u30EA\u30D7\u30C8 \u2192 \u8A2D\u5B9A \u2192 \u30E6\u30FC\u30B6\u30FC\u30C9\u30E1\u30A4\u30F3/\u5305\u542B\u3001\u4F8B: https://szuru.example.com/* \uFF09\u3002";
+  const szurubooruAuthTitle = "Szurubooru \u8A8D\u8A3C";
+  const szurubooruAuthSubtitle = "\u30D7\u30E9\u30A4\u30D9\u30FC\u30C8\u30A4\u30F3\u30B9\u30BF\u30F3\u30B9\u306E\u5834\u5408\uFF1A\u30B5\u30A4\u30C8\u306B\u30ED\u30B0\u30A4\u30F3 \u2192 \u53F3\u4E0A\u306E\u30E6\u30FC\u30B6\u30FC\u30E1\u30CB\u30E5\u30FC \u2192 \u30ED\u30B0\u30A4\u30F3\u30C8\u30FC\u30AF\u30F3\uFF08Login tokens\uFF09\u3067\u30C8\u30FC\u30AF\u30F3\u3092\u4F5C\u6210\u3057\u3001\u30E6\u30FC\u30B6\u30FC\u540D\u3068\u30C8\u30FC\u30AF\u30F3\u3092\u4E21\u65B9\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\u516C\u958B\u30A4\u30F3\u30B9\u30BF\u30F3\u30B9\u306F\u7A7A\u6B04\u3067OK\u3002";
+  const szurubooruUsernameLabel = "\u30E6\u30FC\u30B6\u30FC\u540D";
+  const szurubooruTokenLabel = "Token";
+  const szurubooruAppBarHint = "\u73FE\u5728\u306E\u30B5\u30A4\u30C8\u306F Szurubooru \u3067\u3059\uFF1A\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u8A2D\u5B9A\u3092\u958B\u304D\u3001\u81EA\u5DF1\u30DB\u30B9\u30C8\u306E\u30C9\u30E1\u30A4\u30F3\u3068\u8A8D\u8A3C\u3092\u8A2D\u5B9A\u3067\u304D\u307E\u3059\u3002\u81EA\u5DF1\u30DB\u30B9\u30C8\u306E\u30B5\u30A4\u30C8\u3067\u306F\u3001Tampermonkey \u3067\u672C\u30B9\u30AF\u30EA\u30D7\u30C8\u306B\u305D\u306E\u30C9\u30E1\u30A4\u30F3\u306E\u30DE\u30C3\u30C1\uFF08\u30E6\u30FC\u30B6\u30FC\u30C9\u30E1\u30A4\u30F3/\u5305\u542B\u3001\u4F8B: https://your.domain/* \uFF09\u3092\u8FFD\u52A0\u3059\u308B\u5FC5\u8981\u304C\u3042\u308A\u307E\u3059";
+  const szurubooruGuideBtn = "\u30C9\u30E1\u30A4\u30F3\u540D\u306E\u8A2D\u5B9A";
+  const szurubooruDomainLabel = "\u30C9\u30E1\u30A4\u30F3\uFF08\u4F8B: https://szuru.example.com\uFF09";
+  const szurubooruAddConfig = "Szurubooru \u30B5\u30A4\u30C8\u3092\u8FFD\u52A0";
   var ja = {
     UxxldE9xRwmQctrvba5Y8,
     "1F-R4qChHIzZaohu5GJzl": "\u4F8B\uFF1A&api_key=xx&user_id=1",
@@ -2443,7 +2540,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "rcpw-hgymDP2bsJPPUb_F": "\u753B\u50CF\u306E\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u65B9\u6CD5\u3092\u9078\u629E\u3059\u308B",
     "Ah2uP1cGRBQ6jff-SIc-Q": "\u753B\u50CF\u306E\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u65B9\u6CD5",
     downloadDefaultSizeTitle,
-    downloadDefaultSizeSubtitle
+    downloadDefaultSizeSubtitle,
+    szurubooruDomainTitle,
+    szurubooruDomainSubtitle,
+    szurubooruAuthTitle,
+    szurubooruAuthSubtitle,
+    szurubooruUsernameLabel,
+    szurubooruTokenLabel,
+    szurubooruAppBarHint,
+    szurubooruGuideBtn,
+    szurubooruDomainLabel,
+    szurubooruAddConfig
   };
   Vue__default["default"].use(VueI18n__default["default"]);
   const i18n = new VueI18n__default["default"]({
@@ -2457,6 +2564,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
   });
   const settings = Vue__default["default"].observable(initialSettings);
+  if (typeof GM_setValue === "function") {
+    Vue2.watch(() => settings.szurubooruConfigs, (val) => {
+      try {
+        GM_setValue("ym_szurubooruConfigs", JSON.stringify(val));
+      } catch (error) {
+        console.warn("[YM] failed to save szurubooru configs:", error);
+      }
+    }, { deep: true });
+  }
   const ykFlag = ["konachan", "yande.re"].some((e) => location.href.includes(e));
   const poolFlag = location.pathname == "/pool";
   const store = Vue__default["default"].observable({
@@ -2569,6 +2685,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var mdiContentPaste = "M19,20H5V4H7V7H17V4H19M12,2A1,1 0 0,1 13,3A1,1 0 0,1 12,4A1,1 0 0,1 11,3A1,1 0 0,1 12,2M19,2H14.82C14.4,0.84 13.3,0 12,0C10.7,0 9.6,0.84 9.18,2H5A2,2 0 0,0 3,4V20A2,2 0 0,0 5,22H19A2,2 0 0,0 21,20V4A2,2 0 0,0 19,2Z";
   var mdiDelete = "M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z";
   var mdiDownload = "M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z";
+  var mdiEye = "M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z";
+  var mdiEyeOff = "M11.83,9L15,12.16C15,12.11 15,12.05 15,12A3,3 0 0,0 12,9C11.94,9 11.89,9 11.83,9M7.53,9.8L9.08,11.35C9.03,11.56 9,11.77 9,12A3,3 0 0,0 12,15C12.22,15 12.44,14.97 12.65,14.92L14.2,16.47C13.53,16.8 12.79,17 12,17A5,5 0 0,1 7,12C7,11.21 7.2,10.47 7.53,9.8M2,4.27L4.28,6.55L4.73,7C3.08,8.3 1.78,10 1,12C2.73,16.39 7,19.5 12,19.5C13.55,19.5 15.03,19.2 16.38,18.66L16.81,19.08L19.73,22L21,20.73L3.27,3M12,7A5,5 0 0,1 17,12C17,12.64 16.87,13.26 16.64,13.82L19.57,16.75C21.07,15.5 22.27,13.86 23,12C21.27,7.61 17,4.5 12,4.5C10.6,4.5 9.26,4.75 8,5.2L10.17,7.35C10.74,7.13 11.35,7 12,7Z";
   var mdiFileClockOutline = "M4 2A2 2 0 0 0 2 4V20A2 2 0 0 0 4 22H12.41A7 7 0 0 0 16 23A7 7 0 0 0 23 16A7 7 0 0 0 18 9.3V8L12 2H4M4 4H11V9H16A7 7 0 0 0 9 16A7 7 0 0 0 10.26 20H4V4M16 11A5 5 0 0 1 21 16A5 5 0 0 1 16 21A5 5 0 0 1 11 16A5 5 0 0 1 16 11M15 12V17L18.61 19.16L19.36 17.94L16.5 16.25V12H15Z";
   var mdiFileGifBox = "M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3M10 10.5H7.5V13.5H8.5V12H10V13.7C10 14.4 9.5 15 8.7 15H7.3C6.5 15 6 14.3 6 13.7V10.4C6 9.7 6.5 9 7.3 9H8.6C9.5 9 10 9.7 10 10.3V10.5M13 15H11.5V9H13V15M17.5 10.5H16V11.5H17.5V13H16V15H14.5V9H17.5V10.5Z";
   var mdiFileTree = "M3,3H9V7H3V3M15,10H21V14H15V10M15,17H21V21H15V17M13,13H7V18H13V20H7L5,20V9H7V11H13V13Z";
@@ -2592,6 +2710,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var mdiMagnifyPlusOutline = "M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14M12,10H10V12H9V10H7V9H9V7H10V9H12V10Z";
   var mdiMessageAlertOutline = "M13,10H11V6H13V10M13,12H11V14H13V12M22,4V16A2,2 0 0,1 20,18H6L2,22V4A2,2 0 0,1 4,2H20A2,2 0 0,1 22,4M20,4H4V17.2L5.2,16H20V4Z";
   var mdiPlaylistPlus = "M3 16H10V14H3M18 14V10H16V14H12V16H16V20H18V16H22V14M14 6H3V8H14M14 10H3V12H14V10Z";
+  var mdiPlus = "M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z";
   var mdiRefresh = "M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z";
   var mdiRotateRight = "M16.89,15.5L18.31,16.89C19.21,15.73 19.76,14.39 19.93,13H17.91C17.77,13.87 17.43,14.72 16.89,15.5M13,17.9V19.92C14.39,19.75 15.74,19.21 16.9,18.31L15.46,16.87C14.71,17.41 13.87,17.76 13,17.9M19.93,11C19.76,9.61 19.21,8.27 18.31,7.11L16.89,8.53C17.43,9.28 17.77,10.13 17.91,11M15.55,5.55L11,1V4.07C7.06,4.56 4,7.92 4,12C4,16.08 7.05,19.44 11,19.93V17.91C8.16,17.43 6,14.97 6,12C6,9.03 8.16,6.57 11,6.09V10L15.55,5.55Z";
   var mdiShuffle = "M14.83,13.41L13.42,14.82L16.55,17.95L14.5,20H20V14.5L17.96,16.54L14.83,13.41M14.5,4L16.54,6.04L4,18.59L5.41,20L17.96,7.46L20,9.5V4M10.59,9.17L5.41,4L4,5.41L9.17,10.58L10.59,9.17Z";
@@ -7022,12 +7141,93 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       detail: getSankakuComplexDetail
     }
   };
+  const SZURU_DEMO_HOST = "nekomaru.moe";
+  const PAGE_LIMIT = 40;
+  const safetyRatingMap = {
+    safe: "s",
+    sketchy: "q",
+    unsafe: "e"
+  };
+  function normalizeSzuruDomain(input) {
+    const value = (input || "").trim();
+    if (!value)
+      return "";
+    try {
+      return new URL(value.includes("://") ? value : `https://${value}`).host;
+    } catch {
+      return "";
+    }
+  }
+  function isConfiguredSzuruDomain(host) {
+    return settings.szurubooruConfigs.some((c) => normalizeSzuruDomain(c.domain) === host);
+  }
+  function isSzurubooru() {
+    return location.host === SZURU_DEMO_HOST || isConfiguredSzuruDomain(location.host);
+  }
+  function currentConfig() {
+    if (location.host === SZURU_DEMO_HOST) {
+      return settings.szurubooruConfigs.find((c) => normalizeSzuruDomain(c.domain) === SZURU_DEMO_HOST);
+    }
+    return settings.szurubooruConfigs.find((c) => normalizeSzuruDomain(c.domain) === location.host);
+  }
+  function authHeaders() {
+    const headers = { Accept: "application/json" };
+    const config = currentConfig();
+    if (config?.username && config?.token) {
+      try {
+        headers.Authorization = `Token ${btoa(`${config.username}:${config.token}`)}`;
+      } catch (error) {
+        console.warn("[YM] szurubooru auth encode failed:", error);
+      }
+    }
+    return headers;
+  }
+  function absUrl(url) {
+    return new URL(url, location.origin).href;
+  }
+  async function fetchSzurubooruPosts(page, tags) {
+    const url = new URL("/api/posts/", location.origin);
+    url.searchParams.set("offset", `${(page - 1) * PAGE_LIMIT}`);
+    url.searchParams.set("limit", `${PAGE_LIMIT}`);
+    if (tags && tags !== "all") {
+      url.searchParams.set("query", tags);
+    }
+    const resp = await fetch(url.href, { headers: authHeaders() });
+    const json = await resp.json();
+    return (json.results || []).map((e) => {
+      const fileExt = e.mimeType?.split("/")[1] || String(e.contentUrl || "").split(".").pop() || "jpg";
+      const width = e.canvasWidth || 0;
+      const height = e.canvasHeight || 0;
+      return {
+        id: String(e.id),
+        postView: `${location.origin}/post/${e.id}`,
+        previewUrl: e.thumbnailUrl ? absUrl(e.thumbnailUrl) : null,
+        sampleUrl: null,
+        fileUrl: e.contentUrl ? absUrl(e.contentUrl) : null,
+        tags: (e.tags || []).map((t) => t.names?.[0] || t),
+        width,
+        height,
+        aspectRatio: height ? width / height : 1,
+        fileExt,
+        fileDownloadName: `szurubooru_${e.id}_${width}\xD7${height}.${fileExt}`,
+        rating: safetyRatingMap[e.safety] || "u",
+        score: e.score || 0,
+        source: e.source || null,
+        createdAt: e.creationTime ? new Date(e.creationTime) : null
+      };
+    });
+  }
+  const szurubooru = {
+    is: isSzurubooru,
+    posts: fetchSzurubooruPosts
+  };
   const blackList = /* @__PURE__ */ new Set(["e621.net", "e926.net", "hypnohub.net", "derpibooru.org", "realbooru.com"]);
   const siteKeys = Object.keys(sites).filter((e) => !blackList.has(e));
   const isBooruSite = () => siteKeys.includes(location.host);
   const siteDomains = [
     ...siteKeys,
     "e-shuushuu.net",
+    "nekomaru.moe",
     "zerochan.net",
     "chan.sankakucomplex.com",
     "www.idolcomplex.com",
@@ -7039,7 +7239,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "anihonetwallpaper.com",
     "nozomi.la",
     "realbooru.com",
-    "rule34hentai.net"
+    "rule34hentai.net",
+    "www.uhdpaper.com"
   ];
   const isSupportTagSearch = isBooruSite() || !["nozomi.la"].includes(location.host);
   const notPartialSupportSite = ![
@@ -7078,6 +7279,22 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     if (/gelbooru\.com|rule34\.xxx/.test(location.host)) {
       return ["rating:safe", "rating:questionable", "rating:explicit", "sort:score"];
     }
+    if (szurubooru.is()) {
+      return [
+        "safety:safe",
+        "safety:sketchy",
+        "safety:unsafe",
+        "sort:random",
+        "sort:score",
+        "sort:fav-count",
+        "sort:tag-count",
+        "sort:comment-count",
+        "sort:last-edit",
+        "type:image",
+        "type:animation",
+        "type:video"
+      ];
+    }
     return [];
   })();
   const specTitleMap = {
@@ -7096,11 +7313,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "anime-pictures.net": "Anime Pictures",
     "allgirl.booru.org": "All girl",
     "booru.eu": "Hentai Booru",
-    "rule34hentai.net": "Rule34Hentai"
+    "rule34hentai.net": "Rule34Hentai",
+    "uhdpaper.com": "UHDPaper",
+    "nekomaru.moe": "Szurubooru(Demo)"
   };
   function getSiteTitle(domain2 = location.host) {
     const host = domain2.toLowerCase().replace("www.", "");
-    return specTitleMap[host] || host[0].toUpperCase() + host.slice(1).split(".")[0];
+    if (specTitleMap[host])
+      return specTitleMap[host];
+    if (isConfiguredSzuruDomain(host))
+      return "Szurubooru";
+    return host[0].toUpperCase() + host.slice(1).split(".")[0];
   }
   const defaultLimitMap = {
     "yande.re": 40,
@@ -7377,6 +7600,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function isHentaiBooruPage() {
     return location.hostname == "booru.eu";
   }
+  function tagsToPath(tags) {
+    return tags.trim().split(/\s+/).map((tag2) => encodeURIComponent(tag2.replace(/\//g, "^s"))).join("+");
+  }
+  function hentaibooruSearchUrl(tag2) {
+    return `https://booru.eu/post/list/${tagsToPath(tag2)}/1?_wf=1&tags=${encodeURIComponent(tag2)}`;
+  }
   async function fetchHentaiBooruPosts(page, tags) {
     document.onclick = function() {
     };
@@ -7393,7 +7622,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       a.rel = "noreferrer";
       a.click();
     };
-    const url = `https://booru.eu/post/list${tags ? `/${tags}` : ""}/${page}`;
+    const url = `https://booru.eu/post/list${tags ? `/${tagsToPath(tags)}` : ""}/${page}`;
     const htmlResp = await fetch(url);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const results = [...doc.querySelectorAll(".shm-image-list span.thumb")].map((el) => {
@@ -8118,6 +8347,93 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     is: isRule34HentaiPage,
     posts: fetchRule34HentaiPosts
   };
+  const ORIGIN = "https://www.uhdpaper.com";
+  function isUhdpaperPage() {
+    return location.hostname === "uhdpaper.com" || location.hostname.endsWith(".uhdpaper.com");
+  }
+  let nextPageHref = null;
+  let seenIds = /* @__PURE__ */ new Set();
+  let started = false;
+  const postHrefById = /* @__PURE__ */ new Map();
+  function uhdpaperSearchUrl(tags) {
+    const q = tags.trim().split(/\s+/).map(encodeURIComponent).join("+");
+    return `${ORIGIN}/search?q=${q}&by-date=true&i=0`;
+  }
+  function thumbToOriginal(url) {
+    return url.split(/[?#]/)[0].replace(/-thumb\.(jpe?g|png|webp)$/i, "");
+  }
+  async function parseCard(el) {
+    const a = el.querySelector("a[href]");
+    const img = el.querySelector("img[src]");
+    if (!a?.href || !img)
+      return null;
+    const id = new URL(a.href, ORIGIN).pathname.split("/").pop()?.replace(/\.html?$/, "") || "";
+    if (!id || seenIds.has(id))
+      return null;
+    const tags = [...new Set(
+      (a.getAttribute("aria-label") || "").split(",").map((tag2) => tag2.trim()).filter((tag2) => tag2 && !tag2.startsWith("#") && !/^wallpaper$/i.test(tag2))
+    )];
+    const previewUrl = new URL(img.getAttribute("src") || "", ORIGIN).href;
+    const fileUrl = thumbToOriginal(previewUrl);
+    if (!fileUrl)
+      return null;
+    seenIds.add(id);
+    postHrefById.set(id, a.href);
+    return {
+      id,
+      postView: a.href,
+      previewUrl,
+      sampleUrl: `${fileUrl}-pc-2k.jpg`,
+      fileUrl,
+      tags,
+      width: 1920,
+      height: 1080,
+      aspectRatio: 16 / 9,
+      fileExt: "jpg",
+      fileDownloadName: `uhdpaper ${id}.jpg`,
+      rating: "s"
+    };
+  }
+  async function fetchUhdpaperPosts(page, tags) {
+    if (!started || page <= 1) {
+      started = true;
+      seenIds = /* @__PURE__ */ new Set();
+      const url = new URL(location.href);
+      url.searchParams.delete("page");
+      nextPageHref = tags ? uhdpaperSearchUrl(tags) : url.href;
+    }
+    if (!nextPageHref)
+      return [];
+    const resp = await fetch(nextPageHref);
+    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
+    const pager = doc.querySelector("a.blog-pager-older-link");
+    nextPageHref = pager?.getAttribute("href") ? new URL(pager.getAttribute("href"), ORIGIN).href : null;
+    const cards = [...doc.querySelectorAll("article.post-outer-container")];
+    const results = await Promise.all(cards.map((el) => parseCard(el)));
+    return results.filter(Boolean);
+  }
+  async function fetchUhdpaperDetail(id) {
+    const href = postHrefById.get(id);
+    if (!href)
+      return {};
+    const resp = await fetch(href);
+    if (!resp.ok)
+      return {};
+    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
+    const meta = doc.querySelector("#post_tmp");
+    if (!meta)
+      return {};
+    const tags = [...new Set(
+      (meta.querySelector("h2")?.textContent || "").split(",").map((tag2) => tag2.trim()).filter((tag2) => tag2 && !tag2.startsWith("#") && !/^wallpaper$/i.test(tag2))
+    )];
+    const source = meta.querySelector("a")?.getAttribute("href") || "";
+    return { tags, source };
+  }
+  const uhdpaper = {
+    is: isUhdpaperPage,
+    posts: fetchUhdpaperPosts,
+    detail: fetchUhdpaperDetail
+  };
   function isZerochanPage() {
     return location.hostname == "www.zerochan.net";
   }
@@ -8242,11 +8558,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     sankaku.idol,
     sankaku,
     sankaku.complex,
+    szurubooru,
     realbooru,
     rule34hentai,
+    uhdpaper,
     { is: () => true, posts: async () => [] }
   ];
   const fetchDetailActions = [
+    uhdpaper,
     animepictures,
     sankaku.idol,
     sankaku,
@@ -8264,6 +8583,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   }
   function pushPageState(pageNo, latePageQuery = false) {
     if (rule34.fav.is() || allgirl.is() || nozomila.is())
+      return;
+    if (uhdpaper.is())
       return;
     let pageParamName = "page";
     if (isPidSite()) {
@@ -8330,6 +8651,19 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const doch = document.documentElement.clientHeight;
     return cnth ? Math.floor(doch / cnth) : 1;
   };
+  const fillViewport = async () => {
+    if (settings.masonryLayout === "virtual")
+      return;
+    for (let i = 0; i < 3; i++) {
+      await Vue2.nextTick();
+      const doc = document.documentElement;
+      if (doc.scrollHeight > doc.clientHeight + 1)
+        return;
+      if (store.requestStop)
+        return;
+      await searchPosts(true);
+    }
+  };
   const initPosts = async () => {
     await searchPosts(true);
     if (settings.masonryLayout === "virtual") {
@@ -8345,6 +8679,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     for (let index = 1; index < times; index++) {
       await searchPosts(true);
     }
+    await fillViewport();
   };
   const refreshPosts = () => {
     setPage(1);
@@ -8362,10 +8697,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     setPage(1);
     setTags(searchTerm);
     store.imageList = [];
-    searchPosts().then(() => {
+    searchPosts().then(async () => {
       if (settings.masonryLayout === "virtual") {
         document.documentElement.scrollTop = 1;
       }
+      await fillViewport();
     });
   };
   async function fetchDanbooruAutocomplete(term) {
@@ -8456,6 +8792,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     __name: "AppBar",
     setup(__props) {
       const title = Vue2.computed(() => `${getSiteTitle()} - ${store.imageList.length} Posts - Page `);
+      const isSzuru = Vue2.computed(() => isSzurubooru());
       const isNoSelected = Vue2.computed(() => store.selectedImageList.length === 0);
       const isOneOrMoreSelected = Vue2.computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length < store.imageList.length);
       const isAllSelected = Vue2.computed(() => store.selectedImageList.length > 0 && store.selectedImageList.length === store.imageList.length);
@@ -8483,7 +8820,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           return e.id !== id;
         });
       }
-      const tagsQuery = new URLSearchParams(location.search).get("tags");
+      const searchParams = new URLSearchParams(location.search);
+      const tagsQuery = searchParams.get("tags") || (uhdpaper.is() ? searchParams.get("q") : null);
       const searchState = Vue2.reactive({
         showInput: !!tagsQuery,
         showMenu: false,
@@ -8521,9 +8859,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         }
       });
       function fetchTaggedPosts(tags) {
-        const url = new URL(location.href);
-        url.searchParams.set("tags", tags);
-        history.pushState("", "", url);
+        if (uhdpaper.is()) {
+          history.pushState("", "", uhdpaperSearchUrl(tags));
+        } else {
+          const url = new URL(location.href);
+          url.searchParams.set("tags", tags);
+          history.pushState("", "", url);
+        }
         searchState.searchTerm = tags;
         loadPostsByTags(tags);
       }
@@ -8774,7 +9116,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           store.isFullscreen = !!document.fullscreenElement;
         });
       });
-      return { __sfc: true, title, isNoSelected, isOneOrMoreSelected, isAllSelected, loadingValue, selectAll, removeFromList, tagsQuery, searchState, onSearchTermInput, selectTag, userName, fetchTaggedPosts, showTagsInput, onSearchTermKeydown, showPopAction, periodMap, periodByDateMap, getRecentPeriod, isPopularRecent, getPopTitle, popTitle, isPopSearchByDate, recentPeriod, periodComputedMap, showPopDatePicker, popSearchDate, fetchPopularPosts, selPeriod, loadPrevPeriod, loadNextPeriod, goToPopularPage, showPool, poolQueryTerm, searchPool, download, hasSampleDownload, downloadSourceOptions, showDownloadSourceSwitch, downloadUrlKey, getItemDownloadUrl, isGelbooru, startDownload, isExportUrlDecode, isExportUrlEncode, exportFileUrls, vuetify, toggleDarkmode, keyActions, goToPage, exitMasonry, toggleFullscreen, selectLang, mdiBrightness6, mdiCalendar, mdiCalendarSearch, mdiCheckUnderlineCircle, mdiCheckboxBlankOutline, mdiCheckboxIntermediate, mdiCheckboxMarked, mdiChevronLeft, mdiChevronRight, mdiCog, mdiDelete, mdiDownload, mdiFileClockOutline, mdiFire, mdiFullscreen, mdiFullscreenExit, mdiHome, mdiImageMultiple, mdiLocationExit, mdiMagnify, mdiShuffle, mdiStar, mdiTranslate, settings, store, toggleDrawer, langList, isSupportTagSearch, notPartialSupportSite, isSankakuSite, isZerochanPage };
+      return { __sfc: true, title, isSzuru, isNoSelected, isOneOrMoreSelected, isAllSelected, loadingValue, selectAll, removeFromList, searchParams, tagsQuery, searchState, onSearchTermInput, selectTag, userName, fetchTaggedPosts, showTagsInput, onSearchTermKeydown, showPopAction, periodMap, periodByDateMap, getRecentPeriod, isPopularRecent, getPopTitle, popTitle, isPopSearchByDate, recentPeriod, periodComputedMap, showPopDatePicker, popSearchDate, fetchPopularPosts, selPeriod, loadPrevPeriod, loadNextPeriod, goToPopularPage, showPool, poolQueryTerm, searchPool, download, hasSampleDownload, downloadSourceOptions, showDownloadSourceSwitch, downloadUrlKey, getItemDownloadUrl, isGelbooru, startDownload, isExportUrlDecode, isExportUrlEncode, exportFileUrls, vuetify, toggleDarkmode, keyActions, goToPage, exitMasonry, toggleFullscreen, selectLang, mdiBrightness6, mdiCalendar, mdiCalendarSearch, mdiCheckUnderlineCircle, mdiCheckboxBlankOutline, mdiCheckboxIntermediate, mdiCheckboxMarked, mdiChevronLeft, mdiChevronRight, mdiCog, mdiDelete, mdiDownload, mdiFileClockOutline, mdiFire, mdiFullscreen, mdiFullscreenExit, mdiHome, mdiImageMultiple, mdiInformationOutline, mdiLocationExit, mdiMagnify, mdiShuffle, mdiStar, mdiTranslate, settings, store, toggleDrawer, langList, isSupportTagSearch, notPartialSupportSite, isSankakuSite, isZerochanPage };
     }
   });
   var _sfc_render$a = function render() {
@@ -8829,7 +9171,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       } } }, [_c("v-list-item-title", { domProps: { "textContent": _vm._s(item) } })], 1);
     })], 2) : _vm._e()], 1), _c("v-btn", { attrs: { "title": _vm.$t("ZztrWbSaaaas3v0cHtSmh"), "icon": "" }, on: { "click": function($event) {
       return _setup.showTagsInput();
-    } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiMagnify))])], 1)] : _vm._e()], 2) : _setup.store.showPoolList ? _c("div", { staticClass: "align-center", staticStyle: { "display": "flex" } }, [_setup.store.showPoolList ? _c("v-toolbar-title", { staticClass: "mr-3 hidden-md-and-down" }, [_vm._v("Pools")]) : _vm._e(), _c("v-text-field", { attrs: { "hide-details": "", "append-icon": _setup.mdiMagnify }, on: { "keyup": function($event) {
+    } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiMagnify))])], 1)] : _vm._e(), _setup.isSzuru ? _c("v-btn", { staticClass: "hidden-sm-and-down szuru-guide-btn ml-1", attrs: { "color": "deep-orange", "dark": "", "small": "", "title": _vm.$t("szurubooruAppBarHint") }, on: { "click": function($event) {
+      _setup.store.showSettings = true;
+    } } }, [_c("v-icon", { staticStyle: { "color": "white!important" }, attrs: { "left": "", "size": 16 } }, [_vm._v(_vm._s(_setup.mdiInformationOutline))]), _c("span", { staticStyle: { "color": "white" } }, [_vm._v(_vm._s(_vm.$t("szurubooruGuideBtn")))])], 1) : _vm._e()], 2) : _setup.store.showPoolList ? _c("div", { staticClass: "align-center", staticStyle: { "display": "flex" } }, [_setup.store.showPoolList ? _c("v-toolbar-title", { staticClass: "mr-3 hidden-md-and-down" }, [_vm._v("Pools")]) : _vm._e(), _c("v-text-field", { attrs: { "hide-details": "", "append-icon": _setup.mdiMagnify }, on: { "keyup": function($event) {
       if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter"))
         return null;
       return _setup.searchPool.apply(null, arguments);
@@ -8935,6 +9279,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var _sfc_main$9 = /* @__PURE__ */ Vue2.defineComponent({
     __name: "NavDrawer",
     setup(__props) {
+      const navSites = Vue2.computed(() => {
+        const szuruDomains = settings.szurubooruConfigs.map((c) => normalizeSzuruDomain(c.domain)).filter((d) => d && d !== SZURU_DEMO_HOST && !siteDomains.includes(d));
+        return [...siteDomains, ...szuruDomains];
+      });
       const userName = Vue2.ref("");
       const version = Vue2.ref(GM_info.script.version);
       function openLink(link) {
@@ -8968,7 +9316,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return host.charAt(0).toUpperCase() || "?";
       }
       const actSiteIndex = Vue2.computed(() => {
-        return siteDomains.findIndex((e) => location.href.includes(e));
+        return navSites.value.findIndex((e) => location.href.includes(e));
       });
       function showSettingDrawer() {
         store.showDrawer = false;
@@ -8981,7 +9329,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
             userName.value = name;
         }
       });
-      return { __sfc: true, userName, version, openLink, handleLink, FALLBACK_COLORS, toolLinks, fallbackColor, fallbackLetter, actSiteIndex, showSettingDrawer, mdiAccount, mdiFire, mdiGithub, mdiImageMultiple, mdiInformationOutline, mdiMessageAlertOutline, mdiShuffle, mdiStar, mdiWeb, getSiteTitle, siteDomains, isDanbooruPage, store };
+      return { __sfc: true, navSites, userName, version, openLink, handleLink, FALLBACK_COLORS, toolLinks, fallbackColor, fallbackLetter, actSiteIndex, showSettingDrawer, mdiAccount, mdiFire, mdiGithub, mdiImageMultiple, mdiInformationOutline, mdiMessageAlertOutline, mdiShuffle, mdiStar, mdiWeb, getSiteTitle, isDanbooruPage, store };
     }
   });
   var _sfc_render$9 = function render() {
@@ -8992,7 +9340,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return [_c("v-list-item-content", [_c("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("CacM8tispuPNrSxxpt9GX")))])], 1)];
     }, proxy: true }], null, false, 765759728) }, [_setup.userName ? _c("v-list-item", { attrs: { "link": "", "href": "/user/home" } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiAccount))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_setup.userName))])], 1)], 1) : _vm._e(), _setup.userName ? _c("v-list-item", { attrs: { "link": "", "href": `/post?tags=vote%3A3%3A${_setup.userName}+order%3Avote&_wf=1` } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiStar))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("zs8YTCc8d8XFUgRnp7m_w")))])], 1)], 1) : _vm._e(), _c("v-list-item", { attrs: { "link": "", "href": "/pool?page=1" } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiImageMultiple))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("DXEhXAQbkiCMU_l252jo_")))])], 1)], 1), _c("v-list-item", { attrs: { "link": "", "href": "/post/popular_recent?period=1d" } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiFire))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("7Cgsr4PUMbezDXNfWdvWH")))])], 1)], 1), _c("v-list-item", { attrs: { "link": "", "href": "/post?tags=order%3Arandom&page=1" } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiShuffle))])], 1), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("StU1-52QJmNFKQ5soJCyG")))])], 1)], 1)], 1)], 1) : _vm._e(), _c("v-list", { attrs: { "dense": "", "nav": "" } }, [_c("v-list-group", { attrs: { "value": true, "no-action": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function() {
       return [_c("v-list-item-content", [_c("v-list-item-title", { staticClass: "title" }, [_vm._v(_vm._s(_vm.$t("e2_EYvweJsVoIZlIWkPRV")))])], 1)];
-    }, proxy: true }]) }, [_c("v-list-item-group", { attrs: { "value": _setup.actSiteIndex, "color": "primary" } }, [_vm._l(_setup.siteDomains, function(link) {
+    }, proxy: true }]) }, [_c("v-list-item-group", { attrs: { "value": _setup.actSiteIndex, "color": "primary" } }, [_vm._l(_setup.navSites, function(link) {
       return _c("v-list-item", { key: link, attrs: { "href": _setup.handleLink(link), "referrerpolicy": "no-referrer" } }, [_c("v-list-item-icon", { staticClass: "mr-2" }, [_c("div", { staticClass: "site_icon site_icon_fallback", style: { backgroundColor: _setup.fallbackColor(link) } }, [_vm._v(_vm._s(_setup.fallbackLetter(link)))])]), _c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_setup.getSiteTitle(link)))])], 1)], 1);
     }), _c("hr", { staticClass: "my-2" }), _vm._l(_setup.toolLinks, function(tool) {
       return _c("v-list-item", { key: tool.host, attrs: { "link": "" }, on: { "click": function($event) {
@@ -9029,6 +9377,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     setup(__props) {
       const isBoorus = Vue2.ref(isBooruSite());
       const isYandere = Vue2.ref(location.hostname == "yande.re");
+      const isSzuru = Vue2.computed(() => isSzurubooru());
+      const showSzuruToken = Vue2.ref(false);
+      function addSzuruConfig() {
+        settings.szurubooruConfigs.push({ domain: "", username: "", token: "" });
+      }
+      function removeSzuruConfig(index) {
+        settings.szurubooruConfigs.splice(index, 1);
+      }
       const currentLanglabel = Vue2.computed(() => langList.find((e) => e.value === settings.lang)?.label);
       function selectLang(val) {
         settings.lang = val;
@@ -9147,7 +9503,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           settings.imgPreloadNum = num;
         }
       }
-      return { __sfc: true, isBoorus, isYandere, currentLanglabel, selectLang, removeTagFromBlacklist, exportBlacklist, importBlacklist, hasSampleDownload, downloadSourceOptions, showDownloadSourceSetting, activeDownloadUrlKey, actDownloadSourceText, downloadMethods, actDownloadMethod, fsaDirName, getFsaDirName, setFsaDirName, dlSubLoading, showDLConfirm, setDLSubpathOn, onDLSubpathChange, windowWidth, allColList, colList, cols, actCol, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onPreloadNumBlur, mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, settings, store, langList, notPartialSupportSite, isFsaSupported };
+      return { __sfc: true, isBoorus, isYandere, isSzuru, showSzuruToken, addSzuruConfig, removeSzuruConfig, currentLanglabel, selectLang, removeTagFromBlacklist, exportBlacklist, importBlacklist, hasSampleDownload, downloadSourceOptions, showDownloadSourceSetting, activeDownloadUrlKey, actDownloadSourceText, downloadMethods, actDownloadMethod, fsaDirName, getFsaDirName, setFsaDirName, dlSubLoading, showDLConfirm, setDLSubpathOn, onDLSubpathChange, windowWidth, allColList, colList, cols, actCol, layoutTypes, actLayout, actLayoutIndex, onMasonryLayoutChange, onPreloadNumBlur, mdiChevronDown, mdiClose, mdiContentCopy, mdiContentPaste, mdiDelete, mdiEye, mdiEyeOff, mdiPlus, settings, store, langList, notPartialSupportSite, isFsaSupported };
     }
   });
   var _sfc_render$8 = function render() {
@@ -9180,7 +9536,19 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       _vm.$set(_setup.settings, "blacklist", $$v);
     }, expression: "settings.blacklist" } })], 1)], 1), _setup.isBoorus ? [_c("v-list-item", { staticClass: "mb-0" }, [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("RstKmO7YVQMpaDoucxUel")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("1F-R4qChHIzZaohu5GJzl")))])], 1)], 1), _c("v-list-item", { staticClass: "pa-0" }, [_c("v-list-item-content", { staticClass: "pt-0" }, [_c("v-text-field", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "hide-details": "", "outlined": "", "dense": "" }, model: { value: _setup.settings.credentialQuery, callback: function($$v) {
       _vm.$set(_setup.settings, "credentialQuery", $$v);
-    }, expression: "settings.credentialQuery" } })], 1)], 1)] : _vm._e(), _setup.notPartialSupportSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Lm_HFVHpv4XCjilV3NLKu")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("A16qoBulYQJLbHe9mqNwm")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "", "color": "deep-orange darken-1" }, model: { value: _setup.settings.showNSFWContents, callback: function($$v) {
+    }, expression: "settings.credentialQuery" } })], 1)], 1)] : _vm._e(), _setup.isSzuru ? [_c("v-list-item", { staticClass: "mb-0" }, [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("szurubooruDomainTitle")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("szurubooruDomainSubtitle")))])], 1)], 1), _c("v-list-item", { staticClass: "mb-0" }, [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("szurubooruAuthTitle")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("szurubooruAuthSubtitle")))])], 1)], 1), _vm._l(_setup.settings.szurubooruConfigs, function(cfg, i) {
+      return _c("v-list-item", { key: i, staticClass: "pa-0" }, [_c("v-list-item-content", { staticClass: "pt-0" }, [_c("div", { staticClass: "d-flex align-center" }, [_c("v-text-field", { staticClass: "blacklist_combobox ma-0 pa-0 mr-1", attrs: { "label": _vm.$t("szurubooruDomainLabel"), "hide-details": "", "outlined": "", "dense": "" }, model: { value: cfg.domain, callback: function($$v) {
+        _vm.$set(cfg, "domain", $$v);
+      }, expression: "cfg.domain" } }), _c("v-btn", { attrs: { "icon": "" }, on: { "click": function($event) {
+        return _setup.removeSzuruConfig(i);
+      } } }, [_c("v-icon", { attrs: { "size": 18 } }, [_vm._v(_vm._s(_setup.mdiDelete))])], 1)], 1), _c("div", { staticClass: "d-flex mt-1" }, [_c("v-text-field", { staticClass: "blacklist_combobox ma-0 pa-0 mr-1", attrs: { "label": _vm.$t("szurubooruUsernameLabel"), "hide-details": "", "outlined": "", "dense": "" }, model: { value: cfg.username, callback: function($$v) {
+        _vm.$set(cfg, "username", $$v);
+      }, expression: "cfg.username" } }), _c("v-text-field", { staticClass: "blacklist_combobox ma-0 pa-0", attrs: { "label": _vm.$t("szurubooruTokenLabel"), "append-icon": _setup.showSzuruToken ? _setup.mdiEye : _setup.mdiEyeOff, "type": _setup.showSzuruToken ? "text" : "password", "hide-details": "", "outlined": "", "dense": "" }, on: { "click:append": function($event) {
+        _setup.showSzuruToken = !_setup.showSzuruToken;
+      } }, model: { value: cfg.token, callback: function($$v) {
+        _vm.$set(cfg, "token", $$v);
+      }, expression: "cfg.token" } })], 1)])], 1);
+    }), _c("v-list-item", { staticClass: "pa-0" }, [_c("v-list-item-content", { staticClass: "pt-0" }, [_c("v-btn", { staticClass: "sel_menu_btn", attrs: { "small": "" }, on: { "click": _setup.addSzuruConfig } }, [_c("v-icon", { attrs: { "left": "", "size": 16 } }, [_vm._v(_vm._s(_setup.mdiPlus))]), _vm._v(" " + _vm._s(_vm.$t("szurubooruAddConfig")) + " ")], 1)], 1)], 1)] : _vm._e(), _setup.notPartialSupportSite ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("Lm_HFVHpv4XCjilV3NLKu")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("A16qoBulYQJLbHe9mqNwm")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "", "color": "deep-orange darken-1" }, model: { value: _setup.settings.showNSFWContents, callback: function($$v) {
       _vm.$set(_setup.settings, "showNSFWContents", $$v);
     }, expression: "settings.showNSFWContents" } })], 1)], 1) : _vm._e(), !_setup.settings.useFancybox ? _c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("_nQfaNuwbvPAIFKOY6_7u")))]), _c("v-list-item-subtitle", [_vm._v(_vm._s(_vm.$t("SIUUZ4wqJTOilEdcX3EOi")))])], 1), _c("v-list-item-action", [_c("v-switch", { attrs: { "inset": "" }, model: { value: _setup.settings.isListenWheelEvent, callback: function($$v) {
       _vm.$set(_setup.settings, "isListenWheelEvent", $$v);
@@ -9487,9 +9855,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   });
   const isCNLang = i18n.locale.includes("zh");
   async function handlePostDetail(img) {
-    const { fileUrl, sampleUrl, tags } = await fetchDetailActions.find((e) => e.is())?.detail(img.value.id) || {};
+    const { fileUrl, sampleUrl, tags, source } = await fetchDetailActions.find((e) => e.is())?.detail(img.value.id) || {};
     if (tags?.length)
       img.value.tags = tags;
+    if (source)
+      img.value.source = source;
     if (fileUrl)
       img.value.fileUrl = fileUrl;
     if (sampleUrl)
@@ -9514,7 +9884,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       postDetail.value = eshuushuu.tagDetail(imageSelected.value);
       return;
     }
-    await handlePostDetail(imageSelected);
+    try {
+      await handlePostDetail(imageSelected);
+    } catch (error) {
+      console.log("handlePostDetail error:", error);
+    }
     postDetail.value = {
       voted: false,
       tags: imageSelected.value.tags.map((tag2) => {
@@ -9599,6 +9973,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         if (isDanbooruPage()) {
           window.open(`/posts?tags=${tag2}`, "_blank", "noreferrer");
         }
+        if (uhdpaper.is()) {
+          window.open(`${uhdpaperSearchUrl(tag2)}&_wf=1`, "_blank", "noreferrer");
+        }
+        if (hentaibooru.is()) {
+          window.open(hentaibooruSearchUrl(tag2), "_blank", "noreferrer");
+        }
       }
       function toPidPage(pid) {
         if (notYKSite.value)
@@ -9613,6 +9993,16 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         if (!isURL(sourceUrl))
           return;
         window.open(sourceUrl, "_blank", "noreferrer");
+      }
+      function withoutClick(handlers) {
+        const { click, ...rest } = handlers;
+        return rest;
+      }
+      function downloadHighest() {
+        const { url, name } = resolvePostDownloadSource(imageSelected.value, "fileUrl");
+        if (!url)
+          return;
+        download(url, name);
       }
       async function download(url, name) {
         if (!url)
@@ -9876,7 +10266,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         settings.isListenWheelEvent && window.removeEventListener("wheel", onWheel);
         settings.isListenKeyupEvent && window.removeEventListener("keyup", onKeyup);
       });
-      return { __sfc: true, notR34Fav, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, imageSelected, isVideo, imgSrc, imgLasySrc, imageSelectedWidth, notYKSite, imgCreateTime, close, toggleToolbar, toTagsPage, toPidPage, toDetailPage, toSourcePage, download, addToList, onDtlContClick, postDetail, metaTags, addFavorite, isExportTagsEnable, isExportTagsShow, openExportTags, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, showPrevPost, showNextPost, onImageLoadError, scaleImgSrc, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isTriggerEvent, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFileTree, mdiFitToScreenOutline, mdiFolderNetwork, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, DPlayer, PostExportTags, isFavBtnShow, notPartialSupportSite, settings, store };
+      return { __sfc: true, notR34Fav, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, imageSelected, isVideo, imgSrc, imgLasySrc, imageSelectedWidth, notYKSite, imgCreateTime, close, toggleToolbar, toTagsPage, toPidPage, toDetailPage, toSourcePage, withoutClick, downloadHighest, download, addToList, onDtlContClick, postDetail, metaTags, addFavorite, isExportTagsEnable, isExportTagsShow, openExportTags, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, showPrevPost, showNextPost, onImageLoadError, scaleImgSrc, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isTriggerEvent, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFileTree, mdiFitToScreenOutline, mdiFolderNetwork, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, DPlayer, PostExportTags, isFavBtnShow, notPartialSupportSite, settings, store };
     }
   });
   var _sfc_render$5 = function render() {
@@ -9956,8 +10346,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return _setup.zoomInImg();
       } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiMagnifyPlusOutline))])], 1)];
     } }], null, false, 1673140250) }, [_c("span", [_vm._v(_vm._s(_vm.$t("B_ptN5O-9PhmG5ymGGtc6")))])]) : _vm._e(), _setup.notR34Fav ? _c("v-menu", { attrs: { "dense": "", "open-on-hover": "", "offset-y": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
-      return [_c("v-btn", _vm._g(_vm._b({ directives: [{ name: "show", rawName: "v-show", value: !_setup.downloading, expression: "!downloading" }], staticClass: "mr-1", attrs: { "fab": "", "small": "" } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1)];
-    } }], null, false, 2023776716) }, [_c("v-list", { attrs: { "dense": "", "flat": "" } }, [_setup.imageSelected.sampleUrl ? _c("v-list-item", { attrs: { "two-line": "", "link": "", "dense": "" } }, [_c("v-list-item-content", { on: { "click": function($event) {
+      return [_c("v-btn", _vm._g(_vm._b({ directives: [{ name: "show", rawName: "v-show", value: !_setup.downloading, expression: "!downloading" }], staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+        $event.stopPropagation();
+        return _setup.downloadHighest();
+      } } }, "v-btn", attrs, false), _setup.withoutClick(on)), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiDownload))])], 1)];
+    } }], null, false, 2692827126) }, [_c("v-list", { attrs: { "dense": "", "flat": "" } }, [_setup.imageSelected.sampleUrl ? _c("v-list-item", { attrs: { "two-line": "", "link": "", "dense": "" } }, [_c("v-list-item-content", { on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.download(_setup.imageSelected.sampleUrl, _setup.imageSelected.sampleDownloadName);
     } } }, [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("wI4KHHIe3zNRziW4lDZrp")))]), _c("v-list-item-subtitle", { domProps: { "textContent": _vm._s(_setup.imageSelected.sampleDownloadText) } })], 1)], 1) : _vm._e(), _setup.imageSelected.jpegUrl ? _c("v-list-item", { attrs: { "two-line": "", "link": "", "dense": "" } }, [_c("v-list-item-content", { on: { "click": function($event) {

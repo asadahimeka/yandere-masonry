@@ -143,5 +143,15 @@
   "rcpw-hgymDP2bsJPPUb_F": "Choose how to download images",
   "Ah2uP1cGRBQ6jff-SIc-Q": "Image download method",
   "downloadDefaultSizeTitle": "Default download image size",
-  "downloadDefaultSizeSubtitle": "Choose the image source used by batch and quick downloads by default"
+  "downloadDefaultSizeSubtitle": "Choose the image source used by batch and quick downloads by default",
+  "szurubooruDomainTitle": "Szurubooru Domain",
+  "szurubooruDomainSubtitle": "Domain of your self-hosted site, e.g. https://szuru.example.com . The setting is stored inside the script and shared across all sites. Self-hosted sites also need a match added for this script in Tampermonkey (Dashboard → this script → Settings → Include/User Domain, e.g. https://szuru.example.com/* ), otherwise the script will not be injected. You can configure it here on the demo site first.",
+  "szurubooruAuthTitle": "Szurubooru Authentication",
+  "szurubooruAuthSubtitle": "For private instances: log in to the site → user menu (top right) → Login tokens, create a token and fill in both username and token below. Leave empty for public instances.",
+  "szurubooruUsernameLabel": "Username",
+  "szurubooruTokenLabel": "Token",
+  "szurubooruAppBarHint": "This is a Szurubooru site: click to open settings and configure your self-hosted domain and authentication. Self-hosted sites also need a match added for this script in Tampermonkey (Include/User Domain, e.g. https://your.domain/* ) or the script will not be injected",
+  "szurubooruGuideBtn": "Domain settings",
+  "szurubooruDomainLabel": "Domain (e.g. https://szuru.example.com)",
+  "szurubooruAddConfig": "Add Szurubooru Site"
 }

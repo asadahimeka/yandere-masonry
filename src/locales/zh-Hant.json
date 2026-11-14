@@ -143,5 +143,15 @@
   "rcpw-hgymDP2bsJPPUb_F": "選擇圖片的下載方式",
   "Ah2uP1cGRBQ6jff-SIc-Q": "圖片下載方式",
   "downloadDefaultSizeTitle": "預設下載圖片大小",
-  "downloadDefaultSizeSubtitle": "選擇批量下載與快捷下載預設使用的圖片連結"
+  "downloadDefaultSizeSubtitle": "選擇批量下載與快捷下載預設使用的圖片連結",
+  "szurubooruDomainTitle": "Szurubooru 網域",
+  "szurubooruDomainSubtitle": "自架站點網域，如 https://szuru.example.com 。設定保存在腳本內，對所有站點生效；自架站點還需在 Tampermonkey 中為本腳本新增該網域的比對（管理面板 → 本腳本 → 設定 → 包含/使用者網域，如 https://szuru.example.com/* ），否則腳本不會注入。可先以本站（demo）作為設定入口。",
+  "szurubooruAuthTitle": "Szurubooru 認證",
+  "szurubooruAuthSubtitle": "私有實例需填寫：登入站點 → 右上角使用者選單 → 登入權杖（Login tokens）建立權杖，使用者名稱與權杖都填入下方。公開實例留空即可。",
+  "szurubooruUsernameLabel": "使用者名稱",
+  "szurubooruTokenLabel": "Token",
+  "szurubooruAppBarHint": "目前為 Szurubooru 站點：點擊開啟設定，可設定自架網域與認證；自架站點還需在 Tampermonkey 中為本腳本新增該網域比對（包含/使用者網域，如 https://your.domain/* ）才會注入腳本",
+  "szurubooruGuideBtn": "域名設定",
+  "szurubooruDomainLabel": "網域（如 https://szuru.example.com）",
+  "szurubooruAddConfig": "新增 Szurubooru 站點"
 }

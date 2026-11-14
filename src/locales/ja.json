@@ -143,5 +143,15 @@
   "rcpw-hgymDP2bsJPPUb_F": "画像のダウンロード方法を選択する",
   "Ah2uP1cGRBQ6jff-SIc-Q": "画像のダウンロード方法",
   "downloadDefaultSizeTitle": "既定のダウンロード画像サイズ",
-  "downloadDefaultSizeSubtitle": "一括ダウンロードとクイックダウンロードで既定使用する画像リンクを選択"
+  "downloadDefaultSizeSubtitle": "一括ダウンロードとクイックダウンロードで既定使用する画像リンクを選択",
+  "szurubooruDomainTitle": "Szurubooru ドメイン",
+  "szurubooruDomainSubtitle": "自分でホストしているサイトのドメイン（例: https://szuru.example.com ）。設定はスクリプト内に保存され、全サイトで共有されます。自己ホストのサイトでは、Tampermonkey で本スクリプトにそのドメインのマッチを追加する必要があります（ダッシュボード → 本スクリプト → 設定 → ユーザードメイン/包含、例: https://szuru.example.com/* ）。",
+  "szurubooruAuthTitle": "Szurubooru 認証",
+  "szurubooruAuthSubtitle": "プライベートインスタンスの場合：サイトにログイン → 右上のユーザーメニュー → ログイントークン（Login tokens）でトークンを作成し、ユーザー名とトークンを両方入力してください。公開インスタンスは空欄でOK。",
+  "szurubooruUsernameLabel": "ユーザー名",
+  "szurubooruTokenLabel": "Token",
+  "szurubooruAppBarHint": "現在のサイトは Szurubooru です：クリックして設定を開き、自己ホストのドメインと認証を設定できます。自己ホストのサイトでは、Tampermonkey で本スクリプトにそのドメインのマッチ（ユーザードメイン/包含、例: https://your.domain/* ）を追加する必要があります",
+  "szurubooruGuideBtn": "ドメイン名の設定",
+  "szurubooruDomainLabel": "ドメイン（例: https://szuru.example.com）",
+  "szurubooruAddConfig": "Szurubooru サイトを追加"
 }

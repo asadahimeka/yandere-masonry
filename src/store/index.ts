@@ -1,8 +1,19 @@
-import Vue from 'vue'
+import Vue, { watch } from 'vue'
 import type { Post } from '@himeka/booru'
 import { initialSettings } from './settings'
 
 export const settings = Vue.observable(initialSettings)
+
+// szurubooru 站点配置变更时写入 GM 存储（脚本级、跨域名共享）
+if (typeof GM_setValue === 'function') {
+  watch(() => settings.szurubooruConfigs, val => {
+    try {
+      GM_setValue('ym_szurubooruConfigs', JSON.stringify(val))
+    } catch (error) {
+      console.warn('[YM] failed to save szurubooru configs:', error)
+    }
+  }, { deep: true })
+}
 
 interface SeletedPost extends Post {
   loading?: boolean
