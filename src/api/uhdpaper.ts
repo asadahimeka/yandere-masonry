@@ -11,6 +11,12 @@ let nextPageHref: string | null = null
 let seenIds = new Set<string>()
 let started = false
 
+// 站点自己的搜索地址：空格用 + 连接，并带上 i=0
+export function uhdpaperSearchUrl(tags: string) {
+  const q = tags.trim().split(/\s+/).map(encodeURIComponent).join('+')
+  return `${ORIGIN}/search?q=${q}&by-date=true&i=0`
+}
+
 // 缩略图地址去掉 -thumb 后缀就是原图地址，服务端会 301 到实际文件
 function thumbToOriginal(url: string) {
   return url.split(/[?#]/)[0].replace(/-thumb\.(jpe?g|png|webp)$/i, '')
@@ -59,7 +65,7 @@ export async function fetchUhdpaperPosts(page: number, tags: string | null) {
     seenIds = new Set()
     const url = new URL(location.href)
     url.searchParams.delete('page')
-    nextPageHref = tags ? `${ORIGIN}/search?q=${encodeURIComponent(tags)}&by-date=true` : url.href
+    nextPageHref = tags ? uhdpaperSearchUrl(tags) : url.href
   }
   if (!nextPageHref) return []
 

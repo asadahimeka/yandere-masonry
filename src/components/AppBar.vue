@@ -294,6 +294,7 @@ import { fetchAutocomplete, isAutocompleteAct } from '@/api/autocomplete'
 import { isSankakuSite } from '@/api/sankaku'
 import { isR34PahealHome } from '@/api/r34-paheal'
 import { isZerochanPage } from '@/api/zerochan'
+import { uhdpaper, uhdpaperSearchUrl } from '@/api/uhdpaper'
 import { type DownloadUrlKey, getActiveDownloadUrlKey, getAvailableDownloadUrlKeys, resolvePostDownloadSource } from '@/utils/download-source'
 import i18n from '@/utils/i18n'
 
@@ -328,7 +329,8 @@ function removeFromList(id: string) {
   })
 }
 
-const tagsQuery = new URLSearchParams(location.search).get('tags')
+const searchParams = new URLSearchParams(location.search)
+const tagsQuery = searchParams.get('tags') || (uhdpaper.is() ? searchParams.get('q') : null)
 const searchState = reactive({
   showInput: !!tagsQuery,
   showMenu: false,
@@ -368,9 +370,14 @@ onMounted(async () => {
 })
 
 function fetchTaggedPosts(tags: string) {
-  const url = new URL(location.href)
-  url.searchParams.set('tags', tags)
-  history.pushState('', '', url)
+  if (uhdpaper.is()) {
+    // uhdpaper 的搜索是站点自己的 Blogger 查询，用它的地址格式
+    history.pushState('', '', uhdpaperSearchUrl(tags))
+  } else {
+    const url = new URL(location.href)
+    url.searchParams.set('tags', tags)
+    history.pushState('', '', url)
+  }
   searchState.searchTerm = tags
   loadPostsByTags(tags)
 }
