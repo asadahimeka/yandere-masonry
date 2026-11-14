@@ -2,6 +2,19 @@ export function isHentaiBooruPage() {
   return location.hostname == 'booru.eu'
 }
 
+// 站点的标签路由把 `/` 转义成 `^s`（fate/grand_order -> fate^sgrand_order），多标签用 + 连接
+function tagsToPath(tags: string) {
+  return tags
+    .trim()
+    .split(/\s+/)
+    .map(tag => encodeURIComponent(tag.replace(/\//g, '^s')))
+    .join('+')
+}
+
+export function hentaibooruSearchUrl(tag: string) {
+  return `https://booru.eu/post/list/${tagsToPath(tag)}/1?_wf=1&tags=${encodeURIComponent(tag)}`
+}
+
 export async function fetchHentaiBooruPosts(page: number, tags: string | null) {
   document.onclick = function () {}
   document.onmouseup = function () {}
@@ -14,7 +27,7 @@ export async function fetchHentaiBooruPosts(page: number, tags: string | null) {
     a.rel = 'noreferrer'
     a.click()
   }
-  const url = `https://booru.eu/post/list${tags ? `/${tags}` : ''}/${page}`
+  const url = `https://booru.eu/post/list${tags ? `/${tagsToPath(tags)}` : ''}/${page}`
   const htmlResp = await fetch(url)
   const doc = new DOMParser().parseFromString(await htmlResp.text(), 'text/html')
   const results = [...doc.querySelectorAll('.shm-image-list span.thumb')].map(el => {

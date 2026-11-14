@@ -1,3 +1,4 @@
+import { nextTick } from 'vue'
 import { fetchPostsActions } from './site'
 import { getFirstPageNo, handleBlacklist, pushPageState } from './_util'
 import { settings, store } from '@/store'
@@ -43,6 +44,19 @@ const calcFetchTimes = () => {
   return cnth ? Math.floor(doch / cnth) : 1
 }
 
+// 有的站点一页条数很少（uhdpaper 每页 20 条），瀑布流撑不满一屏时页面根本不可滚动，
+// 滚动事件永远不触发，这里主动补几页，直到能滚动或者没有更多
+const fillViewport = async () => {
+  if (settings.masonryLayout === 'virtual') return
+  for (let i = 0; i < 3; i++) {
+    await nextTick()
+    const doc = document.documentElement
+    if (doc.scrollHeight > doc.clientHeight + 1) return
+    if (store.requestStop) return
+    await searchPosts(true)
+  }
+}
+
 export const initPosts = async () => {
   await searchPosts(true)
   if (settings.masonryLayout === 'virtual') {
@@ -55,6 +69,7 @@ export const initPosts = async () => {
   for (let index = 1; index < times; index++) {
     await searchPosts(true)
   }
+  await fillViewport()
 }
 
 export const refreshPosts = () => {
@@ -75,9 +90,10 @@ export const loadPostsByTags = (searchTerm: string) => {
   setPage(1)
   setTags(searchTerm)
   store.imageList = []
-  searchPosts().then(() => {
+  searchPosts().then(async () => {
     if (settings.masonryLayout === 'virtual') {
       document.documentElement.scrollTop = 1
     }
+    await fillViewport()
   })
 }

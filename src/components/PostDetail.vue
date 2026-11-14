@@ -272,7 +272,8 @@
             small
             class="mr-1"
             v-bind="attrs"
-            v-on="on"
+            v-on="withoutClick(on)"
+            @click.stop="downloadHighest()"
           >
             <v-icon>{{ mdiDownload }}</v-icon>
           </v-btn>
@@ -436,8 +437,11 @@ import { debounce, downloadFile, dragElement, formatRelativeTime, isURL, showMsg
 import { gelbooru, realbooru, rule34, zerochan } from '@/api'
 import { type PostDetail } from '@/api/moebooru'
 import { addPostToFavorites, isFavBtnShow } from '@/api/fav'
+import { resolvePostDownloadSource } from '@/utils/download-source'
 import { notPartialSupportSite } from '@/api/booru'
 import { isR34PahealHome } from '@/api/r34-paheal'
+import { uhdpaper, uhdpaperSearchUrl } from '@/api/uhdpaper'
+import { hentaibooru, hentaibooruSearchUrl } from '@/api/hentaibooru'
 import { isDanbooruPage } from '@/api/danbooru'
 import { getZerochanFileUrl } from '@/api/zerochan'
 import { addToSelectedList, settings, store } from '@/store'
@@ -525,6 +529,13 @@ function toTagsPage(tag: string) {
   if (isDanbooruPage()) {
     window.open(`/posts?tags=${tag}`, '_blank', 'noreferrer')
   }
+  if (uhdpaper.is()) {
+    // 站点搜索地址 + _wf=1，新标签页直接进瀑布流
+    window.open(`${uhdpaperSearchUrl(tag)}&_wf=1`, '_blank', 'noreferrer')
+  }
+  if (hentaibooru.is()) {
+    window.open(hentaibooruSearchUrl(tag), '_blank', 'noreferrer')
+  }
 }
 
 function toPidPage(pid: string) {
@@ -540,6 +551,19 @@ function toSourcePage() {
   const { sourceUrl } = imageSelected.value
   if (!isURL(sourceUrl)) return
   window.open(sourceUrl, '_blank', 'noreferrer')
+}
+
+// 菜单 activator 默认点击也会展开菜单，这里只留 hover 等其它事件
+function withoutClick(handlers: Record<string, unknown>) {
+  const { click, ...rest } = handlers
+  return rest
+}
+
+// 直接点下载按钮 = 下最高分辨率（原文件），不用再展开菜单选
+function downloadHighest() {
+  const { url, name } = resolvePostDownloadSource(imageSelected.value, 'fileUrl')
+  if (!url) return
+  download(url, name)
 }
 
 async function download(url: string | null, name: string) {
