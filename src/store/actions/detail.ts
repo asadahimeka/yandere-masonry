@@ -40,7 +40,12 @@ export async function setPostDetail(imageSelected: Ref<Post>, postDetail: Ref<Po
     return
   }
 
-  await handlePostDetail(imageSelected)
+  // 详情请求失败不应该连带把标签也弄丢：标签本身来自列表数据
+  try {
+    await handlePostDetail(imageSelected)
+  } catch (error) {
+    console.log('handlePostDetail error:', error)
+  }
 
   postDetail.value = {
     voted: false,
