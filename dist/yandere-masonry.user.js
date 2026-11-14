@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.37.6
+// @version              0.37.7
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -6190,8 +6190,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   }
   var defaultOptions = {
     headers: {
-      Accept: "application/json, application/xml;q=0.9, */*;q=0.8",
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0"
+      Accept: "application/json, application/xml;q=0.9, */*;q=0.8"
     }
   };
   function resolveSite(domain2) {
@@ -6321,7 +6320,33 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return size.toFixed(2) + "B";
   }
   function getFileExt(url) {
-    return url?.split(".").pop() ?? "";
+    if (!url)
+      return "";
+    const raw = String(url);
+    const isPlainExt = (value) => /^[a-z0-9]{1,8}$/.test(value);
+    const lastDot = raw.lastIndexOf(".");
+    if (lastDot !== -1) {
+      const candidate = raw.slice(lastDot + 1).split(/[?#]/)[0].toLowerCase();
+      if (isPlainExt(candidate))
+        return candidate;
+    }
+    const [pathname] = raw.split(/[?#]/);
+    let path = pathname;
+    try {
+      path = new URL(pathname).pathname;
+    } catch (e) {
+    }
+    const filename = path.split("/").pop() || "";
+    const dot = filename.lastIndexOf(".");
+    if (dot >= 0 && dot < filename.length - 1) {
+      const ext = filename.slice(dot + 1).toLowerCase();
+      if (isPlainExt(ext))
+        return ext;
+    }
+    const format = /(?:^|[?&])format=([a-z0-9]+)/i.exec(raw)?.[1];
+    if (format)
+      return format.toLowerCase();
+    return "";
   }
   function dealDanbooruPreviewUrl(url, booru) {
     if ([
@@ -6450,7 +6475,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return this.data.jpeg_height ?? 0;
     }
     get fileExt() {
-      return this.data.file_ext ?? getFileExt(this.fileUrl);
+      if (this.data.file_ext)
+        return this.data.file_ext;
+      return getFileExt(this.fileUrl) || getFileExt(this.data.file_name);
     }
     get sampleSize() {
       return this.data.sample_file_size ?? 0;
@@ -7927,6 +7954,31 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function isR34PahealHome() {
     return location.hostname == "rule34.paheal.net" && location.pathname == "/";
   }
+  const MIME_EXT_MAP = {
+    "image/jpeg": "jpg",
+    "image/jpg": "jpg",
+    "image/png": "png",
+    "image/gif": "gif",
+    "image/webp": "webp",
+    "video/mp4": "mp4",
+    "video/webm": "webm"
+  };
+  function resolveFileExt(el, title) {
+    const mime = el.getAttribute("data-mime")?.toLowerCase();
+    const fromMime = mime ? MIME_EXT_MAP[mime] : void 0;
+    if (fromMime) {
+      return fromMime;
+    }
+    const fromTitle = title?.match(/\s+\d+x\d+(?:,\s*[\d.]+s)?\s+\/\/\s+[\w.]+\s+\/\/\s+([\w]+)/)?.[1];
+    return fromTitle ? fromTitle.toLowerCase() : "";
+  }
+  function parseCreatedAt(raw) {
+    const iso = new Date(raw);
+    if (!Number.isNaN(iso.getTime())) {
+      return iso;
+    }
+    return parse(`${raw} +00`, "MMMM do, yyyy; HH:mm x", new Date());
+  }
   async function fetchR34PahealPosts(page, tags) {
     document.onclick = function() {
     };
@@ -7948,11 +8000,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const results = [...doc.querySelectorAll(".shm-image-list .shm-thumb.thumb")].map((el) => {
       const id = el.getAttribute("data-post-id");
-      const fileExt = el.getAttribute("data-ext");
       const tags2 = el.getAttribute("data-tags")?.split(/\s/).filter(Boolean) || [];
       const img = el.querySelector("img");
+      const fileExt = resolveFileExt(el, img?.title);
       const [_, width, height] = img?.title.match(/\s+(\d+)x(\d+)[,\s]+/) || [];
-      const [__, size] = img?.title.match(/\s+\d+x\d+\s+\/\/\s+([\w\.]+)/) || [];
+      const [__, size] = img?.title.match(/\s+\d+x\d+(?:,\s*[\d.]+s)?\s+\/\/\s+([\w\.]+)/) || [];
       const date = img?.title.split("\n").pop();
       return {
         id,
@@ -7964,10 +8016,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         height: Number(height),
         aspectRatio: Number(width) / Number(height),
         fileExt,
-        fileDownloadName: `Rule34.Paheal ${id} ${tags2.join(" ")}.${fileExt}`,
+        fileDownloadName: `Rule34.Paheal ${id} ${tags2.join(" ")}${fileExt ? `.${fileExt}` : ""}`,
         fileDownloadText: `${width}\xD7${height} [${size}] ${fileExt?.toUpperCase()}`,
         rating: "e",
-        createdAt: date && parse(`${date} +00`, "MMMM do, yyyy; HH:mm x", new Date())
+        createdAt: date ? parseCreatedAt(date) : void 0
       };
     });
     return results;
@@ -8069,29 +8121,76 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function isZerochanPage() {
     return location.hostname == "www.zerochan.net";
   }
-  let isChallengePass = false;
-  function openApiWindow() {
-    return new Promise((resolve) => {
-      const win = window.open("https://www.zerochan.net/?p=1&json", "", "width=500,height=500");
-      win?.addEventListener("load", () => {
-        isChallengePass = true;
-        win.close();
-        resolve();
-      });
-      setTimeout(() => {
-        if (!isChallengePass) {
-          win?.close();
-          resolve();
+  const ZEROCHAN_ORIGIN = "https://www.zerochan.net";
+  const CHALLENGE_SVG_PATTERN = /totally-innocent-logo-image\.svg\?[^"'\s]+/;
+  let isChallengeUnknown = false;
+  async function requestZerochan(url) {
+    const resp = await fetch(url);
+    if (resp.status !== 503) {
+      return resp;
+    }
+    if (isChallengeUnknown) {
+      return resp;
+    }
+    const html = await resp.clone().text();
+    const svgMatch = html.match(CHALLENGE_SVG_PATTERN);
+    if (!svgMatch) {
+      isChallengeUnknown = true;
+      return resp;
+    }
+    await fetch(`${ZEROCHAN_ORIGIN}/${svgMatch[0]}`);
+    return fetch(url);
+  }
+  function extractJsonPayload(text) {
+    const trimmed = text.trimStart();
+    const body = /^\{\s*(?=\{)/.test(trimmed) ? trimmed.replace(/^\{\s*/, "") : trimmed;
+    let depth = 0;
+    let inString = false;
+    let escaped = false;
+    for (let i = 0; i < body.length; i++) {
+      const char = body[i];
+      if (escaped) {
+        escaped = false;
+        continue;
+      }
+      if (char === "\\") {
+        escaped = true;
+        continue;
+      }
+      if (char === '"') {
+        inString = !inString;
+        continue;
+      }
+      if (inString) {
+        continue;
+      }
+      if (char === "{") {
+        depth++;
+      } else if (char === "}") {
+        depth--;
+        if (depth === 0) {
+          return body.slice(0, i + 1);
         }
-      }, 5e3);
-    });
+      }
+    }
+    return body;
   }
   async function fetchZerochanPosts(page, tags) {
-    if (!isChallengePass) {
-      await openApiWindow();
+    const resp = await requestZerochan(`${ZEROCHAN_ORIGIN}/${tags || ""}?p=${page}&json`);
+    const raw = await resp.text();
+    let json;
+    try {
+      json = JSON.parse(extractJsonPayload(raw));
+    } catch {
+      throw new Error(
+        `zerochan JSON endpoint returned a broken response (HTTP ${resp.status}): ${raw.slice(0, 120)}`
+      );
     }
-    const resp = await fetch(`https://www.zerochan.net/${tags || ""}?p=${page}&json`);
-    const json = await resp.json();
+    if (!Array.isArray(json.items)) {
+      throw new TypeError(
+        `zerochan JSON endpoint returned no items (HTTP ${resp.status}): ${raw.slice(0, 120)}`
+      );
+    }
     return json.items.map((e) => {
       const primary = escape(e.tag.replace(/\s/g, "."));
       return {
@@ -8113,8 +8212,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     });
   }
   async function getZerochanFileUrl(id) {
-    const resp = await fetch(`https://www.zerochan.net/${id}?json`);
-    const json = await resp.json();
+    const resp = await requestZerochan(`${ZEROCHAN_ORIGIN}/${id}?json`);
+    const raw = await resp.text();
+    const json = JSON.parse(extractJsonPayload(raw));
     return json.full;
   }
   const zerochan = {
@@ -8593,8 +8693,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
             const item = store.selectedImageList[index];
             const { url: downloadUrl, name: resolvedName } = resolvePostDownloadSource(item, downloadUrlKey.value);
             let downloadName = store.isYKSite ? item.fileNameWithTags || resolvedName : resolvedName;
-            if (isR34PahealHome()) {
-              downloadName = `${downloadName}.${item.data.file_name.split(".").pop()}`;
+            if (isR34PahealHome() && item.fileExt) {
+              downloadName = `${downloadName}.${item.fileExt}`;
             }
             if (!downloadUrl)
               continue;
@@ -8850,7 +8950,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const FALLBACK_COLORS = ["#e91e63", "#8e24aa", "#3949ab", "#1e88e5", "#00897b", "#43a047", "#f4511e", "#5c6bc0"];
       const toolLinks = [
         { title: "Pixiv Viewer", url: "https://pixiv.pictures/?ref=booru.vercel.app", host: "pixiv.pictures" },
-        { title: "Moeview", url: "https://moeview.cocomi.eu.org/?ref=booru.vercel.app", host: "moeview.cocomi.eu.org" },
+        { title: "Moeview", url: "https://moeview.app/?ref=booru.vercel.app", host: "moeview.app" },
         { title: "R-34.XYZ", url: "https://r-34.xyz/?ref=booru.vercel.app", host: "r-34.xyz" },
         { title: "Nekon", url: "https://nekon.app/?ref=booru.vercel.app", host: "nekon.app" },
         { title: "SomeACG", url: "https://www.someacg.top/?ref=booru.vercel.app", host: "someacg.top" },
@@ -9525,8 +9625,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         if (store.isYKSite) {
           name = `${location.hostname} ${imageSelected.value.id} ${imageSelected.value.tags.join(" ")}`;
         }
-        if (isR34PahealHome()) {
-          name = `${name}.${imageSelected.value.data.file_name.split(".").pop()}`;
+        if (isR34PahealHome() && imageSelected.value.fileExt) {
+          name = `${name}.${imageSelected.value.fileExt}`;
         }
         try {
           downloading.value = true;
@@ -10012,8 +10112,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         if (store.isYKSite) {
           downloadName = `${location.hostname} ${img.id} ${img.tags.join(" ")}`;
         }
-        if (isR34PahealHome()) {
-          downloadName = `${downloadName}.${img.data.file_name.split(".").pop()}`;
+        if (isR34PahealHome() && img.fileExt) {
+          downloadName = `${downloadName}.${img.fileExt}`;
         }
         try {
           await downloadFile(downloadUrl, downloadName);
@@ -10087,7 +10187,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return _setup.onCtxMenu($event, item);
       }, "error": function($event) {
         return _setup.onImageLoadError(item?.id || "");
-      } } }), _setup.store.isYKSite ? [item?.data?.has_children ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), item?.data?.parent_id ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), item?.fileExt.toLowerCase() === "gif" ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(item?.fileExt.toLowerCase()) ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav && _setup.settings.showPostCheckbox ? _c("div", { staticClass: "posts-image-checkbox" }, [_c("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.isPostChecked(item?.id), "hide-details": "" }, on: { "change": function($event) {
+      } } }), _setup.store.isYKSite ? [item?.data?.has_children ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), item?.data?.parent_id ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), item?.fileExt?.toLowerCase() === "gif" ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(item?.fileExt?.toLowerCase()) ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav && _setup.settings.showPostCheckbox ? _c("div", { staticClass: "posts-image-checkbox" }, [_c("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.isPostChecked(item?.id), "hide-details": "" }, on: { "change": function($event) {
         return _setup.onPostCheckboxChange($event, item);
       } } })], 1) : _vm._e(), _setup.settings.showListPostReso ? _c("div", { staticClass: "posts-image-wh" }, [_vm._v(_vm._s(item?.width) + " \xD7 " + _vm._s(item?.height))]) : _vm._e(), !_setup.isR34Fav ? _c("div", { staticClass: "posts-image-actions" }, [_c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4"), "href": item?.postView, "target": "_blank", "rel": "noreferrer" } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _setup.notPartialSupportSite ? _c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
         $event.stopPropagation();
@@ -10099,7 +10199,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         $event.stopPropagation();
         return _setup.addFavorite(item?.id);
       } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiHeartPlusOutline))])], 1) : _vm._e()], 1) : _vm._e()], 2)];
-    } }], null, false, 1028004845) }) : _c("wf-layout", _vm._l(_setup.store.imageList, function(image, index) {
+    } }], null, false, 1788989645) }) : _c("wf-layout", _vm._l(_setup.store.imageList, function(image, index) {
       return _c("v-card", { key: index, staticClass: "posts-image-card", style: _setup.imgCardStyle(image) }, [_setup.settings.masonryLayout === "justified" ? [_c("img", { staticClass: "post-image", attrs: { "alt": "", "loading": "lazy", "src": _setup.getImgSrc(image), "role": "button", "tabindex": "0" }, on: { "click": function($event) {
         return _setup.showImgModal(index);
       }, "contextmenu": function($event) {
@@ -10114,7 +10214,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return _setup.onImageLoadError(image?.id);
       } }, scopedSlots: _vm._u([{ key: "placeholder", fn: function() {
         return [_c("v-row", { staticClass: "fill-height ma-0", attrs: { "align": "center", "justify": "center" } }, [_c("v-progress-circular", { attrs: { "indeterminate": "", "color": "deep-purple" } })], 1)];
-      }, proxy: true }], null, true) }), _setup.store.isYKSite ? [image?.data?.has_children ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), image?.data?.parent_id ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), image?.fileExt.toLowerCase() === "gif" ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(image?.fileExt.toLowerCase()) ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav && _setup.settings.showPostCheckbox ? _c("div", { staticClass: "posts-image-checkbox" }, [_c("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.isPostChecked(image?.id), "hide-details": "" }, on: { "change": function($event) {
+      }, proxy: true }], null, true) }), _setup.store.isYKSite ? [image?.data?.has_children ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), image?.data?.parent_id ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), image?.fileExt?.toLowerCase() === "gif" ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(image?.fileExt?.toLowerCase()) ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav && _setup.settings.showPostCheckbox ? _c("div", { staticClass: "posts-image-checkbox" }, [_c("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.isPostChecked(image?.id), "hide-details": "" }, on: { "change": function($event) {
         return _setup.onPostCheckboxChange($event, image);
       } } })], 1) : _vm._e(), _setup.settings.showListPostReso ? _c("div", { staticClass: "posts-image-wh" }, [_vm._v(_vm._s(image?.width) + " \xD7 " + _vm._s(image?.height))]) : _vm._e(), !_setup.isR34Fav ? _c("div", { staticClass: "posts-image-actions" }, [_c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4"), "href": image?.postView, "target": "_blank", "rel": "noreferrer" } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _setup.notPartialSupportSite ? _c("v-btn", { staticClass: "hidden-md-and-down", attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
         $event.stopPropagation();

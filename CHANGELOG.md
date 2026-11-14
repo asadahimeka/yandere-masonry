@@ -1,3 +1,11 @@
+## v0.37.7
+
+- fix: 修正标签翻译，统一作品名与角色名的官方译名
+- fix: 修复 danbooru 在 Firefox 下因伪装 UA 导致的 403
+- fix: 修复 rule34.paheal.net 因缺少文件扩展名导致无法加载
+- fix: 修复 Zerochan 因接口异常与弹窗挑战导致无法加载
+- chore: 合并标签数据源为单一 tags_cn.csv，并重写标签数据构建脚本
+
 ## v0.37.6
 
 - fix: 修复 danbooru 无法加载
