@@ -2,7 +2,7 @@
 // @name                 Yande.re 瀑布流浏览
 // @name:en              Yande.re Masonry
 // @name:zh              Yande.re 瀑布流浏览
-// @version              0.37.7
+// @version              0.38.0
 // @description          Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
 // @description:en       Yande.re/Konachan Masonry(Waterfall) Layout. Also support danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru et cetera.
 // @description:zh       Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览模式(支持 danbooru/gelbooru/rule34/sakugabooru/lolibooru/safebooru/3dbooru/xbooru/atfbooru/aibooru 等)
@@ -52,8 +52,8 @@
 // @resource             vuetifyjs https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.js
 // @resource             vuei18njs https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.28.2/vue-i18n.min.js
 // @resource             fxparserjs https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.4.0/fxparser.min.js
-// @resource             tagscn https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@v0.37.7/src/data/all_tags_cn.min.json
-// @resource             tagscnspace https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@v0.37.7/src/data/all_tags_cn_space.min.json
+// @resource             tagscn https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@v0.38.0/src/data/all_tags_cn.min.json
+// @resource             tagscnspace https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@v0.38.0/src/data/all_tags_cn_space.min.json
 // @run-at               document-end
 // @grant                GM_addStyle
 // @grant                unsafeWindow
