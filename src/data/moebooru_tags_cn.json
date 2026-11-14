@@ -8,7 +8,7 @@
   "armor": "盔甲/装甲",
   "artist_revision": "画师修改",
   "ass": "臀部",
-  "ass_grab": "持股/捏臀",
+  "ass_grab": "抓臀",
   "bandages": "绷带",
   "bathing": "沐浴",
   "bikini": "比基尼",
@@ -190,7 +190,7 @@
   "pee": "尿尿",
   "index_page": "索引页面",
   "autographed": "亲笔签名",
-  "cg": "CG/计算机动画",
+  "cg": "CG",
   "smoking": "吸烟",
   "cunnilingus": "品玉/舔阴",
   "sake": "日本清酒",
@@ -231,7 +231,7 @@
   "police_uniform": "警服",
 
   "azur_lane": "碧蓝航线",
-  "blue_archive": "碧蓝档案",
+  "blue_archive": "蔚蓝档案",
   "granblue_fantasy": "碧蓝幻想",
   "genshin_impact": "原神",
   "touhou": "东方",
@@ -272,7 +272,7 @@
   "kono_subarashii_sekai_ni_shukufuku_wo!": "为美好的世界献上祝福！",
   "sono_bisque_doll_wa_koi_wo_suru": "更衣人偶坠入爱河",
   "choujigen_game_neptune": "超次元游戏海王星",
-  "fate/kaleid_liner_prisma_illya": "魔法少女☆伊莉雅",
+  "fate/kaleid_liner_prisma_illya": "Fate/kaleid liner 魔法少女☆伊莉雅",
   "the_idolm@ster_million_live!": "偶像大师百万现场",
   "to_aru_kagaku_no_railgun": "某科学的超电磁炮",
   "love_live!_nijigasaki_high_school_idol_club": "Love Live! 虹咲学园学园偶像同好会",
@@ -315,5 +315,6 @@
   "lucky_star": "幸运星",
   "kobayashi-san_chi_no_maid_dragon": "小林家的龙女仆",
   "sailor_moon": "美少女战士",
-  "spy_x_family": "间谍过家家"
+  "spy_x_family": "间谍过家家",
+  "wuthering_waves": "鸣潮"
 }
