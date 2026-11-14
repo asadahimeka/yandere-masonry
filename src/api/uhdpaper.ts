@@ -1,5 +1,3 @@
-import { getImageSize } from '@/utils'
-
 const ORIGIN = 'https://www.uhdpaper.com'
 
 export function isUhdpaperPage() {
@@ -47,13 +45,6 @@ async function parseCard(el: Element) {
   seenIds.add(id)
   postHrefById.set(id, a.href)
 
-  // 列表页不给尺寸，只能用缩略图量比例；量不到就按 16:9 兜底
-  let { width, height } = await getImageSize(previewUrl)
-  if (!width || !height) {
-    width = 16
-    height = 9
-  }
-
   return {
     id,
     postView: a.href,
@@ -62,9 +53,9 @@ async function parseCard(el: Element) {
     sampleUrl: `${fileUrl}-pc-2k.jpg`,
     fileUrl,
     tags,
-    width,
-    height,
-    aspectRatio: width / height,
+    width: 1920,
+    height: 1080,
+    aspectRatio: 16 / 9,
     fileExt: 'jpg',
     fileDownloadName: `uhdpaper ${id}.jpg`,
     rating: 's',

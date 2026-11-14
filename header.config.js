@@ -1,5 +1,6 @@
 const { defineTmHeader } = require('@himeka/vite-userscript')
 const { sites } = require('@himeka/booru')
+const pkg = require('./package.json')
 
 const blackList = new Set(['e621.net', 'e926.net', 'hypnohub.net', 'derpibooru.org'])
 
@@ -24,8 +25,8 @@ module.exports = defineTmHeader({
     "vuetifyjs https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.7.2/vuetify.min.js",
     "vuei18njs https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.28.2/vue-i18n.min.js",
     "fxparserjs https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.4.0/fxparser.min.js",
-    "tagscn https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/all_tags_cn.min.json",
-    "tagscnspace https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@main/src/data/all_tags_cn_space.min.json"
+    `tagscn https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@v${pkg.version}/src/data/all_tags_cn.min.json`,
+    `tagscnspace https://cdn.jsdelivr.net/gh/asadahimeka/yandere-masonry@v${pkg.version}/src/data/all_tags_cn_space.min.json`
   ],
   "match": [
     ...Object.entries(sites).filter(([e]) => !blackList.has(e)).map(([k, v]) => `http${v.insecure ? '' : 's'}://${k}/*`),

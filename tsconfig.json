@@ -65,6 +65,7 @@
     "packages/**/*.d.ts",
     "packages/**/*.tsx",
     "packages/**/*.vue",
+    "header.config.js"
   ],
   "exclude": [
     "node_modules",
