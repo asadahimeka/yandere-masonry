@@ -47,7 +47,8 @@ async function parseCard(el: Element) {
     id,
     postView: a.href,
     previewUrl,
-    sampleUrl: previewUrl,
+    // 详情页默认显示 sampleUrl，用站点的 2K 变体，别把缩略图放大糊一屏
+    sampleUrl: `${fileUrl}-pc-2k.jpg`,
     fileUrl,
     tags: [] as string[],
     width,
