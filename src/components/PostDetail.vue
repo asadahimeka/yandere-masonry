@@ -438,6 +438,7 @@ import { type PostDetail } from '@/api/moebooru'
 import { addPostToFavorites, isFavBtnShow } from '@/api/fav'
 import { notPartialSupportSite } from '@/api/booru'
 import { isR34PahealHome } from '@/api/r34-paheal'
+import { uhdpaper, uhdpaperSearchUrl } from '@/api/uhdpaper'
 import { isDanbooruPage } from '@/api/danbooru'
 import { getZerochanFileUrl } from '@/api/zerochan'
 import { addToSelectedList, settings, store } from '@/store'
@@ -524,6 +525,10 @@ function toTagsPage(tag: string) {
   }
   if (isDanbooruPage()) {
     window.open(`/posts?tags=${tag}`, '_blank', 'noreferrer')
+  }
+  if (uhdpaper.is()) {
+    // 站点搜索地址 + _wf=1，新标签页直接进瀑布流
+    window.open(`${uhdpaperSearchUrl(tag)}&_wf=1`, '_blank', 'noreferrer')
   }
 }
 
