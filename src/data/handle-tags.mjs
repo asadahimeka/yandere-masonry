@@ -1,11 +1,16 @@
 import fs from 'node:fs/promises'
 
 async function main() {
-  const danCsv = await fs.readFile('./danbooru.csv', 'utf8')
-  const gelCsv = await fs.readFile('./gelbooru.csv', 'utf8')
-  const yanCsv = await fs.readFile('./yande.csv', 'utf8')
-  const skkCsv = await fs.readFile('./sankakucomplex_chan.csv', 'utf8')
-  const allTags = [...new Set(`${skkCsv}\n${gelCsv}\n${danCsv}\n${yanCsv}`.split('\n'))].filter(Boolean).sort().map(e => e.split(','))
+  const csv = await fs.readFile('./tags_cn.csv', 'utf8')
+
+  // 基底：tag,中文
+  const base = {}
+  for (const line of csv.split('\n')) {
+    if (!line) continue
+    const i = line.indexOf(',')
+    if (i < 0) continue
+    base[line.slice(0, i)] = line.slice(i + 1)
+  }
 
   const danJson0 = JSON.parse(await fs.readFile('./danbooru_tags_cn.json', 'utf8'))
   const yanJson = JSON.parse(await fs.readFile('./moebooru_tags_cn.json', 'utf8'))
@@ -17,12 +22,12 @@ async function main() {
 
   let results1 = {}
   let results2 = {}
-  for (const item of allTags) {
-    if (!danJson[item[0]]) {
-      results1[item[0]] = item[1]
+  for (const [tag, value] of Object.entries(base)) {
+    if (!danJson[tag]) {
+      results1[tag] = value
     }
-    if (!yanJson[item[0]]) {
-      results2[item[0]] = item[1]
+    if (!yanJson[tag]) {
+      results2[tag] = value
     }
   }
 
