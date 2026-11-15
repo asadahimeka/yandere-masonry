@@ -55,6 +55,7 @@
           >
             {{ mdiVideo }}
           </v-icon>
+          <span v-if="getMediaCount(item) > 1" class="posts-image-count">{{ getMediaCount(item) }}</span>
           <div v-if="!isR34Fav && settings.showPostCheckbox" class="posts-image-checkbox">
             <v-checkbox class="ma-0 pa-0" :value="isPostChecked(item?.id)" hide-details @change="onPostCheckboxChange($event, item)" />
           </div>
@@ -141,6 +142,7 @@
         >
           {{ mdiVideo }}
         </v-icon>
+        <span v-if="getMediaCount(image) > 1" class="posts-image-count">{{ getMediaCount(image) }}</span>
         <div v-if="!isR34Fav && settings.showPostCheckbox" class="posts-image-checkbox">
           <v-checkbox class="ma-0 pa-0" :value="isPostChecked(image?.id)" hide-details @change="onPostCheckboxChange($event, image)" />
         </div>
@@ -213,6 +215,7 @@ import { computed, nextTick, onMounted, onUnmounted, ref, set, watch } from 'vue
 import type { Post } from '@himeka/booru'
 import PostDetail from './PostDetail.vue'
 import { downloadFile, fancyboxShow, notReachBottom, showMsg, throttleScroll } from '@/utils'
+import { getMediaCount } from '@/api/16k'
 import { isSampleDownloadSupportedSite, notPartialSupportSite } from '@/api/booru'
 import { addPostToFavorites, isFavBtnShow } from '@/api/fav'
 import { isRule34FavPage } from '@/api/rule34'

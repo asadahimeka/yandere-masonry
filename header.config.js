@@ -31,6 +31,7 @@ module.exports = defineTmHeader({
   "match": [
     ...Object.entries(sites).filter(([e]) => !blackList.has(e)).map(([k, v]) => `http${v.insecure ? '' : 's'}://${k}/*`),
     'https://nekomaru.moe/*',
+    'https://booru.funmaker.moe/*',
     'https://e-shuushuu.net/*',
     'https://www.zerochan.net/*',
     'https://sankaku.app/*',
@@ -45,7 +46,9 @@ module.exports = defineTmHeader({
     'https://nozomi.la/*',
     'https://rule34hentai.net/*',
     'https://www.uhdpaper.com/*',
-    'https://uhdpaper.com/*'
+    'https://uhdpaper.com/*',
+    'https://16knote.com/*',
+    'https://16k.club/*'
   ],
   "supportURL": "https://github.com/asadahimeka/yandere-masonry/issues",
   "run-at": "document-end",
