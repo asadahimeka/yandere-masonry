@@ -27,9 +27,11 @@ export const siteDomains = [
   'realbooru.com',
   'rule34hentai.net',
   'www.uhdpaper.com',
+  '16knote.com',
+  '16k.club',
 ]
 
-export const isSupportTagSearch = isBooruSite() || !['nozomi.la'].includes(location.host)
+export const isSupportTagSearch = isBooruSite() || !['nozomi.la', '16knote.com', '16k.club'].includes(location.host)
 export const notPartialSupportSite = !([
   'e-shuushuu.net',
   'www.zerochan.net',
@@ -105,6 +107,8 @@ const specTitleMap: Record<string, string> = {
   'uhdpaper.com': 'UHDPaper',
   'nekomaru.moe': 'Szurubooru(Demo)',
   'booru.funmaker.moe': 'Mikubooru',
+  '16knote.com': '16K Note (SFW)',
+  '16k.club': '16K Club',
 }
 
 export function getSiteTitle(domain: string = location.host) {

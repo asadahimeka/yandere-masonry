@@ -26,6 +26,7 @@
 // @match                https://booru.allthefallen.moe/*
 // @match                https://aibooru.online/*
 // @match                https://nekomaru.moe/*
+// @match                https://booru.funmaker.moe/*
 // @match                https://e-shuushuu.net/*
 // @match                https://www.zerochan.net/*
 // @match                https://sankaku.app/*
@@ -41,6 +42,8 @@
 // @match                https://rule34hentai.net/*
 // @match                https://www.uhdpaper.com/*
 // @match                https://uhdpaper.com/*
+// @match                https://16knote.com/*
+// @match                https://16k.club/*
 // @homepage             https://www.nanoka.top
 // @source               https://github.com/asadahimeka/yandere-masonry
 // @icon                 https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/f1f6267537a5aff959ee63ec2c9e4e52_4821140735490026106.jpg
@@ -76,7 +79,7 @@ var __publicField = (obj, key, value) => {
   var prepareStyle = "#enter-masonry{position:fixed;z-index:99999;right:16px;top:10px;height:30px;padding:6px 10px;font-size:13px;border:0;border-radius:6px;color:#fff;outline:0;background:linear-gradient(to right,#ff758c 0%,#ff7eb3 100%);opacity:1;transform:scale(1);transition:opacity,transform .2s;cursor:pointer}#enter-masonry:hover{opacity:.8;transform:scale(1.05)}#enter-masonry.enter-button-bottom{top:unset;bottom:15px}#locale-select{position:fixed;z-index:99;right:110px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}#wf-type-select{position:fixed;z-index:99;right:190px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}\n";
   var ydStyle = 'a.thumb{padding-bottom:5px;border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08] "}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743] "}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272] "}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2] "}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:100%;height:auto;margin-top:0;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}.mm-masonry{--gap: 24;--col-width: 240}.mm-masonry{--_col-width: var(--col-width, 280);--_col-width-px: calc(var(--_col-width) * 1px);--_gap: calc(var(--gap, 20) * 1px);display:var(--display, grid)!important;grid-template-columns:repeat(auto-fill,minmax(var(--_col-width-px),1fr));grid-auto-rows:1px;column-gap:var(--_gap)}.mm-masonry__item{--img-proportional-height: calc(var(--h) * var(--_col-width) / (var(--w)));grid-row-end:span var(--img-proportional-height, 240);overflow:hidden}.mm-masonry__item:not(:last-child){margin-bottom:var(--_gap)}#post-list ul#post-list-posts .mm-masonry__item .inner,#post-popular ul#post-list-posts .mm-masonry__item .inner{height:100%!important}.mm-masonry__img{width:100%!important;height:100%!important;object-fit:cover}.justified-container{display:flex!important;flex-wrap:wrap}.justified-container:after{content:"";flex-grow:999999999}.justified-item{position:relative}.justified-item img.preview{position:absolute;top:0;left:0;width:100%;vertical-align:bottom;object-fit:cover}\n';
   var knStyle = "#lsidebar{display:none}#post-popular ul#post-list-posts{display:flex;justify-content:center;flex-wrap:wrap}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
-  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;max-width:100vw;max-height:100vh;margin:0 auto}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}.img_detail_tag_list .v-slide-group__content{max-height:72vh;overflow-y:auto}::-webkit-scrollbar{width:0px}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e9eef6;border-radius:7px}.theme--dark .img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.posts-image-card{margin-bottom:8px}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{--jstf-w: 340;position:relative;flex-grow:calc(var(--w) * var(--jstf-w) / var(--h));width:calc(1px * var(--w) * var(--jstf-w) / var(--h));margin-bottom:0!important;padding-bottom:0!important;background-color:#dcdcdc;content-visibility:auto;contain-intrinsic-size:auto 300px}@media screen and (max-width: 500px){.justified-container .posts-image-card{--jstf-w: 240}}.justified-container .posts-image-card:before{content:"";display:block;padding-bottom:calc(var(--h) / var(--w) * 100%)!important}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.site_icon_fallback{display:flex;align-items:center;justify-content:center;box-sizing:border-box;border-radius:4px;color:#fff;font-size:12px;font-weight:600;line-height:1;padding-top:1px}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-wh{position:absolute;bottom:0;left:0;padding:0 8px;font-size:14px;color:#fff;background:rgba(0,0,0,.4);border-top-right-radius:4px}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-checkbox{position:absolute;top:5px;left:5px;width:28px;padding:2px;height:28px;border-radius:2px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-checkbox:has(input[aria-checked="true"]),.posts-image-card:hover .posts-image-checkbox{opacity:1;visibility:visible}.posts-image-checkbox .v-input--selection-controls__ripple .primary--text,.posts-image-checkbox .v-input--selection-controls__input .v-icon{color:#fff!important}.posts-image-type{position:absolute!important;top:0;right:0;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}@media screen and (min-width: 768px){.wf-no-fit-screen{max-width:62.5vw;margin:16px auto}}.virtual-waterfall>[data-index]{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f;border-radius:4px}.theme--light .v-app-bar{box-shadow:none!important;background:#f6f8fc!important}.theme--light .v-app-bar,.theme--light .v-app-bar .v-toolbar__content{height:64px!important}.theme--light .v-main{padding-top:64px!important}.theme--light .v-app-bar .v-toolbar__title+input{width:50px!important;background-color:#eaf1fb!important;border-radius:24px!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#5f6368!important}.theme--light .app-bar-tag-input .v-input .v-input__slot:before,.theme--light .app-bar-tag-input .v-input .v-input__slot:after{display:none}.theme--light .app-bar-tag-input .v-input input{padding:5px 44px 5px 10px;background-color:#eaf1fb;min-height:48px;border-radius:24px}.theme--light .app-bar-tag-input:not([style*="none"])+.v-btn{position:relative;left:-50px}.theme--light.v-list,.theme--light.v-navigation-drawer{background:#e9eef6!important}.theme--dark .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--dark .img_detail_btn_color .v-chip.tag_type_general,.theme--dark .img_detail_btn_color .v-btn{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag) .v-icon,.theme--light .img_detail_btn_color .v-chip.tag_type_general,.theme--light .img_detail_btn_color .v-btn{background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#1a73e8!important;box-shadow:none!important;font-weight:500}.img_detail_btn_color .v-chip.img_detail_tag{font-weight:500}.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text,.v-date-picker-table__current){padding-bottom:2px;border-radius:10px;color:#001d35;background-color:#c2e7ff}.theme--light .refresh_posts_btn{box-shadow:0 1px 2px #0000,0 1px 3px 1px #0000;background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#001d35}.theme--light .img_detail_loading .v-progress-circular{color:#1a73e8!important;caret-color:#1a73e8!important}.theme--light .blacklist_combobox .v-input__slot{padding-left:8px!important}.theme--light .v-text-field--outlined{border-radius:20px}.fancybox__caption{display:none;padding:12px 24px!important}.v-toolbar.img_detail_btn_color{backdrop-filter:none!important}.virtual-waterfall .posts-image-card{width:100%;height:100%;margin-bottom:0;background:gainsboro;border-radius:4px!important}.virtual-waterfall .post-image-v{width:100%;height:100%;object-fit:cover;border-radius:4px!important}.virtual-waterfall .posts-image-type{border-top-right-radius:4px}.virtual-waterfall .posts-image-actions{border-bottom-left-radius:4px;border-bottom-right-radius:4px}html:has(#app.theme--dark){background:#121212}@media screen and (max-width: 1200px){.nav_drawer{height:100dvh!important}.nav_drawer .v-navigation-drawer__content{padding-bottom:9vh}}.img_meta_tag_list{position:absolute;top:35px;width:200px}.img_meta_tag_list .img_detail_tag.tag_type_artist{color:#c97000!important;background-color:#ffdcb0!important;border-color:#ffdcb0!important}.img_meta_tag_list .img_detail_tag.tag_type_copyright{color:#ae3fc1!important;background-color:#f9d5ff!important;border-color:#f9d5ff!important}.img_meta_tag_list .img_detail_tag.tag_type_character{color:#0c9312!important;background-color:#c4ffc7!important;border-color:#c4ffc7!important}.true-masonry .posts-image-card{height:fit-content;max-height:unset!important;margin-bottom:0!important}.d-flex-y{display:flex;align-items:center;flex-wrap:wrap}.d-flex-col{display:flex;flex-direction:column}.export-tags-setting{display:flex;align-items:center;flex-wrap:wrap;gap:20px}.export-tags-setting .v-messages{display:none}.export-tags-setting>.v-input{margin-top:0}.export-tags-wght-inp{width:45px;height:24px;margin-left:4px;background-color:#eaf1fb;border-radius:4px;border:1px solid rgb(187,187,187);color:inherit;text-align:center}.d-flex-col .v-chip--active:before,.d-flex-col .v-chip--active:hover:before,.d-flex-col .v-chip:focus:before{display:none}.img-detail-toolbar{position:absolute;top:0;width:100%;z-index:10}.img-detail-toolbar.detail-buttons-bottom{top:unset;bottom:12px}.img-detail-tags{position:absolute;z-index:10;bottom:12px;padding:0 12px}.img-detail-tags.detail-buttons-bottom{top:12px;bottom:unset}.img-detail-toolbar.detail-buttons-bottom .img_meta_tag_list{top:0;transform:translateY(-95%)}.settings_drawer .v-list-item__subtitle{white-space:normal}.szuru-guide-btn{animation:szuru-guide-pulse 1.8s ease-in-out 3}@keyframes szuru-guide-pulse{0%,to{box-shadow:0 0 #ff572280}50%{box-shadow:0 0 0 8px #ff572200}}\n';
+  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;max-width:100vw;max-height:100vh;margin:0 auto}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}.img_detail_tag_list .v-slide-group__content{max-height:72vh;overflow-y:auto}::-webkit-scrollbar{width:0px}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e9eef6;border-radius:7px}.theme--dark .img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.posts-image-card{margin-bottom:8px}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{--jstf-w: 340;position:relative;flex-grow:calc(var(--w) * var(--jstf-w) / var(--h));width:calc(1px * var(--w) * var(--jstf-w) / var(--h));margin-bottom:0!important;padding-bottom:0!important;background-color:#dcdcdc;content-visibility:auto;contain-intrinsic-size:auto 300px}@media screen and (max-width: 500px){.justified-container .posts-image-card{--jstf-w: 240}}.justified-container .posts-image-card:before{content:"";display:block;padding-bottom:calc(var(--h) / var(--w) * 100%)!important}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.site_icon_fallback{display:flex;align-items:center;justify-content:center;box-sizing:border-box;border-radius:4px;color:#fff;font-size:12px;font-weight:600;line-height:1;padding-top:1px}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-wh{position:absolute;bottom:0;left:0;padding:0 8px;font-size:14px;color:#fff;background:rgba(0,0,0,.4);border-top-right-radius:4px}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-checkbox{position:absolute;top:5px;left:5px;width:28px;padding:2px;height:28px;border-radius:2px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-checkbox:has(input[aria-checked="true"]),.posts-image-card:hover .posts-image-checkbox{opacity:1;visibility:visible}.posts-image-checkbox .v-input--selection-controls__ripple .primary--text,.posts-image-checkbox .v-input--selection-controls__input .v-icon{color:#fff!important}.posts-image-type{position:absolute!important;top:0;right:0;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}@media screen and (min-width: 768px){.wf-no-fit-screen{max-width:62.5vw;margin:16px auto}}.virtual-waterfall>[data-index]{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f;border-radius:4px}.theme--light .v-app-bar{box-shadow:none!important;background:#f6f8fc!important}.theme--light .v-app-bar,.theme--light .v-app-bar .v-toolbar__content{height:64px!important}.theme--light .v-main{padding-top:64px!important}.theme--light .v-app-bar .v-toolbar__title+input{width:50px!important;background-color:#eaf1fb!important;border-radius:24px!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#5f6368!important}.theme--light .app-bar-tag-input .v-input .v-input__slot:before,.theme--light .app-bar-tag-input .v-input .v-input__slot:after{display:none}.theme--light .app-bar-tag-input .v-input input{padding:5px 44px 5px 10px;background-color:#eaf1fb;min-height:48px;border-radius:24px}.theme--light .app-bar-tag-input:not([style*="none"])+.v-btn{position:relative;left:-50px}.theme--light.v-list,.theme--light.v-navigation-drawer{background:#e9eef6!important}.theme--dark .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--dark .img_detail_btn_color .v-chip.tag_type_general,.theme--dark .img_detail_btn_color .v-btn{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag) .v-icon,.theme--light .img_detail_btn_color .v-chip.tag_type_general,.theme--light .img_detail_btn_color .v-btn{background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#1a73e8!important;box-shadow:none!important;font-weight:500}.img_detail_btn_color .v-chip.img_detail_tag{font-weight:500}.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text,.v-date-picker-table__current){padding-bottom:2px;border-radius:10px;color:#001d35;background-color:#c2e7ff}.theme--light .refresh_posts_btn{box-shadow:0 1px 2px #0000,0 1px 3px 1px #0000;background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#001d35}.theme--light .img_detail_loading .v-progress-circular{color:#1a73e8!important;caret-color:#1a73e8!important}.theme--light .blacklist_combobox .v-input__slot{padding-left:8px!important}.theme--light .v-text-field--outlined{border-radius:20px}.fancybox__caption{display:none;padding:12px 24px!important}.v-toolbar.img_detail_btn_color{backdrop-filter:none!important}.virtual-waterfall .posts-image-card{width:100%;height:100%;margin-bottom:0;background:gainsboro;border-radius:4px!important}.virtual-waterfall .post-image-v{width:100%;height:100%;object-fit:cover;border-radius:4px!important}.virtual-waterfall .posts-image-type{border-top-right-radius:4px}.virtual-waterfall .posts-image-actions{border-bottom-left-radius:4px;border-bottom-right-radius:4px}html:has(#app.theme--dark){background:#121212}@media screen and (max-width: 1200px){.nav_drawer{height:100dvh!important}.nav_drawer .v-navigation-drawer__content{padding-bottom:9vh}}.img_meta_tag_list{position:absolute;top:35px;width:200px}.img_meta_tag_list .img_detail_tag.tag_type_artist{color:#c97000!important;background-color:#ffdcb0!important;border-color:#ffdcb0!important}.img_meta_tag_list .img_detail_tag.tag_type_copyright{color:#ae3fc1!important;background-color:#f9d5ff!important;border-color:#f9d5ff!important}.img_meta_tag_list .img_detail_tag.tag_type_character{color:#0c9312!important;background-color:#c4ffc7!important;border-color:#c4ffc7!important}.true-masonry .posts-image-card{height:fit-content;max-height:unset!important;margin-bottom:0!important}.d-flex-y{display:flex;align-items:center;flex-wrap:wrap}.d-flex-col{display:flex;flex-direction:column}.export-tags-setting{display:flex;align-items:center;flex-wrap:wrap;gap:20px}.export-tags-setting .v-messages{display:none}.export-tags-setting>.v-input{margin-top:0}.export-tags-wght-inp{width:45px;height:24px;margin-left:4px;background-color:#eaf1fb;border-radius:4px;border:1px solid rgb(187,187,187);color:inherit;text-align:center}.d-flex-col .v-chip--active:before,.d-flex-col .v-chip--active:hover:before,.d-flex-col .v-chip:focus:before{display:none}.img-detail-toolbar{position:absolute;top:0;width:100%;z-index:10}.img-detail-toolbar.detail-buttons-bottom{top:unset;bottom:12px}.img-detail-tags{position:absolute;z-index:10;bottom:12px;padding:0 12px}.img-detail-tags.detail-buttons-bottom{top:12px;bottom:unset}.img-detail-toolbar.detail-buttons-bottom .img_meta_tag_list{top:0;transform:translateY(-95%)}.settings_drawer .v-list-item__subtitle{white-space:normal}.szuru-guide-btn{animation:szuru-guide-pulse 1.8s ease-in-out 3}@keyframes szuru-guide-pulse{0%,to{box-shadow:0 0 #ff572280}50%{box-shadow:0 0 0 8px #ff572200}}.posts-image-count{position:absolute!important;top:30px;right:0;min-width:24px;padding:2px 5px;border-bottom-left-radius:4px;text-align:center;font-size:12px;font-weight:600;line-height:1.2;color:#fff;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);pointer-events:none}.theme--light .posts-image-count{color:#000000de;background:rgba(255,255,255,.4)}.detail-thumb-strip{position:absolute;bottom:0;left:0;right:0;z-index:10;padding:8px 12px;background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,.4));backdrop-filter:blur(10px)}.detail-thumb-strip--raised{bottom:56px}.detail-thumb-strip-row{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}.detail-thumb-strip-row::-webkit-scrollbar{display:none}.detail-thumb-item{flex:0 0 auto;width:56px;height:56px;border-radius:4px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color .2s,box-shadow .2s}.detail-thumb-item .v-img{border-radius:inherit}.detail-thumb-item:hover{border-color:#ffffff8c}.detail-thumb-item--active{border-color:#8f77b5;box-shadow:0 0 0 2px #8f77b559}.detail-thumb-item:focus-visible{outline:2px solid #8F77B5;outline-offset:2px}.theme--light .detail-thumb-strip{background:linear-gradient(to top,rgba(255,255,255,.55),rgba(255,255,255,.4))}.theme--light .detail-thumb-item:hover{border-color:#00000073}\n';
   const langList = [
     { value: "zh-Hans", label: "\u7B80\u4F53\u4E2D\u6587" },
     { value: "zh-Hant", label: "\u7E41\u9AD4\u4E2D\u6587" },
@@ -2700,6 +2703,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var mdiHeartPlusOutline = "M12.67 20.74L12 21.35L10.55 20.03C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5C22 9.93 21.5 11.26 20.62 12.61C20 12.31 19.31 12.11 18.59 12.04C19.5 10.8 20 9.65 20 8.5C20 6.5 18.5 5 16.5 5C14.96 5 13.46 6 12.93 7.36H11.07C10.54 6 9.04 5 7.5 5C5.5 5 4 6.5 4 8.5C4 11.39 7.14 14.24 11.89 18.55L12 18.65L12.04 18.61C12.12 19.37 12.34 20.09 12.67 20.74M17 14V17H14V19H17V22H19V19H22V17H19V14H17Z";
   var mdiHome = "M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z";
   var mdiImageMultiple = "M22,16V4A2,2 0 0,0 20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16M11,12L13.03,14.71L16,11L20,16H8M2,6V20A2,2 0 0,0 4,22H18V20H4V6";
+  var mdiImageMultipleOutline = "M21,17H7V3H21M21,1H7A2,2 0 0,0 5,3V17A2,2 0 0,0 7,19H21A2,2 0 0,0 23,17V3A2,2 0 0,0 21,1M3,5H1V21A2,2 0 0,0 3,23H19V21H3M15.96,10.29L13.21,13.83L11.25,11.47L8.5,15H19.5L15.96,10.29Z";
   var mdiInformationOutline = "M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z";
   var mdiLaunch = "M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z";
   var mdiLinkVariant = "M10.59,13.41C11,13.8 11,14.44 10.59,14.83C10.2,15.22 9.56,15.22 9.17,14.83C7.22,12.88 7.22,9.71 9.17,7.76V7.76L12.71,4.22C14.66,2.27 17.83,2.27 19.78,4.22C21.73,6.17 21.73,9.34 19.78,11.29L18.29,12.78C18.3,11.96 18.17,11.14 17.89,10.36L18.36,9.88C19.54,8.71 19.54,6.81 18.36,5.64C17.19,4.46 15.29,4.46 14.12,5.64L10.59,9.17C9.41,10.34 9.41,12.24 10.59,13.41M13.41,9.17C13.8,8.78 14.44,8.78 14.83,9.17C16.78,11.12 16.78,14.29 14.83,16.24V16.24L11.29,19.78C9.34,21.73 6.17,21.73 4.22,19.78C2.27,17.83 2.27,14.66 4.22,12.71L5.71,11.22C5.7,12.04 5.83,12.86 6.11,13.65L5.64,14.12C4.46,15.29 4.46,17.19 5.64,18.36C6.81,19.54 8.71,19.54 9.88,18.36L13.41,14.83C14.59,13.66 14.59,11.76 13.41,10.59C13,10.2 13,9.56 13.41,9.17Z";
@@ -6942,36 +6946,74 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     return booruCache[rSite].search(tags, { limit, random, page, credentials });
   }
+  const ORIGIN$1 = "https://chan.sankakucomplex.com";
   function isSankakuComplexPage() {
     return location.hostname == "chan.sankakucomplex.com";
   }
   const state = {
-    base: "https://chan.sankakucomplex.com/cn/posts?auto_page=t",
-    nextUrl: null
+    base: `${ORIGIN$1}/cn/posts?auto_page=t`,
+    nextUrl: null,
+    nextPage: 0
   };
-  const ratingMap = {
+  const ratingMap$1 = {
     "G": "s",
     "R15+": "q",
     "R18+": "e"
   };
+  function queryAllDeep(root, selector) {
+    const found = [...root.querySelectorAll(selector)];
+    for (const template of [...root.querySelectorAll("template")]) {
+      found.push(...queryAllDeep(template.content, selector));
+    }
+    return found;
+  }
+  function resolveUrl(url) {
+    if (!url)
+      return "";
+    try {
+      return new URL(url, ORIGIN$1).href;
+    } catch {
+      return url;
+    }
+  }
+  function getNextPageUrl(doc) {
+    const frame = queryAllDeep(doc, "turbo-frame[src]").find((e) => (e.getAttribute("src") || "").includes("auto_page=t"));
+    const src = frame?.getAttribute("src");
+    if (src)
+      return src;
+    return doc.querySelector("body > div[next-page-url]")?.getAttribute("next-page-url") || null;
+  }
   async function fetchSankakuComplexPosts(page, tags) {
     const w = unsafeWindow;
-    w.$.ajax = () => {
-    };
-    w.jQuery.ajax = () => {
-    };
+    if (w.$)
+      w.$.ajax = () => {
+      };
+    if (w.jQuery)
+      w.jQuery.ajax = () => {
+      };
     if (page == 1) {
       state.nextUrl = null;
+      state.nextPage = 0;
       document.documentElement.scrollTop = 0;
     }
-    const url = new URL(state.nextUrl ? `https://chan.sankakucomplex.com${state.nextUrl}` : state.base);
+    const useNext = !!state.nextUrl && state.nextPage == page;
+    const url = new URL(useNext ? resolveUrl(state.nextUrl) : state.base);
     url.searchParams.set("auto_page", "t");
     url.searchParams.set("page", `${page}`);
-    !state.nextUrl && tags && url.searchParams.set("tags", tags);
+    if (tags && !url.searchParams.has("tags"))
+      url.searchParams.set("tags", tags);
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
-    state.nextUrl = doc.querySelector("body > div[next-page-url]")?.getAttribute("next-page-url")?.replace(/amp;/g, "");
-    const results = [...doc.querySelectorAll(".post-gallery .post-preview")].map((el) => {
+    state.nextUrl = getNextPageUrl(doc);
+    state.nextPage = state.nextUrl ? Number(new URL(resolveUrl(state.nextUrl), ORIGIN$1).searchParams.get("page")) || page + 1 : 0;
+    const seen = /* @__PURE__ */ new Set();
+    const results = queryAllDeep(doc, ".post-preview").filter((el) => {
+      const id = el.getAttribute("data-id");
+      if (!id || seen.has(id))
+        return false;
+      seen.add(id);
+      return true;
+    }).map((el) => {
       const id = el.getAttribute("data-id");
       const img = el.querySelector("img");
       const tagsText = img?.getAttribute("data-auto_page") || "";
@@ -6980,8 +7022,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const [__, ratingText] = tagsText.match(/Rating:(\S+)/) || [];
       return {
         id,
-        postView: el.querySelector("a")?.href,
-        previewUrl: img?.src,
+        postView: resolveUrl(el.querySelector("a")?.getAttribute("href")),
+        previewUrl: resolveUrl(img?.getAttribute("src")),
         fileUrl: "",
         tags: tagsArr,
         width: Number(width),
@@ -6990,21 +7032,36 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         fileExt: el.querySelector(".animated_details") ? "mp4" : "jpg",
         fileDownloadName: `sankaku-complex ${id} ${tagsArr.join(" ")}`,
         fileDownloadText: `${width}\xD7${height}`,
-        rating: ratingMap[ratingText] || ratingText
+        rating: ratingMap$1[ratingText] || ratingText
       };
     });
     return results;
   }
   async function getSankakuComplexDetail(id) {
-    const url = new URL(`https://chan.sankakucomplex.com/cn/posts/${id}`);
+    const url = new URL(`${ORIGIN$1}/cn/posts/${id}`);
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const imgSrc = doc.querySelector("#post-content img")?.src;
     const fileUrl = doc.querySelector("#post-content a")?.href;
     const videoSrc = doc.querySelector("#post-content video")?.src;
-    return {
+    const result = {
       sampleUrl: imgSrc,
       fileUrl: fileUrl || imgSrc || videoSrc
+    };
+    if (result.sampleUrl || result.fileUrl)
+      return result;
+    const resp = await fetch(`https://sankakuapi.com/posts/${id}/fu?lang=${navigator.language || "zh-CN"}`, {
+      headers: {
+        "api-version": "2",
+        "client-type": "non-premium",
+        "platform": "web-app",
+        "priority": "u=1, i"
+      }
+    });
+    const json = await resp.json();
+    return {
+      sampleUrl: json?.data?.sample_url,
+      fileUrl: json?.data?.file_url || json?.data?.fallback_url
     };
   }
   function isSankakuIdolPage() {
@@ -7141,6 +7198,87 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       detail: getSankakuComplexDetail
     }
   };
+  const MIKUBOORU_HOST = "booru.funmaker.moe";
+  const PAGE_SIZE = 40;
+  const ratingMap = {
+    "rating:s": "rating:1-2",
+    "rating:q": "rating:3",
+    "rating:e": "rating:4-5",
+    "rating:safe": "rating:1-2",
+    "rating:questionable": "rating:3",
+    "rating:explicit": "rating:4-5",
+    "rating:general": "rating:1-2"
+  };
+  const MAX_QUERY_PARTS = 40;
+  function convertQuery(tags) {
+    return (tags || "").split(/\s+/).map((token) => {
+      if (token.startsWith("-")) {
+        return ratingMap[token.slice(1)] ? "" : token;
+      }
+      return ratingMap[token] || token;
+    }).filter(Boolean).slice(0, MAX_QUERY_PARTS).join(" ");
+  }
+  function originalUrl(sha256, extension) {
+    return `${location.origin}/files/f${sha256}${extension}`;
+  }
+  function thumbnailUrl(sha256) {
+    return `${location.origin}/files/t${sha256}.thumbnail`;
+  }
+  function isMikubooru() {
+    return location.host === MIKUBOORU_HOST;
+  }
+  async function fetchMikubooruPosts(page, tags) {
+    const url = new URL("/api/post", location.origin);
+    if (tags && tags !== "all") {
+      url.searchParams.set("query", convertQuery(tags));
+    }
+    url.searchParams.set("page", `${page - 1}`);
+    url.searchParams.set("pageSize", `${PAGE_SIZE}`);
+    url.searchParams.set("blurhash", "true");
+    const resp = await fetch(url.href);
+    const json = await resp.json();
+    return (json.posts || []).map((p) => {
+      const width = p.width || 0;
+      const height = p.height || 0;
+      const fileExt = String(p.extension || "").replace(/^\./, "");
+      const id = String(p.id);
+      return {
+        id,
+        postView: `${location.origin}/posts/${p.id}`,
+        previewUrl: thumbnailUrl(p.sha256),
+        fileUrl: originalUrl(p.sha256, p.extension),
+        sampleUrl: null,
+        width,
+        height,
+        aspectRatio: height ? width / height : 1,
+        tags: [],
+        rating: "u",
+        fileExt,
+        fileDownloadName: `mikubooru_${id}_${width}x${height}.${fileExt}`,
+        score: 0,
+        source: null,
+        createdAt: p.posted ? new Date(p.posted) : null
+      };
+    });
+  }
+  async function getMikubooruDetail(id) {
+    const resp = await fetch(`${location.origin}/api/post/${id}`);
+    const post = await resp.json();
+    if (!post) {
+      return { fileUrl: null, sampleUrl: null, tags: [], source: null };
+    }
+    return {
+      fileUrl: originalUrl(post.sha256, post.extension),
+      sampleUrl: null,
+      tags: Object.keys(post.tags || {}),
+      source: post.sources?.[0] || null
+    };
+  }
+  const mikubooru = {
+    is: isMikubooru,
+    posts: fetchMikubooruPosts,
+    detail: getMikubooruDetail
+  };
   const SZURU_DEMO_HOST = "nekomaru.moe";
   const PAGE_LIMIT = 40;
   const safetyRatingMap = {
@@ -7228,6 +7366,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     ...siteKeys,
     "e-shuushuu.net",
     "nekomaru.moe",
+    "booru.funmaker.moe",
     "zerochan.net",
     "chan.sankakucomplex.com",
     "www.idolcomplex.com",
@@ -7240,9 +7379,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "nozomi.la",
     "realbooru.com",
     "rule34hentai.net",
-    "www.uhdpaper.com"
+    "www.uhdpaper.com",
+    "16knote.com",
+    "16k.club"
   ];
-  const isSupportTagSearch = isBooruSite() || !["nozomi.la"].includes(location.host);
+  const isSupportTagSearch = isBooruSite() || !["nozomi.la", "16knote.com", "16k.club"].includes(location.host);
   const notPartialSupportSite = ![
     "e-shuushuu.net",
     "www.zerochan.net",
@@ -7295,6 +7436,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         "type:video"
       ];
     }
+    if (isMikubooru()) {
+      return [
+        "rating:safe",
+        "rating:questionable",
+        "rating:explicit",
+        "order:date_desc",
+        "order:id_desc",
+        "order:score_desc",
+        "order:size_desc"
+      ];
+    }
     return [];
   })();
   const specTitleMap = {
@@ -7307,15 +7459,18 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "booru.allthefallen.moe": "ATFBooru",
     "aibooru.online": "AIBooru",
     "sankaku.app": "Sankaku APP",
-    "www.sankakucomplex.com": "Sankaku Complex",
+    "sankakucomplex.com": "Sankaku Complex",
     "chan.sankakucomplex.com": "Sankaku Complex",
-    "www.idolcomplex.com": "Idol Complex",
+    "idolcomplex.com": "Idol Complex",
     "anime-pictures.net": "Anime Pictures",
     "allgirl.booru.org": "All girl",
     "booru.eu": "Hentai Booru",
     "rule34hentai.net": "Rule34Hentai",
     "uhdpaper.com": "UHDPaper",
-    "nekomaru.moe": "Szurubooru(Demo)"
+    "nekomaru.moe": "Szurubooru(Demo)",
+    "booru.funmaker.moe": "Mikubooru",
+    "16knote.com": "16K Note (SFW)",
+    "16k.club": "16K Club"
   };
   function getSiteTitle(domain2 = location.host) {
     const host = domain2.toLowerCase().replace("www.", "");
@@ -8347,6 +8502,179 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     is: isRule34HentaiPage,
     posts: fetchRule34HentaiPosts
   };
+  const noteConfig = {
+    host: "16knote.com",
+    pageSize: 90,
+    listUrl: (page, size) => `https://16knote.com/?p=${page}&size=${size}`,
+    detailUrl: (id) => `https://16knote.com/post/${id}/`,
+    cardSelector: ".waterfall-item",
+    linkSelector: "a.waterfall-card",
+    mediaSelector: ".post-media-list > figure.post-media",
+    titleSelector: "h1.post-title",
+    badgeSelector: ".waterfall-tag",
+    dateSelector: ".waterfall-meta > div:nth-child(2)",
+    rating: "s",
+    thumb: (url) => {
+      const photon = url.replace("https://img.16knote.com/", "https://i3.wp.com/img.16knote.com/");
+      return `${photon}${url.includes("?") ? "&" : "?"}w=400`;
+    },
+    sourceStrategy: "note"
+  };
+  const clubConfig = {
+    host: "16k.club",
+    pageSize: 30,
+    listUrl: (page, size) => `https://16k.club/?p=${page}&size=${size}`,
+    detailUrl: (id) => `https://16k.club/post/${id}/`,
+    cardSelector: ".grid-item",
+    linkSelector: 'a[href^="/post/"]',
+    mediaSelector: 'div.text-center[style*="margin-bottom:0.5rem"]',
+    titleSelector: "h1",
+    badgeSelector: ".badge.text-bg-dark",
+    rating: "e",
+    thumb: (url) => url,
+    sourceStrategy: "club"
+  };
+  function idFromHref(href) {
+    return href.match(/(\d+)\/?$/)?.[1] ?? "";
+  }
+  function toNumber(value) {
+    return Number(value ?? 0);
+  }
+  function parseDate(text) {
+    if (!text)
+      return null;
+    const match2 = text.trim().match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2}):(\d{2})/);
+    if (!match2)
+      return null;
+    return new Date(
+      Number(match2[1]),
+      Number(match2[2]) - 1,
+      Number(match2[3]),
+      Number(match2[4]),
+      Number(match2[5]),
+      Number(match2[6])
+    );
+  }
+  function hashAfter(href, marker) {
+    if (!href)
+      return "";
+    const index = href.indexOf(marker);
+    return index >= 0 ? href.slice(index + marker.length) : "";
+  }
+  function decodeBase64Url(value) {
+    try {
+      let base64 = value.replace(/-/g, "+").replace(/_/g, "/");
+      const padding = base64.length % 4;
+      if (padding)
+        base64 += "=".repeat(4 - padding);
+      return decodeURIComponent(atob(base64));
+    } catch {
+      return null;
+    }
+  }
+  function parseSource(doc, config) {
+    if (config.sourceStrategy === "club") {
+      const plain = hashAfter(doc.querySelector("a#proxy")?.getAttribute("href"), "#");
+      if (plain)
+        return plain;
+    }
+    const sourceHref = doc.querySelector("a#source")?.getAttribute("href");
+    const encoded = hashAfter(sourceHref, "#/") || hashAfter(sourceHref, "#");
+    return encoded ? decodeBase64Url(encoded) : null;
+  }
+  async function fetchPosts(config, page, tags) {
+    const resp = await fetch(config.listUrl(page, config.pageSize));
+    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
+    const cards = Array.from(doc.querySelectorAll(config.cardSelector));
+    return cards.map((card) => {
+      const link = card.querySelector(config.linkSelector);
+      const id = idFromHref(link?.getAttribute("href") ?? "");
+      const postView = config.detailUrl(id);
+      const img = card.querySelector("img");
+      const direct = img?.getAttribute("data-src") || img?.getAttribute("src") || "";
+      const previewUrl = config.thumb(direct);
+      const width = toNumber(img?.getAttribute("width"));
+      const height = toNumber(img?.getAttribute("height"));
+      const badge = card.querySelector(config.badgeSelector)?.textContent?.trim() ?? "";
+      const mediaCount = /^\d+$/.test(badge) ? Number(badge) : 1;
+      const isVideo = badge.toLowerCase() === "mp4";
+      const title = card.querySelector(config.titleSelector)?.textContent?.trim() ?? "";
+      const createdAt = config.dateSelector ? parseDate(card.querySelector(config.dateSelector)?.textContent) : null;
+      return {
+        id,
+        postView,
+        previewUrl,
+        fileUrl: "",
+        tags: [],
+        rating: config.rating,
+        mediaCount,
+        images: [],
+        width,
+        height,
+        aspectRatio: width / height,
+        createdAt,
+        title,
+        fileExt: isVideo ? "mp4" : "jpg",
+        fileDownloadName: `${config.host} ${id} ${width}x${height}`,
+        fileDownloadText: `${width}\xD7${height} [${isVideo ? "mp4" : "jpg"}]`
+      };
+    });
+  }
+  async function fetchDetail(config, id) {
+    const resp = await fetch(config.detailUrl(id));
+    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
+    const media = Array.from(doc.querySelectorAll(config.mediaSelector));
+    const images = media.map((el) => {
+      const video = el.querySelector("video");
+      if (video) {
+        const source = el.querySelector("source[src]")?.getAttribute("src") || video.getAttribute("src") || "";
+        return {
+          fileUrl: source,
+          previewUrl: video.getAttribute("poster") ?? "",
+          width: toNumber(video.getAttribute("width")),
+          height: toNumber(video.getAttribute("height"))
+        };
+      }
+      const img = el.querySelector("img");
+      const fileUrl = img?.getAttribute("data-src") || img?.getAttribute("src") || "";
+      return {
+        fileUrl,
+        previewUrl: config.thumb(fileUrl),
+        width: toNumber(img?.getAttribute("width")),
+        height: toNumber(img?.getAttribute("height"))
+      };
+    });
+    return {
+      fileUrl: images[0]?.fileUrl ?? null,
+      tags: [],
+      source: parseSource(doc, config),
+      images,
+      title: doc.querySelector(config.titleSelector)?.textContent?.trim() ?? ""
+    };
+  }
+  function createAdapter(config) {
+    return {
+      is: () => location.hostname === config.host,
+      posts: (page, tags) => fetchPosts(config, page),
+      detail: (id) => fetchDetail(config, id)
+    };
+  }
+  const sixteenKNote = createAdapter(noteConfig);
+  const sixteenKClub = createAdapter(clubConfig);
+  function getPostImages(post) {
+    return post?.images ?? [];
+  }
+  function getMediaCount(post) {
+    const typed = post;
+    if (!typed)
+      return 0;
+    if (typeof typed.mediaCount === "number")
+      return typed.mediaCount;
+    return typed.images?.length ?? 0;
+  }
+  function getPostTitle(post) {
+    return post?.title ?? "";
+  }
   const ORIGIN = "https://www.uhdpaper.com";
   function isUhdpaperPage() {
     return location.hostname === "uhdpaper.com" || location.hostname.endsWith(".uhdpaper.com");
@@ -8559,9 +8887,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     sankaku,
     sankaku.complex,
     szurubooru,
+    mikubooru,
     realbooru,
     rule34hentai,
     uhdpaper,
+    sixteenKNote,
+    sixteenKClub,
     { is: () => true, posts: async () => [] }
   ];
   const fetchDetailActions = [
@@ -8572,7 +8903,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     sankaku.complex,
     allgirl,
     hentaibooru,
-    kusowanka
+    kusowanka,
+    mikubooru,
+    sixteenKNote,
+    sixteenKClub
   ];
   function getFirstPageNo(params2) {
     if (isPidSite()) {
@@ -9855,7 +10189,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   });
   const isCNLang = i18n.locale.includes("zh");
   async function handlePostDetail(img) {
-    const { fileUrl, sampleUrl, tags, source } = await fetchDetailActions.find((e) => e.is())?.detail(img.value.id) || {};
+    const { fileUrl, sampleUrl, tags, source, images, title } = await fetchDetailActions.find((e) => e.is())?.detail(img.value.id) || {};
     if (tags?.length)
       img.value.tags = tags;
     if (source)
@@ -9864,6 +10198,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       img.value.fileUrl = fileUrl;
     if (sampleUrl)
       img.value.sampleUrl = sampleUrl;
+    if (images?.length)
+      img.value.images = images;
+    if (title)
+      img.value.title = title;
   }
   async function setPostDetail(imageSelected, postDetail) {
     if (store.isYKSite) {
@@ -9927,15 +10265,45 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           return false;
         }
       });
-      const imgSrc = Vue2.computed(() => {
-        if (isVideo.value)
-          return void 0;
-        return imageSelected.value.sampleUrl ?? imageSelected.value.fileUrl ?? void 0;
-      });
       const imgLasySrc = Vue2.computed(() => {
         if (isVideo.value)
           return void 0;
         return imageSelected.value.previewUrl ?? void 0;
+      });
+      const postImages = Vue2.computed(() => getPostImages(imageSelected.value));
+      const imageIndex = Vue2.ref(0);
+      Vue2.watch(() => imageSelected.value?.id, () => {
+        imageIndex.value = 0;
+      });
+      const postTitle = Vue2.computed(() => getPostTitle(imageSelected.value));
+      const sourceLink = Vue2.computed(() => {
+        const { sourceUrl, source } = imageSelected.value;
+        if (typeof sourceUrl === "string" && sourceUrl)
+          return sourceUrl;
+        if (typeof source === "string" && source)
+          return source;
+        return "";
+      });
+      const imgSrc = Vue2.computed(() => {
+        if (isVideo.value)
+          return void 0;
+        if (postImages.value.length > 0) {
+          return postImages.value[imageIndex.value]?.fileUrl ?? void 0;
+        }
+        return imageSelected.value.sampleUrl ?? imageSelected.value.fileUrl ?? void 0;
+      });
+      const currentImage = Vue2.computed(() => {
+        if (postImages.value.length > 0)
+          return postImages.value[imageIndex.value];
+        return void 0;
+      });
+      const currentFileUrl = Vue2.computed(() => currentImage.value?.fileUrl ?? imageSelected.value.fileUrl ?? null);
+      const currentFileDownloadName = Vue2.computed(() => {
+        const img = currentImage.value;
+        if (!img)
+          return imageSelected.value.fileDownloadName;
+        const base = imageSelected.value.fileDownloadName ?? "";
+        return `${base} ${imageIndex.value + 1}of${postImages.value.length} ${img.width}x${img.height}`;
       });
       const imageSelectedWidth = Vue2.computed(() => {
         const width = Number.parseInt(
@@ -9989,16 +10357,39 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         window.open(imageSelected.value.postView, "_blank", "noreferrer");
       }
       function toSourcePage() {
-        const { sourceUrl } = imageSelected.value;
-        if (!isURL(sourceUrl))
+        if (!isURL(sourceLink.value))
           return;
-        window.open(sourceUrl, "_blank", "noreferrer");
+        window.open(sourceLink.value, "_blank", "noreferrer");
+      }
+      function buildLightboxPosts() {
+        const title = getPostTitle(imageSelected.value);
+        return postImages.value.map((img, i) => ({
+          id: `${imageSelected.value.id}-${i}`,
+          fileUrl: img.fileUrl,
+          previewUrl: img.previewUrl,
+          tags: title ? [title] : [],
+          postView: imageSelected.value.postView,
+          width: img.width,
+          height: img.height
+        }));
+      }
+      async function openLightbox() {
+        const posts = buildLightboxPosts();
+        if (!posts.length)
+          return;
+        store.showImageSelected = false;
+        await Vue2.nextTick();
+        await fancyboxShow(posts, imageIndex.value);
       }
       function withoutClick(handlers) {
         const { click, ...rest } = handlers;
         return rest;
       }
       function downloadHighest() {
+        if (currentImage.value) {
+          download(currentFileUrl.value, currentFileDownloadName.value);
+          return;
+        }
         const { url, name } = resolvePostDownloadSource(imageSelected.value, "fileUrl");
         if (!url)
           return;
@@ -10266,7 +10657,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         settings.isListenWheelEvent && window.removeEventListener("wheel", onWheel);
         settings.isListenKeyupEvent && window.removeEventListener("keyup", onKeyup);
       });
-      return { __sfc: true, notR34Fav, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, imageSelected, isVideo, imgSrc, imgLasySrc, imageSelectedWidth, notYKSite, imgCreateTime, close, toggleToolbar, toTagsPage, toPidPage, toDetailPage, toSourcePage, withoutClick, downloadHighest, download, addToList, onDtlContClick, postDetail, metaTags, addFavorite, isExportTagsEnable, isExportTagsShow, openExportTags, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, showPrevPost, showNextPost, onImageLoadError, scaleImgSrc, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isTriggerEvent, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFileTree, mdiFitToScreenOutline, mdiFolderNetwork, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, DPlayer, PostExportTags, isFavBtnShow, notPartialSupportSite, settings, store };
+      return { __sfc: true, notR34Fav, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, imageSelected, isVideo, imgLasySrc, postImages, imageIndex, postTitle, sourceLink, imgSrc, currentImage, currentFileUrl, currentFileDownloadName, imageSelectedWidth, notYKSite, imgCreateTime, close, toggleToolbar, toTagsPage, toPidPage, toDetailPage, toSourcePage, buildLightboxPosts, openLightbox, withoutClick, downloadHighest, download, addToList, onDtlContClick, postDetail, metaTags, addFavorite, isExportTagsEnable, isExportTagsShow, openExportTags, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, showPrevPost, showNextPost, onImageLoadError, scaleImgSrc, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isTriggerEvent, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFileTree, mdiFitToScreenOutline, mdiFolderNetwork, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiImageMultipleOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, DPlayer, PostExportTags, isFavBtnShow, notPartialSupportSite, settings, store };
     }
   });
   var _sfc_render$5 = function render() {
@@ -10280,7 +10671,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       _setup.imgLoading = false;
     }, "error": _setup.onImageLoadError } }) : _vm._e(), _setup.scaleOn ? _c("img", { staticClass: "img_detail_scale", style: _setup.scaleImgStyle, attrs: { "draggable": "false", "alt": "", "src": _setup.scaleImgSrc }, on: { "load": function($event) {
       _setup.imgLoading = false;
-    }, "error": _setup.onScaleImgError } }) : _vm._e()], 1)], 2) : _vm._e(), _c("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && _setup.scaleOn && !_setup.isVideo, expression: "showImageToolbar && scaleOn && !isVideo" }], staticClass: "img-detail-toolbar img_detail_btn_color", class: { "detail-buttons-bottom": _setup.settings.detailButtonsBottom }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c("v-spacer"), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    }, "error": _setup.onScaleImgError } }) : _vm._e(), _setup.postImages.length > 1 && !_setup.scaleOn ? _c("div", { staticClass: "detail-thumb-strip", class: { "detail-thumb-strip--raised": _setup.settings.detailButtonsBottom }, on: { "click": function($event) {
+      $event.stopPropagation();
+    } } }, [_c("div", { staticClass: "detail-thumb-strip-row" }, _vm._l(_setup.postImages, function(img, i) {
+      return _c("div", { key: i, staticClass: "detail-thumb-item", class: { "detail-thumb-item--active": i === _setup.imageIndex }, attrs: { "role": "button", "tabindex": "0" }, on: { "click": function($event) {
+        $event.stopPropagation();
+        _setup.imageIndex = i;
+      } } }, [_c("v-img", { attrs: { "src": img.previewUrl, "width": "56", "height": "56" } })], 1);
+    }), 0)]) : _vm._e()], 1)], 2) : _vm._e(), _c("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && _setup.scaleOn && !_setup.isVideo, expression: "showImageToolbar && scaleOn && !isVideo" }], staticClass: "img-detail-toolbar img_detail_btn_color", class: { "detail-buttons-bottom": _setup.settings.detailButtonsBottom }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c("v-spacer"), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1 hidden-sm-and-down", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         _setup.imgScaleState = "FitToPage";
@@ -10323,7 +10721,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && !_setup.scaleOn, expression: "showImageToolbar && !scaleOn" }], staticClass: "img-detail-toolbar img_detail_btn_color", class: { "detail-buttons-bottom": _setup.settings.detailButtonsBottom }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c("v-chip", { staticClass: "hidden-xs-only", attrs: { "small": "", "role": "button", "tabindex": "0" }, domProps: { "textContent": _vm._s(`${_setup.imageSelected.rating?.toUpperCase()} ${_setup.imageSelected.id}`) }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.toDetailPage.apply(null, arguments);
-    } } }), _setup.imgCreateTime ? _c("v-chip", { staticClass: "ml-1 hidden-sm-and-down", attrs: { "small": "", "title": _setup.imageSelected.createdTime }, domProps: { "textContent": _vm._s(_setup.imgCreateTime) } }) : _vm._e(), _c("v-chip-group", { directives: [{ name: "show", rawName: "v-show", value: _setup.metaTags.length, expression: "metaTags.length" }], staticClass: "hidden-sm-and-down img_detail_tag_list img_meta_tag_list", attrs: { "column": "" } }, _vm._l(_setup.metaTags, function(item, i) {
+    } } }), _setup.imgCreateTime ? _c("v-chip", { staticClass: "ml-1 hidden-sm-and-down", attrs: { "small": "", "title": _setup.imageSelected.createdTime }, domProps: { "textContent": _vm._s(_setup.imgCreateTime) } }) : _vm._e(), _setup.postImages.length > 1 ? _c("v-chip", { staticClass: "ml-1", attrs: { "small": "" }, domProps: { "textContent": _vm._s(`${_setup.imageIndex + 1} / ${_setup.postImages.length}`) } }) : _vm._e(), _setup.postTitle ? _c("v-chip", { staticClass: "ml-1 hidden-sm-and-down text-truncate", style: { maxWidth: "240px" }, attrs: { "small": "", "title": _setup.postTitle }, domProps: { "textContent": _vm._s(_setup.postTitle) } }) : _vm._e(), _c("v-chip-group", { directives: [{ name: "show", rawName: "v-show", value: _setup.metaTags.length, expression: "metaTags.length" }], staticClass: "hidden-sm-and-down img_detail_tag_list img_meta_tag_list", attrs: { "column": "" } }, _vm._l(_setup.metaTags, function(item, i) {
       return _c("v-chip", { key: i, staticClass: "img_detail_tag", class: `tag_type_${item.type}`, attrs: { "color": item.color, "title": item.tagText, "small": "", "text-color": "#ffffff", "role": "button", "tabindex": "0" }, domProps: { "textContent": _vm._s(item.tagText) }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.toTagsPage(item.tag);
@@ -10335,12 +10733,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.postDetail.voted ? _setup.mdiHeart : _setup.mdiHeartPlusOutline))])], 1)];
     } }], null, false, 1566492844) }, [_c("span", [_vm._v(_vm._s(_setup.postDetail.voted ? _vm.$t("pEU9Y9K7DsODkocCDwq_O") : _vm.$t("2ZPEAvLkCbV3mC0iJAw9K")))])]) : _vm._e(), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "", "href": _setup.imageSelected.postView, "target": "_blank", "rel": "noreferrer" } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1)];
-    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("caFFJlrS1wa_F86uKPykd")))])]), _setup.imageSelected.sourceUrl ? _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("caFFJlrS1wa_F86uKPykd")))])]), _setup.postImages.length > 1 ? _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+        $event.stopPropagation();
+        return _setup.openLightbox.apply(null, arguments);
+      } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiImageMultipleOutline))])], 1)];
+    } }], null, false, 1179559845) }, [_c("span", [_vm._v(_vm._s(_vm.$t("dvs63FvVKWm3uHVfqeq00")))])]) : _vm._e(), _setup.sourceLink ? _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.toSourcePage.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiLaunch))])], 1)];
-    } }], null, false, 2921050437) }, [_c("span", [_vm._v(_vm._s(_vm.$t("qSF4OLshg2EEX4CwtBE6r")) + " " + _vm._s(_setup.imageSelected.sourceUrl))])]) : _vm._e(), !_setup.isVideo ? _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    } }], null, false, 2921050437) }, [_c("span", [_vm._v(_vm._s(_vm.$t("qSF4OLshg2EEX4CwtBE6r")) + " " + _vm._s(_setup.sourceLink))])]) : _vm._e(), !_setup.isVideo ? _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.zoomInImg();
@@ -10358,7 +10761,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return _setup.download(_setup.imageSelected.jpegUrl, _setup.imageSelected.jpegDownloadName);
     } } }, [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("k4YzDnBtd_S2UpAQucGxF")))]), _c("v-list-item-subtitle", { domProps: { "textContent": _vm._s(_setup.imageSelected.jpegDownloadText) } })], 1)], 1) : _vm._e(), _c("v-list-item", { attrs: { "two-line": "", "link": "", "dense": "" } }, [_c("v-list-item-content", { on: { "click": function($event) {
       $event.stopPropagation();
-      return _setup.download(_setup.imageSelected.fileUrl, _setup.imageSelected.fileDownloadName);
+      return _setup.download(_setup.currentFileUrl, _setup.currentFileDownloadName);
     } } }, [_c("v-list-item-title", [_vm._v(_vm._s(_vm.$t("VpuyxZtIoDF9-YyOm0tK_")))]), _c("v-list-item-subtitle", { domProps: { "textContent": _vm._s(_setup.imageSelected.fileDownloadText) } })], 1)], 1)], 1)], 1) : _vm._e(), _c("v-progress-circular", { directives: [{ name: "show", rawName: "v-show", value: _setup.downloading, expression: "downloading" }], staticClass: "ml-1 mr-2", attrs: { "indeterminate": "", "color": "primary" } }), _setup.notPartialSupportSite && _setup.notR34Fav ? _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
@@ -10568,7 +10971,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       Vue2.onUnmounted(() => {
         window.removeEventListener("scroll", scrollFn);
       });
-      return { __sfc: true, notFitScreen, isR34Fav, showImageList, showFab, hasSampleDownload, activeDownloadUrlKey, showNoMore, showLoadMore, ctxActPost, showMenu, x, y, maxHeightStyle, imgCardStyle, getImgSrc, onCtxMenu, showImgModal, openDetail, addToSelectedList: addToSelectedList$1, addFavorite, downloadCtxPost, isPostChecked, onPostCheckboxChange, onImageLoadError, virtualMaxCol, calcItemHeight, scrollFn, mdiDownload, mdiFileGifBox, mdiFileTree, mdiFolderNetwork, mdiHeartPlusOutline, mdiLinkVariant, mdiPlaylistPlus, mdiRefresh, mdiVideo, PostDetail, notPartialSupportSite, isFavBtnShow, refreshPosts, searchPosts, settings, store };
+      return { __sfc: true, notFitScreen, isR34Fav, showImageList, showFab, hasSampleDownload, activeDownloadUrlKey, showNoMore, showLoadMore, ctxActPost, showMenu, x, y, maxHeightStyle, imgCardStyle, getImgSrc, onCtxMenu, showImgModal, openDetail, addToSelectedList: addToSelectedList$1, addFavorite, downloadCtxPost, isPostChecked, onPostCheckboxChange, onImageLoadError, virtualMaxCol, calcItemHeight, scrollFn, mdiDownload, mdiFileGifBox, mdiFileTree, mdiFolderNetwork, mdiHeartPlusOutline, mdiLinkVariant, mdiPlaylistPlus, mdiRefresh, mdiVideo, PostDetail, getMediaCount, notPartialSupportSite, isFavBtnShow, refreshPosts, searchPosts, settings, store };
     }
   });
   var _sfc_render$4 = function render() {
@@ -10580,7 +10983,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return _setup.onCtxMenu($event, item);
       }, "error": function($event) {
         return _setup.onImageLoadError(item?.id || "");
-      } } }), _setup.store.isYKSite ? [item?.data?.has_children ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), item?.data?.parent_id ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), item?.fileExt?.toLowerCase() === "gif" ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(item?.fileExt?.toLowerCase()) ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav && _setup.settings.showPostCheckbox ? _c("div", { staticClass: "posts-image-checkbox" }, [_c("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.isPostChecked(item?.id), "hide-details": "" }, on: { "change": function($event) {
+      } } }), _setup.store.isYKSite ? [item?.data?.has_children ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), item?.data?.parent_id ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), item?.fileExt?.toLowerCase() === "gif" ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(item?.fileExt?.toLowerCase()) ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), _setup.getMediaCount(item) > 1 ? _c("span", { staticClass: "posts-image-count" }, [_vm._v(_vm._s(_setup.getMediaCount(item)))]) : _vm._e(), !_setup.isR34Fav && _setup.settings.showPostCheckbox ? _c("div", { staticClass: "posts-image-checkbox" }, [_c("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.isPostChecked(item?.id), "hide-details": "" }, on: { "change": function($event) {
         return _setup.onPostCheckboxChange($event, item);
       } } })], 1) : _vm._e(), _setup.settings.showListPostReso ? _c("div", { staticClass: "posts-image-wh" }, [_vm._v(_vm._s(item?.width) + " \xD7 " + _vm._s(item?.height))]) : _vm._e(), !_setup.isR34Fav ? _c("div", { staticClass: "posts-image-actions" }, [_c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4"), "href": item?.postView, "target": "_blank", "rel": "noreferrer" } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _setup.notPartialSupportSite ? _c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
         $event.stopPropagation();
@@ -10592,7 +10995,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         $event.stopPropagation();
         return _setup.addFavorite(item?.id);
       } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiHeartPlusOutline))])], 1) : _vm._e()], 1) : _vm._e()], 2)];
-    } }], null, false, 1788989645) }) : _c("wf-layout", _vm._l(_setup.store.imageList, function(image, index) {
+    } }], null, false, 2314730086) }) : _c("wf-layout", _vm._l(_setup.store.imageList, function(image, index) {
       return _c("v-card", { key: index, staticClass: "posts-image-card", style: _setup.imgCardStyle(image) }, [_setup.settings.masonryLayout === "justified" ? [_c("img", { staticClass: "post-image", attrs: { "alt": "", "loading": "lazy", "src": _setup.getImgSrc(image), "role": "button", "tabindex": "0" }, on: { "click": function($event) {
         return _setup.showImgModal(index);
       }, "contextmenu": function($event) {
@@ -10607,7 +11010,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return _setup.onImageLoadError(image?.id);
       } }, scopedSlots: _vm._u([{ key: "placeholder", fn: function() {
         return [_c("v-row", { staticClass: "fill-height ma-0", attrs: { "align": "center", "justify": "center" } }, [_c("v-progress-circular", { attrs: { "indeterminate": "", "color": "deep-purple" } })], 1)];
-      }, proxy: true }], null, true) }), _setup.store.isYKSite ? [image?.data?.has_children ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), image?.data?.parent_id ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), image?.fileExt?.toLowerCase() === "gif" ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(image?.fileExt?.toLowerCase()) ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), !_setup.isR34Fav && _setup.settings.showPostCheckbox ? _c("div", { staticClass: "posts-image-checkbox" }, [_c("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.isPostChecked(image?.id), "hide-details": "" }, on: { "change": function($event) {
+      }, proxy: true }], null, true) }), _setup.store.isYKSite ? [image?.data?.has_children ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFileTree) + " ")]) : _vm._e(), image?.data?.parent_id ? _c("v-icon", { staticClass: "posts-image-type", attrs: { "dense": "" } }, [_vm._v(" " + _vm._s(_setup.mdiFolderNetwork) + " ")]) : _vm._e()] : _vm._e(), image?.fileExt?.toLowerCase() === "gif" ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiFileGifBox) + " ")]) : _vm._e(), ["mp4", "webm"].includes(image?.fileExt?.toLowerCase()) ? _c("v-icon", { staticClass: "posts-image-type" }, [_vm._v(" " + _vm._s(_setup.mdiVideo) + " ")]) : _vm._e(), _setup.getMediaCount(image) > 1 ? _c("span", { staticClass: "posts-image-count" }, [_vm._v(_vm._s(_setup.getMediaCount(image)))]) : _vm._e(), !_setup.isR34Fav && _setup.settings.showPostCheckbox ? _c("div", { staticClass: "posts-image-checkbox" }, [_c("v-checkbox", { staticClass: "ma-0 pa-0", attrs: { "value": _setup.isPostChecked(image?.id), "hide-details": "" }, on: { "change": function($event) {
         return _setup.onPostCheckboxChange($event, image);
       } } })], 1) : _vm._e(), _setup.settings.showListPostReso ? _c("div", { staticClass: "posts-image-wh" }, [_vm._v(_vm._s(image?.width) + " \xD7 " + _vm._s(image?.height))]) : _vm._e(), !_setup.isR34Fav ? _c("div", { staticClass: "posts-image-actions" }, [_c("v-btn", { attrs: { "icon": "", "color": "#fff", "title": _vm.$t("EsiorRgoeHI8h7IHMLDA4"), "href": image?.postView, "target": "_blank", "rel": "noreferrer" } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiLinkVariant))])], 1), _setup.notPartialSupportSite ? _c("v-btn", { staticClass: "hidden-md-and-down", attrs: { "icon": "", "color": "#fff", "title": _vm.$t("hVmfDxXoj8vkgVQabEOSr") }, on: { "click": function($event) {
         $event.stopPropagation();

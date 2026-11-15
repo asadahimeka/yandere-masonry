@@ -16,10 +16,13 @@ import {
   rule34,
   rule34hentai,
   sankaku,
+  sixteenKClub,
+  sixteenKNote,
   szurubooru,
   uhdpaper,
   zerochan,
 } from '@/api'
+import type { PostImage } from '@/api/16k'
 
 interface FetchPostsAction {
   is: () => boolean
@@ -52,12 +55,14 @@ export const fetchPostsActions: FetchPostsAction[] = [
   realbooru,
   rule34hentai,
   uhdpaper,
+  sixteenKNote,
+  sixteenKClub,
   { is: () => true, posts: async () => [] },
 ]
 
 interface FetchDetailAction {
   is: () => boolean
-  detail: (id: string) => Promise<{ fileUrl?: string | null; sampleUrl?: string | null; tags?: string[]; source?: string | null }>
+  detail: (id: string) => Promise<{ fileUrl?: string | null; sampleUrl?: string | null; tags?: string[]; source?: string | null; images?: PostImage[]; title?: string }>
 }
 
 export const fetchDetailActions: FetchDetailAction[] = [
@@ -70,4 +75,6 @@ export const fetchDetailActions: FetchDetailAction[] = [
   hentaibooru,
   kusowanka,
   mikubooru,
+  sixteenKNote,
+  sixteenKClub,
 ]

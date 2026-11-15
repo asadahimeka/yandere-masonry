@@ -37,6 +37,26 @@
           @load="imgLoading = false"
           @error="onScaleImgError"
         >
+        <div
+          v-if="postImages.length > 1 && !scaleOn"
+          class="detail-thumb-strip"
+          :class="{ 'detail-thumb-strip--raised': settings.detailButtonsBottom }"
+          @click.stop
+        >
+          <div class="detail-thumb-strip-row">
+            <div
+              v-for="(img, i) in postImages"
+              :key="i"
+              class="detail-thumb-item"
+              :class="{ 'detail-thumb-item--active': i === imageIndex }"
+              role="button"
+              tabindex="0"
+              @click.stop="imageIndex = i"
+            >
+              <v-img :src="img.previewUrl" width="56" height="56" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <v-toolbar
@@ -185,6 +205,20 @@
         :title="imageSelected.createdTime"
         v-text="imgCreateTime"
       />
+      <v-chip
+        v-if="postImages.length > 1"
+        class="ml-1"
+        small
+        v-text="`${imageIndex + 1} / ${postImages.length}`"
+      />
+      <v-chip
+        v-if="postTitle"
+        class="ml-1 hidden-sm-and-down text-truncate"
+        :style="{ maxWidth: '240px' }"
+        small
+        :title="postTitle"
+        v-text="postTitle"
+      />
       <v-chip-group v-show="metaTags.length" column class="hidden-sm-and-down img_detail_tag_list img_meta_tag_list">
         <v-chip
           v-for="(item, i) in metaTags"
@@ -234,7 +268,22 @@
         </template>
         <span>{{ $t('caFFJlrS1wa_F86uKPykd') }}</span>
       </v-tooltip>
-      <v-tooltip v-if="imageSelected.sourceUrl" bottom>
+      <v-tooltip v-if="postImages.length > 1" bottom>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            fab
+            small
+            v-bind="attrs"
+            class="mr-1"
+            v-on="on"
+            @click.stop="openLightbox"
+          >
+            <v-icon>{{ mdiImageMultipleOutline }}</v-icon>
+          </v-btn>
+        </template>
+        <span>{{ $t('dvs63FvVKWm3uHVfqeq00') }}</span>
+      </v-tooltip>
+      <v-tooltip v-if="sourceLink" bottom>
         <template #activator="{ on, attrs }">
           <v-btn
             fab
@@ -247,7 +296,7 @@
             <v-icon>{{ mdiLaunch }}</v-icon>
           </v-btn>
         </template>
-        <span>{{ $t('qSF4OLshg2EEX4CwtBE6r') }} {{ imageSelected.sourceUrl }}</span>
+        <span>{{ $t('qSF4OLshg2EEX4CwtBE6r') }} {{ sourceLink }}</span>
       </v-tooltip>
       <v-tooltip v-if="!isVideo" bottom>
         <template #activator="{ on, attrs }">
@@ -292,7 +341,7 @@
             </v-list-item-content>
           </v-list-item>
           <v-list-item two-line link dense>
-            <v-list-item-content @click.stop="download(imageSelected.fileUrl, imageSelected.fileDownloadName)">
+            <v-list-item-content @click.stop="download(currentFileUrl, currentFileDownloadName)">
               <v-list-item-title>{{ $t('VpuyxZtIoDF9-YyOm0tK_') }}</v-list-item-title>
               <v-list-item-subtitle v-text="imageSelected.fileDownloadText" />
             </v-list-item-content>
@@ -420,6 +469,7 @@ import {
   mdiFullscreen,
   mdiHeart,
   mdiHeartPlusOutline,
+  mdiImageMultipleOutline,
   mdiLaunch,
   mdiLinkVariant,
   mdiLoupe,
@@ -431,9 +481,11 @@ import {
   mdiTagMultiple,
 } from '@mdi/js'
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import type { Post } from '@himeka/booru'
 import DPlayer from './DPlayer.vue'
 import PostExportTags from './PostExportTags.vue'
-import { debounce, downloadFile, dragElement, formatRelativeTime, isURL, showMsg } from '@/utils'
+import { debounce, downloadFile, dragElement, fancyboxShow, formatRelativeTime, isURL, showMsg } from '@/utils'
+import { getPostImages, getPostTitle } from '@/api/16k'
 import { gelbooru, realbooru, rule34, zerochan } from '@/api'
 import { type PostDetail } from '@/api/moebooru'
 import { addPostToFavorites, isFavBtnShow } from '@/api/fav'
@@ -478,15 +530,46 @@ const isVideo = computed(() => {
     return false
   }
 })
+const imgLasySrc = computed(() => {
+  if (isVideo.value) return void 0
+  return imageSelected.value.previewUrl ?? void 0
+})
+
+const postImages = computed(() => getPostImages(imageSelected.value))
+const imageIndex = ref(0)
+watch(() => imageSelected.value?.id, () => {
+  imageIndex.value = 0
+})
+const postTitle = computed(() => getPostTitle(imageSelected.value))
+
+const sourceLink = computed(() => {
+  const { sourceUrl, source } = imageSelected.value
+  if (typeof sourceUrl === 'string' && sourceUrl) return sourceUrl
+  if (typeof source === 'string' && source) return source
+  return ''
+})
+
 const imgSrc = computed(() => {
   if (isVideo.value) return void 0
+  if (postImages.value.length > 0) {
+    return postImages.value[imageIndex.value]?.fileUrl ?? void 0
+  }
   return imageSelected.value.sampleUrl
     ?? imageSelected.value.fileUrl
     ?? void 0
 })
-const imgLasySrc = computed(() => {
-  if (isVideo.value) return void 0
-  return imageSelected.value.previewUrl ?? void 0
+
+// 多图帖下载应针对当前选中的那张，而不是固定第一张
+const currentImage = computed(() => {
+  if (postImages.value.length > 0) return postImages.value[imageIndex.value]
+  return undefined
+})
+const currentFileUrl = computed(() => currentImage.value?.fileUrl ?? imageSelected.value.fileUrl ?? null)
+const currentFileDownloadName = computed(() => {
+  const img = currentImage.value
+  if (!img) return imageSelected.value.fileDownloadName
+  const base = imageSelected.value.fileDownloadName ?? ''
+  return `${base} ${imageIndex.value + 1}of${postImages.value.length} ${img.width}x${img.height}`
 })
 
 const imageSelectedWidth = computed(() => {
@@ -548,9 +631,29 @@ function toDetailPage() {
 }
 
 function toSourcePage() {
-  const { sourceUrl } = imageSelected.value
-  if (!isURL(sourceUrl)) return
-  window.open(sourceUrl, '_blank', 'noreferrer')
+  if (!isURL(sourceLink.value)) return
+  window.open(sourceLink.value, '_blank', 'noreferrer')
+}
+
+function buildLightboxPosts(): Post[] {
+  const title = getPostTitle(imageSelected.value)
+  return postImages.value.map((img, i) => ({
+    id: `${imageSelected.value.id}-${i}`,
+    fileUrl: img.fileUrl,
+    previewUrl: img.previewUrl,
+    tags: title ? [title] : [],
+    postView: imageSelected.value.postView,
+    width: img.width,
+    height: img.height,
+  } as unknown as Post))
+}
+
+async function openLightbox() {
+  const posts = buildLightboxPosts()
+  if (!posts.length) return
+  store.showImageSelected = false
+  await nextTick()
+  await fancyboxShow(posts, imageIndex.value)
 }
 
 // 菜单 activator 默认点击也会展开菜单，这里只留 hover 等其它事件
@@ -561,6 +664,11 @@ function withoutClick(handlers: Record<string, unknown>) {
 
 // 直接点下载按钮 = 下最高分辨率（原文件），不用再展开菜单选
 function downloadHighest() {
+  // 多图帖下当前选中图才是「正在看的那张」，需优先于列表阶段的 fileUrl
+  if (currentImage.value) {
+    download(currentFileUrl.value, currentFileDownloadName.value)
+    return
+  }
   const { url, name } = resolvePostDownloadSource(imageSelected.value, 'fileUrl')
   if (!url) return
   download(url, name)

@@ -744,3 +744,92 @@ html:has(#app.theme--dark) {
     box-shadow: 0 0 0 8px rgba(255, 87, 34, 0);
   }
 }
+
+/* 多图张数角标：右上角 .posts-image-type 正下方，同族视觉语言（PostList.vue） */
+.posts-image-count {
+  position: absolute !important;
+  /* .posts-image-type 是 v-icon（24px + 2px padding ≈ 28px 高），下移留出间距避免重叠 */
+  top: 30px;
+  right: 0px;
+  min-width: 24px;
+  padding: 2px 5px;
+  border-bottom-left-radius: 4px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  pointer-events: none;
+}
+
+.theme--light .posts-image-count {
+  color: rgba(0, 0, 0, 0.87);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* 详情弹窗多图缩略图条：图片区底部横向滚动（PostDetail.vue） */
+.detail-thumb-strip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 8px 12px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.4));
+  backdrop-filter: blur(10px);
+}
+
+.detail-thumb-strip--raised {
+  bottom: 56px;
+}
+
+.detail-thumb-strip-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.detail-thumb-strip-row::-webkit-scrollbar {
+  display: none;
+}
+
+.detail-thumb-item {
+  flex: 0 0 auto;
+  width: 56px;
+  height: 56px;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.detail-thumb-item .v-img {
+  border-radius: inherit;
+}
+
+.detail-thumb-item:hover {
+  border-color: rgba(255, 255, 255, .55);
+}
+
+.detail-thumb-item--active {
+  border-color: #8F77B5;
+  box-shadow: 0 0 0 2px rgba(143, 119, 181, .35);
+}
+
+.detail-thumb-item:focus-visible {
+  outline: 2px solid #8F77B5;
+  outline-offset: 2px;
+}
+
+.theme--light .detail-thumb-strip {
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.4));
+}
+
+.theme--light .detail-thumb-item:hover {
+  border-color: rgba(0, 0, 0, .45);
+}
