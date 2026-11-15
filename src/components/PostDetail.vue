@@ -438,7 +438,7 @@ import { gelbooru, realbooru, rule34, zerochan } from '@/api'
 import { type PostDetail } from '@/api/moebooru'
 import { addPostToFavorites, isFavBtnShow } from '@/api/fav'
 import { resolvePostDownloadSource } from '@/utils/download-source'
-import { notPartialSupportSite } from '@/api/booru'
+import { isSupportTagSearch, notPartialSupportSite } from '@/api/booru'
 import { isR34PahealHome } from '@/api/r34-paheal'
 import { uhdpaper, uhdpaperSearchUrl } from '@/api/uhdpaper'
 import { hentaibooru, hentaibooruSearchUrl } from '@/api/hentaibooru'
@@ -535,6 +535,10 @@ function toTagsPage(tag: string) {
   }
   if (hentaibooru.is()) {
     window.open(hentaibooruSearchUrl(tag), '_blank', 'noreferrer')
+  }
+  // 其余站点统一走 app 自己的入口：带着 tags 进瀑布流，由各站点适配器去请求
+  if (isSupportTagSearch) {
+    window.open(`${location.origin}/?_wf=1&tags=${encodeURIComponent(tag)}`, '_blank', 'noreferrer')
   }
 }
 
