@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app dense flat :elevation="2">
+  <v-app-bar app dense flat class="app-bar-glass" :class="{ 'app-bar--auto-hidden': autoHidden }" :elevation="2">
     <v-app-bar-nav-icon @click="toggleDrawer()" />
     <div v-if="store.isYKSite && showPopAction" style="display:flex" class="align-center">
       <v-toolbar-title class="mr-4 hidden-md-and-down" v-text="popTitle" />
@@ -295,7 +295,7 @@ import {
   mdiStar,
   mdiTranslate,
 } from '@mdi/js'
-import { computed, onMounted, reactive, ref, set, watch } from 'vue'
+import { computed, onMounted, onUnmounted, reactive, ref, set, watch } from 'vue'
 import { useVuetify } from '@/plugins/vuetify'
 import { addDate, debounce, downloadFile, downloadText, eventBus, formatDate, showMsg, subDate } from '@/utils'
 import { settings, store, toggleDrawer } from '@/store'
@@ -651,9 +651,32 @@ function selectLang(val: typeof settings.lang) {
   i18n.locale = val
 }
 
+// 滚动时收起顶栏，停下 500ms 后再展开
+const autoHidden = ref(false)
+const AUTO_HIDE_DELAY = 500
+let autoHideTimer: ReturnType<typeof setTimeout> | undefined
+
+function onWindowScroll() {
+  if (window.scrollY <= 40) {
+    autoHidden.value = false
+  } else {
+    autoHidden.value = true
+  }
+  clearTimeout(autoHideTimer)
+  autoHideTimer = setTimeout(() => {
+    autoHidden.value = false
+  }, AUTO_HIDE_DELAY)
+}
+
 onMounted(() => {
   document.addEventListener('fullscreenchange', () => {
     store.isFullscreen = !!document.fullscreenElement
   })
+  window.addEventListener('scroll', onWindowScroll, { passive: true })
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', onWindowScroll)
+  clearTimeout(autoHideTimer)
 })
 </script>
