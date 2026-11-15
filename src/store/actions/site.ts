@@ -22,7 +22,7 @@ import {
   uhdpaper,
   zerochan,
 } from '@/api'
-import type { PostImage } from '@/api/16k'
+import type { MultiImageDetail } from '@/api/multi-image'
 
 interface FetchPostsAction {
   is: () => boolean
@@ -62,7 +62,7 @@ export const fetchPostsActions: FetchPostsAction[] = [
 
 interface FetchDetailAction {
   is: () => boolean
-  detail: (id: string) => Promise<{ fileUrl?: string | null; sampleUrl?: string | null; tags?: string[]; source?: string | null; images?: PostImage[]; title?: string }>
+  detail: (id: string) => Promise<MultiImageDetail>
 }
 
 export const fetchDetailActions: FetchDetailAction[] = [

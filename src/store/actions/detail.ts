@@ -5,7 +5,7 @@ import { store } from '@/store'
 import { type PostDetail, getPostDetail } from '@/api/moebooru'
 import { getDanbooruTagDetail, isDanbooruPage } from '@/api/danbooru'
 import { eshuushuu } from '@/api'
-import type { MultiImagePost } from '@/api/16k'
+import type { MultiImagePost } from '@/api/multi-image'
 import i18n from '@/utils/i18n'
 
 const isCNLang = i18n.locale.includes('zh')

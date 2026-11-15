@@ -22,3 +22,5 @@ node_modules
 .workbuddy
 .superpowers
 docs/superpowers
+
+*.tsbuildinfo

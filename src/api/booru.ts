@@ -2,57 +2,21 @@ import { search, sites } from '@himeka/booru'
 import { isSankakuSite } from './sankaku'
 import { isMikubooru } from './mikubooru'
 import { isConfiguredSzuruDomain, szurubooru } from './szurubooru'
+import { getBooruSiteHosts, getNavDomains, getSiteTitle as getRegisteredSiteTitle, getSiteMeta } from './sites'
 import { animepictures, realbooru, rule34 } from '@/api'
 import { settings, store } from '@/store'
 
-const blackList = new Set(['e621.net', 'e926.net', 'hypnohub.net', 'derpibooru.org', 'realbooru.com'])
-const siteKeys = Object.keys(sites).filter(e => !blackList.has(e))
+const siteKeys = getBooruSiteHosts()
 export const isBooruSite = () => siteKeys.includes(location.host)
 
-export const siteDomains = [
-  ...siteKeys,
-  'e-shuushuu.net',
-  'nekomaru.moe',
-  'booru.funmaker.moe',
-  'zerochan.net',
-  'chan.sankakucomplex.com',
-  'www.idolcomplex.com',
-  'sankaku.app',
-  'anime-pictures.net',
-  'allgirl.booru.org',
-  'booru.eu',
-  'kusowanka.com',
-  'anihonetwallpaper.com',
-  'nozomi.la',
-  'realbooru.com',
-  'rule34hentai.net',
-  'www.uhdpaper.com',
-  '16knote.com',
-  '16k.club',
-]
+/** 导航抽屉里显示的站点域名 */
+export const siteDomains = getNavDomains()
 
-export const isSupportTagSearch = isBooruSite() || !['nozomi.la', '16knote.com', '16k.club'].includes(location.host)
-export const notPartialSupportSite = !([
-  'e-shuushuu.net',
-  'www.zerochan.net',
-  'www.idolcomplex.com',
-  'allgirl.booru.org',
-  'booru.eu',
-  'kusowanka.com',
-  'anihonetwallpaper.com',
-  'nozomi.la',
-  'realbooru.com',
-  'rule34hentai.net',
-].includes(location.host))
-
-const sampleDownloadHosts = new Set([
-  'anime-pictures.net',
-  'gelbooru.com',
-  'rule34.xxx',
-])
+export const isSupportTagSearch = isBooruSite() || getSiteMeta(location.host)?.tagSearch !== false
+export const notPartialSupportSite = getSiteMeta(location.host)?.partialSupport !== true
 
 export const isSampleDownloadSupportedSite = () => {
-  return notPartialSupportSite && (isBooruSite() || sampleDownloadHosts.has(location.host))
+  return notPartialSupportSite && (isBooruSite() || getSiteMeta(location.host)?.sampleDownload === true)
 }
 
 export const defCompTags = (() => {
@@ -87,52 +51,15 @@ export const defCompTags = (() => {
   return []
 })()
 
-const specTitleMap: Record<string, string> = {
-  'yande.re': 'yande.re',
-  'konachan.com': 'Koanchan',
-  'konachan.net': 'Koanchan(Safe)',
-  'sakugabooru.com': 'sakugabooru'.toUpperCase(),
-  'behoimi.org': '3dbooru',
-  'rule34.paheal.net': 'Rule34.Paheal',
-  'booru.allthefallen.moe': 'ATFBooru',
-  'aibooru.online': 'AIBooru',
-  'sankaku.app': 'Sankaku APP',
-  'sankakucomplex.com': 'Sankaku Complex',
-  'chan.sankakucomplex.com': 'Sankaku Complex',
-  'idolcomplex.com': 'Idol Complex',
-  'anime-pictures.net': 'Anime Pictures',
-  'allgirl.booru.org': 'All girl',
-  'booru.eu': 'Hentai Booru',
-  'rule34hentai.net': 'Rule34Hentai',
-  'uhdpaper.com': 'UHDPaper',
-  'nekomaru.moe': 'Szurubooru(Demo)',
-  'booru.funmaker.moe': 'Mikubooru',
-  '16knote.com': '16K Note (SFW)',
-  '16k.club': '16K Club',
-}
-
 export function getSiteTitle(domain: string = location.host) {
   const host = domain.toLowerCase().replace('www.', '')
-  if (specTitleMap[host]) return specTitleMap[host]
+  const title = getRegisteredSiteTitle(domain)
+  if (title) return title
   if (isConfiguredSzuruDomain(host)) return 'Szurubooru'
   return host[0].toUpperCase() + host.slice(1).split('.')[0]
 }
 
-const defaultLimitMap: Record<string, number> = {
-  'yande.re': 40,
-  'konachan.com': 21,
-  'konachan.net': 21,
-  'danbooru.donmai.us': 20,
-  'gelbooru.com': 42,
-  'rule34.xxx': 42,
-  'safebooru.org': 40,
-  'tbib.org': 42,
-  'xbooru.com': 42,
-  'rule34.paheal.net': 70,
-  'realbooru.com': 42,
-}
-
-export const BOORU_PAGE_LIMIT = defaultLimitMap[location.host] || 40
+export const BOORU_PAGE_LIMIT = getSiteMeta(location.host)?.pageLimit || 40
 
 export const isPidSite = () => sites[location.host]?.paginate === 'pid' || realbooru.is()
 

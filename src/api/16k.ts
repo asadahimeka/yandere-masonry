@@ -1,26 +1,5 @@
 import type { Post } from '@himeka/booru'
-
-export interface PostImage {
-  fileUrl: string
-  previewUrl: string
-  width: number
-  height: number
-}
-
-export interface MultiImagePost extends Post {
-  images?: PostImage[]
-  title?: string
-  mediaCount?: number
-}
-
-export interface DetailResult {
-  fileUrl?: string | null
-  sampleUrl?: string | null
-  tags?: string[]
-  source?: string | null
-  images?: PostImage[]
-  title?: string
-}
+import type { MultiImageAdapter, MultiImageDetail, PostImage } from './multi-image'
 
 interface SiteConfig {
   host: string
@@ -35,7 +14,7 @@ interface SiteConfig {
   dateSelector?: string
   rating: string
   thumb: (url: string) => string
-  sourceStrategy: 'note' | 'club'
+  parseSource?: (doc: Document) => string | null
 }
 
 const noteConfig: SiteConfig = {
@@ -54,7 +33,11 @@ const noteConfig: SiteConfig = {
     const photon = url.replace('https://img.16knote.com/', 'https://i3.wp.com/img.16knote.com/')
     return `${photon}${url.includes('?') ? '&' : '?'}w=400`
   },
-  sourceStrategy: 'note',
+  parseSource: doc => {
+    const sourceHref = doc.querySelector('a#source')?.getAttribute('href')
+    const encoded = hashAfter(sourceHref, '#/') || hashAfter(sourceHref, '#')
+    return encoded ? decodeBase64Url(encoded) : null
+  },
 }
 
 const clubConfig: SiteConfig = {
@@ -69,7 +52,13 @@ const clubConfig: SiteConfig = {
   badgeSelector: '.badge.text-bg-dark',
   rating: 'e',
   thumb: url => url,
-  sourceStrategy: 'club',
+  parseSource: doc => {
+    const plain = hashAfter(doc.querySelector('a#proxy')?.getAttribute('href'), '#')
+    if (plain) return plain
+    const sourceHref = doc.querySelector('a#source')?.getAttribute('href')
+    const encoded = hashAfter(sourceHref, '#/') || hashAfter(sourceHref, '#')
+    return encoded ? decodeBase64Url(encoded) : null
+  },
 }
 
 function idFromHref(href: string) {
@@ -112,13 +101,7 @@ function decodeBase64Url(value: string): string | null {
 }
 
 function parseSource(doc: Document, config: SiteConfig): string | null {
-  if (config.sourceStrategy === 'club') {
-    const plain = hashAfter(doc.querySelector('a#proxy')?.getAttribute('href'), '#')
-    if (plain) return plain
-  }
-  const sourceHref = doc.querySelector('a#source')?.getAttribute('href')
-  const encoded = hashAfter(sourceHref, '#/') || hashAfter(sourceHref, '#')
-  return encoded ? decodeBase64Url(encoded) : null
+  return config.parseSource ? config.parseSource(doc) : null
 }
 
 async function fetchPosts(config: SiteConfig, page: number, tags: string | null): Promise<Post[]> {
@@ -171,7 +154,7 @@ async function fetchPosts(config: SiteConfig, page: number, tags: string | null)
   }) as Post[]
 }
 
-async function fetchDetail(config: SiteConfig, id: string): Promise<DetailResult> {
+async function fetchDetail(config: SiteConfig, id: string): Promise<MultiImageDetail> {
   const resp = await fetch(config.detailUrl(id))
   const doc = new DOMParser().parseFromString(await resp.text(), 'text/html')
   const media = Array.from(doc.querySelectorAll(config.mediaSelector))
@@ -207,7 +190,7 @@ async function fetchDetail(config: SiteConfig, id: string): Promise<DetailResult
   }
 }
 
-function createAdapter(config: SiteConfig) {
+function createAdapter(config: SiteConfig): MultiImageAdapter {
   return {
     is: () => location.hostname === config.host,
     posts: (page: number, tags: string | null) => fetchPosts(config, page, tags),
@@ -217,18 +200,3 @@ function createAdapter(config: SiteConfig) {
 
 export const sixteenKNote = createAdapter(noteConfig)
 export const sixteenKClub = createAdapter(clubConfig)
-
-export function getPostImages(post?: Post | null): PostImage[] {
-  return (post as MultiImagePost | undefined | null)?.images ?? []
-}
-
-export function getMediaCount(post?: Post | null): number {
-  const typed = post as MultiImagePost | undefined | null
-  if (!typed) return 0
-  if (typeof typed.mediaCount === 'number') return typed.mediaCount
-  return typed.images?.length ?? 0
-}
-
-export function getPostTitle(post?: Post | null): string {
-  return (post as MultiImagePost | undefined | null)?.title ?? ''
-}
