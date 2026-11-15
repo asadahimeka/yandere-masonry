@@ -31,6 +31,7 @@ module.exports = defineTmHeader({
   "match": [
     ...Object.entries(sites).filter(([e]) => !blackList.has(e)).map(([k, v]) => `http${v.insecure ? '' : 's'}://${k}/*`),
     'https://nekomaru.moe/*',
+    'https://booru.funmaker.moe/*',
     'https://e-shuushuu.net/*',
     'https://www.zerochan.net/*',
     'https://sankaku.app/*',

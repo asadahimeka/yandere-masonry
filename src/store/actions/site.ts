@@ -8,6 +8,7 @@ import {
   gelbooru,
   hentaibooru,
   kusowanka,
+  mikubooru,
   moebooru,
   nozomila,
   r34paheal,
@@ -47,6 +48,7 @@ export const fetchPostsActions: FetchPostsAction[] = [
   sankaku,
   sankaku.complex,
   szurubooru,
+  mikubooru,
   realbooru,
   rule34hentai,
   uhdpaper,
@@ -67,4 +69,5 @@ export const fetchDetailActions: FetchDetailAction[] = [
   allgirl,
   hentaibooru,
   kusowanka,
+  mikubooru,
 ]

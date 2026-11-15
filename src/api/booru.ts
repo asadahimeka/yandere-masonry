@@ -1,5 +1,6 @@
 import { search, sites } from '@himeka/booru'
 import { isSankakuSite } from './sankaku'
+import { isMikubooru } from './mikubooru'
 import { isConfiguredSzuruDomain, szurubooru } from './szurubooru'
 import { animepictures, realbooru, rule34 } from '@/api'
 import { settings, store } from '@/store'
@@ -12,9 +13,9 @@ export const siteDomains = [
   ...siteKeys,
   'e-shuushuu.net',
   'nekomaru.moe',
+  'booru.funmaker.moe',
   'zerochan.net',
   'chan.sankakucomplex.com',
-  // 'idol.sankakucomplex.com',
   'www.idolcomplex.com',
   'sankaku.app',
   'anime-pictures.net',
@@ -32,7 +33,6 @@ export const isSupportTagSearch = isBooruSite() || !['nozomi.la'].includes(locat
 export const notPartialSupportSite = !([
   'e-shuushuu.net',
   'www.zerochan.net',
-  // 'idol.sankakucomplex.com',
   'www.idolcomplex.com',
   'allgirl.booru.org',
   'booru.eu',
@@ -76,6 +76,12 @@ export const defCompTags = (() => {
       'type:image', 'type:animation', 'type:video',
     ]
   }
+  if (isMikubooru()) {
+    return [
+      'rating:safe', 'rating:questionable', 'rating:explicit',
+      'order:date_desc', 'order:id_desc', 'order:score_desc', 'order:size_desc',
+    ]
+  }
   return []
 })()
 
@@ -89,15 +95,16 @@ const specTitleMap: Record<string, string> = {
   'booru.allthefallen.moe': 'ATFBooru',
   'aibooru.online': 'AIBooru',
   'sankaku.app': 'Sankaku APP',
-  'www.sankakucomplex.com': 'Sankaku Complex',
+  'sankakucomplex.com': 'Sankaku Complex',
   'chan.sankakucomplex.com': 'Sankaku Complex',
-  'www.idolcomplex.com': 'Idol Complex',
+  'idolcomplex.com': 'Idol Complex',
   'anime-pictures.net': 'Anime Pictures',
   'allgirl.booru.org': 'All girl',
   'booru.eu': 'Hentai Booru',
   'rule34hentai.net': 'Rule34Hentai',
   'uhdpaper.com': 'UHDPaper',
   'nekomaru.moe': 'Szurubooru(Demo)',
+  'booru.funmaker.moe': 'Mikubooru',
 }
 
 export function getSiteTitle(domain: string = location.host) {

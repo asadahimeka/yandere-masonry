@@ -1,3 +1,5 @@
+// 本文件已废弃
+
 export function isSankakuIdolPage() {
   return location.hostname == 'idol.sankakucomplex.com'
 }
