@@ -744,3 +744,22 @@ html:has(#app.theme--dark) {
     box-shadow: 0 0 0 8px rgba(255, 87, 34, 0);
   }
 }
+
+/* 顶栏玻璃效果 + 滚动收起（AppBar.vue，配色对齐卡片下载栏 .posts-image-actions） */
+.app-bar-glass.v-sheet.v-app-bar {
+  background: rgba(255, 255, 255, 0.45) !important;
+  backdrop-filter: blur(12px) saturate(180%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+
+.theme--dark .app-bar-glass.v-sheet.v-app-bar {
+  background: rgba(30, 30, 30, 0.42) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.09);
+}
+
+/* 滚动时整块推出去，停下后再落回来（AppBar.vue 里的 autoHidden） */
+.app-bar-glass.app-bar--auto-hidden {
+  transform: translateY(-100%) !important;
+}
