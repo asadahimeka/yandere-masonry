@@ -295,6 +295,12 @@
   margin-bottom: 8px;
 }
 
+/* Vuetify 只给卡片首个子元素套上圆角，图片会顶成下方直角，这里补齐 */
+.posts-image-card.v-card > .v-image {
+  border-bottom-left-radius: 4px !important;
+  border-bottom-right-radius: 4px !important;
+}
+
 .wf-grid .posts-image-card .v-responsive__sizer {
   padding-bottom: 100% !important;
 }
