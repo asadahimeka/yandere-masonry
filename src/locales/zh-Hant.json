@@ -153,5 +153,7 @@
   "szurubooruAppBarHint": "目前為 Szurubooru 站點：點擊開啟設定，可設定自架網域與認證；自架站點還需在 Tampermonkey 中為本腳本新增該網域比對（包含/使用者網域，如 https://your.domain/* ）才會注入腳本",
   "szurubooruGuideBtn": "域名設定",
   "szurubooruDomainLabel": "網域（如 https://szuru.example.com）",
-  "szurubooruAddConfig": "新增 Szurubooru 站點"
+  "szurubooruAddConfig": "新增 Szurubooru 站點",
+  "autoHideAppBarTitle": "自動隱藏頂欄",
+  "autoHideAppBarSubtitle": "向下捲動時收起頂欄，向上捲動或將滑鼠移到螢幕頂部時展開"
 }

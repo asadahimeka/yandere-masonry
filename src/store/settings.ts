@@ -49,6 +49,7 @@ const defaultSettings = {
   isFitScreen: true,
   isDLSubpath: false,
   autoWaterfall: false,
+  autoHideAppBar: true,
   showTagChipGroup: false,
   justifiedBaseWidth: isMobile ? 240 : 340,
   detailButtonsBottom: isMobile,

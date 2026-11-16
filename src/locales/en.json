@@ -153,5 +153,7 @@
   "szurubooruAppBarHint": "This is a Szurubooru site: click to open settings and configure your self-hosted domain and authentication. Self-hosted sites also need a match added for this script in Tampermonkey (Include/User Domain, e.g. https://your.domain/* ) or the script will not be injected",
   "szurubooruGuideBtn": "Domain settings",
   "szurubooruDomainLabel": "Domain (e.g. https://szuru.example.com)",
-  "szurubooruAddConfig": "Add Szurubooru Site"
+  "szurubooruAddConfig": "Add Szurubooru Site",
+  "autoHideAppBarTitle": "Auto-hide top bar",
+  "autoHideAppBarSubtitle": "Hide the top bar while scrolling down; reveal it by scrolling up or moving the pointer to the top of the screen"
 }

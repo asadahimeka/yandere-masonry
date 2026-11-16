@@ -153,5 +153,7 @@
   "szurubooruAppBarHint": "当前为 Szurubooru 站点：点击打开设置，可配置自部署域名与认证；自部署站点还需在 Tampermonkey 中为本脚本添加该域名匹配（包含/用户域名，如 https://your.domain/* ）才会注入脚本",
   "szurubooruGuideBtn": "域名设置",
   "szurubooruDomainLabel": "域名（如 https://szuru.example.com）",
-  "szurubooruAddConfig": "添加 Szurubooru 站点"
+  "szurubooruAddConfig": "添加 Szurubooru 站点",
+  "autoHideAppBarTitle": "自动隐藏顶栏",
+  "autoHideAppBarSubtitle": "向下滚动时收起顶栏，向上滚动或把鼠标移到屏幕顶部时展开"
 }

@@ -369,6 +369,15 @@
           <v-switch v-model="settings.autoWaterfall" inset />
         </v-list-item-action>
       </v-list-item>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>{{ $t('autoHideAppBarTitle') }}</v-list-item-title>
+          <v-list-item-subtitle>{{ $t('autoHideAppBarSubtitle') }}</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-switch v-model="settings.autoHideAppBar" inset />
+        </v-list-item-action>
+      </v-list-item>
       <v-list-item v-if="notPartialSupportSite">
         <v-list-item-content>
           <v-list-item-title>{{ $t('sxhTRqogDRozo9IaTGI7g') }}</v-list-item-title>

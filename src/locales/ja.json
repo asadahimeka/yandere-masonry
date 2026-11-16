@@ -153,5 +153,7 @@
   "szurubooruAppBarHint": "現在のサイトは Szurubooru です：クリックして設定を開き、自己ホストのドメインと認証を設定できます。自己ホストのサイトでは、Tampermonkey で本スクリプトにそのドメインのマッチ（ユーザードメイン/包含、例: https://your.domain/* ）を追加する必要があります",
   "szurubooruGuideBtn": "ドメイン名の設定",
   "szurubooruDomainLabel": "ドメイン（例: https://szuru.example.com）",
-  "szurubooruAddConfig": "Szurubooru サイトを追加"
+  "szurubooruAddConfig": "Szurubooru サイトを追加",
+  "autoHideAppBarTitle": "トップバーを自動非表示",
+  "autoHideAppBarSubtitle": "下にスクロールするとトップバーを隠し、上にスクロールするかマウスを画面上部へ移動すると表示します"
 }

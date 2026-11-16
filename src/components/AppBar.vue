@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app dense flat class="app-bar-glass" :class="{ 'app-bar--auto-hidden': autoHidden }" :elevation="2">
+  <v-app-bar ref="barRef" app dense flat class="app-bar-glass" :class="{ 'app-bar--auto-hidden': autoHidden }" :elevation="2">
     <v-app-bar-nav-icon @click="toggleDrawer()" />
     <div v-if="store.isYKSite && showPopAction" style="display:flex" class="align-center">
       <v-toolbar-title class="mr-4 hidden-md-and-down" v-text="popTitle" />
@@ -651,32 +651,98 @@ function selectLang(val: typeof settings.lang) {
   i18n.locale = val
 }
 
-// 滚动时收起顶栏，停下 500ms 后再展开
+// 顶栏自动隐藏：向下滚收起，向上滚 / 鼠标贴近顶部 / 键盘聚焦时展开。
+// 只用方向 + 累计位移判断，不再用定时器无条件回弹，否则停下来 500ms 就会落回来，
+// 下次滚动又推走，看起来就是来回抽动。
 const autoHidden = ref(false)
-const AUTO_HIDE_DELAY = 500
-let autoHideTimer: ReturnType<typeof setTimeout> | undefined
+const HIDE_AFTER = 80 // 超过这个滚动位置才允许收起，避开顶部附近的抖动区
+const NEAR_TOP = 24 // 回到顶部附近必定展开
+const DIRECTION_DELTA = 8 // 同方向累计位移超过该值才切换，抵消阈值抖动
+const JUMP_GUARD = 240 // 单帧位移过大视为程序化滚动，不参与方向判断
+const REVEAL_ZONE = 12 // 鼠标进入顶部这个高度内展开
+
+const barRef = ref<any>(null)
+let lastScrollY = window.scrollY
+let scrollDelta = 0
+let ticking = false
+
+function setAutoHidden(hidden: boolean) {
+  scrollDelta = 0
+  if (autoHidden.value !== hidden) autoHidden.value = hidden
+}
+
+// 鼠标停在顶栏上时不收起，避免正要点击时整条被推走
+function isPointerOverBar() {
+  const el = barRef.value?.$el as HTMLElement | undefined
+  return !!el && el.matches(':hover')
+}
 
 function onWindowScroll() {
-  if (window.scrollY <= 40) {
-    autoHidden.value = false
-  } else {
-    autoHidden.value = true
-  }
-  clearTimeout(autoHideTimer)
-  autoHideTimer = setTimeout(() => {
-    autoHidden.value = false
-  }, AUTO_HIDE_DELAY)
+  if (ticking) return
+  ticking = true
+  window.requestAnimationFrame(() => {
+    ticking = false
+    const y = window.scrollY
+    const delta = y - lastScrollY
+    lastScrollY = y
+    if (!settings.autoHideAppBar) {
+      if (autoHidden.value) setAutoHidden(false)
+      return
+    }
+    // Vuetify 关闭弹层时恢复 scrollTop、virtual 布局的 scrollTop = 1、锚点跳转
+    // 这类程序化滚动不该被当成用户往下滚
+    if (Math.abs(delta) > JUMP_GUARD) {
+      scrollDelta = 0
+      return
+    }
+    if (y <= NEAR_TOP) {
+      if (autoHidden.value) setAutoHidden(false)
+      return
+    }
+    // 方向翻转时重新累计
+    if (delta !== 0 && (scrollDelta > 0) !== (delta > 0)) scrollDelta = 0
+    scrollDelta += delta
+    if (scrollDelta > DIRECTION_DELTA && y > HIDE_AFTER) {
+      if (isPointerOverBar()) {
+        scrollDelta = 0
+        return
+      }
+      setAutoHidden(true)
+    } else if (scrollDelta < -DIRECTION_DELTA) {
+      setAutoHidden(false)
+    }
+  })
 }
+
+function onPointerMove(ev: MouseEvent) {
+  if (!autoHidden.value || !settings.autoHideAppBar) return
+  if (ev.clientY > REVEAL_ZONE) return
+  setAutoHidden(false)
+}
+
+// 键盘 Tab 进入顶栏控件时也要能看见
+function onFocusIn(ev: FocusEvent) {
+  if (!autoHidden.value) return
+  const target = ev.target as HTMLElement | null
+  if (target?.closest?.('.v-app-bar')) setAutoHidden(false)
+}
+
+watch(() => settings.autoHideAppBar, val => {
+  if (!val) setAutoHidden(false)
+})
 
 onMounted(() => {
   document.addEventListener('fullscreenchange', () => {
     store.isFullscreen = !!document.fullscreenElement
   })
   window.addEventListener('scroll', onWindowScroll, { passive: true })
+  window.addEventListener('mousemove', onPointerMove, { passive: true })
+  document.addEventListener('focusin', onFocusIn)
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', onWindowScroll)
-  clearTimeout(autoHideTimer)
+  window.removeEventListener('mousemove', onPointerMove)
+  document.removeEventListener('focusin', onFocusIn)
 })
 </script>
