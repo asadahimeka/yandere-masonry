@@ -3,6 +3,7 @@ import { isSankakuSite } from './sankaku'
 import { isMikubooru } from './mikubooru'
 import { isConfiguredSzuruDomain, szurubooru } from './szurubooru'
 import { getBooruSiteHosts, getNavDomains, getSiteTitle as getRegisteredSiteTitle, getSiteMeta } from './sites'
+import { everiaPresetTags, isEveriaList } from './everia'
 import { animepictures, realbooru, rule34 } from '@/api'
 import { settings, store } from '@/store'
 
@@ -48,6 +49,8 @@ export const defCompTags = (() => {
       'order:date_desc', 'order:id_desc', 'order:score_desc', 'order:size_desc',
     ]
   }
+  // everia 没有标签体系，搜索框里放的是站内分类（首页 / 日本 / 韩国 …）
+  if (isEveriaList()) return everiaPresetTags
   return []
 })()
 

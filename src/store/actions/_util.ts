@@ -1,6 +1,6 @@
 import type { SearchResults } from '@himeka/booru'
 import { settings } from '@/store'
-import { allgirl, nozomila, rule34, szurubooru, uhdpaper } from '@/api'
+import { allgirl, isEveria, nozomila, rule34, szurubooru, uhdpaper } from '@/api'
 import { BOORU_PAGE_LIMIT, isPidSite } from '@/api/booru'
 import { getCookie } from '@/utils'
 
@@ -8,6 +8,10 @@ export function getFirstPageNo(params: URLSearchParams) {
   if (isPidSite()) {
     const page = Number(params.get('pid')) || 0
     return Math.trunc(page / BOORU_PAGE_LIMIT) + 1
+  }
+  // everia 靠路径 /page/N/ 翻页，URL 里的 page 参数只是临时态，刷新时要从路径还原
+  if (isEveria()) {
+    return Number(location.pathname.match(/\/page\/(\d+)\/?$/)?.[1]) || 1
   }
   return Number(params.get('page')) || 1
 }
@@ -18,6 +22,8 @@ export function pushPageState(pageNo: number, latePageQuery = false) {
   if (uhdpaper.is()) return
   // szurubooru 用 offset 分页，站点自身不认 ?page=，写进 URL 只会把搜索地址弄脏
   if (szurubooru.is()) return
+  // everia 靠路径 /page/N/ 翻页；文章页更不能写 page，否则刷新会从中间一块开始
+  if (isEveria()) return
   let pageParamName = 'page'
   if (isPidSite()) {
     pageParamName = 'pid'

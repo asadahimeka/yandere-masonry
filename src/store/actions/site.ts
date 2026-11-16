@@ -5,6 +5,7 @@ import {
   animepictures,
   booruAction,
   eshuushuu,
+  everia,
   gelbooru,
   hentaibooru,
   kusowanka,
@@ -59,6 +60,9 @@ export const siteActions: SiteAdapter[] = [
   uhdpaper,
   sixteenKNote,
   sixteenKClub,
+  // 同一 host 的两个视图靠路径互斥：列表页抓站点列表，文章页把整篇图当成瀑布流条目
+  everia.list,
+  everia.post,
   { is: () => true, posts: async () => [] },
 ]
 

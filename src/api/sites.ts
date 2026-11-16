@@ -133,6 +133,8 @@ const MANUAL_SITES: SiteRegistration[] = [
   { key: 'www.uhdpaper.com', hosts: ['www.uhdpaper.com', 'uhdpaper.com'], navHost: 'www.uhdpaper.com', title: 'UHDPaper', match: ['https://www.uhdpaper.com/*', 'https://uhdpaper.com/*'] },
   { key: '16knote.com', hosts: ['16knote.com'], navHost: '16knote.com', title: '16K Note (SFW)', match: ['https://16knote.com/*'], tagSearch: false },
   { key: '16k.club', hosts: ['16k.club'], navHost: '16k.club', title: '16K Club', match: ['https://16k.club/*'], tagSearch: false },
+  // rating 全为 e，且不提供批量下载 / 单图下载，故标 partialSupport
+  { key: 'everia.club', hosts: ['everia.club'], navHost: 'everia.club', title: 'Everia', pageLimit: 30, match: ['https://everia.club/*'], partialSupport: true },
 ]
 
 /**

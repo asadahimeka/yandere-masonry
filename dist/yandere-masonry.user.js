@@ -44,6 +44,7 @@
 // @match                https://uhdpaper.com/*
 // @match                https://16knote.com/*
 // @match                https://16k.club/*
+// @match                https://everia.club/*
 // @homepage             https://www.nanoka.top
 // @source               https://github.com/asadahimeka/yandere-masonry
 // @icon                 https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/f1f6267537a5aff959ee63ec2c9e4e52_4821140735490026106.jpg
@@ -6980,12 +6981,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     return booruCache[rSite].search(tags, { limit, random, page, credentials });
   }
-  const ORIGIN$1 = "https://chan.sankakucomplex.com";
+  const ORIGIN$2 = "https://chan.sankakucomplex.com";
   function isSankakuComplexPage() {
     return location.hostname == "chan.sankakucomplex.com";
   }
   const state = {
-    base: `${ORIGIN$1}/cn/posts?auto_page=t`,
+    base: `${ORIGIN$2}/cn/posts?auto_page=t`,
     nextUrl: null,
     nextPage: 0
   };
@@ -7005,7 +7006,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     if (!url)
       return "";
     try {
-      return new URL(url, ORIGIN$1).href;
+      return new URL(url, ORIGIN$2).href;
     } catch {
       return url;
     }
@@ -7039,7 +7040,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     state.nextUrl = getNextPageUrl(doc);
-    state.nextPage = state.nextUrl ? Number(new URL(resolveUrl(state.nextUrl), ORIGIN$1).searchParams.get("page")) || page + 1 : 0;
+    state.nextPage = state.nextUrl ? Number(new URL(resolveUrl(state.nextUrl), ORIGIN$2).searchParams.get("page")) || page + 1 : 0;
     const seen = /* @__PURE__ */ new Set();
     const results = queryAllDeep(doc, ".post-preview").filter((el) => {
       const id = el.getAttribute("data-id");
@@ -7072,7 +7073,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return results;
   }
   async function getSankakuComplexDetail(id) {
-    const url = new URL(`${ORIGIN$1}/cn/posts/${id}`);
+    const url = new URL(`${ORIGIN$2}/cn/posts/${id}`);
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const imgSrc = doc.querySelector("#post-content img")?.src;
@@ -7436,7 +7437,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     { key: "rule34hentai.net", hosts: ["rule34hentai.net"], navHost: "rule34hentai.net", title: "Rule34Hentai", match: ["https://rule34hentai.net/*"], partialSupport: true },
     { key: "www.uhdpaper.com", hosts: ["www.uhdpaper.com", "uhdpaper.com"], navHost: "www.uhdpaper.com", title: "UHDPaper", match: ["https://www.uhdpaper.com/*", "https://uhdpaper.com/*"] },
     { key: "16knote.com", hosts: ["16knote.com"], navHost: "16knote.com", title: "16K Note (SFW)", match: ["https://16knote.com/*"], tagSearch: false },
-    { key: "16k.club", hosts: ["16k.club"], navHost: "16k.club", title: "16K Club", match: ["https://16k.club/*"], tagSearch: false }
+    { key: "16k.club", hosts: ["16k.club"], navHost: "16k.club", title: "16K Club", match: ["https://16k.club/*"], tagSearch: false },
+    { key: "everia.club", hosts: ["everia.club"], navHost: "everia.club", title: "Everia", pageLimit: 30, match: ["https://everia.club/*"], partialSupport: true }
   ];
   function normalizeHost(host) {
     return host.toLowerCase().replace("www.", "");
@@ -7485,6 +7487,229 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       ...MANUAL_SITES.filter((site) => site.navHost !== null).map((site) => site.navHost ?? site.key)
     ];
   }
+  const ORIGIN$1 = "https://everia.club";
+  const CHUNK_SIZE = 30;
+  const DEFAULT_WIDTH = 1e3;
+  const DEFAULT_HEIGHT = 1500;
+  const HOST_WIDTH = {
+    "karubox.top": 1e3,
+    "remu.airibox.top": 1060,
+    "miya.fujibox.top": 1128
+  };
+  const ARTICLE_PATH = /^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/(?:\d+\/)?$/;
+  function isEveria() {
+    return location.hostname === "everia.club";
+  }
+  function isEveriaArticle() {
+    return isEveria() && ARTICLE_PATH.test(location.pathname);
+  }
+  function isEveriaList() {
+    return isEveria() && !ARTICLE_PATH.test(location.pathname);
+  }
+  function toAbsolute(url) {
+    try {
+      return new URL(url, ORIGIN$1).href;
+    } catch {
+      return "";
+    }
+  }
+  function htmlToText(html) {
+    return new DOMParser().parseFromString(html, "text/html").body.textContent?.trim() ?? "";
+  }
+  function sizeOf(url) {
+    let width = DEFAULT_WIDTH;
+    try {
+      width = HOST_WIDTH[new URL(url).hostname] ?? DEFAULT_WIDTH;
+    } catch {
+      width = DEFAULT_WIDTH;
+    }
+    return { width, height: DEFAULT_HEIGHT };
+  }
+  const CATEGORIES = [
+    { label: "\u65E5\u672C", slug: "japan-gallery", alias: "japan" },
+    { label: "\u97E9\u56FD", slug: "korea-gallery", alias: "korea" },
+    { label: "\u4E2D\u56FD", slug: "china-gallery", alias: "china" },
+    { label: "\u89D2\u8272\u626E\u6F14", slug: "cosplay-gallery", alias: "cosplay" },
+    { label: "\u6CF0\u56FD", slug: "thailand-gallery", alias: "thailand" }
+  ];
+  const HOME_ALIASES = ["\u9996\u9875", "home", "all"];
+  const everiaPresetTags = ["\u9996\u9875", ...CATEGORIES.map((e) => e.label)];
+  function categoryPathOf(token) {
+    const term = token.trim().toLowerCase();
+    if (!term)
+      return null;
+    if (HOME_ALIASES.includes(term))
+      return "/";
+    const hit = CATEGORIES.find((e) => term === e.label.toLowerCase() || term === e.slug || term === e.alias);
+    return hit ? `/${hit.slug}/` : null;
+  }
+  function resolveCategoryPath(tags) {
+    const tokens = (tags ?? "").trim().split(/\s+/).filter(Boolean);
+    if (tokens.length === 0)
+      return null;
+    const paths = tokens.map(categoryPathOf);
+    if (paths.includes(null))
+      return null;
+    return paths[paths.length - 1] ?? null;
+  }
+  function listUrl(page, tags) {
+    const suffix = page > 1 ? `page/${page}/` : "";
+    const categoryPath = resolveCategoryPath(tags);
+    if (categoryPath)
+      return `${ORIGIN$1}${categoryPath}${suffix}`;
+    const keyword = (tags ?? new URLSearchParams(location.search).get("s") ?? "").trim();
+    if (keyword)
+      return `${ORIGIN$1}/${suffix}?s=${encodeURIComponent(keyword)}`;
+    const url = new URL(location.href);
+    url.searchParams.delete("page");
+    url.searchParams.delete("tags");
+    const base = url.pathname.replace(/\/page\/\d+\/?$/, "/");
+    url.pathname = `${base.endsWith("/") ? base : `${base}/`}${suffix}`;
+    return url.href;
+  }
+  function buildListPost(opts) {
+    const { id, href, previewUrl, width, height, title } = opts;
+    return {
+      id,
+      postView: toAbsolute(href),
+      previewUrl,
+      fileUrl: "",
+      tags: [],
+      rating: "e",
+      images: [],
+      width,
+      height,
+      aspectRatio: width / height,
+      createdAt: null,
+      title,
+      fileExt: "webp",
+      fileDownloadName: `everia ${id} ${width}x${height}`,
+      fileDownloadText: `${width}\xD7${height} [webp]`
+    };
+  }
+  function parseSearchCards(doc) {
+    return Array.from(doc.querySelectorAll('article[id^="post-"]')).flatMap((article) => {
+      const href = article.querySelector("a.thumbnail-link[href]")?.getAttribute("href") ?? "";
+      const img = article.querySelector("img.wp-post-image, img");
+      const previewUrl = toAbsolute(img?.getAttribute("data-src") || img?.getAttribute("src") || "");
+      if (!href || !previewUrl)
+        return [];
+      return [buildListPost({
+        id: article.id.replace(/^post-/, "") || href,
+        href,
+        previewUrl,
+        width: Number(img?.getAttribute("width")) || DEFAULT_WIDTH,
+        height: Number(img?.getAttribute("height")) || DEFAULT_HEIGHT,
+        title: article.querySelector(".search-entry-title a, h2")?.textContent?.trim() ?? ""
+      })];
+    });
+  }
+  async function fetchListPosts(page, tags) {
+    const resp = await fetch(listUrl(page, tags));
+    if (!resp.ok)
+      return [];
+    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
+    const cards = Array.from(doc.querySelectorAll(".rt-grid-item"));
+    if (cards.length === 0)
+      return parseSearchCards(doc);
+    return cards.flatMap((card) => {
+      const href = card.querySelector("a.tpg-post-link[href]")?.getAttribute("href") ?? "";
+      const img = card.querySelector("img.rt-img-responsive, img");
+      const previewUrl = toAbsolute(img?.getAttribute("data-src") || img?.getAttribute("src") || "");
+      if (!href || !previewUrl)
+        return [];
+      return [buildListPost({
+        id: card.getAttribute("data-id") || href,
+        href,
+        previewUrl,
+        width: Number(img?.getAttribute("width")) || DEFAULT_WIDTH,
+        height: Number(img?.getAttribute("height")) || DEFAULT_HEIGHT,
+        title: card.querySelector(".entry-title")?.textContent?.trim() ?? ""
+      })];
+    });
+  }
+  let articleCache = null;
+  let articleCacheKey = "";
+  function articleSlug() {
+    const segment = location.pathname.split("/").filter(Boolean)[3];
+    if (!segment)
+      return "";
+    try {
+      return decodeURIComponent(segment);
+    } catch {
+      return segment;
+    }
+  }
+  async function loadArticle() {
+    const key = location.pathname;
+    if (articleCache && articleCacheKey === key)
+      return articleCache;
+    const slug = articleSlug();
+    if (!slug)
+      return null;
+    const url = `${ORIGIN$1}/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_fields=id,title,content`;
+    const resp = await fetch(url);
+    if (!resp.ok)
+      return null;
+    const rows = await resp.json();
+    const post = Array.isArray(rows) ? rows[0] : null;
+    if (!post)
+      return null;
+    const doc = new DOMParser().parseFromString(post.content?.rendered ?? "", "text/html");
+    const images = Array.from(doc.querySelectorAll("img[src]")).map((el) => toAbsolute(el.getAttribute("src") ?? "")).filter((src) => src.startsWith("http") && /\.(webp|jpe?g|png|gif)(\?|$)/i.test(src)).map((src) => ({ fileUrl: src, previewUrl: src, ...sizeOf(src) }));
+    articleCache = { postId: String(post.id), title: htmlToText(post.title?.rendered ?? ""), images };
+    articleCacheKey = key;
+    return articleCache;
+  }
+  async function fetchArticlePosts(page) {
+    const data = await loadArticle();
+    if (!data || data.images.length === 0)
+      return [];
+    const chunk = settings.masonryLayout === "virtual" ? data.images.length : CHUNK_SIZE;
+    const start = (page - 1) * chunk;
+    if (start >= data.images.length)
+      return [];
+    return data.images.slice(start, start + chunk).map((img, offset) => {
+      const index = start + offset;
+      return {
+        id: `${data.postId}-${index}`,
+        postView: img.fileUrl,
+        previewUrl: img.fileUrl,
+        fileUrl: img.fileUrl,
+        tags: [],
+        rating: "e",
+        mediaCount: 1,
+        images: [],
+        width: img.width,
+        height: img.height,
+        aspectRatio: img.width / img.height,
+        createdAt: null,
+        title: data.title,
+        fileExt: "webp",
+        fileDownloadName: `everia ${data.postId} ${index + 1} ${img.width}x${img.height}`,
+        fileDownloadText: `${img.width}\xD7${img.height} [webp]`
+      };
+    });
+  }
+  async function fetchArticleDetail(id) {
+    const data = await loadArticle();
+    const index = Number(id.split("-").pop());
+    const img = data?.images[index];
+    if (!data || !img)
+      return {};
+    return { fileUrl: img.fileUrl, title: data.title, tags: [] };
+  }
+  const everia = {
+    list: {
+      is: isEveriaList,
+      posts: fetchListPosts
+    },
+    post: {
+      is: isEveriaArticle,
+      posts: fetchArticlePosts,
+      detail: fetchArticleDetail
+    }
+  };
   const siteKeys = getBooruSiteHosts();
   const isBooruSite = () => siteKeys.includes(location.host);
   const siteDomains = getNavDomains();
@@ -7536,6 +7761,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         "order:size_desc"
       ];
     }
+    if (isEveriaList())
+      return everiaPresetTags;
     return [];
   })();
   function getSiteTitle(domain2 = location.host) {
@@ -8937,12 +9164,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     uhdpaper,
     sixteenKNote,
     sixteenKClub,
+    everia.list,
+    everia.post,
     { is: () => true, posts: async () => [] }
   ];
   function getFirstPageNo(params2) {
     if (isPidSite()) {
       const page = Number(params2.get("pid")) || 0;
       return Math.trunc(page / BOORU_PAGE_LIMIT) + 1;
+    }
+    if (isEveria()) {
+      return Number(location.pathname.match(/\/page\/(\d+)\/?$/)?.[1]) || 1;
     }
     return Number(params2.get("page")) || 1;
   }
@@ -8952,6 +9184,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     if (uhdpaper.is())
       return;
     if (szurubooru.is())
+      return;
+    if (isEveria())
       return;
     let pageParamName = "page";
     if (isPidSite()) {
@@ -10996,6 +11230,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         });
       }
       function showImgModal(index) {
+        if (isEveriaList()) {
+          const target = store.imageList[index]?.postView;
+          if (target) {
+            const url = new URL(target);
+            url.searchParams.set("_wf", "1");
+            window.open(url.href, "_blank", "noreferrer");
+            return;
+          }
+        }
         if (settings.useFancybox) {
           fancyboxShow(store.imageList, index);
           return;

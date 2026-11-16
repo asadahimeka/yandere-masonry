@@ -215,7 +215,7 @@ import { computed, nextTick, onMounted, onUnmounted, ref, set, watch } from 'vue
 import type { Post } from '@himeka/booru'
 import PostDetail from './PostDetail.vue'
 import { downloadFile, fancyboxShow, notReachBottom, showMsg, throttleScroll } from '@/utils'
-import { getMediaCount } from '@/api'
+import { getMediaCount, isEveriaList } from '@/api'
 import { isSampleDownloadSupportedSite, notPartialSupportSite } from '@/api/booru'
 import { addPostToFavorites, isFavBtnShow } from '@/api/fav'
 import { isRule34FavPage } from '@/api/rule34'
@@ -294,6 +294,17 @@ function onCtxMenu(ev: MouseEvent, img: Post) {
 }
 
 function showImgModal(index: number) {
+  // everia 的一篇就是一组图，弹窗看不了 100+ 张；
+  // 新标签打开文章页，让文章页自己变成瀑布流（_wf=1 跳过「瀑布流模式」按钮）
+  if (isEveriaList()) {
+    const target = store.imageList[index]?.postView
+    if (target) {
+      const url = new URL(target)
+      url.searchParams.set('_wf', '1')
+      window.open(url.href, '_blank', 'noreferrer')
+      return
+    }
+  }
   if (settings.useFancybox) {
     fancyboxShow(store.imageList, index)
     return
