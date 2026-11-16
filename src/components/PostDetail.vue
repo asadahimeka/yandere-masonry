@@ -22,7 +22,6 @@
           class="img_detail_sample"
           alt=""
           :src="imgSrc"
-          :width="imgLoading ? 0 : imageSelectedWidth"
           @click.stop="toggleToolbar"
           @load="imgLoading = false"
           @error="onImageLoadError"
@@ -43,7 +42,23 @@
           :class="{ 'detail-thumb-strip--raised': settings.detailButtonsBottom }"
           @click.stop
         >
-          <div class="detail-thumb-strip-row">
+          <div
+            class="detail-thumb-nav"
+            :class="{ 'detail-thumb-nav--disabled': !thumbCanScrollLeft }"
+            role="button"
+            tabindex="0"
+            @click.stop="scrollThumbs(-1)"
+          >
+            <v-icon small>{{ mdiChevronLeft }}</v-icon>
+          </div>
+          <div
+            ref="thumbRowEl"
+            class="detail-thumb-strip-row"
+            :class="{ 'detail-thumb-strip-row--dragging': thumbDragging }"
+            @wheel.stop.prevent="onThumbWheel"
+            @pointerdown="onThumbPointerDown"
+            @scroll="onThumbScroll"
+          >
             <div
               v-for="(img, i) in postImages"
               :key="i"
@@ -51,10 +66,19 @@
               :class="{ 'detail-thumb-item--active': i === imageIndex }"
               role="button"
               tabindex="0"
-              @click.stop="imageIndex = i"
+              @click.stop="selectThumb(i)"
             >
               <v-img :src="img.previewUrl" width="56" height="56" />
             </div>
+          </div>
+          <div
+            class="detail-thumb-nav"
+            :class="{ 'detail-thumb-nav--disabled': !thumbCanScrollRight }"
+            role="button"
+            tabindex="0"
+            @click.stop="scrollThumbs(1)"
+          >
+            <v-icon small>{{ mdiChevronRight }}</v-icon>
           </div>
         </div>
       </div>
@@ -374,7 +398,13 @@
       </v-tooltip>
     </v-toolbar>
     <div v-show="showImageToolbar" class="img_detail_btn_color">
-      <div class="img-detail-tags" :class="{ 'detail-buttons-bottom': settings.detailButtonsBottom }">
+      <div
+        class="img-detail-tags"
+        :class="{
+          'detail-buttons-bottom': settings.detailButtonsBottom,
+          'img-detail-tags--above-thumbs': hasThumbStrip && !settings.detailButtonsBottom,
+        }"
+      >
         <v-chip
           v-show="postDetail.tags?.length"
           small
@@ -440,10 +470,24 @@
           />
         </v-chip-group>
       </div>
-      <v-btn fab small class="poa_left_center hidden-sm-and-down" style="z-index: 10;" @click.stop="showPrevPost">
+      <v-btn
+        fab
+        small
+        class="poa_left_center hidden-sm-and-down"
+        :class="{ 'detail-arrow--disabled': !canStepPrev }"
+        style="z-index: 10;"
+        @click.stop="stepPrevImage"
+      >
         <v-icon>{{ mdiChevronLeft }}</v-icon>
       </v-btn>
-      <v-btn fab small class="poa_right_center hidden-sm-and-down" style="z-index: 10;" @click.stop="showNextPost">
+      <v-btn
+        fab
+        small
+        class="poa_right_center hidden-sm-and-down"
+        :class="{ 'detail-arrow--disabled': !canStepNext }"
+        style="z-index: 10;"
+        @click.stop="stepNextImage"
+      >
         <v-icon>{{ mdiChevronRight }}</v-icon>
       </v-btn>
     </div>
@@ -539,6 +583,106 @@ const imageIndex = ref(0)
 watch(() => imageSelected.value?.id, () => {
   imageIndex.value = 0
 })
+
+// --- 缩略图条横向滚动（滚轮 / 拖拽 / 左右按钮 / 切图后自动居中） ---
+const thumbRowEl = ref<HTMLElement | null>(null)
+const thumbCanScrollLeft = ref(false)
+const thumbCanScrollRight = ref(false)
+const thumbDragging = ref(false)
+let thumbDragStartX = 0
+let thumbDragStartLeft = 0
+let thumbMoved = false
+
+function onThumbScroll() {
+  const row = thumbRowEl.value
+  if (!row) return
+  thumbCanScrollLeft.value = row.scrollLeft > 1
+  thumbCanScrollRight.value = row.scrollLeft + row.clientWidth < row.scrollWidth - 1
+}
+
+function updateThumbScrollState() {
+  onThumbScroll()
+  // 无溢出时把两侧按钮置灰，避免误以为还有内容
+  const row = thumbRowEl.value
+  if (!row) return
+  if (row.scrollWidth <= row.clientWidth + 1) {
+    thumbCanScrollLeft.value = false
+    thumbCanScrollRight.value = false
+  }
+}
+
+// 鼠标滚轮在缩略条内改为横向滚动，并阻止冒泡（否则会触发上一张/下一张）
+function onThumbWheel(ev: WheelEvent) {
+  const row = thumbRowEl.value
+  if (!row) return
+  const unit = ev.deltaMode === 1 ? 16 : ev.deltaMode === 2 ? row.clientWidth : 1
+  const delta = Math.abs(ev.deltaX) > Math.abs(ev.deltaY) ? ev.deltaX : ev.deltaY
+  row.scrollLeft += delta * unit
+}
+
+function scrollThumbs(dir: -1 | 1) {
+  const row = thumbRowEl.value
+  if (!row) return
+  row.scrollBy({ left: dir * Math.max(120, row.clientWidth * 0.8), behavior: 'smooth' })
+}
+
+// 按住拖动缩略条
+function onThumbPointerDown(ev: PointerEvent) {
+  if (ev.button !== 0) return
+  const row = thumbRowEl.value
+  if (!row) return
+  thumbMoved = false
+  thumbDragStartX = ev.clientX
+  thumbDragStartLeft = row.scrollLeft
+  window.addEventListener('pointermove', onThumbPointerMove)
+  window.addEventListener('pointerup', onThumbPointerUp)
+  window.addEventListener('pointercancel', onThumbPointerUp)
+}
+
+function onThumbPointerMove(ev: PointerEvent) {
+  const row = thumbRowEl.value
+  if (!row) return
+  const dx = ev.clientX - thumbDragStartX
+  // 超过阈值才算拖拽，否则保留点击选中缩略图的能力
+  if (!thumbMoved && Math.abs(dx) <= 4) return
+  thumbMoved = true
+  thumbDragging.value = true
+  row.scrollLeft = thumbDragStartLeft - dx
+}
+
+function onThumbPointerUp() {
+  thumbDragging.value = false
+  window.removeEventListener('pointermove', onThumbPointerMove)
+  window.removeEventListener('pointerup', onThumbPointerUp)
+  window.removeEventListener('pointercancel', onThumbPointerUp)
+  // 拖拽结束后浏览器还会补一个 click，这里延后复位以免误选中缩略图
+  window.setTimeout(() => {
+    thumbMoved = false
+  }, 0)
+}
+
+function selectThumb(i: number) {
+  if (thumbMoved) return
+  imageIndex.value = i
+}
+
+// 切换图片后把当前缩略图滚到可视区中间
+async function centerActiveThumb(behavior: ScrollBehavior = 'smooth') {
+  await nextTick()
+  const row = thumbRowEl.value
+  if (!row) return
+  const active = row.querySelector<HTMLElement>('.detail-thumb-item--active')
+  if (!active) return
+  const rowRect = row.getBoundingClientRect()
+  const activeRect = active.getBoundingClientRect()
+  const delta = (activeRect.left - rowRect.left) - (rowRect.width - activeRect.width) / 2
+  row.scrollTo({ left: Math.max(0, row.scrollLeft + delta), behavior })
+  updateThumbScrollState()
+}
+
+watch(imageIndex, () => {
+  centerActiveThumb()
+})
 const postTitle = computed(() => getPostTitle(imageSelected.value))
 
 const sourceLink = computed(() => {
@@ -571,16 +715,21 @@ const currentFileDownloadName = computed(() => {
   return `${base} ${imageIndex.value + 1}of${postImages.value.length} ${img.width}x${img.height}`
 })
 
+// 多图帖每张图的宽高都不同，比例必须以「当前这张」为准，
+// 否则会拿列表封面的比例去算宽度，主图高度被 max-height 压扁
 const imageSelectedWidth = computed(() => {
-  const width = Number.parseInt(
-    Math.min(
-      innerWidth.value * 1,
-      imageSelected.value.sampleWidth || innerWidth.value,
-    ).toString(),
-  )
-  const height = Math.min(innerHeight.value * 1, imageSelected.value.sampleHeight || innerHeight.value)
-  const width2 = Number.parseInt((height * imageSelected.value.aspectRatio).toString())
-  return Math.min(width, width2)
+  const cur = currentImage.value
+  const naturalWidth = cur?.width || imageSelected.value.sampleWidth || 0
+  const naturalHeight = cur?.height || imageSelected.value.sampleHeight || 0
+  const aspectRatio = (cur?.width && cur?.height)
+    ? cur.width / cur.height
+    : (imageSelected.value.aspectRatio || 0)
+  // 拿不到有效比例（NaN / 0 / Infinity）就不做高度换算，退回「不限制宽度」，
+  // 避免把预览图/视频算成一个固定小尺寸
+  if (!Number.isFinite(aspectRatio) || aspectRatio <= 0) return naturalWidth || innerWidth.value
+  const width = Math.min(innerWidth.value, naturalWidth || innerWidth.value)
+  const height = Math.min(innerHeight.value, naturalHeight || innerHeight.value)
+  return Math.floor(Math.min(width, height * aspectRatio))
 })
 
 const notYKSite = computed(() => {
@@ -757,6 +906,32 @@ async function toggleVideoShow() {
 
 const showPreviewThumb = ref(true)
 
+// 多图帖：左右箭头在图内切换，到首/尾停住；单图帖：仍然是列表上/下一项
+const isMultiImagePost = computed(() => postImages.value.length > 1)
+const hasThumbStrip = computed(() => isMultiImagePost.value && !scaleOn.value)
+const canStepPrev = computed(() => (
+  isMultiImagePost.value ? imageIndex.value > 0 : store.imageSelectedIndex > 0
+))
+const canStepNext = computed(() => (
+  isMultiImagePost.value ? imageIndex.value < postImages.value.length - 1 : true
+))
+
+function stepPrevImage() {
+  if (isMultiImagePost.value) {
+    if (imageIndex.value > 0) imageIndex.value--
+    return
+  }
+  showPrevPost()
+}
+
+function stepNextImage() {
+  if (isMultiImagePost.value) {
+    if (imageIndex.value < postImages.value.length - 1) imageIndex.value++
+    return
+  }
+  showNextPost()
+}
+
 async function showPrevPost() {
   if (store.imageSelectedIndex == 0) return
   if (showPreviewThumb.value) {
@@ -910,6 +1085,7 @@ watch(() => store.showImageSelected, async val => {
     imgLoading.value = true
     await setPostDetail(imageSelected, postDetail)
     preloadNextImg()
+    centerActiveThumb('auto')
   } else {
     scaleOn.value = false
     postDetail.value = {}
@@ -921,6 +1097,7 @@ watch(() => store.showImageSelected, async val => {
 function onResize() {
   innerWidth.value = window.innerWidth
   innerHeight.value = window.innerHeight
+  updateThumbScrollState()
 }
 
 const isTriggerEvent = computed(() => {
@@ -960,6 +1137,9 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('resize', onResize)
+  window.removeEventListener('pointermove', onThumbPointerMove)
+  window.removeEventListener('pointerup', onThumbPointerUp)
+  window.removeEventListener('pointercancel', onThumbPointerUp)
   settings.isListenWheelEvent && window.removeEventListener('wheel', onWheel)
   settings.isListenKeyupEvent && window.removeEventListener('keyup', onKeyup)
 })

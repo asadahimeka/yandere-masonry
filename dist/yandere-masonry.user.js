@@ -45,6 +45,12 @@
 // @match                https://16knote.com/*
 // @match                https://16k.club/*
 // @match                https://everia.club/*
+// @match                https://*.hentai-cosplay-xxx.com/*
+// @match                https://hentai-cosplay-xxx.com/*
+// @match                https://www.hentaiclub.net/*
+// @match                https://hentaiclub.net/*
+// @match                https://*.huamaobizhi.com/*
+// @match                https://huamaobizhi.com/*
 // @homepage             https://www.nanoka.top
 // @source               https://github.com/asadahimeka/yandere-masonry
 // @icon                 https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/f1f6267537a5aff959ee63ec2c9e4e52_4821140735490026106.jpg
@@ -80,7 +86,7 @@ var __publicField = (obj, key, value) => {
   var prepareStyle = "#enter-masonry{position:fixed;z-index:99999;right:16px;top:10px;height:30px;padding:6px 10px;font-size:13px;border:0;border-radius:6px;color:#fff;outline:0;background:linear-gradient(to right,#ff758c 0%,#ff7eb3 100%);opacity:1;transform:scale(1);transition:opacity,transform .2s;cursor:pointer}#enter-masonry:hover{opacity:.8;transform:scale(1.05)}#enter-masonry.enter-button-bottom{top:unset;bottom:15px}#locale-select{position:fixed;z-index:99;right:110px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}#wf-type-select{position:fixed;z-index:99;right:190px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}\n";
   var ydStyle = 'a.thumb{padding-bottom:5px;border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08] "}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743] "}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272] "}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2] "}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:100%;height:auto;margin-top:0;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}.mm-masonry{--gap: 24;--col-width: 240}.mm-masonry{--_col-width: var(--col-width, 280);--_col-width-px: calc(var(--_col-width) * 1px);--_gap: calc(var(--gap, 20) * 1px);display:var(--display, grid)!important;grid-template-columns:repeat(auto-fill,minmax(var(--_col-width-px),1fr));grid-auto-rows:1px;column-gap:var(--_gap)}.mm-masonry__item{--img-proportional-height: calc(var(--h) * var(--_col-width) / (var(--w)));grid-row-end:span var(--img-proportional-height, 240);overflow:hidden}.mm-masonry__item:not(:last-child){margin-bottom:var(--_gap)}#post-list ul#post-list-posts .mm-masonry__item .inner,#post-popular ul#post-list-posts .mm-masonry__item .inner{height:100%!important}.mm-masonry__img{width:100%!important;height:100%!important;object-fit:cover}.justified-container{display:flex!important;flex-wrap:wrap}.justified-container:after{content:"";flex-grow:999999999}.justified-item{position:relative}.justified-item img.preview{position:absolute;top:0;left:0;width:100%;vertical-align:bottom;object-fit:cover}\n';
   var knStyle = "#lsidebar{display:none}#post-popular ul#post-list-posts{display:flex;justify-content:center;flex-wrap:wrap}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
-  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;max-width:100vw;max-height:100vh;margin:0 auto}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}.img_detail_tag_list .v-slide-group__content{max-height:72vh;overflow-y:auto}::-webkit-scrollbar{width:0px}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e9eef6;border-radius:7px}.theme--dark .img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.posts-image-card{margin-bottom:8px}.posts-image-card.v-card>.v-image{border-bottom-left-radius:4px!important;border-bottom-right-radius:4px!important}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{--jstf-w: 340;position:relative;flex-grow:calc(var(--w) * var(--jstf-w) / var(--h));width:calc(1px * var(--w) * var(--jstf-w) / var(--h));margin-bottom:0!important;padding-bottom:0!important;background-color:#dcdcdc;content-visibility:auto;contain-intrinsic-size:auto 300px}@media screen and (max-width: 500px){.justified-container .posts-image-card{--jstf-w: 240}}.justified-container .posts-image-card:before{content:"";display:block;padding-bottom:calc(var(--h) / var(--w) * 100%)!important}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.site_icon_fallback{display:flex;align-items:center;justify-content:center;box-sizing:border-box;border-radius:4px;color:#fff;font-size:12px;font-weight:600;line-height:1;padding-top:1px}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-wh{position:absolute;bottom:0;left:0;padding:0 8px;font-size:14px;color:#fff;background:rgba(0,0,0,.4);border-top-right-radius:4px}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-checkbox{position:absolute;top:5px;left:5px;width:28px;padding:2px;height:28px;border-radius:2px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-checkbox:has(input[aria-checked="true"]),.posts-image-card:hover .posts-image-checkbox{opacity:1;visibility:visible}.posts-image-checkbox .v-input--selection-controls__ripple .primary--text,.posts-image-checkbox .v-input--selection-controls__input .v-icon{color:#fff!important}.posts-image-type{position:absolute!important;top:0;right:0;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}@media screen and (min-width: 768px){.wf-no-fit-screen{max-width:62.5vw;margin:16px auto}}.virtual-waterfall>[data-index]{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f;border-radius:4px}.theme--light .v-app-bar{box-shadow:none!important;background:#f6f8fc!important}.theme--light .v-app-bar,.theme--light .v-app-bar .v-toolbar__content{height:64px!important}.theme--light .v-main{padding-top:64px!important}.theme--light .v-app-bar .v-toolbar__title+input{width:50px!important;background-color:#eaf1fb!important;border-radius:24px!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#5f6368!important}.theme--light .app-bar-tag-input .v-input .v-input__slot:before,.theme--light .app-bar-tag-input .v-input .v-input__slot:after{display:none}.theme--light .app-bar-tag-input .v-input input{padding:5px 44px 5px 10px;background-color:#eaf1fb;min-height:48px;border-radius:24px}.theme--light .app-bar-tag-input:not([style*="none"])+.v-btn{position:relative;left:-50px}.theme--light.v-list,.theme--light.v-navigation-drawer{background:#e9eef6!important}.theme--dark .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--dark .img_detail_btn_color .v-chip.tag_type_general,.theme--dark .img_detail_btn_color .v-btn{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag) .v-icon,.theme--light .img_detail_btn_color .v-chip.tag_type_general,.theme--light .img_detail_btn_color .v-btn{background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#1a73e8!important;box-shadow:none!important;font-weight:500}.img_detail_btn_color .v-chip.img_detail_tag{font-weight:500}.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text,.v-date-picker-table__current){padding-bottom:2px;border-radius:10px;color:#001d35;background-color:#c2e7ff}.theme--light .refresh_posts_btn{box-shadow:0 1px 2px #0000,0 1px 3px 1px #0000;background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#001d35}.theme--light .img_detail_loading .v-progress-circular{color:#1a73e8!important;caret-color:#1a73e8!important}.theme--light .blacklist_combobox .v-input__slot{padding-left:8px!important}.theme--light .v-text-field--outlined{border-radius:20px}.fancybox__caption{display:none;padding:12px 24px!important}.v-toolbar.img_detail_btn_color{backdrop-filter:none!important}.virtual-waterfall .posts-image-card{width:100%;height:100%;margin-bottom:0;background:gainsboro;border-radius:4px!important}.virtual-waterfall .post-image-v{width:100%;height:100%;object-fit:cover;border-radius:4px!important}.virtual-waterfall .posts-image-type{border-top-right-radius:4px}.virtual-waterfall .posts-image-actions{border-bottom-left-radius:4px;border-bottom-right-radius:4px}html:has(#app.theme--dark){background:#121212}@media screen and (max-width: 1200px){.nav_drawer{height:100dvh!important}.nav_drawer .v-navigation-drawer__content{padding-bottom:9vh}}.img_meta_tag_list{position:absolute;top:35px;width:200px}.img_meta_tag_list .img_detail_tag.tag_type_artist{color:#c97000!important;background-color:#ffdcb0!important;border-color:#ffdcb0!important}.img_meta_tag_list .img_detail_tag.tag_type_copyright{color:#ae3fc1!important;background-color:#f9d5ff!important;border-color:#f9d5ff!important}.img_meta_tag_list .img_detail_tag.tag_type_character{color:#0c9312!important;background-color:#c4ffc7!important;border-color:#c4ffc7!important}.true-masonry .posts-image-card{height:fit-content;max-height:unset!important;margin-bottom:0!important}.d-flex-y{display:flex;align-items:center;flex-wrap:wrap}.d-flex-col{display:flex;flex-direction:column}.export-tags-setting{display:flex;align-items:center;flex-wrap:wrap;gap:20px}.export-tags-setting .v-messages{display:none}.export-tags-setting>.v-input{margin-top:0}.export-tags-wght-inp{width:45px;height:24px;margin-left:4px;background-color:#eaf1fb;border-radius:4px;border:1px solid rgb(187,187,187);color:inherit;text-align:center}.d-flex-col .v-chip--active:before,.d-flex-col .v-chip--active:hover:before,.d-flex-col .v-chip:focus:before{display:none}.img-detail-toolbar{position:absolute;top:0;width:100%;z-index:10}.img-detail-toolbar.detail-buttons-bottom{top:unset;bottom:12px}.img-detail-tags{position:absolute;z-index:10;bottom:12px;padding:0 12px}.img-detail-tags.detail-buttons-bottom{top:12px;bottom:unset}.img-detail-toolbar.detail-buttons-bottom .img_meta_tag_list{top:0;transform:translateY(-95%)}.settings_drawer .v-list-item__subtitle{white-space:normal}.szuru-guide-btn{animation:szuru-guide-pulse 1.8s ease-in-out 3}@keyframes szuru-guide-pulse{0%,to{box-shadow:0 0 #ff572280}50%{box-shadow:0 0 0 8px #ff572200}}.app-bar-glass.v-sheet.v-app-bar{background:rgba(246,248,252,.82)!important;backdrop-filter:blur(12px) saturate(180%);border-bottom:1px solid rgba(0,0,0,.08);transition:transform .3s ease;will-change:transform}.theme--dark .app-bar-glass.v-sheet.v-app-bar{background:rgba(30,30,30,.82)!important;border-bottom-color:#ffffff17}.app-bar-glass.app-bar--auto-hidden{transform:translateY(-100%)!important;pointer-events:none}.posts-image-count{position:absolute!important;top:30px;right:0;min-width:24px;padding:2px 5px;border-bottom-left-radius:4px;text-align:center;font-size:12px;font-weight:600;line-height:1.2;color:#fff;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);pointer-events:none}.theme--light .posts-image-count{color:#000000de;background:rgba(255,255,255,.4)}.detail-thumb-strip{position:absolute;bottom:0;left:0;right:0;z-index:10;padding:8px 12px;background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,.4));backdrop-filter:blur(10px)}.detail-thumb-strip--raised{bottom:56px}.detail-thumb-strip-row{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}.detail-thumb-strip-row::-webkit-scrollbar{display:none}.detail-thumb-item{flex:0 0 auto;width:56px;height:56px;border-radius:4px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color .2s,box-shadow .2s}.detail-thumb-item .v-img{border-radius:inherit}.detail-thumb-item:hover{border-color:#ffffff8c}.detail-thumb-item--active{border-color:#8f77b5;box-shadow:0 0 0 2px #8f77b559}.detail-thumb-item:focus-visible{outline:2px solid #8F77B5;outline-offset:2px}.theme--light .detail-thumb-strip{background:linear-gradient(to top,rgba(255,255,255,.55),rgba(255,255,255,.4))}.theme--light .detail-thumb-item:hover{border-color:#00000073}\n';
+  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;width:auto;height:auto;max-width:100vw;max-height:100vh;margin:0 auto;object-fit:contain}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}.img_detail_tag_list .v-slide-group__content{max-height:72vh;overflow-y:auto}::-webkit-scrollbar{width:0px}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e9eef6;border-radius:7px}.theme--dark .img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.detail-arrow--disabled{opacity:.3}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.posts-image-card{margin-bottom:8px}.posts-image-card.v-card>.v-image{border-bottom-left-radius:4px!important;border-bottom-right-radius:4px!important}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{--jstf-w: 340;position:relative;flex-grow:calc(var(--w) * var(--jstf-w) / var(--h));width:calc(1px * var(--w) * var(--jstf-w) / var(--h));margin-bottom:0!important;padding-bottom:0!important;background-color:#dcdcdc;content-visibility:auto;contain-intrinsic-size:auto 300px}@media screen and (max-width: 500px){.justified-container .posts-image-card{--jstf-w: 240}}.justified-container .posts-image-card:before{content:"";display:block;padding-bottom:calc(var(--h) / var(--w) * 100%)!important}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.site_icon_fallback{display:flex;align-items:center;justify-content:center;box-sizing:border-box;border-radius:4px;color:#fff;font-size:12px;font-weight:600;line-height:1;padding-top:1px}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-wh{position:absolute;bottom:0;left:0;padding:0 8px;font-size:14px;color:#fff;background:rgba(0,0,0,.4);border-top-right-radius:4px}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-checkbox{position:absolute;top:5px;left:5px;width:28px;padding:2px;height:28px;border-radius:2px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-checkbox:has(input[aria-checked="true"]),.posts-image-card:hover .posts-image-checkbox{opacity:1;visibility:visible}.posts-image-checkbox .v-input--selection-controls__ripple .primary--text,.posts-image-checkbox .v-input--selection-controls__input .v-icon{color:#fff!important}.posts-image-type{position:absolute!important;top:0;right:0;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}@media screen and (min-width: 768px){.wf-no-fit-screen{max-width:62.5vw;margin:16px auto}}.virtual-waterfall>[data-index]{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f;border-radius:4px}.theme--light .v-app-bar{box-shadow:none!important;background:#f6f8fc!important}.theme--light .v-app-bar,.theme--light .v-app-bar .v-toolbar__content{height:64px!important}.theme--light .v-main{padding-top:64px!important}.theme--light .v-app-bar .v-toolbar__title+input{width:50px!important;background-color:#eaf1fb!important;border-radius:24px!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#5f6368!important}.theme--light .app-bar-tag-input .v-input .v-input__slot:before,.theme--light .app-bar-tag-input .v-input .v-input__slot:after{display:none}.theme--light .app-bar-tag-input .v-input input{padding:5px 44px 5px 10px;background-color:#eaf1fb;min-height:48px;border-radius:24px}.theme--light .app-bar-tag-input:not([style*="none"])+.v-btn{position:relative;left:-50px}.theme--light.v-list,.theme--light.v-navigation-drawer{background:#e9eef6!important}.theme--dark .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--dark .img_detail_btn_color .v-chip.tag_type_general,.theme--dark .img_detail_btn_color .v-btn{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag) .v-icon,.theme--light .img_detail_btn_color .v-chip.tag_type_general,.theme--light .img_detail_btn_color .v-btn{background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#1a73e8!important;box-shadow:none!important;font-weight:500}.img_detail_btn_color .v-chip.img_detail_tag{font-weight:500}.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text,.v-date-picker-table__current){padding-bottom:2px;border-radius:10px;color:#001d35;background-color:#c2e7ff}.theme--light .refresh_posts_btn{box-shadow:0 1px 2px #0000,0 1px 3px 1px #0000;background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#001d35}.theme--light .img_detail_loading .v-progress-circular{color:#1a73e8!important;caret-color:#1a73e8!important}.theme--light .blacklist_combobox .v-input__slot{padding-left:8px!important}.theme--light .v-text-field--outlined{border-radius:20px}.fancybox__caption{display:none;padding:12px 24px!important}.v-toolbar.img_detail_btn_color{backdrop-filter:none!important}.virtual-waterfall .posts-image-card{width:100%;height:100%;margin-bottom:0;background:gainsboro;border-radius:4px!important}.virtual-waterfall .post-image-v{width:100%;height:100%;object-fit:cover;border-radius:4px!important}.virtual-waterfall .posts-image-type{border-top-right-radius:4px}.virtual-waterfall .posts-image-actions{border-bottom-left-radius:4px;border-bottom-right-radius:4px}html:has(#app.theme--dark){background:#121212}@media screen and (max-width: 1200px){.nav_drawer{height:100dvh!important}.nav_drawer .v-navigation-drawer__content{padding-bottom:9vh}}.img_meta_tag_list{position:absolute;top:35px;width:200px}.img_meta_tag_list .img_detail_tag.tag_type_artist{color:#c97000!important;background-color:#ffdcb0!important;border-color:#ffdcb0!important}.img_meta_tag_list .img_detail_tag.tag_type_copyright{color:#ae3fc1!important;background-color:#f9d5ff!important;border-color:#f9d5ff!important}.img_meta_tag_list .img_detail_tag.tag_type_character{color:#0c9312!important;background-color:#c4ffc7!important;border-color:#c4ffc7!important}.true-masonry .posts-image-card{height:fit-content;max-height:unset!important;margin-bottom:0!important}.d-flex-y{display:flex;align-items:center;flex-wrap:wrap}.d-flex-col{display:flex;flex-direction:column}.export-tags-setting{display:flex;align-items:center;flex-wrap:wrap;gap:20px}.export-tags-setting .v-messages{display:none}.export-tags-setting>.v-input{margin-top:0}.export-tags-wght-inp{width:45px;height:24px;margin-left:4px;background-color:#eaf1fb;border-radius:4px;border:1px solid rgb(187,187,187);color:inherit;text-align:center}.d-flex-col .v-chip--active:before,.d-flex-col .v-chip--active:hover:before,.d-flex-col .v-chip:focus:before{display:none}.img-detail-toolbar{position:absolute;top:0;width:100%;z-index:10}.img-detail-toolbar.detail-buttons-bottom{top:unset;bottom:12px}.img-detail-tags{position:absolute;z-index:10;bottom:12px;padding:0 12px}.img-detail-tags.detail-buttons-bottom{top:12px;bottom:unset}.img-detail-toolbar.detail-buttons-bottom .img_meta_tag_list{top:0;transform:translateY(-95%)}.settings_drawer .v-list-item__subtitle{white-space:normal}.szuru-guide-btn{animation:szuru-guide-pulse 1.8s ease-in-out 3}@keyframes szuru-guide-pulse{0%,to{box-shadow:0 0 #ff572280}50%{box-shadow:0 0 0 8px #ff572200}}.app-bar-glass.v-sheet.v-app-bar{background:rgba(246,248,252,.82)!important;backdrop-filter:blur(12px) saturate(180%);border-bottom:1px solid rgba(0,0,0,.08);transition:transform .3s ease;will-change:transform}.theme--dark .app-bar-glass.v-sheet.v-app-bar{background:rgba(30,30,30,.82)!important;border-bottom-color:#ffffff17}.app-bar-glass.app-bar--auto-hidden{transform:translateY(-100%)!important;pointer-events:none}.posts-image-count{position:absolute!important;top:30px;right:0;min-width:24px;padding:2px 5px;border-bottom-left-radius:4px;text-align:center;font-size:12px;font-weight:600;line-height:1.2;color:#fff;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);pointer-events:none}.theme--light .posts-image-count{color:#000000de;background:rgba(255,255,255,.4)}.detail-thumb-strip{position:absolute;bottom:0;left:0;right:0;z-index:10;display:flex;align-items:center;gap:6px;padding:8px 12px;background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,.4));backdrop-filter:blur(10px)}.detail-thumb-strip--raised{bottom:56px}.img-detail-tags--above-thumbs{bottom:86px}.detail-thumb-strip-row{flex:1 1 auto;min-width:0;display:flex;gap:8px;padding-bottom:2px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;cursor:grab}.detail-thumb-strip-row::-webkit-scrollbar{height:6px}.detail-thumb-strip-row::-webkit-scrollbar-track{background:transparent}.detail-thumb-strip-row::-webkit-scrollbar-thumb{background:rgba(255,255,255,.35);border-radius:3px}.detail-thumb-strip-row:hover::-webkit-scrollbar-thumb{background:rgba(255,255,255,.55)}.detail-thumb-strip-row::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.75)}.detail-thumb-strip-row--dragging{cursor:grabbing;scroll-behavior:auto}.detail-thumb-strip-row--dragging .detail-thumb-item{pointer-events:none}.detail-thumb-nav{flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:24px;height:56px;border-radius:4px;color:#fff;background:rgba(255,255,255,.14);cursor:pointer;transition:background .2s,opacity .2s}.detail-thumb-nav:hover{background:rgba(255,255,255,.28)}.detail-thumb-nav--disabled{opacity:.25;pointer-events:none}.detail-thumb-item{flex:0 0 auto;box-sizing:border-box;width:56px;height:56px;border-radius:4px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color .2s,box-shadow .2s}.detail-thumb-item .v-img{border-radius:inherit}.detail-thumb-item .v-image__image{background-size:cover;background-position:center center}.detail-thumb-item:hover{border-color:#ffffff8c}.detail-thumb-item--active{border-color:#8f77b5;box-shadow:0 0 0 2px #8f77b559}.detail-thumb-item:focus-visible{outline:2px solid #8F77B5;outline-offset:2px}.theme--light .detail-thumb-strip{background:linear-gradient(to top,rgba(255,255,255,.55),rgba(255,255,255,.4))}.theme--light .detail-thumb-item:hover{border-color:#00000073}.theme--light .detail-thumb-nav{color:#000000bf;background:rgba(0,0,0,.08)}.theme--light .detail-thumb-nav:hover{background:rgba(0,0,0,.18)}.theme--light .detail-thumb-strip-row::-webkit-scrollbar-thumb{background:rgba(0,0,0,.25)}.theme--light .detail-thumb-strip-row:hover::-webkit-scrollbar-thumb{background:rgba(0,0,0,.4)}.theme--light .detail-thumb-strip-row::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.6)}\n';
   const langList = [
     { value: "zh-Hans", label: "\u7B80\u4F53\u4E2D\u6587" },
     { value: "zh-Hant", label: "\u7E41\u9AD4\u4E2D\u6587" },
@@ -6981,12 +6987,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     return booruCache[rSite].search(tags, { limit, random, page, credentials });
   }
-  const ORIGIN$2 = "https://chan.sankakucomplex.com";
+  const ORIGIN$5 = "https://chan.sankakucomplex.com";
   function isSankakuComplexPage() {
     return location.hostname == "chan.sankakucomplex.com";
   }
   const state = {
-    base: `${ORIGIN$2}/cn/posts?auto_page=t`,
+    base: `${ORIGIN$5}/cn/posts?auto_page=t`,
     nextUrl: null,
     nextPage: 0
   };
@@ -7006,7 +7012,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     if (!url)
       return "";
     try {
-      return new URL(url, ORIGIN$2).href;
+      return new URL(url, ORIGIN$5).href;
     } catch {
       return url;
     }
@@ -7040,7 +7046,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     state.nextUrl = getNextPageUrl(doc);
-    state.nextPage = state.nextUrl ? Number(new URL(resolveUrl(state.nextUrl), ORIGIN$2).searchParams.get("page")) || page + 1 : 0;
+    state.nextPage = state.nextUrl ? Number(new URL(resolveUrl(state.nextUrl), ORIGIN$5).searchParams.get("page")) || page + 1 : 0;
     const seen = /* @__PURE__ */ new Set();
     const results = queryAllDeep(doc, ".post-preview").filter((el) => {
       const id = el.getAttribute("data-id");
@@ -7073,7 +7079,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return results;
   }
   async function getSankakuComplexDetail(id) {
-    const url = new URL(`${ORIGIN$2}/cn/posts/${id}`);
+    const url = new URL(`${ORIGIN$5}/cn/posts/${id}`);
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const imgSrc = doc.querySelector("#post-content img")?.src;
@@ -7438,7 +7444,41 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     { key: "www.uhdpaper.com", hosts: ["www.uhdpaper.com", "uhdpaper.com"], navHost: "www.uhdpaper.com", title: "UHDPaper", match: ["https://www.uhdpaper.com/*", "https://uhdpaper.com/*"] },
     { key: "16knote.com", hosts: ["16knote.com"], navHost: "16knote.com", title: "16K Note (SFW)", match: ["https://16knote.com/*"], tagSearch: false },
     { key: "16k.club", hosts: ["16k.club"], navHost: "16k.club", title: "16K Club", match: ["https://16k.club/*"], tagSearch: false },
-    { key: "everia.club", hosts: ["everia.club"], navHost: "everia.club", title: "Everia", pageLimit: 30, match: ["https://everia.club/*"], partialSupport: true }
+    { key: "everia.club", hosts: ["everia.club"], navHost: "everia.club", title: "Everia", pageLimit: 30, match: ["https://everia.club/*"], partialSupport: true },
+    {
+      key: "hentai-cosplay-xxx.com",
+      hosts: [
+        "hentai-cosplay-xxx.com",
+        "zh.hentai-cosplay-xxx.com",
+        "ja.hentai-cosplay-xxx.com",
+        "fr.hentai-cosplay-xxx.com",
+        "de.hentai-cosplay-xxx.com",
+        "ru.hentai-cosplay-xxx.com",
+        "ko.hentai-cosplay-xxx.com",
+        "es.hentai-cosplay-xxx.com"
+      ],
+      navHost: "hentai-cosplay-xxx.com",
+      title: "Hentai Cosplay",
+      pageLimit: 32,
+      match: ["https://*.hentai-cosplay-xxx.com/*", "https://hentai-cosplay-xxx.com/*"]
+    },
+    {
+      key: "hentaiclub.net",
+      hosts: ["www.hentaiclub.net", "hentaiclub.net"],
+      navHost: "www.hentaiclub.net",
+      title: "\u7EC5\u58EB\u4F1A\u6240",
+      pageLimit: 24,
+      match: ["https://www.hentaiclub.net/*", "https://hentaiclub.net/*"]
+    },
+    {
+      key: "huamaobizhi.com",
+      hosts: ["en.huamaobizhi.com", "huamaobizhi.com", "www.huamaobizhi.com"],
+      navHost: "en.huamaobizhi.com",
+      title: "\u82B1\u732B\u58C1\u7EB8",
+      pageLimit: 24,
+      match: ["https://*.huamaobizhi.com/*", "https://huamaobizhi.com/*"],
+      partialSupport: true
+    }
   ];
   function normalizeHost(host) {
     return host.toLowerCase().replace("www.", "");
@@ -7487,8 +7527,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       ...MANUAL_SITES.filter((site) => site.navHost !== null).map((site) => site.navHost ?? site.key)
     ];
   }
-  const ORIGIN$1 = "https://everia.club";
-  const CHUNK_SIZE = 30;
+  const ORIGIN$4 = "https://everia.club";
+  const CHUNK_SIZE$3 = 30;
   const DEFAULT_WIDTH = 1e3;
   const DEFAULT_HEIGHT = 1500;
   const HOST_WIDTH = {
@@ -7496,19 +7536,19 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     "remu.airibox.top": 1060,
     "miya.fujibox.top": 1128
   };
-  const ARTICLE_PATH = /^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/(?:\d+\/)?$/;
+  const ARTICLE_PATH$2 = /^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/(?:\d+\/)?$/;
   function isEveria() {
     return location.hostname === "everia.club";
   }
   function isEveriaArticle() {
-    return isEveria() && ARTICLE_PATH.test(location.pathname);
+    return isEveria() && ARTICLE_PATH$2.test(location.pathname);
   }
   function isEveriaList() {
-    return isEveria() && !ARTICLE_PATH.test(location.pathname);
+    return isEveria() && !ARTICLE_PATH$2.test(location.pathname);
   }
-  function toAbsolute(url) {
+  function toAbsolute$2(url) {
     try {
-      return new URL(url, ORIGIN$1).href;
+      return new URL(url, ORIGIN$4).href;
     } catch {
       return "";
     }
@@ -7552,14 +7592,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return null;
     return paths[paths.length - 1] ?? null;
   }
-  function listUrl(page, tags) {
+  function listUrl$3(page, tags) {
     const suffix = page > 1 ? `page/${page}/` : "";
     const categoryPath = resolveCategoryPath(tags);
     if (categoryPath)
-      return `${ORIGIN$1}${categoryPath}${suffix}`;
+      return `${ORIGIN$4}${categoryPath}${suffix}`;
     const keyword = (tags ?? new URLSearchParams(location.search).get("s") ?? "").trim();
     if (keyword)
-      return `${ORIGIN$1}/${suffix}?s=${encodeURIComponent(keyword)}`;
+      return `${ORIGIN$4}/${suffix}?s=${encodeURIComponent(keyword)}`;
     const url = new URL(location.href);
     url.searchParams.delete("page");
     url.searchParams.delete("tags");
@@ -7567,11 +7607,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     url.pathname = `${base.endsWith("/") ? base : `${base}/`}${suffix}`;
     return url.href;
   }
-  function buildListPost(opts) {
+  function buildListPost$1(opts) {
     const { id, href, previewUrl, width, height, title } = opts;
     return {
       id,
-      postView: toAbsolute(href),
+      postView: toAbsolute$2(href),
       previewUrl,
       fileUrl: "",
       tags: [],
@@ -7591,10 +7631,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return Array.from(doc.querySelectorAll('article[id^="post-"]')).flatMap((article) => {
       const href = article.querySelector("a.thumbnail-link[href]")?.getAttribute("href") ?? "";
       const img = article.querySelector("img.wp-post-image, img");
-      const previewUrl = toAbsolute(img?.getAttribute("data-src") || img?.getAttribute("src") || "");
+      const previewUrl = toAbsolute$2(img?.getAttribute("data-src") || img?.getAttribute("src") || "");
       if (!href || !previewUrl)
         return [];
-      return [buildListPost({
+      return [buildListPost$1({
         id: article.id.replace(/^post-/, "") || href,
         href,
         previewUrl,
@@ -7604,8 +7644,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       })];
     });
   }
-  async function fetchListPosts(page, tags) {
-    const resp = await fetch(listUrl(page, tags));
+  async function fetchListPosts$3(page, tags) {
+    const resp = await fetch(listUrl$3(page, tags));
     if (!resp.ok)
       return [];
     const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
@@ -7615,10 +7655,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return cards.flatMap((card) => {
       const href = card.querySelector("a.tpg-post-link[href]")?.getAttribute("href") ?? "";
       const img = card.querySelector("img.rt-img-responsive, img");
-      const previewUrl = toAbsolute(img?.getAttribute("data-src") || img?.getAttribute("src") || "");
+      const previewUrl = toAbsolute$2(img?.getAttribute("data-src") || img?.getAttribute("src") || "");
       if (!href || !previewUrl)
         return [];
-      return [buildListPost({
+      return [buildListPost$1({
         id: card.getAttribute("data-id") || href,
         href,
         previewUrl,
@@ -7628,9 +7668,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       })];
     });
   }
-  let articleCache = null;
-  let articleCacheKey = "";
-  function articleSlug() {
+  let articleCache$1 = null;
+  let articleCacheKey$1 = "";
+  function articleSlug$1() {
     const segment = location.pathname.split("/").filter(Boolean)[3];
     if (!segment)
       return "";
@@ -7640,14 +7680,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return segment;
     }
   }
-  async function loadArticle() {
+  async function loadArticle$1() {
     const key = location.pathname;
-    if (articleCache && articleCacheKey === key)
-      return articleCache;
-    const slug = articleSlug();
+    if (articleCache$1 && articleCacheKey$1 === key)
+      return articleCache$1;
+    const slug = articleSlug$1();
     if (!slug)
       return null;
-    const url = `${ORIGIN$1}/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_fields=id,title,content`;
+    const url = `${ORIGIN$4}/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_fields=id,title,content`;
     const resp = await fetch(url);
     if (!resp.ok)
       return null;
@@ -7656,16 +7696,16 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     if (!post)
       return null;
     const doc = new DOMParser().parseFromString(post.content?.rendered ?? "", "text/html");
-    const images = Array.from(doc.querySelectorAll("img[src]")).map((el) => toAbsolute(el.getAttribute("src") ?? "")).filter((src) => src.startsWith("http") && /\.(webp|jpe?g|png|gif)(\?|$)/i.test(src)).map((src) => ({ fileUrl: src, previewUrl: src, ...sizeOf(src) }));
-    articleCache = { postId: String(post.id), title: htmlToText(post.title?.rendered ?? ""), images };
-    articleCacheKey = key;
-    return articleCache;
+    const images = Array.from(doc.querySelectorAll("img[src]")).map((el) => toAbsolute$2(el.getAttribute("src") ?? "")).filter((src) => src.startsWith("http") && /\.(webp|jpe?g|png|gif)(\?|$)/i.test(src)).map((src) => ({ fileUrl: src, previewUrl: src, ...sizeOf(src) }));
+    articleCache$1 = { postId: String(post.id), title: htmlToText(post.title?.rendered ?? ""), images };
+    articleCacheKey$1 = key;
+    return articleCache$1;
   }
-  async function fetchArticlePosts(page) {
-    const data = await loadArticle();
+  async function fetchArticlePosts$2(page) {
+    const data = await loadArticle$1();
     if (!data || data.images.length === 0)
       return [];
-    const chunk = settings.masonryLayout === "virtual" ? data.images.length : CHUNK_SIZE;
+    const chunk = settings.masonryLayout === "virtual" ? data.images.length : CHUNK_SIZE$3;
     const start = (page - 1) * chunk;
     if (start >= data.images.length)
       return [];
@@ -7691,8 +7731,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       };
     });
   }
-  async function fetchArticleDetail(id) {
-    const data = await loadArticle();
+  async function fetchArticleDetail$1(id) {
+    const data = await loadArticle$1();
     const index = Number(id.split("-").pop());
     const img = data?.images[index];
     if (!data || !img)
@@ -7702,12 +7742,609 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const everia = {
     list: {
       is: isEveriaList,
-      posts: fetchListPosts
+      posts: fetchListPosts$3
     },
     post: {
       is: isEveriaArticle,
+      posts: fetchArticlePosts$2,
+      detail: fetchArticleDetail$1
+    }
+  };
+  const ORIGIN$3 = "https://hentai-cosplay-xxx.com";
+  const CHUNK_SIZE$2 = 30;
+  const WIDTH$1 = 1280;
+  const HEIGHT$1 = 1707;
+  function isHentaiCosplay() {
+    return /(^|\.)hentai-cosplay-xxx\.com$/.test(location.hostname);
+  }
+  const ARTICLE_PATH$1 = /^\/image\/([^/]+)\/?$/;
+  function isHentaiCosplayArticle() {
+    return isHentaiCosplay() && ARTICLE_PATH$1.test(location.pathname);
+  }
+  function isHentaiCosplayList() {
+    return isHentaiCosplay() && !ARTICLE_PATH$1.test(location.pathname);
+  }
+  function toAbsolute$1(url) {
+    try {
+      return new URL(url, ORIGIN$3).href;
+    } catch {
+      return "";
+    }
+  }
+  const RANKS = [
+    { label: "\u6700\u65B0", path: "/search/", aliases: ["new", "latest"] },
+    { label: "\u6700\u8FD1\u6D4F\u89C8", path: "/recently/", aliases: ["recent", "recently"] },
+    { label: "\u6392\u884C", path: "/ranking/", aliases: ["rank", "ranking"] },
+    { label: "\u4E0B\u8F7D\u699C", path: "/ranking-download/", aliases: ["download", "dl"] },
+    { label: "\u559C\u6B22\u699C", path: "/ranking-like/", aliases: ["like", "likes"] },
+    { label: "\u6536\u85CF\u699C", path: "/ranking-bookmark/", aliases: ["bookmark", "fav"] }
+  ];
+  const hentaiCosplayPresetTags = RANKS.map((e) => e.label);
+  function rankPathOf(token) {
+    const term = token.trim().toLowerCase();
+    if (!term)
+      return null;
+    const hit = RANKS.find((e) => term === e.label.toLowerCase() || e.aliases.includes(term));
+    return hit?.path ?? null;
+  }
+  function resolveRankPath(tags) {
+    const tokens = (tags ?? "").trim().split(/\s+/).filter(Boolean);
+    if (tokens.length === 0)
+      return null;
+    const paths = tokens.map(rankPathOf);
+    if (paths.includes(null))
+      return null;
+    return paths[paths.length - 1] ?? null;
+  }
+  function listUrl$2(page, tags) {
+    const suffix = page > 1 ? `page/${page}/` : "";
+    const rankPath = resolveRankPath(tags);
+    if (rankPath)
+      return `${ORIGIN$3}${rankPath}${suffix}`;
+    const keyword = (tags ?? "").trim();
+    if (keyword)
+      return `${ORIGIN$3}/search/keyword/${encodeURIComponent(keyword)}/${suffix}`;
+    const path = location.pathname.replace(/\/page\/\d+\/?$/, "/");
+    const base = path === "/" ? "/search/" : path;
+    return `${ORIGIN$3}${base.replace(/\/$/, "")}/${suffix}`;
+  }
+  function buildListPost(opts) {
+    const { id, href, previewUrl, title, createdAt } = opts;
+    const ext = previewUrl.match(/\.(\w+)(?:\?|$)/)?.[1] ?? "webp";
+    return {
+      id,
+      postView: href,
+      previewUrl,
+      fileUrl: "",
+      tags: [],
+      rating: "e",
+      images: [],
+      width: WIDTH$1,
+      height: HEIGHT$1,
+      aspectRatio: WIDTH$1 / HEIGHT$1,
+      createdAt,
+      title,
+      fileExt: ext,
+      fileDownloadName: `hentai-cosplay-xxx ${id} ${WIDTH$1}x${HEIGHT$1}`,
+      fileDownloadText: `${WIDTH$1}\xD7${HEIGHT$1} [${ext}]`
+    };
+  }
+  function parseDate$1(text) {
+    const m = text?.trim().match(/(\d{4})\/(\d{2})\/(\d{2})/);
+    if (!m)
+      return null;
+    return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+  }
+  async function fetchListPosts$2(page, tags) {
+    const resp = await fetch(listUrl$2(page, tags));
+    if (!resp.ok)
+      return [];
+    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
+    return Array.from(doc.querySelectorAll(".image-list-item")).flatMap((card) => {
+      const href = card.querySelector('a[href^="/image/"]')?.getAttribute("href") ?? "";
+      const img = card.querySelector("img");
+      const raw = toAbsolute$1(img?.getAttribute("data-src") || img?.getAttribute("src") || "");
+      if (!href || !raw)
+        return [];
+      const previewUrl = raw.replace(/\/p=[^/]+\//, "/p=700/");
+      const slug = href.match(/^\/image\/([^/]+)\/?$/)?.[1] ?? href;
+      return [buildListPost({
+        id: slug,
+        href: toAbsolute$1(href),
+        previewUrl,
+        title: card.querySelector(".image-list-item-title")?.textContent?.trim() ?? "",
+        createdAt: parseDate$1(card.querySelector(".image-list-item-regist-date")?.textContent)
+      })];
+    });
+  }
+  function articleSlug() {
+    const m = location.pathname.match(ARTICLE_PATH$1);
+    if (!m)
+      return "";
+    try {
+      return decodeURIComponent(m[1]);
+    } catch {
+      return m[1];
+    }
+  }
+  function thumbOf(url, size) {
+    const withSize = url.replace(/\/p=[^/]+\//, `/${size}/`);
+    if (withSize !== url)
+      return withSize;
+    return url.replace(/\/([^/]+)$/, `/${size}/$1`);
+  }
+  const imageCache = /* @__PURE__ */ new Map();
+  async function loadImages(slug) {
+    const cached = imageCache.get(slug);
+    if (cached)
+      return cached;
+    const empty = { images: [], title: "", tags: [] };
+    const resp = await fetch(`${ORIGIN$3}/image/${encodeURIComponent(slug)}/`);
+    if (!resp.ok)
+      return empty;
+    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
+    const seen = /* @__PURE__ */ new Set();
+    const images = [];
+    for (const anchor of Array.from(doc.querySelectorAll("a[data-modal-gallery-image-item][href]"))) {
+      const fileUrl = toAbsolute$1(anchor.getAttribute("href") ?? "");
+      if (!fileUrl || seen.has(fileUrl))
+        continue;
+      seen.add(fileUrl);
+      images.push({
+        fileUrl,
+        previewUrl: thumbOf(fileUrl, "p=160x200"),
+        width: WIDTH$1,
+        height: HEIGHT$1
+      });
+    }
+    const title = doc.querySelector("#title h2")?.textContent?.trim() || doc.querySelector('meta[property="og:title"]')?.getAttribute("content")?.trim() || doc.querySelector("title")?.textContent?.trim() || "";
+    const tags = Array.from(new Set(
+      Array.from(doc.querySelectorAll('#detail_tag a[href*="/search/tag/"]')).map((a) => a.textContent?.trim() ?? "").filter(Boolean)
+    ));
+    const result = { images, title, tags };
+    imageCache.set(slug, result);
+    return result;
+  }
+  async function fetchDetail$1(id) {
+    const slug = id.replace(/-\d+$/, "") || articleSlug();
+    const { images, title, tags } = await loadImages(slug);
+    if (images.length === 0)
+      return {};
+    return {
+      fileUrl: images[0].fileUrl,
+      tags,
+      images,
+      title
+    };
+  }
+  async function fetchArticlePosts$1(page) {
+    const slug = articleSlug();
+    const { images, title } = await loadImages(slug);
+    if (images.length === 0)
+      return [];
+    const chunk = settings.masonryLayout === "virtual" ? images.length : CHUNK_SIZE$2;
+    const start = (page - 1) * chunk;
+    if (start >= images.length)
+      return [];
+    return images.slice(start, start + chunk).map((img, offset) => {
+      const index = start + offset;
+      return {
+        id: `${slug}-${index}`,
+        postView: img.fileUrl,
+        previewUrl: img.fileUrl,
+        fileUrl: img.fileUrl,
+        tags: [],
+        rating: "e",
+        mediaCount: 1,
+        images: [],
+        width: img.width,
+        height: img.height,
+        aspectRatio: img.width / img.height,
+        createdAt: null,
+        title,
+        fileExt: img.fileUrl.match(/\.(\w+)(?:\?|$)/)?.[1] ?? "webp",
+        fileDownloadName: `hentai-cosplay-xxx ${slug} ${index + 1} ${img.width}x${img.height}`,
+        fileDownloadText: `${img.width}\xD7${img.height} [${img.fileUrl.match(/\.(\w+)(?:\?|$)/)?.[1] ?? "webp"}]`
+      };
+    });
+  }
+  async function fetchPosts$1(page, tags) {
+    if (isHentaiCosplayArticle())
+      return fetchArticlePosts$1(page);
+    return fetchListPosts$2(page, tags);
+  }
+  const hentaiCosplay = {
+    is: isHentaiCosplay,
+    posts: fetchPosts$1,
+    detail: fetchDetail$1
+  };
+  const ORIGIN$2 = "https://www.hentaiclub.net";
+  const CHUNK_SIZE$1 = 30;
+  const WIDTH = 1440;
+  const HEIGHT = 2160;
+  function isHentaiclub() {
+    return /(^|\.)hentaiclub\.net$/.test(location.hostname);
+  }
+  const ARTICLE_PATH = /^\/(?:r15|r18)\/(\d+)\.html$/;
+  function isHentaiclubArticle() {
+    return isHentaiclub() && ARTICLE_PATH.test(location.pathname);
+  }
+  function isHentaiclubList() {
+    return isHentaiclub() && !ARTICLE_PATH.test(location.pathname);
+  }
+  const SORTS = [
+    { label: "\u5168\u90E8", path: "/", aliases: ["all", "home"] },
+    { label: "R-15", path: "/sort/r15.html", aliases: ["r15", "15"] },
+    { label: "R-18", path: "/sort/r18.html", aliases: ["r18", "18"] }
+  ];
+  const hentaiclubPresetTags = SORTS.map((e) => e.label);
+  function sortOf(token) {
+    const term = token.trim().toLowerCase();
+    if (!term)
+      return null;
+    return SORTS.find((e) => term === e.label.toLowerCase() || e.aliases.includes(term)) ?? null;
+  }
+  function resolveSort(tags) {
+    const tokens = (tags ?? "").trim().split(/\s+/).filter(Boolean);
+    if (tokens.length === 0)
+      return null;
+    const hits = tokens.map(sortOf);
+    if (hits.includes(null))
+      return null;
+    return hits[hits.length - 1] ?? null;
+  }
+  function listUrl$1(page, sort) {
+    if (sort) {
+      if (sort.path === "/")
+        return `${ORIGIN$2}${page > 1 ? `/page/${page}/` : "/"}`;
+      return `${ORIGIN$2}${sort.path}${page > 1 ? `/${page}/` : ""}`;
+    }
+    const base = location.pathname.replace(/\/(?:\d+)\/?$/, "/");
+    if (base === "/" || location.pathname.startsWith("/page/")) {
+      return `${ORIGIN$2}${page > 1 ? `/page/${page}/` : "/"}`;
+    }
+    const trimmed = base.replace(/\/$/, "");
+    return `${ORIGIN$2}${trimmed}${page > 1 ? `/${page}/` : ""}`;
+  }
+  function parseCount$1(text) {
+    return Number(text?.match(/\[(\d+)P\]/i)?.[1] ?? 0) || 1;
+  }
+  async function fetchListPosts$1(page, tags) {
+    const tokens = (tags ?? "").trim().split(/\s+/).filter(Boolean);
+    const sort = resolveSort(tags);
+    if (tokens.length > 0 && !sort) {
+      if (page > 1)
+        return [];
+      const body = new URLSearchParams({ s: tokens.join(" ") });
+      const resp2 = await fetch(`${ORIGIN$2}/`, { method: "POST", body });
+      if (!resp2.ok)
+        return [];
+      return parseCards(new DOMParser().parseFromString(await resp2.text(), "text/html"));
+    }
+    const resp = await fetch(listUrl$1(page, sort));
+    if (!resp.ok)
+      return [];
+    return parseCards(new DOMParser().parseFromString(await resp.text(), "text/html"));
+  }
+  function parseCards(doc) {
+    return Array.from(doc.querySelectorAll(".item")).flatMap((card) => {
+      const href = card.querySelector("a.item-link[href]")?.getAttribute("href") ?? "";
+      const img = card.querySelector("img.item-img");
+      const previewUrl = img?.getAttribute("data-original") || img?.getAttribute("data-src") || img?.getAttribute("src") || "";
+      if (!href || !previewUrl)
+        return [];
+      const id = href.match(/\/(\d+)\.html$/)?.[1] ?? href;
+      return [{
+        id,
+        postView: href,
+        previewUrl,
+        fileUrl: "",
+        tags: [],
+        rating: "e",
+        mediaCount: parseCount$1(card.querySelector(".item-num")?.textContent),
+        images: [],
+        width: WIDTH,
+        height: HEIGHT,
+        aspectRatio: WIDTH / HEIGHT,
+        createdAt: null,
+        title: card.querySelector(".item-link-text")?.textContent?.trim() ?? "",
+        fileExt: "webp",
+        fileDownloadName: `hentaiclub ${id} ${WIDTH}x${HEIGHT}`,
+        fileDownloadText: `${WIDTH}\xD7${HEIGHT} [webp]`
+      }];
+    });
+  }
+  let articleCache = null;
+  let articleCacheKey = "";
+  function articleId() {
+    return location.pathname.match(ARTICLE_PATH)?.[1] ?? "";
+  }
+  async function loadArticle() {
+    const key = location.pathname;
+    if (articleCache && articleCacheKey === key)
+      return articleCache;
+    const postId = articleId();
+    if (!postId)
+      return null;
+    const resp = await fetch(`${ORIGIN$2}${location.pathname}`);
+    if (!resp.ok)
+      return null;
+    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
+    const images = Array.from(doc.querySelectorAll("img.post-item-img")).map((el) => el.getAttribute("data-original") || el.getAttribute("data-src") || "").filter(Boolean).map((src) => ({ fileUrl: src, previewUrl: src, width: WIDTH, height: HEIGHT }));
+    articleCache = {
+      postId,
+      title: doc.querySelector("h1")?.textContent?.trim() || doc.querySelector('meta[property="og:title"]')?.getAttribute("content")?.trim() || doc.querySelector("title")?.textContent?.replace(/\s*-\s*绅士会所\s*$/, "").trim() || "",
+      images
+    };
+    articleCacheKey = key;
+    return articleCache;
+  }
+  async function fetchArticlePosts(page) {
+    const data = await loadArticle();
+    if (!data || data.images.length === 0)
+      return [];
+    const chunk = settings.masonryLayout === "virtual" ? data.images.length : CHUNK_SIZE$1;
+    const start = (page - 1) * chunk;
+    if (start >= data.images.length)
+      return [];
+    return data.images.slice(start, start + chunk).map((img, offset) => {
+      const index = start + offset;
+      return {
+        id: `${data.postId}-${index}`,
+        postView: img.fileUrl,
+        previewUrl: img.fileUrl,
+        fileUrl: img.fileUrl,
+        tags: [],
+        rating: "e",
+        mediaCount: 1,
+        images: [],
+        width: img.width,
+        height: img.height,
+        aspectRatio: img.width / img.height,
+        createdAt: null,
+        title: data.title,
+        fileExt: "webp",
+        fileDownloadName: `hentaiclub ${data.postId} ${index + 1} ${img.width}x${img.height}`,
+        fileDownloadText: `${img.width}\xD7${img.height} [webp]`
+      };
+    });
+  }
+  async function fetchArticleDetail(id) {
+    const data = await loadArticle();
+    const index = Number(id.split("-").pop());
+    const img = data?.images[index];
+    if (!data || !img)
+      return {};
+    return { fileUrl: img.fileUrl, title: data.title, tags: [] };
+  }
+  const hentaiclub = {
+    list: {
+      is: isHentaiclubList,
+      posts: fetchListPosts$1
+    },
+    post: {
+      is: isHentaiclubArticle,
       posts: fetchArticlePosts,
       detail: fetchArticleDetail
+    }
+  };
+  const ORIGIN$1 = "https://en.huamaobizhi.com";
+  const LANG = "lang=zh-CN";
+  const CHUNK_SIZE = 30;
+  const THUMB_SEGMENT = "/280h/";
+  const PREVIEW_SEGMENT = "/1000w680h/";
+  function isHuamao() {
+    return /(^|\.)huamaobizhi\.com$/.test(location.hostname);
+  }
+  const MIX_PATH = /^\/mix\/(\d+)\/?$/;
+  function isHuamaoMix() {
+    return isHuamao() && MIX_PATH.test(location.pathname);
+  }
+  function isHuamaoList() {
+    return isHuamao() && !MIX_PATH.test(location.pathname);
+  }
+  function toAbsolute(url) {
+    try {
+      return new URL(url, ORIGIN$1).href;
+    } catch {
+      return "";
+    }
+  }
+  const ORDERS = [
+    { label: "\u6700\u65B0", orderBy: 0, aliases: ["new", "latest", "date"] },
+    { label: "\u6700\u591A\u6D4F\u89C8", orderBy: 1, aliases: ["views", "view"] },
+    { label: "\u6700\u591A\u4E0B\u8F7D", orderBy: 2, aliases: ["downloads", "download"] },
+    { label: "\u6700\u591A\u6536\u85CF", orderBy: 3, aliases: ["favs", "fav"] },
+    { label: "\u6700\u5927\u4F53\u79EF", orderBy: 4, aliases: ["size", "big"] }
+  ];
+  const huamaoPresetTags = ORDERS.map((e) => e.label);
+  function orderOf(token) {
+    const term = token.trim().toLowerCase();
+    if (!term)
+      return null;
+    return ORDERS.find((e) => term === e.label.toLowerCase() || e.aliases.includes(term)) ?? null;
+  }
+  function resolveOrder(tags) {
+    const tokens = (tags ?? "").trim().split(/\s+/).filter(Boolean);
+    if (tokens.length === 0)
+      return null;
+    const hits = tokens.map(orderOf);
+    if (hits.includes(null))
+      return null;
+    return hits[hits.length - 1] ?? null;
+  }
+  function listUrl(page, tags) {
+    const order = resolveOrder(tags);
+    const keyword = order ? "" : (tags ?? "").trim();
+    const params2 = new URLSearchParams();
+    if (page > 1)
+      params2.set("page", String(page));
+    if (keyword)
+      params2.set("search_tag", keyword);
+    if (order)
+      params2.set("order_by", String(order.orderBy));
+    const query2 = [params2.toString(), LANG].filter(Boolean).join("&");
+    return `${ORIGIN$1}/mixs/?${query2}`;
+  }
+  function parseCount(text) {
+    return Number(text?.match(/(\d+)\s*图片/)?.[1] ?? 0);
+  }
+  function lazyUrl(el) {
+    if (!el)
+      return "";
+    const raw = el.getAttribute("v-lazy:background-image") || el.getAttribute("v-lazy") || el.getAttribute("data-src") || "";
+    return raw.replace(/^['"]|['"]$/g, "");
+  }
+  async function fetchListPosts(page, tags) {
+    const resp = await fetch(listUrl(page, tags));
+    if (!resp.ok)
+      return [];
+    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
+    return Array.from(doc.querySelectorAll(".mixs-card")).flatMap((card) => {
+      const href = card.querySelector("a.mixs-card-main[href]")?.getAttribute("href") ?? "";
+      const raw = lazyUrl(card.querySelector(".mixs-card-preview .mixs-card-img"));
+      if (!href || !raw)
+        return [];
+      const id = href.match(/\/mix\/(\d+)/)?.[1] ?? href;
+      const intro = card.querySelector(".mixs-card-introduce")?.textContent ?? "";
+      return [{
+        id,
+        postView: toAbsolute(href),
+        previewUrl: toAbsolute(raw),
+        fileUrl: "",
+        tags: [],
+        rating: "e",
+        mediaCount: parseCount(intro),
+        images: [],
+        width: 187,
+        height: 280,
+        aspectRatio: 187 / 280,
+        createdAt: null,
+        title: card.querySelector(".mixs-card-name span")?.textContent?.trim() ?? "",
+        fileExt: "jpg",
+        fileDownloadName: `huamao ${id} 187x280`,
+        fileDownloadText: "187\xD7280 [jpg]"
+      }];
+    });
+  }
+  let mixCache = null;
+  let mixCacheKey = "";
+  function mixId() {
+    return location.pathname.match(MIX_PATH)?.[1] ?? "";
+  }
+  function mixPageUrl(id, page) {
+    return `${ORIGIN$1}/mix/${id}?page=${page}&order_by=2&purity=2&${LANG}`;
+  }
+  function sizeFromTitle(title) {
+    const m = title?.match(/(\d{3,5})[×x](\d{3,5})/);
+    if (!m)
+      return null;
+    const width = Number(m[1]);
+    const height = Number(m[2]);
+    return width > 0 && height > 0 ? { width, height } : null;
+  }
+  function parseMixPage(doc) {
+    return Array.from(doc.querySelectorAll('a.preview[href*="/details/"]')).flatMap((a) => {
+      const thumb = lazyUrl(a.querySelector("img"));
+      if (!thumb)
+        return [];
+      const fileUrl = thumb.replace(THUMB_SEGMENT, PREVIEW_SEGMENT);
+      const size = sizeFromTitle(a.getAttribute("title")) ?? { width: 453, height: 680 };
+      return [{
+        fileUrl,
+        previewUrl: thumb,
+        width: size.width,
+        height: size.height
+      }];
+    });
+  }
+  function maxPageOf(doc) {
+    const pages = Array.from(doc.querySelectorAll('.pagination a[href*="page="]')).map((a) => Number(new URL(a.href, ORIGIN$1).searchParams.get("page"))).filter((n) => Number.isFinite(n) && n > 0);
+    return Math.max(1, ...pages);
+  }
+  async function loadMix(id) {
+    if (mixCache && mixCacheKey === id)
+      return mixCache;
+    if (!id)
+      return null;
+    const firstResp = await fetch(mixPageUrl(id, 1));
+    if (!firstResp.ok)
+      return null;
+    const firstDoc = new DOMParser().parseFromString(await firstResp.text(), "text/html");
+    const images = parseMixPage(firstDoc);
+    const totalPages = maxPageOf(firstDoc);
+    const rest = await Promise.all(
+      Array.from(
+        { length: Math.max(0, totalPages - 1) },
+        (_, i) => fetch(mixPageUrl(id, i + 2)).then((r) => r.ok ? r.text() : "").then((html) => html ? parseMixPage(new DOMParser().parseFromString(html, "text/html")) : [])
+      )
+    );
+    const seen = /* @__PURE__ */ new Set();
+    const all = [...images, ...rest.flat()].filter((img) => {
+      if (seen.has(img.previewUrl))
+        return false;
+      seen.add(img.previewUrl);
+      return true;
+    });
+    mixCache = {
+      mixId: id,
+      title: firstDoc.querySelector(".mixs-card-name, h1, title")?.textContent?.trim() ?? "",
+      images: all
+    };
+    mixCacheKey = id;
+    return mixCache;
+  }
+  async function fetchMixPosts(page) {
+    const data = await loadMix(mixId());
+    if (!data || data.images.length === 0)
+      return [];
+    const chunk = settings.masonryLayout === "virtual" ? data.images.length : CHUNK_SIZE;
+    const start = (page - 1) * chunk;
+    if (start >= data.images.length)
+      return [];
+    return data.images.slice(start, start + chunk).map((img, offset) => {
+      const index = start + offset;
+      return {
+        id: `${data.mixId}-${index}`,
+        postView: img.fileUrl,
+        previewUrl: img.fileUrl,
+        fileUrl: img.fileUrl,
+        tags: [],
+        rating: "e",
+        mediaCount: 1,
+        images: [],
+        width: img.width,
+        height: img.height,
+        aspectRatio: img.width / img.height,
+        createdAt: null,
+        title: data.title,
+        fileExt: "jpg",
+        fileDownloadName: `huamao ${data.mixId} ${index + 1} ${img.width}x${img.height}`,
+        fileDownloadText: `${img.width}\xD7${img.height} [jpg]`
+      };
+    });
+  }
+  async function fetchMixDetail(id) {
+    const data = await loadMix(id.replace(/-\d+$/, "") || mixId());
+    if (!data)
+      return {};
+    return {
+      fileUrl: data.images[0]?.fileUrl ?? null,
+      tags: [],
+      images: data.images,
+      title: data.title
+    };
+  }
+  const huamao = {
+    list: {
+      is: isHuamaoList,
+      posts: fetchListPosts,
+      detail: fetchMixDetail
+    },
+    mix: {
+      is: isHuamaoMix,
+      posts: fetchMixPosts,
+      detail: fetchMixDetail
     }
   };
   const siteKeys = getBooruSiteHosts();
@@ -7763,6 +8400,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     if (isEveriaList())
       return everiaPresetTags;
+    if (isHentaiCosplayList())
+      return hentaiCosplayPresetTags;
+    if (isHentaiclubList())
+      return hentaiclubPresetTags;
+    if (isHuamaoList())
+      return huamaoPresetTags;
     return [];
   })();
   function getSiteTitle(domain2 = location.host) {
@@ -9166,6 +9809,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     sixteenKClub,
     everia.list,
     everia.post,
+    hentaiCosplay,
+    hentaiclub.list,
+    hentaiclub.post,
+    huamao.list,
+    huamao.mix,
     { is: () => true, posts: async () => [] }
   ];
   function getFirstPageNo(params2) {
@@ -9175,6 +9823,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     if (isEveria()) {
       return Number(location.pathname.match(/\/page\/(\d+)\/?$/)?.[1]) || 1;
+    }
+    if (isHentaiCosplay()) {
+      return Number(location.pathname.match(/\/page\/(\d+)\/?$/)?.[1]) || 1;
+    }
+    if (isHentaiclub()) {
+      return Number(location.pathname.match(/\/(?:page\/)?(\d+)\/?$/)?.[1]) || 1;
     }
     return Number(params2.get("page")) || 1;
   }
@@ -9186,6 +9840,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     if (szurubooru.is())
       return;
     if (isEveria())
+      return;
+    if (isHentaiCosplay() || isHentaiclub())
       return;
     let pageParamName = "page";
     if (isPidSite()) {
@@ -10626,6 +11282,99 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       Vue2.watch(() => imageSelected.value?.id, () => {
         imageIndex.value = 0;
       });
+      const thumbRowEl = Vue2.ref(null);
+      const thumbCanScrollLeft = Vue2.ref(false);
+      const thumbCanScrollRight = Vue2.ref(false);
+      const thumbDragging = Vue2.ref(false);
+      let thumbDragStartX = 0;
+      let thumbDragStartLeft = 0;
+      let thumbMoved = false;
+      function onThumbScroll() {
+        const row = thumbRowEl.value;
+        if (!row)
+          return;
+        thumbCanScrollLeft.value = row.scrollLeft > 1;
+        thumbCanScrollRight.value = row.scrollLeft + row.clientWidth < row.scrollWidth - 1;
+      }
+      function updateThumbScrollState() {
+        onThumbScroll();
+        const row = thumbRowEl.value;
+        if (!row)
+          return;
+        if (row.scrollWidth <= row.clientWidth + 1) {
+          thumbCanScrollLeft.value = false;
+          thumbCanScrollRight.value = false;
+        }
+      }
+      function onThumbWheel(ev) {
+        const row = thumbRowEl.value;
+        if (!row)
+          return;
+        const unit = ev.deltaMode === 1 ? 16 : ev.deltaMode === 2 ? row.clientWidth : 1;
+        const delta = Math.abs(ev.deltaX) > Math.abs(ev.deltaY) ? ev.deltaX : ev.deltaY;
+        row.scrollLeft += delta * unit;
+      }
+      function scrollThumbs(dir) {
+        const row = thumbRowEl.value;
+        if (!row)
+          return;
+        row.scrollBy({ left: dir * Math.max(120, row.clientWidth * 0.8), behavior: "smooth" });
+      }
+      function onThumbPointerDown(ev) {
+        if (ev.button !== 0)
+          return;
+        const row = thumbRowEl.value;
+        if (!row)
+          return;
+        thumbMoved = false;
+        thumbDragStartX = ev.clientX;
+        thumbDragStartLeft = row.scrollLeft;
+        window.addEventListener("pointermove", onThumbPointerMove);
+        window.addEventListener("pointerup", onThumbPointerUp);
+        window.addEventListener("pointercancel", onThumbPointerUp);
+      }
+      function onThumbPointerMove(ev) {
+        const row = thumbRowEl.value;
+        if (!row)
+          return;
+        const dx = ev.clientX - thumbDragStartX;
+        if (!thumbMoved && Math.abs(dx) <= 4)
+          return;
+        thumbMoved = true;
+        thumbDragging.value = true;
+        row.scrollLeft = thumbDragStartLeft - dx;
+      }
+      function onThumbPointerUp() {
+        thumbDragging.value = false;
+        window.removeEventListener("pointermove", onThumbPointerMove);
+        window.removeEventListener("pointerup", onThumbPointerUp);
+        window.removeEventListener("pointercancel", onThumbPointerUp);
+        window.setTimeout(() => {
+          thumbMoved = false;
+        }, 0);
+      }
+      function selectThumb(i) {
+        if (thumbMoved)
+          return;
+        imageIndex.value = i;
+      }
+      async function centerActiveThumb(behavior = "smooth") {
+        await Vue2.nextTick();
+        const row = thumbRowEl.value;
+        if (!row)
+          return;
+        const active = row.querySelector(".detail-thumb-item--active");
+        if (!active)
+          return;
+        const rowRect = row.getBoundingClientRect();
+        const activeRect = active.getBoundingClientRect();
+        const delta = activeRect.left - rowRect.left - (rowRect.width - activeRect.width) / 2;
+        row.scrollTo({ left: Math.max(0, row.scrollLeft + delta), behavior });
+        updateThumbScrollState();
+      }
+      Vue2.watch(imageIndex, () => {
+        centerActiveThumb();
+      });
       const postTitle = Vue2.computed(() => getPostTitle(imageSelected.value));
       const sourceLink = Vue2.computed(() => {
         const { sourceUrl, source } = imageSelected.value;
@@ -10657,15 +11406,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         return `${base} ${imageIndex.value + 1}of${postImages.value.length} ${img.width}x${img.height}`;
       });
       const imageSelectedWidth = Vue2.computed(() => {
-        const width = Number.parseInt(
-          Math.min(
-            innerWidth.value * 1,
-            imageSelected.value.sampleWidth || innerWidth.value
-          ).toString()
-        );
-        const height = Math.min(innerHeight.value * 1, imageSelected.value.sampleHeight || innerHeight.value);
-        const width2 = Number.parseInt((height * imageSelected.value.aspectRatio).toString());
-        return Math.min(width, width2);
+        const cur = currentImage.value;
+        const naturalWidth = cur?.width || imageSelected.value.sampleWidth || 0;
+        const naturalHeight = cur?.height || imageSelected.value.sampleHeight || 0;
+        const aspectRatio = cur?.width && cur?.height ? cur.width / cur.height : imageSelected.value.aspectRatio || 0;
+        if (!Number.isFinite(aspectRatio) || aspectRatio <= 0)
+          return naturalWidth || innerWidth.value;
+        const width = Math.min(innerWidth.value, naturalWidth || innerWidth.value);
+        const height = Math.min(innerHeight.value, naturalHeight || innerHeight.value);
+        return Math.floor(Math.min(width, height * aspectRatio));
       });
       const notYKSite = Vue2.computed(() => {
         return ["konachan", "yande"].every((e) => !location.host.includes(e));
@@ -10825,6 +11574,26 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         isVideoShow.value = true;
       }
       const showPreviewThumb = Vue2.ref(true);
+      const isMultiImagePost = Vue2.computed(() => postImages.value.length > 1);
+      const hasThumbStrip = Vue2.computed(() => isMultiImagePost.value && !scaleOn.value);
+      const canStepPrev = Vue2.computed(() => isMultiImagePost.value ? imageIndex.value > 0 : store.imageSelectedIndex > 0);
+      const canStepNext = Vue2.computed(() => isMultiImagePost.value ? imageIndex.value < postImages.value.length - 1 : true);
+      function stepPrevImage() {
+        if (isMultiImagePost.value) {
+          if (imageIndex.value > 0)
+            imageIndex.value--;
+          return;
+        }
+        showPrevPost();
+      }
+      function stepNextImage() {
+        if (isMultiImagePost.value) {
+          if (imageIndex.value < postImages.value.length - 1)
+            imageIndex.value++;
+          return;
+        }
+        showNextPost();
+      }
       async function showPrevPost() {
         if (store.imageSelectedIndex == 0)
           return;
@@ -10958,6 +11727,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           imgLoading.value = true;
           await setPostDetail(imageSelected, postDetail);
           preloadNextImg();
+          centerActiveThumb("auto");
         } else {
           scaleOn.value = false;
           postDetail.value = {};
@@ -10968,6 +11738,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       function onResize() {
         innerWidth.value = window.innerWidth;
         innerHeight.value = window.innerHeight;
+        updateThumbScrollState();
       }
       const isTriggerEvent = Vue2.computed(() => {
         if (!store.showImageSelected)
@@ -11008,17 +11779,20 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       });
       Vue2.onUnmounted(() => {
         window.removeEventListener("resize", onResize);
+        window.removeEventListener("pointermove", onThumbPointerMove);
+        window.removeEventListener("pointerup", onThumbPointerUp);
+        window.removeEventListener("pointercancel", onThumbPointerUp);
         settings.isListenWheelEvent && window.removeEventListener("wheel", onWheel);
         settings.isListenKeyupEvent && window.removeEventListener("keyup", onKeyup);
       });
-      return { __sfc: true, notR34Fav, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, imageSelected, isVideo, imgLasySrc, postImages, imageIndex, postTitle, sourceLink, imgSrc, currentImage, currentFileUrl, currentFileDownloadName, imageSelectedWidth, notYKSite, imgCreateTime, close, toggleToolbar, toTagsPage, toPidPage, toDetailPage, toSourcePage, buildLightboxPosts, openLightbox, withoutClick, downloadHighest, download, addToList, onDtlContClick, postDetail, metaTags, addFavorite, isExportTagsEnable, isExportTagsShow, openExportTags, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, showPrevPost, showNextPost, onImageLoadError, scaleImgSrc, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isTriggerEvent, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFileTree, mdiFitToScreenOutline, mdiFolderNetwork, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiImageMultipleOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, DPlayer, PostExportTags, isFavBtnShow, notPartialSupportSite, settings, store };
+      return { __sfc: true, notR34Fav, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, imageSelected, isVideo, imgLasySrc, postImages, imageIndex, thumbRowEl, thumbCanScrollLeft, thumbCanScrollRight, thumbDragging, thumbDragStartX, thumbDragStartLeft, thumbMoved, onThumbScroll, updateThumbScrollState, onThumbWheel, scrollThumbs, onThumbPointerDown, onThumbPointerMove, onThumbPointerUp, selectThumb, centerActiveThumb, postTitle, sourceLink, imgSrc, currentImage, currentFileUrl, currentFileDownloadName, imageSelectedWidth, notYKSite, imgCreateTime, close, toggleToolbar, toTagsPage, toPidPage, toDetailPage, toSourcePage, buildLightboxPosts, openLightbox, withoutClick, downloadHighest, download, addToList, onDtlContClick, postDetail, metaTags, addFavorite, isExportTagsEnable, isExportTagsShow, openExportTags, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, isMultiImagePost, hasThumbStrip, canStepPrev, canStepNext, stepPrevImage, stepNextImage, showPrevPost, showNextPost, onImageLoadError, scaleImgSrc, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isTriggerEvent, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFileTree, mdiFitToScreenOutline, mdiFolderNetwork, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiImageMultipleOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, DPlayer, PostExportTags, isFavBtnShow, notPartialSupportSite, settings, store };
     }
   });
   var _sfc_render$5 = function render() {
     var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
     return _c("v-dialog", { attrs: { "fullscreen": "" }, model: { value: _setup.store.showImageSelected, callback: function($$v) {
       _vm.$set(_setup.store, "showImageSelected", $$v);
-    }, expression: "store.showImageSelected" } }, [_setup.store.showImageSelected ? _c("div", { staticClass: "img_detail_cont", on: { "click": _setup.onDtlContClick } }, [_setup.isVideo ? [_setup.isVideoShow ? _c(_setup.DPlayer, { style: `width: ${_setup.imageSelectedWidth > _setup.imageSelected.width ? _setup.imageSelected.width : _setup.imageSelectedWidth}px`, attrs: { "options": { theme: "#8E24AA", autoplay: true, loop: true, video: { url: _setup.imageSelected.fileUrl } } } }) : _vm._e()] : _c("div", { class: { img_scale_scroll: _setup.scaleOn, img_scale_normal: !_setup.scaleOn }, attrs: { "draggable": "false" } }, [_c("v-row", { directives: [{ name: "show", rawName: "v-show", value: _setup.imgLoading, expression: "imgLoading" }], staticClass: "img_detail_loading" }, [_setup.showPreviewThumb && !_setup.scaleOn ? _c("img", { attrs: { "src": _setup.imgLasySrc, "width": _setup.imageSelectedWidth, "alt": "" } }) : _vm._e(), _c("v-progress-circular", { attrs: { "size": 100, "width": 6, "indeterminate": "", "color": "deep-purple" } })], 1), !_setup.scaleOn ? _c("img", { staticClass: "img_detail_sample", attrs: { "alt": "", "src": _setup.imgSrc, "width": _setup.imgLoading ? 0 : _setup.imageSelectedWidth }, on: { "click": function($event) {
+    }, expression: "store.showImageSelected" } }, [_setup.store.showImageSelected ? _c("div", { staticClass: "img_detail_cont", on: { "click": _setup.onDtlContClick } }, [_setup.isVideo ? [_setup.isVideoShow ? _c(_setup.DPlayer, { style: `width: ${_setup.imageSelectedWidth > _setup.imageSelected.width ? _setup.imageSelected.width : _setup.imageSelectedWidth}px`, attrs: { "options": { theme: "#8E24AA", autoplay: true, loop: true, video: { url: _setup.imageSelected.fileUrl } } } }) : _vm._e()] : _c("div", { class: { img_scale_scroll: _setup.scaleOn, img_scale_normal: !_setup.scaleOn }, attrs: { "draggable": "false" } }, [_c("v-row", { directives: [{ name: "show", rawName: "v-show", value: _setup.imgLoading, expression: "imgLoading" }], staticClass: "img_detail_loading" }, [_setup.showPreviewThumb && !_setup.scaleOn ? _c("img", { attrs: { "src": _setup.imgLasySrc, "width": _setup.imageSelectedWidth, "alt": "" } }) : _vm._e(), _c("v-progress-circular", { attrs: { "size": 100, "width": 6, "indeterminate": "", "color": "deep-purple" } })], 1), !_setup.scaleOn ? _c("img", { staticClass: "img_detail_sample", attrs: { "alt": "", "src": _setup.imgSrc }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.toggleToolbar.apply(null, arguments);
     }, "load": function($event) {
@@ -11027,12 +11801,22 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       _setup.imgLoading = false;
     }, "error": _setup.onScaleImgError } }) : _vm._e(), _setup.postImages.length > 1 && !_setup.scaleOn ? _c("div", { staticClass: "detail-thumb-strip", class: { "detail-thumb-strip--raised": _setup.settings.detailButtonsBottom }, on: { "click": function($event) {
       $event.stopPropagation();
-    } } }, [_c("div", { staticClass: "detail-thumb-strip-row" }, _vm._l(_setup.postImages, function(img, i) {
+    } } }, [_c("div", { staticClass: "detail-thumb-nav", class: { "detail-thumb-nav--disabled": !_setup.thumbCanScrollLeft }, attrs: { "role": "button", "tabindex": "0" }, on: { "click": function($event) {
+      $event.stopPropagation();
+      return _setup.scrollThumbs(-1);
+    } } }, [_c("v-icon", { attrs: { "small": "" } }, [_vm._v(_vm._s(_setup.mdiChevronLeft))])], 1), _c("div", { ref: "thumbRowEl", staticClass: "detail-thumb-strip-row", class: { "detail-thumb-strip-row--dragging": _setup.thumbDragging }, on: { "wheel": function($event) {
+      $event.stopPropagation();
+      $event.preventDefault();
+      return _setup.onThumbWheel.apply(null, arguments);
+    }, "pointerdown": _setup.onThumbPointerDown, "scroll": _setup.onThumbScroll } }, _vm._l(_setup.postImages, function(img, i) {
       return _c("div", { key: i, staticClass: "detail-thumb-item", class: { "detail-thumb-item--active": i === _setup.imageIndex }, attrs: { "role": "button", "tabindex": "0" }, on: { "click": function($event) {
         $event.stopPropagation();
-        _setup.imageIndex = i;
+        return _setup.selectThumb(i);
       } } }, [_c("v-img", { attrs: { "src": img.previewUrl, "width": "56", "height": "56" } })], 1);
-    }), 0)]) : _vm._e()], 1)], 2) : _vm._e(), _c("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && _setup.scaleOn && !_setup.isVideo, expression: "showImageToolbar && scaleOn && !isVideo" }], staticClass: "img-detail-toolbar img_detail_btn_color", class: { "detail-buttons-bottom": _setup.settings.detailButtonsBottom }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c("v-spacer"), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    }), 0), _c("div", { staticClass: "detail-thumb-nav", class: { "detail-thumb-nav--disabled": !_setup.thumbCanScrollRight }, attrs: { "role": "button", "tabindex": "0" }, on: { "click": function($event) {
+      $event.stopPropagation();
+      return _setup.scrollThumbs(1);
+    } } }, [_c("v-icon", { attrs: { "small": "" } }, [_vm._v(_vm._s(_setup.mdiChevronRight))])], 1)]) : _vm._e()], 1)], 2) : _vm._e(), _c("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && _setup.scaleOn && !_setup.isVideo, expression: "showImageToolbar && scaleOn && !isVideo" }], staticClass: "img-detail-toolbar img_detail_btn_color", class: { "detail-buttons-bottom": _setup.settings.detailButtonsBottom }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c("v-spacer"), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1 hidden-sm-and-down", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         _setup.imgScaleState = "FitToPage";
@@ -11126,7 +11910,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         $event.stopPropagation();
         return _setup.close.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiClose))])], 1)];
-    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar, expression: "showImageToolbar" }], staticClass: "img_detail_btn_color" }, [_c("div", { staticClass: "img-detail-tags", class: { "detail-buttons-bottom": _setup.settings.detailButtonsBottom } }, [_c("v-chip", { directives: [{ name: "show", rawName: "v-show", value: _setup.postDetail.tags?.length, expression: "postDetail.tags?.length" }], staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
+    } }]) }, [_c("span", [_vm._v(_vm._s(_vm.$t("t83UAY18UebTg1_-zFGP3")))])])], 1), _c("div", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar, expression: "showImageToolbar" }], staticClass: "img_detail_btn_color" }, [_c("div", { staticClass: "img-detail-tags", class: {
+      "detail-buttons-bottom": _setup.settings.detailButtonsBottom,
+      "img-detail-tags--above-thumbs": _setup.hasThumbStrip && !_setup.settings.detailButtonsBottom
+    } }, [_c("v-chip", { directives: [{ name: "show", rawName: "v-show", value: _setup.postDetail.tags?.length, expression: "postDetail.tags?.length" }], staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
       $event.stopPropagation();
       _setup.settings.showTagChipGroup = !_setup.settings.showTagChipGroup;
     } } }, [_c("v-icon", { attrs: { "left": "" } }, [_vm._v(_vm._s(_setup.mdiTagMultiple))]), _c("span", [_vm._v(_vm._s(_setup.settings.showTagChipGroup ? _vm.$t("gM92sLo0Cqfl2rCaXlOhc") : _vm.$t("l5W-EtJ_ar-SY2lF4H5Zm")))])], 1), _setup.isExportTagsEnable && _setup.postDetail.tags?.length ? _c("v-chip", { staticClass: "mr-1", attrs: { "small": "", "role": "button", "tabindex": "0" }, on: { "click": function($event) {
@@ -11143,12 +11930,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         $event.stopPropagation();
         return _setup.toTagsPage(item.tag);
       } } });
-    }), 1)], 2), _c("v-btn", { staticClass: "poa_left_center hidden-sm-and-down", staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+    }), 1)], 2), _c("v-btn", { staticClass: "poa_left_center hidden-sm-and-down", class: { "detail-arrow--disabled": !_setup.canStepPrev }, staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
       $event.stopPropagation();
-      return _setup.showPrevPost.apply(null, arguments);
-    } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiChevronLeft))])], 1), _c("v-btn", { staticClass: "poa_right_center hidden-sm-and-down", staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+      return _setup.stepPrevImage.apply(null, arguments);
+    } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiChevronLeft))])], 1), _c("v-btn", { staticClass: "poa_right_center hidden-sm-and-down", class: { "detail-arrow--disabled": !_setup.canStepNext }, staticStyle: { "z-index": "10" }, attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
       $event.stopPropagation();
-      return _setup.showNextPost.apply(null, arguments);
+      return _setup.stepNextImage.apply(null, arguments);
     } } }, [_c("v-icon", [_vm._v(_vm._s(_setup.mdiChevronRight))])], 1)], 1), _setup.isExportTagsEnable && _setup.store.showImageSelected ? _c(_setup.PostExportTags, { attrs: { "show-dialog": _setup.isExportTagsShow, "update-show-dialog": (val) => _setup.isExportTagsShow = val, "tags": _setup.postDetail?.tags || [] } }) : _vm._e()], 1);
   };
   var _sfc_staticRenderFns$5 = [];
@@ -11230,7 +12017,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         });
       }
       function showImgModal(index) {
-        if (isEveriaList()) {
+        if (isEveriaList() || isHentaiclubList()) {
           const target = store.imageList[index]?.postView;
           if (target) {
             const url = new URL(target);
