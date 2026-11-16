@@ -1,6 +1,6 @@
 import type { SearchResults } from '@himeka/booru'
 import { settings } from '@/store'
-import { allgirl, isEveria, nozomila, rule34, szurubooru, uhdpaper } from '@/api'
+import { allgirl, isEveria, isHentaiCosplay, isHentaiclub, nozomila, rule34, szurubooru, uhdpaper } from '@/api'
 import { BOORU_PAGE_LIMIT, isPidSite } from '@/api/booru'
 import { getCookie } from '@/utils'
 
@@ -13,6 +13,14 @@ export function getFirstPageNo(params: URLSearchParams) {
   if (isEveria()) {
     return Number(location.pathname.match(/\/page\/(\d+)\/?$/)?.[1]) || 1
   }
+  // hentai-cosplay-xxx 同为路径翻页（/search/page/2/、/search/tag/x/page/2/）
+  if (isHentaiCosplay()) {
+    return Number(location.pathname.match(/\/page\/(\d+)\/?$/)?.[1]) || 1
+  }
+  // hentaiclub：首页 /page/2/，分区 /sort/r15.html/2/（页码在 .html 之后）
+  if (isHentaiclub()) {
+    return Number(location.pathname.match(/\/(?:page\/)?(\d+)\/?$/)?.[1]) || 1
+  }
   return Number(params.get('page')) || 1
 }
 
@@ -24,6 +32,9 @@ export function pushPageState(pageNo: number, latePageQuery = false) {
   if (szurubooru.is()) return
   // everia 靠路径 /page/N/ 翻页；文章页更不能写 page，否则刷新会从中间一块开始
   if (isEveria()) return
+  // hentai-cosplay-xxx / hentaiclub 同样是路径翻页（page/N/、sort/r15.html/N/），
+  // 写 ?page= 既不被站点识别，也会污染地址栏
+  if (isHentaiCosplay() || isHentaiclub()) return
   let pageParamName = 'page'
   if (isPidSite()) {
     pageParamName = 'pid'

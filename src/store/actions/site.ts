@@ -7,7 +7,10 @@ import {
   eshuushuu,
   everia,
   gelbooru,
+  hentaiCosplay,
   hentaibooru,
+  hentaiclub,
+  huamao,
   kusowanka,
   mikubooru,
   moebooru,
@@ -63,6 +66,13 @@ export const siteActions: SiteAdapter[] = [
   // 同一 host 的两个视图靠路径互斥：列表页抓站点列表，文章页把整篇图当成瀑布流条目
   everia.list,
   everia.post,
+  // hentai-cosplay-xxx：列表页弹层看整组图（images 回填到缩略条），详情页直开时喂瀑布流
+  hentaiCosplay,
+  hentaiclub.list,
+  hentaiclub.post,
+  // huamao：合集是另一套多图详情，列表页弹层 + /mix/{id} 直开两种入口
+  huamao.list,
+  huamao.mix,
   { is: () => true, posts: async () => [] },
 ]
 

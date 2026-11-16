@@ -135,6 +135,37 @@ const MANUAL_SITES: SiteRegistration[] = [
   { key: '16k.club', hosts: ['16k.club'], navHost: '16k.club', title: '16K Club', match: ['https://16k.club/*'], tagSearch: false },
   // rating 全为 e，且不提供批量下载 / 单图下载，故标 partialSupport
   { key: 'everia.club', hosts: ['everia.club'], navHost: 'everia.club', title: 'Everia', pageLimit: 30, match: ['https://everia.club/*'], partialSupport: true },
+  // 七个语言子域结构完全一致，hosts 必须逐个列全（能力开关按 location.host 精确匹配）
+  {
+    key: 'hentai-cosplay-xxx.com',
+    hosts: [
+      'hentai-cosplay-xxx.com', 'zh.hentai-cosplay-xxx.com', 'ja.hentai-cosplay-xxx.com',
+      'fr.hentai-cosplay-xxx.com', 'de.hentai-cosplay-xxx.com', 'ru.hentai-cosplay-xxx.com',
+      'ko.hentai-cosplay-xxx.com', 'es.hentai-cosplay-xxx.com',
+    ],
+    navHost: 'hentai-cosplay-xxx.com',
+    title: 'Hentai Cosplay',
+    pageLimit: 32,
+    match: ['https://*.hentai-cosplay-xxx.com/*', 'https://hentai-cosplay-xxx.com/*'],
+  },
+  {
+    key: 'hentaiclub.net',
+    hosts: ['www.hentaiclub.net', 'hentaiclub.net'],
+    navHost: 'www.hentaiclub.net',
+    title: '绅士会所',
+    pageLimit: 24,
+    match: ['https://www.hentaiclub.net/*', 'https://hentaiclub.net/*'],
+  },
+  // 原图要登录，公开的最大档是 1000w680h，故标 partialSupport（下载相关一并隐藏）
+  {
+    key: 'huamaobizhi.com',
+    hosts: ['en.huamaobizhi.com', 'huamaobizhi.com', 'www.huamaobizhi.com'],
+    navHost: 'en.huamaobizhi.com',
+    title: '花猫壁纸',
+    pageLimit: 24,
+    match: ['https://*.huamaobizhi.com/*', 'https://huamaobizhi.com/*'],
+    partialSupport: true,
+  },
 ]
 
 /**

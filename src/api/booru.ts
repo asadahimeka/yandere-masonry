@@ -4,6 +4,9 @@ import { isMikubooru } from './mikubooru'
 import { isConfiguredSzuruDomain, szurubooru } from './szurubooru'
 import { getBooruSiteHosts, getNavDomains, getSiteTitle as getRegisteredSiteTitle, getSiteMeta } from './sites'
 import { everiaPresetTags, isEveriaList } from './everia'
+import { hentaiCosplayPresetTags, isHentaiCosplayList } from './hentaicosplay'
+import { hentaiclubPresetTags, isHentaiclubList } from './hentaiclub'
+import { huamaoPresetTags, isHuamaoList } from './huamao'
 import { animepictures, realbooru, rule34 } from '@/api'
 import { settings, store } from '@/store'
 
@@ -51,6 +54,10 @@ export const defCompTags = (() => {
   }
   // everia 没有标签体系，搜索框里放的是站内分类（首页 / 日本 / 韩国 …）
   if (isEveriaList()) return everiaPresetTags
+  // 下面三个站同理：搜索框复用作列表入口，词由各自适配器解析成路径或查询参数
+  if (isHentaiCosplayList()) return hentaiCosplayPresetTags
+  if (isHentaiclubList()) return hentaiclubPresetTags
+  if (isHuamaoList()) return huamaoPresetTags
   return []
 })()
 
