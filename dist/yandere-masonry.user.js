@@ -5818,6 +5818,20 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     return result;
   }
+  function getPostImages(post) {
+    return post?.images ?? [];
+  }
+  function getMediaCount(post) {
+    const typed = post;
+    if (!typed)
+      return 0;
+    if (typeof typed.mediaCount === "number")
+      return typed.mediaCount;
+    return typed.images?.length ?? 0;
+  }
+  function getPostTitle(post) {
+    return post?.title ?? "";
+  }
   function isAllGirlPage() {
     return location.hostname == "allgirl.booru.org";
   }
@@ -5954,56 +5968,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     posts: fetchAnimePicturesPosts,
     detail: getAnimePicturesDetail
   };
-  function getAugmentedNamespace(n) {
-    if (n.__esModule)
-      return n;
-    var a = Object.defineProperty({}, "__esModule", { value: true });
-    Object.keys(n).forEach(function(k) {
-      var d = Object.getOwnPropertyDescriptor(n, k);
-      Object.defineProperty(a, k, d.get ? d : {
-        enumerable: true,
-        get: function() {
-          return n[k];
-        }
-      });
-    });
-    return a;
-  }
-  function unfetch_module(e, n) {
-    return n = n || {}, new Promise(function(t, r) {
-      var s = new XMLHttpRequest(), o = [], u = [], i = {}, a = function() {
-        return { ok: 2 == (s.status / 100 | 0), statusText: s.statusText, status: s.status, url: s.responseURL, text: function() {
-          return Promise.resolve(s.responseText);
-        }, json: function() {
-          return Promise.resolve(s.responseText).then(JSON.parse);
-        }, blob: function() {
-          return Promise.resolve(new Blob([s.response]));
-        }, clone: a, headers: { keys: function() {
-          return o;
-        }, entries: function() {
-          return u;
-        }, get: function(e2) {
-          return i[e2.toLowerCase()];
-        }, has: function(e2) {
-          return e2.toLowerCase() in i;
-        } } };
-      };
-      for (var l in s.open(n.method || "get", e, true), s.onload = function() {
-        s.getAllResponseHeaders().replace(/^(.*?):[^\S\n]*([\s\S]*?)$/gm, function(e2, n2, t2) {
-          o.push(n2 = n2.toLowerCase()), u.push([n2, t2]), i[n2] = i[n2] ? i[n2] + "," + t2 : t2;
-        }), t(a());
-      }, s.onerror = r, s.withCredentials = "include" == n.credentials, n.headers)
-        s.setRequestHeader(l, n.headers[l]);
-      s.send(n.body || null);
-    });
-  }
-  var unfetch_module$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-    __proto__: null,
-    "default": unfetch_module
-  }, Symbol.toStringTag, { value: "Module" }));
-  var require$$0 = /* @__PURE__ */ getAugmentedNamespace(unfetch_module$1);
-  self.fetch || (self.fetch = require$$0.default || require$$0);
-  var sites_default = {
+  var sitesJson = {
     "yande.re": {
       domain: "yande.re",
       aliases: [
@@ -6262,7 +6227,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         postView: "/post/show/"
       },
       random: true,
-      defaultTags: ["rating:safe"]
+      defaultTags: [
+        "rating:safe"
+      ]
     },
     "booru.allthefallen.moe": {
       domain: "booru.allthefallen.moe",
@@ -6291,12 +6258,61 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       random: true
     }
   };
+  function getAugmentedNamespace(n) {
+    if (n.__esModule)
+      return n;
+    var a = Object.defineProperty({}, "__esModule", { value: true });
+    Object.keys(n).forEach(function(k) {
+      var d = Object.getOwnPropertyDescriptor(n, k);
+      Object.defineProperty(a, k, d.get ? d : {
+        enumerable: true,
+        get: function() {
+          return n[k];
+        }
+      });
+    });
+    return a;
+  }
+  function unfetch_module(e, n) {
+    return n = n || {}, new Promise(function(t, r) {
+      var s = new XMLHttpRequest(), o = [], u = [], i = {}, a = function() {
+        return { ok: 2 == (s.status / 100 | 0), statusText: s.statusText, status: s.status, url: s.responseURL, text: function() {
+          return Promise.resolve(s.responseText);
+        }, json: function() {
+          return Promise.resolve(s.responseText).then(JSON.parse);
+        }, blob: function() {
+          return Promise.resolve(new Blob([s.response]));
+        }, clone: a, headers: { keys: function() {
+          return o;
+        }, entries: function() {
+          return u;
+        }, get: function(e2) {
+          return i[e2.toLowerCase()];
+        }, has: function(e2) {
+          return e2.toLowerCase() in i;
+        } } };
+      };
+      for (var l in s.open(n.method || "get", e, true), s.onload = function() {
+        s.getAllResponseHeaders().replace(/^(.*?):[^\S\n]*([\s\S]*?)$/gm, function(e2, n2, t2) {
+          o.push(n2 = n2.toLowerCase()), u.push([n2, t2]), i[n2] = i[n2] ? i[n2] + "," + t2 : t2;
+        }), t(a());
+      }, s.onerror = r, s.withCredentials = "include" == n.credentials, n.headers)
+        s.setRequestHeader(l, n.headers[l]);
+      s.send(n.body || null);
+    });
+  }
+  var unfetch_module$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+    __proto__: null,
+    "default": unfetch_module
+  }, Symbol.toStringTag, { value: "Module" }));
+  var require$$0 = /* @__PURE__ */ getAugmentedNamespace(unfetch_module$1);
+  self.fetch || (self.fetch = require$$0.default || require$$0);
   var expandedTags = {
     "rating:e": "rating:explicit",
     "rating:q": "rating:questionable",
     "rating:s": "rating:safe"
   };
-  var sites = sites_default;
+  var sites = sitesJson;
   var BooruError = class extends Error {
     constructor(message2) {
       super(message2 instanceof Error ? message2.message : message2);
@@ -7376,6 +7392,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     is: isSzurubooru,
     posts: fetchSzurubooruPosts
   };
+  const booruPackageSites = sitesJson;
   const EXCLUDED_HOSTS = /* @__PURE__ */ new Set([
     "e621.net",
     "e926.net",
@@ -7423,7 +7440,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function normalizeHost(host) {
     return host.toLowerCase().replace("www.", "");
   }
-  const packageHosts = Object.keys(sites).filter((host) => !EXCLUDED_HOSTS.has(host));
+  const packageHosts = Object.keys(booruPackageSites).filter((host) => !EXCLUDED_HOSTS.has(host));
   const siteMetaByHost = /* @__PURE__ */ new Map();
   for (const host of packageHosts) {
     siteMetaByHost.set(host, PACKAGE_SITE_META[host] ?? {});
@@ -8101,20 +8118,6 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }
     }
   };
-  function getPostImages(post) {
-    return post?.images ?? [];
-  }
-  function getMediaCount(post) {
-    const typed = post;
-    if (!typed)
-      return 0;
-    if (typeof typed.mediaCount === "number")
-      return typed.mediaCount;
-    return typed.images?.length ?? 0;
-  }
-  function getPostTitle(post) {
-    return post?.title ?? "";
-  }
   function isNozomiPage() {
     return location.hostname == "nozomi.la" && location.pathname == "/";
   }
@@ -8905,7 +8908,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     is: isZerochanPage,
     posts: fetchZerochanPosts
   };
-  const fetchPostsActions = [
+  const siteActions = [
     moebooru.popular,
     moebooru.pool,
     moebooru.yanderehtml,
@@ -8934,19 +8937,6 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     sixteenKNote,
     sixteenKClub,
     { is: () => true, posts: async () => [] }
-  ];
-  const fetchDetailActions = [
-    uhdpaper,
-    animepictures,
-    sankaku.idol,
-    sankaku,
-    sankaku.complex,
-    allgirl,
-    hentaibooru,
-    kusowanka,
-    mikubooru,
-    sixteenKNote,
-    sixteenKClub
   ];
   function getFirstPageNo(params2) {
     if (isPidSite()) {
@@ -9000,7 +8990,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     store.requestLoading = true;
     try {
       const { page, tags } = getSearchState();
-      let posts = await fetchPostsActions.find((e) => e.is())?.posts(page, tags);
+      let posts = await siteActions.find((e) => e.is() && e.posts)?.posts?.(page, tags);
       if (Array.isArray(posts) && posts.length > 0) {
         posts = handleBlacklist(posts);
         store.currentPage = page;
@@ -10313,7 +10303,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   });
   const isCNLang = i18n.locale.includes("zh");
   async function handlePostDetail(img) {
-    const { fileUrl, sampleUrl, tags, source, images, title } = await fetchDetailActions.find((e) => e.is())?.detail(img.value.id) || {};
+    const { fileUrl, sampleUrl, tags, source, images, title } = await siteActions.find((e) => e.is() && e.detail)?.detail?.(img.value.id) || {};
     if (tags?.length)
       img.value.tags = tags;
     if (source)
