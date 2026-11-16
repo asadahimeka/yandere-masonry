@@ -1,5 +1,5 @@
 import { nextTick } from 'vue'
-import { fetchPostsActions } from './site'
+import { siteActions } from './site'
 import { getFirstPageNo, handleBlacklist, pushPageState } from './_util'
 import { settings, store } from '@/store'
 import { uniqBy } from '@/utils'
@@ -17,7 +17,7 @@ export const searchPosts = async (latePageQuery = false) => {
   store.requestLoading = true
   try {
     const { page, tags } = getSearchState()
-    let posts = await fetchPostsActions.find(e => e.is())?.posts(page, tags)
+    let posts = await siteActions.find(e => e.is() && e.posts)?.posts?.(page, tags)
     if (Array.isArray(posts) && posts.length > 0) {
       posts = handleBlacklist(posts as any)
       store.currentPage = page

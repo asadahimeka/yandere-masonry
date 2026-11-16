@@ -23,8 +23,18 @@ export interface MultiImageDetail {
   title?: string
 }
 
-/** 多图站点适配器契约 */
-export interface MultiImageAdapter {
+/**
+ * 站点行为契约：`is` 必选，列表抓取（posts）与详情抓取（detail）按能力可选。
+ * 所有站点适配器统一注册在 `src/store/actions/site.ts` 的 `siteActions`。
+ */
+export interface SiteAdapter {
+  is: () => boolean
+  posts?: (page: number, tags: string | null) => Promise<Post[]>
+  detail?: (id: string) => Promise<MultiImageDetail>
+}
+
+/** 多图站点适配器契约（posts 与 detail 均必选的强约束版） */
+export interface MultiImageAdapter extends SiteAdapter {
   is: () => boolean
   posts: (page: number, tags: string | null) => Promise<Post[]>
   detail: (id: string) => Promise<MultiImageDetail>

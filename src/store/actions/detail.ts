@@ -1,19 +1,18 @@
 import type { Ref } from 'vue'
 import type { Post } from '@himeka/booru'
-import { fetchDetailActions } from './site'
+import { siteActions } from './site'
 import { store } from '@/store'
 import { type PostDetail, getPostDetail } from '@/api/moebooru'
 import { getDanbooruTagDetail, isDanbooruPage } from '@/api/danbooru'
-import { eshuushuu } from '@/api'
-import type { MultiImagePost } from '@/api/multi-image'
+import { type MultiImagePost, eshuushuu } from '@/api'
 import i18n from '@/utils/i18n'
 
 const isCNLang = i18n.locale.includes('zh')
 
 export async function handlePostDetail(img: Ref<Post>) {
-  const { fileUrl, sampleUrl, tags, source, images, title } = await fetchDetailActions
-    .find(e => e.is())
-    ?.detail(img.value.id) || {}
+  const { fileUrl, sampleUrl, tags, source, images, title } = await siteActions
+    .find(e => e.is() && e.detail)
+    ?.detail?.(img.value.id) || {}
   if (tags?.length) img.value.tags = tags
   if (source) img.value.source = source
   if (fileUrl) img.value.fileUrl = fileUrl
