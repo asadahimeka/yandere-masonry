@@ -205,7 +205,7 @@ Any self-hosted [szurubooru](https://github.com/rr-/szurubooru) instance is supp
 
 **Setup steps**:
 
-1. Open masonry mode on [nekomaru.moe](https://nekomaru.moe/post?_wf=1) (or any szurubooru site), click the "Szurubooru Guide" button in the top bar (or Sidebar → Settings) to open the settings panel
+1. Open masonry mode on [nekomaru.moe](https://nekomaru.moe/posts?_wf=1) (or any szurubooru site), click the "Szurubooru Guide" button in the top bar (or Sidebar → Settings) to open the settings panel
 2. Click "Add Szurubooru Site" in the Szurubooru section and fill in your self-hosted domain (e.g. `https://szuru.example.com`); multiple sites are supported. Settings are stored inside the script, shared across all sites, and configured domains also appear in the sidebar site list
 3. For private instances: log in to the site → user menu (top right) → Login tokens, create a token, then fill in the username and token in that site's config; leave empty for public instances
 4. Add a match for your domain in Tampermonkey: Dashboard → this script → Settings → Include/User Domain, add `https://szuru.example.com/*` (required, otherwise the script will not be injected into your site)

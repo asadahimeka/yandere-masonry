@@ -84,10 +84,20 @@ async function initLayout() {
   wfTypeActions[wfType]?.(listEl)
 }
 
+/**
+ * 单帖详情页（`/post/123`、`/posts/123`）。
+ *
+ * 自动挂载会把整个页面替换成全站瀑布流，于是列表里的「打开原帖」进入详情页后
+ * 又被拉回第 1 页列表，且无法回退。这里按路径形态判断，不区分站点：
+ * 列表页是 `/posts`、`/post?tags=`、`/posts/query=xxx`，都不会命中。
+ */
+const isDetailPath = /^\/posts?\/\d+\/?$/.test(location.pathname)
+
 const isAutoWf = (() => {
   const params = new URLSearchParams(location.search)
+  // `_wf=1` 视为用户显式要求，跳过详情页守卫
   if (params.get('_wf')) return true
-  return initialSettings.autoWaterfall
+  return initialSettings.autoWaterfall && !isDetailPath
 })()
 
 function addWfTypeSelect() {

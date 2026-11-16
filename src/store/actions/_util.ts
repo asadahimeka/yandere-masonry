@@ -1,6 +1,6 @@
 import type { SearchResults } from '@himeka/booru'
 import { settings } from '@/store'
-import { allgirl, nozomila, rule34, uhdpaper } from '@/api'
+import { allgirl, nozomila, rule34, szurubooru, uhdpaper } from '@/api'
 import { BOORU_PAGE_LIMIT, isPidSite } from '@/api/booru'
 import { getCookie } from '@/utils'
 
@@ -16,6 +16,8 @@ export function pushPageState(pageNo: number, latePageQuery = false) {
   if (rule34.fav.is() || allgirl.is() || nozomila.is()) return
   // uhdpaper 靠 ?updated-max= 游标翻页，URL 里不写 page（否则会把站点搜索地址弄脏）
   if (uhdpaper.is()) return
+  // szurubooru 用 offset 分页，站点自身不认 ?page=，写进 URL 只会把搜索地址弄脏
+  if (szurubooru.is()) return
   let pageParamName = 'page'
   if (isPidSite()) {
     pageParamName = 'pid'

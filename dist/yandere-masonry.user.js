@@ -237,11 +237,12 @@ var __publicField = (obj, key, value) => {
     const wfType = initialSettings.masonryLayout || "masonry";
     wfTypeActions[wfType]?.(listEl);
   }
+  const isDetailPath = /^\/posts?\/\d+\/?$/.test(location.pathname);
   const isAutoWf = (() => {
     const params2 = new URLSearchParams(location.search);
     if (params2.get("_wf"))
       return true;
-    return initialSettings.autoWaterfall;
+    return initialSettings.autoWaterfall && !isDetailPath;
   })();
   function addWfTypeSelect() {
     if (!location.href.includes("yande.re/post"))
@@ -8949,6 +8950,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     if (rule34.fav.is() || allgirl.is() || nozomila.is())
       return;
     if (uhdpaper.is())
+      return;
+    if (szurubooru.is())
       return;
     let pageParamName = "page";
     if (isPidSite()) {
