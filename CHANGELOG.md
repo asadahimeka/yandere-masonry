@@ -1,3 +1,16 @@
+## v0.39.0
+
+- feat: 新增 16knote.com / 16k.club、everia、mikubooru 站点适配，以及 hentai-cosplay-xxx、hentaiclub、huamaobizhi 适配器
+- feat: 多图帖支持（缩略图条、i/N 计数、Fancybox 画廊查看、列表卡片媒体数量角标）
+- feat: 顶栏改为毛玻璃样式，滚动时自动收起、停止滚动后恢复
+- feat: 标签 chip 点击可在所有支持站点打开标签搜索
+- fix: 修复详情页主图按列表缩略图比例计算导致竖图被压扁，缩略图条支持滚轮/拖拽/箭头滚动
+- fix: 修复 chan.sankakucomplex.com 瀑布流空白
+- fix: szurubooru 帖子详情页不再自动挂载瀑布流
+- fix: 修复顶栏自动隐藏闪烁并恢复背景显示
+- chore: 站点适配器合并为单一注册表，站点列表改为构建期读取 sites.json
+- chore: 统一标签译文口径，修正机翻条目、残留日文假名与同义 key 译法
+
 ## v0.38.0
 
 - feat: 支持自建 szurubooru 站点（API 列表、Token 鉴权、多站点配置、导航抽屉显示已配置域名）
