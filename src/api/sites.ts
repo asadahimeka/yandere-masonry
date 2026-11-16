@@ -1,4 +1,19 @@
-import { sites as booruPackageSites } from '@himeka/booru'
+import sitesJson from '@himeka/booru/sites.json'
+
+/** 包内站点表用到的字段（完整结构见 packages/booru/index.d.ts） */
+interface BooruPackageSite {
+  insecure?: boolean
+}
+
+/**
+ * `@himeka/booru` 的站点表。
+ *
+ * 这里只 import 纯数据 JSON（`@himeka/booru/sites.json`）而不 import 包入口，
+ * 使 `vite.config.ts` 在构建期不必加载 `fast-xml-parser` / `isomorphic-unfetch`。
+ * JSON 与包内 `index.mjs` 的内联数据同源，**上游更新站点表时需手动重新导出**：
+ * `node -e "require('fs').writeFileSync('packages/booru/sites.json', JSON.stringify(require('@himeka/booru').sites, null, 2))"`
+ */
+const booruPackageSites = sitesJson as Record<string, BooruPackageSite>
 
 /**
  * 站点元数据注册表 —— 所有站点元数据的唯一事实来源。

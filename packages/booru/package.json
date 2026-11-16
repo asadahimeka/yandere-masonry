@@ -12,7 +12,8 @@
     ".": {
       "import": "./index.mjs",
       "require": "./index.js"
-    }
+    },
+    "./sites.json": "./sites.json"
   },
   "dependencies": {
     "fast-xml-parser": "4.4.0",

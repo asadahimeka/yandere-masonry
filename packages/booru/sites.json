@@ -1,0 +1,290 @@
+{
+  "yande.re": {
+    "domain": "yande.re",
+    "aliases": [
+      "yd",
+      "yand",
+      "yandere"
+    ],
+    "nsfw": true,
+    "api": {
+      "search": "/post.json?",
+      "postView": "/post/show/"
+    },
+    "random": true
+  },
+  "konachan.com": {
+    "domain": "konachan.com",
+    "aliases": [
+      "kc",
+      "konac",
+      "kcom"
+    ],
+    "nsfw": true,
+    "api": {
+      "search": "/post.json?",
+      "postView": "/post/show/"
+    },
+    "random": true
+  },
+  "konachan.net": {
+    "domain": "konachan.net",
+    "aliases": [
+      "kn",
+      "konan",
+      "knet"
+    ],
+    "nsfw": false,
+    "api": {
+      "search": "/post.json?",
+      "postView": "/post/show/"
+    },
+    "random": true,
+    "defaultTags": [
+      "rating:safe"
+    ]
+  },
+  "danbooru.donmai.us": {
+    "domain": "danbooru.donmai.us",
+    "aliases": [
+      "db",
+      "dan",
+      "danbooru"
+    ],
+    "nsfw": true,
+    "api": {
+      "search": "/posts.json?",
+      "postView": "/posts/"
+    },
+    "random": true
+  },
+  "gelbooru.com": {
+    "domain": "gelbooru.com",
+    "aliases": [
+      "gb",
+      "gel",
+      "gelbooru"
+    ],
+    "nsfw": true,
+    "api": {
+      "search": "/index.php?page=dapi&s=post&q=index&json=1&",
+      "postView": "/index.php?page=post&s=view&json=1&id="
+    },
+    "paginate": "pid",
+    "random": false
+  },
+  "rule34.xxx": {
+    "domain": "api.rule34.xxx",
+    "aliases": [
+      "r34",
+      "rule34"
+    ],
+    "nsfw": true,
+    "api": {
+      "search": "/index.php?page=dapi&s=post&q=index&json=1&",
+      "postView": "/index.php?page=post&s=view&json=1&id="
+    },
+    "paginate": "pid",
+    "random": false
+  },
+  "lolibooru.moe": {
+    "domain": "lolibooru.moe",
+    "aliases": [
+      "loli",
+      "lolibooru"
+    ],
+    "nsfw": true,
+    "api": {
+      "search": "/post.json?",
+      "postView": "/post/show/"
+    },
+    "random": true
+  },
+  "www.sakugabooru.com": {
+    "domain": "www.sakugabooru.com",
+    "aliases": [
+      "sakuga",
+      "sakugabooru"
+    ],
+    "nsfw": false,
+    "api": {
+      "search": "/post.json?",
+      "postView": "/post/show/"
+    },
+    "random": true
+  },
+  "safebooru.org": {
+    "domain": "safebooru.org",
+    "aliases": [
+      "sb",
+      "safe",
+      "safebooru"
+    ],
+    "nsfw": false,
+    "api": {
+      "search": "/index.php?page=dapi&s=post&q=index&json=1&",
+      "postView": "/index.php?page=post&s=view&json=1&id="
+    },
+    "paginate": "pid",
+    "random": false
+  },
+  "tbib.org": {
+    "domain": "tbib.org",
+    "aliases": [
+      "tb",
+      "tbib",
+      "big"
+    ],
+    "nsfw": true,
+    "api": {
+      "search": "/index.php?page=dapi&s=post&q=index&json=1&",
+      "postView": "/index.php?page=post&s=view&json=1&id="
+    },
+    "paginate": "pid",
+    "random": false
+  },
+  "xbooru.com": {
+    "domain": "xbooru.com",
+    "aliases": [
+      "xb",
+      "xbooru"
+    ],
+    "nsfw": true,
+    "api": {
+      "search": "/index.php?page=dapi&s=post&q=index&json=1&",
+      "postView": "/index.php?page=post&s=view&json=1&id="
+    },
+    "paginate": "pid",
+    "random": false
+  },
+  "behoimi.org": {
+    "domain": "behoimi.org",
+    "aliases": [
+      "3d",
+      "3dbooru"
+    ],
+    "nsfw": true,
+    "api": {
+      "search": "/post/index.json?",
+      "postView": "/post/show/"
+    },
+    "insecure": true,
+    "random": true
+  },
+  "hypnohub.net": {
+    "domain": "hypnohub.net",
+    "aliases": [
+      "hh",
+      "hypno",
+      "hypnohub"
+    ],
+    "nsfw": true,
+    "api": {
+      "search": "/index.php?page=dapi&s=post&q=index&json=1&",
+      "postView": "/post/show/"
+    },
+    "paginate": "pid",
+    "random": false
+  },
+  "rule34.paheal.net": {
+    "domain": "rule34.paheal.net",
+    "type": "xml",
+    "aliases": [
+      "pa",
+      "paheal"
+    ],
+    "nsfw": true,
+    "api": {
+      "search": "/api/danbooru/find_posts?",
+      "postView": "/post/view/"
+    },
+    "random": false
+  },
+  "derpibooru.org": {
+    "domain": "derpibooru.org",
+    "type": "derpi",
+    "aliases": [
+      "dp",
+      "derp",
+      "derpi",
+      "derpibooru"
+    ],
+    "nsfw": true,
+    "api": {
+      "search": "/api/v1/json/search/images?",
+      "postView": "/images/"
+    },
+    "tagQuery": "q",
+    "tagJoin": ",",
+    "random": "sf=random"
+  },
+  "realbooru.com": {
+    "domain": "realbooru.com",
+    "aliases": [
+      "rb",
+      "realbooru"
+    ],
+    "nsfw": true,
+    "api": {
+      "search": "/index.php?page=dapi&s=post&q=index&json=1&",
+      "postView": "/index.php?page=post&s=view&id="
+    },
+    "paginate": "pid",
+    "random": false
+  },
+  "e621.net": {
+    "domain": "e621.net",
+    "aliases": [
+      "e6",
+      "e621"
+    ],
+    "nsfw": true,
+    "api": {
+      "search": "/posts.json?",
+      "postView": "/post/show/"
+    },
+    "random": true
+  },
+  "e926.net": {
+    "domain": "e926.net",
+    "aliases": [
+      "e9",
+      "e926"
+    ],
+    "nsfw": false,
+    "api": {
+      "search": "/posts.json?",
+      "postView": "/post/show/"
+    },
+    "random": true,
+    "defaultTags": [
+      "rating:safe"
+    ]
+  },
+  "booru.allthefallen.moe": {
+    "domain": "booru.allthefallen.moe",
+    "aliases": [
+      "atf",
+      "atfbooru"
+    ],
+    "nsfw": true,
+    "api": {
+      "search": "/posts.json?",
+      "postView": "/posts/"
+    },
+    "random": true
+  },
+  "aibooru.online": {
+    "domain": "aibooru.online",
+    "aliases": [
+      "ai",
+      "aibooru"
+    ],
+    "nsfw": true,
+    "api": {
+      "search": "/posts.json?",
+      "postView": "/posts/"
+    },
+    "random": true
+  }
+}
