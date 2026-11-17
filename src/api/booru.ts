@@ -9,6 +9,7 @@ import { hentaiclubPresetTags, isHentaiclubList } from './hentaiclub'
 import { huamaoPresetTags, isHuamaoList } from './huamao'
 import { isWallhavenList, wallhavenPresetTags } from './wallhaven'
 import { cinPresetTags, isCinList } from './cin'
+import { isShaonvzhiList, shaonvzhiPresetTags } from './shaonvzhi'
 import { animepictures, realbooru, rule34 } from '@/api'
 import { settings, store } from '@/store'
 
@@ -64,6 +65,8 @@ export const defCompTags = (() => {
   if (isWallhavenList()) return wallhavenPresetTags
   // cin.wtf 没有分类页，候选只能是查询语法，词会整串透传给站内搜索接口
   if (isCinList()) return cinPresetTags
+  // 少女志的候选是站点分类名，进 REST 时会被翻成 categories= / search=
+  if (isShaonvzhiList()) return shaonvzhiPresetTags
   return []
 })()
 

@@ -204,6 +204,15 @@ const MANUAL_SITES: SiteRegistration[] = [
     tagSearch: false,
     match: ['https://galleryepic.com/*', 'https://www.galleryepic.com/*'],
   },
+  // WP 图集站：列表走 REST 30 条/页，分类与搜索都用 REST 参数，帖子页留给站点
+  {
+    key: 'shaonvzhi.top',
+    hosts: ['shaonvzhi.top', 'www.shaonvzhi.top'],
+    navHost: 'shaonvzhi.top',
+    title: '少女志',
+    pageLimit: 30,
+    match: ['https://shaonvzhi.top/*', 'https://www.shaonvzhi.top/*'],
+  },
 ]
 
 /**

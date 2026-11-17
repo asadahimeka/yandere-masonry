@@ -55,6 +55,8 @@ export const siteActions: api.SiteAdapter[] = [
   api.nanairo,
   // galleryepic：cosplay 列表路径分页 25 条/页（无站内搜索），详情弹窗吃 flight 里的全量图集
   api.galleryepic,
+  // 少女志：列表走 WP REST（主题自身的分页只有第一页），详情弹窗吃正文里公开的图集
+  api.shaonvzhi,
   { is: () => true, posts: async () => [] },
 ]
 

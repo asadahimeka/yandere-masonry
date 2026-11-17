@@ -135,6 +135,14 @@ const isGalleryEpicNonListPath = /(^|\.)galleryepic\.com$/.test(location.hostnam
   && !GALLERYEPIC_LIST_PATH.test(location.pathname)
 
 /**
+ * 少女志只接管列表型路径（首页、分类页及其 `/page/N`），帖子 `/17656`、
+ * `/users/*`、`/gold` 等必须原样留给站点。形态与 `src/api/shaonvzhi.ts` 的 `LIST_PATH_RE` 一致。
+ */
+const SHAONVZHI_LIST_PATH = /^\/(?:|page\/\d+|(?:cosplay|free_cosplay|shaonvxiezhen|shaonvheji|all_photo)(?:\/page\/\d+)?)\/?$/
+const isShaonvzhiNonListPath = /(^|\.)shaonvzhi\.top$/.test(location.hostname)
+  && !SHAONVZHI_LIST_PATH.test(location.pathname)
+
+/**
  * 把 cin.wtf 自己的搜索链接翻成我们的形态。
  *
  * 站点链接长这样：`/search?query=imouto&tags=tags%3Asister&popular=popular-weekly&page=1`，
@@ -179,6 +187,7 @@ const isDetailPath = isPostDetailPath
   || isCinNonListPath
   || isNanairoNonListPath
   || isGalleryEpicNonListPath
+  || isShaonvzhiNonListPath
 
 const isAutoWf = (() => {
   const params = new URLSearchParams(location.search)
