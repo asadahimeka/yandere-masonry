@@ -557,7 +557,7 @@ import type { Post } from '@himeka/booru'
 import DPlayer from './DPlayer.vue'
 import PostExportTags from './PostExportTags.vue'
 import { debounce, downloadFile, dragElement, fancyboxShow, formatRelativeTime, isURL, showMsg } from '@/utils'
-import { gelbooru, getPostImages, getPostTitle, isCin, realbooru, rule34, zerochan } from '@/api'
+import { gelbooru, getPostImages, getPostTitle, isCin, isNanairo, realbooru, rule34, zerochan } from '@/api'
 import { type PostDetail } from '@/api/moebooru'
 import { addPostToFavorites, isFavBtnShow } from '@/api/fav'
 import { resolvePostDownloadSource } from '@/utils/download-source'
@@ -802,6 +802,14 @@ function toTagsPage(tag: string) {
   }
   if (hentaibooru.is()) {
     window.open(hentaibooruSearchUrl(tag), '_blank', 'noreferrer')
+  }
+  /**
+   * nanairo 的列表只在 `/ja/photos`，站点首页 `/ja` 是视频流、不能接管，
+   * 所以不能走下面那条 `/?_wf=1&tags=` 的通用入口（会得到一个空瀑布流）。
+   */
+  if (isNanairo()) {
+    window.open(`${location.origin}/ja/photos?_wf=1&tags=${encodeURIComponent(tag)}`, '_blank', 'noreferrer')
+    return
   }
   // 其余站点统一走 app 自己的入口：带着 tags 进瀑布流，由各站点适配器去请求
   if (isSupportTagSearch) {

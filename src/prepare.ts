@@ -117,6 +117,15 @@ const isCinNonListPath = /(^|\.)cin\.wtf$/.test(location.hostname)
   && !CIN_LIST_PATH.test(location.pathname)
 
 /**
+ * nanairo.co 只接管写真集列表 `/ja/photos`，单册 `/ja/photos/{id}` 与视频站本体
+ * （`/ja`、`/ja/videos`、`/ja/casts/*`）必须原样留给站点 —— 否则首页会被换成
+ * 一个空瀑布流，而这站的主体恰恰是视频。形态与 `src/api/nanairo.ts` 的 `LIST_PATH` 一致。
+ */
+const NANAIRO_LIST_PATH = /^\/ja\/photos\/?$/
+const isNanairoNonListPath = /(^|\.)nanairo\.co$/.test(location.hostname)
+  && !NANAIRO_LIST_PATH.test(location.pathname)
+
+/**
  * 把 cin.wtf 自己的搜索链接翻成我们的形态。
  *
  * 站点链接长这样：`/search?query=imouto&tags=tags%3Asister&popular=popular-weekly&page=1`，
@@ -156,7 +165,7 @@ function normalizeCinSearchUrl() {
   history.replaceState(history.state, '', url)
 }
 
-const isDetailPath = isPostDetailPath || isSiteNonListPath || isCinNonListPath
+const isDetailPath = isPostDetailPath || isSiteNonListPath || isCinNonListPath || isNanairoNonListPath
 
 const isAutoWf = (() => {
   const params = new URLSearchParams(location.search)

@@ -184,6 +184,16 @@ const MANUAL_SITES: SiteRegistration[] = [
     pageLimit: 25,
     match: ['https://cin.wtf/*'],
   },
+  // 写真集站：只有 `/ja/photos` 是列表（24 条/页），视频与演员页留给站点自己
+  {
+    key: 'nanairo.co',
+    // 没有 www 变体：`https://www.nanairo.co/` 连 TLS 握手都失败
+    hosts: ['nanairo.co'],
+    navHost: 'nanairo.co',
+    title: 'nanairo',
+    pageLimit: 24,
+    match: ['https://nanairo.co/*'],
+  },
 ]
 
 /**

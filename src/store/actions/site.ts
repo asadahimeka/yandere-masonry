@@ -51,6 +51,8 @@ export const siteActions: api.SiteAdapter[] = [
   api.wallhaven,
   // cin.wtf：列表 25 条/页，详情弹窗吃 `/v/{id}` 的 SSR 页数组
   api.cin,
+  // nanairo.co：写真集列表 24 条/页（`?text=` 站内搜索），详情弹窗吃 `/ja/photos/{id}` 的图集
+  api.nanairo,
   { is: () => true, posts: async () => [] },
 ]
 

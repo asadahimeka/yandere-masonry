@@ -191,6 +191,8 @@ function openLink(link: string) {
 function handleLink(link: string) {
   if (link.includes('yande')) return 'https://yande.re/post?_wf=1'
   if (link.includes('behoimi')) return 'http://behoimi.org'
+  // nanairo 的首页 `/ja` 是视频流、不接管，写真集列表在 `/ja/photos`
+  if (link.includes('nanairo')) return 'https://nanairo.co/ja/photos?_wf=1'
   return `https://${link}`
 }
 
