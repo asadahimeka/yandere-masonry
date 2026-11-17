@@ -10,6 +10,7 @@ import { huamaoPresetTags, isHuamaoList } from './huamao'
 import { isWallhavenList, wallhavenPresetTags } from './wallhaven'
 import { cinPresetTags, isCinList } from './cin'
 import { isShaonvzhiList, shaonvzhiPresetTags } from './shaonvzhi'
+import { dimtownPresetTags, isDimtownList } from './dimtown'
 import { animepictures, realbooru, rule34 } from '@/api'
 import { settings, store } from '@/store'
 
@@ -67,6 +68,8 @@ export const defCompTags = (() => {
   if (isCinList()) return cinPresetTags
   // 少女志的候选是站点分类名，进 REST 时会被翻成 categories= / search=
   if (isShaonvzhiList()) return shaonvzhiPresetTags
+  // dimtown 同理：分类名 → category=，其余词 → search=
+  if (isDimtownList()) return dimtownPresetTags
   return []
 })()
 

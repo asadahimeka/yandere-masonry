@@ -213,6 +213,15 @@ const MANUAL_SITES: SiteRegistration[] = [
     pageLimit: 30,
     match: ['https://shaonvzhi.top/*', 'https://www.shaonvzhi.top/*'],
   },
+  // 图集站：列表与详情都吃站内 JSON 接口，30 条/页；接口 CORS 只认 dimtown.com，故不登记 www
+  {
+    key: 'dimtown.com',
+    hosts: ['dimtown.com'],
+    navHost: 'dimtown.com',
+    title: '次元小镇',
+    pageLimit: 30,
+    match: ['https://dimtown.com/*'],
+  },
 ]
 
 /**

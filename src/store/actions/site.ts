@@ -57,6 +57,8 @@ export const siteActions: api.SiteAdapter[] = [
   api.galleryepic,
   // 少女志：列表走 WP REST（主题自身的分页只有第一页），详情弹窗吃正文里公开的图集
   api.shaonvzhi,
+  // dimtown：列表与详情都走站内 JSON 接口（图集不在 HTML 里），30 条/页
+  api.dimtown,
   { is: () => true, posts: async () => [] },
 ]
 

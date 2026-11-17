@@ -59,6 +59,7 @@
 // @match                https://www.galleryepic.com/*
 // @match                https://shaonvzhi.top/*
 // @match                https://www.shaonvzhi.top/*
+// @match                https://dimtown.com/*
 // @homepage             https://www.nanoka.top
 // @source               https://github.com/asadahimeka/yandere-masonry
 // @icon                 https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/f1f6267537a5aff959ee63ec2c9e4e52_4821140735490026106.jpg
@@ -266,6 +267,8 @@ var __publicField = (obj, key, value) => {
   const isGalleryEpicNonListPath = /(^|\.)galleryepic\.com$/.test(location.hostname) && !GALLERYEPIC_LIST_PATH.test(location.pathname);
   const SHAONVZHI_LIST_PATH = /^\/(?:|page\/\d+|(?:cosplay|free_cosplay|shaonvxiezhen|shaonvheji|all_photo)(?:\/page\/\d+)?)\/?$/;
   const isShaonvzhiNonListPath = /(^|\.)shaonvzhi\.top$/.test(location.hostname) && !SHAONVZHI_LIST_PATH.test(location.pathname);
+  const DIMTOWN_LIST_PATH = /^\/(?:|page\/\d+|(?:pixiv-illustration|pixiv-painter|acg-wallpaper|pc-wallpaper|illustration|role-illustration|vip-illustration|cosplay|lolita|jk|hanfu|vipcos|comictx|lolitx|mantx|loverstx|shouban)(?:\/page\/\d+)?)\/?$/;
+  const isDimtownNonListPath = /^dimtown\.com$/.test(location.hostname) && !DIMTOWN_LIST_PATH.test(location.pathname);
   function normalizeCinSearchUrl() {
     if (!/(^|\.)cin\.wtf$/.test(location.hostname) || !/^\/search\/?$/.test(location.pathname))
       return;
@@ -290,7 +293,7 @@ var __publicField = (obj, key, value) => {
       url.searchParams.set("tags", parts.join(" "));
     history.replaceState(history.state, "", url);
   }
-  const isDetailPath = isPostDetailPath || isSiteNonListPath || isCinNonListPath || isNanairoNonListPath || isGalleryEpicNonListPath || isShaonvzhiNonListPath;
+  const isDetailPath = isPostDetailPath || isSiteNonListPath || isCinNonListPath || isNanairoNonListPath || isGalleryEpicNonListPath || isShaonvzhiNonListPath || isDimtownNonListPath;
   const isAutoWf = (() => {
     const params2 = new URLSearchParams(location.search);
     if (params2.get("_wf"))
@@ -7607,6 +7610,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       title: "\u5C11\u5973\u5FD7",
       pageLimit: 30,
       match: ["https://shaonvzhi.top/*", "https://www.shaonvzhi.top/*"]
+    },
+    {
+      key: "dimtown.com",
+      hosts: ["dimtown.com"],
+      navHost: "dimtown.com",
+      title: "\u6B21\u5143\u5C0F\u9547",
+      pageLimit: 30,
+      match: ["https://dimtown.com/*"]
     }
   ];
   function normalizeHost(host) {
@@ -7694,7 +7705,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     return { width, height: DEFAULT_HEIGHT$1 };
   }
-  const CATEGORIES$1 = [
+  const CATEGORIES$2 = [
     { label: "\u65E5\u672C", slug: "japan-gallery", alias: "japan" },
     { label: "\u97E9\u56FD", slug: "korea-gallery", alias: "korea" },
     { label: "\u4E2D\u56FD", slug: "china-gallery", alias: "china" },
@@ -7702,14 +7713,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     { label: "\u6CF0\u56FD", slug: "thailand-gallery", alias: "thailand" }
   ];
   const HOME_ALIASES = ["\u9996\u9875", "home", "all"];
-  const everiaPresetTags = ["\u9996\u9875", ...CATEGORIES$1.map((e) => e.label)];
+  const everiaPresetTags = ["\u9996\u9875", ...CATEGORIES$2.map((e) => e.label)];
   function categoryPathOf(token) {
     const term = token.trim().toLowerCase();
     if (!term)
       return null;
     if (HOME_ALIASES.includes(term))
       return "/";
-    const hit = CATEGORIES$1.find((e) => term === e.label.toLowerCase() || term === e.slug || term === e.alias);
+    const hit = CATEGORIES$2.find((e) => term === e.label.toLowerCase() || term === e.slug || term === e.alias);
     return hit ? `/${hit.slug}/` : null;
   }
   function resolveCategoryPath(tags) {
@@ -7721,7 +7732,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return null;
     return paths[paths.length - 1] ?? null;
   }
-  function listUrl$7(page, tags) {
+  function listUrl$8(page, tags) {
     const suffix = page > 1 ? `page/${page}/` : "";
     const categoryPath = resolveCategoryPath(tags);
     if (categoryPath)
@@ -7774,7 +7785,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     });
   }
   async function fetchListPosts$3(page, tags) {
-    const resp = await fetch(listUrl$7(page, tags));
+    const resp = await fetch(listUrl$8(page, tags));
     if (!resp.ok)
       return [];
     const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
@@ -7925,7 +7936,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return null;
     return paths[paths.length - 1] ?? null;
   }
-  function listUrl$6(page, tags) {
+  function listUrl$7(page, tags) {
     const suffix = page > 1 ? `page/${page}/` : "";
     const rankPath = resolveRankPath(tags);
     if (rankPath)
@@ -7965,7 +7976,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
   }
   async function fetchListPosts$2(page, tags) {
-    const resp = await fetch(listUrl$6(page, tags));
+    const resp = await fetch(listUrl$7(page, tags));
     if (!resp.ok)
       return [];
     const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
@@ -8034,7 +8045,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     imageCache.set(slug, result);
     return result;
   }
-  async function fetchDetail$5(id) {
+  async function fetchDetail$6(id) {
     const slug = id.replace(/-\d+$/, "") || articleSlug();
     const { images, title, tags } = await loadImages(slug);
     if (images.length === 0)
@@ -8077,15 +8088,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       };
     });
   }
-  async function fetchPosts$5(page, tags) {
+  async function fetchPosts$6(page, tags) {
     if (isHentaiCosplayArticle())
       return fetchArticlePosts$1(page);
     return fetchListPosts$2(page, tags);
   }
   const hentaiCosplay = {
     is: isHentaiCosplay,
-    posts: fetchPosts$5,
-    detail: fetchDetail$5
+    posts: fetchPosts$6,
+    detail: fetchDetail$6
   };
   const ORIGIN$6 = "https://www.hentaiclub.net";
   const CHUNK_SIZE$1 = 30;
@@ -8122,7 +8133,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return null;
     return hits[hits.length - 1] ?? null;
   }
-  function listUrl$5(page, sort) {
+  function listUrl$6(page, sort) {
     if (sort) {
       if (sort.path === "/")
         return `${ORIGIN$6}${page > 1 ? `/page/${page}/` : "/"}`;
@@ -8148,14 +8159,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       const resp2 = await fetch(`${ORIGIN$6}/`, { method: "POST", body });
       if (!resp2.ok)
         return [];
-      return parseCards$3(new DOMParser().parseFromString(await resp2.text(), "text/html"));
+      return parseCards$4(new DOMParser().parseFromString(await resp2.text(), "text/html"));
     }
-    const resp = await fetch(listUrl$5(page, sort));
+    const resp = await fetch(listUrl$6(page, sort));
     if (!resp.ok)
       return [];
-    return parseCards$3(new DOMParser().parseFromString(await resp.text(), "text/html"));
+    return parseCards$4(new DOMParser().parseFromString(await resp.text(), "text/html"));
   }
-  function parseCards$3(doc) {
+  function parseCards$4(doc) {
     return Array.from(doc.querySelectorAll(".item")).flatMap((card) => {
       const href = card.querySelector("a.item-link[href]")?.getAttribute("href") ?? "";
       const img = card.querySelector("img.item-img");
@@ -8302,7 +8313,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return null;
     return hits[hits.length - 1] ?? null;
   }
-  function listUrl$4(page, tags) {
+  function listUrl$5(page, tags) {
     const order = resolveOrder(tags);
     const keyword = order ? "" : (tags ?? "").trim();
     const params2 = new URLSearchParams();
@@ -8325,7 +8336,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return raw.replace(/^['"]|['"]$/g, "");
   }
   async function fetchListPosts(page, tags) {
-    const resp = await fetch(listUrl$4(page, tags));
+    const resp = await fetch(listUrl$5(page, tags));
     if (!resp.ok)
       return [];
     const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
@@ -8477,12 +8488,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
   };
   const ORIGIN$4 = "https://wallhaven.cc";
-  const LIST_PATH_RE$2 = /^\/(?:|latest|hot|toplist|random|search)\/?$/;
+  const LIST_PATH_RE$3 = /^\/(?:|latest|hot|toplist|random|search)\/?$/;
   function isWallhaven() {
     return /^(?:www\.)?wallhaven\.cc$/.test(location.hostname);
   }
   function isWallhavenList() {
-    return isWallhaven() && LIST_PATH_RE$2.test(location.pathname);
+    return isWallhaven() && LIST_PATH_RE$3.test(location.pathname);
   }
   const wallhavenPresetTags = ["latest", "hot", "toplist", "random"];
   const SECTION_WORDS = new Set(wallhavenPresetTags);
@@ -8492,7 +8503,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function originalUrl(id, ext) {
     return `https://w.wallhaven.cc/full/${id.slice(0, 2)}/wallhaven-${id}.${ext}`;
   }
-  function listUrl$3(page, tags) {
+  function listUrl$4(page, tags) {
     const word = tags?.trim().toLowerCase();
     if (word && SECTION_WORDS.has(word)) {
       return word === "random" ? `${ORIGIN$4}/random` : `${ORIGIN$4}/${word}?page=${page}`;
@@ -8542,7 +8553,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     };
   }
   async function fetchWallhavenPosts(page, tags) {
-    const resp = await fetch(listUrl$3(page, tags));
+    const resp = await fetch(listUrl$4(page, tags));
     if (!resp.ok)
       return [];
     const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
@@ -8653,25 +8664,25 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return post ? [post] : [];
     });
   }
-  async function fetchPosts$4(page, tags) {
+  async function fetchPosts$5(page, tags) {
     const { query: query2, sort } = parseTags(tags);
     return fetchSearch(page, query2, sort);
   }
-  let detailCache$2 = null;
+  let detailCache$3 = null;
   async function loadDetail(id) {
     const key = `${ORIGIN$3}/v/${id}`;
-    if (detailCache$2?.key === key)
-      return detailCache$2.data;
+    if (detailCache$3?.key === key)
+      return detailCache$3.data;
     const resp = await fetch(key);
     if (!resp.ok)
       return null;
     const data = readNextData(await resp.text());
     if (!data)
       return null;
-    detailCache$2 = { key, data };
+    detailCache$3 = { key, data };
     return data;
   }
-  async function fetchDetail$4(id) {
+  async function fetchDetail$5(id) {
     const data = await loadDetail(id);
     if (!data)
       return {};
@@ -8692,56 +8703,56 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   }
   const cin = {
     is: isCin,
-    posts: fetchPosts$4,
-    detail: fetchDetail$4
+    posts: fetchPosts$5,
+    detail: fetchDetail$5
   };
   const getOrigin = () => location.origin;
-  const PER_PAGE = 30;
+  const PER_PAGE$1 = 30;
   const DEFAULT_WIDTH = 1e3;
   const DEFAULT_HEIGHT = 1500;
   function isShaonvzhi() {
     return /(^|\.)shaonvzhi\.top$/.test(location.hostname);
   }
-  const CATEGORIES = [
+  const CATEGORIES$1 = [
     { id: 4, slug: "cosplay", name: "COSPLAY" },
     { id: 5, slug: "free_cosplay", name: "\u514D\u8D39COS" },
     { id: 2, slug: "shaonvxiezhen", name: "\u5C11\u5973\u5199\u771F" },
     { id: 3, slug: "shaonvheji", name: "\u5C11\u5973\u5408\u96C6" },
     { id: 1, slug: "all_photo", name: "\u5168\u90E8\u56FE\u96C6" }
   ];
-  const shaonvzhiPresetTags = CATEGORIES.map((item) => item.name);
-  const CATEGORY_SLUGS = new Set(CATEGORIES.map((item) => item.slug));
-  const LIST_PATH_RE$1 = new RegExp(`^/(?:|page/\\d+|(?:${[...CATEGORY_SLUGS].join("|")})(?:/page/\\d+)?)/?$`);
+  const shaonvzhiPresetTags = CATEGORIES$1.map((item) => item.name);
+  const CATEGORY_SLUGS = new Set(CATEGORIES$1.map((item) => item.slug));
+  const LIST_PATH_RE$2 = new RegExp(`^/(?:|page/\\d+|(?:${[...CATEGORY_SLUGS].join("|")})(?:/page/\\d+)?)/?$`);
   function isShaonvzhiList() {
-    return isShaonvzhi() && LIST_PATH_RE$1.test(location.pathname);
+    return isShaonvzhi() && LIST_PATH_RE$2.test(location.pathname);
   }
-  function pathCategoryId() {
+  function pathCategoryId$1() {
     const slug = location.pathname.split("/").filter(Boolean)[0];
     if (!slug || slug === "page")
       return null;
-    return CATEGORIES.find((item) => item.slug === slug)?.id ?? null;
+    return CATEGORIES$1.find((item) => item.slug === slug)?.id ?? null;
   }
-  function categoryIdOf(token) {
+  function categoryIdOf$1(token) {
     const term = token.trim().toLowerCase();
     if (!term)
       return null;
-    const hit = CATEGORIES.find((item) => term === item.slug || term === item.name.toLowerCase());
+    const hit = CATEGORIES$1.find((item) => term === item.slug || term === item.name.toLowerCase());
     return hit?.id ?? null;
   }
-  function listUrl$2(page, tags) {
+  function listUrl$3(page, tags) {
     const params2 = new URLSearchParams({
-      per_page: String(PER_PAGE),
+      per_page: String(PER_PAGE$1),
       page: String(page),
       _fields: "id,link,title,date,categories,featured_media"
     });
     const word = (tags ?? "").trim();
-    const categoryId = categoryIdOf(word);
+    const categoryId = categoryIdOf$1(word);
     if (categoryId)
       params2.set("categories", String(categoryId));
     else if (word)
       params2.set("search", word);
     else {
-      const fromPath = pathCategoryId();
+      const fromPath = pathCategoryId$1();
       if (fromPath)
         params2.set("categories", String(fromPath));
     }
@@ -8805,7 +8816,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return 0;
     return matches.reduce((sum, m) => sum + Number(m[1]), 0);
   }
-  function parseCards$2(rows, covers) {
+  function parseCards$3(rows, covers) {
     return rows.flatMap((row) => {
       const id = String(row.id);
       const previewUrl = covers.get(row.featured_media) || fallbackCovers.get(id) || "";
@@ -8833,8 +8844,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }];
     });
   }
-  async function fetchPosts$3(page, tags) {
-    const resp = await fetch(listUrl$2(page, tags));
+  async function fetchPosts$4(page, tags) {
+    const resp = await fetch(listUrl$3(page, tags));
     if (!resp.ok)
       return [];
     const rows = await resp.json();
@@ -8842,12 +8853,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return [];
     const covers = await coverUrls(rows.map((row) => row.featured_media).filter(Boolean));
     await fillMissingCovers(rows, covers);
-    return parseCards$2(rows, covers);
+    return parseCards$3(rows, covers);
   }
-  let detailCache$1 = null;
-  async function fetchDetail$3(id) {
-    if (detailCache$1?.id === id)
-      return detailCache$1.data;
+  let detailCache$2 = null;
+  async function fetchDetail$4(id) {
+    if (detailCache$2?.id === id)
+      return detailCache$2.data;
     const resp = await fetch(`${getOrigin()}/${id}`);
     if (!resp.ok)
       return {};
@@ -8869,11 +8880,148 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const tags = keywords.split(",").map((tag2) => tag2.trim()).filter(Boolean);
     const title = doc.title.replace(/\s*-\s*少女志\s*$/, "").trim();
     const data = images.length ? { fileUrl: images[0].fileUrl, tags, source: `${getOrigin()}/${id}`, images, title } : { tags, source: `${getOrigin()}/${id}`, title };
-    detailCache$1 = { id, data };
+    detailCache$2 = { id, data };
     return data;
   }
   const shaonvzhi = {
     is: isShaonvzhiList,
+    posts: fetchPosts$4,
+    detail: fetchDetail$4
+  };
+  const SITE = "https://dimtown.com";
+  const API = "https://data.dimapi.com/wp-json/dimtown/v1";
+  const PER_PAGE = 30;
+  function isDimtown() {
+    return location.hostname === "dimtown.com";
+  }
+  const CATEGORIES = [
+    { id: 238, slug: "pixiv-illustration", name: "P\u7AD9\u7F8E\u56FE" },
+    { id: 32, slug: "pixiv-painter", name: "P\u7AD9\u753B\u5E08" },
+    { id: 25, slug: "acg-wallpaper", name: "\u624B\u673A\u58C1\u7EB8" },
+    { id: 23, slug: "pc-wallpaper", name: "\u7535\u8111\u58C1\u7EB8" },
+    { id: 780, slug: "illustration", name: "\u63D2\u753B" },
+    { id: 4126, slug: "role-illustration", name: "\u89D2\u8272\u7279\u8F91" },
+    { id: 3723, slug: "vip-illustration", name: "\u7CBE\u9009\u63D2\u753B" },
+    { id: 8, slug: "cosplay", name: "COSPLAY" },
+    { id: 965, slug: "lolita", name: "LOLITA" },
+    { id: 964, slug: "jk", name: "JK" },
+    { id: 966, slug: "hanfu", name: "\u6C49\u670D" },
+    { id: 2827, slug: "vipcos", name: "COS\u7CBE\u9009" },
+    { id: 650, slug: "comictx", name: "\u52A8\u6F2B\u5934\u50CF" },
+    { id: 649, slug: "lolitx", name: "\u5973\u751F\u5934\u50CF" },
+    { id: 648, slug: "mantx", name: "\u7537\u751F\u5934\u50CF" },
+    { id: 651, slug: "loverstx", name: "\u60C5\u4FA3\u5934\u50CF" },
+    { id: 777, slug: "shouban", name: "\u624B\u529E" }
+  ];
+  const dimtownPresetTags = ["P\u7AD9\u7F8E\u56FE", "COSPLAY", "\u624B\u673A\u58C1\u7EB8", "\u7535\u8111\u58C1\u7EB8", "JK", "LOLITA", "\u6C49\u670D", "\u624B\u529E"];
+  const SLUGS = new Set(CATEGORIES.map((item) => item.slug));
+  const LIST_PATH_RE$1 = new RegExp(`^/(?:|page/\\d+|(?:${[...SLUGS].join("|")})(?:/page/\\d+)?)/?$`);
+  function isDimtownList() {
+    return isDimtown() && LIST_PATH_RE$1.test(location.pathname);
+  }
+  function pathCategoryId() {
+    const slug = location.pathname.split("/").filter(Boolean)[0];
+    if (!slug || slug === "page")
+      return null;
+    return CATEGORIES.find((item) => item.slug === slug)?.id ?? null;
+  }
+  function categoryIdOf(token) {
+    const term = token.trim().toLowerCase();
+    if (!term)
+      return null;
+    const hit = CATEGORIES.find((item) => term === item.slug || term === item.name.toLowerCase());
+    return hit?.id ?? null;
+  }
+  function listUrl$2(page, tags) {
+    const params2 = new URLSearchParams({ page: String(page), per_page: String(PER_PAGE) });
+    const word = (tags ?? "").trim();
+    const categoryId = categoryIdOf(word);
+    if (categoryId)
+      params2.set("category", String(categoryId));
+    else if (word)
+      params2.set("search", word);
+    else {
+      const fromPath = pathCategoryId();
+      if (fromPath)
+        params2.set("category", String(fromPath));
+    }
+    return `${API}/posts?${params2}`;
+  }
+  function parseCards$2(items) {
+    return items.flatMap((item) => {
+      const previewUrl = item.featured_media?.preview_url || item.featured_media?.url || "";
+      if (!previewUrl)
+        return [];
+      const width = Number(item.featured_media?.width) || 680;
+      const height = Number(item.featured_media?.height) || 891;
+      const id = String(item.id);
+      const title = item.title ?? "";
+      const categories = (item.terms?.categories ?? []).map((term) => term.name).filter(Boolean);
+      return [{
+        id,
+        postView: item.url || `${SITE}/${id}.html`,
+        previewUrl,
+        fileUrl: "",
+        tags: categories,
+        rating: "e",
+        mediaCount: Number(item.gallery?.image_count) || 0,
+        images: [],
+        width,
+        height,
+        aspectRatio: width / height,
+        createdAt: item.published_at ? new Date(item.published_at) : null,
+        title,
+        fileExt: "webp",
+        fileDownloadName: `dimtown ${id} ${title}`.slice(0, 90),
+        fileDownloadText: "[webp]"
+      }];
+    });
+  }
+  async function fetchPosts$3(page, tags) {
+    const resp = await fetch(listUrl$2(page, tags));
+    if (!resp.ok)
+      return [];
+    const body = await resp.json();
+    const items = body?.data;
+    if (!Array.isArray(items) || items.length === 0)
+      return [];
+    return parseCards$2(items);
+  }
+  let detailCache$1 = null;
+  async function fetchDetail$3(id) {
+    if (detailCache$1?.id === id)
+      return detailCache$1.data;
+    const resp = await fetch(`${API}/posts/${id}`);
+    if (!resp.ok)
+      return {};
+    const body = await resp.json();
+    const post = body?.data;
+    if (!post)
+      return {};
+    const images = (post.galleries ?? []).flatMap(
+      (gallery) => (gallery.images ?? []).map((image) => ({
+        fileUrl: image.preview_url,
+        previewUrl: image.preview_url,
+        width: Number(image.width) || 950,
+        height: Number(image.height) || 1400
+      }))
+    ).filter((image) => !!image.fileUrl);
+    const tags = [
+      ...(post.terms?.categories ?? []).map((term) => term.name),
+      ...(post.terms?.tags ?? []).map((term) => term.name)
+    ].filter(Boolean);
+    const data = images.length ? {
+      fileUrl: images[0].fileUrl,
+      tags,
+      source: post.url || `${SITE}/${id}.html`,
+      images,
+      title: post.title ?? ""
+    } : { tags, source: post.url || `${SITE}/${id}.html`, title: post.title ?? "" };
+    detailCache$1 = { id, data };
+    return data;
+  }
+  const dimtown = {
+    is: isDimtownList,
     posts: fetchPosts$3,
     detail: fetchDetail$3
   };
@@ -8942,6 +9090,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return cinPresetTags;
     if (isShaonvzhiList())
       return shaonvzhiPresetTags;
+    if (isDimtownList())
+      return dimtownPresetTags;
     return [];
   })();
   function getSiteTitle(domain2 = location.host) {
@@ -10616,6 +10766,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     nanairo,
     galleryepic,
     shaonvzhi,
+    dimtown,
     { is: () => true, posts: async () => [] }
   ];
   function getFirstPageNo(params2) {

@@ -143,6 +143,14 @@ const isShaonvzhiNonListPath = /(^|\.)shaonvzhi\.top$/.test(location.hostname)
   && !SHAONVZHI_LIST_PATH.test(location.pathname)
 
 /**
+ * 次元小镇的列表是首页、分类 slug 页及其 `/page/N`；帖子 `/{id}.html`、
+ * `/user.html`、`/search` 等留给站点。形态与 `src/api/dimtown.ts` 的 `LIST_PATH_RE` 一致。
+ */
+const DIMTOWN_LIST_PATH = /^\/(?:|page\/\d+|(?:pixiv-illustration|pixiv-painter|acg-wallpaper|pc-wallpaper|illustration|role-illustration|vip-illustration|cosplay|lolita|jk|hanfu|vipcos|comictx|lolitx|mantx|loverstx|shouban)(?:\/page\/\d+)?)\/?$/
+const isDimtownNonListPath = /^dimtown\.com$/.test(location.hostname)
+  && !DIMTOWN_LIST_PATH.test(location.pathname)
+
+/**
  * 把 cin.wtf 自己的搜索链接翻成我们的形态。
  *
  * 站点链接长这样：`/search?query=imouto&tags=tags%3Asister&popular=popular-weekly&page=1`，
@@ -188,6 +196,7 @@ const isDetailPath = isPostDetailPath
   || isNanairoNonListPath
   || isGalleryEpicNonListPath
   || isShaonvzhiNonListPath
+  || isDimtownNonListPath
 
 const isAutoWf = (() => {
   const params = new URLSearchParams(location.search)
