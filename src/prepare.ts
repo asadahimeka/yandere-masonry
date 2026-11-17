@@ -126,6 +126,15 @@ const isNanairoNonListPath = /(^|\.)nanairo\.co$/.test(location.hostname)
   && !NANAIRO_LIST_PATH.test(location.pathname)
 
 /**
+ * galleryepic 只接管中文列表 `/zh`、`/zh/cosplays/{page}`，其余（`/zh/cosplay/{id}`
+ * 详情、`/zh/coser/*`、`/zh/albums/*`、其他语言版本）必须原样留给站点。
+ * 形态与 `src/api/galleryepic.ts` 的 `LIST_PATH_RE` 一致。
+ */
+const GALLERYEPIC_LIST_PATH = /^\/zh(?:\/cosplays\/\d+)?\/?$/
+const isGalleryEpicNonListPath = /(^|\.)galleryepic\.com$/.test(location.hostname)
+  && !GALLERYEPIC_LIST_PATH.test(location.pathname)
+
+/**
  * 把 cin.wtf 自己的搜索链接翻成我们的形态。
  *
  * 站点链接长这样：`/search?query=imouto&tags=tags%3Asister&popular=popular-weekly&page=1`，
@@ -165,7 +174,11 @@ function normalizeCinSearchUrl() {
   history.replaceState(history.state, '', url)
 }
 
-const isDetailPath = isPostDetailPath || isSiteNonListPath || isCinNonListPath || isNanairoNonListPath
+const isDetailPath = isPostDetailPath
+  || isSiteNonListPath
+  || isCinNonListPath
+  || isNanairoNonListPath
+  || isGalleryEpicNonListPath
 
 const isAutoWf = (() => {
   const params = new URLSearchParams(location.search)

@@ -193,6 +193,8 @@ function handleLink(link: string) {
   if (link.includes('behoimi')) return 'http://behoimi.org'
   // nanairo 的首页 `/ja` 是视频流、不接管，写真集列表在 `/ja/photos`
   if (link.includes('nanairo')) return 'https://nanairo.co/ja/photos?_wf=1'
+  // galleryepic 首页会 302 到 `/en`，只接管中文列表，故直达 `/zh/cosplays/1`
+  if (link.includes('galleryepic')) return 'https://galleryepic.com/zh/cosplays/1?_wf=1'
   return `https://${link}`
 }
 

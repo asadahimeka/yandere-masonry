@@ -53,6 +53,8 @@ export const siteActions: api.SiteAdapter[] = [
   api.cin,
   // nanairo.co：写真集列表 24 条/页（`?text=` 站内搜索），详情弹窗吃 `/ja/photos/{id}` 的图集
   api.nanairo,
+  // galleryepic：cosplay 列表路径分页 25 条/页（无站内搜索），详情弹窗吃 flight 里的全量图集
+  api.galleryepic,
   { is: () => true, posts: async () => [] },
 ]
 

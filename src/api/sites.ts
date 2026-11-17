@@ -194,6 +194,16 @@ const MANUAL_SITES: SiteRegistration[] = [
     pageLimit: 24,
     match: ['https://nanairo.co/*'],
   },
+  // cosplay 站：列表路径分页 25 条/页，图集一次给全；站点没有搜索接口，故关掉 tagSearch
+  {
+    key: 'galleryepic.com',
+    hosts: ['galleryepic.com', 'www.galleryepic.com'],
+    navHost: 'galleryepic.com',
+    title: 'GalleryEpic',
+    pageLimit: 25,
+    tagSearch: false,
+    match: ['https://galleryepic.com/*', 'https://www.galleryepic.com/*'],
+  },
 ]
 
 /**
