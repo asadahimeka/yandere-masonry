@@ -166,6 +166,15 @@ const MANUAL_SITES: SiteRegistration[] = [
     match: ['https://*.huamaobizhi.com/*', 'https://huamaobizhi.com/*'],
     partialSupport: true,
   },
+  // 单图壁纸站：列表 24 条/页，原图地址可由 id 推导，详情页不接管（保持站点自己的查看器）
+  {
+    key: 'wallhaven.cc',
+    hosts: ['wallhaven.cc', 'www.wallhaven.cc'],
+    navHost: 'wallhaven.cc',
+    title: 'Wallhaven',
+    pageLimit: 24,
+    match: ['https://wallhaven.cc/*', 'https://www.wallhaven.cc/*'],
+  },
 ]
 
 /**

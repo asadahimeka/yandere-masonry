@@ -1,6 +1,6 @@
 import type { SearchResults } from '@himeka/booru'
 import { settings } from '@/store'
-import { allgirl, isEveria, isHentaiCosplay, isHentaiclub, nozomila, rule34, szurubooru, uhdpaper } from '@/api'
+import { allgirl, isEveria, isHentaiCosplay, isHentaiclub, isWallhaven, nozomila, rule34, szurubooru, uhdpaper } from '@/api'
 import { BOORU_PAGE_LIMIT, isPidSite } from '@/api/booru'
 import { getCookie } from '@/utils'
 
@@ -35,6 +35,8 @@ export function pushPageState(pageNo: number, latePageQuery = false) {
   // hentai-cosplay-xxx / hentaiclub 同样是路径翻页（page/N/、sort/r15.html/N/），
   // 写 ?page= 既不被站点识别，也会污染地址栏
   if (isHentaiCosplay() || isHentaiclub()) return
+  // wallhaven 的 /random 没有页码概念，写进 URL 只会让刷新后的分页状态失真
+  if (isWallhaven() && location.pathname === '/random') return
   let pageParamName = 'page'
   if (isPidSite()) {
     pageParamName = 'pid'

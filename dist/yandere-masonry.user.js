@@ -51,6 +51,8 @@
 // @match                https://hentaiclub.net/*
 // @match                https://*.huamaobizhi.com/*
 // @match                https://huamaobizhi.com/*
+// @match                https://wallhaven.cc/*
+// @match                https://www.wallhaven.cc/*
 // @homepage             https://www.nanoka.top
 // @source               https://github.com/asadahimeka/yandere-masonry
 // @icon                 https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/f1f6267537a5aff959ee63ec2c9e4e52_4821140735490026106.jpg
@@ -245,7 +247,10 @@ var __publicField = (obj, key, value) => {
     const wfType = initialSettings.masonryLayout || "masonry";
     wfTypeActions[wfType]?.(listEl);
   }
-  const isDetailPath = /^\/posts?\/\d+\/?$/.test(location.pathname);
+  const isPostDetailPath = /^\/posts?\/\d+\/?$/.test(location.pathname);
+  const WALLHAVEN_LIST_PATH = /^\/(?:|latest|hot|toplist|random|search)\/?$/;
+  const isSiteNonListPath = /^(?:www\.)?wallhaven\.cc$/.test(location.hostname) && !WALLHAVEN_LIST_PATH.test(location.pathname);
+  const isDetailPath = isPostDetailPath || isSiteNonListPath;
   const isAutoWf = (() => {
     const params2 = new URLSearchParams(location.search);
     if (params2.get("_wf"))
@@ -7012,12 +7017,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     return booruCache[rSite].search(tags, { limit, random, page, credentials });
   }
-  const ORIGIN$5 = "https://chan.sankakucomplex.com";
+  const ORIGIN$6 = "https://chan.sankakucomplex.com";
   function isSankakuComplexPage() {
     return location.hostname == "chan.sankakucomplex.com";
   }
   const state = {
-    base: `${ORIGIN$5}/cn/posts?auto_page=t`,
+    base: `${ORIGIN$6}/cn/posts?auto_page=t`,
     nextUrl: null,
     nextPage: 0
   };
@@ -7037,7 +7042,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     if (!url)
       return "";
     try {
-      return new URL(url, ORIGIN$5).href;
+      return new URL(url, ORIGIN$6).href;
     } catch {
       return url;
     }
@@ -7071,7 +7076,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     state.nextUrl = getNextPageUrl(doc);
-    state.nextPage = state.nextUrl ? Number(new URL(resolveUrl(state.nextUrl), ORIGIN$5).searchParams.get("page")) || page + 1 : 0;
+    state.nextPage = state.nextUrl ? Number(new URL(resolveUrl(state.nextUrl), ORIGIN$6).searchParams.get("page")) || page + 1 : 0;
     const seen = /* @__PURE__ */ new Set();
     const results = queryAllDeep(doc, ".post-preview").filter((el) => {
       const id = el.getAttribute("data-id");
@@ -7104,7 +7109,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return results;
   }
   async function getSankakuComplexDetail(id) {
-    const url = new URL(`${ORIGIN$5}/cn/posts/${id}`);
+    const url = new URL(`${ORIGIN$6}/cn/posts/${id}`);
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const imgSrc = doc.querySelector("#post-content img")?.src;
@@ -7284,7 +7289,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return ratingMap[token] || token;
     }).filter(Boolean).slice(0, MAX_QUERY_PARTS).join(" ");
   }
-  function originalUrl(sha256, extension) {
+  function originalUrl$1(sha256, extension) {
     return `${location.origin}/files/f${sha256}${extension}`;
   }
   function thumbnailUrl(sha256) {
@@ -7312,7 +7317,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         id,
         postView: `${location.origin}/posts/${p.id}`,
         previewUrl: thumbnailUrl(p.sha256),
-        fileUrl: originalUrl(p.sha256, p.extension),
+        fileUrl: originalUrl$1(p.sha256, p.extension),
         sampleUrl: null,
         width,
         height,
@@ -7334,7 +7339,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return { fileUrl: null, sampleUrl: null, tags: [], source: null };
     }
     return {
-      fileUrl: originalUrl(post.sha256, post.extension),
+      fileUrl: originalUrl$1(post.sha256, post.extension),
       sampleUrl: null,
       tags: Object.keys(post.tags || {}),
       source: post.sources?.[0] || null
@@ -7503,6 +7508,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       pageLimit: 24,
       match: ["https://*.huamaobizhi.com/*", "https://huamaobizhi.com/*"],
       partialSupport: true
+    },
+    {
+      key: "wallhaven.cc",
+      hosts: ["wallhaven.cc", "www.wallhaven.cc"],
+      navHost: "wallhaven.cc",
+      title: "Wallhaven",
+      pageLimit: 24,
+      match: ["https://wallhaven.cc/*", "https://www.wallhaven.cc/*"]
     }
   ];
   function normalizeHost(host) {
@@ -7552,7 +7565,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       ...MANUAL_SITES.filter((site) => site.navHost !== null).map((site) => site.navHost ?? site.key)
     ];
   }
-  const ORIGIN$4 = "https://everia.club";
+  const ORIGIN$5 = "https://everia.club";
   const CHUNK_SIZE$3 = 30;
   const DEFAULT_WIDTH = 1e3;
   const DEFAULT_HEIGHT = 1500;
@@ -7573,7 +7586,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   }
   function toAbsolute$2(url) {
     try {
-      return new URL(url, ORIGIN$4).href;
+      return new URL(url, ORIGIN$5).href;
     } catch {
       return "";
     }
@@ -7617,14 +7630,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return null;
     return paths[paths.length - 1] ?? null;
   }
-  function listUrl$3(page, tags) {
+  function listUrl$4(page, tags) {
     const suffix = page > 1 ? `page/${page}/` : "";
     const categoryPath = resolveCategoryPath(tags);
     if (categoryPath)
-      return `${ORIGIN$4}${categoryPath}${suffix}`;
+      return `${ORIGIN$5}${categoryPath}${suffix}`;
     const keyword = (tags ?? new URLSearchParams(location.search).get("s") ?? "").trim();
     if (keyword)
-      return `${ORIGIN$4}/${suffix}?s=${encodeURIComponent(keyword)}`;
+      return `${ORIGIN$5}/${suffix}?s=${encodeURIComponent(keyword)}`;
     const url = new URL(location.href);
     url.searchParams.delete("page");
     url.searchParams.delete("tags");
@@ -7670,7 +7683,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     });
   }
   async function fetchListPosts$3(page, tags) {
-    const resp = await fetch(listUrl$3(page, tags));
+    const resp = await fetch(listUrl$4(page, tags));
     if (!resp.ok)
       return [];
     const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
@@ -7712,7 +7725,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const slug = articleSlug$1();
     if (!slug)
       return null;
-    const url = `${ORIGIN$4}/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_fields=id,title,content`;
+    const url = `${ORIGIN$5}/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_fields=id,title,content`;
     const resp = await fetch(url);
     if (!resp.ok)
       return null;
@@ -7775,7 +7788,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       detail: fetchArticleDetail$1
     }
   };
-  const ORIGIN$3 = "https://hentai-cosplay-xxx.com";
+  const ORIGIN$4 = "https://hentai-cosplay-xxx.com";
   const CHUNK_SIZE$2 = 30;
   const WIDTH$1 = 1280;
   const HEIGHT$1 = 1707;
@@ -7791,7 +7804,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   }
   function toAbsolute$1(url) {
     try {
-      return new URL(url, ORIGIN$3).href;
+      return new URL(url, ORIGIN$4).href;
     } catch {
       return "";
     }
@@ -7821,17 +7834,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return null;
     return paths[paths.length - 1] ?? null;
   }
-  function listUrl$2(page, tags) {
+  function listUrl$3(page, tags) {
     const suffix = page > 1 ? `page/${page}/` : "";
     const rankPath = resolveRankPath(tags);
     if (rankPath)
-      return `${ORIGIN$3}${rankPath}${suffix}`;
+      return `${ORIGIN$4}${rankPath}${suffix}`;
     const keyword = (tags ?? "").trim();
     if (keyword)
-      return `${ORIGIN$3}/search/keyword/${encodeURIComponent(keyword)}/${suffix}`;
+      return `${ORIGIN$4}/search/keyword/${encodeURIComponent(keyword)}/${suffix}`;
     const path = location.pathname.replace(/\/page\/\d+\/?$/, "/");
     const base = path === "/" ? "/search/" : path;
-    return `${ORIGIN$3}${base.replace(/\/$/, "")}/${suffix}`;
+    return `${ORIGIN$4}${base.replace(/\/$/, "")}/${suffix}`;
   }
   function buildListPost(opts) {
     const { id, href, previewUrl, title, createdAt } = opts;
@@ -7861,7 +7874,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
   }
   async function fetchListPosts$2(page, tags) {
-    const resp = await fetch(listUrl$2(page, tags));
+    const resp = await fetch(listUrl$3(page, tags));
     if (!resp.ok)
       return [];
     const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
@@ -7904,7 +7917,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     if (cached)
       return cached;
     const empty = { images: [], title: "", tags: [] };
-    const resp = await fetch(`${ORIGIN$3}/image/${encodeURIComponent(slug)}/`);
+    const resp = await fetch(`${ORIGIN$4}/image/${encodeURIComponent(slug)}/`);
     if (!resp.ok)
       return empty;
     const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
@@ -7983,7 +7996,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     posts: fetchPosts$1,
     detail: fetchDetail$1
   };
-  const ORIGIN$2 = "https://www.hentaiclub.net";
+  const ORIGIN$3 = "https://www.hentaiclub.net";
   const CHUNK_SIZE$1 = 30;
   const WIDTH = 1440;
   const HEIGHT = 2160;
@@ -8018,18 +8031,18 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return null;
     return hits[hits.length - 1] ?? null;
   }
-  function listUrl$1(page, sort) {
+  function listUrl$2(page, sort) {
     if (sort) {
       if (sort.path === "/")
-        return `${ORIGIN$2}${page > 1 ? `/page/${page}/` : "/"}`;
-      return `${ORIGIN$2}${sort.path}${page > 1 ? `/${page}/` : ""}`;
+        return `${ORIGIN$3}${page > 1 ? `/page/${page}/` : "/"}`;
+      return `${ORIGIN$3}${sort.path}${page > 1 ? `/${page}/` : ""}`;
     }
     const base = location.pathname.replace(/\/(?:\d+)\/?$/, "/");
     if (base === "/" || location.pathname.startsWith("/page/")) {
-      return `${ORIGIN$2}${page > 1 ? `/page/${page}/` : "/"}`;
+      return `${ORIGIN$3}${page > 1 ? `/page/${page}/` : "/"}`;
     }
     const trimmed = base.replace(/\/$/, "");
-    return `${ORIGIN$2}${trimmed}${page > 1 ? `/${page}/` : ""}`;
+    return `${ORIGIN$3}${trimmed}${page > 1 ? `/${page}/` : ""}`;
   }
   function parseCount$1(text) {
     return Number(text?.match(/\[(\d+)P\]/i)?.[1] ?? 0) || 1;
@@ -8041,12 +8054,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       if (page > 1)
         return [];
       const body = new URLSearchParams({ s: tokens.join(" ") });
-      const resp2 = await fetch(`${ORIGIN$2}/`, { method: "POST", body });
+      const resp2 = await fetch(`${ORIGIN$3}/`, { method: "POST", body });
       if (!resp2.ok)
         return [];
       return parseCards(new DOMParser().parseFromString(await resp2.text(), "text/html"));
     }
-    const resp = await fetch(listUrl$1(page, sort));
+    const resp = await fetch(listUrl$2(page, sort));
     if (!resp.ok)
       return [];
     return parseCards(new DOMParser().parseFromString(await resp.text(), "text/html"));
@@ -8091,7 +8104,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const postId = articleId();
     if (!postId)
       return null;
-    const resp = await fetch(`${ORIGIN$2}${location.pathname}`);
+    const resp = await fetch(`${ORIGIN$3}${location.pathname}`);
     if (!resp.ok)
       return null;
     const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
@@ -8153,7 +8166,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       detail: fetchArticleDetail
     }
   };
-  const ORIGIN$1 = "https://en.huamaobizhi.com";
+  const ORIGIN$2 = "https://en.huamaobizhi.com";
   const LANG = "lang=zh-CN";
   const CHUNK_SIZE = 30;
   const THUMB_SEGMENT = "/280h/";
@@ -8170,7 +8183,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   }
   function toAbsolute(url) {
     try {
-      return new URL(url, ORIGIN$1).href;
+      return new URL(url, ORIGIN$2).href;
     } catch {
       return "";
     }
@@ -8198,7 +8211,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return null;
     return hits[hits.length - 1] ?? null;
   }
-  function listUrl(page, tags) {
+  function listUrl$1(page, tags) {
     const order = resolveOrder(tags);
     const keyword = order ? "" : (tags ?? "").trim();
     const params2 = new URLSearchParams();
@@ -8209,7 +8222,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     if (order)
       params2.set("order_by", String(order.orderBy));
     const query2 = [params2.toString(), LANG].filter(Boolean).join("&");
-    return `${ORIGIN$1}/mixs/?${query2}`;
+    return `${ORIGIN$2}/mixs/?${query2}`;
   }
   function parseCount(text) {
     return Number(text?.match(/(\d+)\s*图片/)?.[1] ?? 0);
@@ -8221,7 +8234,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return raw.replace(/^['"]|['"]$/g, "");
   }
   async function fetchListPosts(page, tags) {
-    const resp = await fetch(listUrl(page, tags));
+    const resp = await fetch(listUrl$1(page, tags));
     if (!resp.ok)
       return [];
     const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
@@ -8258,7 +8271,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return location.pathname.match(MIX_PATH)?.[1] ?? "";
   }
   function mixPageUrl(id, page) {
-    return `${ORIGIN$1}/mix/${id}?page=${page}&order_by=2&purity=2&${LANG}`;
+    return `${ORIGIN$2}/mix/${id}?page=${page}&order_by=2&purity=2&${LANG}`;
   }
   function sizeFromTitle(title) {
     const m = title?.match(/(\d{3,5})[×x](\d{3,5})/);
@@ -8284,7 +8297,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     });
   }
   function maxPageOf(doc) {
-    const pages = Array.from(doc.querySelectorAll('.pagination a[href*="page="]')).map((a) => Number(new URL(a.href, ORIGIN$1).searchParams.get("page"))).filter((n) => Number.isFinite(n) && n > 0);
+    const pages = Array.from(doc.querySelectorAll('.pagination a[href*="page="]')).map((a) => Number(new URL(a.href, ORIGIN$2).searchParams.get("page"))).filter((n) => Number.isFinite(n) && n > 0);
     return Math.max(1, ...pages);
   }
   async function loadMix(id) {
@@ -8372,6 +8385,93 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       detail: fetchMixDetail
     }
   };
+  const ORIGIN$1 = "https://wallhaven.cc";
+  const LIST_PATH_RE = /^\/(?:|latest|hot|toplist|random|search)\/?$/;
+  function isWallhaven() {
+    return /^(?:www\.)?wallhaven\.cc$/.test(location.hostname);
+  }
+  function isWallhavenList() {
+    return isWallhaven() && LIST_PATH_RE.test(location.pathname);
+  }
+  const wallhavenPresetTags = ["latest", "hot", "toplist", "random"];
+  const SECTION_WORDS = new Set(wallhavenPresetTags);
+  function thumbUrl(id, kind) {
+    return `https://th.wallhaven.cc/${kind}/${id.slice(0, 2)}/${id}.jpg`;
+  }
+  function originalUrl(id, ext) {
+    return `https://w.wallhaven.cc/full/${id.slice(0, 2)}/wallhaven-${id}.${ext}`;
+  }
+  function listUrl(page, tags) {
+    const word = tags?.trim().toLowerCase();
+    if (word && SECTION_WORDS.has(word)) {
+      return word === "random" ? `${ORIGIN$1}/random` : `${ORIGIN$1}/${word}?page=${page}`;
+    }
+    if (word) {
+      const q = word.split(/\s+/).map(encodeURIComponent).join("+");
+      return `${ORIGIN$1}/search?q=${q}&page=${page}`;
+    }
+    const url = new URL(location.href);
+    url.searchParams.delete("page");
+    if (url.pathname === "/")
+      url.pathname = "/latest";
+    url.searchParams.set("page", page.toString());
+    return url.href;
+  }
+  function parseCard$1(el) {
+    const id = el.getAttribute("data-wallpaper-id");
+    if (!id)
+      return null;
+    const res = /(\d+)\s*x\s*(\d+)/.exec(el.querySelector(".wall-res")?.textContent || "");
+    if (!res)
+      return null;
+    const width = Number(res[1]);
+    const height = Number(res[2]);
+    if (!width || !height)
+      return null;
+    const cls = el.className;
+    const rating = /thumb-nsfw/.test(cls) ? "e" : /thumb-sketchy/.test(cls) ? "q" : "s";
+    const fileExt = el.querySelector(".png") ? "png" : "jpg";
+    const isWidescreen = Math.abs(width / height - 16 / 9) < 0.01;
+    const previewUrl = thumbUrl(id, isWidescreen ? "lg" : "orig");
+    const postView = el.querySelector("a.preview")?.href || `${ORIGIN$1}/w/${id}`;
+    return {
+      id,
+      postView,
+      previewUrl,
+      sampleUrl: originalUrl(id, fileExt),
+      fileUrl: originalUrl(id, fileExt),
+      tags: [],
+      width,
+      height,
+      aspectRatio: width / height,
+      fileExt,
+      fileDownloadName: `wallhaven-${id}`,
+      rating,
+      score: 0
+    };
+  }
+  async function fetchWallhavenPosts(page, tags) {
+    const resp = await fetch(listUrl(page, tags));
+    if (!resp.ok)
+      return [];
+    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
+    return [...doc.querySelectorAll("#thumbs figure[data-wallpaper-id]")].map(parseCard$1).filter(Boolean);
+  }
+  async function fetchWallhavenDetail(id) {
+    const resp = await fetch(`${ORIGIN$1}/w/${id}`);
+    if (!resp.ok)
+      return {};
+    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
+    const tags = [...doc.querySelectorAll("#tags li a.tagname")].map((a) => (a.textContent || "").trim()).filter(Boolean);
+    const img = doc.querySelector("#wallpaper");
+    const fileUrl = img?.getAttribute("src") || null;
+    return { tags, fileUrl, sampleUrl: fileUrl };
+  }
+  const wallhaven = {
+    is: isWallhavenList,
+    posts: fetchWallhavenPosts,
+    detail: fetchWallhavenDetail
+  };
   const siteKeys = getBooruSiteHosts();
   const isBooruSite = () => siteKeys.includes(location.host);
   const siteDomains = getNavDomains();
@@ -8431,6 +8531,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return hentaiclubPresetTags;
     if (isHuamaoList())
       return huamaoPresetTags;
+    if (isWallhavenList())
+      return wallhavenPresetTags;
     return [];
   })();
   function getSiteTitle(domain2 = location.host) {
@@ -9839,6 +9941,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     hentaiclub.post,
     huamao.list,
     huamao.mix,
+    wallhaven,
     { is: () => true, posts: async () => [] }
   ];
   function getFirstPageNo(params2) {
@@ -9867,6 +9970,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     if (isEveria())
       return;
     if (isHentaiCosplay() || isHentaiclub())
+      return;
+    if (isWallhaven() && location.pathname === "/random")
       return;
     let pageParamName = "page";
     if (isPidSite()) {

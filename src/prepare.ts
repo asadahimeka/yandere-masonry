@@ -91,7 +91,20 @@ async function initLayout() {
  * 又被拉回第 1 页列表，且无法回退。这里按路径形态判断，不区分站点：
  * 列表页是 `/posts`、`/post?tags=`、`/posts/query=xxx`，都不会命中。
  */
-const isDetailPath = /^\/posts?\/\d+\/?$/.test(location.pathname)
+const isPostDetailPath = /^\/posts?\/\d+\/?$/.test(location.pathname)
+
+/**
+ * 站点自己的「非列表页」同样不能接管。
+ *
+ * wallhaven 只有 `/latest /hot /toplist /random /search` 这几个路径带缩略图网格，
+ * 单图页 `/w/{id}`、`/user/*`、`/settings`、`/collections` 都必须原样留给站点，
+ * 否则整页会被替换成空瀑布流。形态与 `src/api/wallhaven.ts` 的 `LIST_PATH_RE` 保持一致。
+ */
+const WALLHAVEN_LIST_PATH = /^\/(?:|latest|hot|toplist|random|search)\/?$/
+const isSiteNonListPath = /^(?:www\.)?wallhaven\.cc$/.test(location.hostname)
+  && !WALLHAVEN_LIST_PATH.test(location.pathname)
+
+const isDetailPath = isPostDetailPath || isSiteNonListPath
 
 const isAutoWf = (() => {
   const params = new URLSearchParams(location.search)

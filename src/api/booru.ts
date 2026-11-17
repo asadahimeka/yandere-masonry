@@ -7,6 +7,7 @@ import { everiaPresetTags, isEveriaList } from './everia'
 import { hentaiCosplayPresetTags, isHentaiCosplayList } from './hentaicosplay'
 import { hentaiclubPresetTags, isHentaiclubList } from './hentaiclub'
 import { huamaoPresetTags, isHuamaoList } from './huamao'
+import { isWallhavenList, wallhavenPresetTags } from './wallhaven'
 import { animepictures, realbooru, rule34 } from '@/api'
 import { settings, store } from '@/store'
 
@@ -58,6 +59,8 @@ export const defCompTags = (() => {
   if (isHentaiCosplayList()) return hentaiCosplayPresetTags
   if (isHentaiclubList()) return hentaiclubPresetTags
   if (isHuamaoList()) return huamaoPresetTags
+  // wallhaven 有站内搜索，预设词是分区入口（latest / hot / toplist / random）
+  if (isWallhavenList()) return wallhavenPresetTags
   return []
 })()
 
