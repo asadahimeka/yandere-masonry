@@ -30,4 +30,5 @@ export { shaonvzhi, isShaonvzhi, isShaonvzhiList, shaonvzhiPresetTags } from './
 export { szurubooru } from './szurubooru'
 export { uhdpaper } from './uhdpaper'
 export { wallhaven, isWallhaven, isWallhavenList, wallhavenPresetTags } from './wallhaven'
+export { wnacg, isWnacg, isWnacgList } from './wnacg'
 export { zerochan } from './zerochan'

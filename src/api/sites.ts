@@ -231,6 +231,15 @@ const MANUAL_SITES: SiteRegistration[] = [
     pageLimit: 20,
     match: ['https://misskon.com/*'],
   },
+  // 绅士漫画：只接管列表（20 条/页），图集页与看图页留给站点
+  {
+    key: 'wnacg.com',
+    hosts: ['www.wnacg.com', 'wnacg.com'],
+    navHost: 'www.wnacg.com',
+    title: '紳士漫畫',
+    pageLimit: 20,
+    match: ['https://www.wnacg.com/*', 'https://wnacg.com/*'],
+  },
 ]
 
 /**

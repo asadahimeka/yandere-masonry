@@ -159,6 +159,20 @@ const isMisskonNonListPath = /^misskon\.com$/.test(location.hostname)
   && MISSKON_POST_PATH.test(location.pathname)
 
 /**
+ * wnacg 只接管列表（`/albums*.html`、`/search`），图集页 `/photos-index-aid-N.html`
+ * 与看图页 `/photos-view-id-N.html` 必须原样留给站点 —— 一页一张原图，接管了反而没法读。
+ * 形态与 `src/api/wnacg.ts` 的 `isWnacgList` 一致。
+ */
+function isWnacgNonListPath() {
+  if (!/(^|\.)wnacg\.com$/.test(location.hostname)) return false
+  const { pathname } = location
+  if (pathname === '/' || pathname === '/albums.html') return false
+  if (/^\/albums-index-(?:page-\d+|cate-\d+(?:-page-\d+)?)\.html$/.test(pathname)) return false
+  if (pathname.startsWith('/search')) return false
+  return true
+}
+
+/**
  * 把 cin.wtf 自己的搜索链接翻成我们的形态。
  *
  * 站点链接长这样：`/search?query=imouto&tags=tags%3Asister&popular=popular-weekly&page=1`，
@@ -206,6 +220,7 @@ const isDetailPath = isPostDetailPath
   || isShaonvzhiNonListPath
   || isDimtownNonListPath
   || isMisskonNonListPath
+  || isWnacgNonListPath()
 
 const isAutoWf = (() => {
   const params = new URLSearchParams(location.search)

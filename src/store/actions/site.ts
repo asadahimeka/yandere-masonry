@@ -61,6 +61,8 @@ export const siteActions: api.SiteAdapter[] = [
   api.dimtown,
   // misskon：WP 站，列表 20 条/页，详情吃 REST 正文里的整篇图集
   api.misskon,
+  // wnacg：只做列表（原图一页一张且带当天签名，批量抓不划算），卡片进站点自己的阅读器
+  api.wnacg,
   { is: () => true, posts: async () => [] },
 ]
 
