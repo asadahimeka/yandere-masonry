@@ -155,5 +155,8 @@
   "szurubooruDomainLabel": "網域（如 https://szuru.example.com）",
   "szurubooruAddConfig": "新增 Szurubooru 站點",
   "autoHideAppBarTitle": "自動隱藏頂欄",
-  "autoHideAppBarSubtitle": "向下捲動時收起頂欄，向上捲動或將滑鼠移到螢幕頂部時展開"
+  "autoHideAppBarSubtitle": "向下捲動時收起頂欄，向上捲動或將滑鼠移到螢幕頂部時展開",
+  "inlinePlayTitle": "播放 / 停止",
+  "inlineHoverPlayTitle": "懸停播放影片/動圖",
+  "inlineHoverPlaySubtitle": "滑鼠懸停在縮圖上時直接在列表裡播放影片和動圖（gif）。檔案較大，注意流量消耗"
 }

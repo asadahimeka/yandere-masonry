@@ -483,6 +483,27 @@
   background: rgba(255, 255, 255, 0.4);
 }
 
+/* 内联播放角标（PostList.vue）：视频/gif 角标可点击切换播放 */
+.posts-image-play {
+  cursor: pointer;
+}
+
+.posts-image-play--on {
+  color: #e040fb !important;
+}
+
+/* 内联播放覆盖层：视频 muted 循环播放 / 动图（gif）换 src，铺满卡片区域；
+   不设 z-index，靠 DOM 顺序让角标/勾选框/操作栏盖在其上 */
+.posts-image-player {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: rgba(0, 0, 0, .85);
+  cursor: pointer;
+}
+
 @media screen and (min-width: 768px) {
   .wf-no-fit-screen {
     max-width: 62.5vw;

@@ -46,6 +46,8 @@ const defaultSettings = {
   isHoldsFalse: false,
   isYandereFetchByHtml: false,
   showListPostReso: false,
+  // 悬停缩略图时内联播放视频/动图（gif）；按钮播放不受此开关控制
+  inlineHoverPlay: false,
   isFitScreen: true,
   isDLSubpath: false,
   autoWaterfall: false,

@@ -155,5 +155,8 @@
   "szurubooruDomainLabel": "域名（如 https://szuru.example.com）",
   "szurubooruAddConfig": "添加 Szurubooru 站点",
   "autoHideAppBarTitle": "自动隐藏顶栏",
-  "autoHideAppBarSubtitle": "向下滚动时收起顶栏，向上滚动或把鼠标移到屏幕顶部时展开"
+  "autoHideAppBarSubtitle": "向下滚动时收起顶栏，向上滚动或把鼠标移到屏幕顶部时展开",
+  "inlinePlayTitle": "播放 / 停止",
+  "inlineHoverPlayTitle": "悬停播放视频/动图",
+  "inlineHoverPlaySubtitle": "鼠标悬停在缩略图上时直接在列表里播放视频和动图（gif）。文件较大，注意流量消耗"
 }

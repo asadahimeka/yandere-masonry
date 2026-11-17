@@ -13,7 +13,11 @@
       style="min-height: 93vh"
     >
       <template #default="{ item, index }">
-        <div class="posts-image-card">
+        <div
+          class="posts-image-card"
+          @mouseenter="onCardHover(item)"
+          @mouseleave="onCardLeave(item.id)"
+        >
           <img
             class="post-image-v"
             alt=""
@@ -24,6 +28,24 @@
             @click="showImgModal(index)"
             @contextmenu="onCtxMenu($event, item)"
             @error="onImageLoadError(item?.id || '')"
+          >
+          <video
+            v-if="playingPost?.id === item.id && playingKind === 'video' && playingSrc"
+            class="posts-image-player"
+            :src="playingSrc"
+            muted
+            loop
+            autoplay
+            playsinline
+            @click.stop="stopInlinePlay()"
+          >
+          </video>
+          <img
+            v-else-if="playingPost?.id === item.id && playingKind === 'anim' && playingSrc"
+            class="posts-image-player"
+            alt=""
+            :src="playingSrc"
+            @click.stop="stopInlinePlay()"
           >
           <template v-if="store.isYKSite">
             <v-icon
@@ -44,16 +66,16 @@
             </v-icon>
           </template>
           <v-icon
-            v-if="item?.fileExt?.toLowerCase() === 'gif'"
-            class="posts-image-type"
+            v-if="getMediaBadge(item)"
+            class="posts-image-type posts-image-play"
+            :class="{ 'posts-image-play--on': playingPost?.id === item.id }"
+            role="button"
+            tabindex="0"
+            :title="canInlinePlay(item) ? $t('inlinePlayTitle') : undefined"
+            @click.stop="toggleInlinePlay(item)"
+            @keydown.enter.prevent="toggleInlinePlay(item)"
           >
-            {{ mdiFileGifBox }}
-          </v-icon>
-          <v-icon
-            v-if="['mp4', 'webm'].includes(item?.fileExt?.toLowerCase())"
-            class="posts-image-type"
-          >
-            {{ mdiVideo }}
+            {{ getMediaBadge(item) }}
           </v-icon>
           <span v-if="getMediaCount(item) > 1" class="posts-image-count">{{ getMediaCount(item) }}</span>
           <div v-if="!isR34Fav && settings.showPostCheckbox" class="posts-image-checkbox">
@@ -83,6 +105,8 @@
         :key="index"
         class="posts-image-card"
         :style="imgCardStyle(image)"
+        @mouseenter="onCardHover(image)"
+        @mouseleave="onCardLeave(image.id)"
       >
         <template v-if="settings.masonryLayout === 'justified'">
           <img
@@ -112,6 +136,24 @@
             </v-row>
           </template>
         </v-img>
+        <video
+          v-if="playingPost?.id === image.id && playingKind === 'video' && playingSrc"
+          class="posts-image-player"
+          :src="playingSrc"
+          muted
+          loop
+          autoplay
+          playsinline
+          @click.stop="stopInlinePlay()"
+        >
+        </video>
+        <img
+          v-else-if="playingPost?.id === image.id && playingKind === 'anim' && playingSrc"
+          class="posts-image-player"
+          alt=""
+          :src="playingSrc"
+          @click.stop="stopInlinePlay()"
+        >
         <template v-if="store.isYKSite">
           <v-icon
             v-if="//@ts-ignore
@@ -131,16 +173,16 @@
           </v-icon>
         </template>
         <v-icon
-          v-if="image?.fileExt?.toLowerCase() === 'gif'"
-          class="posts-image-type"
+          v-if="getMediaBadge(image)"
+          class="posts-image-type posts-image-play"
+          :class="{ 'posts-image-play--on': playingPost?.id === image.id }"
+          role="button"
+          tabindex="0"
+          :title="canInlinePlay(image) ? $t('inlinePlayTitle') : undefined"
+          @click.stop="toggleInlinePlay(image)"
+          @keydown.enter.prevent="toggleInlinePlay(image)"
         >
-          {{ mdiFileGifBox }}
-        </v-icon>
-        <v-icon
-          v-if="['mp4', 'webm'].includes(image?.fileExt?.toLowerCase())"
-          class="posts-image-type"
-        >
-          {{ mdiVideo }}
+          {{ getMediaBadge(image) }}
         </v-icon>
         <span v-if="getMediaCount(image) > 1" class="posts-image-count">{{ getMediaCount(image) }}</span>
         <div v-if="!isR34Fav && settings.showPostCheckbox" class="posts-image-checkbox">
@@ -218,6 +260,8 @@ import { downloadFile, fancyboxShow, notReachBottom, showMsg, throttleScroll } f
 import { getMediaCount, isEveriaList, isHentaiclubList } from '@/api'
 import { isSampleDownloadSupportedSite, notPartialSupportSite } from '@/api/booru'
 import { addPostToFavorites, isFavBtnShow } from '@/api/fav'
+import { canInlinePlay, getInlinePlayKind, getInlinePlaySrc } from '@/utils/inline-play'
+import type { InlinePlayKind } from '@/utils/inline-play'
 import { isRule34FavPage } from '@/api/rule34'
 import { isGelbooruFavPage } from '@/api/gelbooru'
 import { isR34PahealHome } from '@/api/r34-paheal'
@@ -253,6 +297,82 @@ const ctxActPost = ref<Post>()
 const showMenu = ref(false)
 const x = ref(0)
 const y = ref(0)
+
+// ---- 列表内联播放（issue #89）：同一时刻只播一个，按钮播放粘性、hover 播放随鼠标 ----
+const playingPost = ref<Post | null>(null)
+const pinnedPlayId = ref('')
+const hoverPlayId = ref('')
+const playingKind = computed<InlinePlayKind | null>(() => getInlinePlayKind(playingPost.value))
+const playingSrc = computed(() => getInlinePlaySrc(playingPost.value))
+
+let playObserver: IntersectionObserver | null = null
+
+function getMediaBadge(post?: Post) {
+  const ext = post?.fileExt?.toLowerCase()
+  if (ext === 'gif') return mdiFileGifBox
+  if (ext === 'mp4' || ext === 'webm') return mdiVideo
+  return ''
+}
+
+function setPlaying(post: Post) {
+  playingPost.value = post
+  nextTick(observePlayingEl)
+}
+
+function toggleInlinePlay(post?: Post) {
+  const target = post || ctxActPost.value
+  if (!target) return
+  if (playingPost.value?.id === target.id) return stopInlinePlay()
+  if (!canInlinePlay(target)) return
+  pinnedPlayId.value = target.id
+  hoverPlayId.value = ''
+  setPlaying(target)
+}
+
+function onCardHover(post: Post) {
+  if (!settings.inlineHoverPlay) return
+  // 已有播放（含粘性播放）时不抢占
+  if (playingPost.value) return
+  if (!canInlinePlay(post)) return
+  hoverPlayId.value = post.id
+  setPlaying(post)
+}
+
+function onCardLeave(id: string) {
+  if (hoverPlayId.value !== id) return
+  hoverPlayId.value = ''
+  if (!pinnedPlayId.value) stopInlinePlay()
+}
+
+function stopInlinePlay() {
+  playingPost.value = null
+  pinnedPlayId.value = ''
+  hoverPlayId.value = ''
+  unobservePlayingEl()
+}
+
+function observePlayingEl() {
+  unobservePlayingEl()
+  const el = document.querySelector('.posts-image-player')
+  if (!el || typeof IntersectionObserver === 'undefined') return
+  playObserver = new IntersectionObserver(entries => {
+    if (entries.every(e => !e.isIntersecting)) stopInlinePlay()
+  })
+  playObserver.observe(el)
+}
+
+function unobservePlayingEl() {
+  playObserver?.disconnect()
+  playObserver = null
+}
+
+// 打开详情弹窗 / 列表刷新时停止播放
+watch(() => store.showImageSelected, v => {
+  v && stopInlinePlay()
+})
+watch(() => store.imageList, () => {
+  if (playingPost.value && !store.imageList.some(e => e.id === playingPost.value?.id)) stopInlinePlay()
+})
 
 const maxHeightStyle = computed(() => {
   const num = +settings.selectedColumn
@@ -399,5 +519,6 @@ onMounted(async () => {
 
 onUnmounted(() => {
   window.removeEventListener('scroll', scrollFn)
+  unobservePlayingEl()
 })
 </script>

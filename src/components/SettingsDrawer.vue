@@ -396,6 +396,15 @@
           <v-switch v-model="settings.showListPostReso" inset />
         </v-list-item-action>
       </v-list-item>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>{{ $t('inlineHoverPlayTitle') }}</v-list-item-title>
+          <v-list-item-subtitle>{{ $t('inlineHoverPlaySubtitle') }}</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-switch v-model="settings.inlineHoverPlay" inset />
+        </v-list-item-action>
+      </v-list-item>
       <v-list-item v-if="!settings.useFancybox">
         <v-list-item-content>
           <v-list-item-title>{{ $t('ECpLfRMsS0zpJPTw0qqNs') }}</v-list-item-title>
