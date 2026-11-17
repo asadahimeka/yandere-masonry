@@ -16,6 +16,7 @@ export { hentaiCosplay, isHentaiCosplay, isHentaiCosplayArticle, isHentaiCosplay
 export { huamao, isHuamao, isHuamaoList, isHuamaoMix } from './huamao'
 export { kusowanka } from './kusowanka'
 export { mikubooru } from './mikubooru'
+export { misskon, isMisskon, isMisskonList, isMisskonPost } from './misskon'
 export { moebooru } from './moebooru'
 export { nanairo, isNanairo, isNanairoDetail, isNanairoList } from './nanairo'
 export { nozomila } from './nozomi'

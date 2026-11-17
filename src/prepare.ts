@@ -151,6 +151,14 @@ const isDimtownNonListPath = /^dimtown\.com$/.test(location.hostname)
   && !DIMTOWN_LIST_PATH.test(location.pathname)
 
 /**
+ * misskon 的帖子是 `/121778-slug/`（站内分页再加 `/2/`），其余都是列表；
+ * 形态与 `src/api/misskon.ts` 的 `POST_PATH_RE` 一致。
+ */
+const MISSKON_POST_PATH = /^\/\d+-[^/]+(?:\/\d+)?\/?$/
+const isMisskonNonListPath = /^misskon\.com$/.test(location.hostname)
+  && MISSKON_POST_PATH.test(location.pathname)
+
+/**
  * 把 cin.wtf 自己的搜索链接翻成我们的形态。
  *
  * 站点链接长这样：`/search?query=imouto&tags=tags%3Asister&popular=popular-weekly&page=1`，
@@ -197,6 +205,7 @@ const isDetailPath = isPostDetailPath
   || isGalleryEpicNonListPath
   || isShaonvzhiNonListPath
   || isDimtownNonListPath
+  || isMisskonNonListPath
 
 const isAutoWf = (() => {
   const params = new URLSearchParams(location.search)

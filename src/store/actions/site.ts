@@ -59,6 +59,8 @@ export const siteActions: api.SiteAdapter[] = [
   api.shaonvzhi,
   // dimtown：列表与详情都走站内 JSON 接口（图集不在 HTML 里），30 条/页
   api.dimtown,
+  // misskon：WP 站，列表 20 条/页，详情吃 REST 正文里的整篇图集
+  api.misskon,
   { is: () => true, posts: async () => [] },
 ]
 

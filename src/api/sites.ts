@@ -222,6 +222,15 @@ const MANUAL_SITES: SiteRegistration[] = [
     pageLimit: 30,
     match: ['https://dimtown.com/*'],
   },
+  // WP 图集站：列表 20 条/页（`/page/N`），详情吃 REST 正文里的整篇图（一次给全）
+  {
+    key: 'misskon.com',
+    hosts: ['misskon.com'],
+    navHost: 'misskon.com',
+    title: 'MissKon',
+    pageLimit: 20,
+    match: ['https://misskon.com/*'],
+  },
 ]
 
 /**
