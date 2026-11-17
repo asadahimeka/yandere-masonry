@@ -158,5 +158,7 @@
   "autoHideAppBarSubtitle": "向下捲動時收起頂欄，向上捲動或將滑鼠移到螢幕頂部時展開",
   "inlinePlayTitle": "播放 / 停止",
   "inlineHoverPlayTitle": "懸停播放影片/動圖",
-  "inlineHoverPlaySubtitle": "滑鼠懸停在縮圖上時直接在列表裡播放影片和動圖（gif）。檔案較大，注意流量消耗"
+  "inlineHoverPlaySubtitle": "滑鼠懸停在縮圖上時直接在列表裡播放影片和動圖（gif）。檔案較大，注意流量消耗",
+  "thumbStripHide": "隱藏縮圖條",
+  "thumbStripShow": "顯示縮圖條"
 }

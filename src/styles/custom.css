@@ -106,6 +106,8 @@
 
 .img_detail_loading img {
   object-fit: cover;
+  /* 与主图同样的上限，否则加载预览会铺到缩略条底下、图片落地时再收缩一下 */
+  max-height: calc(100vh - var(--detail-strip-space, 0px));
 }
 
 .img_scale_scroll {
@@ -144,14 +146,25 @@
   height: 100%;
 }
 
+/* 缩略条是贴底浮在主图上的（8px 内边距 ×2 + 56px 缩略图 + 2px row padding
+   + 6px 滚动条 ≈ 80px），会把图片下沿遮住；竖图几乎撑满视口时最明显。
+   有缩略条时给图片区让出这块高度，主图在剩余空间里居中。
+   `box-sizing` 必须改，否则 `height: 100%` 叠上 padding 会溢出视口。 */
+.detail-has-thumbs {
+  --detail-strip-space: 80px;
+  box-sizing: border-box;
+  padding-bottom: var(--detail-strip-space);
+}
+
 /* width/height 交给 auto，让浏览器按图片自身比例等比缩放进视口；
-   若写死宽度，竖图会被 max-height 压扁（多图帖每张比例不同时尤其明显） */
+   若写死宽度，竖图会被 max-height 压扁（多图帖每张比例不同时尤其明显）。
+   max-height 用同一个变量扣除缩略条，没有缩略条时回退 0px（等价于 100vh）。 */
 .img_detail_sample {
   display: block;
   width: auto;
   height: auto;
   max-width: 100vw;
-  max-height: 100vh;
+  max-height: calc(100vh - var(--detail-strip-space, 0px));
   margin: 0 auto;
   object-fit: contain;
 }
@@ -934,14 +947,13 @@ html:has(#app.theme--dark) {
   transition: border-color .2s, box-shadow .2s;
 }
 
-.detail-thumb-item .v-img {
-  border-radius: inherit;
-}
-
-/* 多图帖每张比例不同，固定 56×56 时按中心裁切，避免被拉伸变形 */
-.detail-thumb-item .v-image__image {
-  background-size: cover;
-  background-position: center center;
+/* 多图帖每张比例不同，固定 56×56 框内按中心裁切，避免被拉伸变形 */
+.detail-thumb-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
 }
 
 .detail-thumb-item:hover {

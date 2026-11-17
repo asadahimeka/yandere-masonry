@@ -21,6 +21,8 @@ function isMoebooru() {
 
 export async function prepareApp(callback?: () => void) {
   if (doNotRun()) return
+  // 必须早于 store 读取 `?tags=`：站内搜索链接要在这里翻成我们的形态
+  normalizeCinSearchUrl()
   addSiteStyle()
   if (isMoebooru()) {
     bindDblclick()
@@ -104,7 +106,57 @@ const WALLHAVEN_LIST_PATH = /^\/(?:|latest|hot|toplist|random|search)\/?$/
 const isSiteNonListPath = /^(?:www\.)?wallhaven\.cc$/.test(location.hostname)
   && !WALLHAVEN_LIST_PATH.test(location.pathname)
 
-const isDetailPath = isPostDetailPath || isSiteNonListPath
+/**
+ * cin.wtf 的列表页是首页 `/` 和站内搜索页 `/search`（后者会被 `normalizeCinSearchUrl`
+ * 改写成 `/?tags=`），`/v/{id}`（单帖）、`/chat`、`/dump` 等必须原样留给站点，
+ * 否则单帖页会被换成一个空瀑布流。
+ * 形态与 `src/api/cin.ts` 的 `isCinList` 保持一致。
+ */
+const CIN_LIST_PATH = /^\/(?:search\/?)?$/
+const isCinNonListPath = /(^|\.)cin\.wtf$/.test(location.hostname)
+  && !CIN_LIST_PATH.test(location.pathname)
+
+/**
+ * 把 cin.wtf 自己的搜索链接翻成我们的形态。
+ *
+ * 站点链接长这样：`/search?query=imouto&tags=tags%3Asister&popular=popular-weekly&page=1`，
+ * 参数名与直觉相反：`query` 是自由词，`tags` 是 `type:name` 的标签筛选，
+ * `popular` 才是排序，`page` 是页码。
+ *
+ * 这页站点自己也能用，但要等 6~12 秒才发请求（Next 懒水合，前十几秒只渲染出导航和
+ * 四个空 tab），所以这里直接翻成 `/?tags=tags:"sister" imouto sort:popular-weekly`，
+ * 交给瀑布流立刻出图。
+ *
+ * 路径换成 `/` 有两个作用：只翻译一次（再进站不会二次翻译），以及接管判定与普通首页一致。
+ * `page` 丢弃 —— 列表一律从第 1 页开始。
+ */
+function normalizeCinSearchUrl() {
+  if (!/(^|\.)cin\.wtf$/.test(location.hostname) || !/^\/search\/?$/.test(location.pathname)) return
+
+  const params = new URLSearchParams(location.search)
+  const rawTag = (params.get('tags') ?? '').trim()
+  const freeWord = (params.get('query') ?? '').trim()
+  const sort = (params.get('popular') ?? '').trim()
+
+  const parts: string[] = []
+  // `tags:sister` → `tags:"sister"`：接口只认带引号的形式。名字里的空格站点写成 `+`，
+  // URLSearchParams 解码后已经是空格，这里只需补引号。
+  const tag = rawTag.match(/^([-+]?)([a-z-]+):(.*)$/i)
+  if (tag) parts.push(`${tag[1]}${tag[2]}:"${tag[3].replace(/"/g, '')}"`)
+  else if (rawTag) parts.push(rawTag)
+  if (freeWord) parts.push(freeWord)
+  // 排序值在这里不校验，交给 `src/api/cin.ts` 的 `parseTags` 统一裁决
+  // （未知值回落成默认的 `date`），免得两处白名单各说各话。
+  if (sort) parts.push(`sort:${sort}`)
+
+  const url = new URL(location.href)
+  url.pathname = '/'
+  url.search = ''
+  if (parts.length) url.searchParams.set('tags', parts.join(' '))
+  history.replaceState(history.state, '', url)
+}
+
+const isDetailPath = isPostDetailPath || isSiteNonListPath || isCinNonListPath
 
 const isAutoWf = (() => {
   const params = new URLSearchParams(location.search)

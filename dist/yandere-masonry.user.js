@@ -53,6 +53,7 @@
 // @match                https://huamaobizhi.com/*
 // @match                https://wallhaven.cc/*
 // @match                https://www.wallhaven.cc/*
+// @match                https://cin.wtf/*
 // @homepage             https://www.nanoka.top
 // @source               https://github.com/asadahimeka/yandere-masonry
 // @icon                 https://upload-bbs.mihoyo.com/upload/2022/05/23/260511332/f1f6267537a5aff959ee63ec2c9e4e52_4821140735490026106.jpg
@@ -88,7 +89,7 @@ var __publicField = (obj, key, value) => {
   var prepareStyle = "#enter-masonry{position:fixed;z-index:99999;right:16px;top:10px;height:30px;padding:6px 10px;font-size:13px;border:0;border-radius:6px;color:#fff;outline:0;background:linear-gradient(to right,#ff758c 0%,#ff7eb3 100%);opacity:1;transform:scale(1);transition:opacity,transform .2s;cursor:pointer}#enter-masonry:hover{opacity:.8;transform:scale(1.05)}#enter-masonry.enter-button-bottom{top:unset;bottom:15px}#locale-select{position:fixed;z-index:99;right:110px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}#wf-type-select{position:fixed;z-index:99;right:190px;top:12px;font-size:13px;padding:5px;background:#ee9ca7;background:linear-gradient(to left,#ffdde1,#ee9ca7);border:none;border-radius:6px}\n";
   var ydStyle = 'a.thumb{padding-bottom:5px;border-bottom:2px solid;border-color:#232322}a.thumb:visited{border-color:#ffaaae}#add-to-favs{zoom:1.7;margin:4px 0}li.tag-type-artist a[href^="/post"]:not(.no-browser-link):before{content:"[\\753b\\5e08] "}li.tag-type-copyright a[href^="/post"]:not(.no-browser-link):before{content:"[\\7248\\6743] "}li.tag-type-character a[href^="/post"]:not(.no-browser-link):before{content:"[\\89d2\\8272] "}li.tag-type-circle a[href^="/post"]:not(.no-browser-link):before{content:"[\\793e\\56e2] "}#post-list{display:flex}#post-list .sidebar,#post-popular .sidebar{float:none;width:auto;max-width:240px}#post-list .content,#post-popular .content{float:none;flex:1;padding-right:10px}#post-list ul#post-list-posts,#post-popular ul#post-list-posts{display:block;width:100%;margin:0 auto}#post-popular ul#post-list-posts{width:96vw}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{float:none;display:inline-block;margin:0;transition:.2s ease-in-out}#post-list ul#post-list-posts li[data-macy-complete="1"] img.preview,#post-popular ul#post-list-posts li[data-macy-complete="1"] img.preview{max-width:100%}#post-list ul#post-list-posts .inner,#post-popular ul#post-list-posts .inner{width:100%!important;height:auto!important}#post-list img.preview,#post-popular img.preview{width:100%;height:auto;margin-top:0;border-radius:5px;box-sizing:border-box}#post-list a.directlink,#post-popular a.directlink{margin-top:5px}.mm-masonry{--gap: 24;--col-width: 240}.mm-masonry{--_col-width: var(--col-width, 280);--_col-width-px: calc(var(--_col-width) * 1px);--_gap: calc(var(--gap, 20) * 1px);display:var(--display, grid)!important;grid-template-columns:repeat(auto-fill,minmax(var(--_col-width-px),1fr));grid-auto-rows:1px;column-gap:var(--_gap)}.mm-masonry__item{--img-proportional-height: calc(var(--h) * var(--_col-width) / (var(--w)));grid-row-end:span var(--img-proportional-height, 240);overflow:hidden}.mm-masonry__item:not(:last-child){margin-bottom:var(--_gap)}#post-list ul#post-list-posts .mm-masonry__item .inner,#post-popular ul#post-list-posts .mm-masonry__item .inner{height:100%!important}.mm-masonry__img{width:100%!important;height:100%!important;object-fit:cover}.justified-container{display:flex!important;flex-wrap:wrap}.justified-container:after{content:"";flex-grow:999999999}.justified-item{position:relative}.justified-item img.preview{position:absolute;top:0;left:0;width:100%;vertical-align:bottom;object-fit:cover}\n';
   var knStyle = "#lsidebar{display:none}#post-popular ul#post-list-posts{display:flex;justify-content:center;flex-wrap:wrap}#post-list ul#post-list-posts li,#post-popular ul#post-list-posts li{width:auto!important;margin:0 10px 10px 0;vertical-align:top}\n";
-  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.img_detail_sample{display:block;width:auto;height:auto;max-width:100vw;max-height:100vh;margin:0 auto;object-fit:contain}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}.img_detail_tag_list .v-slide-group__content{max-height:72vh;overflow-y:auto}::-webkit-scrollbar{width:0px}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e9eef6;border-radius:7px}.theme--dark .img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.detail-arrow--disabled{opacity:.3}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.posts-image-card{margin-bottom:8px}.posts-image-card.v-card>.v-image{border-bottom-left-radius:4px!important;border-bottom-right-radius:4px!important}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{--jstf-w: 340;position:relative;flex-grow:calc(var(--w) * var(--jstf-w) / var(--h));width:calc(1px * var(--w) * var(--jstf-w) / var(--h));margin-bottom:0!important;padding-bottom:0!important;background-color:#dcdcdc;content-visibility:auto;contain-intrinsic-size:auto 300px}@media screen and (max-width: 500px){.justified-container .posts-image-card{--jstf-w: 240}}.justified-container .posts-image-card:before{content:"";display:block;padding-bottom:calc(var(--h) / var(--w) * 100%)!important}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.site_icon_fallback{display:flex;align-items:center;justify-content:center;box-sizing:border-box;border-radius:4px;color:#fff;font-size:12px;font-weight:600;line-height:1;padding-top:1px}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-wh{position:absolute;bottom:0;left:0;padding:0 8px;font-size:14px;color:#fff;background:rgba(0,0,0,.4);border-top-right-radius:4px}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-checkbox{position:absolute;top:5px;left:5px;width:28px;padding:2px;height:28px;border-radius:2px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-checkbox:has(input[aria-checked="true"]),.posts-image-card:hover .posts-image-checkbox{opacity:1;visibility:visible}.posts-image-checkbox .v-input--selection-controls__ripple .primary--text,.posts-image-checkbox .v-input--selection-controls__input .v-icon{color:#fff!important}.posts-image-type{position:absolute!important;top:0;right:0;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}.posts-image-play{cursor:pointer}.posts-image-play--on{color:#e040fb!important}.posts-image-player{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:rgba(0,0,0,.85);cursor:pointer}@media screen and (min-width: 768px){.wf-no-fit-screen{max-width:62.5vw;margin:16px auto}}.virtual-waterfall>[data-index]{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f;border-radius:4px}.theme--light .v-app-bar{box-shadow:none!important;background:#f6f8fc!important}.theme--light .v-app-bar,.theme--light .v-app-bar .v-toolbar__content{height:64px!important}.theme--light .v-main{padding-top:64px!important}.theme--light .v-app-bar .v-toolbar__title+input{width:50px!important;background-color:#eaf1fb!important;border-radius:24px!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#5f6368!important}.theme--light .app-bar-tag-input .v-input .v-input__slot:before,.theme--light .app-bar-tag-input .v-input .v-input__slot:after{display:none}.theme--light .app-bar-tag-input .v-input input{padding:5px 44px 5px 10px;background-color:#eaf1fb;min-height:48px;border-radius:24px}.theme--light .app-bar-tag-input:not([style*="none"])+.v-btn{position:relative;left:-50px}.theme--light.v-list,.theme--light.v-navigation-drawer{background:#e9eef6!important}.theme--dark .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--dark .img_detail_btn_color .v-chip.tag_type_general,.theme--dark .img_detail_btn_color .v-btn{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag) .v-icon,.theme--light .img_detail_btn_color .v-chip.tag_type_general,.theme--light .img_detail_btn_color .v-btn{background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#1a73e8!important;box-shadow:none!important;font-weight:500}.img_detail_btn_color .v-chip.img_detail_tag{font-weight:500}.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text,.v-date-picker-table__current){padding-bottom:2px;border-radius:10px;color:#001d35;background-color:#c2e7ff}.theme--light .refresh_posts_btn{box-shadow:0 1px 2px #0000,0 1px 3px 1px #0000;background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#001d35}.theme--light .img_detail_loading .v-progress-circular{color:#1a73e8!important;caret-color:#1a73e8!important}.theme--light .blacklist_combobox .v-input__slot{padding-left:8px!important}.theme--light .v-text-field--outlined{border-radius:20px}.fancybox__caption{display:none;padding:12px 24px!important}.v-toolbar.img_detail_btn_color{backdrop-filter:none!important}.virtual-waterfall .posts-image-card{width:100%;height:100%;margin-bottom:0;background:gainsboro;border-radius:4px!important}.virtual-waterfall .post-image-v{width:100%;height:100%;object-fit:cover;border-radius:4px!important}.virtual-waterfall .posts-image-type{border-top-right-radius:4px}.virtual-waterfall .posts-image-actions{border-bottom-left-radius:4px;border-bottom-right-radius:4px}html:has(#app.theme--dark){background:#121212}@media screen and (max-width: 1200px){.nav_drawer{height:100dvh!important}.nav_drawer .v-navigation-drawer__content{padding-bottom:9vh}}.img_meta_tag_list{position:absolute;top:35px;width:200px}.img_meta_tag_list .img_detail_tag.tag_type_artist{color:#c97000!important;background-color:#ffdcb0!important;border-color:#ffdcb0!important}.img_meta_tag_list .img_detail_tag.tag_type_copyright{color:#ae3fc1!important;background-color:#f9d5ff!important;border-color:#f9d5ff!important}.img_meta_tag_list .img_detail_tag.tag_type_character{color:#0c9312!important;background-color:#c4ffc7!important;border-color:#c4ffc7!important}.true-masonry .posts-image-card{height:fit-content;max-height:unset!important;margin-bottom:0!important}.d-flex-y{display:flex;align-items:center;flex-wrap:wrap}.d-flex-col{display:flex;flex-direction:column}.export-tags-setting{display:flex;align-items:center;flex-wrap:wrap;gap:20px}.export-tags-setting .v-messages{display:none}.export-tags-setting>.v-input{margin-top:0}.export-tags-wght-inp{width:45px;height:24px;margin-left:4px;background-color:#eaf1fb;border-radius:4px;border:1px solid rgb(187,187,187);color:inherit;text-align:center}.d-flex-col .v-chip--active:before,.d-flex-col .v-chip--active:hover:before,.d-flex-col .v-chip:focus:before{display:none}.img-detail-toolbar{position:absolute;top:0;width:100%;z-index:10}.img-detail-toolbar.detail-buttons-bottom{top:unset;bottom:12px}.img-detail-tags{position:absolute;z-index:10;bottom:12px;padding:0 12px}.img-detail-tags.detail-buttons-bottom{top:12px;bottom:unset}.img-detail-toolbar.detail-buttons-bottom .img_meta_tag_list{top:0;transform:translateY(-95%)}.settings_drawer .v-list-item__subtitle{white-space:normal}.szuru-guide-btn{animation:szuru-guide-pulse 1.8s ease-in-out 3}@keyframes szuru-guide-pulse{0%,to{box-shadow:0 0 #ff572280}50%{box-shadow:0 0 0 8px #ff572200}}.app-bar-glass.v-sheet.v-app-bar{background:rgba(246,248,252,.82)!important;backdrop-filter:blur(12px) saturate(180%);border-bottom:1px solid rgba(0,0,0,.08);transition:transform .3s ease;will-change:transform}.theme--dark .app-bar-glass.v-sheet.v-app-bar{background:rgba(30,30,30,.82)!important;border-bottom-color:#ffffff17}.app-bar-glass.app-bar--auto-hidden{transform:translateY(-100%)!important;pointer-events:none}.posts-image-count{position:absolute!important;top:30px;right:0;min-width:24px;padding:2px 5px;border-bottom-left-radius:4px;text-align:center;font-size:12px;font-weight:600;line-height:1.2;color:#fff;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);pointer-events:none}.theme--light .posts-image-count{color:#000000de;background:rgba(255,255,255,.4)}.detail-thumb-strip{position:absolute;bottom:0;left:0;right:0;z-index:10;display:flex;align-items:center;gap:6px;padding:8px 12px;background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,.4));backdrop-filter:blur(10px)}.detail-thumb-strip--raised{bottom:56px}.img-detail-tags--above-thumbs{bottom:86px}.detail-thumb-strip-row{flex:1 1 auto;min-width:0;display:flex;gap:8px;padding-bottom:2px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;cursor:grab}.detail-thumb-strip-row::-webkit-scrollbar{height:6px}.detail-thumb-strip-row::-webkit-scrollbar-track{background:transparent}.detail-thumb-strip-row::-webkit-scrollbar-thumb{background:rgba(255,255,255,.35);border-radius:3px}.detail-thumb-strip-row:hover::-webkit-scrollbar-thumb{background:rgba(255,255,255,.55)}.detail-thumb-strip-row::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.75)}.detail-thumb-strip-row--dragging{cursor:grabbing;scroll-behavior:auto}.detail-thumb-strip-row--dragging .detail-thumb-item{pointer-events:none}.detail-thumb-nav{flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:24px;height:56px;border-radius:4px;color:#fff;background:rgba(255,255,255,.14);cursor:pointer;transition:background .2s,opacity .2s}.detail-thumb-nav:hover{background:rgba(255,255,255,.28)}.detail-thumb-nav--disabled{opacity:.25;pointer-events:none}.detail-thumb-item{flex:0 0 auto;box-sizing:border-box;width:56px;height:56px;border-radius:4px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color .2s,box-shadow .2s}.detail-thumb-item .v-img{border-radius:inherit}.detail-thumb-item .v-image__image{background-size:cover;background-position:center center}.detail-thumb-item:hover{border-color:#ffffff8c}.detail-thumb-item--active{border-color:#8f77b5;box-shadow:0 0 0 2px #8f77b559}.detail-thumb-item:focus-visible{outline:2px solid #8F77B5;outline-offset:2px}.theme--light .detail-thumb-strip{background:linear-gradient(to top,rgba(255,255,255,.55),rgba(255,255,255,.4))}.theme--light .detail-thumb-item:hover{border-color:#00000073}.theme--light .detail-thumb-nav{color:#000000bf;background:rgba(0,0,0,.08)}.theme--light .detail-thumb-nav:hover{background:rgba(0,0,0,.18)}.theme--light .detail-thumb-strip-row::-webkit-scrollbar-thumb{background:rgba(0,0,0,.25)}.theme--light .detail-thumb-strip-row:hover::-webkit-scrollbar-thumb{background:rgba(0,0,0,.4)}.theme--light .detail-thumb-strip-row::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.6)}\n';
+  var customStyle = '#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;border-radius:50%}#loading-object_one{animation:object_one 1.5s infinite}#loading-object_two{animation:object_two 1.5s infinite;animation-delay:.25s}#loading-object_three{animation:object_three 1.5s infinite;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0)}}@keyframes object_two{75%{transform:scale(0)}}@keyframes object_three{75%{transform:scale(0)}}.img_detail_loading{position:absolute;top:0;left:0;z-index:1;display:flex;justify-content:center;align-items:center;width:100%;height:100%;margin:0}.img_detail_loading:after{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(2px)}.img_detail_loading .v-progress-circular{position:absolute;z-index:10}.img_detail_loading img{object-fit:cover;max-height:calc(100vh - var(--detail-strip-space, 0px))}.img_scale_scroll{display:block;width:100vw;height:100vh;overflow:auto;user-select:none}.img_detail_scale{display:block;margin:0 auto;user-select:none;transition:.2s}.img_detail_cont{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:#212121}.theme--light .img_detail_cont{background-color:#fff}.img_scale_normal{display:flex;justify-content:center;align-items:center;height:100%}.detail-has-thumbs{--detail-strip-space: 80px;box-sizing:border-box;padding-bottom:var(--detail-strip-space)}.img_detail_sample{display:block;width:auto;height:auto;max-width:100vw;max-height:calc(100vh - var(--detail-strip-space, 0px));margin:0 auto;object-fit:contain}.img_detail_btns{position:absolute;top:0;left:0;width:100%;height:100%}.img_detail_tag_list .v-slide-group__content{max-height:72vh;overflow-y:auto}::-webkit-scrollbar{width:0px}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar,.img_scale_scroll::-webkit-scrollbar{width:10px!important;height:10px!important}.nav_drawer .v-list-group__items .v-list-item{padding-left:10px!important}.nav_drawer .v-list .v-list-group--active.primary--text{color:inherit!important}.img_scale_scroll::-webkit-scrollbar-track{background:#e6e6e6;border-left:1px solid #dadada}.img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e9eef6;border-radius:7px}.theme--dark .img_detail_tag_list .v-slide-group__content::-webkit-scrollbar-thumb,.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb{border:solid 3px #363636}.img_scale_scroll::-webkit-scrollbar-thumb{background:#b0b0b0;border:solid 3px #e6e6e6;border-radius:7px}.nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover,.img_scale_scroll::-webkit-scrollbar-thumb:hover{background:black}.theme--dark .nav_drawer .v-navigation-drawer__content::-webkit-scrollbar-thumb:hover{background:#ddd}.v-date-picker-table>table>thead>tr>th{padding:0}.v-date-picker-table>table>thead>tr>th:nth-child(1):before{content:"\\65e5"}.v-date-picker-table>table>thead>tr>th:nth-child(2):before{content:"\\4e00"}.v-date-picker-table>table>thead>tr>th:nth-child(3):before{content:"\\4e8c"}.v-date-picker-table>table>thead>tr>th:nth-child(4):before{content:"\\4e09"}.v-date-picker-table>table>thead>tr>th:nth-child(5):before{content:"\\56db"}.v-date-picker-table>table>thead>tr>th:nth-child(6):before{content:"\\4e94"}.v-date-picker-table>table>thead>tr>th:nth-child(7):before{content:"\\516d"}.poa_left_center{position:absolute;left:10px;top:50%;transform:translateY(-50%)}.poa_right_center{position:absolute;right:10px;top:50%;transform:translateY(-50%)}.detail-arrow--disabled{opacity:.3}.v-list-item__title.title{line-height:1.2!important}.blacklist_combobox [role=combobox]{padding:0!important}.blacklist_combobox .v-chip{margin-bottom:4px!important}.preload_num{width:32px;height:30px;margin:0;padding-left:4px;border:1px solid #bbb;color:inherit;appearance:none!important;-webkit-appearance:none!important;-moz-appearance:textfield}.dplayer-notice-list,.dplayer-bezel-icon{opacity:0!important;visibility:hidden!important}.posts-image-card{margin-bottom:8px}.posts-image-card.v-card>.v-image{border-bottom-left-radius:4px!important;border-bottom-right-radius:4px!important}.wf-grid .posts-image-card .v-responsive__sizer{padding-bottom:100%!important}.justified-container{display:flex!important;flex-wrap:wrap;gap:8px}.justified-container:after{content:"";flex-grow:999999999}.justified-container .posts-image-card{--jstf-w: 340;position:relative;flex-grow:calc(var(--w) * var(--jstf-w) / var(--h));width:calc(1px * var(--w) * var(--jstf-w) / var(--h));margin-bottom:0!important;padding-bottom:0!important;background-color:#dcdcdc;content-visibility:auto;contain-intrinsic-size:auto 300px}@media screen and (max-width: 500px){.justified-container .posts-image-card{--jstf-w: 240}}.justified-container .posts-image-card:before{content:"";display:block;padding-bottom:calc(var(--h) / var(--w) * 100%)!important}.justified-container .post-image{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;vertical-align:bottom;object-fit:cover}.theme--light .v-app-bar{background-color:#fff!important}.site_icon{width:20px;height:20px;object-fit:cover}.site_icon_fallback{display:flex;align-items:center;justify-content:center;box-sizing:border-box;border-radius:4px;color:#fff;font-size:12px;font-weight:600;line-height:1;padding-top:1px}.theme--light .sel_menu_btn{min-height:32px;padding:0 16px;background-color:#ba68c833!important;border-width:0;border-radius:4px;font-weight:600!important;color:#8e24aa!important;text-transform:none;box-shadow:none!important}.theme--light .nav_drawer .sel_menu_btn .v-icon{color:#8e24aa!important}.theme--light .sel_menu_btn .v-btn__content{line-height:1!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#000000de!important}.posts-image-wh{position:absolute;bottom:0;left:0;padding:0 8px;font-size:14px;color:#fff;background:rgba(0,0,0,.4);border-top-right-radius:4px}.posts-image-actions{position:absolute;bottom:0;right:0;width:100%;padding:2px;text-align:center;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-card:hover .posts-image-actions{opacity:1;visibility:visible}.posts-image-checkbox{position:absolute;top:5px;left:5px;width:28px;padding:2px;height:28px;border-radius:2px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.4s}.posts-image-checkbox:has(input[aria-checked="true"]),.posts-image-card:hover .posts-image-checkbox{opacity:1;visibility:visible}.posts-image-checkbox .v-input--selection-controls__ripple .primary--text,.posts-image-checkbox .v-input--selection-controls__input .v-icon{color:#fff!important}.posts-image-type{position:absolute!important;top:0;right:0;padding:2px 4px;border-bottom-left-radius:4px;background:rgba(0,0,0,.4);backdrop-filter:blur(10px)}.theme--light .posts-image-type{background:rgba(255,255,255,.4)}.posts-image-play{cursor:pointer}.posts-image-play--on{color:#e040fb!important}.posts-image-player{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:rgba(0,0,0,.85);cursor:pointer}@media screen and (min-width: 768px){.wf-no-fit-screen{max-width:62.5vw;margin:16px auto}}.virtual-waterfall>[data-index]{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f;border-radius:4px}.theme--light .v-app-bar{box-shadow:none!important;background:#f6f8fc!important}.theme--light .v-app-bar,.theme--light .v-app-bar .v-toolbar__content{height:64px!important}.theme--light .v-main{padding-top:64px!important}.theme--light .v-app-bar .v-toolbar__title+input{width:50px!important;background-color:#eaf1fb!important;border-radius:24px!important}.theme--light .nav_drawer .v-icon,.theme--light .nav_drawer .v-btn--icon,.theme--light .v-app-bar .v-icon,.theme--light .v-app-bar .v-btn--icon{color:#5f6368!important}.theme--light .app-bar-tag-input .v-input .v-input__slot:before,.theme--light .app-bar-tag-input .v-input .v-input__slot:after{display:none}.theme--light .app-bar-tag-input .v-input input{padding:5px 44px 5px 10px;background-color:#eaf1fb;min-height:48px;border-radius:24px}.theme--light .app-bar-tag-input:not([style*="none"])+.v-btn{position:relative;left:-50px}.theme--light.v-list,.theme--light.v-navigation-drawer{background:#e9eef6!important}.theme--dark .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--dark .img_detail_btn_color .v-chip.tag_type_general,.theme--dark .img_detail_btn_color .v-btn{background-color:#ba68c8b3!important;border-color:#ba68c8b3!important}.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag),.theme--light .img_detail_btn_color .v-chip:not(.img_detail_tag) .v-icon,.theme--light .img_detail_btn_color .v-chip.tag_type_general,.theme--light .img_detail_btn_color .v-btn{background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#1a73e8!important;box-shadow:none!important;font-weight:500}.img_detail_btn_color .v-chip.img_detail_tag{font-weight:500}.theme--light .v-btn:not(.v-btn--icon,.v-btn--fab,.v-btn--text,.v-date-picker-table__current){padding-bottom:2px;border-radius:10px;color:#001d35;background-color:#c2e7ff}.theme--light .refresh_posts_btn{box-shadow:0 1px 2px #0000,0 1px 3px 1px #0000;background-color:#c2e7ff!important;border-color:#c2e7ff!important;color:#001d35}.theme--light .img_detail_loading .v-progress-circular{color:#1a73e8!important;caret-color:#1a73e8!important}.theme--light .blacklist_combobox .v-input__slot{padding-left:8px!important}.theme--light .v-text-field--outlined{border-radius:20px}.fancybox__caption{display:none;padding:12px 24px!important}.v-toolbar.img_detail_btn_color{backdrop-filter:none!important}.virtual-waterfall .posts-image-card{width:100%;height:100%;margin-bottom:0;background:gainsboro;border-radius:4px!important}.virtual-waterfall .post-image-v{width:100%;height:100%;object-fit:cover;border-radius:4px!important}.virtual-waterfall .posts-image-type{border-top-right-radius:4px}.virtual-waterfall .posts-image-actions{border-bottom-left-radius:4px;border-bottom-right-radius:4px}html:has(#app.theme--dark){background:#121212}@media screen and (max-width: 1200px){.nav_drawer{height:100dvh!important}.nav_drawer .v-navigation-drawer__content{padding-bottom:9vh}}.img_meta_tag_list{position:absolute;top:35px;width:200px}.img_meta_tag_list .img_detail_tag.tag_type_artist{color:#c97000!important;background-color:#ffdcb0!important;border-color:#ffdcb0!important}.img_meta_tag_list .img_detail_tag.tag_type_copyright{color:#ae3fc1!important;background-color:#f9d5ff!important;border-color:#f9d5ff!important}.img_meta_tag_list .img_detail_tag.tag_type_character{color:#0c9312!important;background-color:#c4ffc7!important;border-color:#c4ffc7!important}.true-masonry .posts-image-card{height:fit-content;max-height:unset!important;margin-bottom:0!important}.d-flex-y{display:flex;align-items:center;flex-wrap:wrap}.d-flex-col{display:flex;flex-direction:column}.export-tags-setting{display:flex;align-items:center;flex-wrap:wrap;gap:20px}.export-tags-setting .v-messages{display:none}.export-tags-setting>.v-input{margin-top:0}.export-tags-wght-inp{width:45px;height:24px;margin-left:4px;background-color:#eaf1fb;border-radius:4px;border:1px solid rgb(187,187,187);color:inherit;text-align:center}.d-flex-col .v-chip--active:before,.d-flex-col .v-chip--active:hover:before,.d-flex-col .v-chip:focus:before{display:none}.img-detail-toolbar{position:absolute;top:0;width:100%;z-index:10}.img-detail-toolbar.detail-buttons-bottom{top:unset;bottom:12px}.img-detail-tags{position:absolute;z-index:10;bottom:12px;padding:0 12px}.img-detail-tags.detail-buttons-bottom{top:12px;bottom:unset}.img-detail-toolbar.detail-buttons-bottom .img_meta_tag_list{top:0;transform:translateY(-95%)}.settings_drawer .v-list-item__subtitle{white-space:normal}.szuru-guide-btn{animation:szuru-guide-pulse 1.8s ease-in-out 3}@keyframes szuru-guide-pulse{0%,to{box-shadow:0 0 #ff572280}50%{box-shadow:0 0 0 8px #ff572200}}.app-bar-glass.v-sheet.v-app-bar{background:rgba(246,248,252,.82)!important;backdrop-filter:blur(12px) saturate(180%);border-bottom:1px solid rgba(0,0,0,.08);transition:transform .3s ease;will-change:transform}.theme--dark .app-bar-glass.v-sheet.v-app-bar{background:rgba(30,30,30,.82)!important;border-bottom-color:#ffffff17}.app-bar-glass.app-bar--auto-hidden{transform:translateY(-100%)!important;pointer-events:none}.posts-image-count{position:absolute!important;top:30px;right:0;min-width:24px;padding:2px 5px;border-bottom-left-radius:4px;text-align:center;font-size:12px;font-weight:600;line-height:1.2;color:#fff;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);pointer-events:none}.theme--light .posts-image-count{color:#000000de;background:rgba(255,255,255,.4)}.detail-thumb-strip{position:absolute;bottom:0;left:0;right:0;z-index:10;display:flex;align-items:center;gap:6px;padding:8px 12px;background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,.4));backdrop-filter:blur(10px)}.detail-thumb-strip--raised{bottom:56px}.img-detail-tags--above-thumbs{bottom:86px}.detail-thumb-strip-row{flex:1 1 auto;min-width:0;display:flex;gap:8px;padding-bottom:2px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;cursor:grab}.detail-thumb-strip-row::-webkit-scrollbar{height:6px}.detail-thumb-strip-row::-webkit-scrollbar-track{background:transparent}.detail-thumb-strip-row::-webkit-scrollbar-thumb{background:rgba(255,255,255,.35);border-radius:3px}.detail-thumb-strip-row:hover::-webkit-scrollbar-thumb{background:rgba(255,255,255,.55)}.detail-thumb-strip-row::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.75)}.detail-thumb-strip-row--dragging{cursor:grabbing;scroll-behavior:auto}.detail-thumb-strip-row--dragging .detail-thumb-item{pointer-events:none}.detail-thumb-nav{flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:24px;height:56px;border-radius:4px;color:#fff;background:rgba(255,255,255,.14);cursor:pointer;transition:background .2s,opacity .2s}.detail-thumb-nav:hover{background:rgba(255,255,255,.28)}.detail-thumb-nav--disabled{opacity:.25;pointer-events:none}.detail-thumb-item{flex:0 0 auto;box-sizing:border-box;width:56px;height:56px;border-radius:4px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color .2s,box-shadow .2s}.detail-thumb-img{display:block;width:100%;height:100%;object-fit:cover;object-position:center center}.detail-thumb-item:hover{border-color:#ffffff8c}.detail-thumb-item--active{border-color:#8f77b5;box-shadow:0 0 0 2px #8f77b559}.detail-thumb-item:focus-visible{outline:2px solid #8F77B5;outline-offset:2px}.theme--light .detail-thumb-strip{background:linear-gradient(to top,rgba(255,255,255,.55),rgba(255,255,255,.4))}.theme--light .detail-thumb-item:hover{border-color:#00000073}.theme--light .detail-thumb-nav{color:#000000bf;background:rgba(0,0,0,.08)}.theme--light .detail-thumb-nav:hover{background:rgba(0,0,0,.18)}.theme--light .detail-thumb-strip-row::-webkit-scrollbar-thumb{background:rgba(0,0,0,.25)}.theme--light .detail-thumb-strip-row:hover::-webkit-scrollbar-thumb{background:rgba(0,0,0,.4)}.theme--light .detail-thumb-strip-row::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.6)}\n';
   const langList = [
     { value: "zh-Hans", label: "\u7B80\u4F53\u4E2D\u6587" },
     { value: "zh-Hant", label: "\u7E41\u9AD4\u4E2D\u6587" },
@@ -135,6 +136,7 @@ var __publicField = (obj, key, value) => {
     showTagChipGroup: false,
     justifiedBaseWidth: isMobile ? 240 : 340,
     detailButtonsBottom: isMobile,
+    showDetailThumbs: true,
     closePopupOnImgClick: isMobile,
     downloadBy: "tm",
     downloadUrlKey: "fileUrl",
@@ -185,6 +187,7 @@ var __publicField = (obj, key, value) => {
   async function prepareApp(callback) {
     if (doNotRun())
       return;
+    normalizeCinSearchUrl();
     addSiteStyle();
     if (isMoebooru()) {
       bindDblclick();
@@ -250,7 +253,33 @@ var __publicField = (obj, key, value) => {
   const isPostDetailPath = /^\/posts?\/\d+\/?$/.test(location.pathname);
   const WALLHAVEN_LIST_PATH = /^\/(?:|latest|hot|toplist|random|search)\/?$/;
   const isSiteNonListPath = /^(?:www\.)?wallhaven\.cc$/.test(location.hostname) && !WALLHAVEN_LIST_PATH.test(location.pathname);
-  const isDetailPath = isPostDetailPath || isSiteNonListPath;
+  const CIN_LIST_PATH = /^\/(?:search\/?)?$/;
+  const isCinNonListPath = /(^|\.)cin\.wtf$/.test(location.hostname) && !CIN_LIST_PATH.test(location.pathname);
+  function normalizeCinSearchUrl() {
+    if (!/(^|\.)cin\.wtf$/.test(location.hostname) || !/^\/search\/?$/.test(location.pathname))
+      return;
+    const params2 = new URLSearchParams(location.search);
+    const rawTag = (params2.get("tags") ?? "").trim();
+    const freeWord = (params2.get("query") ?? "").trim();
+    const sort = (params2.get("popular") ?? "").trim();
+    const parts = [];
+    const tag2 = rawTag.match(/^([-+]?)([a-z-]+):(.*)$/i);
+    if (tag2)
+      parts.push(`${tag2[1]}${tag2[2]}:"${tag2[3].replace(/"/g, "")}"`);
+    else if (rawTag)
+      parts.push(rawTag);
+    if (freeWord)
+      parts.push(freeWord);
+    if (sort)
+      parts.push(`sort:${sort}`);
+    const url = new URL(location.href);
+    url.pathname = "/";
+    url.search = "";
+    if (parts.length)
+      url.searchParams.set("tags", parts.join(" "));
+    history.replaceState(history.state, "", url);
+  }
+  const isDetailPath = isPostDetailPath || isSiteNonListPath || isCinNonListPath;
   const isAutoWf = (() => {
     const params2 = new URLSearchParams(location.search);
     if (params2.get("_wf"))
@@ -1637,6 +1666,8 @@ var __publicField = (obj, key, value) => {
   const inlinePlayTitle$3 = "\u64AD\u653E / \u505C\u6B62";
   const inlineHoverPlayTitle$3 = "\u60AC\u505C\u64AD\u653E\u89C6\u9891/\u52A8\u56FE";
   const inlineHoverPlaySubtitle$3 = "\u9F20\u6807\u60AC\u505C\u5728\u7F29\u7565\u56FE\u4E0A\u65F6\u76F4\u63A5\u5728\u5217\u8868\u91CC\u64AD\u653E\u89C6\u9891\u548C\u52A8\u56FE\uFF08gif\uFF09\u3002\u6587\u4EF6\u8F83\u5927\uFF0C\u6CE8\u610F\u6D41\u91CF\u6D88\u8017";
+  const thumbStripHide$3 = "\u9690\u85CF\u7F29\u7565\u56FE\u6761";
+  const thumbStripShow$3 = "\u663E\u793A\u7F29\u7565\u56FE\u6761";
   var zhHans = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$3,
     "ZtQHZx-pEjmu_o3dQD1fc": "\u793E\u56E2",
@@ -1797,7 +1828,9 @@ var __publicField = (obj, key, value) => {
     autoHideAppBarSubtitle: autoHideAppBarSubtitle$3,
     inlinePlayTitle: inlinePlayTitle$3,
     inlineHoverPlayTitle: inlineHoverPlayTitle$3,
-    inlineHoverPlaySubtitle: inlineHoverPlaySubtitle$3
+    inlineHoverPlaySubtitle: inlineHoverPlaySubtitle$3,
+    thumbStripHide: thumbStripHide$3,
+    thumbStripShow: thumbStripShow$3
   };
   const UxxldE9xRwmQctrvba5Y8$2 = "\u8A2D\u7F6E";
   const A16qoBulYQJLbHe9mqNwm$2 = "\u5305\u542B\u88F8\u9732\u3001\u6027\u611B\u63CF\u5BEB\u5167\u5BB9\u7B49\u904E\u6FC0\u5167\u5BB9";
@@ -1907,6 +1940,8 @@ var __publicField = (obj, key, value) => {
   const inlinePlayTitle$2 = "\u64AD\u653E / \u505C\u6B62";
   const inlineHoverPlayTitle$2 = "\u61F8\u505C\u64AD\u653E\u5F71\u7247/\u52D5\u5716";
   const inlineHoverPlaySubtitle$2 = "\u6ED1\u9F20\u61F8\u505C\u5728\u7E2E\u5716\u4E0A\u6642\u76F4\u63A5\u5728\u5217\u8868\u88E1\u64AD\u653E\u5F71\u7247\u548C\u52D5\u5716\uFF08gif\uFF09\u3002\u6A94\u6848\u8F03\u5927\uFF0C\u6CE8\u610F\u6D41\u91CF\u6D88\u8017";
+  const thumbStripHide$2 = "\u96B1\u85CF\u7E2E\u5716\u689D";
+  const thumbStripShow$2 = "\u986F\u793A\u7E2E\u5716\u689D";
   var zhHant = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$2,
     "1F-R4qChHIzZaohu5GJzl": "\u5F62\u5982: &api_key=xx&user_id=1",
@@ -2067,7 +2102,9 @@ var __publicField = (obj, key, value) => {
     autoHideAppBarSubtitle: autoHideAppBarSubtitle$2,
     inlinePlayTitle: inlinePlayTitle$2,
     inlineHoverPlayTitle: inlineHoverPlayTitle$2,
-    inlineHoverPlaySubtitle: inlineHoverPlaySubtitle$2
+    inlineHoverPlaySubtitle: inlineHoverPlaySubtitle$2,
+    thumbStripHide: thumbStripHide$2,
+    thumbStripShow: thumbStripShow$2
   };
   const UxxldE9xRwmQctrvba5Y8$1 = "Settings";
   const A16qoBulYQJLbHe9mqNwm$1 = "Contains excessive content such as nudity and sexual descriptions";
@@ -2178,6 +2215,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const inlinePlayTitle$1 = "Play / Stop";
   const inlineHoverPlayTitle$1 = "Play videos/animations on hover";
   const inlineHoverPlaySubtitle$1 = "Play videos and animated images (gif) inline in the list when hovering their thumbnails. Files can be large, mind your data usage";
+  const thumbStripHide$1 = "Hide the thumbnail strip";
+  const thumbStripShow$1 = "Show the thumbnail strip";
   var en = {
     UxxldE9xRwmQctrvba5Y8: UxxldE9xRwmQctrvba5Y8$1,
     "1F-R4qChHIzZaohu5GJzl": "e.g: &api_key=xx&user_id=1",
@@ -2338,7 +2377,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     autoHideAppBarSubtitle: autoHideAppBarSubtitle$1,
     inlinePlayTitle: inlinePlayTitle$1,
     inlineHoverPlayTitle: inlineHoverPlayTitle$1,
-    inlineHoverPlaySubtitle: inlineHoverPlaySubtitle$1
+    inlineHoverPlaySubtitle: inlineHoverPlaySubtitle$1,
+    thumbStripHide: thumbStripHide$1,
+    thumbStripShow: thumbStripShow$1
   };
   const UxxldE9xRwmQctrvba5Y8 = "\u8A2D\u5B9A";
   const A16qoBulYQJLbHe9mqNwm = "\u30CC\u30FC\u30C9\u3084\u6027\u7684\u63CF\u5199\u306A\u3069\u306E\u904E\u5EA6\u306A\u5185\u5BB9\u304C\u542B\u307E\u308C\u3066\u3044\u308B\u3082\u306E";
@@ -2448,6 +2489,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const inlinePlayTitle = "\u518D\u751F / \u505C\u6B62";
   const inlineHoverPlayTitle = "\u30DB\u30D0\u30FC\u3067\u52D5\u753B/\u30A2\u30CB\u30E1GIF\u3092\u518D\u751F";
   const inlineHoverPlaySubtitle = "\u30B5\u30E0\u30CD\u30A4\u30EB\u306B\u30DE\u30A6\u30B9\u3092\u4E57\u305B\u308B\u3068\u3001\u30EA\u30B9\u30C8\u5185\u3067\u52D5\u753B\u3068\u30A2\u30CB\u30E1GIF\u3092\u76F4\u63A5\u518D\u751F\u3057\u307E\u3059\u3002\u30D5\u30A1\u30A4\u30EB\u304C\u5927\u304D\u3044\u5834\u5408\u306F\u901A\u4FE1\u91CF\u306B\u3054\u6CE8\u610F\u304F\u3060\u3055\u3044";
+  const thumbStripHide = "\u30B5\u30E0\u30CD\u30A4\u30EB\u30D0\u30FC\u3092\u96A0\u3059";
+  const thumbStripShow = "\u30B5\u30E0\u30CD\u30A4\u30EB\u30D0\u30FC\u3092\u8868\u793A";
   var ja = {
     UxxldE9xRwmQctrvba5Y8,
     "1F-R4qChHIzZaohu5GJzl": "\u4F8B\uFF1A&api_key=xx&user_id=1",
@@ -2608,7 +2651,9 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     autoHideAppBarSubtitle,
     inlinePlayTitle,
     inlineHoverPlayTitle,
-    inlineHoverPlaySubtitle
+    inlineHoverPlaySubtitle,
+    thumbStripHide,
+    thumbStripShow
   };
   Vue__default["default"].use(VueI18n__default["default"]);
   const i18n = new VueI18n__default["default"]({
@@ -2778,6 +2823,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   var mdiTagMultiple = "M5.5,9A1.5,1.5 0 0,0 7,7.5A1.5,1.5 0 0,0 5.5,6A1.5,1.5 0 0,0 4,7.5A1.5,1.5 0 0,0 5.5,9M17.41,11.58C17.77,11.94 18,12.44 18,13C18,13.55 17.78,14.05 17.41,14.41L12.41,19.41C12.05,19.77 11.55,20 11,20C10.45,20 9.95,19.78 9.58,19.41L2.59,12.42C2.22,12.05 2,11.55 2,11V6C2,4.89 2.89,4 4,4H9C9.55,4 10.05,4.22 10.41,4.58L17.41,11.58M13.54,5.71L14.54,4.71L21.41,11.58C21.78,11.94 22,12.45 22,13C22,13.55 21.78,14.05 21.42,14.41L16.04,19.79L15.04,18.79L20.75,13L13.54,5.71Z";
   var mdiTranslate = "M12.87,15.07L10.33,12.56L10.36,12.53C12.1,10.59 13.34,8.36 14.07,6H17V4H10V2H8V4H1V6H12.17C11.5,7.92 10.44,9.75 9,11.35C8.07,10.32 7.3,9.19 6.69,8H4.69C5.42,9.63 6.42,11.17 7.67,12.56L2.58,17.58L4,19L9,14L12.11,17.11L12.87,15.07M18.5,10H16.5L12,22H14L15.12,19H19.87L21,22H23L18.5,10M15.88,17L17.5,12.67L19.12,17H15.88Z";
   var mdiVideo = "M17,10.5V7A1,1 0 0,0 16,6H4A1,1 0 0,0 3,7V17A1,1 0 0,0 4,18H16A1,1 0 0,0 17,17V13.5L21,17.5V6.5L17,10.5Z";
+  var mdiViewCarousel = "M18,6V17H22V6M2,17H6V6H2M7,19H17V4H7V19Z";
+  var mdiViewCarouselOutline = "M2 6H6V17H2V6M7 19H17V4H7V19M9 6H15V17H9V6M18 6H22V17H18V6Z";
   var mdiWeb = "M16.36,14C16.44,13.34 16.5,12.68 16.5,12C16.5,11.32 16.44,10.66 16.36,10H19.74C19.9,10.64 20,11.31 20,12C20,12.69 19.9,13.36 19.74,14M14.59,19.56C15.19,18.45 15.65,17.25 15.97,16H18.92C17.96,17.65 16.43,18.93 14.59,19.56M14.34,14H9.66C9.56,13.34 9.5,12.68 9.5,12C9.5,11.32 9.56,10.65 9.66,10H14.34C14.43,10.65 14.5,11.32 14.5,12C14.5,12.68 14.43,13.34 14.34,14M12,19.96C11.17,18.76 10.5,17.43 10.09,16H13.91C13.5,17.43 12.83,18.76 12,19.96M8,8H5.08C6.03,6.34 7.57,5.06 9.4,4.44C8.8,5.55 8.35,6.75 8,8M5.08,16H8C8.35,17.25 8.8,18.45 9.4,19.56C7.57,18.93 6.03,17.65 5.08,16M4.26,14C4.1,13.36 4,12.69 4,12C4,11.31 4.1,10.64 4.26,10H7.64C7.56,10.66 7.5,11.32 7.5,12C7.5,12.68 7.56,13.34 7.64,14M12,4.03C12.83,5.23 13.5,6.57 13.91,8H10.09C10.5,6.57 11.17,5.23 12,4.03M18.92,8H15.97C15.65,6.75 15.19,5.55 14.59,4.44C16.43,5.07 17.96,6.34 18.92,8M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z";
   function toDate(argument) {
     const argStr = Object.prototype.toString.call(argument);
@@ -7017,12 +7064,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     return booruCache[rSite].search(tags, { limit, random, page, credentials });
   }
-  const ORIGIN$6 = "https://chan.sankakucomplex.com";
+  const ORIGIN$7 = "https://chan.sankakucomplex.com";
   function isSankakuComplexPage() {
     return location.hostname == "chan.sankakucomplex.com";
   }
   const state = {
-    base: `${ORIGIN$6}/cn/posts?auto_page=t`,
+    base: `${ORIGIN$7}/cn/posts?auto_page=t`,
     nextUrl: null,
     nextPage: 0
   };
@@ -7042,7 +7089,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     if (!url)
       return "";
     try {
-      return new URL(url, ORIGIN$6).href;
+      return new URL(url, ORIGIN$7).href;
     } catch {
       return url;
     }
@@ -7076,7 +7123,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     state.nextUrl = getNextPageUrl(doc);
-    state.nextPage = state.nextUrl ? Number(new URL(resolveUrl(state.nextUrl), ORIGIN$6).searchParams.get("page")) || page + 1 : 0;
+    state.nextPage = state.nextUrl ? Number(new URL(resolveUrl(state.nextUrl), ORIGIN$7).searchParams.get("page")) || page + 1 : 0;
     const seen = /* @__PURE__ */ new Set();
     const results = queryAllDeep(doc, ".post-preview").filter((el) => {
       const id = el.getAttribute("data-id");
@@ -7109,7 +7156,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return results;
   }
   async function getSankakuComplexDetail(id) {
-    const url = new URL(`${ORIGIN$6}/cn/posts/${id}`);
+    const url = new URL(`${ORIGIN$7}/cn/posts/${id}`);
     const htmlResp = await fetch(url.href);
     const doc = new DOMParser().parseFromString(await htmlResp.text(), "text/html");
     const imgSrc = doc.querySelector("#post-content img")?.src;
@@ -7516,6 +7563,14 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       title: "Wallhaven",
       pageLimit: 24,
       match: ["https://wallhaven.cc/*", "https://www.wallhaven.cc/*"]
+    },
+    {
+      key: "cin.wtf",
+      hosts: ["cin.wtf"],
+      navHost: "cin.wtf",
+      title: "cin.wtf",
+      pageLimit: 25,
+      match: ["https://cin.wtf/*"]
     }
   ];
   function normalizeHost(host) {
@@ -7565,7 +7620,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       ...MANUAL_SITES.filter((site) => site.navHost !== null).map((site) => site.navHost ?? site.key)
     ];
   }
-  const ORIGIN$5 = "https://everia.club";
+  const ORIGIN$6 = "https://everia.club";
   const CHUNK_SIZE$3 = 30;
   const DEFAULT_WIDTH = 1e3;
   const DEFAULT_HEIGHT = 1500;
@@ -7586,7 +7641,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   }
   function toAbsolute$2(url) {
     try {
-      return new URL(url, ORIGIN$5).href;
+      return new URL(url, ORIGIN$6).href;
     } catch {
       return "";
     }
@@ -7634,10 +7689,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const suffix = page > 1 ? `page/${page}/` : "";
     const categoryPath = resolveCategoryPath(tags);
     if (categoryPath)
-      return `${ORIGIN$5}${categoryPath}${suffix}`;
+      return `${ORIGIN$6}${categoryPath}${suffix}`;
     const keyword = (tags ?? new URLSearchParams(location.search).get("s") ?? "").trim();
     if (keyword)
-      return `${ORIGIN$5}/${suffix}?s=${encodeURIComponent(keyword)}`;
+      return `${ORIGIN$6}/${suffix}?s=${encodeURIComponent(keyword)}`;
     const url = new URL(location.href);
     url.searchParams.delete("page");
     url.searchParams.delete("tags");
@@ -7725,7 +7780,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const slug = articleSlug$1();
     if (!slug)
       return null;
-    const url = `${ORIGIN$5}/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_fields=id,title,content`;
+    const url = `${ORIGIN$6}/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_fields=id,title,content`;
     const resp = await fetch(url);
     if (!resp.ok)
       return null;
@@ -7788,7 +7843,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       detail: fetchArticleDetail$1
     }
   };
-  const ORIGIN$4 = "https://hentai-cosplay-xxx.com";
+  const ORIGIN$5 = "https://hentai-cosplay-xxx.com";
   const CHUNK_SIZE$2 = 30;
   const WIDTH$1 = 1280;
   const HEIGHT$1 = 1707;
@@ -7804,7 +7859,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   }
   function toAbsolute$1(url) {
     try {
-      return new URL(url, ORIGIN$4).href;
+      return new URL(url, ORIGIN$5).href;
     } catch {
       return "";
     }
@@ -7838,13 +7893,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const suffix = page > 1 ? `page/${page}/` : "";
     const rankPath = resolveRankPath(tags);
     if (rankPath)
-      return `${ORIGIN$4}${rankPath}${suffix}`;
+      return `${ORIGIN$5}${rankPath}${suffix}`;
     const keyword = (tags ?? "").trim();
     if (keyword)
-      return `${ORIGIN$4}/search/keyword/${encodeURIComponent(keyword)}/${suffix}`;
+      return `${ORIGIN$5}/search/keyword/${encodeURIComponent(keyword)}/${suffix}`;
     const path = location.pathname.replace(/\/page\/\d+\/?$/, "/");
     const base = path === "/" ? "/search/" : path;
-    return `${ORIGIN$4}${base.replace(/\/$/, "")}/${suffix}`;
+    return `${ORIGIN$5}${base.replace(/\/$/, "")}/${suffix}`;
   }
   function buildListPost(opts) {
     const { id, href, previewUrl, title, createdAt } = opts;
@@ -7917,7 +7972,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     if (cached)
       return cached;
     const empty = { images: [], title: "", tags: [] };
-    const resp = await fetch(`${ORIGIN$4}/image/${encodeURIComponent(slug)}/`);
+    const resp = await fetch(`${ORIGIN$5}/image/${encodeURIComponent(slug)}/`);
     if (!resp.ok)
       return empty;
     const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
@@ -7943,7 +7998,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     imageCache.set(slug, result);
     return result;
   }
-  async function fetchDetail$1(id) {
+  async function fetchDetail$2(id) {
     const slug = id.replace(/-\d+$/, "") || articleSlug();
     const { images, title, tags } = await loadImages(slug);
     if (images.length === 0)
@@ -7986,17 +8041,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       };
     });
   }
-  async function fetchPosts$1(page, tags) {
+  async function fetchPosts$2(page, tags) {
     if (isHentaiCosplayArticle())
       return fetchArticlePosts$1(page);
     return fetchListPosts$2(page, tags);
   }
   const hentaiCosplay = {
     is: isHentaiCosplay,
-    posts: fetchPosts$1,
-    detail: fetchDetail$1
+    posts: fetchPosts$2,
+    detail: fetchDetail$2
   };
-  const ORIGIN$3 = "https://www.hentaiclub.net";
+  const ORIGIN$4 = "https://www.hentaiclub.net";
   const CHUNK_SIZE$1 = 30;
   const WIDTH = 1440;
   const HEIGHT = 2160;
@@ -8010,17 +8065,17 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function isHentaiclubList() {
     return isHentaiclub() && !ARTICLE_PATH.test(location.pathname);
   }
-  const SORTS = [
+  const SORTS$1 = [
     { label: "\u5168\u90E8", path: "/", aliases: ["all", "home"] },
     { label: "R-15", path: "/sort/r15.html", aliases: ["r15", "15"] },
     { label: "R-18", path: "/sort/r18.html", aliases: ["r18", "18"] }
   ];
-  const hentaiclubPresetTags = SORTS.map((e) => e.label);
+  const hentaiclubPresetTags = SORTS$1.map((e) => e.label);
   function sortOf(token) {
     const term = token.trim().toLowerCase();
     if (!term)
       return null;
-    return SORTS.find((e) => term === e.label.toLowerCase() || e.aliases.includes(term)) ?? null;
+    return SORTS$1.find((e) => term === e.label.toLowerCase() || e.aliases.includes(term)) ?? null;
   }
   function resolveSort(tags) {
     const tokens = (tags ?? "").trim().split(/\s+/).filter(Boolean);
@@ -8034,15 +8089,15 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function listUrl$2(page, sort) {
     if (sort) {
       if (sort.path === "/")
-        return `${ORIGIN$3}${page > 1 ? `/page/${page}/` : "/"}`;
-      return `${ORIGIN$3}${sort.path}${page > 1 ? `/${page}/` : ""}`;
+        return `${ORIGIN$4}${page > 1 ? `/page/${page}/` : "/"}`;
+      return `${ORIGIN$4}${sort.path}${page > 1 ? `/${page}/` : ""}`;
     }
     const base = location.pathname.replace(/\/(?:\d+)\/?$/, "/");
     if (base === "/" || location.pathname.startsWith("/page/")) {
-      return `${ORIGIN$3}${page > 1 ? `/page/${page}/` : "/"}`;
+      return `${ORIGIN$4}${page > 1 ? `/page/${page}/` : "/"}`;
     }
     const trimmed = base.replace(/\/$/, "");
-    return `${ORIGIN$3}${trimmed}${page > 1 ? `/${page}/` : ""}`;
+    return `${ORIGIN$4}${trimmed}${page > 1 ? `/${page}/` : ""}`;
   }
   function parseCount$1(text) {
     return Number(text?.match(/\[(\d+)P\]/i)?.[1] ?? 0) || 1;
@@ -8054,7 +8109,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       if (page > 1)
         return [];
       const body = new URLSearchParams({ s: tokens.join(" ") });
-      const resp2 = await fetch(`${ORIGIN$3}/`, { method: "POST", body });
+      const resp2 = await fetch(`${ORIGIN$4}/`, { method: "POST", body });
       if (!resp2.ok)
         return [];
       return parseCards(new DOMParser().parseFromString(await resp2.text(), "text/html"));
@@ -8104,7 +8159,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const postId = articleId();
     if (!postId)
       return null;
-    const resp = await fetch(`${ORIGIN$3}${location.pathname}`);
+    const resp = await fetch(`${ORIGIN$4}${location.pathname}`);
     if (!resp.ok)
       return null;
     const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
@@ -8166,7 +8221,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       detail: fetchArticleDetail
     }
   };
-  const ORIGIN$2 = "https://en.huamaobizhi.com";
+  const ORIGIN$3 = "https://en.huamaobizhi.com";
   const LANG = "lang=zh-CN";
   const CHUNK_SIZE = 30;
   const THUMB_SEGMENT = "/280h/";
@@ -8183,7 +8238,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   }
   function toAbsolute(url) {
     try {
-      return new URL(url, ORIGIN$2).href;
+      return new URL(url, ORIGIN$3).href;
     } catch {
       return "";
     }
@@ -8222,7 +8277,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     if (order)
       params2.set("order_by", String(order.orderBy));
     const query2 = [params2.toString(), LANG].filter(Boolean).join("&");
-    return `${ORIGIN$2}/mixs/?${query2}`;
+    return `${ORIGIN$3}/mixs/?${query2}`;
   }
   function parseCount(text) {
     return Number(text?.match(/(\d+)\s*图片/)?.[1] ?? 0);
@@ -8271,7 +8326,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return location.pathname.match(MIX_PATH)?.[1] ?? "";
   }
   function mixPageUrl(id, page) {
-    return `${ORIGIN$2}/mix/${id}?page=${page}&order_by=2&purity=2&${LANG}`;
+    return `${ORIGIN$3}/mix/${id}?page=${page}&order_by=2&purity=2&${LANG}`;
   }
   function sizeFromTitle(title) {
     const m = title?.match(/(\d{3,5})[×x](\d{3,5})/);
@@ -8297,7 +8352,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     });
   }
   function maxPageOf(doc) {
-    const pages = Array.from(doc.querySelectorAll('.pagination a[href*="page="]')).map((a) => Number(new URL(a.href, ORIGIN$2).searchParams.get("page"))).filter((n) => Number.isFinite(n) && n > 0);
+    const pages = Array.from(doc.querySelectorAll('.pagination a[href*="page="]')).map((a) => Number(new URL(a.href, ORIGIN$3).searchParams.get("page"))).filter((n) => Number.isFinite(n) && n > 0);
     return Math.max(1, ...pages);
   }
   async function loadMix(id) {
@@ -8385,7 +8440,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       detail: fetchMixDetail
     }
   };
-  const ORIGIN$1 = "https://wallhaven.cc";
+  const ORIGIN$2 = "https://wallhaven.cc";
   const LIST_PATH_RE = /^\/(?:|latest|hot|toplist|random|search)\/?$/;
   function isWallhaven() {
     return /^(?:www\.)?wallhaven\.cc$/.test(location.hostname);
@@ -8404,11 +8459,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   function listUrl(page, tags) {
     const word = tags?.trim().toLowerCase();
     if (word && SECTION_WORDS.has(word)) {
-      return word === "random" ? `${ORIGIN$1}/random` : `${ORIGIN$1}/${word}?page=${page}`;
+      return word === "random" ? `${ORIGIN$2}/random` : `${ORIGIN$2}/${word}?page=${page}`;
     }
     if (word) {
       const q = word.split(/\s+/).map(encodeURIComponent).join("+");
-      return `${ORIGIN$1}/search?q=${q}&page=${page}`;
+      return `${ORIGIN$2}/search?q=${q}&page=${page}`;
     }
     const url = new URL(location.href);
     url.searchParams.delete("page");
@@ -8433,7 +8488,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const fileExt = el.querySelector(".png") ? "png" : "jpg";
     const isWidescreen = Math.abs(width / height - 16 / 9) < 0.01;
     const previewUrl = thumbUrl(id, isWidescreen ? "lg" : "orig");
-    const postView = el.querySelector("a.preview")?.href || `${ORIGIN$1}/w/${id}`;
+    const postView = el.querySelector("a.preview")?.href || `${ORIGIN$2}/w/${id}`;
     return {
       id,
       postView,
@@ -8458,7 +8513,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return [...doc.querySelectorAll("#thumbs figure[data-wallpaper-id]")].map(parseCard$1).filter(Boolean);
   }
   async function fetchWallhavenDetail(id) {
-    const resp = await fetch(`${ORIGIN$1}/w/${id}`);
+    const resp = await fetch(`${ORIGIN$2}/w/${id}`);
     if (!resp.ok)
       return {};
     const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
@@ -8471,6 +8526,138 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     is: isWallhavenList,
     posts: fetchWallhavenPosts,
     detail: fetchWallhavenDetail
+  };
+  const ORIGIN$1 = "https://cin.wtf";
+  const SEARCH_API = "https://same.yui.pw/api/v6/search";
+  const FALLBACK_WIDTH = 250;
+  const FALLBACK_HEIGHT = 350;
+  function isCin() {
+    return /(^|\.)cin\.wtf$/.test(location.hostname);
+  }
+  function isCinList() {
+    return isCin() && (/^\/$/.test(location.pathname) || /^\/search\/?$/.test(location.pathname));
+  }
+  const cinPresetTags = [
+    "sort:popular-today",
+    "sort:popular-weekly",
+    "sort:popular",
+    "sort:date",
+    'category:"doujinshi"',
+    'category:"manga"',
+    'category:"artist cg"',
+    'language:"chinese"',
+    'language:"english"'
+  ];
+  function readNextData(html) {
+    const raw = html.match(/<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/)?.[1];
+    if (!raw)
+      return null;
+    try {
+      return JSON.parse(raw)?.props?.pageProps?.data ?? null;
+    } catch {
+      return null;
+    }
+  }
+  function pickTitle(title) {
+    return title?.pretty?.trim() || title?.english?.trim() || title?.japanese?.trim() || "";
+  }
+  function mediaCountOf(item) {
+    return item.num_pages || item.pages_string?.length || 0;
+  }
+  function toPost(item) {
+    const cover = item.cover;
+    if (!item.id || !cover?.t)
+      return null;
+    const width = cover.w || FALLBACK_WIDTH;
+    const height = cover.h || FALLBACK_HEIGHT;
+    const title = pickTitle(item.title);
+    const mediaCount = mediaCountOf(item);
+    return {
+      id: String(item.id),
+      postView: `${ORIGIN$1}/v/${item.id}`,
+      previewUrl: cover.t,
+      fileUrl: "",
+      tags: [],
+      rating: "e",
+      mediaCount,
+      images: [],
+      width,
+      height,
+      aspectRatio: width / height,
+      createdAt: null,
+      title,
+      fileExt: "webp",
+      fileDownloadName: `${title || "cin"} cin${item.id}`.slice(0, 90),
+      fileDownloadText: mediaCount > 1 ? `${mediaCount}P [webp]` : "[webp]"
+    };
+  }
+  const WILDCARD_QUERY = "-";
+  const SORTS = ["date", "popular-today", "popular-weekly", "popular"];
+  const DEFAULT_SORT = "date";
+  const SORT_TOKEN = /(?:^|\s)sort:([a-z-]+)(?=\s|$)/i;
+  const CACHE_BUST = Date.now().toString(36);
+  function parseTags(tags) {
+    const raw = (tags ?? "").trim();
+    const hit = raw.match(SORT_TOKEN);
+    if (!hit)
+      return { query: raw || WILDCARD_QUERY, sort: DEFAULT_SORT };
+    const value = hit[1].toLowerCase();
+    const sort = SORTS.includes(value) ? value : DEFAULT_SORT;
+    const query2 = raw.replace(SORT_TOKEN, " ").trim();
+    return { query: query2 || WILDCARD_QUERY, sort };
+  }
+  async function fetchSearch(page, query2, sort) {
+    const url = `${SEARCH_API}/${encodeURIComponent(query2)}/${page}/${sort}?cb=${CACHE_BUST}`;
+    const resp = await fetch(url);
+    if (!resp.ok)
+      return [];
+    const json = await resp.json();
+    return (json.result ?? []).flatMap((item) => {
+      const post = toPost(item);
+      return post ? [post] : [];
+    });
+  }
+  async function fetchPosts$1(page, tags) {
+    const { query: query2, sort } = parseTags(tags);
+    return fetchSearch(page, query2, sort);
+  }
+  let detailCache = null;
+  async function loadDetail(id) {
+    const key = `${ORIGIN$1}/v/${id}`;
+    if (detailCache?.key === key)
+      return detailCache.data;
+    const resp = await fetch(key);
+    if (!resp.ok)
+      return null;
+    const data = readNextData(await resp.text());
+    if (!data)
+      return null;
+    detailCache = { key, data };
+    return data;
+  }
+  async function fetchDetail$1(id) {
+    const data = await loadDetail(id);
+    if (!data)
+      return {};
+    const pages = data.images?.pages ?? [];
+    const images = pages.filter((page) => !!page.t).map((page) => ({
+      fileUrl: page.t,
+      previewUrl: page.t,
+      width: page.w || 0,
+      height: page.h || 0
+    }));
+    return {
+      fileUrl: images[0]?.fileUrl ?? null,
+      tags: (data.tags ?? []).map((tag2) => tag2.name?.trim()).filter((name) => !!name),
+      source: `${ORIGIN$1}/v/${id}`,
+      images,
+      title: pickTitle(data.title)
+    };
+  }
+  const cin = {
+    is: isCin,
+    posts: fetchPosts$1,
+    detail: fetchDetail$1
   };
   const siteKeys = getBooruSiteHosts();
   const isBooruSite = () => siteKeys.includes(location.host);
@@ -8533,6 +8720,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return huamaoPresetTags;
     if (isWallhavenList())
       return wallhavenPresetTags;
+    if (isCinList())
+      return cinPresetTags;
     return [];
   })();
   function getSiteTitle(domain2 = location.host) {
@@ -9942,6 +10131,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     huamao.list,
     huamao.mix,
     wallhaven,
+    cin,
     { is: () => true, posts: async () => [] }
   ];
   function getFirstPageNo(params2) {
@@ -11404,6 +11594,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           return false;
         }
       });
+      const imgCrossorigin = isCin() ? "anonymous" : void 0;
       const imgLasySrc = Vue2.computed(() => {
         if (isVideo.value)
           return void 0;
@@ -11707,24 +11898,44 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       }
       const showPreviewThumb = Vue2.ref(true);
       const isMultiImagePost = Vue2.computed(() => postImages.value.length > 1);
-      const hasThumbStrip = Vue2.computed(() => isMultiImagePost.value && !scaleOn.value);
-      const canStepPrev = Vue2.computed(() => isMultiImagePost.value ? imageIndex.value > 0 : store.imageSelectedIndex > 0);
-      const canStepNext = Vue2.computed(() => isMultiImagePost.value ? imageIndex.value < postImages.value.length - 1 : true);
-      function stepPrevImage() {
-        if (isMultiImagePost.value) {
-          if (imageIndex.value > 0)
-            imageIndex.value--;
-          return;
-        }
-        showPrevPost();
+      const hasThumbStrip = Vue2.computed(() => isMultiImagePost.value && !scaleOn.value && settings.showDetailThumbs);
+      function toggleThumbStrip() {
+        settings.showDetailThumbs = !settings.showDetailThumbs;
       }
-      function stepNextImage() {
-        if (isMultiImagePost.value) {
-          if (imageIndex.value < postImages.value.length - 1)
-            imageIndex.value++;
+      const imageAreaClass = Vue2.computed(() => [
+        scaleOn.value ? "img_scale_scroll" : "img_scale_normal",
+        hasThumbStrip.value ? "detail-has-thumbs" : ""
+      ]);
+      const canStepPrev = Vue2.computed(() => {
+        if (isMultiImagePost.value)
+          return imageIndex.value > 0 || store.imageSelectedIndex > 0;
+        return store.imageSelectedIndex > 0;
+      });
+      const canStepNext = Vue2.computed(() => true);
+      function exitScaleBeforeCrossPost() {
+        if (scaleOn.value)
+          zoomOutImg();
+      }
+      async function stepPrevImage() {
+        if (isMultiImagePost.value && imageIndex.value > 0) {
+          imageIndex.value--;
           return;
         }
-        showNextPost();
+        exitScaleBeforeCrossPost();
+        const before = store.imageSelectedIndex;
+        await showPrevPost();
+        if (!isMultiImagePost.value || store.imageSelectedIndex === before)
+          return;
+        await Vue2.nextTick();
+        imageIndex.value = postImages.value.length - 1;
+      }
+      async function stepNextImage() {
+        if (isMultiImagePost.value && imageIndex.value < postImages.value.length - 1) {
+          imageIndex.value++;
+          return;
+        }
+        exitScaleBeforeCrossPost();
+        await showNextPost();
       }
       async function showPrevPost() {
         if (store.imageSelectedIndex == 0)
@@ -11781,36 +11992,40 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           imageSelected.value.fileUrl = fileUrl.replace(/\.png(\?\d+)?$/, ".gif");
         }
       }
-      const scaleImgSrc = Vue2.computed(() => {
-        return scaleOn.value ? imageSelected.value.jpegUrl || imageSelected.value.fileUrl || void 0 : void 0;
-      });
+      const scaleFileUrl = Vue2.computed(() => currentImage.value?.fileUrl || imageSelected.value.jpegUrl || imageSelected.value.fileUrl || "");
+      const scaleImgSrc = Vue2.computed(() => scaleOn.value ? scaleFileUrl.value || void 0 : void 0);
+      function applyScaleFileUrl(url, img) {
+        if (currentImage.value)
+          currentImage.value.fileUrl = url;
+        else
+          imageSelected.value.fileUrl = url;
+        img.src = url;
+      }
       function onScaleImgError(ev) {
-        if (notR34Fav.value) {
-          imageSelected.value.data.jpeg_url = null;
+        const img = ev.target;
+        const fileUrl = scaleFileUrl.value;
+        if (!currentImage.value && notR34Fav.value) {
+          const post = imageSelected.value;
+          if (post.data)
+            post.data.jpeg_url = null;
           return;
         }
-        const img = ev.target;
-        const { fileUrl } = imageSelected.value;
         if (fileUrl && location.hostname.includes("zerochan")) {
           getZerochanFileUrl(imageSelected.value.id).then((url) => {
-            imageSelected.value.fileUrl = url;
-            img.src = url;
+            applyScaleFileUrl(url, img);
           });
           return;
         }
         if (fileUrl?.includes(".jpeg")) {
-          imageSelected.value.fileUrl = fileUrl.replace(/\.jpeg(\?\d+)?$/, ".jpg");
-          img.src = imageSelected.value.fileUrl;
+          applyScaleFileUrl(fileUrl.replace(/\.jpeg(\?\d+)?$/, ".jpg"), img);
           return;
         }
         if (fileUrl?.includes(".jpg")) {
-          imageSelected.value.fileUrl = fileUrl.replace(/\.jpg(\?\d+)?$/, ".png");
-          img.src = imageSelected.value.fileUrl;
+          applyScaleFileUrl(fileUrl.replace(/\.jpg(\?\d+)?$/, ".png"), img);
           return;
         }
         if (fileUrl && (realbooru.is() || rule34.firefox.is())) {
-          imageSelected.value.fileUrl = fileUrl.replace(/\.png(\?\d+)?$/, ".gif");
-          img.src = imageSelected.value.fileUrl;
+          applyScaleFileUrl(fileUrl.replace(/\.png(\?\d+)?$/, ".gif"), img);
         }
       }
       const scaleImgStyleMap = {
@@ -11872,7 +12087,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         innerHeight.value = window.innerHeight;
         updateThumbScrollState();
       }
-      const isTriggerEvent = Vue2.computed(() => {
+      const isWheelStepEnable = Vue2.computed(() => {
         if (!store.showImageSelected)
           return false;
         if (isVideo.value)
@@ -11883,21 +12098,30 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
           return false;
         return true;
       });
+      const isKeyStepEnable = Vue2.computed(() => {
+        if (!store.showImageSelected)
+          return false;
+        if (isVideo.value)
+          return false;
+        if (isExportTagsShow.value)
+          return false;
+        return true;
+      });
       const onWheel = debounce((ev) => {
-        if (!isTriggerEvent.value)
+        if (!isWheelStepEnable.value)
           return;
-        ev.deltaY > 0 ? showNextPost() : showPrevPost();
+        ev.deltaY > 0 ? stepNextImage() : stepPrevImage();
       }, 500, true);
       const onKeyup = debounce((ev) => {
-        if (!isTriggerEvent.value)
+        if (!isKeyStepEnable.value)
           return;
         ev.preventDefault();
         if (["ArrowLeft", "a", "A"].includes(ev.key)) {
-          showPrevPost();
+          stepPrevImage();
           return;
         }
         if (["ArrowRight", "d", "D"].includes(ev.key)) {
-          showNextPost();
+          stepNextImage();
           return;
         }
         if (["f", "F"].includes(ev.key)) {
@@ -11917,21 +12141,21 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         settings.isListenWheelEvent && window.removeEventListener("wheel", onWheel);
         settings.isListenKeyupEvent && window.removeEventListener("keyup", onKeyup);
       });
-      return { __sfc: true, notR34Fav, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, imageSelected, isVideo, imgLasySrc, postImages, imageIndex, thumbRowEl, thumbCanScrollLeft, thumbCanScrollRight, thumbDragging, thumbDragStartX, thumbDragStartLeft, thumbMoved, onThumbScroll, updateThumbScrollState, onThumbWheel, scrollThumbs, onThumbPointerDown, onThumbPointerMove, onThumbPointerUp, selectThumb, centerActiveThumb, postTitle, sourceLink, imgSrc, currentImage, currentFileUrl, currentFileDownloadName, imageSelectedWidth, notYKSite, imgCreateTime, close, toggleToolbar, toTagsPage, toPidPage, toDetailPage, toSourcePage, buildLightboxPosts, openLightbox, withoutClick, downloadHighest, download, addToList, onDtlContClick, postDetail, metaTags, addFavorite, isExportTagsEnable, isExportTagsShow, openExportTags, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, isMultiImagePost, hasThumbStrip, canStepPrev, canStepNext, stepPrevImage, stepNextImage, showPrevPost, showNextPost, onImageLoadError, scaleImgSrc, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isTriggerEvent, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFileTree, mdiFitToScreenOutline, mdiFolderNetwork, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiImageMultipleOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, DPlayer, PostExportTags, isFavBtnShow, notPartialSupportSite, settings, store };
+      return { __sfc: true, notR34Fav, showImageToolbar, imgLoading, innerWidth, innerHeight, downloading, scaleOn, imageSelected, isVideo, imgCrossorigin, imgLasySrc, postImages, imageIndex, thumbRowEl, thumbCanScrollLeft, thumbCanScrollRight, thumbDragging, thumbDragStartX, thumbDragStartLeft, thumbMoved, onThumbScroll, updateThumbScrollState, onThumbWheel, scrollThumbs, onThumbPointerDown, onThumbPointerMove, onThumbPointerUp, selectThumb, centerActiveThumb, postTitle, sourceLink, imgSrc, currentImage, currentFileUrl, currentFileDownloadName, imageSelectedWidth, notYKSite, imgCreateTime, close, toggleToolbar, toTagsPage, toPidPage, toDetailPage, toSourcePage, buildLightboxPosts, openLightbox, withoutClick, downloadHighest, download, addToList, onDtlContClick, postDetail, metaTags, addFavorite, isExportTagsEnable, isExportTagsShow, openExportTags, preloadImgEl, preloadImg, preloadNextImg, isVideoShow, toggleVideoShow, showPreviewThumb, isMultiImagePost, hasThumbStrip, toggleThumbStrip, imageAreaClass, canStepPrev, canStepNext, exitScaleBeforeCrossPost, stepPrevImage, stepNextImage, showPrevPost, showNextPost, onImageLoadError, scaleFileUrl, scaleImgSrc, applyScaleFileUrl, onScaleImgError, scaleImgStyleMap, imgScaleState, imgRotateDeg, rotateImg, scaleImgStyle, clearDragEv, zoomInImg, zoomOutImg, reqFullscreen, onResize, isWheelStepEnable, isKeyStepEnable, onWheel, onKeyup, mdiChevronLeft, mdiChevronRight, mdiClose, mdiDownload, mdiFileTree, mdiFitToScreenOutline, mdiFolderNetwork, mdiFullscreen, mdiHeart, mdiHeartPlusOutline, mdiImageMultipleOutline, mdiLaunch, mdiLinkVariant, mdiLoupe, mdiMagnifyMinusOutline, mdiMagnifyPlusOutline, mdiPlaylistPlus, mdiRotateRight, mdiTableSplitCell, mdiTagMultiple, mdiViewCarousel, mdiViewCarouselOutline, DPlayer, PostExportTags, isFavBtnShow, notPartialSupportSite, settings, store };
     }
   });
   var _sfc_render$5 = function render() {
     var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
     return _c("v-dialog", { attrs: { "fullscreen": "" }, model: { value: _setup.store.showImageSelected, callback: function($$v) {
       _vm.$set(_setup.store, "showImageSelected", $$v);
-    }, expression: "store.showImageSelected" } }, [_setup.store.showImageSelected ? _c("div", { staticClass: "img_detail_cont", on: { "click": _setup.onDtlContClick } }, [_setup.isVideo ? [_setup.isVideoShow ? _c(_setup.DPlayer, { style: `width: ${_setup.imageSelectedWidth > _setup.imageSelected.width ? _setup.imageSelected.width : _setup.imageSelectedWidth}px`, attrs: { "options": { theme: "#8E24AA", autoplay: true, loop: true, video: { url: _setup.imageSelected.fileUrl } } } }) : _vm._e()] : _c("div", { class: { img_scale_scroll: _setup.scaleOn, img_scale_normal: !_setup.scaleOn }, attrs: { "draggable": "false" } }, [_c("v-row", { directives: [{ name: "show", rawName: "v-show", value: _setup.imgLoading, expression: "imgLoading" }], staticClass: "img_detail_loading" }, [_setup.showPreviewThumb && !_setup.scaleOn ? _c("img", { attrs: { "src": _setup.imgLasySrc, "width": _setup.imageSelectedWidth, "alt": "" } }) : _vm._e(), _c("v-progress-circular", { attrs: { "size": 100, "width": 6, "indeterminate": "", "color": "deep-purple" } })], 1), !_setup.scaleOn ? _c("img", { staticClass: "img_detail_sample", attrs: { "alt": "", "src": _setup.imgSrc }, on: { "click": function($event) {
+    }, expression: "store.showImageSelected" } }, [_setup.store.showImageSelected ? _c("div", { staticClass: "img_detail_cont", on: { "click": _setup.onDtlContClick } }, [_setup.isVideo ? [_setup.isVideoShow ? _c(_setup.DPlayer, { style: `width: ${_setup.imageSelectedWidth > _setup.imageSelected.width ? _setup.imageSelected.width : _setup.imageSelectedWidth}px`, attrs: { "options": { theme: "#8E24AA", autoplay: true, loop: true, video: { url: _setup.imageSelected.fileUrl } } } }) : _vm._e()] : _c("div", { class: _setup.imageAreaClass, attrs: { "draggable": "false" } }, [_c("v-row", { directives: [{ name: "show", rawName: "v-show", value: _setup.imgLoading, expression: "imgLoading" }], staticClass: "img_detail_loading" }, [_setup.showPreviewThumb && !_setup.scaleOn ? _c("img", { attrs: { "src": _setup.imgLasySrc, "crossorigin": _setup.imgCrossorigin, "width": _setup.imageSelectedWidth, "alt": "" } }) : _vm._e(), _c("v-progress-circular", { attrs: { "size": 100, "width": 6, "indeterminate": "", "color": "deep-purple" } })], 1), !_setup.scaleOn ? _c("img", { staticClass: "img_detail_sample", attrs: { "alt": "", "src": _setup.imgSrc, "crossorigin": _setup.imgCrossorigin }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.toggleToolbar.apply(null, arguments);
     }, "load": function($event) {
       _setup.imgLoading = false;
-    }, "error": _setup.onImageLoadError } }) : _vm._e(), _setup.scaleOn ? _c("img", { staticClass: "img_detail_scale", style: _setup.scaleImgStyle, attrs: { "draggable": "false", "alt": "", "src": _setup.scaleImgSrc }, on: { "load": function($event) {
+    }, "error": _setup.onImageLoadError } }) : _vm._e(), _setup.scaleOn ? _c("img", { staticClass: "img_detail_scale", style: _setup.scaleImgStyle, attrs: { "draggable": "false", "alt": "", "src": _setup.scaleImgSrc, "crossorigin": _setup.imgCrossorigin }, on: { "load": function($event) {
       _setup.imgLoading = false;
-    }, "error": _setup.onScaleImgError } }) : _vm._e(), _setup.postImages.length > 1 && !_setup.scaleOn ? _c("div", { staticClass: "detail-thumb-strip", class: { "detail-thumb-strip--raised": _setup.settings.detailButtonsBottom }, on: { "click": function($event) {
+    }, "error": _setup.onScaleImgError } }) : _vm._e(), _setup.hasThumbStrip ? _c("div", { staticClass: "detail-thumb-strip", class: { "detail-thumb-strip--raised": _setup.settings.detailButtonsBottom }, on: { "click": function($event) {
       $event.stopPropagation();
     } } }, [_c("div", { staticClass: "detail-thumb-nav", class: { "detail-thumb-nav--disabled": !_setup.thumbCanScrollLeft }, attrs: { "role": "button", "tabindex": "0" }, on: { "click": function($event) {
       $event.stopPropagation();
@@ -11944,11 +12168,11 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return _c("div", { key: i, staticClass: "detail-thumb-item", class: { "detail-thumb-item--active": i === _setup.imageIndex }, attrs: { "role": "button", "tabindex": "0" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.selectThumb(i);
-      } } }, [_c("v-img", { attrs: { "src": img.previewUrl, "width": "56", "height": "56" } })], 1);
+      } } }, [_c("img", { staticClass: "detail-thumb-img", attrs: { "src": img.previewUrl, "crossorigin": _setup.imgCrossorigin, "loading": "lazy", "decoding": "async", "alt": "" } })]);
     }), 0), _c("div", { staticClass: "detail-thumb-nav", class: { "detail-thumb-nav--disabled": !_setup.thumbCanScrollRight }, attrs: { "role": "button", "tabindex": "0" }, on: { "click": function($event) {
       $event.stopPropagation();
       return _setup.scrollThumbs(1);
-    } } }, [_c("v-icon", { attrs: { "small": "" } }, [_vm._v(_vm._s(_setup.mdiChevronRight))])], 1)]) : _vm._e()], 1)], 2) : _vm._e(), _c("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && _setup.scaleOn && !_setup.isVideo, expression: "showImageToolbar && scaleOn && !isVideo" }], staticClass: "img-detail-toolbar img_detail_btn_color", class: { "detail-buttons-bottom": _setup.settings.detailButtonsBottom }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_c("v-spacer"), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    } } }, [_c("v-icon", { attrs: { "small": "" } }, [_vm._v(_vm._s(_setup.mdiChevronRight))])], 1)]) : _vm._e()], 1)], 2) : _vm._e(), _c("v-toolbar", { directives: [{ name: "show", rawName: "v-show", value: _setup.showImageToolbar && _setup.scaleOn && !_setup.isVideo, expression: "showImageToolbar && scaleOn && !isVideo" }], staticClass: "img-detail-toolbar img_detail_btn_color", class: { "detail-buttons-bottom": _setup.settings.detailButtonsBottom }, attrs: { "color": "transparent", "height": "auto", "flat": "" } }, [_setup.postImages.length > 1 ? _c("v-chip", { attrs: { "small": "" }, domProps: { "textContent": _vm._s(`${_setup.imageIndex + 1} / ${_setup.postImages.length}`) } }) : _vm._e(), _c("v-spacer"), _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1 hidden-sm-and-down", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         _setup.imgScaleState = "FitToPage";
@@ -12008,7 +12232,12 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         $event.stopPropagation();
         return _setup.openLightbox.apply(null, arguments);
       } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.mdiImageMultipleOutline))])], 1)];
-    } }], null, false, 1179559845) }, [_c("span", [_vm._v(_vm._s(_vm.$t("dvs63FvVKWm3uHVfqeq00")))])]) : _vm._e(), _setup.sourceLink ? _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+    } }], null, false, 1179559845) }, [_c("span", [_vm._v(_vm._s(_vm.$t("dvs63FvVKWm3uHVfqeq00")))])]) : _vm._e(), _setup.isMultiImagePost ? _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
+      return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
+        $event.stopPropagation();
+        return _setup.toggleThumbStrip.apply(null, arguments);
+      } } }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v(_vm._s(_setup.settings.showDetailThumbs ? _setup.mdiViewCarousel : _setup.mdiViewCarouselOutline))])], 1)];
+    } }], null, false, 2833777148) }, [_c("span", [_vm._v(_vm._s(_setup.settings.showDetailThumbs ? _vm.$t("thumbStripHide") : _vm.$t("thumbStripShow")))])]) : _vm._e(), _setup.sourceLink ? _c("v-tooltip", { attrs: { "bottom": "" }, scopedSlots: _vm._u([{ key: "activator", fn: function({ on, attrs }) {
       return [_c("v-btn", _vm._g(_vm._b({ staticClass: "mr-1", attrs: { "fab": "", "small": "" }, on: { "click": function($event) {
         $event.stopPropagation();
         return _setup.toSourcePage.apply(null, arguments);

@@ -158,5 +158,7 @@
   "autoHideAppBarSubtitle": "下にスクロールするとトップバーを隠し、上にスクロールするかマウスを画面上部へ移動すると表示します",
   "inlinePlayTitle": "再生 / 停止",
   "inlineHoverPlayTitle": "ホバーで動画/アニメGIFを再生",
-  "inlineHoverPlaySubtitle": "サムネイルにマウスを乗せると、リスト内で動画とアニメGIFを直接再生します。ファイルが大きい場合は通信量にご注意ください"
+  "inlineHoverPlaySubtitle": "サムネイルにマウスを乗せると、リスト内で動画とアニメGIFを直接再生します。ファイルが大きい場合は通信量にご注意ください",
+  "thumbStripHide": "サムネイルバーを隠す",
+  "thumbStripShow": "サムネイルバーを表示"
 }

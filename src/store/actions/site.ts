@@ -49,6 +49,8 @@ export const siteActions: api.SiteAdapter[] = [
   // wallhaven：只接管列表型页面（/latest /hot /toplist /random /search），
   // 单图页与用户页交给站点自己
   api.wallhaven,
+  // cin.wtf：列表 25 条/页，详情弹窗吃 `/v/{id}` 的 SSR 页数组
+  api.cin,
   { is: () => true, posts: async () => [] },
 ]
 

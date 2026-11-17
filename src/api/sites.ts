@@ -175,6 +175,15 @@ const MANUAL_SITES: SiteRegistration[] = [
     pageLimit: 24,
     match: ['https://wallhaven.cc/*', 'https://www.wallhaven.cc/*'],
   },
+  // 同人志站：列表 25 条/页，详情 `/v/{id}` 的 SSR 数据一次给全，走多图详情弹窗
+  {
+    key: 'cin.wtf',
+    hosts: ['cin.wtf'],
+    navHost: 'cin.wtf',
+    title: 'cin.wtf',
+    pageLimit: 25,
+    match: ['https://cin.wtf/*'],
+  },
 ]
 
 /**

@@ -8,13 +8,9 @@
           :options="{ theme: '#8E24AA', autoplay: true, loop: true, video: { url: imageSelected.fileUrl } }"
         />
       </template>
-      <div
-        v-else
-        :class="{ img_scale_scroll: scaleOn, img_scale_normal: !scaleOn }"
-        draggable="false"
-      >
+      <div v-else :class="imageAreaClass" draggable="false">
         <v-row v-show="imgLoading" class="img_detail_loading">
-          <img v-if="(showPreviewThumb && !scaleOn)" :src="imgLasySrc" :width="imageSelectedWidth" alt="">
+          <img v-if="(showPreviewThumb && !scaleOn)" :src="imgLasySrc" :crossorigin="imgCrossorigin" :width="imageSelectedWidth" alt="">
           <v-progress-circular :size="100" :width="6" indeterminate color="deep-purple" />
         </v-row>
         <img
@@ -22,6 +18,7 @@
           class="img_detail_sample"
           alt=""
           :src="imgSrc"
+          :crossorigin="imgCrossorigin"
           @click.stop="toggleToolbar"
           @load="imgLoading = false"
           @error="onImageLoadError"
@@ -32,12 +29,13 @@
           draggable="false"
           alt=""
           :src="scaleImgSrc"
+          :crossorigin="imgCrossorigin"
           :style="scaleImgStyle"
           @load="imgLoading = false"
           @error="onScaleImgError"
         >
         <div
-          v-if="postImages.length > 1 && !scaleOn"
+          v-if="hasThumbStrip"
           class="detail-thumb-strip"
           :class="{ 'detail-thumb-strip--raised': settings.detailButtonsBottom }"
           @click.stop
@@ -68,7 +66,14 @@
               tabindex="0"
               @click.stop="selectThumb(i)"
             >
-              <v-img :src="img.previewUrl" width="56" height="56" />
+              <img
+                class="detail-thumb-img"
+                :src="img.previewUrl"
+                :crossorigin="imgCrossorigin"
+                loading="lazy"
+                decoding="async"
+                alt=""
+              >
             </div>
           </div>
           <div
@@ -91,6 +96,12 @@
       height="auto"
       flat
     >
+      <!-- 放大态下缩略条被隐藏，页码只能靠这里看：左右按钮 / A / D 在图内仍然有效 -->
+      <v-chip
+        v-if="postImages.length > 1"
+        small
+        v-text="`${imageIndex + 1} / ${postImages.length}`"
+      />
       <v-spacer />
       <v-tooltip bottom>
         <template #activator="{ on, attrs }">
@@ -306,6 +317,21 @@
           </v-btn>
         </template>
         <span>{{ $t('dvs63FvVKWm3uHVfqeq00') }}</span>
+      </v-tooltip>
+      <v-tooltip v-if="isMultiImagePost" bottom>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            fab
+            small
+            v-bind="attrs"
+            class="mr-1"
+            v-on="on"
+            @click.stop="toggleThumbStrip"
+          >
+            <v-icon>{{ settings.showDetailThumbs ? mdiViewCarousel : mdiViewCarouselOutline }}</v-icon>
+          </v-btn>
+        </template>
+        <span>{{ settings.showDetailThumbs ? $t('thumbStripHide') : $t('thumbStripShow') }}</span>
       </v-tooltip>
       <v-tooltip v-if="sourceLink" bottom>
         <template #activator="{ on, attrs }">
@@ -523,13 +549,15 @@ import {
   mdiRotateRight,
   mdiTableSplitCell,
   mdiTagMultiple,
+  mdiViewCarousel,
+  mdiViewCarouselOutline,
 } from '@mdi/js'
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import type { Post } from '@himeka/booru'
 import DPlayer from './DPlayer.vue'
 import PostExportTags from './PostExportTags.vue'
 import { debounce, downloadFile, dragElement, fancyboxShow, formatRelativeTime, isURL, showMsg } from '@/utils'
-import { gelbooru, getPostImages, getPostTitle, realbooru, rule34, zerochan } from '@/api'
+import { gelbooru, getPostImages, getPostTitle, isCin, realbooru, rule34, zerochan } from '@/api'
 import { type PostDetail } from '@/api/moebooru'
 import { addPostToFavorites, isFavBtnShow } from '@/api/fav'
 import { resolvePostDownloadSource } from '@/utils/download-source'
@@ -573,6 +601,14 @@ const isVideo = computed(() => {
     return false
   }
 })
+/**
+ * cin.wtf 的图床只认 `Origin`（只发 Referer 依然 403），而普通 `<img>` 请求不带
+ * Origin，于是详情页整片 403。显式 `crossorigin` 会让浏览器改发 CORS 请求，
+ * 服务器回 `Access-Control-Allow-Origin: https://cin.wtf`，正好放行。
+ * 其他站点不能加：它们的图床不返回这个头，加了反而会让图片全部加载失败。
+ */
+const imgCrossorigin = isCin() ? 'anonymous' : undefined
+
 const imgLasySrc = computed(() => {
   if (isVideo.value) return void 0
   return imageSelected.value.previewUrl ?? void 0
@@ -611,7 +647,7 @@ function updateThumbScrollState() {
   }
 }
 
-// 鼠标滚轮在缩略条内改为横向滚动，并阻止冒泡（否则会触发上一张/下一张）
+// 鼠标滚轮在缩略条内改为横向滚动，并阻止冒泡（否则会触发切图）
 function onThumbWheel(ev: WheelEvent) {
   const row = thumbRowEl.value
   if (!row) return
@@ -908,28 +944,66 @@ const showPreviewThumb = ref(true)
 
 // 多图帖：左右箭头在图内切换，到首/尾停住；单图帖：仍然是列表上/下一项
 const isMultiImagePost = computed(() => postImages.value.length > 1)
-const hasThumbStrip = computed(() => isMultiImagePost.value && !scaleOn.value)
-const canStepPrev = computed(() => (
-  isMultiImagePost.value ? imageIndex.value > 0 : store.imageSelectedIndex > 0
-))
-const canStepNext = computed(() => (
-  isMultiImagePost.value ? imageIndex.value < postImages.value.length - 1 : true
-))
+// 缩略条可被工具栏按钮收起（`settings.showDetailThumbs`，设置会自动持久化）
+const hasThumbStrip = computed(() => isMultiImagePost.value && !scaleOn.value && settings.showDetailThumbs)
 
-function stepPrevImage() {
-  if (isMultiImagePost.value) {
-    if (imageIndex.value > 0) imageIndex.value--
-    return
-  }
-  showPrevPost()
+function toggleThumbStrip() {
+  settings.showDetailThumbs = !settings.showDetailThumbs
+}
+/**
+ * 图片区的类。
+ *
+ * 多图帖的缩略条贴在底部浮在主图上，会把图片下沿盖住（竖图几乎撑满视口时最明显），
+ * 所以有缩略条时附加 `detail-has-thumbs`，由 CSS 让出缩略条的高度。
+ */
+const imageAreaClass = computed(() => [
+  scaleOn.value ? 'img_scale_scroll' : 'img_scale_normal',
+  hasThumbStrip.value ? 'detail-has-thumbs' : '',
+])
+/**
+ * 三个入口（左右按钮、滚轮、A/D）共用这套语义：
+ * 多图帖先在详情内切图，切到首/末张再跨到上一/下一帖（跨到上一帖时停在它的最后一张）。
+ * 单图帖没有图内可切，直接跨帖。
+ */
+const canStepPrev = computed(() => {
+  if (isMultiImagePost.value) return imageIndex.value > 0 || store.imageSelectedIndex > 0
+  return store.imageSelectedIndex > 0
+})
+/** 列表可以继续加载（`showNextPost` 内部会判断是否到底），所以右侧不做禁用 */
+const canStepNext = computed(() => true)
+
+/**
+ * 跨帖前退出放大态。
+ *
+ * 放大态是「这一帖的这一张」的视图：跨到新帖时它的详情还没回来（cin 的列表项 `fileUrl`
+ * 就是空串），大图会空白几百毫秒，再冒出第 1 页；缩放档位（FitToWidth / 旋转角）也会
+ * 被带到新帖上。所以先退回普通视图，由新帖自己重新加载。
+ */
+function exitScaleBeforeCrossPost() {
+  if (scaleOn.value) zoomOutImg()
 }
 
-function stepNextImage() {
-  if (isMultiImagePost.value) {
-    if (imageIndex.value < postImages.value.length - 1) imageIndex.value++
+async function stepPrevImage() {
+  if (isMultiImagePost.value && imageIndex.value > 0) {
+    imageIndex.value--
     return
   }
-  showNextPost()
+  exitScaleBeforeCrossPost()
+  const before = store.imageSelectedIndex
+  await showPrevPost()
+  if (!isMultiImagePost.value || store.imageSelectedIndex === before) return
+  // 切帖时 `watch(imageSelected.id)` 会把 imageIndex 归零，等它跑完再定位到末张
+  await nextTick()
+  imageIndex.value = postImages.value.length - 1
+}
+
+async function stepNextImage() {
+  if (isMultiImagePost.value && imageIndex.value < postImages.value.length - 1) {
+    imageIndex.value++
+    return
+  }
+  exitScaleBeforeCrossPost()
+  await showNextPost()
 }
 
 async function showPrevPost() {
@@ -992,44 +1066,59 @@ function onImageLoadError(ev: Event) {
   }
 }
 
-const scaleImgSrc = computed(() => {
-  return scaleOn.value
-    ? (imageSelected.value.jpegUrl || imageSelected.value.fileUrl || void 0)
-    : void 0
-})
+/**
+ * 「查看大图」的地址。
+ *
+ * 多图帖必须跟缩略条选中的那张走：列表项的 `fileUrl` 是**封面**（cin 的列表项干脆是空串，
+ * 详情阶段才回填成第 1 页），直接用它会出现「看第 5 页、放大的是第 1 页」或者一片空白。
+ * 单图帖仍优先 `jpegUrl`（booru 站点的原图直链），与改动前一致。
+ */
+const scaleFileUrl = computed(() => (
+  currentImage.value?.fileUrl
+  || imageSelected.value.jpegUrl
+  || imageSelected.value.fileUrl
+  || ''
+))
+
+const scaleImgSrc = computed(() => (scaleOn.value ? scaleFileUrl.value || void 0 : void 0))
+
+/** 大图加载失败后修正地址：多图帖写回当前那张，不能只改列表项（改列表项不影响大图） */
+function applyScaleFileUrl(url: string, img: HTMLImageElement) {
+  if (currentImage.value) currentImage.value.fileUrl = url
+  else imageSelected.value.fileUrl = url
+  img.src = url
+}
 
 function onScaleImgError(ev: Event) {
-  if (notR34Fav.value) {
-    // @ts-expect-error data protected
-    imageSelected.value.data.jpeg_url = null
+  const img = ev.target as HTMLImageElement
+  const fileUrl = scaleFileUrl.value
+
+  // 这些站点的原图直链来自 `data.jpeg_url`，清掉它会让大图回落到 `fileUrl`
+  // 多图帖没有这层数据（`data` 本身是 undefined），不能走这条分支
+  if (!currentImage.value && notR34Fav.value) {
+    const post = imageSelected.value as { data?: { jpeg_url?: string | null } }
+    if (post.data) post.data.jpeg_url = null
     return
   }
 
   // imgLoading.value = false
 
-  const img = ev.target as HTMLImageElement
-  const { fileUrl } = imageSelected.value
-
   if (fileUrl && location.hostname.includes('zerochan')) {
     getZerochanFileUrl(imageSelected.value.id).then(url => {
-      imageSelected.value.fileUrl = url
-      img.src = url
+      applyScaleFileUrl(url, img)
     })
     return
   }
   if (fileUrl?.includes('.jpeg')) {
-    imageSelected.value.fileUrl = fileUrl.replace(/\.jpeg(\?\d+)?$/, '.jpg')
-    img.src = imageSelected.value.fileUrl
+    applyScaleFileUrl(fileUrl.replace(/\.jpeg(\?\d+)?$/, '.jpg'), img)
     return
   }
   if (fileUrl?.includes('.jpg')) {
-    imageSelected.value.fileUrl = fileUrl.replace(/\.jpg(\?\d+)?$/, '.png')
-    img.src = imageSelected.value.fileUrl
+    applyScaleFileUrl(fileUrl.replace(/\.jpg(\?\d+)?$/, '.png'), img)
     return
   }
   if (fileUrl && (realbooru.is() || rule34.firefox.is())) {
-    imageSelected.value.fileUrl = fileUrl.replace(/\.png(\?\d+)?$/, '.gif')
-    img.src = imageSelected.value.fileUrl
+    applyScaleFileUrl(fileUrl.replace(/\.png(\?\d+)?$/, '.gif'), img)
   }
 }
 
@@ -1100,7 +1189,12 @@ function onResize() {
   updateThumbScrollState()
 }
 
-const isTriggerEvent = computed(() => {
+/**
+ * 滚轮翻页的手势判定。
+ *
+ * 放大态不是「适应页面」时滚轮要留给平移（`.img_scale_scroll` 自己滚），不能抢来翻页。
+ */
+const isWheelStepEnable = computed(() => {
   if (!store.showImageSelected) return false
   if (isVideo.value) return false
   if (scaleOn.value && imgScaleState.value !== 'FitToPage') return false
@@ -1108,20 +1202,33 @@ const isTriggerEvent = computed(() => {
   return true
 })
 
+/**
+ * A/D 与 ←/→ 的判定。
+ *
+ * 与滚轮不同，键盘没有「平移放大图」这个用途（平移是拖拽和滚动条），而左右按钮在放大态
+ * 一直是可用的 —— 所以键盘也不该被放大态拦掉，否则同一个动作按钮能用、键盘失效。
+ */
+const isKeyStepEnable = computed(() => {
+  if (!store.showImageSelected) return false
+  if (isVideo.value) return false
+  if (isExportTagsShow.value) return false
+  return true
+})
+
 const onWheel = debounce((ev: WheelEvent) => {
-  if (!isTriggerEvent.value) return
-  ev.deltaY > 0 ? showNextPost() : showPrevPost()
+  if (!isWheelStepEnable.value) return
+  ev.deltaY > 0 ? stepNextImage() : stepPrevImage()
 }, 500, true)
 
 const onKeyup = debounce((ev: KeyboardEvent) => {
-  if (!isTriggerEvent.value) return
+  if (!isKeyStepEnable.value) return
   ev.preventDefault()
   if (['ArrowLeft', 'a', 'A'].includes(ev.key)) {
-    showPrevPost()
+    stepPrevImage()
     return
   }
   if (['ArrowRight', 'd', 'D'].includes(ev.key)) {
-    showNextPost()
+    stepNextImage()
     return
   }
   if (['f', 'F'].includes(ev.key)) {

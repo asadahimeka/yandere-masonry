@@ -158,5 +158,7 @@
   "autoHideAppBarSubtitle": "Hide the top bar while scrolling down; reveal it by scrolling up or moving the pointer to the top of the screen",
   "inlinePlayTitle": "Play / Stop",
   "inlineHoverPlayTitle": "Play videos/animations on hover",
-  "inlineHoverPlaySubtitle": "Play videos and animated images (gif) inline in the list when hovering their thumbnails. Files can be large, mind your data usage"
+  "inlineHoverPlaySubtitle": "Play videos and animated images (gif) inline in the list when hovering their thumbnails. Files can be large, mind your data usage",
+  "thumbStripHide": "Hide the thumbnail strip",
+  "thumbStripShow": "Show the thumbnail strip"
 }

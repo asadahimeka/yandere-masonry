@@ -55,6 +55,8 @@ const defaultSettings = {
   showTagChipGroup: false,
   justifiedBaseWidth: isMobile ? 240 : 340,
   detailButtonsBottom: isMobile,
+  // 详情弹窗里显示多图帖的缩略图条（工具栏上有按钮可随时收起/展开）
+  showDetailThumbs: true,
   closePopupOnImgClick: isMobile,
   downloadBy: 'tm' as 'tm' | 'fsa' | 'newtab',
   downloadUrlKey: 'fileUrl' as DownloadUrlKey,
