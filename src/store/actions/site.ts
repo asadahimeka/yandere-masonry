@@ -65,6 +65,8 @@ export const siteActions: api.SiteAdapter[] = [
   api.wnacg,
   // hentaigamecg：静态 Hugo 相册站，列表 24 条/页；详情按 `Page 1 of N` 并发拉全相册
   api.hentaigamecg,
+  // gsbooru：单图 booru，列表 20 条/页，详情页的 JSON-LD 一次给全原图/宽高/标签
+  api.gsbooru,
   { is: () => true, posts: async () => [] },
 ]
 

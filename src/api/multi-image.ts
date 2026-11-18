@@ -21,6 +21,9 @@ export interface MultiImageDetail {
   source?: string | null
   images?: PostImage[]
   title?: string
+  /** 详情页才知道的真实宽高（列表阶段只能量到预览图时用它回填卡片） */
+  width?: number
+  height?: number
 }
 
 /**

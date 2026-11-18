@@ -182,6 +182,13 @@ const isHentaiGameCgNonListPath = /^hentaigamecg\.com$/.test(location.hostname)
   && !HENTAIGAMECG_LIST_PATH.test(location.pathname)
 
 /**
+ * gsbooru 只接管 `/posts` 列表；单帖 `/posts/view/{id}`、`/tags`、`/wiki`、`/forums`
+ * 与落地页 `/` 都留给站点。形态与 `src/api/gsbooru.ts` 的 `LIST_PATH_RE` 一致。
+ */
+const isGsbooruNonListPath = /^gsbooru\.org$/.test(location.hostname)
+  && !/^\/posts\/?$/.test(location.pathname)
+
+/**
  * 把 cin.wtf 自己的搜索链接翻成我们的形态。
  *
  * 站点链接长这样：`/search?query=imouto&tags=tags%3Asister&popular=popular-weekly&page=1`，
@@ -231,6 +238,7 @@ const isDetailPath = isPostDetailPath
   || isMisskonNonListPath
   || isWnacgNonListPath()
   || isHentaiGameCgNonListPath
+  || isGsbooruNonListPath
 
 const isAutoWf = (() => {
   const params = new URLSearchParams(location.search)

@@ -199,6 +199,8 @@ function handleLink(link: string) {
   if (link.includes('wnacg')) return 'https://www.wnacg.com/albums.html?_wf=1'
   // hentaigamecg 只接管总列表（相册页留给站点），首页就是列表第 1 页
   if (link.includes('hentaigamecg')) return 'https://hentaigamecg.com/?_wf=1'
+  // gsbooru 的 `/` 是落地页，帖子列表在 `/posts`
+  if (link.includes('gsbooru')) return 'https://gsbooru.org/posts?_wf=1'
   return `https://${link}`
 }
 

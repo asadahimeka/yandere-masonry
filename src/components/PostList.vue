@@ -266,6 +266,8 @@ import { isRule34FavPage } from '@/api/rule34'
 import { isGelbooruFavPage } from '@/api/gelbooru'
 import { isR34PahealHome } from '@/api/r34-paheal'
 import { initPosts, refreshPosts, searchPosts } from '@/store/actions/post'
+import { fillPostDetail } from '@/store/actions/detail'
+import { siteActions } from '@/store/actions/site'
 import { removeFromSelectedList, settings, store, addToSelectedList as storeAddToSelectedList } from '@/store'
 import { getActiveDownloadUrlKey, getAvailableDownloadUrlKeys, resolvePostDownloadSource } from '@/utils/download-source'
 import i18n from '@/utils/i18n'
@@ -452,8 +454,19 @@ function addFavorite(id?: string) {
 async function downloadCtxPost(post?: Post) {
   const img = post || ctxActPost.value
   if (!img) return
-  const { url: downloadUrl, name: resolvedName } = resolvePostDownloadSource(img, activeDownloadUrlKey.value)
-  let downloadName = resolvedName
+  let resolved = resolvePostDownloadSource(img, activeDownloadUrlKey.value)
+  // 有些站点的原图只写在单帖页里（gsbooru / allgirl / hentaibooru），列表阶段地址是空的：
+  // 这种情况下先补一次详情再解析，别让下载按钮点了没反应
+  if (!resolved.url && siteActions.some(e => e.is() && e.detail)) {
+    try {
+      await fillPostDetail(img)
+    } catch (error) {
+      console.log('fillPostDetail error:', error)
+    }
+    resolved = resolvePostDownloadSource(img, activeDownloadUrlKey.value)
+  }
+  const downloadUrl = resolved.url
+  let downloadName = resolved.name
   if (!downloadUrl) return
   if (store.isYKSite) {
     downloadName = `${location.hostname} ${img.id} ${img.tags.join(' ')}`

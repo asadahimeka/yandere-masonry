@@ -250,6 +250,16 @@ const MANUAL_SITES: SiteRegistration[] = [
     tagSearch: false,
     match: ['https://hentaigamecg.com/*'],
   },
+  // 单图 booru：列表 20 条/页（`?page=` 与 `?tags=` 可用），详情页 SSR 带完整原图与真实宽高
+  {
+    key: 'gsbooru.org',
+    hosts: ['gsbooru.org'],
+    navHost: 'gsbooru.org',
+    title: 'Gsbooru',
+    pageLimit: 20,
+    sampleDownload: true,
+    match: ['https://gsbooru.org/*'],
+  },
 ]
 
 /**
