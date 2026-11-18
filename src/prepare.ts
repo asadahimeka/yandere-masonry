@@ -173,6 +173,15 @@ function isWnacgNonListPath() {
 }
 
 /**
+ * hentaigamecg 只接管总列表 `/` 与 `/page/N/`，相册 `/{slug}/`（含 `/page/N/`）
+ * 与单图页 `/{slug}/{name}/` 必须原样留给站点 —— 相册页每页 24 张，
+ * 站点自己的翻页比我们的瀑布流更好用。形态与 `src/api/hentaigamecg.ts` 的 `LIST_PATH_RE` 一致。
+ */
+const HENTAIGAMECG_LIST_PATH = /^\/(?:page\/\d+\/?)?$/
+const isHentaiGameCgNonListPath = /^hentaigamecg\.com$/.test(location.hostname)
+  && !HENTAIGAMECG_LIST_PATH.test(location.pathname)
+
+/**
  * 把 cin.wtf 自己的搜索链接翻成我们的形态。
  *
  * 站点链接长这样：`/search?query=imouto&tags=tags%3Asister&popular=popular-weekly&page=1`，
@@ -221,6 +230,7 @@ const isDetailPath = isPostDetailPath
   || isDimtownNonListPath
   || isMisskonNonListPath
   || isWnacgNonListPath()
+  || isHentaiGameCgNonListPath
 
 const isAutoWf = (() => {
   const params = new URLSearchParams(location.search)

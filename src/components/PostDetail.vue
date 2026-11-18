@@ -20,7 +20,7 @@
           :src="imgSrc"
           :crossorigin="imgCrossorigin"
           @click.stop="toggleToolbar"
-          @load="imgLoading = false"
+          @load="onImgLoaded"
           @error="onImageLoadError"
         >
         <img
@@ -31,7 +31,7 @@
           :src="scaleImgSrc"
           :crossorigin="imgCrossorigin"
           :style="scaleImgStyle"
-          @load="imgLoading = false"
+          @load="onImgLoaded"
           @error="onScaleImgError"
         >
         <div
@@ -1038,6 +1038,22 @@ async function showNextPost() {
   isVideo.value && toggleVideoShow()
   await setPostDetail(imageSelected, postDetail)
   preloadNextImg()
+}
+
+/**
+ * 少数站点（hentaigamecg 的 AVIF 相册）列表和详情页都拿不到真实宽高，适配器只能先给 0。
+ * 图片真正加载出来后把 naturalWidth/Height 写回当前这张，比例与下载文件名里的 `WxH`
+ * 才是真值；比对 `fileUrl` 是为了防止快速切图时上一张的 load 事件写到当前这张上。
+ */
+function onImgLoaded(ev: Event) {
+  imgLoading.value = false
+  const cur = currentImage.value
+  const el = ev.target as HTMLImageElement | null
+  if (!cur || !el || (cur.width && cur.height)) return
+  if (el.currentSrc !== cur.fileUrl && el.src !== cur.fileUrl) return
+  if (!el.naturalWidth || !el.naturalHeight) return
+  cur.width = el.naturalWidth
+  cur.height = el.naturalHeight
 }
 
 function onImageLoadError(ev: Event) {

@@ -240,6 +240,16 @@ const MANUAL_SITES: SiteRegistration[] = [
     pageLimit: 20,
     match: ['https://www.wnacg.com/*', 'https://wnacg.com/*'],
   },
+  // 游戏 CG 相册站：列表 24 条/页，详情按相册分页并发拉全（无标签无搜索，故关掉 tagSearch）
+  {
+    key: 'hentaigamecg.com',
+    hosts: ['hentaigamecg.com'],
+    navHost: 'hentaigamecg.com',
+    title: 'HentaigameCG',
+    pageLimit: 24,
+    tagSearch: false,
+    match: ['https://hentaigamecg.com/*'],
+  },
 ]
 
 /**

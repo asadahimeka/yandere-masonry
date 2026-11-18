@@ -63,6 +63,8 @@ export const siteActions: api.SiteAdapter[] = [
   api.misskon,
   // wnacg：只做列表（原图一页一张且带当天签名，批量抓不划算），卡片进站点自己的阅读器
   api.wnacg,
+  // hentaigamecg：静态 Hugo 相册站，列表 24 条/页；详情按 `Page 1 of N` 并发拉全相册
+  api.hentaigamecg,
   { is: () => true, posts: async () => [] },
 ]
 

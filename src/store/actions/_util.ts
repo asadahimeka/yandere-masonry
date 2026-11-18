@@ -1,6 +1,6 @@
 import type { SearchResults } from '@himeka/booru'
 import { settings } from '@/store'
-import { allgirl, isEveria, isHentaiCosplay, isHentaiclub, isWallhaven, nozomila, rule34, szurubooru, uhdpaper } from '@/api'
+import { allgirl, isEveria, isHentaiCosplay, isHentaiGameCg, isHentaiclub, isWallhaven, nozomila, rule34, szurubooru, uhdpaper } from '@/api'
 import { BOORU_PAGE_LIMIT, isPidSite } from '@/api/booru'
 import { getCookie } from '@/utils'
 
@@ -21,6 +21,10 @@ export function getFirstPageNo(params: URLSearchParams) {
   if (isHentaiclub()) {
     return Number(location.pathname.match(/\/(?:page\/)?(\d+)\/?$/)?.[1]) || 1
   }
+  // hentaigamecg 总列表是 `/page/N/`，站点不认 `?page=`，刷新时从路径还原
+  if (isHentaiGameCg()) {
+    return Number(location.pathname.match(/^\/page\/(\d+)\/?$/)?.[1]) || 1
+  }
   return Number(params.get('page')) || 1
 }
 
@@ -37,6 +41,13 @@ export function pushPageState(pageNo: number, latePageQuery = false) {
   if (isHentaiCosplay() || isHentaiclub()) return
   // wallhaven 的 /random 没有页码概念，写进 URL 只会让刷新后的分页状态失真
   if (isWallhaven() && location.pathname === '/random') return
+  // hentaigamecg 的翻页也是路径 `/page/N/`，写 ?page= 站点不认，直接把路径改写掉
+  if (isHentaiGameCg()) {
+    const url = new URL(location.href)
+    url.pathname = pageNo > 1 ? `/page/${pageNo}/` : '/'
+    history.replaceState('', '', url)
+    return
+  }
   let pageParamName = 'page'
   if (isPidSite()) {
     pageParamName = 'pid'
