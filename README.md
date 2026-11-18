@@ -208,27 +208,27 @@ Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏�
 
 ## 📸 截图展示
 
-![瀑布流浏览](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/1.webp)
+![瀑布流浏览](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/1.webp)
 
-![标签翻译](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/2.webp)
+![标签翻译](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/2.webp)
 
-![瀑布流浏览](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/3.webp)
+![瀑布流浏览](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/3.webp)
 
-![图片详情](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/4.webp)
+![图片详情](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/4.webp)
 
-![图集浏览](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/5.webp)
+![图集浏览](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/5.webp)
 
-![站点切换](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/6.webp)
+![站点切换](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/6.webp)
 
-![热门浏览](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/7.webp)
+![热门浏览](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/7.webp)
 
-![视频详情](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/8.webp)
+![视频详情](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/8.webp)
 
-![右键菜单](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/9.webp)
+![右键菜单](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/9.webp)
 
-![下载面板](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/10.webp)
+![下载面板](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/10.webp)
 
-![标签导出](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/11.webp)
+![标签导出](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/11.webp)
 
 ---
 

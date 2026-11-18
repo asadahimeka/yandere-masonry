@@ -217,23 +217,23 @@ Any self-hosted [szurubooru](https://github.com/rr-/szurubooru) instance is supp
 
 ## 📸 Screenshot Display
 
-![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/1.en.webp)
+![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/1.en.webp)
 
-![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/2.en.webp)
+![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/2.en.webp)
 
-![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/3.en.webp)
+![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/3.en.webp)
 
-![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/4.en.webp)
+![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/4.en.webp)
 
-![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/5.en.webp)
+![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/5.en.webp)
 
-![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/6.en.webp)
+![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/6.en.webp)
 
-![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/7.en.webp)
+![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/7.en.webp)
 
-![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/8.en.webp)
+![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/8.en.webp)
 
-![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/9.en.webp)
+![](https://raw.githubusercontent.com/asadahimeka/yandere-masonry/refs/heads/main/docs/screenshots/9.en.webp)
 
 ---
 
