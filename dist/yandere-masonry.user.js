@@ -8078,7 +8078,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     imageCache.set(slug, result);
     return result;
   }
-  async function fetchDetail$7(id) {
+  async function fetchDetail$8(id) {
     const slug = id.replace(/-\d+$/, "") || articleSlug();
     const { images, title, tags } = await loadImages(slug);
     if (images.length === 0)
@@ -8129,7 +8129,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const hentaiCosplay = {
     is: isHentaiCosplay,
     posts: fetchPosts$8,
-    detail: fetchDetail$7
+    detail: fetchDetail$8
   };
   const ORIGIN$7 = "https://www.hentaiclub.net";
   const CHUNK_SIZE$1 = 30;
@@ -8701,21 +8701,21 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const { query: query2, sort } = parseTags(tags);
     return fetchSearch(page, query2, sort);
   }
-  let detailCache$4 = null;
+  let detailCache$5 = null;
   async function loadDetail(id) {
     const key = `${ORIGIN$4}/v/${id}`;
-    if (detailCache$4?.key === key)
-      return detailCache$4.data;
+    if (detailCache$5?.key === key)
+      return detailCache$5.data;
     const resp = await fetch(key);
     if (!resp.ok)
       return null;
     const data = readNextData(await resp.text());
     if (!data)
       return null;
-    detailCache$4 = { key, data };
+    detailCache$5 = { key, data };
     return data;
   }
-  async function fetchDetail$6(id) {
+  async function fetchDetail$7(id) {
     const data = await loadDetail(id);
     if (!data)
       return {};
@@ -8737,7 +8737,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const cin = {
     is: isCin,
     posts: fetchPosts$7,
-    detail: fetchDetail$6
+    detail: fetchDetail$7
   };
   const getOrigin$1 = () => location.origin;
   const PER_PAGE$1 = 30;
@@ -8888,10 +8888,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     await fillMissingCovers(rows, covers);
     return parseCards$5(rows, covers);
   }
-  let detailCache$3 = null;
-  async function fetchDetail$5(id) {
-    if (detailCache$3?.id === id)
-      return detailCache$3.data;
+  let detailCache$4 = null;
+  async function fetchDetail$6(id) {
+    if (detailCache$4?.id === id)
+      return detailCache$4.data;
     const resp = await fetch(`${getOrigin$1()}/${id}`);
     if (!resp.ok)
       return {};
@@ -8913,13 +8913,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const tags = keywords.split(",").map((tag2) => tag2.trim()).filter(Boolean);
     const title = doc.title.replace(/\s*-\s*少女志\s*$/, "").trim();
     const data = images.length ? { fileUrl: images[0].fileUrl, tags, source: `${getOrigin$1()}/${id}`, images, title } : { tags, source: `${getOrigin$1()}/${id}`, title };
-    detailCache$3 = { id, data };
+    detailCache$4 = { id, data };
     return data;
   }
   const shaonvzhi = {
     is: isShaonvzhiList,
     posts: fetchPosts$6,
-    detail: fetchDetail$5
+    detail: fetchDetail$6
   };
   const SITE = "https://dimtown.com";
   const API = "https://data.dimapi.com/wp-json/dimtown/v1";
@@ -9020,10 +9020,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return [];
     return parseCards$4(items);
   }
-  let detailCache$2 = null;
-  async function fetchDetail$4(id) {
-    if (detailCache$2?.id === id)
-      return detailCache$2.data;
+  let detailCache$3 = null;
+  async function fetchDetail$5(id) {
+    if (detailCache$3?.id === id)
+      return detailCache$3.data;
     const resp = await fetch(`${API}/posts/${id}`);
     if (!resp.ok)
       return {};
@@ -9050,13 +9050,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       images,
       title: post.title ?? ""
     } : { tags, source: post.url || `${SITE}/${id}.html`, title: post.title ?? "" };
-    detailCache$2 = { id, data };
+    detailCache$3 = { id, data };
     return data;
   }
   const dimtown = {
     is: isDimtownList,
     posts: fetchPosts$5,
-    detail: fetchDetail$4
+    detail: fetchDetail$5
   };
   const siteKeys = getBooruSiteHosts();
   const isBooruSite = () => siteKeys.includes(location.host);
@@ -9430,10 +9430,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return [];
     return parseCards$3(new DOMParser().parseFromString(await resp.text(), "text/html"));
   }
-  let detailCache$1 = null;
-  async function fetchDetail$3(id) {
-    if (detailCache$1?.id === id)
-      return detailCache$1.data;
+  let detailCache$2 = null;
+  async function fetchDetail$4(id) {
+    if (detailCache$2?.id === id)
+      return detailCache$2.data;
     const resp = await fetch(`${ORIGIN$3}/zh/cosplay/${id}`);
     if (!resp.ok)
       return {};
@@ -9455,13 +9455,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       images,
       title
     };
-    detailCache$1 = { id, data };
+    detailCache$2 = { id, data };
     return data;
   }
   const galleryepic = {
     is: isGalleryEpicList,
     posts: fetchPosts$4,
-    detail: fetchDetail$3
+    detail: fetchDetail$4
   };
   function isGelbooruFavPage() {
     return /gelbooru\.com\/index\.php\?page\=favorites\&s\=view/.test(location.href);
@@ -9749,10 +9749,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       height: Number(match2?.[2]) || 3e3
     };
   }
-  let detailCache = null;
-  async function fetchDetail$2(id) {
-    if (detailCache?.id === id)
-      return detailCache.data;
+  let detailCache$1 = null;
+  async function fetchDetail$3(id) {
+    if (detailCache$1?.id === id)
+      return detailCache$1.data;
     const resp = await fetch(`${getOrigin()}/wp-json/wp/v2/posts/${id}?_fields=id,title,content,link,date`);
     if (!resp.ok)
       return {};
@@ -9777,13 +9777,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       images,
       title: new DOMParser().parseFromString(post.title?.rendered ?? "", "text/html").body.textContent?.trim() ?? ""
     } : {};
-    detailCache = { id, data };
+    detailCache$1 = { id, data };
     return data;
   }
   const misskon = {
     is: isMisskonList,
     posts: fetchPosts$3,
-    detail: fetchDetail$2
+    detail: fetchDetail$3
   };
   function getYandereUserId() {
     const match2 = document.cookie.match(/user_id=(\d+)/);
@@ -10072,13 +10072,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     albumCache = { key, data };
     return data;
   }
-  async function fetchDetail$1(id) {
+  async function fetchDetail$2(id) {
     return await loadAlbum(id) ?? {};
   }
   const nanairo = {
     is: isNanairoList,
     posts: fetchPosts$2,
-    detail: fetchDetail$1
+    detail: fetchDetail$2
   };
   function isNozomiPage() {
     return location.hostname == "nozomi.la" && location.pathname == "/";
@@ -10639,7 +10639,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       };
     });
   }
-  async function fetchDetail(config, id) {
+  async function fetchDetail$1(config, id) {
     const resp = await fetch(config.detailUrl(id));
     const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
     const media = Array.from(doc.querySelectorAll(config.mediaSelector));
@@ -10675,7 +10675,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     return {
       is: () => location.hostname === config.host,
       posts: (page, tags) => fetchPosts$1(config, page),
-      detail: (id) => fetchDetail(config, id)
+      detail: (id) => fetchDetail$1(config, id)
     };
   }
   const sixteenKNote = createAdapter(noteConfig);
@@ -10817,7 +10817,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         id,
         postView: href.startsWith("http") ? href : `${ORIGIN}${href}`,
         previewUrl,
-        fileUrl: previewUrl,
+        fileUrl: "",
         tags: [],
         rating: "e",
         mediaCount,
@@ -10839,9 +10839,50 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return [];
     return parseCards(new DOMParser().parseFromString(await resp.text(), "text/html"));
   }
+  let detailCache = null;
+  async function fetchDetail(id) {
+    if (detailCache?.id === id)
+      return detailCache.data;
+    const origin = location.origin;
+    const [itemResp, albumResp] = await Promise.all([
+      fetch(`${origin}/photos-item-aid-${id}.html`),
+      fetch(`${origin}/photos-index-aid-${id}.html`)
+    ]);
+    if (!itemResp.ok)
+      return {};
+    const text = await itemResp.text();
+    const raw = /mReader\.initData\((\{[\s\S]*?\})\);/.exec(text)?.[1];
+    if (!raw)
+      return {};
+    let item;
+    try {
+      item = JSON.parse(raw.replace(/,(\s*[\]}])/g, "$1"));
+    } catch {
+      return {};
+    }
+    const urls = item.page_url ?? [];
+    const sizes = item.page_size ?? [];
+    const images = urls.flatMap((url, index) => {
+      const fileUrl = url.replace(/^http:\/\//, "https://");
+      if (!/^https:\/\//.test(fileUrl))
+        return [];
+      const [width = 800, height = 1200] = sizes[index] ?? [];
+      return [{ fileUrl, previewUrl: fileUrl, width, height }];
+    });
+    if (!images.length)
+      return {};
+    const data = {
+      fileUrl: images[0].fileUrl,
+      images,
+      tags: albumResp.ok ? [...new DOMParser().parseFromString(await albumResp.text(), "text/html").querySelectorAll("a.tagshow")].map((a) => a.textContent?.trim() ?? "").filter(Boolean) : void 0
+    };
+    detailCache = { id, data };
+    return data;
+  }
   const wnacg = {
     is: isWnacgList,
-    posts: fetchPosts
+    posts: fetchPosts,
+    detail: fetchDetail
   };
   function isZerochanPage() {
     return location.hostname == "www.zerochan.net";

@@ -1,5 +1,5 @@
 import type { Post } from '@himeka/booru'
-import type { SiteAdapter } from './multi-image'
+import type { MultiImageAdapter, MultiImageDetail, PostImage } from './multi-image'
 
 const ORIGIN = 'https://www.wnacg.com'
 
@@ -17,9 +17,8 @@ export function isWnacg() {
  * - `/search/index.php?q=` 是搜索，翻页用 `&p=`
  * - `/photos-index-aid-N.html` 是图集页，`/photos-view-id-N.html` 是看图页（一页一张原图）
  *
- * **只做列表**：图集的全量原图地址在每张图的看图页里，且带当天过期的 `verify` 签名，
- * 一个 200 页的本子要 200 次请求才能拼齐；缩略图只有 300×400，放进详情弹窗反而看不清。
- * 因此卡片点击后由「打开原帖」进站点自己的阅读器。
+ * 详情不走 HTML：全量原图地址在阅读器的数据接口里（见 `fetchDetail`），
+ * 图集页与看图页本身仍留给站点。
  */
 export function isWnacgList() {
   if (!isWnacg()) return false
@@ -69,8 +68,7 @@ function parseCards(doc: Document): Post[] {
       id,
       postView: href.startsWith('http') ? href : `${ORIGIN}${href}`,
       previewUrl,
-      // 没有详情数据，封面就是弹窗里能给的唯一一张
-      fileUrl: previewUrl,
+      fileUrl: '',
       tags: [],
       rating: 'e',
       mediaCount,
@@ -94,9 +92,68 @@ async function fetchPosts(page: number, tags: string | null): Promise<Post[]> {
   return parseCards(new DOMParser().parseFromString(await resp.text(), 'text/html'))
 }
 
+/* ---------------------------------- 详情页 --------------------------------- */
+
+let detailCache: { id: string; data: MultiImageDetail } | null = null
+
+/**
+ * 阅读器的数据接口 `/photos-item-aid-{id}.html` 是一段 JS，`mReader.initData({...})`
+ * 一次给全整个图集的原图地址（带当天过期的 `verify` 签名，正好随详情打开时现取现用）
+ * 与每张的 `[宽, 高]`。之前以为原图只散在看图页里，一次要 200 个请求 —— 推翻。
+ *
+ * 站点自己拼的 JSON 不规范（数组带尾逗号），解析前要清掉；多章节本子该接口只含
+ * 当前章节，但站点里章节本极少，先不处理。
+ */
+async function fetchDetail(id: string): Promise<MultiImageDetail> {
+  if (detailCache?.id === id) return detailCache.data
+
+  const origin = location.origin
+  const [itemResp, albumResp] = await Promise.all([
+    fetch(`${origin}/photos-item-aid-${id}.html`),
+    // 标签只在图集页的 `a.tagshow` 里，数据接口不含
+    fetch(`${origin}/photos-index-aid-${id}.html`),
+  ])
+  if (!itemResp.ok) return {}
+  const text = await itemResp.text()
+  const raw = /mReader\.initData\((\{[\s\S]*?\})\);/.exec(text)?.[1]
+  if (!raw) return {}
+
+  let item: { page_url?: string[]; page_size?: number[][] }
+  try {
+    item = JSON.parse(raw.replace(/,(\s*[\]}])/g, '$1'))
+  } catch {
+    return {}
+  }
+
+  const urls = item.page_url ?? []
+  const sizes = item.page_size ?? []
+  const images: PostImage[] = urls.flatMap((url, index) => {
+    // 接口给的是 http://，图床 https 直连可用且无防盗链（实测 200），统一升级
+    const fileUrl = url.replace(/^http:\/\//, 'https://')
+    if (!/^https:\/\//.test(fileUrl)) return []
+    const [width = 800, height = 1200] = sizes[index] ?? []
+    return [{ fileUrl, previewUrl: fileUrl, width, height }]
+  })
+  if (!images.length) return {}
+
+  const data: MultiImageDetail = {
+    fileUrl: images[0].fileUrl,
+    images,
+    tags: albumResp.ok
+      ? [...new DOMParser().parseFromString(await albumResp.text(), 'text/html')
+          .querySelectorAll<HTMLAnchorElement>('a.tagshow')]
+          .map(a => a.textContent?.trim() ?? '')
+          .filter(Boolean)
+      : undefined,
+  }
+  detailCache = { id, data }
+  return data
+}
+
 /* --------------------------------- 适配器导出 -------------------------------- */
 
-export const wnacg: SiteAdapter = {
+export const wnacg: MultiImageAdapter = {
   is: isWnacgList,
   posts: fetchPosts,
+  detail: fetchDetail,
 }
