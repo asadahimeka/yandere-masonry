@@ -84,8 +84,8 @@
 // @grant                GM_addElement
 // @grant                GM_xmlhttpRequest
 // @grant                GM_getResourceText
-// @grant                GM_setValue
 // @grant                GM_getValue
+// @grant                GM_setValue
 // @grant                GM_info
 // @grant                GM_download
 // ==/UserScript==
@@ -13755,7 +13755,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         });
       }
       function showImgModal(index) {
-        if (isEveriaList() || isHentaiclubList()) {
+        if (isEveriaList() || isHentaiclubList() || isHentaiGameCgList()) {
           const target = store.imageList[index]?.postView;
           if (target) {
             const url = new URL(target);

@@ -257,7 +257,7 @@ import { computed, nextTick, onMounted, onUnmounted, ref, set, watch } from 'vue
 import type { Post } from '@himeka/booru'
 import PostDetail from './PostDetail.vue'
 import { downloadFile, fancyboxShow, notReachBottom, showMsg, throttleScroll } from '@/utils'
-import { getMediaCount, isEveriaList, isHentaiclubList } from '@/api'
+import { getMediaCount, isEveriaList, isHentaiGameCgList, isHentaiclubList } from '@/api'
 import { isSampleDownloadSupportedSite, notPartialSupportSite } from '@/api/booru'
 import { addPostToFavorites, isFavBtnShow } from '@/api/fav'
 import { canInlinePlay, getInlinePlayKind, getInlinePlaySrc } from '@/utils/inline-play'
@@ -416,9 +416,9 @@ function onCtxMenu(ev: MouseEvent, img: Post) {
 }
 
 function showImgModal(index: number) {
-  // everia / hentaiclub 的一篇就是一组图，弹窗看不了 100+ 张；
-  // 新标签打开文章页，让文章页自己变成瀑布流（_wf=1 跳过「瀑布流模式」按钮）
-  if (isEveriaList() || isHentaiclubList()) {
+  // everia / hentaiclub 的一篇、hentaigamecg 的一个相册都是一组图，弹窗看不了上百张；
+  // 新标签打开文章页 / 相册页，让那一页自己变成瀑布流（_wf=1 跳过「瀑布流模式」按钮）
+  if (isEveriaList() || isHentaiclubList() || isHentaiGameCgList()) {
     const target = store.imageList[index]?.postView
     if (target) {
       const url = new URL(target)
