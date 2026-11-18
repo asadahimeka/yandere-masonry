@@ -197,7 +197,7 @@ function handleLink(link: string) {
   if (link.includes('galleryepic')) return 'https://galleryepic.com/zh/cosplays/1?_wf=1'
   // wnacg 只做列表，首页是 JS 拼的多区块，直达相册列表
   if (link.includes('wnacg')) return 'https://www.wnacg.com/albums.html?_wf=1'
-  // hentaigamecg 只接管总列表（相册页留给站点），首页就是列表第 1 页
+  // hentaigamecg 的首页就是相册总列表第 1 页
   if (link.includes('hentaigamecg')) return 'https://hentaigamecg.com/?_wf=1'
   // gsbooru 的 `/` 是落地页，帖子列表在 `/posts`
   if (link.includes('gsbooru')) return 'https://gsbooru.org/posts?_wf=1'

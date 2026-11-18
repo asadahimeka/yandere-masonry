@@ -84,8 +84,8 @@
 // @grant                GM_addElement
 // @grant                GM_xmlhttpRequest
 // @grant                GM_getResourceText
-// @grant                GM_getValue
 // @grant                GM_setValue
+// @grant                GM_getValue
 // @grant                GM_info
 // @grant                GM_download
 // ==/UserScript==
@@ -289,7 +289,8 @@ var __publicField = (obj, key, value) => {
     return true;
   }
   const HENTAIGAMECG_LIST_PATH = /^\/(?:page\/\d+\/?)?$/;
-  const isHentaiGameCgNonListPath = /^hentaigamecg\.com$/.test(location.hostname) && !HENTAIGAMECG_LIST_PATH.test(location.pathname);
+  const HENTAIGAMECG_ALBUM_PATH = /^\/[^/.]+\/(?:page\/\d+\/?)?$/;
+  const isHentaiGameCgNonListPath = /^hentaigamecg\.com$/.test(location.hostname) && !HENTAIGAMECG_LIST_PATH.test(location.pathname) && !HENTAIGAMECG_ALBUM_PATH.test(location.pathname);
   const isGsbooruNonListPath = /^gsbooru\.org$/.test(location.hostname) && !/^\/posts\/?$/.test(location.pathname);
   function normalizeCinSearchUrl() {
     if (!/(^|\.)cin\.wtf$/.test(location.hostname) || !/^\/search\/?$/.test(location.pathname))
@@ -8101,7 +8102,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     imageCache.set(slug, result);
     return result;
   }
-  async function fetchDetail$a(id) {
+  async function fetchDetail$9(id) {
     const slug = id.replace(/-\d+$/, "") || articleSlug();
     const { images, title, tags } = await loadImages(slug);
     if (images.length === 0)
@@ -8152,7 +8153,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const hentaiCosplay = {
     is: isHentaiCosplay,
     posts: fetchPosts$a,
-    detail: fetchDetail$a
+    detail: fetchDetail$9
   };
   const ORIGIN$9 = "https://www.hentaiclub.net";
   const CHUNK_SIZE$1 = 30;
@@ -8724,21 +8725,21 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const { query: query2, sort } = parseTags(tags);
     return fetchSearch(page, query2, sort);
   }
-  let detailCache$7 = null;
+  let detailCache$6 = null;
   async function loadDetail(id) {
     const key = `${ORIGIN$6}/v/${id}`;
-    if (detailCache$7?.key === key)
-      return detailCache$7.data;
+    if (detailCache$6?.key === key)
+      return detailCache$6.data;
     const resp = await fetch(key);
     if (!resp.ok)
       return null;
     const data = readNextData(await resp.text());
     if (!data)
       return null;
-    detailCache$7 = { key, data };
+    detailCache$6 = { key, data };
     return data;
   }
-  async function fetchDetail$9(id) {
+  async function fetchDetail$8(id) {
     const data = await loadDetail(id);
     if (!data)
       return {};
@@ -8760,7 +8761,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
   const cin = {
     is: isCin,
     posts: fetchPosts$9,
-    detail: fetchDetail$9
+    detail: fetchDetail$8
   };
   const getOrigin$1 = () => location.origin;
   const PER_PAGE$1 = 30;
@@ -8911,10 +8912,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     await fillMissingCovers(rows, covers);
     return parseCards$6(rows, covers);
   }
-  let detailCache$6 = null;
-  async function fetchDetail$8(id) {
-    if (detailCache$6?.id === id)
-      return detailCache$6.data;
+  let detailCache$5 = null;
+  async function fetchDetail$7(id) {
+    if (detailCache$5?.id === id)
+      return detailCache$5.data;
     const resp = await fetch(`${getOrigin$1()}/${id}`);
     if (!resp.ok)
       return {};
@@ -8936,13 +8937,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const tags = keywords.split(",").map((tag2) => tag2.trim()).filter(Boolean);
     const title = doc.title.replace(/\s*-\s*少女志\s*$/, "").trim();
     const data = images.length ? { fileUrl: images[0].fileUrl, tags, source: `${getOrigin$1()}/${id}`, images, title } : { tags, source: `${getOrigin$1()}/${id}`, title };
-    detailCache$6 = { id, data };
+    detailCache$5 = { id, data };
     return data;
   }
   const shaonvzhi = {
     is: isShaonvzhiList,
     posts: fetchPosts$8,
-    detail: fetchDetail$8
+    detail: fetchDetail$7
   };
   const SITE = "https://dimtown.com";
   const API = "https://data.dimapi.com/wp-json/dimtown/v1";
@@ -9043,10 +9044,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return [];
     return parseCards$5(items);
   }
-  let detailCache$5 = null;
-  async function fetchDetail$7(id) {
-    if (detailCache$5?.id === id)
-      return detailCache$5.data;
+  let detailCache$4 = null;
+  async function fetchDetail$6(id) {
+    if (detailCache$4?.id === id)
+      return detailCache$4.data;
     const resp = await fetch(`${API}/posts/${id}`);
     if (!resp.ok)
       return {};
@@ -9073,13 +9074,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       images,
       title: post.title ?? ""
     } : { tags, source: post.url || `${SITE}/${id}.html`, title: post.title ?? "" };
-    detailCache$5 = { id, data };
+    detailCache$4 = { id, data };
     return data;
   }
   const dimtown = {
     is: isDimtownList,
     posts: fetchPosts$7,
-    detail: fetchDetail$7
+    detail: fetchDetail$6
   };
   const siteKeys = getBooruSiteHosts();
   const isBooruSite = () => siteKeys.includes(location.host);
@@ -9453,10 +9454,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return [];
     return parseCards$4(new DOMParser().parseFromString(await resp.text(), "text/html"));
   }
-  let detailCache$4 = null;
-  async function fetchDetail$6(id) {
-    if (detailCache$4?.id === id)
-      return detailCache$4.data;
+  let detailCache$3 = null;
+  async function fetchDetail$5(id) {
+    if (detailCache$3?.id === id)
+      return detailCache$3.data;
     const resp = await fetch(`${ORIGIN$5}/zh/cosplay/${id}`);
     if (!resp.ok)
       return {};
@@ -9478,13 +9479,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       images,
       title
     };
-    detailCache$4 = { id, data };
+    detailCache$3 = { id, data };
     return data;
   }
   const galleryepic = {
     is: isGalleryEpicList,
     posts: fetchPosts$6,
-    detail: fetchDetail$6
+    detail: fetchDetail$5
   };
   function isGelbooruFavPage() {
     return /gelbooru\.com\/index\.php\?page\=favorites\&s\=view/.test(location.href);
@@ -9664,10 +9665,10 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     }
     return null;
   }
-  let detailCache$3 = null;
-  async function fetchDetail$5(id) {
-    if (detailCache$3?.id === id)
-      return detailCache$3.data;
+  let detailCache$2 = null;
+  async function fetchDetail$4(id) {
+    if (detailCache$2?.id === id)
+      return detailCache$2.data;
     const resp = await fetch(`${ORIGIN$4}/posts/view/${id}`);
     if (!resp.ok)
       return {};
@@ -9685,13 +9686,13 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       width: ld?.width || void 0,
       height: ld?.height || void 0
     };
-    detailCache$3 = { id, data };
+    detailCache$2 = { id, data };
     return data;
   }
   const gsbooru = {
     is: isGsbooruList,
     posts: fetchPosts$5,
-    detail: fetchDetail$5
+    detail: fetchDetail$4
   };
   function isHentaiBooruPage() {
     return location.hostname == "booru.eu";
@@ -9759,14 +9760,70 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     detail: getHentaiBooruDetail
   };
   const ORIGIN$3 = "https://hentaigamecg.com";
+  const THUMB_ORIGIN = "https://img1th.hentaigamecg.com";
+  const FILE_ORIGIN = "https://img1.hentaigamecg.com";
   const THUMB_WIDTH$2 = 400;
   const THUMB_HEIGHT$2 = 267;
+  const VIRTUAL_PAGES = 5;
+  const MAX_PAGES = 120;
   function isHentaiGameCg() {
     return location.hostname === "hentaigamecg.com";
   }
   const LIST_PATH_RE = /^\/(?:page\/\d+\/?)?$/;
+  const ALBUM_PATH_RE = /^\/[^/.]+\/(?:page\/\d+\/?)?$/;
   function isHentaiGameCgList() {
     return isHentaiGameCg() && LIST_PATH_RE.test(location.pathname);
+  }
+  function isHentaiGameCgAlbum() {
+    return isHentaiGameCg() && ALBUM_PATH_RE.test(location.pathname);
+  }
+  const EMPTY_PAGE = { title: "", total: 1, items: [] };
+  function albumUrl(slug, page) {
+    return page > 1 ? `${ORIGIN$3}/${slug}/page/${page}/` : `${ORIGIN$3}/${slug}/`;
+  }
+  async function fetchAlbumPage(slug, page) {
+    const resp = await fetch(albumUrl(slug, page));
+    if (!resp.ok)
+      return EMPTY_PAGE;
+    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
+    const navText = doc.querySelector(".nav-bar")?.textContent ?? "";
+    const total = Number(/Page\s+\d+\s+of\s+(\d+)/i.exec(navText)?.[1] ?? 1) || 1;
+    const title = doc.querySelector("h1")?.textContent?.trim() ?? "";
+    const seen = /* @__PURE__ */ new Set();
+    const items = [];
+    for (const card of doc.querySelectorAll(".grid a.card[href]")) {
+      const name = new URL(card.getAttribute("href") ?? "", ORIGIN$3).pathname.split("/").filter(Boolean)[1] ?? "";
+      if (!name || name === "page" || seen.has(name))
+        continue;
+      seen.add(name);
+      const thumb = card.querySelector("img")?.getAttribute("src") ?? "";
+      items.push({
+        name,
+        previewUrl: /^https?:\/\//.test(thumb) ? thumb : `${THUMB_ORIGIN}/${slug}/${name}_400.avif`,
+        fileUrl: `${FILE_ORIGIN}/${slug}/${name}.avif`
+      });
+    }
+    return { title, total, items };
+  }
+  async function mapLimit(items, limit, fn) {
+    const results = new Array(items.length);
+    let cursor = 0;
+    const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
+      while (cursor < items.length) {
+        const index = cursor++;
+        results[index] = await fn(items[index]);
+      }
+    });
+    await Promise.all(workers);
+    return results;
+  }
+  function albumSlug() {
+    const segment = location.pathname.split("/").filter(Boolean)[0] ?? "";
+    try {
+      return decodeURIComponent(segment);
+    } catch {
+      return segment;
+    }
   }
   function listUrl$3(page) {
     return page > 1 ? `${ORIGIN$3}/page/${page}/` : `${ORIGIN$3}/`;
@@ -9799,7 +9856,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
         createdAt: null,
         title,
         fileExt: "avif",
-        fileDownloadName: `hentaigamecg ${id} ${title}`.slice(0, 90),
+        fileDownloadName: `hentaigamecg ${id}`,
         fileDownloadText: "[avif]"
       }];
     });
@@ -9810,84 +9867,95 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return [];
     return parseCards$3(new DOMParser().parseFromString(await resp.text(), "text/html"));
   }
-  function toFileUrl(previewUrl) {
-    return previewUrl.replace(/^https?:\/\/img1th\./i, "https://img1.").replace(/_\d+(\.avif)$/i, "$1");
-  }
-  function parseAlbumImages(doc) {
-    const images = [];
-    for (const card of doc.querySelectorAll(".grid a.card[href]")) {
-      const previewUrl = card.querySelector("img")?.getAttribute("src") ?? "";
-      if (!/^https?:\/\/img1th\./i.test(previewUrl))
-        continue;
-      const fileUrl = toFileUrl(previewUrl);
-      if (!/\.avif$/i.test(fileUrl))
-        continue;
-      images.push({ fileUrl, previewUrl, width: 0, height: 0 });
-    }
-    return images;
-  }
-  async function fetchAlbumPage(slug, page) {
-    const url = page > 1 ? `${ORIGIN$3}/${slug}/page/${page}/` : `${ORIGIN$3}/${slug}/`;
-    const resp = await fetch(url);
-    if (!resp.ok)
-      return { images: [], total: 1, title: "" };
-    const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
-    const total = Number(/Page\s+\d+\s+of\s+(\d+)/i.exec(doc.querySelector(".nav-bar")?.textContent ?? "")?.[1] ?? 1);
+  async function fetchCoverDetail(slug) {
+    const first = await fetchAlbumPage(slug, 1);
+    const item = first.items[0];
+    if (!item)
+      return {};
     return {
-      images: parseAlbumImages(doc),
-      total: total || 1,
-      title: page === 1 ? doc.querySelector("h1")?.textContent?.trim() ?? "" : ""
-    };
-  }
-  async function mapLimit(items, limit, fn) {
-    const results = new Array(items.length);
-    let cursor = 0;
-    const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
-      while (cursor < items.length) {
-        const index = cursor++;
-        results[index] = await fn(items[index]);
-      }
-    });
-    await Promise.all(workers);
-    return results;
-  }
-  const MAX_PAGES = 120;
-  let detailCache$2 = null;
-  async function fetchDetail$4(id) {
-    if (detailCache$2?.id === id)
-      return detailCache$2.data;
-    const first = await fetchAlbumPage(id, 1);
-    if (!first.images.length)
-      return {};
-    const total = Math.min(first.total, MAX_PAGES);
-    const rest = total > 1 ? await mapLimit(
-      Array.from({ length: total - 1 }, (_, i) => i + 2),
-      5,
-      (page) => fetchAlbumPage(id, page).catch(() => ({ images: [], total: 1, title: "" }))
-    ) : [];
-    const seen = /* @__PURE__ */ new Set();
-    const images = [];
-    for (const img of [first, ...rest].flatMap((page) => page.images)) {
-      if (seen.has(img.fileUrl))
-        continue;
-      seen.add(img.fileUrl);
-      images.push(img);
-    }
-    if (!images.length)
-      return {};
-    const data = {
-      fileUrl: images[0].fileUrl,
-      images,
-      source: `${ORIGIN$3}/${id}/`,
+      fileUrl: item.fileUrl,
+      source: `${ORIGIN$3}/${slug}/`,
       title: first.title || void 0
     };
-    detailCache$2 = { id, data };
-    return data;
+  }
+  function toAlbumPosts(slug, albumTitle, pages) {
+    return pages.flatMap(
+      (page) => page.items.map((item) => ({
+        id: `${slug}:${item.name}`,
+        postView: `${ORIGIN$3}/${slug}/${item.name}/`,
+        previewUrl: item.previewUrl,
+        fileUrl: item.fileUrl,
+        tags: [],
+        rating: "e",
+        mediaCount: 1,
+        images: [],
+        width: THUMB_WIDTH$2,
+        height: THUMB_HEIGHT$2,
+        aspectRatio: THUMB_WIDTH$2 / THUMB_HEIGHT$2,
+        createdAt: null,
+        title: albumTitle,
+        fileExt: "avif",
+        fileDownloadName: `hentaigamecg ${slug} ${item.name}`,
+        fileDownloadText: "[avif]"
+      }))
+    );
+  }
+  async function measure(items) {
+    await Promise.all(items.map(async (post) => {
+      const previewUrl = post.previewUrl;
+      if (!previewUrl)
+        return;
+      const { width, height } = await getImageSize(previewUrl);
+      if (!width || !height)
+        return;
+      const typed = post;
+      typed.width = width;
+      typed.height = height;
+      typed.aspectRatio = width / height;
+    }));
+    return items;
+  }
+  async function fetchAlbumPosts(page) {
+    const slug = albumSlug();
+    if (!slug)
+      return [];
+    if (settings.masonryLayout === "virtual") {
+      if (page > 1)
+        return [];
+      const first = await fetchAlbumPage(slug, 1);
+      const total = Math.min(first.total, MAX_PAGES, VIRTUAL_PAGES);
+      const rest = total > 1 ? await mapLimit(
+        Array.from({ length: total - 1 }, (_, i) => i + 2),
+        5,
+        (no) => fetchAlbumPage(slug, no).catch(() => EMPTY_PAGE)
+      ) : [];
+      return measure(toAlbumPosts(slug, first.title, [first, ...rest]));
+    }
+    const data = await fetchAlbumPage(slug, page);
+    if (!data.items.length)
+      return [];
+    return measure(toAlbumPosts(slug, data.title, [data]));
+  }
+  async function fetchAlbumDetail(id) {
+    const [slug, name] = id.split(":");
+    if (!slug || !name)
+      return {};
+    return {
+      fileUrl: `${FILE_ORIGIN}/${slug}/${name}.avif`,
+      source: `${ORIGIN$3}/${slug}/`
+    };
   }
   const hentaigamecg = {
-    is: isHentaiGameCgList,
-    posts: fetchPosts$4,
-    detail: fetchDetail$4
+    list: {
+      is: isHentaiGameCgList,
+      posts: fetchPosts$4,
+      detail: fetchCoverDetail
+    },
+    album: {
+      is: isHentaiGameCgAlbum,
+      posts: fetchAlbumPosts,
+      detail: fetchAlbumDetail
+    }
   };
   function isKusowankaPage() {
     return location.hostname == "kusowanka.com";
@@ -11294,7 +11362,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     dimtown,
     misskon,
     wnacg,
-    hentaigamecg,
+    hentaigamecg.list,
+    hentaigamecg.album,
     gsbooru,
     { is: () => true, posts: async () => [] }
   ];
@@ -11313,7 +11382,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return Number(location.pathname.match(/\/(?:page\/)?(\d+)\/?$/)?.[1]) || 1;
     }
     if (isHentaiGameCg()) {
-      return Number(location.pathname.match(/^\/page\/(\d+)\/?$/)?.[1]) || 1;
+      return Number(location.pathname.match(/\/page\/(\d+)\/?$/)?.[1]) || 1;
     }
     return Number(params2.get("page")) || 1;
   }
@@ -11330,12 +11399,8 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
       return;
     if (isWallhaven() && location.pathname === "/random")
       return;
-    if (isHentaiGameCg()) {
-      const url2 = new URL(location.href);
-      url2.pathname = pageNo > 1 ? `/page/${pageNo}/` : "/";
-      history.replaceState("", "", url2);
+    if (isHentaiGameCg())
       return;
-    }
     let pageParamName = "page";
     if (isPidSite()) {
       pageParamName = "pid";

@@ -63,8 +63,10 @@ export const siteActions: api.SiteAdapter[] = [
   api.misskon,
   // wnacg：只做列表（原图一页一张且带当天签名，批量抓不划算），卡片进站点自己的阅读器
   api.wnacg,
-  // hentaigamecg：静态 Hugo 相册站，列表 24 条/页；详情按 `Page 1 of N` 并发拉全相册
-  api.hentaigamecg,
+  // hentaigamecg：静态 Hugo 相册站。同一 host 两个视图靠路径互斥 ——
+  // 总列表 `/`、`/page/N/` 出 24 个相册卡片；相册页 `/{slug}/` 铺成瀑布流（一张图一条）
+  api.hentaigamecg.list,
+  api.hentaigamecg.album,
   // gsbooru：单图 booru，列表 20 条/页，详情页的 JSON-LD 一次给全原图/宽高/标签
   api.gsbooru,
   { is: () => true, posts: async () => [] },

@@ -240,7 +240,9 @@ const MANUAL_SITES: SiteRegistration[] = [
     pageLimit: 20,
     match: ['https://www.wnacg.com/*', 'https://wnacg.com/*'],
   },
-  // 游戏 CG 相册站：列表 24 条/页，详情按相册分页并发拉全（无标签无搜索，故关掉 tagSearch）
+  // 游戏 CG 相册站：列表与相册都是 24 张/页。无标签无搜索（tagSearch: false），
+  // 采样图不支持所以不设 sampleDownload；也刻意不设 partialSupport ——
+  // 那个标记会连带隐藏卡片的「快速下载」按钮（卡片 `v-if="notPartialSupportSite"`）
   {
     key: 'hentaigamecg.com',
     hosts: ['hentaigamecg.com'],

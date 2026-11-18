@@ -21,9 +21,10 @@ export function getFirstPageNo(params: URLSearchParams) {
   if (isHentaiclub()) {
     return Number(location.pathname.match(/\/(?:page\/)?(\d+)\/?$/)?.[1]) || 1
   }
-  // hentaigamecg 总列表是 `/page/N/`，站点不认 `?page=`，刷新时从路径还原
+  // hentaigamecg 列表 `/page/N/` 与相册 `/{slug}/page/N/` 都是路径翻页，
+  // 站点不认 `?page=`，刷新时一律从路径还原
   if (isHentaiGameCg()) {
-    return Number(location.pathname.match(/^\/page\/(\d+)\/?$/)?.[1]) || 1
+    return Number(location.pathname.match(/\/page\/(\d+)\/?$/)?.[1]) || 1
   }
   return Number(params.get('page')) || 1
 }
@@ -41,13 +42,10 @@ export function pushPageState(pageNo: number, latePageQuery = false) {
   if (isHentaiCosplay() || isHentaiclub()) return
   // wallhaven 的 /random 没有页码概念，写进 URL 只会让刷新后的分页状态失真
   if (isWallhaven() && location.pathname === '/random') return
-  // hentaigamecg 的翻页也是路径 `/page/N/`，写 ?page= 站点不认，直接把路径改写掉
-  if (isHentaiGameCg()) {
-    const url = new URL(location.href)
-    url.pathname = pageNo > 1 ? `/page/${pageNo}/` : '/'
-    history.replaceState('', '', url)
-    return
-  }
+  // hentaigamecg 同样是路径翻页（列表 `/page/N/`、相册 `/{slug}/page/N/`），
+  // 但首屏撑不满一屏时 `fillViewport` 会先补几页，页码会自己往前走；
+  // 写进 URL 会让刷新从中间一页开始，干脆不写，与 hentaiclub / hentaiCosplay 一致
+  if (isHentaiGameCg()) return
   let pageParamName = 'page'
   if (isPidSite()) {
     pageParamName = 'pid'
