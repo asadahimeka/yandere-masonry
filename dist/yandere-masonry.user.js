@@ -9742,7 +9742,7 @@ Make sure you have modified Tampermonkey's "Download Mode" to "Browser API".`;
     const rest = total > 1 ? await mapLimit(
       Array.from({ length: total - 1 }, (_, i) => i + 2),
       5,
-      (page) => fetchAlbumPage(id, page)
+      (page) => fetchAlbumPage(id, page).catch(() => ({ images: [], total: 1, title: "" }))
     ) : [];
     const seen = /* @__PURE__ */ new Set();
     const images = [];

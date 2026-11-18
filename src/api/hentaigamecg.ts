@@ -159,11 +159,12 @@ async function fetchDetail(id: string): Promise<MultiImageDetail> {
   if (!first.images.length) return {}
 
   const total = Math.min(first.total, MAX_PAGES)
+  // 单页失败不该毁掉整本相册（1740 张里少一页，比整块空白好）
   const rest = total > 1
     ? await mapLimit(
       Array.from({ length: total - 1 }, (_, i) => i + 2),
       5,
-      page => fetchAlbumPage(id, page),
+      page => fetchAlbumPage(id, page).catch(() => ({ images: [], total: 1, title: '' })),
     )
     : []
 
