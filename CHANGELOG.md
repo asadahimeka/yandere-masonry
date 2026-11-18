@@ -1,3 +1,8 @@
+## v0.39.1
+
+- feat: 新增 wallhaven.cc、cin.wtf、nanairo.co、galleryepic.com、shaonvzhi.top、dimtown.com、misskon.com、wnacg.com、hentaigamecg、gsbooru 站点适配
+- feat: 列表内直接播放视频与动图，支持点击角标固定播放、悬停播放（默认关闭），离屏/打开详情/刷新列表时自动停止
+
 ## v0.39.0
 
 - feat: 新增 16knote.com / 16k.club、everia、mikubooru 站点适配，以及 hentai-cosplay-xxx、hentaiclub、huamaobizhi 适配器
